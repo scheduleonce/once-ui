@@ -1,0 +1,10 @@
+{
+  "name": "@once/ui/drop-down",
+  "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
+  "lib": {
+    "entryFile": "dropdown.ts"
+  },
+  "whitelistedNonPeerDependencies": [
+    "."
+  ]
+}

@@ -5,8 +5,7 @@
 * [Features](#features)
 * [Getting started](#getting-started)
 * [API](#api)
-* [Examples](#examples)
-  * [Basic example](#basic-example)
+* [Basic example](#basic-example)
 
 ## Features
 

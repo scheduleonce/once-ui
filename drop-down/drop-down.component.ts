@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
+// @dynamic
 @Component({
   selector: 'app-drop-down',
   templateUrl: 'drop-down.component.html',

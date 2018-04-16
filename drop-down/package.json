@@ -1,0 +1,14 @@
+{
+  "name": "@once/ui/drop-down",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/scheduleonce/ui-components.git",
+  "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
+  "scripts": {
+    "packagr": "ng-packagr -p ng-package.json",
+    "publish": "npm publish dist"
+  },
+  "dependencies": {
+    "ngx-perfect-scrollbar": "^5.3.5"
+  }
+}
