@@ -16,5 +16,5 @@
       "dom"
     ]
   },
-  "include": ["./src", "node_modules/@once/*"]
+  "include": ["./src", "node_modules/@once/ui/*/index.ts"]
 }
