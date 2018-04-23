@@ -7,7 +7,7 @@
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
   "scripts": {
     "copy": "copyfiles -f ./*/typings/*.{png,jp?g,tiff} ./dist/*/typings/",
-    "packagr": "ng-packagr -p ng-package.json &&  npm run copy",
+    "build": "ng-packagr -p ng-package.json &&  npm run copy",
     "publish": "npm publish dist"
   },
   "keywords": [
