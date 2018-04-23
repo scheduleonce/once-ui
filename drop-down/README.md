@@ -49,8 +49,12 @@ export class SharedModule {}
 | [options]        | Array<NgOption> | `[]`                    | yes      | Options array                                                                                       |
 | [default]        | Object          | `{text: '', value: ''}` | no       | Object property to use for label. Default `label`                                                   |
 | [allowSearch]    | boolean         | `false`                 | no       | Allow to search value. Default `false`                                                              |
+| [showImage]    | boolean         | `false`                 | no       | Show image in dropdown option. Default `false`                                                              |
 | [errorCondition] | boolean         | `false`                 | no       | If form control and there is any error, the drop down is sorrounded by error class. Default `false` |
 | [key]            | string          | `text`                  | no       | Key to search in option. It's the value/text of dropdown Default key is `text`                      |
+| [truncateTextAfter]            | string          | `number`                  | no       | If non 0 then truncate the option value and suffix it with three dots (...)
+| [selectedOption]            | string          | `number`                  | no       | If non 0 then makes a particular option selected
+
 | [customClick]    | Function        | `false`                 | no       | Allow to create custom click function that is invoked onChange event of drop down.                  |
 
 | Output    | Description                              |
@@ -58,7 +62,6 @@ export class SharedModule {}
 | value     | Value is `-1`, it becomes group heading  |
 | imageLink | imageLink is provided, the images appear |
 
-## Examples
 
 ### Basic example
 
@@ -72,6 +75,7 @@ export class SharedModule {}
                 [default]="selectedLocaleName"
                 [errorCondition]="duplicatedFromNotProvided"
                 [key]="'CustomName'"
+                [truncateText]="20"
                 (customClick)="customClick($event)">
            </app-drop-down>
         <p>
@@ -98,6 +102,10 @@ export class LocalizationEditorComponent {
     },
     {
       text: `WithoutE`,
+      value: '3'
+    },
+    {
+      text: `WithoutEWithoutEWithoutEWithoutEWithoutEWithoutE`,
       value: '3'
     }
   ];

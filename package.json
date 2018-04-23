@@ -1,0 +1,39 @@
+{
+  "name": "@once/ui",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": "https://github.com/scheduleonce/ui-components.git",
+  "bugs": "https://github.com/scheduleonce/ui-components/issues",
+  "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
+  "scripts": {
+    "copy": "copyfiles -f ./*/typings/*.{png,jp?g,tiff} ./dist/*/typings/",
+    "packagr": "ng-packagr -p ng-package.json &&  npm run copy",
+    "publish": "npm publish dist"
+  },
+  "keywords": [
+    "angular",
+    "Once UI",
+    "Shared UI library",
+    "components"
+  ],
+  "dependencies": {
+    "@angular/animations": "^5.2.10",
+    "@angular/cdk": "^5.2.4",
+    "@angular/common": "^5.2.10",
+    "@angular/compiler": "^5.2.10",
+    "@angular/compiler-cli": "^5.2.10",
+    "@angular/core": "^5.2.10",
+    "@angular/forms": "^5.2.10",
+    "@angular/material": "^5.2.5",
+    "@angular/material-moment-adapter": "^5.2.5",
+    "@angular/platform-browser": "^5.2.10",
+    "@angular/platform-browser-dynamic": "^5.2.10",
+    "copyfiles": "^2.0.0",
+    "ng-packagr": "^2.4.2",
+    "ngx-perfect-scrollbar": "^5.3.5",
+    "typescript": "^2.8.1"
+  },
+  "devDependencies": {
+    "ng-packagr": "^2.4.2"
+  }
+}

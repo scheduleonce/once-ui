@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { DropDownComponent } from '@app/shared/ui/drop-down/drop-down.component';
+import { DropDownComponent } from './drop-down.component';
 
 xdescribe('DropDownComponent', () => {
   let component: DropDownComponent;
