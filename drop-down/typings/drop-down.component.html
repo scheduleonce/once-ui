@@ -1,0 +1,38 @@
+<div class="dropholder" (click)="openDropdown($event)">
+  <div class="dropdown" [class.error]="errorCondition">
+    <p><span *ngIf="showImage && default && default.value !== '-2'" class="img-caption">
+      <span
+        class='ddImageExists'
+            [class.ddDefaultImageNotExists]="isImagePresent(default)"
+            [ngStyle]="!isImagePresent(default) &&  {'background': 'url(' + default.imageLink + ')'}"></span>
+      </span>
+      <span *ngIf="default" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
+            [class.ellipseTheTextWithImage]="truncateTextAfter === false && showImage">{{default[key] || default.text | decode: truncateTextAfter }}</span>
+      <span *ngIf="!default" class="img-caption-label defaultTxt">Please select</span></p>
+  </div>
+  <div class="dropdownMenu">
+    <input *ngIf="allowSearch" (keyup)="searchOptions($event)" [value]="searchText"/>
+    <perfect-scrollbar [config]="config">
+      <ul>
+        <li *ngFor="let data of options | filter : searchText: 'text' | keys; index as i"
+            (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2")'
+            [class.multilineOptionValue]="truncateTextAfter ===false"
+            [class.optionWithoutTruncate]="truncateTextAfter ===false && showImage"
+            [class.disabled]="data.value ==='-1' || data.value ==='-2'"
+            [class.disabledButNormalText]="data.value ==='-2'"
+            [class.selectedOption]="selectedOption? i == selectedOption:default && (default.value === data[key || 'value'] || default.value === data)">
+          <p [class.noResultsFound]="data.value==='no_result'">
+            <span *ngIf="data.value !== 'no_result' && showImage" class="dd-img">
+                <span
+                  class='ddImageExists'
+                    [class.ddDefaultImageNotExists]="isImagePresent(data)"
+                   [ngStyle]="!isImagePresent(data) && {'background': 'url(' + data.imageLink + ')'}"></span>
+              </span>
+            <span class="dd-value" *ngIf="!checkIfObject()">{{data[key || 'text'] | decode: truncateTextAfter: (data.value==='no_result' || data.value ==='-1' || data.value ==='-2') }}</span>
+            <span class="dd-value"*ngIf="checkIfObject()">{{options[data] | decode: truncateTextAfter: (data.value==='no_result' || data.value ==='-1' || data.value ==='-2') }}</span>
+          </p>
+        </li>
+      </ul>
+    </perfect-scrollbar>
+  </div>
+</div>

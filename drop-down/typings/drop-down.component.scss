@@ -1,0 +1,358 @@
+/***********************************************************************************
+@ Reset Global CSS
+ **********************************************************************************/
+*, :before, :after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+*:focus {
+  outline: none;
+}
+
+app-drop-down {
+  font-family: Open Sans,Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  line-height: 19px;
+  font-style: normal;
+  font-stretch: normal;
+  color: #333;
+}
+
+/***********************************************************************************
+@ Dropdown mixins
+ **********************************************************************************/
+@mixin preventTextSelectionOnDoubleClick() {
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -ms-user-select: none; /* IE10+ */
+}
+
+@mixin makeTextMultiline($width, $height, $whiteSpace, $wordWrap) {
+  width: $width;
+  height: $height;
+  white-space: $whiteSpace;
+  word-wrap: $wordWrap;
+}
+
+@mixin makeCursorDefault($type) {
+  cursor: $type;
+}
+
+@mixin nowrapText() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@mixin setFontAndPointerEvents(){
+  span {
+    font-size: 14px;
+    pointer-events: none;
+  }
+}
+
+@mixin setDropDownImageDimensions($height, $width){
+  height: $height!important;
+  width: $width!important;
+  display: block!important;
+  background-size: 100%!important;
+}
+
+/*********************************************************************************
+@ Perfect scrollbar css reset
+ **********************************************************************************/
+.ps__rail-y {
+  background-color: #eee;
+  width: 6px;
+}
+.ps__thumb-y {
+  background-color: #999;
+  width: 6px;
+  right: 13px;
+}
+perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
+  right: 2px !important;
+  opacity: 0.6 !important;
+
+  .ps__thumb-y {
+    right: 1px !important;
+  }
+  &:hover {
+    width: 6.4px !important;
+  }
+}
+.ps__rail-y:focus > .ps__thumb-y, .ps__rail-y:hover > .ps__thumb-y {
+  width: 6px !important;
+  background-color: #999 !important;
+}
+
+/*********************************************************************************
+@ Dropdown styles
+ **********************************************************************************/
+.dropholder {
+  width: 230px;
+}
+
+.dropdown > p {
+  color: #333333;
+  font-size: 14px;
+  line-height: 26px;
+  margin-bottom: 0;
+  padding-right: 20px;
+  @include nowrapText();
+  position: relative;
+  z-index: 10;
+  @include setFontAndPointerEvents();
+}
+
+
+.newthemevalue {
+  @include setFontAndPointerEvents();
+}
+
+.dropdown > p {
+  span, img {
+    position: relative;
+    z-index: -1;
+  }
+}
+
+.active {
+  + .dropdownMenu, .dropdownMenu {
+    display: block;
+  }
+}
+
+.dropholder {
+  position: relative;
+}
+
+.dropdown {
+  position: relative;
+  height: 36px;
+  border: 1px solid #9c9c9c;
+  background-color: #fff;
+  color: #333;
+  line-height: 36px;
+  width: 100%;
+  padding: 4px;
+  z-index: 1;
+  cursor: pointer;
+  &:after {
+    content: '';
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 8px solid #000;
+    height: 0;
+    position: absolute;
+    right: 10px;
+    top: 12px;
+    width: 0;
+  }
+  &.active:after {
+    -ms-transform: rotate(180deg);
+    /* IE 9 */
+    -webkit-transform: rotate(180deg);
+    /* Safari */
+    transform: rotate(180deg);
+  }
+  &:hover {}
+}
+
+.dropdownMenu {
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 35px;
+  right: 0;
+  margin: 0;
+  display: none;
+  border: 1px solid #9c9c9c;
+  z-index: 5;
+  overflow: hidden;
+  background-color: #ffffff;
+  width: 100%;
+  input {
+    width: 220px;
+    border: 1px solid #9c9c9c;
+    padding: 4px;
+    height: 32px;
+    line-height: 18px;
+    margin-left: 4px;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  ul {
+    max-height: 260px;
+  }
+  li {
+    padding: 4px;
+    list-style: none;
+    cursor: pointer;
+    &.disabled {
+      font-weight: 700;
+      opacity: 1;
+      span.dd-img {
+        display: none!important;
+      }
+      span {
+        @include makeCursorDefault('default');
+      }
+    }
+    &:hover {
+      background: #eeeeee;
+    }
+  }
+}
+
+.selectedOption {
+  background: #eeeeee;
+}
+
+.dropdown > p .img-caption {
+  max-width: 26px;
+  max-height: 26px;
+  display: block;
+  float: left;
+  margin-right: 8px;
+  img {
+    max-width: 26px;
+    max-height: 26px;
+    display: block;
+    margin: 0 auto;
+  }
+}
+.multilineOptionValue {
+  span {
+    @include makeTextMultiline(94%, auto, normal, break-word);
+  }
+}
+.noResultsFound span {
+  @include makeCursorDefault(default);
+  @include makeTextMultiline(94%, auto, normal, break-word);
+  @include preventTextSelectionOnDoubleClick();
+}
+.dropdownMenu li{
+  span {
+    display: block;
+    float: left;
+    margin-right: 8px;
+    img {
+      max-width: 26px;
+      max-height: 26px;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  &:last-child{
+    span{
+      margin-bottom: 0;
+    }
+  }
+  p.noResultsFound{
+    span{
+      margin-bottom: 0;
+    }
+  }
+}
+
+.disabled {
+  @include makeCursorDefault('default');
+  opacity: 0.6;
+  @include preventTextSelectionOnDoubleClick();
+}
+
+.dropdownMenu li {
+  &.disabled:hover {
+    background: transparent;
+  }
+  p {
+    margin-bottom: 0;
+    line-height: 24px;
+    @include nowrapText();
+  }
+}
+
+.dialogBody .newLocaleLabel {
+  margin-top: 0;
+}
+
+.settingTranslate {
+  .dropholder {
+    width: 310px;
+  }
+  .tooltipContentStandard table td {
+    padding: 3px 4px;
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+.pageHeaderSelect {
+  .dropdown {
+    height: 34px;
+    font-size: 14px;
+  }
+  .dropdownMenu {
+    top: 33px;
+    font-size: 14px;
+  }
+  input {
+    height: 26px;
+  }
+  .dropdownMenu ul {
+    padding: 2px;
+    padding-top: 0;
+  }
+}
+
+.dropdown > p {
+  span.img-caption-label {
+    position: absolute;
+  }
+  .defaultTxt{
+    color: #666;
+  }
+  overflow: visible;
+}
+
+.ps-scrollbar-x-rail, .ps-scrollbar-y-rail {
+  opacity: 0.6;
+}
+
+.ellipseTheText {
+  @include nowrapText();
+  width: 94%;
+}
+
+.dropdownMenu li span.dd-img {
+  @include setDropDownImageDimensions(26px, 26px);
+  width: 26px;
+  height: 26px;
+}
+.optionWithoutTruncate {
+  .dd-img {
+    margin-right: 8px;
+  }
+  .dd-value {
+    width: 80%;
+  }
+}
+
+.ellipseTheTextWithImage {
+  width: 78%;
+}
+
+.ddDefaultImageNotExists {
+  background: url("icon-noImage2x.png")!important;
+  background-size: 100%;
+  @include setDropDownImageDimensions(26px, 26px);
+}
+
+.ddImageExists {
+  @include setDropDownImageDimensions(26px, 26px);
+}
