@@ -1,10 +1,11 @@
 <mat-form-field>
-  <input matInput readonly
+  <input
+    name="inputName"
+    matInput readonly
          [(min)]="minDate"
          [(max)]="maxDate"
          [matDatepicker]="picker"
          (click)="picker.open()"
-         name="inputName"
          [formControl]="model"
          (dateChange)="dateChange()">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

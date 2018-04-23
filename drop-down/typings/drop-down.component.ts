@@ -29,14 +29,20 @@ export class DropDownComponent {
   @Input() default: any;
   @Input() key: any;
   @Input() showImage = false;
+  @Input() selectedOption;
+  @Input() truncateTextAfter = false;
   @Input() errorCondition: any;
-  @Input() outerStyle: false;
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
   @Output() customClick = new EventEmitter();
   searchText: string;
   config: PerfectScrollbarConfigInterface = {};
 
   constructor() {
+    window.onclick = () => {
+      if (DropDownComponent.currentDropdown) {
+        DropDownComponent.currentDropdown.classList.remove('active');
+      }
+    };
     this.searchText = '';
   }
 
@@ -83,20 +89,14 @@ export class DropDownComponent {
   }
 
   /**
-   * Image has some exception
-   */
-  imageErrorHandler(event) {
-    event.target.src = `./icon-noImage2x.png`;
-  }
-
-  /**
    * Change option
    * @param event
    * @param data
+   * @param isDisabledOptionClicked
    */
-  changeOption(event: any, data: any) {
+  changeOption(event: any, data: any, isDisabledOptionClicked = false) {
     event.stopPropagation();
-    if (data.value !== 'no_result') {
+    if (data.value !== 'no_result' && !isDisabledOptionClicked) {
       this.searchText = '';
       // If object
       if (typeof data === 'string' || typeof data === 'number') {
@@ -120,5 +120,34 @@ export class DropDownComponent {
     return (
       this.options instanceof Object && this.options.constructor === Object
     );
+  }
+
+  /**
+   * The "callback" argument is called with either true or false
+   * depending on whether the image at "url" exists or not.
+   */
+  static imageExists(url) {
+    let image = new Image();
+    image.src = url;
+
+    if (!image.complete) {
+      return false;
+    }
+    else if (image.height === 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  /**
+   * Using 'imageExists'
+   */
+  checkIfImageNotExists(url) {
+    return DropDownComponent.imageExists(url) === false;
+  }
+
+  isImagePresent(img) {
+    return !img.imageLink || img.imageLink === 'undefined';
   }
 }
