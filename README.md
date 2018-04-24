@@ -1,11 +1,11 @@
-# Library of UI components [![Status badger](https://www.myget.org/BuildSource/Badge/sonf?identifier=8a35179f-4cb2-435e-b2b6-b5dd72f36a8e)](https://www.myget.org/BuildSource/Badge/sonf?identifier=8a35179f-4cb2-435e-b2b6-b5dd72f36a8e)
+# Library of UI components
 
 Various UI components that we are (or were) using at Scheduleonce/Inviteonce.
 
 ### Features:
-- no external dependencies (easy to use!),
-- minimal styling (easy to customize!),
-- great performance.
+- No external dependencies (easy to use!),
+- Minimal styling (easy to customize!),
+- Great performance.
 
 For demos, see the [project page](https://storybooks-coming-soon.com).
 

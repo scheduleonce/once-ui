@@ -7,9 +7,12 @@
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
   "scripts": {
     "copy": "copyfiles -f ./*/typings/*.{png,jp?g,tiff} ./dist/*/typings/",
-    "build": "ng-packagr -p ng-package.json &&  npm run copy",
-    "publish": "npm publish dist"
+    "build": "rimraf dist && ng-packagr -p ng-package.json &&  npm run copy",
+    "prepublishOnly": "npm run build"
   },
+  "files": [
+    "dist"
+  ],
   "keywords": [
     "angular",
     "Once UI",
@@ -29,12 +32,13 @@
     "@angular/material-moment-adapter": "^5.2.5",
     "@angular/platform-browser": "^5.2.10",
     "@angular/platform-browser-dynamic": "^5.2.10",
-    "copyfiles": "^2.0.0",
-    "ng-packagr": "^2.4.2",
     "ngx-perfect-scrollbar": "^5.3.5",
     "typescript": "^2.8.1"
   },
   "devDependencies": {
-    "ng-packagr": "^2.4.2"
+    "copyfiles": "^2.0.0",
+    "ng-packagr": "^3.0.0-rc.2",
+    "prettier": "^1.12.1",
+    "rimraf": "^2.6.2"
   }
 }
