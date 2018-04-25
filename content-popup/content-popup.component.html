@@ -1,0 +1,11 @@
+<div class="full-popup-cont" *ngIf="enable">
+    <div class="popup-right-full full-pupup-custome">
+        <button class="closePopup closePopuplink" (click)="close()"></button>
+        <div class="popup-content">
+            <ng-content></ng-content>
+            <div class="btnRow">
+                <input type="button" value="Close" class="btn" (click) = "close()" >
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,121 @@
+.tooltipDivBig {
+  display: block;
+}
+
+.tooltipDivBig.out {
+  display: none;
+}
+
+.tooltipDivBig {
+  left: 30px;
+  visibility: hidden;
+  display: none;
+}
+
+.tooltipDivBig.in {
+  visibility: visible;
+  display: block;
+  top: -45px;
+  text-indent: 0;
+}
+
+.tooltipDivBig.left {
+  right: 30px;
+  left: auto;
+}
+
+.tooltipDivBig.right {
+  left: 30px;
+}
+.tooltipDivBig,
+.tooltipDivStandard {
+  background-color: #ffffff;
+  visibility: hidden;
+  font-size: 13px;
+  line-height: 19px;
+  position: absolute;
+  z-index: 111000;
+  padding: 10px 19px 10px 17px;
+  width: 270px;
+  border: 1px solid #c8c8c8;
+  box-shadow: 0 1px 2px 0 #4a4a4a;
+}
+.tooltipHeaderStandard {
+  height: auto;
+  padding-bottom: 4px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  line-height: 19px;
+}
+.tooltipContentStandard {
+  background-color: white;
+  word-wrap: break-word;
+  line-height: 19px;
+}
+.tooltipContentStandard ul {
+  margin: 0 0 0 !important;
+  padding-left: 16px !important;
+}
+.tooltipContentStandard li {
+  list-style-type: disc !important;
+  margin: 6px 0 0;
+}
+.helpIcon {
+  margin-left: 0px;
+  margin-top: 0px;
+  position: relative;
+  top: 4px;
+  width: 19px;
+  height: 19px;
+  background: url('../../../../../assets/images/smallIcons.png') no-repeat
+    transparent;
+  background-position: -62px -65px !important;
+  text-indent: -9999px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.tooltipTextInline {
+  line-height: normal;
+  vertical-align: middle;
+}
+
+.tooltipImage {
+  max-width: 100%;
+  display: block;
+  margin-top: 8px;
+}
+
+.bookingReassignmentTooltip{
+  .bookingReassigmentCircle{
+    width: 8px;
+    height: 8px; 
+    border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    -moz-border-radius: 50%; 
+    -o-border-radius: 50%;
+    float: left; 
+    padding: 0;
+    margin: 5px 7px 0px 0; 
+    line-height: 19px;   
+    &.green{
+     background-color: #76b535;
+    }
+    &.orange{
+     background-color: #e97f25;
+    }
+    &.purple{
+     background-color: #B731A9;
+    }
+    &.red{
+     background-color: #d70303;
+    }    
+  }
+  p{
+      margin-bottom:5px;
+      span{
+        font-weight:600;
+       }
+     }
+}
