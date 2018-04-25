@@ -1,0 +1,23 @@
+.commonPopup {
+  position: fixed;
+  left: 50%;
+  /*top: 149px;*/
+  top: 50%;
+  z-index: 999999;
+  width: 462px;
+  height: auto;
+  visibility: visible;
+  display: block;
+  transform: translate(-50%, -50%);
+}
+
+.opaque {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  z-index: 999899;
+  opacity: 0.8;
+  background: #fff !important;
+}

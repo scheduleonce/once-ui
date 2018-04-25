@@ -1,0 +1,72 @@
+.mat-form-field {
+  .mat-form-field-infix {
+    width: 168px;
+    border: 1px solid #9c9c9c;
+    height: 34px;
+    padding: 5px;
+    input.mat-input-element {
+      height: 24px;
+      line-height: 24px;
+    }
+  }
+  .mat-form-field-wrapper {
+    padding-bottom: 0;
+  }
+  .mat-form-field-underline {
+    background-color: transparent;
+    bottom: 0;
+    & .mat-form-field-ripple {
+      display: none;
+    }
+  }
+}
+.mat-button, .mat-icon-button {
+  .mat-ripple-element {
+    display: none;
+  }
+}
+.mat-calendar-body-selected {
+  background-color: #006bb1;
+}
+
+.mat-form-field-flex {
+  display: block;
+  .mat-form-field-suffix {
+    position: absolute;
+    width: 34px;
+    height: 34px;
+    top: 0;
+    right: 0;
+    .mat-button-wrapper {
+      display: block;
+      width: 34px;
+      height: 34px;
+      background: url("calendar-picker.svg") right 10px center no-repeat;
+      svg {
+        display: none;
+      }
+    }
+  }
+}
+.mat-button-focus-overlay {
+  opacity: 0 !important;
+}
+.mat-form-field-prefix .mat-icon-button, .mat-form-field-suffix .mat-icon-button {
+  height: 34px;
+  width: 34px;
+  border-radius: 0;
+}
+.mat-calendar-next-button, .mat-calendar-previous-button {
+  &:disabled {
+    &:hover {
+      &:after {
+        color: rgba(0,0,0,.26);
+      }
+    }
+  }
+  &:hover {
+    &:after {
+      color: #006BB1;
+    }
+  }
+}
