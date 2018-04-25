@@ -6,8 +6,7 @@
   "bugs": "https://github.com/scheduleonce/ui-components/issues",
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
   "scripts": {
-    "copy": "copyfiles -f ./*/typings/*.{png,jp?g,tiff} ./dist/*/typings/",
-    "build": "rimraf dist && ng-packagr -p ng-package.json &&  npm run copy",
+    "build": "rimraf dist && ng-packagr -p ng-package.json",
     "prepublishOnly": "npm run build"
   },
   "files": [
