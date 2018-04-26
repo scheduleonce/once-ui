@@ -46,7 +46,6 @@ import { DropDownModule } from '@once/ui/drop-down';
 | [key]            | string          | `text`                  | no       | Key to search in option. It's the value/text of dropdown Default key is `text`                      |
 | [truncateTextAfter]            | string          | `number`                  | no       | If non 0 then truncate the option value and suffix it with three dots (...)
 | [selectedOption]            | string          | `number`                  | no       | If non 0 then makes a particular option selected
-
 | [customClick]    | Function        | `false`                 | no       | Allow to create custom click function that is invoked onChange event of drop down.                  |
 
 | Output    | Description                              |
@@ -67,7 +66,7 @@ import { DropDownModule } from '@once/ui/drop-down';
                 [default]="selectedLocaleName"
                 [errorCondition]="duplicatedFromNotProvided"
                 [key]="'CustomName'"
-                [truncateText]="20"
+                [truncateTextAfter]="20"
                 (customClick)="customClick($event)">
            </app-drop-down>
         <p>
