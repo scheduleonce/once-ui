@@ -18,28 +18,20 @@
 
 ## Getting started
 
-`app-drop-down` is in `/share/ui/drop-down`.
-
-````
-you need to import our `app-drop-down` in `shared.module.ts` module:
 ```js
-import {DropDownComponent} from './ui/drop-down/drop-down.component';
+import { DropDownModule } from '@once/ui/drop-down';
 ````
 
 The only remaining part is to list the imported module in your application module.:
 
 ```js
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { DropDownComponent } from './ui/drop-down/drop-down.component';
+import { DropDownModule } from '@once/ui/drop-down';
 
-const COMPONENTS = [DropDownComponent];
 @NgModule({
-  imports: [CommonModule, RouterModule],
-  declarations: COMPONENTS,
-  exports: COMPONENTS
+  imports: [
+    DropDownModule
+  ]
 })
-export class SharedModule {}
 ```
 
 ## API
