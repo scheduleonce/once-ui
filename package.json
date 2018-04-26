@@ -7,11 +7,8 @@
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
   "scripts": {
     "build": "rimraf dist && ng-packagr -p ng-package.json",
-    "prepublishOnly": "npm run build"
+    "publish": "npm run build && npm publish dist"
   },
-  "files": [
-    "dist"
-  ],
   "keywords": [
     "angular",
     "Once UI",
