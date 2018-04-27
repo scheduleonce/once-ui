@@ -19,7 +19,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 @Component({
   selector: 'app-drop-down',
   templateUrl: 'drop-down.component.html',
-  styleUrls: ['drop-down.component.scss'],
+  styleUrls: ['drop-down.component.scss', 'border-less.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DropDownComponent {
@@ -31,7 +31,12 @@ export class DropDownComponent {
   @Input() showImage = false;
   @Input() selectedOption;
   @Input() truncateTextAfter = false;
+  @Input() isBorderLess = false;
   @Input() errorCondition: any;
+  @Input() noOptionText: string;
+  @Input() borderBottomColor: string;
+  @Input() selectedAndDisabledOptions: any;
+  @Input() searchPlaceholderText: string;
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
   @Output() customClick = new EventEmitter();
   searchText: string;
@@ -147,7 +152,21 @@ export class DropDownComponent {
     return DropDownComponent.imageExists(url) === false;
   }
 
+  /**
+   * Is image present
+   * @param img
+   */
   isImagePresent(img) {
     return !img.imageLink || img.imageLink === 'undefined';
+  }
+
+  /**
+   * Check for selected options
+   * @param option
+   */
+  checkIfItIsAlreadySelcted(option) {
+    return this.selectedAndDisabledOptions.findIndex((data) => {
+      return JSON.stringify(data) === JSON.stringify(option);
+    }) >= 0;
   }
 }

@@ -1,0 +1,10 @@
+.optionSelectedAndDisabled{
+  cursor: not-allowed !important;
+  opacity: .5;
+}
+.borderLessDropDown{
+  .dropdown{
+      border:none;
+      border-bottom: 1px solid #9c9c9c;
+  }
+}
