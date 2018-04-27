@@ -1,4 +1,4 @@
-<div class="dropholder" (click)="openDropdown($event)">
+<div class="dropholder" (click)="openDropdown($event)" [class.borderLessDropDown]="isBorderLess" [class.setBorderBottomColor]="borderBottomColor">
   <div class="dropdown" [class.error]="errorCondition">
     <p><span *ngIf="showImage && default && default.value !== '-2'" class="img-caption">
       <span
@@ -8,10 +8,10 @@
       </span>
       <span *ngIf="default" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
             [class.ellipseTheTextWithImage]="truncateTextAfter === false && showImage">{{default[key] || default.text | decode: truncateTextAfter }}</span>
-      <span *ngIf="!default" class="img-caption-label defaultTxt">Please select</span></p>
+      <span *ngIf="!default" class="img-caption-label defaultTxt">{{noOptionText || 'Please select'}}</span></p>
   </div>
   <div class="dropdownMenu">
-    <input *ngIf="allowSearch" (keyup)="searchOptions($event)" [value]="searchText"/>
+    <input *ngIf="allowSearch" (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
     <perfect-scrollbar [config]="config">
       <ul>
         <li *ngFor="let data of options | filter : searchText: 'text' | keys; index as i"
@@ -20,7 +20,9 @@
             [class.optionWithoutTruncate]="truncateTextAfter ===false && showImage"
             [class.disabled]="data.value ==='-1' || data.value ==='-2'"
             [class.disabledButNormalText]="data.value ==='-2'"
-            [class.selectedOption]="selectedOption? i == selectedOption:default && (default.value === data[key || 'value'] || default.value === data)">
+            [class.fadedOption]="data.value ==='-2'"
+            [class.selectedOption]="selectedOption? i == selectedOption:default && (default.value === data[key || 'value'] || default.value === data)"
+            [class.optionSelectedAndDisabled]="selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)">
           <p [class.noResultsFound]="data.value==='no_result'">
             <span *ngIf="data.value !== 'no_result' && showImage" class="dd-img">
                 <span
