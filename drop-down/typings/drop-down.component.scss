@@ -92,7 +92,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 @ Dropdown styles
  **********************************************************************************/
 .dropholder {
-  width: 230px;
+  width: 100%;
 }
 
 .dropdown > p {
@@ -175,7 +175,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   background-color: #ffffff;
   width: 100%;
   input {
-    width: 220px;
+    width: 96%;
     border: 1px solid #9c9c9c;
     padding: 4px;
     height: 32px;
@@ -263,6 +263,11 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   @include makeCursorDefault('default');
   opacity: 0.6;
   @include preventTextSelectionOnDoubleClick();
+  .dd-value{
+    width: 100%;
+    word-wrap: break-word;
+    white-space: normal;
+  }
 }
 
 .dropdownMenu li {
@@ -313,6 +318,8 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 .dropdown > p {
   span.img-caption-label {
     position: absolute;
+    @include nowrapText();
+    width:75%;
   }
   .defaultTxt{
     color: #666;
@@ -339,7 +346,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     margin-right: 8px;
   }
   .dd-value {
-    width: 80%;
+    width: 75%;
   }
 }
 
