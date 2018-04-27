@@ -19,7 +19,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 @Component({
   selector: 'app-drop-down',
   templateUrl: 'drop-down.component.html',
-  styleUrls: ['drop-down.component.scss', 'border-less.component.sccss'],
+  styleUrls: ['drop-down.component.scss', 'border-less.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DropDownComponent {

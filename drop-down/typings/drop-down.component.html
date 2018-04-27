@@ -14,7 +14,7 @@
     <input *ngIf="allowSearch" (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
     <perfect-scrollbar [config]="config">
       <ul>
-        <li *ngFor="let data of options | filter : searchText: 'text' | keys; index as i"
+        <li *ngFor="let data of options | filter : searchText: key || 'text' | keys; index as i"
             (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2")'
             [class.multilineOptionValue]="truncateTextAfter ===false"
             [class.optionWithoutTruncate]="truncateTextAfter ===false && showImage"
