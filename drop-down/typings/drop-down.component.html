@@ -1,5 +1,5 @@
 <div class="dropholder" (click)="openDropdown($event)" [class.borderLessDropDown]="isBorderLess" [class.setBorderBottomColor]="borderBottomColor">
-  <div class="dropdown" [class.error]="errorCondition">
+  <div class="dropdown" [class.error]="errorCondition"  [style.border-color] = "borderBottomColor && isBorderLess ? borderBottomColor : '#9c9c9c'">
     <p><span *ngIf="showImage && default && default.value !== '-2'" class="img-caption">
       <span
         class='ddImageExists'
