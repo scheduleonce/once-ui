@@ -97,7 +97,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 }
 
 .dropdown > p {
-  color: #333333;
+  color: #333;
   font-size: 14px;
   line-height: 26px;
   margin-bottom: 0;
@@ -166,14 +166,15 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   padding: 0;
   position: absolute;
   left: 0;
-  top: 35px;
+  top: 36px;
   right: 0;
   margin: 0;
   display: none;
   border: 1px solid #9c9c9c;
+  border-top: none;
   z-index: 5;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   input {
     width: 96%;
@@ -204,13 +205,13 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
       }
     }
     &:hover {
-      background: #eeeeee;
+      background: #eee;
     }
   }
 }
 
 .selectedOption {
-  background: #eeeeee;
+  background: #eee;
 }
 
 .dropdown > p .img-caption {
