@@ -5,6 +5,12 @@
 .borderLessDropDown{
   .dropdown{
       border:none;
-      border-bottom: 1px solid #9c9c9c;
   }
+  .active{
+    border-bottom: 2px solid #9c9c9c;
+  }
+}
+
+.borderLessDropDown{
+  border-bottom: 1px solid #9c9c9c;
 }
