@@ -1,6 +1,8 @@
 .mat-form-field {
+  width:100%;
+  min-width: 150px;
   .mat-form-field-infix {
-    width: 168px;
+    width: 100%;
     border: 1px solid #9c9c9c;
     height: 34px;
     padding: 5px;
@@ -69,4 +71,7 @@
       color: #006BB1;
     }
   }
+}
+.mat-form-field-label{
+  padding-left: 5px;
 }
