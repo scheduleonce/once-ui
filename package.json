@@ -29,7 +29,8 @@
     "@angular/platform-browser": "^5.2.10",
     "@angular/platform-browser-dynamic": "^5.2.10",
     "ngx-perfect-scrollbar": "^5.3.5",
-    "typescript": "^2.8.1"
+    "typescript": "^2.8.1",
+    "moment": "^2.19.3"
   },
   "devDependencies": {
     "copyfiles": "^2.0.0",
