@@ -1,6 +1,6 @@
 {
-  "name": "dropdown",
-  "description": "Angular app-drop-down",
+  "name": "datepicker",
+  "description": "The datepicker allows users to enter a date through choosing a date from the calendar. This component is using material datepicker API.",
   "version": "0.0.0",
   "license": "MIT",
   "repository": "https://github.com/scheduleonce/ui-components.git",
@@ -9,11 +9,8 @@
   "ngPackage": {
     "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
     "lib": {
-      "entryFile": "./public_api.ts",
-      "cssUrl": "inline",
-      "umdModuleIds": {
-        "ngx-perfect-scrollbar": "ngxPerfectScrollbar"
-      }
+      "entryFile": "./public-api.ts",
+      "cssUrl": "inline"
     },
     "whitelistedNonPeerDependencies": [
       "."
