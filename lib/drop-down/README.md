@@ -47,11 +47,12 @@ import { DropDownModule } from '@once/ui/lib/drop-down';
 | [truncateTextAfter]            | string          | `number`                  | no       | If non-zero then truncate the option value and suffix it with three dots (...).
 | [selectedOption]            | string          | `number`                  | no       | If non-zero then makes a particular option selected.
 | [customClick]    | Function        | `false`                 | no       | Allow to create custom click function that is invoked onChange event of drop down.                  |
-| [noOptionText]    | string        | `text`                 | no       | Value to show in dd option if it have no options. If attribute is not defined, it will display ‘Please select’ by default.                  |
+| [defaultOptionTitle]    | string        | `text`                 | no       | Value to show in dd option if it have no options present or when only fixed text needed to be shown([fixedTitle] should be `true` for this). If attribute is not defined, it will display ‘Please select’ by default.                  |
 | [searchPlaceholderText]    | string        | `Search`                 | no       | Placeholder for search input field. Visible, only if [allowSearch] is true.                 |
 | [isBorderLess]    | boolean        | `false`                 | no       | Set left/top/right border to none.                  |
 | [borderBottomColor]    | string        | `text`                 | no       | Application only if [isBorderLess] is true. It will be displayed on click with 2px border at the bottom.                  |
 | [selectedAndDisabledOptions]    | array        |                   | no       | Array of pre-selected and disabled options.                 |
+| [fixedTitle]    | boolean        |      `false`             | no       | Set fixed text value passed with `defaultOptionTitle` API in place where selected option is shown, this will be fixed text no matters what user have selected.                   |
 
 | Output    | Description                              |
 | --------- | ---------------------------------------- |
