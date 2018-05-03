@@ -19,13 +19,13 @@
 ## Getting started
 
 ```js
-import { DropDownModule } from '@once/ui/drop-down';
+import { DropDownModule } from '@once/ui/lib/drop-down';
 ````
 
 The only remaining part is to list the imported module in your application module.:
 
 ```js
-import { DropDownModule } from '@once/ui/drop-down';
+import { DropDownModule } from '@once/ui/lib/drop-down';
 
 @NgModule({
   imports: [
@@ -39,19 +39,18 @@ import { DropDownModule } from '@once/ui/drop-down';
 | Input            | Type            | Default                 | Required | Description                                                                                         |
 | ---------------- | --------------- | ----------------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | [options]        | Array<NgOption> | `[]`                    | yes      | Options array                                                                                       |
-| [default]        | Object          | `{text: '', value: ''}` | no       | Object property to use for label. Default `label`.                                                   |
-| [allowSearch]    | boolean         | `false`                 | no       | Allow to search value. Default `false`.                                                              |
-| [showImage]    | boolean         | `false`                 | no       | Show image in dropdown option. Default `false`.                                                              |
-| [errorCondition] | boolean         | `false`                 | no       | If form control and there is any error, the drop down is sorrounded by error class. Default `false`. |
-| [key]            | string          | `text`                  | no       | Key to search in option. It's the value/text of dropdown Default key is `text`.                    |
-| [truncateTextAfter]            | string          | `number`                  | no       | If non 0 then truncate the option value and suffix it with three dots (...).
-| [selectedOption]            | string          | `number`                  | no       | If non 0 then makes a particular option selected.
-| [customClick]    | Function        | `false`                 | no       | Allow to create custom click function that is invoked onChange event of drop down.                  |
-| [noOptionText]    | string        | `text`                 | no       | Value to show in dd option if it have no options.                  |
-| [searchPlaceholderText]    | string        | `false`                 | no       | Placeholder for search input field                  |
-| [isBorderLess]    | boolean        | `false`                 | no       | Set left/top/right border to none.                  |
-| [borderBottomColor]    | string        | `text`                 | no       | Set border color to provided one                  |
-| [selectedAndDisabledOptions]    | array        |                   | no       | Array of pre-selected and disabled options                  |
+| [default]        | Object          | `{text: '', value: ''}` | no       | Object property to use for label. Default `label`                                                   |
+| [allowSearch]    | boolean         | `false`                 | no       | Allow to search value. Default `false`                                                              |
+| [searchPlaceholderText]    | string        | ``                 | no       | Visible, only if [allowSearch] is `true`.           |
+| [showImage]    | boolean         | `false`                 | no       | Show image in dropdown option. Default `false`                                                              |
+| [errorCondition] | boolean         | `false`                 | no       | If form control and there is any error, the drop down is sorrounded by error class. Default `false` |
+| [key]            | string          | `text`                  | no       | Default key is 'text'. If the default value is changed other then 'text', then we should have that changed value of key in the object as well to get the appropriate dropdown list.                      |
+| [truncateTextAfter]            | string          | `number`                  | no       | If non-zero then truncate the option value and suffix it with three dots (...)
+| [selectedOption]            | string          | `number`                  | no       | If non-zero then makes a particular option selected
+| [customClick]    | Function        | `false`                 | no       | Allow to create custom click function that is invoked onChange event of drop down.              |
+| [isBorderLess]    | boolean        | `false`                 | no       | Allow the user to create border of dropdown only to bottom.             |
+| [borderBottomColor]    | string        | `#9c9c9c`                 | no       | Application only if [isBorderLess] is `true`. It will be displayed on click with 2px border at the bottom.          |
+| [noOptionText]    | string        | `Please select`                 | no       | If attribute is not defined, it will display 'Please select' by default.  |
 
 | Output    | Description                              |
 | --------- | ---------------------------------------- |
