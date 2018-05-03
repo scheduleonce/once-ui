@@ -188,7 +188,8 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     font-size: 14px;
   }
   ul {
-    max-height: 260px;
+    max-height: 284px;
+    min-height: 100px;
   }
   li {
     padding: 4px;
