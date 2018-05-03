@@ -188,8 +188,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     font-size: 14px;
   }
   ul {
-    max-height: 284px;
-    min-height: 100px;
+    max-height: 260px;
   }
   li {
     padding: 4px;
@@ -207,6 +206,9 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     }
     &:hover {
       background: #eee;
+    }
+    &.optionSelectedAndDisabled:hover {
+      background: transparent;
     }
   }
 }
@@ -358,7 +360,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 }
 
 .ddDefaultImageNotExists {
-  background: url("icon-noImage2x.png")!important;
+  background: url("icon-noImage2x.svg")!important;
   background-size: 100%;
   @include setDropDownImageDimensions(26px, 26px);
 }
