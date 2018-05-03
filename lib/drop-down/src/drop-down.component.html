@@ -1,21 +1,21 @@
 <div class="dropholder" (click)="openDropdown($event)" [class.borderLessDropDown]="isBorderLess" [class.setBorderBottomColor]="borderBottomColor">
   <div class="dropdown" [class.error]="errorCondition"  [style.border-color] = "borderBottomColor && isBorderLess ? borderBottomColor : '#9c9c9c'">
-    <p><span *ngIf="showImage && default && default.value !== '-2'" class="img-caption">
+    <p><span *ngIf="showImage && default && default.value !== '-2' && !fixedTitle" class="img-caption">
       <span
         class='ddImageExists'
             [class.ddDefaultImageNotExists]="isImagePresent(default)"
             [ngStyle]="!isImagePresent(default) &&  {'background': 'url(' + default.imageLink + ')'}"></span>
       </span>
-      <span *ngIf="default" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
+      <span *ngIf="default && !fixedTitle" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
             [class.ellipseTheTextWithImage]="truncateTextAfter === false && showImage">{{default[key] || default.text | decode: truncateTextAfter }}</span>
-      <span *ngIf="!default" class="img-caption-label defaultTxt">{{noOptionText || 'Please select'}}</span></p>
+      <span *ngIf="!default || fixedTitle" class="img-caption-label defaultTxt">{{defaultOptionTitle || 'Please select'}}</span></p>
   </div>
   <div class="dropdownMenu">
-    <input *ngIf="allowSearch" (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
+    <input *ngIf="allowSearch && selectableOptions.length > searchBoxVisibiltyThreshold" (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
     <perfect-scrollbar [config]="config">
       <ul>
         <li *ngFor="let data of options | filter : searchText: key || 'text' | keys; index as i"
-            (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2")'
+            (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2" || (selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)) || data.disabled===true)'
             [class.multilineOptionValue]="truncateTextAfter ===false"
             [class.optionWithoutTruncate]="truncateTextAfter ===false && showImage"
             [class.disabled]="data.value ==='-1' || data.value ==='-2'"

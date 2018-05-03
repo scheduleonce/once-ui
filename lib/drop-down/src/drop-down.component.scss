@@ -208,6 +208,9 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     &:hover {
       background: #eee;
     }
+    &.optionSelectedAndDisabled:hover {
+      background: transparent;
+    }
   }
 }
 
@@ -358,7 +361,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 }
 
 .ddDefaultImageNotExists {
-  background: url("icon-noImage2x.png")!important;
+  background: url("icon-noImage2x.svg")!important;
   background-size: 100%;
   @include setDropDownImageDimensions(26px, 26px);
 }
