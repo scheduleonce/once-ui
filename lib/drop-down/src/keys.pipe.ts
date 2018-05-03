@@ -7,6 +7,7 @@ export class KeysPipe implements PipeTransform {
     if (value && value instanceof Object && value.constructor === Object) {
       data = Object.keys(value);
     }
+
     return data;
   }
 }
