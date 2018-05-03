@@ -1,0 +1,7 @@
+<div *ngIf="visible" [style.visibility]="internalVisible ? 'visible' : 'hidden'" class="dialogModal" >
+  <div class="dialog soConfirmPopup" #dialog [style.marginTop.px]="dialogMargin" [style.top.%]="dialogTop" [ngClass]="{'set-style':setStyle}">
+    <ng-content></ng-content>
+    <button *ngIf="closable && displayCloseCross" title="Close" (click)="close()" [disabled]="processing" [class.disabledDiscard]="processing" aria-label="Close" class="newCrossIcon"></button>
+  </div>
+  <div *ngIf="visible" class="overlay" (click)="closeOnDiv()"></div>
+</div>
