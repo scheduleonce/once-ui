@@ -176,20 +176,21 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   overflow: hidden;
   background-color: #fff;
   width: 100%;
+  .searchBoxOuter{
+    padding:10px 10px 2px 10px;
+  }
   input {
-    width: 96%;
+    width: 100%;
     border: 1px solid #9c9c9c;
     padding: 4px;
     height: 32px;
     line-height: 18px;
-    margin-left: 4px;
-    margin-top: 7px;
-    margin-bottom: 5px;
     font-size: 14px;
   }
   ul {
     max-height: 284px;
     min-height: 100px;
+    padding: 0 10px;
   }
   li {
     padding: 4px;
@@ -335,6 +336,15 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 
 .ps-scrollbar-x-rail, .ps-scrollbar-y-rail {
   opacity: 0.6;
+}
+
+perfect-scrollbar.scrollbar-active > .ps.ps--active-y > .ps__rail-y{
+  right: 4px !important;
+  top: 8px !important;
+}
+
+perfect-scrollbar > div{
+  margin: 8px 0;
 }
 
 .ellipseTheText {
