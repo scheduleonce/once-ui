@@ -5,8 +5,8 @@
   left: 0;
   right: 0;
   background: none;
-  z-index: 99999;
-  display: none;
+  z-index: -1;
+  display: block;
 }
 .dialogModal {
   position: fixed;
@@ -30,6 +30,20 @@
 .set-style {
   max-width: 740px;
   width: 740px;
+}
+.newCrossIcon {
+  margin-top: 1px;
+  background: url('./smallIcons.png');
+  background-repeat: no-repeat;
+  background-position: -104px -31px !important;
+  width: 15px;
+  outline: 0;
+  height: 16px;
+  border: 0;
+  float: right;
+  cursor: pointer;
+  text-indent: -9999px;
+  margin-left: 8px;
 }
 .dialog .newCrossIcon {
   position: absolute;
@@ -62,3 +76,4 @@
   cursor: default;
   opacity: 0.6;
 }
+

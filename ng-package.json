@@ -2,7 +2,7 @@
   "name": "@once/ui",
   "$schema": "./node_modules/ng-packagr/ng-package.schema.json",
   "lib": {
-    "entryFile": "./public_api.ts",
+    "entryFile": "./public-api.ts",
     "cssUrl": "inline",
     "umdModuleIds": {
       "ngx-perfect-scrollbar": "ngxPerfectScrollbar"

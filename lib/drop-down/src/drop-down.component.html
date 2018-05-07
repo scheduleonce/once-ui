@@ -1,27 +1,30 @@
 <div class="dropholder" (click)="openDropdown($event)" [class.borderLessDropDown]="isBorderLess" [class.setBorderBottomColor]="borderBottomColor">
-  <div class="dropdown" [class.error]="errorCondition">
-    <p><span *ngIf="showImage && default && default.value !== '-2'" class="img-caption">
+  <div class="dropdown" [class.error]="errorCondition"  [style.border-color] = "borderBottomColor && isBorderLess ? borderBottomColor : '#9c9c9c'">
+    <p><span *ngIf="showImage && default && default.value !== '-2' && !fixedTitle" class="img-caption">
       <span
         class='ddImageExists'
             [class.ddDefaultImageNotExists]="isImagePresent(default)"
             [ngStyle]="!isImagePresent(default) &&  {'background': 'url(' + default.imageLink + ')'}"></span>
       </span>
-      <span *ngIf="default" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
+      <span *ngIf="default && !fixedTitle" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
             [class.ellipseTheTextWithImage]="truncateTextAfter === false && showImage">{{default[key] || default.text | decode: truncateTextAfter }}</span>
-      <span *ngIf="!default" class="img-caption-label defaultTxt">{{noOptionText || 'Please select'}}</span></p>
+      <span *ngIf="!default || fixedTitle" class="img-caption-label defaultTxt">{{defaultOptionTitle || 'Please select'}}</span></p>
   </div>
   <div class="dropdownMenu">
-    <input *ngIf="allowSearch" (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
-    <perfect-scrollbar [config]="config">
+
+    <div class="searchBoxOuter"  *ngIf="allowSearch && selectableOptions.length > searchBoxVisibiltyThreshold">
+      <input (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
+    </div>
+    <perfect-scrollbar class="scrollbar-active" [config]="config">
       <ul>
         <li *ngFor="let data of options | filter : searchText: key || 'text' | keys; index as i"
-            (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2")'
+            (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2" || (selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)) || data.disabled===true)'
             [class.multilineOptionValue]="truncateTextAfter ===false"
             [class.optionWithoutTruncate]="truncateTextAfter ===false && showImage"
             [class.disabled]="data.value ==='-1' || data.value ==='-2'"
             [class.disabledButNormalText]="data.value ==='-2'"
             [class.fadedOption]="data.value ==='-2'"
-            [class.selectedOption]="selectedOption? i == selectedOption:default && (default.value === data[key || 'value'] || default.value === data)"
+            [class.selectedOption]="selectedOption? i == selectedOption:default && (key ? default[key] === data[key] : default.value === data['value'])"
             [class.optionSelectedAndDisabled]="(selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)) || data.disabled===true">
           <p [class.noResultsFound]="data.value==='no_result'">
             <span *ngIf="data.value !== 'no_result' && showImage" class="dd-img">
@@ -31,7 +34,7 @@
                    [ngStyle]="!isImagePresent(data) && {'background': 'url(' + data.imageLink + ')'}"></span>
               </span>
             <span class="dd-value" *ngIf="!checkIfObject()">{{data[key || 'text'] | decode: truncateTextAfter: (data.value==='no_result' || data.value ==='-1' || data.value ==='-2') }}</span>
-            <span class="dd-value"*ngIf="checkIfObject()">{{options[data] | decode: truncateTextAfter: (data.value==='no_result' || data.value ==='-1' || data.value ==='-2') }}</span>
+            <span class="dd-value" *ngIf="checkIfObject()">{{options[data] | decode: truncateTextAfter: (data.value==='no_result' || data.value ==='-1' || data.value ==='-2') }}</span>
           </p>
         </li>
       </ul>
