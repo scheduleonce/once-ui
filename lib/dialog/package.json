@@ -1,6 +1,6 @@
 {
-  "name": "datepicker",
-  "description": "The datepicker allows users to enter a date through choosing a date from the calendar. This component is using material datepicker API.",
+  "name": "dialog",
+  "description": "Angular app-dialog",
   "version": "0.0.0",
   "license": "MIT",
   "repository": "https://github.com/scheduleonce/ui-components.git",

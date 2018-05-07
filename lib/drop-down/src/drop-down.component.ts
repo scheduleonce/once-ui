@@ -11,7 +11,8 @@ import {
   ViewEncapsulation,
   Output,
   EventEmitter,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
@@ -22,7 +23,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
   styleUrls: ['drop-down.component.scss', 'border-less.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DropDownComponent {
+export class DropDownComponent implements OnInit{
   static currentDropdown: any;
   @Input() options: any;
   @Input() allowSearch: any;
@@ -33,13 +34,16 @@ export class DropDownComponent {
   @Input() truncateTextAfter = false;
   @Input() isBorderLess = false;
   @Input() errorCondition: any;
-  @Input() noOptionText: string;
+  @Input() defaultOptionTitle: string;
   @Input() borderBottomColor: string;
   @Input() selectedAndDisabledOptions: any;
   @Input() searchPlaceholderText: string;
+  @Input() fixedTitle =  false;
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
   @Output() customClick = new EventEmitter();
   searchText: string;
+  selectableOptions: any;
+  searchBoxVisibiltyThreshold: number = 6;
   config: PerfectScrollbarConfigInterface = {};
 
   constructor() {
@@ -49,6 +53,12 @@ export class DropDownComponent {
       }
     };
     this.searchText = '';
+  }
+
+  ngOnInit() {
+    this.selectableOptions = this.options.length && this.allowSearch ? this.options.filter((option) => {
+      return parseInt(option.value) != -1
+    }) : [];
   }
 
   /**
