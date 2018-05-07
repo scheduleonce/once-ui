@@ -31,7 +31,7 @@ export class DialogComponent implements OnInit, OnChanges {
   dialogMargin: number;
   internalVisible = false;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {}
+  constructor(@Inject(DOCUMENT) private document: any) {}
 
   ngOnInit() {}
 
