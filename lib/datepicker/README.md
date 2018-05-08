@@ -1,8 +1,21 @@
 # Datepicker
 
-The datepicker allows users to enter a date through choosing a date from the calendar. This component is using material datepicker API.
+The datepicker allows users to enter a date by choosing a date from the calendar. This component uses material datepicker API.
 
 ## Usage
+Firstly, we need to import the datepicker module into the application module.
+```js
+import { DatepickerModule  } from '@once/ui/lib/datepicker';
+```
+
+After importing it into the application module, add it to the imports array.
+```js
+@NgModule({
+  imports: [
+    DatepickerModule
+  ]
+})
+````
 
 Example of simple usage:
 
@@ -37,3 +50,28 @@ Example of Input and change events
 | Output          | Description                 |
 | --------------- | --------------------------- |
 | dateChangeEvent | Fires when date got changed |
+
+## BASIC EXAMPLE
+
+```js
+import { Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import * as moment from 'moment';
+
+@Component({
+  selector: 'app-root',
+  template: `<app-datepicker 
+            [(model)]='selectedDate' 
+            [minDate]='minDate' 
+            [maxDate]='maxDate'>
+            </app-datepicker>`,
+  styleUrls: ['./app.component.css']
+})
+
+export class AppComponent {
+  minDate = moment();
+  maxDate = moment().add(1,'month').subtract(1,'day');
+  selectedDate = new FormControl(moment());
+}
+```
+
