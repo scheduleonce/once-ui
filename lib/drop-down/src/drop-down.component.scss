@@ -189,7 +189,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   }
   ul {
     max-height: 284px;
-    min-height: 100px;
+    min-height: 85px;
     padding: 0 10px;
   }
   li {
@@ -211,6 +211,9 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     }
     &.optionSelectedAndDisabled:hover {
       background: transparent;
+    }
+    &:last-child{
+      padding-bottom: 0;
     }
   }
 }
