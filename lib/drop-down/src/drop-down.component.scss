@@ -138,7 +138,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   color: #333;
   line-height: 36px;
   width: 100%;
-  padding: 4px;
+  padding: 4px 10px;
   z-index: 1;
   cursor: pointer;
   &:after {
@@ -193,7 +193,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     padding: 0 10px;
   }
   li {
-    padding: 4px;
+    padding: 4px 10px;
     list-style: none;
     cursor: pointer;
     &.disabled {
