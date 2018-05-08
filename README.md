@@ -11,12 +11,12 @@ For demos, see the [project page](https://storybooks-coming-soon.com).
 
 ### Available components:
 
-- [Content popup](content-popup/README.md)
-- [Date picker](date-picker/README.md)
-- [Dialog](dialog/README.md)
-- [Dropdown](drop-down/README.md)
-- [Info-popup](info-popup/README.md)
-- [Tooltip](tooltip/README.md)
+- [Content popup](lib/content-popup/README.md)
+- [Date picker](lib/date-picker/README.md)
+- [Dialog](lib/dialog/README.md)
+- [Dropdown](lib/drop-down/README.md)
+- [Info-popup](lib/info-popup/README.md)
+- [Tooltip](lib/tooltip/README.md)
 
 ### Installation
 
