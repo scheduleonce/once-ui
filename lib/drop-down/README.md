@@ -53,6 +53,7 @@ import { DropDownModule } from '@once/ui/lib/drop-down';
 | [borderBottomColor]    | string        | `text`                 | no       | Application only if [isBorderLess] is true. It will be displayed on click with 2px border at the bottom.                  |
 | [selectedAndDisabledOptions]    | array        |                   | no       | Array of pre-selected and disabled options.                 |
 | [fixedTitle]    | boolean        |      `false`             | no       | Set fixed text value passed with `defaultOptionTitle` API in place where selected option is shown, this will be fixed text no matters what user have selected.                   |
+| [disabledDropdown]    | boolean        |      `false`             | no       | If true disables dropdown with no actions.                   |
 
 | Output    | Description                              |
 | --------- | ---------------------------------------- |
