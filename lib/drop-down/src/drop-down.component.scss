@@ -382,3 +382,21 @@ perfect-scrollbar > div{
 .ddImageExists {
   @include setDropDownImageDimensions(26px, 26px);
 }
+
+.disabledDropdown {
+  pointer-events: none;
+  border: #E4E4E4;
+  .img-caption {
+    opacity: 0.4;
+
+  }
+  .img-caption-label {
+    color: #9B9B9B;
+  }
+
+  .dropdown {
+    &:after {
+      border-top: 8px solid #9B9B9B;
+    }
+  }
+}
