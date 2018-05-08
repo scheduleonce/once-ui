@@ -19,7 +19,7 @@
 ## Getting started
 
 ```js
-import { DropDownModule } from '@once/ui/lib/drop-down';
+import { DropDownModule } from '@once/ui/drop-down';
 ````
 
 The only remaining part is to list the imported module in your application module.:
