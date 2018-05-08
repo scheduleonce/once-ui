@@ -39,7 +39,7 @@ Example of Input and change events
   [(maxDate)]="maxStartDate"></app-datepicker>
 ```
 
-## PROPERTIES
+## PROPS
 
 | Input     | TypeOf      | Default | Required | Description                                                                                 |
 | --------- | ----------- | ------- | -------- | ------------------------------------------------------------------------------------------- |
