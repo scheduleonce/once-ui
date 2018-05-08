@@ -5,7 +5,7 @@ The datepicker allows users to enter a date by choosing a date from the calendar
 ## Usage
 Firstly, we need to import the datepicker module into the application module.
 ```js
-import { DatepickerModule  } from '@once/ui/lib/datepicker';
+import { DatepickerModule  } from '@once/ui/datepicker';
 ```
 
 After importing it into the application module, add it to the imports array.
