@@ -9,7 +9,9 @@
     "copy": "ncp './dist/lib/' './dist/'",
     "update-paths": "node update-build-paths.ts",
     "build": "rimraf dist && ng-packagr -p ng-package.json && npm run update-paths && npm run copy",
-    "publish": "npm run build && npm publish dist"
+    "publish": "npm run build && npm publish dist",
+    "storybook": "start-storybook -p 9001 .storybook",
+    "build-storybook": "build-storybook"
   },
   "keywords": [
     "angular",
@@ -33,13 +35,28 @@
     "glob": "^7.1.2",
     "moment": "^2.19.3",
     "ncp": "^2.0.0",
+    "rxjs": "^5.5.6",
     "ngx-perfect-scrollbar": "^5.3.5",
     "typescript": "^2.8.1"
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^3.4.0-alpha.8",
+    "@storybook/addon-links": "^3.4.0-alpha.8",
+    "@storybook/addon-notes": "^3.4.0-alpha.8",
+    "@storybook/addons": "^3.4.0-alpha.8",
+    "@storybook/angular": "^3.4.3",
+    "@types/jasmine": "^2.8.3",
+    "@types/jasminewd2": "~2.0.2",
+    "@types/node": "^9.3.0",
+    "babel-core": "^6.26.3",
     "copyfiles": "^2.0.0",
+    "css-loader": "^0.28.11",
     "ng-packagr": "^3.0.0-rc.2",
     "prettier": "^1.12.1",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "sass-loader": "^7.0.1",
+    "storybook-readme": "^3.2.0",
+    "style-loader": "^0.21.0",
+    "to-string-loader": "^1.1.5"
   }
 }
