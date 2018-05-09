@@ -1,11 +1,11 @@
-# Datepicker
+# DATEPICKER
 
 The datepicker allows users to enter a date by choosing a date from the calendar. This component uses material datepicker API.
 
-## Usage
+## UDAGE
 Firstly, we need to import the datepicker module into the application module.
 ```js
-import { DatepickerModule  } from '@once/ui/lib/datepicker';
+import { DatepickerModule  } from '@once/ui/datepicker';
 ```
 
 After importing it into the application module, add it to the imports array.
@@ -39,7 +39,7 @@ Example of Input and change events
   [(maxDate)]="maxStartDate"></app-datepicker>
 ```
 
-## API
+## PROPS
 
 | Input     | TypeOf      | Default | Required | Description                                                                                 |
 | --------- | ----------- | ------- | -------- | ------------------------------------------------------------------------------------------- |
