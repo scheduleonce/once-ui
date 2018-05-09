@@ -39,6 +39,7 @@ export class DropDownComponent implements OnInit{
   @Input() selectedAndDisabledOptions: any;
   @Input() searchPlaceholderText: string;
   @Input() fixedTitle =  false;
+  @Input() disabledDropdown =  false;
   @Output() change: EventEmitter<string> = new EventEmitter<string>();
   @Output() customClick = new EventEmitter();
   searchText: string;
