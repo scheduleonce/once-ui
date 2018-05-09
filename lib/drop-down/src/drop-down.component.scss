@@ -213,9 +213,9 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     &.optionSelectedAndDisabled:hover {
       background: transparent;
     }
-    &:last-child{
-      padding-bottom: 0;
-      margin-bottom: 8px;
+    &:last-child:hover{
+      background: #fff;
+      cursor: default;
     }
   }
 }
