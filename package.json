@@ -1,12 +1,12 @@
 {
   "name": "@once/ui",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "license": "MIT",
   "repository": "https://github.com/scheduleonce/ui-components.git",
   "bugs": "https://github.com/scheduleonce/ui-components/issues",
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
   "scripts": {
-    "copy": "ncp './dist/lib/' './dist/'",
+    "copy": "ncp dist/lib/ dist/",
     "update-paths": "node update-build-paths.ts",
     "build": "rimraf dist && ng-packagr -p ng-package.json && npm run update-paths && npm run copy",
     "publish": "npm run build && npm publish dist"
