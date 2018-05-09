@@ -187,6 +187,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     height: 32px;
     line-height: 18px;
     font-size: 14px;
+    font-weight: normal;
   }
   ul {
     max-height: 284px;
@@ -214,6 +215,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     }
     &:last-child{
       padding-bottom: 0;
+      margin-bottom: 8px;
     }
   }
 }
@@ -347,7 +349,7 @@ perfect-scrollbar.scrollbar-active > .ps.ps--active-y > .ps__rail-y{
 }
 
 perfect-scrollbar > div{
-  margin: 8px 0;
+  margin: 8px 0 0;
 }
 
 .ellipseTheText {
@@ -381,6 +383,7 @@ perfect-scrollbar > div{
 
 .ddImageExists {
   @include setDropDownImageDimensions(26px, 26px);
+  border-radius: 50%;
 }
 
 .disabledDropdown {
