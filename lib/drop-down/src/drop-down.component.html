@@ -1,4 +1,4 @@
-<div class="dropholder" (click)="openDropdown($event)" [class.borderLessDropDown]="isBorderLess" [class.setBorderBottomColor]="borderBottomColor">
+<div class="dropholder" (click)="openDropdown($event)" [class.borderLessDropDown]="isBorderLess" [class.setBorderBottomColor]="borderBottomColor" [class.disabledDropdown]="disabledDropdown">
   <div class="dropdown" [class.error]="errorCondition"  [style.border-color] = "borderBottomColor && isBorderLess ? borderBottomColor : '#9c9c9c'">
     <p><span *ngIf="showImage && default && default.value !== '-2' && !fixedTitle" class="img-caption">
       <span
@@ -36,6 +36,7 @@
             <span class="dd-value" *ngIf="checkIfObject()">{{options[data] | decode: truncateTextAfter: (data.value==='no_result' || data.value ==='-1' || data.value ==='-2') }}</span>
           </p>
         </li>
+        <li class="blankSpace"></li>
       </ul>
     </perfect-scrollbar>
   </div>
