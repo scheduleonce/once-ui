@@ -8,6 +8,11 @@
          (click)="picker.open()"
          [formControl]="model"
          (dateChange)="dateChange()">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <div class="mat-form-field-suffix">
+    <div class="mat-button-wrapper" (click)="picker.open()">
+      <label [for]="picker"
+             class="datePickerCalendarIcon"></label>
+    </div>
+  </div>
   <mat-datepicker #picker></mat-datepicker>
 </mat-form-field>
