@@ -10,7 +10,7 @@ const jsonFile = require('jsonfile');
 
 // List files
 const files = glob.sync('./dist/lib/**/*.json');
-const changePaths = (obj) => obj.replace('../../', '../');
+const changePaths = (path) => typeof path === 'string' && path.replace('../../', '../');
 
 // List of bundle paths
 const bundles = ['main', 'module', 'es2015', 'esm5', 'esm2015', 'fesm5', 'fesm2015', 'typings', 'metadata'];
@@ -32,7 +32,7 @@ for (let index = 0; index < files.length; index++) {
     if (fileLocation) {
         jsonFile.readFile(fileLocation, function (err, obj) {
             if (!err)
-                jsonFile.writeFile(fileLocation, Object.assign({}, obj, updateBundlePaths(obj)));
+               jsonFile.writeFile(fileLocation, Object.assign({}, obj, updateBundlePaths(obj)));
         });
     }
 }
