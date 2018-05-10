@@ -24,7 +24,8 @@
             [class.disabledButNormalText]="data.value ==='-2'"
             [class.fadedOption]="data.value ==='-2'"
             [class.selectedOption]="fixedTitle? false:(selectedOption? i == selectedOption:default && (key ? default[key] === data[key] : default.value === data['value']))"
-            [class.optionSelectedAndDisabled]="(selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)) || data.disabled===true">
+            [class.optionSelectedAndDisabled]="(selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)) || data.disabled===true"
+            [class.noResult]="data.value==='no_result'">
           <p [class.noResultsFound]="data.value==='no_result'">
             <span *ngIf="data.value !== 'no_result' && showImage" class="dd-img">
                 <span
