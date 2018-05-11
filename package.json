@@ -15,7 +15,6 @@
     "prestart": "npm run build-storybook",
     "start": "node app.ts"
   },
-  "engines":{"node": "7.x.x || 8.x.x"},
   "keywords": [
     "angular",
     "Once UI",
