@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { boolean, number, text, withKnobs, object, array } from '@storybook/addon-knobs/dist/angular';
+
 import {
     MatDatepickerModule,
     MatFormFieldModule,
@@ -34,9 +37,12 @@ export const MY_FORMATS = {
 import * as moment from 'moment';
 
 import { DatepickerComponent } from '../../lib/datepicker/src/datepicker.component';
+const minDate = moment();
+const maxDate = moment().add(30, 'day');
 
-storiesOf('Datepicker', module)
-    .addDecorator(moduleMetadata({
+const stories = storiesOf('Datepicker', module)
+
+    stories.addDecorator(moduleMetadata({
         imports: [
             CommonModule,
             MatDatepickerModule,
@@ -59,19 +65,11 @@ storiesOf('Datepicker', module)
         { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
         })
     )
-    .add('Datepicker without boundries', () => ({
+    .add('Datepicker component', () => ({
         component: DatepickerComponent,
         props: {
             model: new FormControl(new Date()),
-            customClick: action('clicked')
-        }
-    }))
-    .add('Datepicker with date boundaries', () => ({
-        component: DatepickerComponent,
-        props: {
-            model: new FormControl(new Date()),
-            minDate: moment(),
-            maxDate: moment().add(30, 'day'),
-            customClick: action('clicked')
+            minDate: object('minDate', minDate),
+            maxDate: object('maxDate', maxDate)
         }
     }));
