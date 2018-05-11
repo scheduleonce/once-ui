@@ -188,9 +188,10 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     line-height: 18px;
     font-size: 14px;
     font-weight: normal;
+    color: #333;
   }
   ul {
-    max-height: 284px;
+    max-height: 310px;
     min-height: 85px;
   }
   li {
@@ -213,9 +214,14 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     &.optionSelectedAndDisabled:hover {
       background: transparent;
     }
-    &:last-child{
-      padding-bottom: 0;
-      margin-bottom: 8px;
+    &:last-child:hover{
+      background: #fff;
+      cursor: default;
+    }
+  }
+  li.noResult{
+    &:hover{
+      background: #fff;
     }
   }
 }
@@ -331,7 +337,10 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   span.img-caption-label {
     position: absolute;
     @include nowrapText();
-    width:75%;
+    width: calc(100% - 20px);
+  }
+  span.img-caption-label.ellipseTheTextWithImage {
+    width: calc(100% - 50px);
   }
   .defaultTxt{
     color: #666;
@@ -367,7 +376,7 @@ perfect-scrollbar > div{
     margin-right: 8px;
   }
   .dd-value {
-    width: 75%;
+    width: calc(100% - 50px);
   }
 }
 
@@ -388,7 +397,6 @@ perfect-scrollbar > div{
 
 .disabledDropdown {
   pointer-events: none;
-  border: #E4E4E4;
   .img-caption {
     opacity: 0.4;
 
@@ -398,6 +406,7 @@ perfect-scrollbar > div{
   }
 
   .dropdown {
+    border-color: #E4E4E4 !important;
     &:after {
       border-top: 8px solid #9B9B9B;
     }
