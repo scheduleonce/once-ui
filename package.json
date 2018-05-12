@@ -52,6 +52,7 @@
     "@storybook/addon-notes": "^3.4.0-alpha.8",
     "@storybook/addons": "^3.4.0-alpha.8",
     "@storybook/angular": "^3.4.3",
+    "@storybook/storybook-deployer": "^2.3.0",
     "@types/jasmine": "^2.8.3",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "^9.3.0",
