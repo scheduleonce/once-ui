@@ -11,7 +11,7 @@
     "build": "rimraf dist && ng-packagr -p ng-package.json && npm run update-paths && npm run copy",
     "publish": "npm run build && npm publish dist",
     "storybook": "start-storybook -s ./assets -p 9001 .storybook",
-    "build-storybook": "build-storybook -s ./assets",
+    "deploy-storybook": "build-storybook -s ./assets",
     "prestart": "npm run build-storybook",
     "start": "node app.ts"
   },
