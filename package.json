@@ -12,7 +12,7 @@
     "publish": "npm run build && npm publish dist",
     "storybook": "start-storybook -s ./assets -p 9001 .storybook",
     "deploy-storybook": "build-storybook -s ./assets",
-    "prestart": "npm run build-storybook",
+    "prestart": "npm run deploy-storybook",
     "start": "node app.ts"
   },
   "keywords": [
