@@ -8,11 +8,11 @@
   "scripts": {
     "copy": "ncp dist/lib/ dist/",
     "update-paths": "node update-build-paths.ts",
-    "build": "rimraf dist && ng-packagr -p ng-package.json && npm run update-paths && npm run copy",
-    "publish": "npm run build && npm publish dist",
+    "build-npm": "rimraf dist && ng-packagr -p ng-package.json && npm run update-paths && npm run copy",
+    "publish": "npm run build-npm && npm publish dist",
     "storybook": "start-storybook -s ./assets -p 9001 .storybook",
-    "deploy-storybook": "build-storybook -s ./assets",
-    "prestart": "npm run deploy-storybook",
+    "build": "build-storybook -s ./assets",
+    "prestart": "npm run build",
     "start": "node app.ts"
   },
   "keywords": [
