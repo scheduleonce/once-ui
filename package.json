@@ -33,9 +33,10 @@
     "@angular/material-moment-adapter": "^5.2.5",
     "@angular/platform-browser": "^5.2.10",
     "@angular/platform-browser-dynamic": "^5.2.10",
+    "@storybook/addon-backgrounds": "^3.4.3",
+    "@storybook/cli": "^3.4.4",
     "express": "^4.16.3",
     "express-basic-auth": "^1.1.5",
-    "@storybook/addon-backgrounds": "^3.4.3",
     "glob": "^7.1.2",
     "json-parse-better-errors": "^1.0.2",
     "moment": "^2.19.3",
@@ -45,6 +46,7 @@
     "typescript": "^2.8.1"
   },
   "devDependencies": {
+    "@storybook/cli": "^3.4.4",
     "@storybook/addon-actions": "^3.4.0-alpha.8",
     "@storybook/addon-knobs": "^3.4.3",
     "@storybook/addon-links": "^3.4.0-alpha.8",
