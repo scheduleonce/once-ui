@@ -47,7 +47,7 @@ export class DatepickerComponent implements OnInit {
   @Input() model: any;
   @Input() minDate?: any;
   @Input() maxDate?: any;
-  @Input() isBorderLess?: any;
+  @Input() isBorderLess?: boolean;
   @Output() dateChangeEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}

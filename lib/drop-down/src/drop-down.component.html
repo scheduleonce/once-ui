@@ -18,8 +18,8 @@
       <ul>
         <li *ngFor="let data of options | filter : searchText: key || 'text' | keys; index as i"
             (click)='changeOption($event, data, data.value ==="-1" || data.value ==="-2" || (selectedAndDisabledOptions && checkIfItIsAlreadySelcted(data)) || data.disabled===true)'
-            [class.multilineOptionValue]="truncateTextAfter ===false"
-            [class.optionWithoutTruncate]="truncateTextAfter ===false && showImage"
+            [class.multilineOptionValue]="truncateTextAfter === 0"
+            [class.optionWithoutTruncate]="truncateTextAfter === 0 && showImage"
             [class.disabled]="data.value ==='-1' || data.value ==='-2'"
             [class.disabledButNormalText]="data.value ==='-2'"
             [class.fadedOption]="data.value ==='-2'"
