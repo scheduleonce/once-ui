@@ -1,23 +1,20 @@
 const express = require('express');
 const basicAuth = require('express-basic-auth');
 const app = express();
+const env = app.get('env');
+const port = process.env.port || 3000;
 
 // If env is production load static html with auth
-if (process.env.NODE_ENV === 'production') {
-  app.use(
-    basicAuth({
-      users: { app: '#Udaan@SO!23' },
-      challenge: true
-    })
-  );
+if(env === 'production') {
+    app.use(basicAuth({
+        users: {'app': '#Udaan@SO!23'},
+        challenge: true
+    }));
+    app.use(express.static('storybook-static'));
+}
+// If env is development load static html without auth
+if(env === 'development') {
+    app.use(express.static('storybook-static'));
 }
 
-app.use(express.static('storybook-static'));
-
-app.get('/hello', (req, res) => {
-  res.status(200).send('Hello');
-});
-
-app.listen(process.env.port, () => {
-  console.log('Started listening on port', process.env.port);
-});
+app.listen(port, () => console.log('Started listening to port:3000'));
