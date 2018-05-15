@@ -17,4 +17,4 @@ if(env === 'development') {
     app.use(express.static('storybook-static'));
 }
 
-app.listen(port, (ee) => console.log('Started listening to port:3000'));
+app.listen(port, () => console.log('Started listening to port:3000'));
