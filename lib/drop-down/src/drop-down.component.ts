@@ -31,7 +31,7 @@ export class DropDownComponent implements OnInit{
   @Input() key: any;
   @Input() showImage = false;
   @Input() selectedOption;
-  @Input() truncateTextAfter = false;
+  @Input() truncateTextAfter = 0;
   @Input() isBorderLess = false;
   @Input() errorCondition: any;
   @Input() defaultOptionTitle: string;
