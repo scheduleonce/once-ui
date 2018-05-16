@@ -44,6 +44,30 @@ const  defaultOptions = [
         imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636620463669155955_sid_OTEzOTExNDQzNA==.png',
         value: '4'
     },
+    {
+        text: `Ben Foster`,
+        value: '5'
+    },
+    {
+        text: `Louie King`,
+        value: '6'
+    },
+    {
+        text: `Ulises Gonzales`,
+        value: '7'
+    },
+    {
+        text: `Lennox Charles`,
+        value: '8'
+    },
+    {
+        text: `Jalen Moody`,
+        value: '9'
+    },
+    {
+        text: `Davon Robinson`,
+        value: '9'
+    }
 
 ];
 
@@ -82,31 +106,6 @@ storiesOf('Dropdown', module)
             borderBottomColor: text('borderBottomColor', '#008000'),
             disabledDropdown: boolean('disabledDropdown', false),
             selectedAndDisabledOptions: object('selectedAndDisabledOptions', [])
-        }
-    }))
-    .add('dropdown with borders', () => ({
-        component: DropDownComponent,
-        props: {
-            options: object('options', defaultOptions),
-            default: object('default', defaultValue),
-            allowSearch: boolean('allowSearch', true),
-            truncateTextAfter: number('truncateTextAfter', 0),
-            searchPlaceholderText: text('searchPlaceholderText', 'Search your option here...'),
-            defaultOptionTitle: text('defaultOptionTitle', 'Please select option'),
-            customClick: action('Option changed'),
-        }
-    }))
-    .add('dropdown without borders', () => ({
-        component: DropDownComponent,
-        props: {
-            options: object('options', defaultOptions),
-            default: object('default', defaultValue),
-            fixedTitle: boolean('fixedTitle', false),
-            isBorderLess: boolean('isBorderLess', true),
-            customClick: action('Option changed'),
-            borderBottomColor: text('borderBottomColor', '#008000'),
-            disabledDropdown: boolean('disabledDropdown', false),
-            selectedAndDisabledOptions: object('selectedAndDisabledOptions', []),
         }
     }));
 
