@@ -22,7 +22,6 @@ import { DatepickerComponent } from '../../lib/datepicker/src/datepicker.compone
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { withReadme, withDocs }  from 'storybook-readme';
 import * as ReadmeFile from '../../lib/datepicker/README.md';
-
 export const MY_FORMATS = {
     parse: {
         dateInput: 'LL'
@@ -34,9 +33,6 @@ export const MY_FORMATS = {
         monthYearA11yLabel: 'MMMM YYYY'
     }
 };
-
-
-
 const minDate = moment();
 const maxDate = moment().add(30, 'day');
 
@@ -65,12 +61,13 @@ const stories = storiesOf('Datepicker', module)
         })
     )
     .addDecorator(withReadme(ReadmeFile))
-    .add('Default', () => ({
+    .add('default', () => ({
         component: DatepickerComponent,
         props: {
             model: new FormControl(new Date()),
             minDate: text('minDate', minDate),
             maxDate: text('maxDate', maxDate),
             isBorderLess: boolean('isBorderLess', false),
+            dateChangeEvent: action('Date changed'),
         }
     }));
