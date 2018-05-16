@@ -1,14 +1,16 @@
 .mat-form-field {
   width:100%;
-  min-width: 150px;
+  max-width: 170px;
+  min-width: 134px;
   .mat-form-field-infix {
     width: 100%;
     border: 1px solid #9c9c9c;
     height: 34px;
-    padding: 5px;
+    padding: 5px 10px;
     input.mat-input-element {
-      height: 24px;
+      height: 28px;
       line-height: 24px;
+      font-size: 14px;
     }
   }
   .mat-form-field-wrapper {
@@ -27,8 +29,8 @@
     display: none;
   }
 }
-.mat-calendar-body-selected {
-  background-color: #006bb1;
+.mat-calendar-table .mat-calendar-body-selected {
+  background-color: #006BB1;
 }
 
 .datePickerCalendarIcon {
@@ -80,9 +82,38 @@
   }
 }
 .mat-form-field-label{
-  padding-left: 5px;
+  padding: 3px 10px 5px;
+  font-size: 14px;
 }
 
 .mat-datepicker-content{
   border: 1px solid #9c9c9c;
+}
+
+.mat-datepicker-popup .mat-datepicker-content{
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  .mat-calendar{
+    width: 298px;
+  }
+}
+
+.mat-form-field-wrapper .mat-input-element{
+  caret-color: #333;
+}
+
+.cdk-overlay-pane{
+  margin-top: -1px;
+}
+.mat-button .mat-button-wrapper{
+  font-weight: bold;
+}
+
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+  display: none !important;
+}
+
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label.mat-empty{
+  display: block;
+
 }
