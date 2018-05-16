@@ -26,7 +26,7 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'app-datepicker',
+  selector: 'once-ui-datepicker',
   templateUrl: './datepicker.component.html',
   styleUrls: [
     './datepicker.component.scss',
@@ -55,7 +55,7 @@ export class DatepickerComponent implements OnInit {
   dateChange($event): void {
     let data = '';
     if($event && $event.value)
-      data = $event.value;
+      data = $event.value.toDate();
     this.dateChangeEvent.emit(data);
   }
 

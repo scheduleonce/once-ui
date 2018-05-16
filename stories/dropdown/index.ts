@@ -44,6 +44,30 @@ const  defaultOptions = [
         imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636620463669155955_sid_OTEzOTExNDQzNA==.png',
         value: '4'
     },
+    {
+        text: `Ben Foster`,
+        value: '5'
+    },
+    {
+        text: `Louie King`,
+        value: '6'
+    },
+    {
+        text: `Ulises Gonzales`,
+        value: '7'
+    },
+    {
+        text: `Lennox Charles`,
+        value: '8'
+    },
+    {
+        text: `Jalen Moody`,
+        value: '9'
+    },
+    {
+        text: `Davon Robinson`,
+        value: '9'
+    }
 
 ];
 
