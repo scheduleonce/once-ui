@@ -44,7 +44,7 @@ import { DialogModule } from '@once/ui/dialog';
 })
 
 tempate.html:
-<app-dialog [(visible)]="showUpgradePopup" class="so-modal" [autoClose]="false" (visibleChange)="close()">
+<once-ui-dialog [(visible)]="showUpgradePopup" class="so-modal" [autoClose]="false" (visibleChange)="close()">
     <div class="modal-content">
         <div class="modal-header confirmBlueStrip">
             <label class="modal-title">Title Heading</label>
@@ -60,5 +60,5 @@ tempate.html:
             </div>
         </div>
     </div>
-</app-dialog>
+</once-ui-dialog>
 ```
