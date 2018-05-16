@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatepickerComponent } from './datepicker.component';
-import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
@@ -20,7 +19,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     MatInputModule,
     ReactiveFormsModule,
-    BrowserModule,
     BrowserAnimationsModule,
     NoopAnimationsModule
   ],

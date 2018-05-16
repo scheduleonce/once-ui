@@ -46,6 +46,7 @@ Example of Input and change events
 | [model]   | FormControl | none    | yes      | This binds to value of datepicker                                                           |
 | [maxDate] | Moment/Date | none    | no       | This will disable selecting date greater than maxDate. Default no validation will be there. |  |
 | [minDate] | Moment/Date | none    | no       | This will disable selecting date lesser than minDate. Default no validation will be there.  |  |
+| [isBorderLess] | boolean | false    | false       | Hide top/right/left border  |  |
 
 | Output          | Description                 |
 | --------------- | --------------------------- |
