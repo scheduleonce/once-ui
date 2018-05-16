@@ -5,6 +5,9 @@
   "repository": "https://github.com/scheduleonce/ui-components.git",
   "bugs": "https://github.com/scheduleonce/ui-components/issues",
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
+  "engines": {
+    "node": ">=8.9.0"
+  },
   "scripts": {
     "copy": "ncp dist/lib/ dist/",
     "update-paths": "node update-build-paths.ts",
