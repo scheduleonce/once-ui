@@ -20,23 +20,23 @@ After importing it into the application module, add it to the imports array.
 Example of simple usage:
 
 ```html
-<app-datepicker [(model)]="formControlObj"></app-datepicker>
+<once-ui-datepicker [(model)]="formControlObj"></once-ui-datepicker>
 ```
 
 Example of validation
 
 ```html
-<app-datepicker
+<once-ui-datepicker
   [(model)]="formControlObj"
-  [(maxDate)]="maxStartDate"></app-datepicker>
+  [(maxDate)]="maxStartDate"></once-ui-datepicker>
 ```
 
 Example of Input and change events
 
 ```html
-<app-datepicker
+<once-ui-datepicker
   [(model)]="formControlObj"
-  [(maxDate)]="maxStartDate"></app-datepicker>
+  [(maxDate)]="maxStartDate"></once-ui-datepicker>
 ```
 
 ## PROPS
@@ -61,11 +61,11 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
-  template: `<app-datepicker 
+  template: `<once-ui-datepicker 
             [(model)]='selectedDate' 
             [minDate]='minDate' 
             [maxDate]='maxDate'>
-            </app-datepicker>`,
+            </once-ui-datepicker>`,
   styleUrls: ['./app.component.css']
 })
 
