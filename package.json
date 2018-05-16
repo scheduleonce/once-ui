@@ -16,6 +16,7 @@
     "start": "node app.ts"
   },
   "keywords": [
+    "Angular",
     "Once UI",
     "Shared UI library",
     "components",
