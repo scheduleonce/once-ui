@@ -13,7 +13,7 @@ import {
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
-  selector: 'app-dialog',
+  selector: 'once-ui-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css'],
   encapsulation: ViewEncapsulation.None

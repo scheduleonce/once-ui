@@ -1,4 +1,4 @@
-# Angular app-drop-down
+# Angular once-ui-dropdown
 
 # Table of contents
 
@@ -25,7 +25,7 @@ import { DropDownModule } from '@once/ui/drop-down';
 The only remaining part is to list the imported module in your application module.:
 
 ```js
-import { DropDownModule } from '@once/ui/lib/drop-down';
+import { DropDownModule } from '@once/ui/drop-down';
 
 @NgModule({
   imports: [
@@ -68,14 +68,14 @@ import { DropDownModule } from '@once/ui/lib/drop-down';
   selector: 'app-localization-editor',
   template: `
         <label>Custom locale</label>
-          <app-drop-down
+          <once-ui-dropdown
                 [options]="customLanguages"
                 [default]="selectedLocaleName"
                 [errorCondition]="duplicatedFromNotProvided"
                 [key]="'CustomName'"
                 [truncateTextAfter]="20"
                 (customClick)="customClick($event)">
-           </app-drop-down>
+           </once-ui-dropdown>
         <p>
             Selected city ID: {{selectedCityId}}
         </p>
