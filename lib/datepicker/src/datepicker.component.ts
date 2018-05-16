@@ -12,7 +12,9 @@ import {
   MAT_DATE_LOCALE
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import * as moment from 'moment'
+import * as moment_ from 'moment';
+
+const moment = moment_;
 
 export const MY_FORMATS = {
   parse: {
