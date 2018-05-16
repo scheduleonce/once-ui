@@ -52,8 +52,11 @@ export class DatepickerComponent implements OnInit {
 
   constructor() {}
 
-  dateChange(): void {
-    this.dateChangeEvent.emit();
+  dateChange($event): void {
+    let data = '';
+    if($event && $event.value)
+      data = $event.value;
+    this.dateChangeEvent.emit(data);
   }
 
   ngOnInit() {}
