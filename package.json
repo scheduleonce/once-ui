@@ -6,7 +6,7 @@
   "bugs": "https://github.com/scheduleonce/ui-components/issues",
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
   "engines": {
-    "node": ">=8.9.0"
+    "node": "8.x"
   },
   "scripts": {
     "copy": "ncp dist/lib/ dist/",
