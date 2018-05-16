@@ -36,6 +36,7 @@
     "@babel/core": "^7.0.0-beta.47",
     "@storybook/addon-actions": "^3.4.0-alpha.8",
     "@storybook/addon-knobs": "^3.4.3",
+    "@storybook/addon-options": "^3.4.4",
     "@storybook/addons": "^3.4.0-alpha.8",
     "@storybook/angular": "^3.4.4",
     "babel-core": "^6.26.3",
