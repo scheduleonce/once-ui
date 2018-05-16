@@ -18,7 +18,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 // @dynamic
 @Component({
-  selector: 'app-drop-down',
+  selector: 'once-ui-dropdown',
   templateUrl: 'drop-down.component.html',
   styleUrls: ['drop-down.component.scss', 'border-less.component.scss'],
   encapsulation: ViewEncapsulation.None
