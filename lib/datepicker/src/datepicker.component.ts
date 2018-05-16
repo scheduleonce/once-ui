@@ -30,7 +30,9 @@ export const MY_FORMATS = {
   templateUrl: './datepicker.component.html',
   styleUrls: [
     './datepicker.component.scss',
-    '../../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css'],
+    '../../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css',
+    './materia2-extended.scss',
+    './border-less.component.scss'],
   providers: [
     {
       provide: DateAdapter,
@@ -45,6 +47,7 @@ export class DatepickerComponent implements OnInit {
   @Input() model: any;
   @Input() minDate?: any;
   @Input() maxDate?: any;
+  @Input() isBorderLess?: any;
   @Output() dateChangeEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
