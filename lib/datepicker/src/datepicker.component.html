@@ -7,7 +7,7 @@
          [matDatepicker]="picker"
          (click)="picker.open()"
          [formControl]="model"
-         (dateChange)="dateChange()">
+         (dateChange)="dateChange($event)">
   <div class="mat-form-field-suffix">
     <div class="mat-button-wrapper" (click)="picker.open()">
       <label [for]="picker"

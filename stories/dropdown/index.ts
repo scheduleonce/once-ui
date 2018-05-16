@@ -18,37 +18,36 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 const defaultValue = {
-    text: `leona`,
-    imageLink: 'https://cdnudaan.azureedge.net/images/navigationSprite.png',
-    value: '6'
+    text: `Dinesh rawat`,
+    imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636529704583406580_logo_OTExMzExNDQzNA==.png',
+    value: '1'
 };
 
 const  defaultOptions = [
     {
-        text: `MBPLabel`,
-        imageLink: '',
-        value: '1'
-    },
-    {
-        text: `MBPRequest`,
-        imageLink: 'https://cdnudaan.azureedge.net/images/navigationSprite.png',
+        text: `John`,
+        imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636620462253487372_logo_OTA0NTExNDQzNA==.png',
         value: '2'
     },
     {
-        text: `WithoutE`,
+        text: `Dinesh rawat`,
+        imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636529704583406580_logo_OTExMzExNDQzNA==.png',
+        value: '1'
+    },
+    {
+        text: `Luca Howard`,
+        imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636529703506387828_logo_OTgxNjExNDQzNA==.png',
         value: '3'
     },
     {
-        text: `leona`,
-        imageLink: 'https://cdnudaan.azureedge.net/images/navigationSprite.png',
-        value: '6'
-    }
+        text: `Joseph Reynolds`,
+        imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636620463669155955_sid_OTEzOTExNDQzNA==.png',
+        value: '4'
+    },
+
 ];
 
-const withBorder = 'with-Border';
-const withoutBorder = 'without-Border';
-
-storiesOf('DropDown', module)
+storiesOf('Dropdown', module)
     .addDecorator(moduleMetadata({
             imports: [
                 CommonModule,
@@ -67,20 +66,48 @@ storiesOf('DropDown', module)
         })
     )
     .addDecorator(withReadme(readmeFile))
-    .add('Default', () => ({
+    .add('default', () => ({
         component: DropDownComponent,
         props: {
-            options: object('options', defaultOptions, withBorder),
-            default: object('default', defaultValue, withBorder),
-            allowSearch: boolean('allowSearch', true, withBorder),
-            showImage: boolean('showImage', true, withBorder),
-            truncateTextAfter: number('truncateTextAfter', 0, withBorder),
-            searchPlaceholderText: text('searchPlaceholderText', 'Search your option here...', withBorder),
-            defaultOptionTitle: text('defaultOptionTitle', 'Please select option', withBorder),
-            fixedTitle: boolean('fixedTitle', false, withoutBorder),
-            isBorderLess: boolean('isBorderLess', true, withoutBorder),
-            customClick: action('clicked'),
-            borderBottomColor: text('borderBottomColor', 'green', withoutBorder),
-            disabledDropdown: boolean('disabledDropdown', false, withoutBorder)
+            options: object('options', defaultOptions),
+            default: object('default', defaultValue),
+            allowSearch: boolean('allowSearch', true),
+            showImage: boolean('showImage', true),
+            truncateTextAfter: number('truncateTextAfter', 0),
+            searchPlaceholderText: text('searchPlaceholderText', 'Search your option here...'),
+            defaultOptionTitle: text('defaultOptionTitle', 'Please select option'),
+            fixedTitle: boolean('fixedTitle', false),
+            isBorderLess: boolean('isBorderLess', false),
+            customClick: action('Option changed'),
+            borderBottomColor: text('borderBottomColor', '#008000'),
+            disabledDropdown: boolean('disabledDropdown', false),
+            selectedAndDisabledOptions: object('selectedAndDisabledOptions', [])
+        }
+    }))
+    .add('dropdown with borders', () => ({
+        component: DropDownComponent,
+        props: {
+            options: object('options', defaultOptions),
+            default: object('default', defaultValue),
+            allowSearch: boolean('allowSearch', true),
+            truncateTextAfter: number('truncateTextAfter', 0),
+            searchPlaceholderText: text('searchPlaceholderText', 'Search your option here...'),
+            defaultOptionTitle: text('defaultOptionTitle', 'Please select option'),
+            customClick: action('Option changed'),
+        }
+    }))
+    .add('dropdown without borders', () => ({
+        component: DropDownComponent,
+        props: {
+            options: object('options', defaultOptions),
+            default: object('default', defaultValue),
+            fixedTitle: boolean('fixedTitle', false),
+            isBorderLess: boolean('isBorderLess', true),
+            customClick: action('Option changed'),
+            borderBottomColor: text('borderBottomColor', '#008000'),
+            disabledDropdown: boolean('disabledDropdown', false),
+            selectedAndDisabledOptions: object('selectedAndDisabledOptions', []),
         }
     }));
+
+
