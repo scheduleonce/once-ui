@@ -12,6 +12,7 @@ import {
   MAT_DATE_LOCALE
 } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import * as moment from 'moment'
 
 export const MY_FORMATS = {
   parse: {
@@ -51,7 +52,10 @@ export class DatepickerComponent implements OnInit {
   @Output() dateChangeEvent: EventEmitter<any> = new EventEmitter<any>();
 
   constructor() {}
-
+  ngOnInit() {
+    this.minDate = moment(new Date(this.minDate));
+    this.maxDate = moment(new Date(this.maxDate));
+  }
   dateChange($event): void {
     let data = '';
     if($event && $event.value)
@@ -59,5 +63,4 @@ export class DatepickerComponent implements OnInit {
     this.dateChangeEvent.emit(data);
   }
 
-  ngOnInit() {}
 }
