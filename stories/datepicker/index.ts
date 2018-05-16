@@ -65,8 +65,8 @@ const stories = storiesOf('Datepicker', module)
         component: DatepickerComponent,
         props: {
             model: new FormControl(new Date()),
-            minDate: text('minDate', minDate),
-            maxDate: text('maxDate', maxDate),
+            minDate: text('minDate', '2018-06-15'),
+            maxDate: text('maxDate', '2019-06-15'),
             isBorderLess: boolean('isBorderLess', false),
             dateChangeEvent: action('Date changed'),
         }
