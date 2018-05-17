@@ -15,7 +15,6 @@
     "publish": "npm run build-npm && npm publish dist",
     "storybook": "start-storybook -s ./assets -p 9001 .storybook",
     "build": "build-storybook -s ./assets",
-    "prestart": "npm run build",
     "start": "node app.ts"
   },
   "keywords": [
