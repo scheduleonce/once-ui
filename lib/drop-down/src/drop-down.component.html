@@ -6,8 +6,8 @@
             [class.ddDefaultImageNotExists]="isImagePresent(default)"
             [ngStyle]="!isImagePresent(default) &&  {'background': 'url(' + default.imageLink + ')'}"></span>
       </span>
-      <span *ngIf="default && !fixedTitle" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === false"
-            [class.ellipseTheTextWithImage]="truncateTextAfter === false && showImage">{{default[key] || default.text | decode: truncateTextAfter }}</span>
+      <span *ngIf="default && !fixedTitle" class="img-caption-label" [class.ellipseTheText]="truncateTextAfter === 0"
+            [class.ellipseTheTextWithImage]="truncateTextAfter === 0 && showImage">{{default[key] || default.text | decode: truncateTextAfter }}</span>
       <span *ngIf="!default || fixedTitle" class="img-caption-label defaultTxt">{{defaultOptionTitle || 'Please select'}}</span></p>
   </div>
   <div class="dropdownMenu">
