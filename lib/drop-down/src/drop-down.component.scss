@@ -93,7 +93,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
  **********************************************************************************/
 .dropholder {
   width: 100%;
-  min-width: 134px;
+  min-width: 80px;
 }
 
 .dropdown > p {
@@ -170,7 +170,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   right: 0;
   margin: 0;
   display: none;
-  border: 1px solid #9c9c9c;
+  border: 1px solid #C8C8C8;
   border-top: none;
   z-index: 5;
   overflow: hidden;
@@ -191,7 +191,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     color: #333;
   }
   ul {
-    max-height: 310px;
+    max-height: 314px;
     min-height: 85px;
   }
   li {
@@ -294,8 +294,11 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   }
   p {
     margin-bottom: 0;
-    line-height: 24px;
+    line-height: 20px;
     @include nowrapText();
+    span.dd-value{
+      padding: 3px 0;
+    }
   }
 }
 
@@ -305,7 +308,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 
 .settingTranslate {
   .dropholder {
-    width: 310px;
+    width: 315px;
   }
   .tooltipContentStandard table td {
     padding: 3px 4px;
