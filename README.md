@@ -1,13 +1,13 @@
 # Library of UI components
 
-Various UI components that we are (or were) using at Scheduleonce/Inviteonce.
+Various UI components that we are using at Oncehub.
 
 ### Features:
 - No external dependencies (easy to use!),
 - Minimal styling (easy to customize!),
 - Great performance.
 
-For demos, see the [project page](https://storybooks-coming-soon.com).
+For demos, see the [project page](https://once-ui.azurewebsites.net).
 
 ### Available components:
 

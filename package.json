@@ -5,6 +5,7 @@
   "repository": "https://github.com/scheduleonce/ui-components.git",
   "bugs": "https://github.com/scheduleonce/ui-components/issues",
   "author": "so-dinesh-rawat <dinesh.rawat@scheduleonce.com>",
+  "typings":"index.d.ts",
   "engines": {
     "node": "8.x"
   },
