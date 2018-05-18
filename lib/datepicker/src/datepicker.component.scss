@@ -52,7 +52,7 @@
     .mat-button-wrapper {
       display: block;
       width: 34px;
-      height: 34px;
+      height: 32px;
       background: url("calendar-picker.svg") right 10px center no-repeat;
       svg {
         display: none;
@@ -88,7 +88,11 @@
 }
 
 .mat-datepicker-content{
-  border: 1px solid #9c9c9c;
+  border: 1px solid #C8C8C8;
+}
+
+.mat-datepicker-popup .mat-datepicker-content{
+  box-shadow: 0 1px 3px 0 #9b9b9b;
 }
 
 .mat-datepicker-popup .mat-datepicker-content{
@@ -100,7 +104,7 @@
 }
 
 .mat-form-field-wrapper .mat-input-element{
-  caret-color: #333;
+  caret-color: #fff;
 }
 
 .cdk-overlay-pane{
