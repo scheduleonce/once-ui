@@ -23,6 +23,9 @@ Example of simple usage:
 <once-ui-datepicker [(model)]="formControlObj"></once-ui-datepicker>
 ```
 
+
+## minDate and maxDate can be either moment date or simple YYYY-MM-DD date ex: 2018-06-01.
+
 Example of validation
 
 ```html

@@ -21,7 +21,9 @@ import * as moment from 'moment';
 import { DatepickerComponent } from '../../lib/datepicker/src/datepicker.component';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { withReadme, withDocs }  from 'storybook-readme';
-import * as ReadmeFile from '../../lib/datepicker/README.md';
+import * as readmeFile from '../../lib/datepicker/README.md';
+import { setOptions } from '@storybook/addon-options';
+
 export const MY_FORMATS = {
     parse: {
         dateInput: 'LL'
@@ -60,8 +62,9 @@ const stories = storiesOf('Datepicker', module)
         { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }],
         })
     )
-    .addDecorator(withReadme(ReadmeFile))
+    .addDecorator(withReadme(readmeFile))
     .add('default', () => ({
+        setOptions: setOptions({ showAddonPanel: true }),
         component: DatepickerComponent,
         props: {
             model: new FormControl(new Date()),
