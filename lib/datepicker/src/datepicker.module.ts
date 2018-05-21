@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DatepickerComponent } from './datepicker.component';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatDatepickerModule,
   MatFormFieldModule,
@@ -17,8 +16,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
-    ReactiveFormsModule,
-    NoopAnimationsModule
+    ReactiveFormsModule
   ],
   exports: [
     DatepickerComponent
