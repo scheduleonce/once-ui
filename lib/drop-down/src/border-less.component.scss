@@ -3,6 +3,7 @@
   opacity: .5;
 }
 .borderLessDropDown{
+  border-bottom: 1px solid #9c9c9c;
   .dropdown{
       border:none;
   }
@@ -11,6 +12,6 @@
   }
 }
 
-.borderLessDropDown{
-  border-bottom: 1px solid #9c9c9c;
+.borderLessDropDown.disabledDropdown{
+  border-color: #e4e4e4;
 }
