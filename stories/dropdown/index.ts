@@ -11,6 +11,7 @@ import { FilterPipe } from '../../lib/drop-down/src/filter.pipe';
 import { KeysPipe } from '../../lib/drop-down/src/keys.pipe';
 import { DecodePipe } from '../../lib/drop-down/src/html.pipe';
 import * as readmeFile from '../../lib/drop-down/README.md';
+import { setOptions } from '@storybook/addon-options';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     suppressScrollX: true,
@@ -41,7 +42,6 @@ const  defaultOptions = [
     },
     {
         text: `Joseph Reynolds`,
-        imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636620463669155955_sid_OTEzOTExNDQzNA==.png',
         value: '4'
     },
     {
@@ -62,11 +62,12 @@ const  defaultOptions = [
     },
     {
         text: `Jalen Moody`,
-        value: '9'
+        value: '9',
+        imageLink: 'https://d1xxq9cngjffd0.cloudfront.net/_636620463669155955_sid_OTEzOTExNDQzNA==.png',
     },
     {
         text: `Davon Robinson`,
-        value: '9'
+        value: '10'
     }
 
 ];
@@ -91,6 +92,7 @@ storiesOf('Dropdown', module)
     )
     .addDecorator(withReadme(readmeFile))
     .add('default', () => ({
+        setOptions: setOptions({ showAddonPanel: true }),
         component: DropDownComponent,
         props: {
             options: object('options', defaultOptions),
@@ -105,7 +107,7 @@ storiesOf('Dropdown', module)
             customClick: action('Option changed'),
             borderBottomColor: text('borderBottomColor', '#008000'),
             disabledDropdown: boolean('disabledDropdown', false),
-            selectedAndDisabledOptions: object('selectedAndDisabledOptions', [])
+            selectedAndDisabledOptions: object('selectedAndDisabledOptions', []),
         }
     }));
 
