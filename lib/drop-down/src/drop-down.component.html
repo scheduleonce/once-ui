@@ -11,8 +11,8 @@
       <span *ngIf="!default || fixedTitle" class="img-caption-label defaultTxt">{{defaultOptionTitle || 'Please select'}}</span></p>
   </div>
   <div class="dropdownMenu">
-    <div class="searchBoxOuter"  *ngIf="allowSearch && selectableOptions.length > searchBoxVisibiltyThreshold">
-      <input (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
+    <div class="searchBoxOuter" [hidden]="!(allowSearch && selectableOptions.length > searchBoxVisibiltyThreshold)">
+        <input (keyup)="searchOptions($event)" [value]="searchText" [placeholder]="searchPlaceholderText || ''"/>
     </div>
     <perfect-scrollbar class="scrollbar-active" [config]="config">
       <ul>
