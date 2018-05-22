@@ -25,8 +25,7 @@ $ npm i --save @once/ui
 ```
 ### How to use?
 ```sh
-import { DropDownModule } from '@once/ui/drop-down';
-import { DatepickerModule } from '@once/ui/datepicker';
+import { DropDownModule, DatepickerModule } from '@once/ui';
 
 @NgModule({
   imports: [
