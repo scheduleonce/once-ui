@@ -9,8 +9,7 @@ import * as readmeFile from '../../lib/drop-down/README.md';
     encapsulation: ViewEncapsulation.None
 })
 export class IntroductionComponent {
-    howToUse: any = `import { DropDownModule } from '@once/ui/drop-down';<br>
-        import { DatepickerModule } from '@once/ui/datepicker';<br><br>
+    howToUse: any = `import { DropDownModule, DatepickerModule } from '@once/ui/drop-down';<br><br>
 
         @NgModule({<br>
         &nbsp;&nbsp;imports: [<br>
