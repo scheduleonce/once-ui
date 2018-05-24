@@ -1,13 +1,13 @@
 /***********************************************************************************
 @ Reset Global CSS
  **********************************************************************************/
-*, :before, :after {
+once-ui-dropdown * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-*:focus {
+once-ui-dropdown:focus {
   outline: none;
 }
 
