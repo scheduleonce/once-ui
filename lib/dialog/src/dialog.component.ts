@@ -15,7 +15,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 @Component({
   selector: 'once-ui-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.css'],
+  styleUrls: ['./dialog.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class DialogComponent implements OnInit, OnChanges {
