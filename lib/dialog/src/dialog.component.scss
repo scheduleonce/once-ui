@@ -8,6 +8,7 @@
   z-index: -1;
   display: block;
 }
+
 .dialogModal {
   position: fixed;
   top: 0;
@@ -19,6 +20,7 @@
   padding: 60px;
   background-color: rgba(255, 255, 255, 0.8);
 }
+
 .dialog {
   background-color: #fff;
   max-width: 610px;
@@ -27,10 +29,12 @@
   margin: 0 auto;
   position: relative;
 }
+
 .set-style {
   max-width: 740px;
   width: 740px;
 }
+
 .newCrossIcon {
   margin-top: 1px;
   background: url('./smallIcons.png');
@@ -45,35 +49,38 @@
   text-indent: -9999px;
   margin-left: 8px;
 }
+
 .dialog .newCrossIcon {
   position: absolute;
   right: 22px;
   top: 21px;
 }
+
 .dialogBody {
   width: 100%;
   min-height: 30px;
   margin-bottom: 30px;
   line-height: 22px;
   padding: 0 22px;
-}
-.dialogBody p {
-  margin-bottom: 22px;
-}
-.dialogBody .newLocaleLabel {
-  display: block;
-  margin-top: 8px;
+  p {
+    margin-bottom: 22px;
+  }
+  .newLocaleLabel {
+    display: block;
+    margin-top: 8px;
+  }
 }
 
 .showDropDown {
   display: block;
 }
+
 .hideDropDown {
   display: none;
 }
+
 .dialog .newCrossIcon.disabledDiscard {
   pointer-events: none;
   cursor: default;
   opacity: 0.6;
 }
-
