@@ -40,7 +40,7 @@ export class DropDownComponent implements OnInit{
   @Input() searchPlaceholderText: string;
   @Input() fixedTitle =  false;
   @Input() disabledDropdown =  false;
-  @Output() change: EventEmitter<string> = new EventEmitter<string>();
+  @Output() isDropdownOpened: EventEmitter<string> = new EventEmitter<string>();
   @Output() customClick = new EventEmitter();
   searchText: string;
   selectableOptions: any;
@@ -67,6 +67,7 @@ export class DropDownComponent implements OnInit{
    * @param event
    */
   openDropdown(event) {
+    this.isDropdownOpened.emit();
     event.stopPropagation();
     const target = event.target;
     if (
