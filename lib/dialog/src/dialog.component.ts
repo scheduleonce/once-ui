@@ -1,72 +1,45 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation,
-  ViewChild,
-  ElementRef,
-  OnChanges,
-  Inject
+  Component
 } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+import {OnceDialogConfig} from './dialog-config';
+import {DialogService} from './dialog.service';
 
+
+/**
+ * Internal component that wraps user-provided dialog content.
+ */
 @Component({
   selector: 'once-ui-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  host: {
+    moduleId: module.id,
+    'class': 'onceUiDialogContainer',
+    'tabindex': '-1',
+    '[attr.id]': '_id',
+    '[attr.aria-label]': '_config.ariaLabel',
+  }
 })
-export class DialogComponent implements OnInit, OnChanges {
-  @Input() closable = true;
-  @Input() visible: boolean;
-  @Input() autoClose = true;
-  @Input() displayCloseCross = true;
-  @Input() processing = false;
-  @Input() setStyle = false;
-  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild('dialog') elementView: ElementRef;
-  dialogTop = 50;
-  dialogMargin: number;
-  internalVisible = false;
+export class DialogComponent {
+  custom: any = {};
+  system: any = {};
+  dialog:any;
 
-  constructor(@Inject(DOCUMENT) private document: any) {}
-
-  ngOnInit() {}
-
-  close() {
-    this.visible = false;
-    this.visibleChange.emit(this.visible);
+  /**
+   * @whatIsThisFor: System settings are for dialog internal use
+   */
+  constructor() {
+    this.system = OnceDialogConfig;
+    this.dialog = DialogService
   }
 
-  closeOnDiv() {
-    if (this.autoClose) {
-      this.visible = false;
-      this.visibleChange.emit(this.visible);
-    }
+  ngOnInit() {
+    debugger
+    console.log("I am in component.@.11");
+    this.custom = {header: 'rere', content: 'ss', footer: 'pppppppp'};
   }
 
-  ngOnChanges() {
-    if (this.visible) {
-      setTimeout(() => {
-        // Calculating dynamic position
-        this.dialogMargin = this.elementView
-          ? this.elementView.nativeElement.offsetHeight / 2 * -1
-          : 0;
-        const dialogHeight = this.elementView
-          ? this.elementView.nativeElement.offsetHeight + 120
-          : 0;
-        const clientHeight = document.documentElement.clientHeight;
-        if (dialogHeight >= clientHeight) {
-          this.dialogMargin = 0;
-          this.dialogTop = 0;
-        }
-        this.internalVisible = true; // Showing Dialog after calculating position
-        this.document.body.classList.add('dialogOpen');
-      });
-    } else {
-      this.document.body.classList.remove('dialogOpen');
-    }
+  open() {
+    debugger;
+    this.ngOnInit();
   }
 }
