@@ -1,0 +1,15 @@
+<h2>Testssssssssssssss</h2>
+<!--OnceUi header-->
+<once-ui-dialog-header
+        *ngIf="custom && custom.header"
+        [headerSettings]="custom.header"></once-ui-dialog-header>
+
+<!--OnceUi content-->
+<once-ui-dialog-content
+        *ngIf="custom && custom.content"
+        [contentSettings]="custom.content"></once-ui-dialog-content>
+
+<!--OnceUi footer-->
+<once-ui-dialog-footer
+        *ngIf="custom && custom.footer"
+        [footerSettings]="custom.footer"></once-ui-dialog-footer>
