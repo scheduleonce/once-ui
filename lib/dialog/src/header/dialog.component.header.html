@@ -3,7 +3,7 @@
   <label *ngIf="headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
 
   <div class="so-ui-btn-combos">
-    <div *ngIf="headerSettings.actions">
+    <div *ngIf="headerSettings.actions && headerSettings.actions.icons && headerSettings.actions.icons.length < 3">
       <a
         *ngFor="let custom of headerSettings.actions.icons; index as i;"
         [attr.title]="
