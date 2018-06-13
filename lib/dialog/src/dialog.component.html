@@ -1,7 +1,21 @@
-<div *ngIf="visible" [style.visibility]="internalVisible ? 'visible' : 'hidden'" class="dialogModal" >
-  <div class="dialog soConfirmPopup" #dialog [style.marginTop.px]="dialogMargin" [style.top.%]="dialogTop" [ngClass]="{'set-style':setStyle}">
-    <ng-content></ng-content>
-    <button *ngIf="closable && displayCloseCross" title="Close" (click)="close()" [disabled]="processing" [class.disabledDiscard]="processing" aria-label="Close" class="newCrossIcon"></button>
-  </div>
-  <div *ngIf="visible" class="overlay" (click)="closeOnDiv()"></div>
-</div>
+<section class="once-ui-dialog-modal">
+    <div class="once-ui-dialog once-ui-confirm-popup">
+        <!--OnceUi header-->
+        <once-ui-dialog-header
+                *ngIf="custom && custom.header"
+                [headerSettings]="custom.header"></once-ui-dialog-header>
+
+        <!--OnceUi content-->
+        <once-ui-dialog-content
+                *ngIf="custom && custom.content"
+                [contentSettings]="custom.content"></once-ui-dialog-content>
+
+        <!--OnceUi footer-->
+        <once-ui-dialog-footer
+                *ngIf="custom && custom.footer"
+                [footerSettings]="custom.footer"></once-ui-dialog-footer>
+
+        <!--Overlay-->
+        <div class="once-ui-overlay" (click)="closeOnDiv()"></div>
+    </div>
+</section>
