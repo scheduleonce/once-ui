@@ -9,7 +9,7 @@ import {OnceDialogConfig} from '../dialog-config';
  */
 @Component({
     selector: 'once-ui-dialog-content',
-    templateUrl: './dialog.content.component.html',
+    templateUrl: 'dialog.content.component.html',
     host: {
         'class': 'onceUiDialogContent'
     }

@@ -11,6 +11,7 @@ import { DialogComponent } from './dialog.component';
 import { DialogHeaderComponent } from './header/dialog.header.component';
 import { DialogFooterComponent } from './footer/dialog.footer.component';
 import { DialogContentComponent } from './content/dialog.content.component';
+import { OnceDialogConfig } from './dialog-config';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { DialogContentComponent } from './content/dialog.content.component';
     DialogFooterComponent,
     DialogContentComponent
   ],
-  entryComponents: [DialogComponent]
+  entryComponents: [DialogComponent],
+  providers: [OnceDialogConfig]
 })
 export class DialogModule {}

@@ -1,22 +1,32 @@
 import {
-    Component,
-    Input
+  Component,
+  Input
 } from '@angular/core';
 import {OnceDialogConfig} from '../dialog-config';
+import {DialogService} from '../dialog.service';
 
 /**
  * Header component that wraps header section
  */
 @Component({
-    selector: 'once-ui-dialog-header',
-    templateUrl: './dialog.component.header.html',
-    host: {
-        'class': 'onceUiDialogHeader'
-    }
+  selector: 'once-ui-dialog-header',
+  templateUrl: 'dialog.component.header.html',
+  host: {
+    'class': 'onceUiDialogHeader'
+  }
 })
 export class DialogHeaderComponent {
-    @Input() headerSettings: string;
+  @Input() headerSettings: any;
+  _config: any;
 
-    constructor(public _config: OnceDialogConfig) {
-    }
+  constructor(public _settings: OnceDialogConfig, public dialog: DialogService) {
+    this._config = _settings.header;
+  }
+
+  /**
+   * Close event from header
+   */
+  close() {
+    this.dialog.close();
+  }
 }
