@@ -1,6 +1,20 @@
 <div class="once-ui-modal-header">
-    <label>Title Heading</label>
-    <div class="so-ui-btn-combos">
-        buttons here
-    </div>
+  <img *ngIf="headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"/>
+  <label *ngIf="headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
+
+  <div class="so-ui-btn-combos">
+    <a
+      *ngFor="let system of _config.actions.icons; index as i;"
+      [attr.title]="headerSettings.actions &&
+        headerSettings.actions.icons &&
+        headerSettings.actions.icons[i] &&
+        headerSettings.actions.icons[i].tooltip ?
+        headerSettings.actions.icons[i].tooltip:
+        system.tooltip"
+        class="{{system.className}}"
+        [attr.href]="system.href ? system.href : null"
+        target="{{system.target}}"
+        (click)="i === _config.actions.icons.length-1?
+        close(): ''"></a>
+  </div>
 </div>
