@@ -2,6 +2,7 @@
     <div class="once-ui-dialog once-ui-confirm-popup">
         <!--OnceUi header-->
         <once-ui-dialog-header
+                #close
                 *ngIf="custom && custom.header"
                 [headerSettings]="custom.header"></once-ui-dialog-header>
 
@@ -16,6 +17,6 @@
                 [footerSettings]="custom.footer"></once-ui-dialog-footer>
 
         <!--Overlay-->
-        <div class="once-ui-overlay"></div>
+        <once-ui-dialog-overlay></once-ui-dialog-overlay>
     </div>
 </section>

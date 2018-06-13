@@ -1,7 +1,6 @@
 import {
   Component
 } from '@angular/core';
-import {OnceDialogConfig} from './dialog-config';
 
 /**
  * Internal component that wraps user-provided dialog content.

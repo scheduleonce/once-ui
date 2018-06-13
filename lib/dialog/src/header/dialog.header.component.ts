@@ -12,7 +12,7 @@ import {DialogService} from '../dialog.service';
   selector: 'once-ui-dialog-header',
   templateUrl: 'dialog.component.header.html',
   host: {
-    'class': 'onceUiDialogHeader'
+    'class': 'onceUiDialogOverlay'
   }
 })
 export class DialogHeaderComponent {

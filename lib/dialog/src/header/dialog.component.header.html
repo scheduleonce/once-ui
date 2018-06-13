@@ -1,20 +1,30 @@
 <div class="once-ui-modal-header">
-  <img *ngIf="headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"/>
+  <img *ngIf="headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}" alt="{{headerSettings.title}}"/>
   <label *ngIf="headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
 
   <div class="so-ui-btn-combos">
+    <div *ngIf="headerSettings.actions">
+      <a
+        *ngFor="let custom of headerSettings.actions.icons; index as i;"
+        [attr.title]="
+        custom.tooltip ?
+        custom.tooltip:
+        _config.actions.icons[i].tooltip"
+        [attr.ariaLabel]="custom.tooltip ?
+        custom.tooltip:
+        _config.actions.icons[i].tooltip"
+        class="{{_config.actions.icons[i].className}}"
+        [attr.href]="custom.href ?
+        custom.href:
+        _config.actions.icons[i].href"
+        [attr.target]="custom.target ?
+        custom.target:
+        _config.actions.icons[i].target"></a>
+    </div>
     <a
-      *ngFor="let system of _config.actions.icons; index as i;"
-      [attr.title]="headerSettings.actions &&
-        headerSettings.actions.icons &&
-        headerSettings.actions.icons[i] &&
-        headerSettings.actions.icons[i].tooltip ?
-        headerSettings.actions.icons[i].tooltip:
-        system.tooltip"
-        class="{{system.className}}"
-        [attr.href]="system.href ? system.href : null"
-        target="{{system.target}}"
-        (click)="i === _config.actions.icons.length-1?
-        close(): ''"></a>
+      title="{{_config.actions.icons[2].tooltip}}"
+      class="{{_config.actions.icons[2].className}}"
+      [attr.ariaLabel]="_config.actions.icons[2].tooltip"
+      (click)="close()"></a>
   </div>
 </div>
