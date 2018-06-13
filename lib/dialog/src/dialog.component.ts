@@ -1,72 +1,17 @@
 import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ViewEncapsulation,
-  ViewChild,
-  ElementRef,
-  OnChanges,
-  Inject
+  Component
 } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
 
+/**
+ * Internal component that wraps user-provided dialog content.
+ */
 @Component({
   selector: 'once-ui-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: 'dialog.component.html',
+  host: {
+    'class': 'onceUiDialogContainer',
+    'tabindex': '-1'
+  }
 })
-export class DialogComponent implements OnInit, OnChanges {
-  @Input() closable = true;
-  @Input() visible: boolean;
-  @Input() autoClose = true;
-  @Input() displayCloseCross = true;
-  @Input() processing = false;
-  @Input() setStyle = false;
-  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @ViewChild('dialog') elementView: ElementRef;
-  dialogTop = 50;
-  dialogMargin: number;
-  internalVisible = false;
-
-  constructor(@Inject(DOCUMENT) private document: any) {}
-
-  ngOnInit() {}
-
-  close() {
-    this.visible = false;
-    this.visibleChange.emit(this.visible);
-  }
-
-  closeOnDiv() {
-    if (this.autoClose) {
-      this.visible = false;
-      this.visibleChange.emit(this.visible);
-    }
-  }
-
-  ngOnChanges() {
-    if (this.visible) {
-      setTimeout(() => {
-        // Calculating dynamic position
-        this.dialogMargin = this.elementView
-          ? this.elementView.nativeElement.offsetHeight / 2 * -1
-          : 0;
-        const dialogHeight = this.elementView
-          ? this.elementView.nativeElement.offsetHeight + 120
-          : 0;
-        const clientHeight = document.documentElement.clientHeight;
-        if (dialogHeight >= clientHeight) {
-          this.dialogMargin = 0;
-          this.dialogTop = 0;
-        }
-        this.internalVisible = true; // Showing Dialog after calculating position
-        this.document.body.classList.add('dialogOpen');
-      });
-    } else {
-      this.document.body.classList.remove('dialogOpen');
-    }
-  }
+export class DialogComponent {
 }
