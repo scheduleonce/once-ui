@@ -17,11 +17,20 @@ export class DialogService {
                 private injector: Injector) {
     }
 
-    appendComponentToBody(component: any) {
+    /**
+     * @whatIsThisFor: Adding dialog component to body
+     * @param component
+     * @param customSettings
+     */
+    appendComponentToBody(component: any, customSettings: any = {}) {
         // 1. Create a component reference from the component
         this.componentRef = this.componentFactoryResolver
-            .resolveComponentFactory(component)
+            .resolveComponentFactory(DialogComponent)
             .create(this.injector);
+
+        // Bind data
+        this.componentRef.instance.custom = customSettings;
+
 
         // 2. Attach component to the appRef so that it's inside the ng component tree
         this.appRef.attachView(this.componentRef.hostView);
@@ -32,12 +41,22 @@ export class DialogService {
 
         // 4. Append DOM element to the body
         document.body.appendChild(domElem);
+
+        // Detect any change
+        this.componentRef.changeDetectorRef.detectChanges()
     }
 
-    open() {
-        this.appendComponentToBody(DialogComponent)
+    /**
+     * @whatIsThisFor: Opens the dialog
+     */
+    open(content: any = null, customSettings: any = {}) {
+        this.appendComponentToBody(content, customSettings);
+        return this.componentRef;
     }
 
+    /**
+     * @whatIsThisFor: Close the dialog
+     */
     close() {
         this.appRef.detachView(this.componentRef.hostView);
         this.componentRef.destroy();

@@ -29,17 +29,17 @@ export interface Actions {
     separator: '|';
     icons?: [{
         tooltip: 'Video',
-        className: 'once-ui-dialog-video',
+        className: 'once-ui-action-icons once-ui-video-icon',
         href: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
         target: '_blank'
     }, {
         tooltip: 'Article',
-        className: 'once-ui-dialog-article',
+        className: 'once-ui-action-icons once-ui-help-icon',
         href: 'https://www.scheduleonce.com/',
         target: '_blank'
     }, {
         tooltip: 'Close',
-        className: 'once-ui-dialog-close',
+        className: 'once-ui-action-icons once-ui-cross-icon',
         href: 'javascript:void(0)'
         click: 'this.close()'
     }];
@@ -117,9 +117,6 @@ export class OnceDialogConfig {
 
     /** Data being injected into the child component. */
     data = null;
-
-    /** Aria label to assign to the dialog element */
-    ariaLabel?: string | null = null;
 
     /** Whether the dialog should focus the first focusable element on open. */
     autoFocus?: boolean = true;

@@ -1,15 +1,21 @@
-<h2>Testssssssssssssss</h2>
-<!--OnceUi header-->
-<once-ui-dialog-header
-        *ngIf="custom && custom.header"
-        [headerSettings]="custom.header"></once-ui-dialog-header>
+<section class="once-ui-dialog-modal">
+    <div class="once-ui-dialog once-ui-confirm-popup">
+        <!--OnceUi header-->
+        <once-ui-dialog-header
+                *ngIf="custom && custom.header"
+                [headerSettings]="custom.header"></once-ui-dialog-header>
 
-<!--OnceUi content-->
-<once-ui-dialog-content
-        *ngIf="custom && custom.content"
-        [contentSettings]="custom.content"></once-ui-dialog-content>
+        <!--OnceUi content-->
+        <once-ui-dialog-content
+                *ngIf="custom && custom.content"
+                [contentSettings]="custom.content"></once-ui-dialog-content>
 
-<!--OnceUi footer-->
-<once-ui-dialog-footer
-        *ngIf="custom && custom.footer"
-        [footerSettings]="custom.footer"></once-ui-dialog-footer>
+        <!--OnceUi footer-->
+        <once-ui-dialog-footer
+                *ngIf="custom && custom.footer"
+                [footerSettings]="custom.footer"></once-ui-dialog-footer>
+
+        <!--Overlay-->
+        <div class="once-ui-overlay" (click)="closeOnDiv()"></div>
+    </div>
+</section>
