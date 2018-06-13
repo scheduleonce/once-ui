@@ -12,15 +12,11 @@ import {DialogService} from './dialog.service';
   selector: 'once-ui-dialog',
   templateUrl: './dialog.component.html',
   host: {
-    moduleId: module.id,
     'class': 'onceUiDialogContainer',
-    'tabindex': '-1',
-    '[attr.id]': '_id',
-    '[attr.aria-label]': '_config.ariaLabel',
+    'tabindex': '-1'
   }
 })
 export class DialogComponent {
-  custom: any = {};
   system: any = {};
   dialog:any;
 
@@ -29,17 +25,6 @@ export class DialogComponent {
    */
   constructor() {
     this.system = OnceDialogConfig;
-    this.dialog = DialogService
-  }
-
-  ngOnInit() {
-    debugger
-    console.log("I am in component.@.11");
-    this.custom = {header: 'rere', content: 'ss', footer: 'pppppppp'};
-  }
-
-  open() {
-    debugger;
-    this.ngOnInit();
+    this.dialog = DialogService;
   }
 }
