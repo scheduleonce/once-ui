@@ -1,4 +1,6 @@
-<section class="once-ui-dialog-modal">
+<!--Dialog content-->
+<section class="once-ui-dialog-modal"
+         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'">
     <div class="once-ui-dialog once-ui-confirm-popup">
         <!--OnceUi header-->
         <once-ui-dialog-header
