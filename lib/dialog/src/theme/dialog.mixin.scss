@@ -1,0 +1,33 @@
+/***********************************************************************************
+@ Dialog mixins and variable
+ **********************************************************************************/
+ 
+@mixin themeColor($color-default) {
+   background: $color-default;
+   color: $color-default;
+}
+ 
+@mixin secondaryBtn($color-default) {
+   border: 1px solid $color-default !important;
+   color: $color-default !important;
+}
+ 
+@mixin preventTextSelectionOnDoubleClick() {
+   -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+   -moz-user-select: none; /* mozilla browsers */
+   -ms-user-select: none; /* IE10+ */
+   -o-user-select: none;
+   user-select: none;
+}
+ 
+@mixin makeCursorDefault($type) {
+   cursor: $type;
+}
+ 
+@mixin positionType($position,$top,$left,$right,$bottom) {
+   position: $position;
+   top: $top;
+   left: $left;
+   right: $right;
+   bottom: $bottom;
+}

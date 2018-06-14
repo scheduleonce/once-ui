@@ -1,0 +1,65 @@
+@import "../theme/dialog.theme.scss"; // Including Theme
+
+.once-ui-modal-header {
+    font-size: 22px;
+    line-height: 30px;
+    padding: 22px 22px 30px 22px;
+    img{
+      height: 30px;
+      margin-right: 10px;
+      float: left;
+    }
+    label{
+        width: calc(100% - 120px);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        display: block;
+    }
+    .so-ui-btn-combos{
+        @include positionType(absolute,21px,auto,22px,auto);
+        .once-ui-action-icons {
+          margin-top: 1px;
+          border: 0;
+          float: right;
+          background-repeat: no-repeat;
+          background-color: #fff;
+          @include makeCursorDefault(pointer);
+          padding-left: 14px;
+          outline: 0;
+          width: 19px;
+          height: 19px;
+          background-position: right center;
+          display: block;
+          box-sizing: content-box;
+        }
+        .once-ui-cross-icon{
+          background-image: url('./../theme/images/x-close.svg');
+          width: 12px;
+        }
+        .once-ui-video-icon{
+          background-image: url('./../theme/images/video-blue.svg');
+          background-position: left center;
+        }
+        .once-ui-help-icon{
+          background-image: url('./../theme/images/help.svg');
+        }
+        .once-ui-action-icons.disabledDiscard {
+          pointer-events: none;
+          @include makeCursorDefault(default);
+          opacity: 0.6;
+        }
+        span{
+            a{
+                float: left;
+                padding-left: 0px;
+                padding-right: 8px;
+                &:last-child{
+                    padding-left: 8px;
+                    padding-right: 0;
+                    border-left: 1px solid #ccc;
+                }
+            }
+        }
+    }
+}
