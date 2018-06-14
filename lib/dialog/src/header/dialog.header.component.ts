@@ -11,6 +11,7 @@ import {DialogService} from '../dialog.service';
 @Component({
   selector: 'once-ui-dialog-header',
   templateUrl: 'dialog.component.header.html',
+  styleUrls: ['./dialog.header.component.scss'],
   host: {
     'class': 'onceUiDialogOverlay'
   }
