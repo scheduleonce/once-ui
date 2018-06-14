@@ -10,6 +10,7 @@ import {OnceDialogConfig} from '../dialog-config';
 @Component({
     selector: 'once-ui-dialog-footer',
     templateUrl: 'dialog.component.footer.html',
+    styleUrls: ['./dialog.footer.component.scss'],
     host: {
         'class': 'onceUiDialogFooter'
     }
