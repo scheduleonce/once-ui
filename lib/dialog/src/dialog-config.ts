@@ -30,7 +30,7 @@ export class OnceDialogConfig {
   /** Footer section */
   footer?: {
     buttons: any;
-    links: any;
+    linkButtons: any;
   };
 
   /** Name of the themes */
