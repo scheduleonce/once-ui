@@ -3,11 +3,12 @@
 .once-ui-modal-header {
     font-size: 22px;
     line-height: 30px;
-    padding: 22px 22px 30px 22px;
+    padding: 0px 22px 30px 22px;
     img{
-      height: 30px;
+      max-height: 30px;
       margin-right: 10px;
       float: left;
+      min-height: 20px;
     }
     label{
         width: calc(100% - 120px);
@@ -15,6 +16,7 @@
         overflow: hidden;
         white-space: nowrap;
         display: block;
+        line-height: 20px;
     }
     .so-ui-btn-combos{
         @include positionType(absolute,21px,auto,22px,auto);
@@ -54,10 +56,11 @@
                 float: left;
                 padding-left: 0px;
                 padding-right: 8px;
+                border-right: 1px solid #ccc;
                 &:last-child{
                     padding-left: 8px;
                     padding-right: 0;
-                    border-left: 1px solid #ccc;
+                    border:none;
                 }
             }
         }
