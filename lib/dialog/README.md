@@ -2,19 +2,13 @@
 
 The component deals with the popup/dialog shared angular component. 
 
-# Features
-- Dialog box with dynamic content
-- Variable positioning of dialog box
-- Overlay based on user's requirement
-
-
 ## Getting started
 
 ```js
 import { DialogModule } from '@once/ui';
 ````
 
-The only remaining part is to list the imported module in your application module.:
+### Usage
 
 ```js
 import { DialogModule, DialogService } from '@once/ui';
@@ -34,7 +28,7 @@ import { DialogModule, DialogService } from '@once/ui';
 | [header]       | object         | null                 | no       | Header section: `IHEADER`|               |
 | [footer]       | object         | null                 | no       | Footer section: `IFOOTER`|               |
 | [size]       | string         | small                 | no       | Dialog box size|               |
-| [theme]       | string         | once-ui-theme-blue                 | no       | Name of the themes|               |
+| [theme]       | string         | once-ui-theme-blue                 | no       | Name of the themes (once-ui-theme-blue, once-ui-theme-green)|               |
 | [modal]       | boolean         | false                 | no       | If `true` make the dialog a modal|               |
 
 ##### HEADER :: IHEADER
@@ -63,10 +57,10 @@ import { DialogModule, DialogService } from '@once/ui';
 ##
 | Description | 
 |-------------|
-|Opens a modal dialog containing the given component.|
+|Opens a dialog/popup containing the given component or template.|
 
-Dialog can be opened by calling following params
-
+##### Params:
+#
 
 | Parameters        |      Description         |
 |-------------------| -------------------------|
@@ -78,89 +72,119 @@ Dialog can be opened by calling following params
 |Open dialog box instance|
 
 
-        
+##### Basic example using component
 
-### Basic example using component
+- Import TestingComponent in the module
+- Declare TestingComponent in entryComponents
+###### any.module.ts
+#
+
 ```js
-component.ts
-
-@Component({
-  selector: 'dialog-example',
-  templateUrl: 'dialog-example.html',
-  styleUrls: ['dialog-example.css'],
-})
-export class DialogExample {
-  firstname: string;
-  constructor(public dialog: MatDialog) {}
-  openModal(): void {
-    let dialogRef = this.dialog.open(MyDialogComponent, {
-      width: '250px',
-      data: {firstname: this.firstname }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.firstname = result;
-    });
-  }
-}
-
-@Component({
-  selector: 'my-dialog-component',
-  templateUrl: 'my-dialog-component.html',
-})
-export class MyDialogComponent {
-  constructor(
-    public dialogRef: MatDialogRef<MyDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
- }
-
-
-template.html:
-
-<ol>
-  <li>
-<button mat-raised-button (click)="openModal()">Open Dialog box</button>
-  </li>
-  <li *ngIf="firstname">
-    Firstname: <i>{{firstname}}</i>
-  </li>
-</ol>
-
+import { TestingComponent } from './testing/testing.component';
+@NgModule({
+  entryComponents: [TestingComponent]
+});
 ```
-### Basic example using template reference
+
+###### component.ts 
+#
+
+
+```js 
+openDialog(){
+this.dialog.open(TestingComponent, {
+      modal: true,
+      header: {
+        video: {
+          tooltip: 'Video',
+          link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        },
+        close: {
+          tooltip: 'Close'
+        }
+      }
+    });
+}
+```
+
+##### Basic example using template reference
+- Import Dialog Service
+- Use @ViewChild to get the element from the view DOM
+
+###### component.ts
+#
 
 ```js
+import {DialogService} from './dialog/src/dialog.service';
+@ViewChild('vertex') element: ElementRef;
 
-component.ts
-
-openModal(templateRef) {
-        let dialogRef = this.dialog.open(templateRef, {
-            width: '250px',
-             data: { firstname: this.firstname, lastname: this.lastname }
-        });
-
-        dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-             this.firstname = result;
-        });
+constructor(private dialog: DialogService) {
 }
 
-template.html
- <ol>
- <li>
-<button (click)="openModal(mytemplate)">Open my template</button>
-</li>
-<ng-template #mytemplate>
-        <h1>Dialog Box</h1>
-        <li *ngIf="firstname">
-        Firstname: <i>{{firstname}}</i>
-       </li>
-</ng-template>
-</ol>
+openDialog() {
+this.dialog.open(this.element, {
+      title: {
+        text: "Header Title",
+        icon: 'https://cloudinary-res.cloudinary.com/image/upload/c_fit,dpr_auto,h_100,w_85/v1501276210/ico-image-upload2x-170x201.png'
+      },
+      header: {
+        article: {
+          tooltip: 'article',
+          link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        },
+        video: {
+          tooltip: 'Video',
+          link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        },
+        close: {
+          tooltip: 'Close'
+        }
+      },
+      footer: {
+        linkButtons: [
+          {
+            tooltip: 'tooltip text',
+            text: 'Link text to show',
+            disabled: false,
+            callback: function(){
+            }
+          },
+          {
+            tooltip: 'tooltip text',
+            text: 'Link text to show',
+            disabled: true,
+            callback: function(){
+            }
+          }
+        ],
+        buttons: [
+          {
+            tooltip: 'Button tooltip text',
+            text: 'Button text to show',
+            disabled: true,
+            callback: function(){
+            }
+          },
+          {
+            tooltip: 'Button tooltip text',
+            text: 'Button text to show',
+            disabled: true,
+            callback: function(){
+            }
+          }
+        ]
+        }
+    });
+}
+```
+
+######  template.html
+#
+```js
+<div #vertex style="display:none">
+Dialog box content goes here...
+<h1>Content..</h1>
+</div>
 ```
 
 ##### 2) Close()
@@ -172,9 +196,12 @@ template.html
 ### Basic example
 
 ```js
-constructor(private dialogRef:MatDialogRef<MyDialogComponent>){ }
+import {DialogService} from '../dialog.service';
 
-closeDialog(){
-  this.dialogRef.close();
+constructor(public dialog: DialogService) {
+}
+
+close() {
+  this.dialog.close();
 }
 ```
