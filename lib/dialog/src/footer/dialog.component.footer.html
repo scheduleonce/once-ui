@@ -3,22 +3,22 @@
     <div class="once-ui-btn-row">
         <!-- Links -->
         <div class="once-ui-buttons" *ngIf="footerSettings && footerSettings.buttons && footerSettings.buttons.length>0">
-            <a *ngFor="let button of footerSettings.buttons; index as i;"
-               title="{{button.tooltip}}"
-               [attr.class]="i>0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'"
-               (click)="button.callback(button)"
-               class="once-ui-cancel">{{button.text}}
-            </a>
+            <button *ngFor="let button of footerSettings.buttons; index as i;"
+                    title="{{button.tooltip}}"
+                    [disabled]="button.disabled"
+                    [attr.class]="i>0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'"
+                    (click)="button.callback && button.callback()"
+                    class="once-ui-cancel">{{button.text}}
+            </button>
         </div>
         <!--Buttons-->
-        <div class="once-ui-links" *ngIf="footerSettings && footerSettings.links && footerSettings.links.length>0">
-            <a *ngFor="let link of footerSettings.links;"
-                [attr.href]="link.href || null"
-                [attr.target]="link.target ?link.target:'_blank'"
-                title="{{link.tooltip}}"
-                (click)="link.callback(link)"
-                class="once-ui-cancel">
-                {{link.text}}</a>
+        <div class="once-ui-links" *ngIf="footerSettings && footerSettings.linkButtons && footerSettings.linkButtons.length>0">
+            <button *ngFor="let link of footerSettings.linkButtons;"
+                    [disabled]="link.disabled"
+                    title="{{link.tooltip}}"
+                    (click)="link.callback && link.callback()"
+                    class="once-ui-cancel">
+                {{link.text}}</button>
         </div>
         <div class="clearfix"></div>
     </div>
