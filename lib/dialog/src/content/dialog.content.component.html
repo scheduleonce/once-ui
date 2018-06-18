@@ -1,1 +1,9 @@
-<div class="once-ui-dialog-body" [innerHTML]="content.innerHTML? content.innerHTML: content" id="once-ui-dialog-body"></div>
+<!--Component-->
+<div *ngIf="content.isAComponent" id="loadComponent"></div>
+
+<!--Template url/normal text/html-->
+<div
+  *ngIf="!content.isAComponent"
+  class="once-ui-dialog-body"
+  [innerHTML]="content.innerHTML? content.innerHTML: content"
+  id="once-ui-dialog-body"></div>
