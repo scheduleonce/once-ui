@@ -47,6 +47,7 @@ import { DropDownModule } from '@once/ui';
 | [truncateTextAfter]            | string          | `number`                  | no       | If non-zero then truncate the option value and suffix it with three dots (...).
 | [selectedOption]            | string          | `number`                  | no       | If non-zero then makes a particular option selected.
 | [customClick]    | Function        | `false`                 | no       | Allow to create custom click function that is invoked onChange event of drop down.                  |
+| [isDropdownOpened]    | Function        | `false`                 | no       | Event emits when dd is opened.                  |
 | [defaultOptionTitle]    | string        | `text`                 | no       | Value to show in dd option if it has no options present or when only fixed text needed to be shown([fixedTitle] should be `true` for this). If attribute is not defined, it will display ‘Please select’ by default.                  |
 | [searchPlaceholderText]    | string        | `Search`                 | no       | Placeholder for search input field. Visible, only if [allowSearch] is true.                 |
 | [isBorderLess]    | boolean        | `false`                 | no       | Set left/top/right border to none.                  |

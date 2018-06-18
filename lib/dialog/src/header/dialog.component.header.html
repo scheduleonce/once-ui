@@ -1,0 +1,37 @@
+<!--Header section with title and actions-->
+<div class="once-ui-modal-header">
+  <img *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
+       alt="{{headerSettings.title}}"/>
+  <label
+    *ngIf="headerSettings && headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
+
+  <div class="so-ui-btn-combos">
+    <!--Video/article links-->
+    <span *ngIf="headerSettings">
+        <!--Video link-->
+        <a
+          *ngIf="headerSettings.video"
+          title="{{headerSettings.video.tooltip || _config.video.tooltip}}"
+          class="once-ui-action-icons once-ui-video-icon"
+          [attr.ariaLabel]="headerSettings.video.tooltip || _config.video.tooltip"
+          href="{{headerSettings.video.link || _config.video.link}}"
+          target='_blank'></a>
+
+          <!--Article link-->
+        <a
+          *ngIf="headerSettings.article"
+          title="{{headerSettings.article.tooltip || _config.article.tooltip}}"
+          class="once-ui-action-icons once-ui-help-icon"
+          [attr.ariaLabel]="headerSettings.article.tooltip || _config.article.tooltip"
+          href="{{headerSettings.article.link || _config.article.link}}"
+          target='_blank'></a>
+    </span>
+
+    <!--Close link-->
+    <a
+      title="{{_config.close.tooltip}}"
+      class="once-ui-action-icons once-ui-cross-icon"
+      [attr.ariaLabel]="_config.close.tooltip"
+      (click)="close()"></a>
+  </div>
+</div>
