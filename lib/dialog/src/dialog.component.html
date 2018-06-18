@@ -1,10 +1,11 @@
+<div #parent></div>
 <!--Dialog content-->
 <section class="once-ui-dialog-modal"
          [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'">
     <div class="once-ui-dialog once-ui-confirm-popup" #dialog [style.marginTop.px]="dialogMargin" [style.top.%]="dialogTop" [ngClass]="{'set-style':setStyle}">
         <!--OnceUi header-->
         <once-ui-dialog-header
-                *ngIf="custom && custom.header"
+                *ngIf="custom"
                 [headerSettings]="custom.header"></once-ui-dialog-header>
 
         <!--OnceUi content-->
@@ -14,7 +15,7 @@
 
         <!--OnceUi footer-->
         <once-ui-dialog-footer
-                *ngIf="custom && custom.footer"
+                *ngIf="custom"
                 [footerSettings]="custom.footer"></once-ui-dialog-footer>
 
         <!--Overlay-->

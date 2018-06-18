@@ -2,7 +2,7 @@
 <div class="once-ui-modal-footer">
     <div class="once-ui-btn-row">
         <!-- Links -->
-        <div *ngIf="footerSettings.buttons.length>0">
+        <div *ngIf="footerSettings && footerSettings.buttons && footerSettings.buttons.length>0">
             <a *ngFor="let button of footerSettings.buttons; index as i;"
                title="{{button.tooltip}}"
                [attr.class]="i>0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'"
@@ -11,7 +11,7 @@
             </a>
         </div>
         <!--Buttons-->
-        <div *ngIf="footerSettings.links.length>0">
+        <div *ngIf="footerSettings && footerSettings.links && footerSettings.links.length>0">
             <a *ngFor="let link of footerSettings.links;"
                 [attr.href]="link.href || null"
                 [attr.target]="link.target ?link.target:'_blank'"
