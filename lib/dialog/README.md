@@ -91,6 +91,8 @@ import { TestingComponent } from './testing/testing.component';
 
 
 ```js 
+export class MyComponent {
+
 openDialog(){
 this.dialog.open(TestingComponent, {
       modal: true,
@@ -105,6 +107,7 @@ this.dialog.open(TestingComponent, {
       }
     });
 }
+}
 ```
 
 ##### Basic example using template reference
@@ -116,6 +119,9 @@ this.dialog.open(TestingComponent, {
 
 ```js
 import {DialogService} from './dialog/src/dialog.service';
+
+export class MyComponent {
+
 @ViewChild('vertex') element: ElementRef;
 
 constructor(private dialog: DialogService) {
@@ -176,14 +182,15 @@ this.dialog.open(this.element, {
         }
     });
 }
+}
 ```
 
 ######  template.html
 #
 ```js
 <div #vertex style="display:none">
-Dialog box content goes here...
-<h1>Content..</h1>
+   Dialog box content goes here...
+   <h1>Content..</h1>
 </div>
 ```
 
