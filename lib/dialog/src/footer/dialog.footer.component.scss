@@ -25,6 +25,17 @@
       float: right;
       margin-right: 0;
       margin-left: 12px;
+      &:disabled{
+        background: #cbcbcb;
+      }
+      &:last-child{
+        &:disabled{
+          background: transparent;
+          border-color: #cbcbcb !important;
+          color: #cbcbcb !important;
+          @include makeCursorDefault(auto);
+        }
+      }
     }
     .once-ui-cancel{
       min-height: 35px;
@@ -39,6 +50,11 @@
       text-decoration: none;
       font-size: 14px;
       float: left;
+      &:disabled{
+        border-color: #cbcbcb;
+        color: #cbcbcb;
+        @include makeCursorDefault(auto);
+      }
     }
     .once-ui-links{
       float: left;
