@@ -5,7 +5,8 @@ import {
   Output,
   ViewChild,
   Inject,
-  ElementRef
+  ElementRef,
+  OnInit
 } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
@@ -22,7 +23,7 @@ import { DOCUMENT } from '@angular/platform-browser';
   },
   encapsulation: ViewEncapsulation.None
 })
-export class DialogComponent {
+export class DialogComponent implements OnInit {
   @Input() visible: boolean;
   @ViewChild('dialog') elementView: ElementRef;
   dialogTop = 50;
