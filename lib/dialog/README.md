@@ -1,6 +1,6 @@
-# Angular dialog
+# Popup/Dialog shared angular component
 
-The dialog component allow users to build a modal with dynamic data.
+The component deals with the popup/dialog shared angular component. 
 
 # Features
 - Dialog box with dynamic content
@@ -17,38 +17,49 @@ import { DialogModule } from '@once/ui';
 The only remaining part is to list the imported module in your application module.:
 
 ```js
-import { DialogModule } from '@once/ui';
+import { DialogModule, DialogService } from '@once/ui';
 
 @NgModule({
   imports: [
     DialogModule
-  ]
+  ],
+  providers: [DialogService]
 })
 ```
 
-## Props
+## Properties
 
 | Input            | Type            | Default                 | Required | Description |
 | ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
-| [id]       | string         | `text`                 | no       | ID for the dialog. If omitted, a unique one will be generated.|                                         
-| [disableClose]          | boolean          | `false`                  | no       | Whether the user can use escape or clicking outside to close a modal. |
-| [width]           | string          | `text`      | no       | Width of the dialog.|
-| [height]          | string           | `text`     | no       | Height of the dialog.|
-| [minWidth]        | number/string | `text`     | no       | Min-width of the dialog. If a number is provided, pixel units are assumed.|
-| [minHeight]        | number/string | `text`  | no       | Min-height of the dialog. If a number is provided, pixel units are assumed.|                         
-| [maxWidth]    | number/string | `text`  | no   | Max-width of the dialog. If a number is provided, pixel units are assumed. Defaults to 80vw|
-| [maxHeight]   | number/string | `text`  | no   | Max-height of the dialog. If a number is provided, pixel units are assumed.|
-| [data]   | json  | `null` | no   | Data being injected into the child component.|
-| [autoFocus]   | boolean  | `true` | no   | Whether the dialog should focus the first focusable element on open.|
-| [header]   | Header  | `true` | no   | Header section.|
-| [footer]   | Footer  | `true` | no   | Footer section.|
-| [theme]   | string  | `text` | no   | Name of the themes.|
+| [header]       | object         | null                 | no       | Header section: `IHEADER`|               |
+| [footer]       | object         | null                 | no       | Footer section: `IFOOTER`|               |
+| [size]       | string         | small                 | no       | Dialog box size|               |
+| [theme]       | string         | once-ui-theme-blue                 | no       | Name of the themes|               |
+| [modal]       | boolean         | false                 | no       | If `true` make the dialog a modal|               |
+
+##### HEADER :: IHEADER
+##
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [title]       | object         | `{text: '', icon: ''}`         | yes       | Expects title and icon from the user|               |
+| [video]       | object         | `{tooltip: 'Video',  link: "<any-valid-url>"}`               | no       | Will open a video in a new tab. |               |
+| [article]       | object         | `{tooltip: 'Article',  link: "<any-valid-url>"  }`               | no       | Will open a help article in a new tab |               |
+| [close]       | object         | {tooltip: 'Close'}                 | no       | Will close the popup without taking any action |               |
+
+##### FOOTER :: IFOOTER
+##
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [linkButtons]       | object         | `[{ tooltip: 'Cancel 1', text: 'Cancel 1', disabled: false, callback: function () {} }]`          | no       | Array of “links” that will be stacked from the left corner of the footer.|               |
+| [buttons]       | object         | `{tooltip: 'Cancel 1', text: 'Cancel 1', disabled: true, callback: function () {}},`               | no       | Call to actions buttons. Props.: If disabled, button is disabled |               |
 
 
 ## Methods
 
 
-##### 1) Open(component,config)
+##### 1) Open(componentORTemplateRef, config)
 ##
 | Description | 
 |-------------|
