@@ -54,7 +54,25 @@ export class DialogService {
    */
   open(content: any, customSettings: any = {}) {
     this.close();
+    if(typeof content === 'function') {
+      content.isAComponent = true;
+    }
     this.appendComponentToBody(content, customSettings);
+    const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement;
+    document.body.appendChild(domElem);
+
+
+    // Component
+    if(typeof content === 'function') {
+      const loadComponentRef = this.componentFactoryResolver
+        .resolveComponentFactory(content)
+        .create(this.injector);
+      const domElem = (loadComponentRef.hostView as EmbeddedViewRef<any>)
+        .rootNodes[0] as HTMLElement;
+      document.getElementById('loadComponent').innerHTML = domElem.innerHTML;
+    }
+
     return this.componentRef;
   }
 
