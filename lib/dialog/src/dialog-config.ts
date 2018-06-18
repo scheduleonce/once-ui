@@ -21,9 +21,6 @@ export class OnceDialogConfig {
     article: {
       tooltip: 'Article',
       link: 'https://www.scheduleonce.com/',
-    },
-    close: {
-      tooltip: 'Close'
     }
   };
 
