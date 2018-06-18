@@ -15,7 +15,7 @@ import {DialogService} from '../dialog.service';
   }
 })
 export class DialogOverlayComponent {
-  _config: any;
+  @Input() modal: boolean;
 
   constructor(public dialog: DialogService) {
   }
@@ -24,6 +24,8 @@ export class DialogOverlayComponent {
    * Close event from header
    */
   close() {
-    this.dialog.close();
+    if(!this.modal) {
+      this.dialog.close();
+    }
   }
 }
