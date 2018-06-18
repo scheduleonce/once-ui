@@ -8,7 +8,7 @@ once-ui-dialog{
     color: #333;
     font-family: Open Sans,Helvetica,Arial,sans-serif;
   }
-   
+
   .once-ui-dialog-modal {
     @include positionType(fixed,0,0,auto,auto);
     width: 100%;
@@ -26,7 +26,7 @@ once-ui-dialog{
     .once-ui-dialog {
       padding: 22px 0 12px;
       background-color: #fff;
-      max-width: 610px;
+      max-width: 607px;
       box-shadow: 0 1px 3px 2px #A7A7A7;
       -webkit-box-shadow: 0 1px 3px 2px #A7A7A7;
       margin: 0 auto;
@@ -35,5 +35,9 @@ once-ui-dialog{
     @media screen and (max-width: 768px) {
       padding: 20px;
     }
+    .once-ui-dialog.large{
+      max-width: 740px
+    }
+
   }
 }
