@@ -11,12 +11,9 @@ For demos, see the [project page](https://once-ui.azurewebsites.net).
 
 ### Available components:
 
-- [Content popup](lib/content-popup/README.md)
 - [Datepicker](lib/datepicker/README.md)
 - [Dialog](lib/dialog/README.md)
 - [Dropdown](lib/drop-down/README.md)
-- [Info-popup](lib/info-popup/README.md)
-- [Tooltip](lib/tooltip/README.md)
 
 ### Installation
 

@@ -1,0 +1,29 @@
+/***********************************************************************************
+@ Dialog Theme 
+ **********************************************************************************/
+
+@import "./dialog.mixin.scss"; // Including Mixin
+
+.once-ui-theme-blue{
+    .once-ui-cancel,.once-ui-btn{
+      @include themeColor(#006bb1);
+       
+    }
+    .once-ui-btn-secondary{
+      background: transparent;
+      @include secondaryBtn(#006bb1);
+    }
+}
+
+.once-ui-theme-green{
+    .once-ui-btn{
+      @include themeColor(#009b48);
+    }
+    .once-ui-cancel{
+      @include themeColor(#006bb1);
+    }
+    .once-ui-btn-secondary{
+      background: transparent;
+      @include secondaryBtn(#009b48);
+    }
+}

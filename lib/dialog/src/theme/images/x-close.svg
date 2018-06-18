@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>icon / X close small</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="icon-/-X-close-small" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="X-close" transform="translate(5.500000, 5.792893) rotate(45.000000) translate(-5.500000, -5.792893) translate(-2.500000, -2.207107)" fill="#666666">
+            <rect id="Rectangle-5" x="7.23363194" y="0.573979909" width="1.92504355" height="14.4378266"></rect>
+            <rect id="Rectangle-5-Copy" transform="translate(8.196154, 7.792893) rotate(90.000000) translate(-8.196154, -7.792893) " x="7.23363194" y="0.573979909" width="1.92504355" height="14.4378266"></rect>
+        </g>
+    </g>
+</svg>

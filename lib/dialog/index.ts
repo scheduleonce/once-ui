@@ -6,3 +6,4 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export * from './src/dialog.module';
+export * from './src/dialog.service';
