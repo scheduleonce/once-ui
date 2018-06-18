@@ -1,31 +1,37 @@
 <!--Header section with title and actions-->
 <div class="once-ui-modal-header">
-  <img *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}" alt="{{headerSettings.title}}"/>
-  <label *ngIf="headerSettings && headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
+  <img *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
+       alt="{{headerSettings.title}}"/>
+  <label
+    *ngIf="headerSettings && headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
 
   <div class="so-ui-btn-combos">
-    <span *ngIf="headerSettings && headerSettings.actions && headerSettings.actions.icons && headerSettings.actions.icons.length < 3">
-      <a
-        *ngFor="let custom of headerSettings.actions.icons; index as i;"
-        [attr.title]="
-        custom.tooltip ?
-        custom.tooltip:
-        _config.actions.icons[i].tooltip"
-        [attr.ariaLabel]="custom.tooltip ?
-        custom.tooltip:
-        _config.actions.icons[i].tooltip"
-        class="{{_config.actions.icons[i].className}}"
-        [attr.href]="custom.href ?
-        custom.href:
-        _config.actions.icons[i].href"
-        [attr.target]="custom.target ?
-        custom.target:
-        _config.actions.icons[i].target"></a>
+    <!--Video/article links-->
+    <span *ngIf="headerSettings">
+        <!--Video link-->
+        <a
+          *ngIf="headerSettings.video"
+          title="{{headerSettings.video.tooltip || _config.video.tooltip}}"
+          class="once-ui-action-icons once-ui-video-icon"
+          [attr.ariaLabel]="headerSettings.video.tooltip || _config.video.tooltip"
+          href="{{headerSettings.video.link || _config.video.link}}"
+          target='_blank'></a>
+
+          <!--Article link-->
+        <a
+          *ngIf="headerSettings.article"
+          title="{{headerSettings.article.tooltip || _config.article.tooltip}}"
+          class="once-ui-action-icons once-ui-help-icon"
+          [attr.ariaLabel]="headerSettings.article.tooltip || _config.article.tooltip"
+          href="{{headerSettings.article.link || _config.article.link}}"
+          target='_blank'></a>
     </span>
+
+    <!--Close link-->
     <a
-      title="{{_config.actions.icons[2].tooltip}}"
-      class="{{_config.actions.icons[2].className}}"
-      [attr.ariaLabel]="_config.actions.icons[2].tooltip"
+      title="{{_config.close.tooltip}}"
+      class="once-ui-action-icons once-ui-cross-icon"
+      [attr.ariaLabel]="_config.close.tooltip"
       (click)="close()"></a>
   </div>
 </div>
