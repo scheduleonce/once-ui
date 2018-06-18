@@ -1,3 +1,1 @@
-<div class="once-ui-dialog-body">
-    modal body content<br>modal body content<br>modal body content<br>modal body content<br>
-</div>
+<div class="once-ui-dialog-body" [innerHTML]="content.innerHTML? content.innerHTML: content" id="once-ui-dialog-body"></div>

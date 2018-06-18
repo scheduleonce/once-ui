@@ -3,6 +3,7 @@ import {
     Input
 } from '@angular/core';
 import {OnceDialogConfig} from '../dialog-config';
+import {DialogService} from '../dialog.service';
 
 /**
  * Header component that wraps footer section
@@ -18,6 +19,13 @@ import {OnceDialogConfig} from '../dialog-config';
 export class DialogFooterComponent {
     @Input() footerSettings: string;
 
-    constructor(public _config: OnceDialogConfig) {
+    constructor(public _config: OnceDialogConfig, public dialog: DialogService) {
     }
+
+  /**
+   * Close event from footer
+   */
+  close() {
+    this.dialog.close();
+  }
 }

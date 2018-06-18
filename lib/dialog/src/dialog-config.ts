@@ -57,13 +57,11 @@ export class OnceDialogConfig {
     },
     actions: {
       icons: [{
-        fieldName: 'video',
         tooltip: 'Video',
         className: 'once-ui-action-icons once-ui-video-icon',
         href: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
         target: '_blank'
       }, {
-        fieldName: 'article',
         tooltip: 'Article',
         className: 'once-ui-action-icons once-ui-help-icon',
         href: 'https://www.scheduleonce.com/',
