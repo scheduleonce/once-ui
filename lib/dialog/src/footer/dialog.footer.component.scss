@@ -1,7 +1,7 @@
 @import "../theme/dialog.theme.scss"; // Including Theme
-.once-ui-modal-footer{
-  .once-ui-btn-row {
-    padding: 12px 22px 0;
+
+.once-ui-btn-row {
+    padding: 12px 22px;
     width: 100%;
     border-top: 1px solid #c8c8c8;
     width: 100%;
@@ -38,16 +38,5 @@
       font-weight: 400;
       text-decoration: none;
       font-size: 14px;
-      float: left;
     }
-    .once-ui-links{
-      float: left;
-    }
-    .once-ui-buttons{
-      float: right;
-    }
-    .clearfix{
-      clear: both;
-    }
-  }
 }
