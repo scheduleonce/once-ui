@@ -1,23 +1,22 @@
 <!--Footer section-->
 <div class="once-ui-modal-footer">
-    <div class="once-ui-btn-row">
-        <!-- Links -->
-        <div *ngIf="footerSettings.links.length>0">
-            <a *ngFor="let links of footerSettings.links; index as i;"
-               title="{{links.tooltip}}"
-               [attr.href]="links.href || null"
-               [attr.target]="links.target ?links.target:'_self'"
-               [attr.class]="i>0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'" >
-                {{links.text}}</a>
-        </div>
-        <!--Buttons-->
-        <div *ngIf="footerSettings.buttons.length>0">
-            <a
-                    *ngFor="let buttons of footerSettings.buttons;"
-                    title="{{buttons.tooltip}}"
-                    (click)="close()"
-                    class="once-ui-cancel">
-                {{buttons.text}}</a>
-        </div>
+  <div class="once-ui-btn-row">
+    <!-- Links -->
+    <div *ngIf="footerSettings && footerSettings.links && footerSettings.links.length>0">
+      <a *ngFor="let links of footerSettings.links; index as i;"
+         title="{{links.tooltip}}"
+         [attr.href]="links.href || null"
+         [attr.target]="links.target ?links.target:'_self'"
+         [attr.class]="i>0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'">
+        {{links.text}}</a>
     </div>
+    <!--Buttons-->
+    <div *ngIf="footerSettings && footerSettings.buttons && footerSettings.buttons.length>0">
+      <a *ngFor="let buttons of footerSettings.buttons;"
+         title="{{buttons.tooltip}}"
+         (click)="close()"
+         class="once-ui-cancel">
+        {{buttons.text}}</a>
+    </div>
+  </div>
 </div>
