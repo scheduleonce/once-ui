@@ -1,0 +1,15 @@
+@import "../theme/dialog.theme.scss"; // Including Theme
+
+.once-ui-dialog-body {
+    width: 100%;
+    min-height: 30px;
+    margin-bottom: 30px;
+    line-height: 22px;
+    padding: 0 22px;
+    font-size: 16px;
+    @include preventTextSelectionOnDoubleClick();
+    @include makeCursorDefault(default);
+    p {
+      margin-bottom: 22px;
+    }
+}
