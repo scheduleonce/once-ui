@@ -1,8 +1,7 @@
 import {
-    Component,
-    Input
+  Component,
+  Input
 } from '@angular/core';
-import {OnceDialogConfig} from '../dialog-config';
 
 /**
  * Header component that wraps content section
@@ -16,7 +15,7 @@ import {OnceDialogConfig} from '../dialog-config';
     }
 })
 export class DialogContentComponent {
-    @Input() contentSettings: string;
-    constructor(public _config: OnceDialogConfig) {
+    @Input() content: string;
+    constructor() {
     }
 }
