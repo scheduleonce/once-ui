@@ -95,7 +95,7 @@ import { TestingComponent } from './testing/testing.component';
 export class MyComponent {
 
 openDialog(){
-this.dialog.open(TestingComponent, {
+   this.dialog.open(TestingComponent, {
       modal: true,
       header: {
         video: {
@@ -107,7 +107,7 @@ this.dialog.open(TestingComponent, {
         }
       }
     });
-}
+   }
 }
 ```
 
@@ -129,7 +129,7 @@ constructor(private dialog: DialogService) {
 }
 
 openDialog() {
-this.dialog.open(this.element, {
+    this.dialog.open(this.element, {
       title: {
         text: "Header Title",
         icon: 'https://cloudinary-res.cloudinary.com/image/upload/c_fit,dpr_auto,h_100,w_85/v1501276210/ico-image-upload2x-170x201.png'
@@ -182,7 +182,7 @@ this.dialog.open(this.element, {
         ]
         }
     });
-}
+   }
 }
 ```
 
