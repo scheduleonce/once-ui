@@ -1,6 +1,10 @@
 <!--Dialog content-->
 <section class="once-ui-dialog-modal"
-         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'">
+         id="once-ui-dialog"
+         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'"
+         aria-label="dialog"
+         aria-labelledby="once-ui-modal-header"
+         role="dialog">
     <div class="once-ui-dialog"
          #dialog
          [style.marginTop.px]="dialogMargin"
@@ -22,6 +26,8 @@
                 [footerSettings]="custom.footer"></once-ui-dialog-footer>
 
         <!--Overlay-->
-        <once-ui-dialog-overlay [modal]="custom.modal"></once-ui-dialog-overlay>
+        <once-ui-dialog-overlay
+          [modal]="custom.modal"
+          [escape]="custom.escape"></once-ui-dialog-overlay>
     </div>
 </section>

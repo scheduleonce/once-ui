@@ -7,6 +7,9 @@ once-ui-dialog{
     box-sizing: border-box;
     color: #333;
     font-family: Open Sans,Helvetica,Arial,sans-serif;
+    &:focus {
+      outline: 0;
+    }
   }
 
   .once-ui-dialog-modal {
@@ -27,6 +30,7 @@ once-ui-dialog{
       padding: 22px 0 12px;
       background-color: #fff;
       max-width: 607px;
+      min-width: 540px;
       box-shadow: 0 1px 3px 2px #A7A7A7;
       -webkit-box-shadow: 0 1px 3px 2px #A7A7A7;
       margin: 0 auto;
@@ -38,6 +42,6 @@ once-ui-dialog{
     .once-ui-dialog.large{
       max-width: 740px
     }
-
   }
 }
+

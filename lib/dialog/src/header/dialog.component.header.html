@@ -1,8 +1,9 @@
 <!--Header section with title and actions-->
-<div class="once-ui-modal-header">
-  <img *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
-       alt="{{headerSettings.title}}"/>
+<div class="once-ui-modal-header" id="once-ui-modal-header" tabindex="-1">
+  <img tabindex="0" *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
+       alt="{{headerSettings.title.icon}}"/>
   <label
+    tabindex="0"
     *ngIf="headerSettings && headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
 
   <div class="so-ui-btn-combos">
@@ -10,6 +11,7 @@
     <span *ngIf="headerSettings">
         <!--Video link-->
         <a
+          tabindex="0"
           *ngIf="headerSettings.video"
           title="{{headerSettings.video.tooltip || _config.video.tooltip}}"
           class="once-ui-action-icons once-ui-video-icon"
@@ -19,6 +21,7 @@
 
           <!--Article link-->
         <a
+          tabindex="0"
           *ngIf="headerSettings.article"
           title="{{headerSettings.article.tooltip || _config.article.tooltip}}"
           class="once-ui-action-icons once-ui-help-icon"
@@ -29,6 +32,7 @@
 
     <!--Close link-->
     <a
+      tabindex="0"
       title="Close"
       class="once-ui-action-icons once-ui-cross-icon"
       [attr.ariaLabel]="Close"

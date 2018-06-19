@@ -17,6 +17,7 @@
         white-space: nowrap;
         display: block;
         line-height: 20px;
+        height: 22px;
     }
     .so-ui-btn-combos{
         @include positionType(absolute,21px,auto,22px,auto);
@@ -28,7 +29,6 @@
           background-color: #fff;
           @include makeCursorDefault(pointer);
           padding-left: 14px;
-          outline: 0;
           width: 19px;
           height: 19px;
           background-position: right center;
