@@ -189,7 +189,7 @@ openDialog() {
 ######  template.html
 #
 ```js
-<div #vertex style="display:none">
+<div #vertex>
    Dialog box content goes here...
    <h1>Content..</h1>
 </div>
