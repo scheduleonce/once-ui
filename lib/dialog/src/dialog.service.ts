@@ -16,11 +16,6 @@ export class DialogService {
               private injector: Injector) {
   }
 
-  /**
-   * @whatIsThisFor: Adding dialog component to body
-   * @param component
-   * @param customSettings
-   */
   appendComponentToBody(component: any, customSettings: any = {}) {
     // 1. Create a component reference from the component
     this.componentRef = this.componentFactoryResolver
@@ -43,15 +38,9 @@ export class DialogService {
     document.body.appendChild(domElem);
 
     // 6. Detect any change
-    this.componentRef.changeDetectorRef.detectChanges()
+    this.componentRef.changeDetectorRef.detectChanges();
   }
 
-  /**
-   * @whatIsThisFor: Opens the dialog
-   * @param content
-   * @param customSettings
-   * @returns {any}
-   */
   open(content: any, customSettings: any = {}) {
     this.close();
     this.appendComponentToBody(content, customSettings);
@@ -73,9 +62,6 @@ export class DialogService {
     return this.componentRef;
   }
 
-  /**
-   * @whatIsThisFor: Close the dialog
-   */
   close() {
     if (this.componentRef) {
       this.appRef.detachView(this.componentRef.hostView);
