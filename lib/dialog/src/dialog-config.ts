@@ -37,5 +37,8 @@ export class OnceDialogConfig {
   size?: string = 'small';
 
   /** Dialog- modal or popup **/
-  modal: false
+  modal: boolean = false;
+
+  /** Escape - if true dialog gets closed on escape button press from keyboard **/
+  escape: boolean = false;
 }

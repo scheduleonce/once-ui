@@ -1,25 +1,28 @@
 <!--Footer section-->
 <div class="once-ui-modal-footer">
-    <div class="once-ui-btn-row">
-        <!-- Links -->
-        <div class="once-ui-buttons" *ngIf="footerSettings && footerSettings.buttons && footerSettings.buttons.length>0">
-            <button *ngFor="let button of footerSettings.buttons; index as i;"
-                    title="{{button.tooltip}}"
-                    [disabled]="button.disabled"
-                    [attr.class]="i>0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'"
-                    (click)="button.callback && button.callback()"
-                    class="once-ui-cancel">{{button.text}}
-            </button>
-        </div>
-        <!--Buttons-->
-        <div class="once-ui-links" *ngIf="footerSettings && footerSettings.linkButtons && footerSettings.linkButtons.length>0">
-            <button *ngFor="let link of footerSettings.linkButtons;"
-                    [disabled]="link.disabled"
-                    title="{{link.tooltip}}"
-                    (click)="link.callback && link.callback()"
-                    class="once-ui-cancel">
-                {{link.text}}</button>
-        </div>
-        <div class="clearfix"></div>
+  <div class="once-ui-btn-row">
+    <!-- Links -->
+    <div class="once-ui-links"
+         *ngIf="footerSettings && footerSettings.linkButtons && footerSettings.linkButtons.length>0">
+      <button *ngFor="let link of footerSettings.linkButtons;"
+              [disabled]="link.disabled"
+              title="{{link.tooltip}}"
+              (click)="link.callback && link.callback()"
+              class="once-ui-cancel">
+        {{link.text}}
+      </button>
     </div>
+    <!--Buttons-->
+    <div class="once-ui-buttons" *ngIf="footerSettings && footerSettings.buttons && footerSettings.buttons.length>0">
+      <button *ngFor="let button of footerSettings.buttons; index as i;"
+              title="{{button.tooltip}}"
+              [disabled]="button.disabled"
+              [attr.class]="i==0? 'once-ui-btn once-ui-btn-secondary': 'once-ui-btn'"
+              (click)="button.callback && button.callback()"
+              class="once-ui-cancel">{{button.text}}
+      </button>
+    </div>
+
+    <div class="clearfix"></div>
+  </div>
 </div>

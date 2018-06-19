@@ -10,12 +10,18 @@ import {DialogComponent} from './dialog.component';
 @Injectable()
 export class DialogService {
   componentRef: any = '';
+  lastFocused: any = '';
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
               private injector: Injector) {
   }
 
+  /**
+   * @whatIsThisFor: Adding dialog component to body
+   * @param component
+   * @param customSettings
+   */
   appendComponentToBody(component: any, customSettings: any = {}) {
     // 1. Create a component reference from the component
     this.componentRef = this.componentFactoryResolver
@@ -38,10 +44,16 @@ export class DialogService {
     document.body.appendChild(domElem);
 
     // 6. Detect any change
-    this.componentRef.changeDetectorRef.detectChanges();
+    this.componentRef.changeDetectorRef.detectChanges()
   }
 
+  /**
+   * @whatIsThisFor: Opens the dialog
+   * @param content
+   * @param customSettings
+   */
   open(content: any, customSettings: any = {}) {
+    if(!this.lastFocused) this.lastFocused = document.activeElement;
     this.close();
     this.appendComponentToBody(content, customSettings);
     const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
@@ -59,13 +71,23 @@ export class DialogService {
       data = domElem.innerHTML;
     }
     document.getElementById('loadComponent').innerHTML = data;
+    const dialog = document.getElementById('once-ui-modal-header');
+    if(dialog) {
+      dialog.focus()
+    }
     return this.componentRef;
   }
 
+  /**
+   * @whatIsThisFor: Close the dialog
+   */
   close() {
     if (this.componentRef) {
       this.appRef.detachView(this.componentRef.hostView);
       this.componentRef.destroy();
+      if(this.lastFocused) {
+        this.lastFocused.focus();
+      }
     }
   }
 }
