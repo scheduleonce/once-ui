@@ -22,13 +22,13 @@
       -webkit-tap-highlight-color: transparent;
       border-radius: 100px;
       border: 1px solid transparent;
-      float: right;
+      float: left;
       margin-right: 0;
       margin-left: 12px;
       &:disabled{
         background: #cbcbcb;
       }
-      &:last-child{
+      &:first-child{
         &:disabled{
           background: transparent;
           border-color: #cbcbcb !important;
@@ -41,7 +41,6 @@
       min-height: 35px;
       background: 0 0;
       border-width: 0;
-      line-height: 35px;
       @include makeCursorDefault(pointer);
       margin-right: 40px;
       margin-left: 0;
