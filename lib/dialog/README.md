@@ -30,6 +30,7 @@ import { DialogModule, DialogService } from '@once/ui';
 | [size]       | string         | small                 | no       | Dialog box size|               |
 | [theme]       | string         | once-ui-theme-blue                 | no       | Name of the themes (once-ui-theme-blue, once-ui-theme-green)|               |
 | [modal]       | boolean         | false                 | no       | If `true` make the dialog a modal|               |
+| [escape]       | boolean         | false                 | no       | If `true`If true dialog gets closed on escape button press from keyboard|               |
 
 ##### HEADER :: IHEADER
 ##
