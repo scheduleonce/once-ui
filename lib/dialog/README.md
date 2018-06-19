@@ -1,4 +1,4 @@
-# Popup/Dialog shared angular component
+# Dialog shared angular component
 
 The component deals with the popup/dialog shared angular component. 
 
