@@ -6,6 +6,7 @@ import {
   ApplicationRef
 } from '@angular/core';
 import {DialogComponent} from './dialog.component';
+import { FocusTrapFactory } from '@angular/cdk/a11y';
 
 @Injectable()
 export class DialogService {
@@ -14,7 +15,8 @@ export class DialogService {
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
-              private injector: Injector) {
+              private injector: Injector,
+              private focusTrap: FocusTrapFactory) {
   }
 
   /**
@@ -71,10 +73,10 @@ export class DialogService {
       data = domElem.innerHTML;
     }
     document.getElementById('loadComponent').innerHTML = data;
-    const dialog = document.getElementById('once-ui-modal-header');
-    if(dialog) {
-      dialog.focus()
-    }
+
+    let focusTrap = this.focusTrap.create(domElem);  // creates a focus trap region
+    focusTrap.focusInitialElement();    // Moves the focus in the
+
     return this.componentRef;
   }
 
