@@ -1,7 +1,10 @@
 <!--Header section with title and actions-->
-<div class="once-ui-modal-header" id="once-ui-modal-header" tabindex="-1">
-  <img tabindex="0" *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
-       alt="Icon"/>
+<div class="once-ui-modal-header" id="once-ui-modal-header" >
+  <img
+    tabindex="0"
+    *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
+    aria-label="Header icon"
+    alt="Icon"/>
   <label
     tabindex="0"
     *ngIf="headerSettings && headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
@@ -19,7 +22,7 @@
           href="{{headerSettings.video.link || _config.video.link}}"
           target='_blank'></a>
 
-          <!--Article link-->
+      <!--Article link-->
         <a
           tabindex="0"
           *ngIf="headerSettings.article"
@@ -34,8 +37,10 @@
     <a
       tabindex="0"
       title="Close"
+      role="button"
       class="once-ui-action-icons once-ui-cross-icon"
-      [attr.ariaLabel]="Close"
-      (click)="close()"></a>
+      (click)="close()"
+      aria-label="Close dialog"
+      (keydown)="closeDialog($event)"></a>
   </div>
 </div>
