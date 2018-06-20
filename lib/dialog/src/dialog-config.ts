@@ -1,10 +1,4 @@
 /**
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
-/**
  * Configuration for opening a dialog.
  */
 export class OnceDialogConfig {
@@ -21,16 +15,13 @@ export class OnceDialogConfig {
     article: {
       tooltip: 'Article',
       link: 'https://www.scheduleonce.com/',
-    },
-    close: {
-      tooltip: 'Close'
     }
   };
 
   /** Footer section */
   footer?: {
     buttons: any;
-    links: any;
+    linkButtons: any;
   };
 
   /** Name of the themes */
@@ -40,5 +31,8 @@ export class OnceDialogConfig {
   size?: string = 'small';
 
   /** Dialog- modal or popup **/
-  modal: false
+  modal: boolean = false;
+
+  /** Escape - if true dialog gets closed on escape button press from keyboard **/
+  escape: boolean = false;
 }

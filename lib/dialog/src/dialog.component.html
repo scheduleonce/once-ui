@@ -1,12 +1,16 @@
 <!--Dialog content-->
 <section class="once-ui-dialog-modal"
-         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'">
-    <div class="once-ui-dialog once-ui-confirm-popup"
+         role="dialog"
+         id="once-ui-dialog"
+         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'"
+         aria-label="dialog"
+         aria-labelledby="once-ui-modal-header"
+         role="dialog">
+    <div class="once-ui-dialog"
          #dialog
          [style.marginTop.px]="dialogMargin"
          [style.top.%]="dialogTop"
          [ngClass]="custom && custom.size? custom.size: ''">
-
         <!--OnceUi header-->
         <once-ui-dialog-header
                 *ngIf="custom"
@@ -23,6 +27,8 @@
                 [footerSettings]="custom.footer"></once-ui-dialog-footer>
 
         <!--Overlay-->
-        <once-ui-dialog-overlay [modal]="custom.modal"></once-ui-dialog-overlay>
+        <once-ui-dialog-overlay
+          [modal]="custom.modal"
+          [escape]="custom.escape"></once-ui-dialog-overlay>
     </div>
 </section>

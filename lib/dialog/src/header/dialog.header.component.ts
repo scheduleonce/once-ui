@@ -30,4 +30,15 @@ export class DialogHeaderComponent {
   close() {
     this.dialog.close();
   }
+
+  /**
+   * Close dialog
+   * @param event
+   */
+  closeDialog(event) {
+    if (event.keyCode === 13 || event.keyCode === 32) {
+      event.preventDefault();
+      this.dialog.close();
+    }
+  }
 }
