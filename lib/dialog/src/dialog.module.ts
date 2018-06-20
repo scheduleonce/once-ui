@@ -1,9 +1,5 @@
 /**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
+ * Dialog module
  */
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,6 +9,8 @@ import { DialogFooterComponent } from './footer/dialog.footer.component';
 import { DialogContentComponent } from './content/dialog.content.component';
 import { DialogOverlayComponent } from './overlay/dialog.overlay.component';
 import { OnceDialogConfig } from './dialog-config';
+import { FocusTrapFactory, InteractivityChecker, FocusMonitor } from '@angular/cdk/a11y'
+import { Platform } from '@angular/cdk/platform';
 
 @NgModule({
   imports: [
@@ -29,6 +27,6 @@ import { OnceDialogConfig } from './dialog-config';
     DialogOverlayComponent
   ],
   entryComponents: [DialogComponent],
-  providers: [OnceDialogConfig]
+  providers: [OnceDialogConfig, FocusTrapFactory, InteractivityChecker, Platform, FocusMonitor]
 })
 export class DialogModule {}
