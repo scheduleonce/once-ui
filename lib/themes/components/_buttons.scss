@@ -4,6 +4,7 @@
 
 // @param $themeName: Name of the theme
 // @param $component: name of the theme (HTML class)
+
 @mixin theme($themeName, $component) {
   .#{$themeName} {
     .once-ui-btn {
@@ -14,10 +15,12 @@
         }
       }
     }
-    .once-ui-btn-secondary {
+    .once-ui-btn.once-ui-btn-secondary {
       @include secondaryBtn(map-get($component, "base"));
+      @extend %once-ui-bg-transparent;
       &:hover {
         @include themeColor(map-get($component, "light"));
+        @extend %once-ui-hover-color;
       }
     }
   }

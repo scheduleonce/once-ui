@@ -1,10 +1,10 @@
-@import "../theme/dialog.theme.scss"; // Including Theme
+@import "../theme/dialog.mixin.scss"; // Including Mixin
+
 .once-ui-modal-footer{
   .once-ui-btn-row {
     padding: 12px 22px 0;
     width: 100%;
     border-top: 1px solid #c8c8c8;
-    width: 100%;
     box-sizing: border-box;
     .once-ui-btn{
       font-size: 14px;
@@ -26,13 +26,13 @@
       margin-right: 0;
       margin-left: 12px;
       &:disabled{
-        background: #cbcbcb;
+        background: $once-ui-disabled-color;
       }
       &:first-child{
         &:disabled{
           background: transparent;
-          border-color: #cbcbcb !important;
-          color: #cbcbcb !important;
+          border-color: $once-ui-disabled-color !important;
+          color: $once-ui-disabled-color !important;
           @include makeCursorDefault(auto);
         }
       }
@@ -49,9 +49,10 @@
       text-decoration: none;
       font-size: 14px;
       float: left;
+      color: $once-ui-blue-base-color;
       &:disabled{
-        border-color: #cbcbcb;
-        color: #cbcbcb;
+        border-color: $once-ui-disabled-color;
+        color: $once-ui-disabled-color;
         @include makeCursorDefault(auto);
       }
     }
