@@ -11,7 +11,6 @@ import { DialogOverlayComponent } from './overlay/dialog.overlay.component';
 import { OnceDialogConfig } from './dialog-config';
 import { FocusTrapFactory, InteractivityChecker, FocusMonitor } from '@angular/cdk/a11y'
 import { Platform } from '@angular/cdk/platform';
-
 @NgModule({
   imports: [
     CommonModule
