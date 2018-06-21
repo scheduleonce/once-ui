@@ -27,6 +27,7 @@ export class DialogComponent implements OnInit {
   @ViewChild('dialog') elementView: ElementRef;
   dialogTop = 50;
   dialogMargin: number;
+  internalVisible = false;
 
   /**
    * @whatIsThisFor: System settings are for dialog internal use
@@ -52,6 +53,7 @@ export class DialogComponent implements OnInit {
         this.dialogMargin = 0;
         this.dialogTop = 0;
       }
+      this.internalVisible = true; // Showing Dialog after calculating position
       this.document.body.classList.add('dialogOpen');
     });
   }
