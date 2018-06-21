@@ -15,7 +15,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 @Component({
   selector: 'once-ui-dialog',
   templateUrl: 'dialog.component.html',
-  styleUrls: ['./theme/dialog.component.scss'],
+  styleUrls: ['styles/dialog.component.scss'],
   host: {
     'class': 'onceUiDialogContainer',
     'tabindex': '-1'

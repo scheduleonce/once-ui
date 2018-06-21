@@ -1,5 +1,11 @@
+/**
+ * Styles for dialog component
+ */
 @import "dialog.mixin.scss"; // Including Mixin
 
+/**
+ * Dialog specific styles
+ */
 once-ui-dialog{
   *{
     margin:0;
