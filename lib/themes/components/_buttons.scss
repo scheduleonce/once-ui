@@ -1,0 +1,30 @@
+/**
+ * Buttons - Helper theme mixin
+ */
+
+// @param $themeName: Name of the theme
+// @param $component: name of the theme (HTML class)
+@mixin theme($themeName, $component) {
+  .#{$themeName} {
+    .once-ui-btn {
+      @include themeColor(map-get($component, "base"));
+      &:last-child {
+        &:hover {
+          @include themeColor(map-get($component, "light"));
+        }
+      }
+    }
+    .once-ui-btn-secondary {
+      @include secondaryBtn(map-get($component, "base"));
+      &:hover {
+        @include themeColor(map-get($component, "light"));
+      }
+    }
+  }
+}
+
+// Including themes
+@include theme('once-ui-theme-blue', map-get($once-ui-theme-blue, 'buttons'));
+@include theme('once-ui-theme-green', map-get($once-ui-theme-green, 'buttons'));
+
+
