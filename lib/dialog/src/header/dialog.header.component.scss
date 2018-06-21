@@ -9,6 +9,9 @@
       margin-right: 10px;
       float: left;
       min-height: 20px;
+      overflow: hidden;
+      max-width: 30px;
+      font-size: 12px;
     }
     label{
         width: calc(100% - 120px);
