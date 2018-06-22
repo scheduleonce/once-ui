@@ -1,0 +1,13 @@
+/**
+* Mixins
+*/
+
+@mixin themeColor($color) {
+  background: $color;
+  color: $color;
+}
+
+@mixin secondaryBtn($color) {
+  border: 1px solid $color !important;
+  color: $color !important;
+}

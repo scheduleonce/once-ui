@@ -1,5 +1,11 @@
-@import "./dialog.theme.scss"; // Including Theme
+/**
+ * Styles for dialog component
+ */
+@import "dialog.mixin.scss"; // Including Mixin
 
+/**
+ * Dialog specific styles
+ */
 once-ui-dialog{
   *{
     margin:0;
@@ -27,7 +33,7 @@ once-ui-dialog{
       display: block;
     }
     .once-ui-dialog {
-      padding: 22px 0 12px;
+      padding: 22px 0 7px;
       background-color: #fff;
       max-width: 607px;
       min-width: 540px;

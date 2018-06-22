@@ -1,10 +1,10 @@
-@import "../theme/dialog.theme.scss"; // Including Theme
+@import "../styles/dialog.mixin.scss"; // Including Mixin
+
 .once-ui-modal-footer{
   .once-ui-btn-row {
     padding: 12px 22px 0;
     width: 100%;
     border-top: 1px solid #c8c8c8;
-    width: 100%;
     box-sizing: border-box;
     .once-ui-btn{
       font-size: 14px;
@@ -22,17 +22,17 @@
       -webkit-tap-highlight-color: transparent;
       border-radius: 100px;
       border: 1px solid transparent;
-      float: left;
       margin-right: 0;
       margin-left: 12px;
+      margin-bottom: 5px;
       &:disabled{
-        background: #cbcbcb;
+        background: $once-ui-disabled-color;
       }
       &:first-child{
         &:disabled{
           background: transparent;
-          border-color: #cbcbcb !important;
-          color: #cbcbcb !important;
+          border-color: $once-ui-disabled-color !important;
+          color: $once-ui-disabled-color !important;
           @include makeCursorDefault(auto);
         }
       }
@@ -49,9 +49,11 @@
       text-decoration: none;
       font-size: 14px;
       float: left;
+      margin-bottom: 5px;
+      color: $once-ui-blue-base-color;
       &:disabled{
-        border-color: #cbcbcb;
-        color: #cbcbcb;
+        border-color: $once-ui-disabled-color;
+        color: $once-ui-disabled-color;
         @include makeCursorDefault(auto);
       }
     }
@@ -60,6 +62,7 @@
     }
     .once-ui-buttons{
       float: right;
+      text-align: right;
     }
     .clearfix{
       clear: both;
