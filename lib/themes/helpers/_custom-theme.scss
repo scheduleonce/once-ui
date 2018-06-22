@@ -1,3 +1,0 @@
-@mixin once-ui-create-theme($custom){
-    @include create-theme(map-get($custom, 'buttons'));
-}
