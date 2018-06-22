@@ -1,0 +1,13 @@
+/**
+ * Themify components
+ */
+@mixin once-ui-theme($component) {
+  @include themifyButtons($component);
+}
+
+/**
+ * Creates custom theme
+ */
+@mixin once-ui-create-theme($custom){
+    @include once-ui-theme(map-get($custom, 'buttons'));
+}
