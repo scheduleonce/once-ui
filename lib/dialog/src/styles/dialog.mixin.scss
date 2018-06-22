@@ -1,16 +1,7 @@
-/***********************************************************************************
-@ Dialog mixins and variable
- **********************************************************************************/
- 
-@mixin themeColor($color-default) {
-   background: $color-default;
-   color: $color-default;
-}
- 
-@mixin secondaryBtn($color-default) {
-   border: 1px solid $color-default !important;
-   color: $color-default !important;
-}
+/**
+ * Dialog mixins and variable
+ */
+@import '../../../themes/base.scss';
  
 @mixin preventTextSelectionOnDoubleClick() {
    -webkit-user-select: none; /* webkit (safari, chrome) browsers */

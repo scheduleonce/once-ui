@@ -2,10 +2,11 @@
 <section class="once-ui-dialog-modal"
          role="dialog"
          id="once-ui-dialog"
-         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'"
+         [ngClass]="custom.theme || 'once-ui-theme-blue'"
          aria-label="dialog"
          aria-labelledby="once-ui-modal-header"
-         role="dialog">
+         role="dialog"
+         [style.visibility]="internalVisible ? 'visible' : 'hidden'">
     <div class="once-ui-dialog"
          #dialog
          [style.marginTop.px]="dialogMargin"
