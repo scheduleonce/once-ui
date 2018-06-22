@@ -34,7 +34,6 @@ import { DropDownModule, DatepickerModule } from '@once/ui';
 ```
 
 # Theming your Once UI app
-#
 
 #### What is a theme?
 
