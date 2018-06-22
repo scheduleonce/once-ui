@@ -9,12 +9,10 @@ export class OnceDialogConfig {
       icon: ''
     },
     video: {
-      tooltip: 'Video',
-      link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY'
+      tooltip: 'Video'
     },
     article: {
-      tooltip: 'Article',
-      link: 'https://www.scheduleonce.com/',
+      tooltip: 'Article'
     }
   };
 
