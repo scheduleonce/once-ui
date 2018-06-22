@@ -86,16 +86,9 @@ $my-light-theme: (
   )
 );
 
-.my-light-theme {
+.onceUiDialogContainer .once-ui-theme  {
   @include once-ui-create-theme($my-light-theme);
 }
 ```
 
-The most important thing, you need to tell your dialog box component the name of your theme like as follows:-
-
-```
-this.dialog.open(component, {
-   theme: 'my-light-theme'
-})
-```
 You only need this single Sass file; you do not need to use Sass to style the rest of your app.
