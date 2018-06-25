@@ -19,7 +19,7 @@
           title="{{headerSettings.video.tooltip || _config.video.tooltip}}"
           class="once-ui-action-icons once-ui-video-icon"
           [attr.ariaLabel]="headerSettings.video.tooltip || _config.video.tooltip"
-          href="{{headerSettings.video.link || _config.video.link}}"
+          href="{{headerSettings.video.link || null}}"
           target='_blank'></a>
 
       <!--Article link-->
@@ -29,7 +29,7 @@
           title="{{headerSettings.article.tooltip || _config.article.tooltip}}"
           class="once-ui-action-icons once-ui-help-icon"
           [attr.ariaLabel]="headerSettings.article.tooltip || _config.article.tooltip"
-          href="{{headerSettings.article.link || _config.article.link}}"
+          href="{{headerSettings.article.link || null}}"
           target='_blank'></a>
     </span>
 

@@ -2,7 +2,7 @@
 <section class="once-ui-dialog-modal"
          role="dialog"
          id="once-ui-dialog"
-         [ngClass]="custom && custom.theme && custom.theme ==='once-ui-theme-green'? custom.theme: 'once-ui-theme-blue'"
+         [ngClass]="custom.theme || 'once-ui-theme-blue'"
          aria-label="dialog"
          aria-labelledby="once-ui-modal-header"
          role="dialog"
