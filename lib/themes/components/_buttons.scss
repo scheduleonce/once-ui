@@ -21,19 +21,6 @@
   }
 }
 
-// @param $themeName: Name of the theme
-// @param $component: name of the theme (HTML class)
-@mixin set-theme($themeName, $component) {
-  .#{$themeName} {
-    @include themifyButtons($component);
-  }
+.once-ui-theme {
+  @include themifyButtons(map-get($once-ui-theme, 'buttons'));
 }
-
-// Including themes
-// @include theme('once-ui-theme-blue', map-get($once-ui-theme-blue, 'buttons'));
-// @include theme('once-ui-theme-green', map-get($once-ui-theme-green, 'buttons'));
-
-@each $key, $value in $themes{
-  @include set-theme($key, map-get($value, 'buttons'));
-}
-
