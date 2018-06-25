@@ -1,7 +1,7 @@
 /**
  * Dialog mixins and variable
  */
-@import '../../../themes/base.scss';
+@import '../../../themes/once-ui-theme-blue';
  
 @mixin preventTextSelectionOnDoubleClick() {
    -webkit-user-select: none; /* webkit (safari, chrome) browsers */

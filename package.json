@@ -12,7 +12,10 @@
   "scripts": {
     "copy": "ncp dist/lib/ dist/",
     "update-paths": "node update-build-paths.ts",
-    "build-npm": "rimraf dist && ng-packagr -p ng-package.json && npm run update-paths && npm run copy",
+    "build-npm": "rimraf dist && ng-packagr -p ng-package.json && npm run bundle-styles && npm run update-paths && npm run copy",
+    "bundle-styles": "npm run bundle-styles-blue && npm run bundle-styles-green",
+    "bundle-styles-blue": "scss-bundle -e ./lib/themes/once-ui-theme-blue.scss -d ./dist/themes/once-ui-theme-blue.scss",
+    "bundle-styles-green": "scss-bundle -e ./lib/themes/once-ui-theme-green.scss -d ./dist/themes/once-ui-theme-green.scss",
     "publish": "npm run build-npm && npm publish dist",
     "storybook": "start-storybook -s ./assets -p 9001 .storybook",
     "build": "build-storybook -s ./assets",
@@ -68,6 +71,7 @@
     "ng-packagr": "^2.4.4",
     "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
-    "sass-loader": "^7.0.1"
+    "sass-loader": "^7.0.1",
+    "scss-bundle": "^2.3.2"
   }
 }
