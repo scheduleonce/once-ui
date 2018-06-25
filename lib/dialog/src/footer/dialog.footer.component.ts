@@ -28,4 +28,12 @@ export class DialogFooterComponent {
   close() {
     this.dialog.close();
   }
+
+  /**
+   * Get obj keys
+   */
+  getKeys(obj){
+    return Object.keys(obj);
+  }
+
 }

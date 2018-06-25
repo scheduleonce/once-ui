@@ -24,9 +24,9 @@
       -webkit-tap-highlight-color: transparent;
       border-radius: 100px;
       border: 1px solid transparent;
-      float: left;
       margin-right: 0;
       margin-left: 12px;
+      margin-bottom: 5px;
       &:disabled{
         background: $once-ui-disabled-color;
       }
@@ -53,6 +53,7 @@
       text-decoration: none;
       font-size: 14px;
       float: left;
+      margin-bottom: 5px;
       color: $once-ui-blue-base-color;
       &:disabled{
         border-color: $once-ui-disabled-color;
@@ -65,6 +66,7 @@
     }
     .once-ui-buttons{
       float: right;
+      text-align: right;
     }
     .clearfix{
       clear: both;
