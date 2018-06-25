@@ -1,7 +1,3 @@
-/**
- * Buttons - Helper theme mixin
- */
-
 @mixin themifyButtons($component) {
   .once-ui-btn {
     @include themeColor(map-get($component, "base"));
