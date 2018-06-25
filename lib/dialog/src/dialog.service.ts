@@ -10,7 +10,7 @@ import { FocusTrapFactory } from '@angular/cdk/a11y';
 
 @Injectable()
 export class DialogService {
-  componentRef: any = '';
+  static componentRef: any = '';
   lastFocused: any = '';
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
@@ -26,27 +26,27 @@ export class DialogService {
    */
   appendComponentToBody(component: any, customSettings: any = {}) {
     // 1. Create a component reference from the component
-    this.componentRef = this.componentFactoryResolver
+    DialogService.componentRef = this.componentFactoryResolver
       .resolveComponentFactory(DialogComponent)
       .create(this.injector);
 
     // 2. Bind data
-    this.componentRef.instance.custom = Object.assign({},
+    DialogService.componentRef.instance.custom = Object.assign({},
       {content: component},
       customSettings);
 
     // 3. Attach component to the appRef so that it's inside the ng component tree
-    this.appRef.attachView(this.componentRef.hostView);
+    this.appRef.attachView(DialogService.componentRef.hostView);
 
     // 4. Get DOM element from component
-    const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
+    const domElem = (DialogService.componentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
 
     // 5. Append DOM element to the body
     document.body.appendChild(domElem);
 
     // 6. Detect any change
-    this.componentRef.changeDetectorRef.detectChanges()
+    DialogService.componentRef.changeDetectorRef.detectChanges()
   }
 
   /**
@@ -58,7 +58,7 @@ export class DialogService {
     if(!this.lastFocused) this.lastFocused = document.activeElement;
     this.close();
     this.appendComponentToBody(content, customSettings);
-    const domElem = (this.componentRef.hostView as EmbeddedViewRef<any>)
+    const domElem = (DialogService.componentRef.hostView as EmbeddedViewRef<any>)
       .rootNodes[0] as HTMLElement;
     document.body.appendChild(domElem);
     let data = content && content.nativeElement ? content.nativeElement.innerHTML : '';
@@ -77,16 +77,16 @@ export class DialogService {
     let focusTrap = this.focusTrap.create(domElem);  // creates a focus trap region
     focusTrap.focusInitialElement();    // Moves the focus in the
 
-    return this.componentRef;
+    return DialogService.componentRef;
   }
 
   /**
    * @whatIsThisFor: Close the dialog
    */
   close() {
-    if (this.componentRef) {
-      this.appRef.detachView(this.componentRef.hostView);
-      this.componentRef.destroy();
+    if (DialogService.componentRef) {
+      this.appRef.detachView(DialogService.componentRef.hostView);
+      DialogService.componentRef.destroy();
       if(this.lastFocused) {
         this.lastFocused.focus();
       }

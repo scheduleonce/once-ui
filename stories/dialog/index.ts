@@ -5,109 +5,130 @@ import { text,object,button} from '@storybook/addon-knobs/dist/angular';
 import { setOptions } from '@storybook/addon-options';
 import { withReadme, withDocs }  from 'storybook-readme';
 import * as readmeFile from '../../lib/dialog/README.md';
-import { CommonModule } from '@angular/common';
-import { DialogComponent } from '../../lib/dialog/src/dialog.component';
-import { DialogHeaderComponent } from '../../lib/dialog/src/header/dialog.header.component';
-import { DialogFooterComponent } from '../../lib/dialog/src/footer/dialog.footer.component';
-import { DialogContentComponent } from '../../lib/dialog/src/content/dialog.content.component';
-import { DialogOverlayComponent } from '../../lib/dialog/src/overlay/dialog.overlay.component';
-import { OnceDialogConfig } from '../../lib/dialog/src/dialog-config';
-import { FocusTrapFactory, InteractivityChecker, FocusMonitor } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
+
+import { DialogModule } from '../../lib/dialog/src/dialog.module';
+
 import { DialogService } from '../../lib/dialog';
 
-
-    @Component({
-        selector: 'test-component',
-        template: 'This is the test component for showing the data in the dialog.'
-      })
-    class TestComponent{
-        constructor() {
+let properties = {
+    header: {
+        article: {
+            tooltip: 'article',
+            link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        },
+        video: {
+            tooltip: 'Video',
+            link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        },
+        close: {
+            tooltip: 'Close'
+        },
+        title: {
+            text: "Hello dialog",
+            icon: 'https://encodable.com/uploaddemo/files/reassinment.svg'
         }
-    };
-    
-storiesOf('Dialog',module)
+    },
+    footer: {
+        linkButtons: [
+            {
+                tooltip: 'link 1',
+                text: 'link 1',
+                disabled: false,
+                callback: action('clicked')
+            },
+            {
+                tooltip: 'link 2',
+                text: 'link 2',
+            }
+        ],
+        buttons: [
+            {
+                tooltip: 'Yes',
+                text: 'Yes',
+                disabled: false,
+                callback: action('clicked')
+
+            },
+            {
+                tooltip: 'No',
+                text: 'No',
+                disabled: false,
+                callback: action('clicked')
+
+            }
+        ]
+    },
+    size: 'small',
+    modal: false
+}
+
+// Component for content of dialog
+@Component({
+    template: 'This is the test component for showing the data in the dialog.'
+})
+
+class TestComponent {
+};
+
+@Component({
+    template: '<button (click)="openDialog()">Click to open</button>'
+})
+
+class MainComponent {
+    custom: any;
+    prevCustom: any;
+    constructor(private dialog: DialogService) {
+    }
+
+    ngOnChanges() {
+        if(this.prevCustom && JSON.stringify(this.custom) !== JSON.stringify(this.prevCustom)) {
+            this.custom.footer.buttons.forEach((key, index) => {
+                this.custom.footer.buttons[index]['callback'] = this.prevCustom.footer.buttons[index]['callback'];
+            });
+
+            this.custom.footer.linkButtons.forEach((key, index) => {
+                this.custom.footer.linkButtons[index]['callback'] = this.prevCustom.footer.linkButtons[index]['callback'];
+            });
+
+            DialogService.componentRef.instance.custom = this.custom;
+            DialogService.componentRef.instance.custom.content = TestComponent;
+            DialogService.componentRef.changeDetectorRef.detectChanges();
+        }
+        this.prevCustom = this.custom;
+        properties = this.custom;
+    }
+
+    /**
+     * Open dialog
+     */
+    openDialog() {
+        this.dialog.open(TestComponent, properties);
+    }
+
+};
+
+storiesOf('Dialog', module)
     .addDecorator(moduleMetadata({
         declarations: [
-            DialogHeaderComponent,
-            DialogFooterComponent,
-            DialogContentComponent,
-            DialogOverlayComponent
+            TestComponent
+        ],
+        imports: [
+            DialogModule
         ],
         providers: [
-            OnceDialogConfig, 
-            FocusTrapFactory, 
-            InteractivityChecker, 
-            Platform, 
-            FocusMonitor,
             DialogService
         ],
+        entryComponents: [TestComponent],
+
     }))
     .addDecorator(withReadme(readmeFile))
-    .add('Default', () => ({
-        setOptions: setOptions({ showAddonPanel: true }),
-        component: DialogComponent,
-        props: {
-            custom:object('custom', {
-                content:TestComponent, 
-                header: {
-                    title:{
-                        text: "Header Title",
-                        icon: 'https://cloudinary-res.cloudinary.com/image/upload/c_fit,dpr_auto,h_100,w_85/v1501276210/ico-image-upload2x-170x201.png'
-                    },
-                    article: {
-                        tooltip: 'article',
-                        link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
-                    },
-                    video: {
-                        tooltip: 'Video',
-                        link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
-                    },
-                    close: {
-                        tooltip: 'Close'
-                    }
-                },
-                footer: {
-                    linkButtons: [
-                      {
-                        tooltip: 'tooltip tex wew wewe w ewet',
-                        text: 'Link text to show sdsdsdsd',
-                        disabled: false,
-                        callback: function(){
-                        }
-                      },
-                      {
-                        tooltip: 'tooltip text',
-                        text: 'Link text to show',
-                        disabled: true,
-                        callback: function(){
-                        }
-                      }
-                    ],
-                    buttons: [
-                      {
-                        tooltip: 'Button tooltip text asasasas',
-                        text: 'Button text to show',
-                        disabled: true,
-                        callback: function(){
-                        }
-                      },
-                      {
-                        tooltip: 'Button tooltip text',
-                        text: 'Button text to show',
-                        disabled: false,
-                        callback: function(){
-                        }
-                      }
-                    ]
-                    },
-                size: '',
-                theme: 'once-ui-theme-blue',
-                modal: true,
-                escape: true
-            }),
-        }
-    }));
-
-
+    .add('Default', function() {
+        return ({
+            setOptions: setOptions({ showAddonPanel: true }),
+            component: MainComponent,
+            props: {
+                custom:object('custom', properties),
+            }
+        })
+    });
 
