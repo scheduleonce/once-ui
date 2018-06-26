@@ -10,9 +10,7 @@ import {FocusTrapFactory} from '@angular/cdk/a11y';
 
 @Injectable()
 export class DialogService {
-  static componentRef: any = '';
-  lastFocused: any = '';
-
+    static componentRef: any = '';
     constructor(private componentFactoryResolver: ComponentFactoryResolver,
                 private appRef: ApplicationRef,
                 private injector: Injector,
@@ -46,7 +44,7 @@ export class DialogService {
         document.body.appendChild(domElem);
 
         // 6. Detect any change
-          DialogService.componentRef.changeDetectorRef.detectChanges()
+        DialogService.componentRef.changeDetectorRef.detectChanges()
     }
 
     /**
@@ -55,7 +53,6 @@ export class DialogService {
      * @param customSettings
      */
     open(content: any, customSettings: any = {}) {
-        if (!this.lastFocused) this.lastFocused = document.activeElement;
         this.close();
         this.appendComponentToBody(content, customSettings);
         const domElem = (DialogService.componentRef.hostView as EmbeddedViewRef<any>)
@@ -75,7 +72,7 @@ export class DialogService {
         document.getElementById('loadComponent').innerHTML = data;
 
         setTimeout(() => {
-            let focusTrap = this.focusTrap.create(domElem);  // creates a focus trap region
+            const focusTrap = this.focusTrap.create(domElem);  // creates a focus trap region
             focusTrap.focusInitialElement();    // Moves the focus in the
         });
 
@@ -89,9 +86,6 @@ export class DialogService {
         if (DialogService.componentRef) {
             this.appRef.detachView(DialogService.componentRef.hostView);
             DialogService.componentRef.destroy();
-            if (this.lastFocused) {
-                this.lastFocused.focus();
-            }
         }
     }
 }
