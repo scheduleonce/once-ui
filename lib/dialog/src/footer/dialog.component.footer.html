@@ -1,9 +1,8 @@
 <!--Footer section-->
 <div class="once-ui-modal-footer">
-  <div class="once-ui-btn-row">
+  <div class="once-ui-btn-row" *ngIf="footerSettings && footerSettings.linkButtons && footerSettings.linkButtons.length>0">
     <!-- Links -->
-    <div class="once-ui-links"
-         *ngIf="footerSettings && footerSettings.linkButtons && footerSettings.linkButtons.length>0">
+    <div class="once-ui-links">
         <span  *ngFor="let link of footerSettings.linkButtons;">
          <button *ngIf="getKeys(link).length" 
               [disabled]="link.disabled"
