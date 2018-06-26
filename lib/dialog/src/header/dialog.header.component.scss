@@ -5,7 +5,7 @@
     line-height: 30px;
     padding: 0px 22px 30px 22px;
     img{
-      max-height: 30px;
+      max-height: 25px;
       margin-right: 10px;
       float: left;
       min-height: 20px;
@@ -27,11 +27,11 @@
         .once-ui-action-icons {
           margin-top: 1px;
           border: 0;
-          float: right;
+          float: left;
           background-repeat: no-repeat;
           background-color: #fff;
           @include makeCursorDefault(pointer);
-          padding-left: 14px;
+          padding-left: 7px;
           width: 19px;
           height: 19px;
           background-position: right center;
@@ -48,6 +48,7 @@
         }
         .once-ui-help-icon{
           background-image: url('../help.svg');
+          background-position: center center;
         }
         .once-ui-action-icons.disabledDiscard {
           pointer-events: none;
@@ -59,13 +60,18 @@
                 float: left;
                 padding-left: 0px;
                 padding-right: 8px;
-                border-right: 1px solid #ccc;
-                &:last-child{
+                &:first-child{
                     padding-left: 8px;
                     padding-right: 0;
-                    border:none;
+                    border:none !important;
+                }
+                &:last-child{
+                  border-left: 1px solid #ccc;
                 }
             }
+            // a.once-ui-video-icon{
+            //   border-right: 1px solid #ccc;
+            // }
         }
     }
 }

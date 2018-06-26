@@ -1,6 +1,6 @@
 import {
   Component,
-  Input, HostListener, Inject
+  Input, HostListener, Inject, ViewEncapsulation
 } from '@angular/core';
 import {DialogService} from '../dialog.service';
 import {DOCUMENT} from "@angular/platform-browser";
@@ -13,7 +13,8 @@ import {DOCUMENT} from "@angular/platform-browser";
   templateUrl: 'dialog.component.overlay.html',
   host: {
     'class': 'onceUiDialogHeader'
-  }
+  },
+  encapsulation: ViewEncapsulation.None
 })
 export class DialogOverlayComponent {
   @Input() modal: boolean;
