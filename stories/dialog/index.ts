@@ -34,11 +34,12 @@ let properties = {
                 tooltip: 'link 1',
                 text: 'link 1',
                 disabled: false,
-                callback: action('clicked')
+                callback: action('linkButton clicked')
             },
             {
                 tooltip: 'link 2',
                 text: 'link 2',
+                callback: action('linkButton clicked')
             }
         ],
         buttons: [
@@ -46,14 +47,14 @@ let properties = {
                 tooltip: 'Yes',
                 text: 'Yes',
                 disabled: false,
-                callback: action('clicked')
+                callback: action('button clicked')
 
             },
             {
                 tooltip: 'No',
                 text: 'No',
                 disabled: false,
-                callback: action('clicked')
+                callback: action('button clicked')
 
             }
         ]
@@ -83,11 +84,11 @@ class MainComponent {
     ngOnChanges() {
         if(this.prevCustom && JSON.stringify(this.custom) !== JSON.stringify(this.prevCustom)) {
             this.custom.footer.buttons.forEach((key, index) => {
-                this.custom.footer.buttons[index]['callback'] = this.prevCustom.footer.buttons[index]['callback'];
+                this.custom.footer.buttons[index]['callback'] = action('button clicked');
             });
 
             this.custom.footer.linkButtons.forEach((key, index) => {
-                this.custom.footer.linkButtons[index]['callback'] = this.prevCustom.footer.linkButtons[index]['callback'];
+                this.custom.footer.linkButtons[index]['callback'] = action('linkButton clicked');
             });
 
             DialogService.componentRef.instance.custom = this.custom;
