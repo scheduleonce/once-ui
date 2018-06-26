@@ -1,6 +1,7 @@
 import {
     Component,
-    Input
+    Input,
+    ViewEncapsulation
 } from '@angular/core';
 import {OnceDialogConfig} from '../dialog-config';
 import {DialogService} from '../dialog.service';
@@ -14,7 +15,8 @@ import {DialogService} from '../dialog.service';
     styleUrls: ['./dialog.footer.component.scss'],
     host: {
         'class': 'onceUiDialogFooter'
-    }
+    },
+    encapsulation: ViewEncapsulation.None
 })
 export class DialogFooterComponent {
     @Input() footerSettings: string;

@@ -1,17 +1,6 @@
-$themes: (
-  // Blue theme
-  once-ui-theme-blue: (
-    buttons: (
-      base: $once-ui-blue-base-color,
-      light: $once-ui-blue-light-color
-    )
-  ),
-
-  // Green theme
-  once-ui-theme-green: (
-    buttons: (
-      base: $once-ui-green-base-color,
-      light: $once-ui-green-light-color,
-    )
+$once-ui-theme: (
+  buttons: (
+    base: $once-ui-base-color,
+    light: $once-ui-light-color,
   )
 );

@@ -1,6 +1,6 @@
 import {
-  Component,
-  Input
+    Component,
+    Input, ViewEncapsulation
 } from '@angular/core';
 
 /**
@@ -12,7 +12,8 @@ import {
     styleUrls: ['./dialog.content.component.scss'],
     host: {
         'class': 'onceUiDialogContent'
-    }
+    },
+    encapsulation: ViewEncapsulation.None
 })
 export class DialogContentComponent {
     @Input() content: string;
