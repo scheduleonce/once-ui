@@ -75,11 +75,11 @@ A custom theme file does three things:
 
 * Imports `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` this includes all common styles that are used by multiple components. This should only be included once in your application. If this mixin is included multiple times, your application will end up with multiple copies of these common styles.
 
-* Defines a theme data structure as the composition of multiple palettes. This object can be created with any valid Sass map variable name, in my case this is `$my-light-theme`. In this you need to pass the components like buttons, inputs, checkbox etc..
+* Defines a theme data structure as the composition of multiple palettes. This object can be created with any valid Sass map variable name, in my case this is `$my-custom-theme`. In this you need to pass the components like buttons, inputs, checkbox etc..
 
-* The output of this map (`$my-light-theme` or custom theme name) is then passed to the `once-ui-create-theme` mixin, which will output all of the corresponding styles for the theme.
+* The output of this map (`$my-custom-theme` or custom theme name) is then passed to the `once-ui-create-theme` mixin, which will output all of the corresponding styles for the theme.
 
-* Last thing you need to tell the theme name to `@once/ui` component. 
+and you are done!
 
 #### Note: 
 `base-theme-color` is/are blue and green only.
@@ -89,7 +89,7 @@ A typical theme file will look something like this:
 ```sh
 @import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss';
 
-$my-light-theme: (
+$my-custom-theme: (
   buttons: (
     base: red,
     light: yellow,
@@ -98,7 +98,7 @@ $my-light-theme: (
 );
 
 .onceUiDialogContainer .once-ui-theme  {
-  @include once-ui-create-theme($my-light-theme);
+  @include once-ui-create-theme($my-custom-theme);
 }
 ```
 
