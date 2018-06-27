@@ -7,6 +7,8 @@
     border-top: 1px solid #c8c8c8;
     box-sizing: border-box;
     .once-ui-btn{
+      width: auto;
+      height: auto;
       font-size: 14px;
       text-decoration: none;
       color: #fff;
@@ -38,6 +40,8 @@
       }
     }
     .once-ui-cancel{
+      width: auto;
+      height: auto;
       min-height: 35px;
       background: 0 0;
       border-width: 0;
@@ -50,7 +54,7 @@
       font-size: 14px;
       float: left;
       margin-bottom: 5px;
-      color: $once-ui-blue-base-color;
+      color: $once-ui-base-color;
       &:disabled{
         border-color: $once-ui-disabled-color;
         color: $once-ui-disabled-color;

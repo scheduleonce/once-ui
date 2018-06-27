@@ -1,6 +1,7 @@
 import {
   Component,
-  Input
+  Input,
+  ViewEncapsulation
 } from '@angular/core';
 import {OnceDialogConfig} from '../dialog-config';
 import {DialogService} from '../dialog.service';
@@ -13,7 +14,7 @@ import {DialogService} from '../dialog.service';
   templateUrl: 'dialog.component.header.html',
   styleUrls: ['./dialog.header.component.scss'],
   host: {
-    'class': 'onceUiDialogOverlay'
+    'class': 'onceUiDialogHeader'
   }
 })
 export class DialogHeaderComponent {
