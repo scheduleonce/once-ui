@@ -1,0 +1,31 @@
+<!--Footer section-->
+<div class="once-ui-modal-footer">
+    <div class="once-ui-btn-row" *ngIf="footerSettings && getKeys(footerSettings).length">
+        <!-- Links -->
+        <div class="once-ui-links"
+             *ngIf="footerSettings.linkButtons">
+        <span  *ngFor="let link of footerSettings.linkButtons;">
+         <button *ngIf="getKeys(link).length"
+                 [disabled]="link.disabled"
+                 title="{{link.tooltip}}"
+                 (click)="link.callback && link.callback()"
+                 class="once-ui-cancel">
+            {{link.text}}
+         </button>
+        </span>
+        </div>
+        <!--Buttons-->
+        <div class="once-ui-buttons" *ngIf="footerSettings.buttons">
+          <span *ngFor="let button of footerSettings.buttons; index as i;">
+            <button *ngIf="getKeys(button).length"
+                    title="{{button.tooltip}}"
+                    [disabled]="button.disabled"
+                    [attr.class]="i===(footerSettings.buttons.length - 1)? 'once-ui-btn': 'once-ui-btn once-ui-btn-secondary'"
+                    (click)="button.callback && button.callback()"
+                    class="once-ui-cancel">{{button.text}}
+            </button>
+          </span>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

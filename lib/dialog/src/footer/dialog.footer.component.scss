@@ -1,0 +1,75 @@
+@import "../styles/dialog.mixin.scss"; // Including Mixin
+
+.once-ui-modal-footer{
+  .once-ui-btn-row {
+    padding: 12px 22px 0;
+    width: 100%;
+    border-top: 1px solid #c8c8c8;
+    box-sizing: border-box;
+    .once-ui-btn{
+      width: auto;
+      height: auto;
+      font-size: 14px;
+      text-decoration: none;
+      color: #fff;
+      text-align: center;
+      letter-spacing: .5px;
+      @include makeCursorDefault(pointer);
+      padding: 6px 22px;
+      line-height: 22px;
+      min-height: 35px;
+      min-width: 70px;
+      font-weight: 600;
+      vertical-align: middle;
+      -webkit-tap-highlight-color: transparent;
+      border-radius: 100px;
+      border: 1px solid transparent;
+      margin-right: 0;
+      margin-left: 12px;
+      margin-bottom: 5px;
+      &:disabled{
+        background: $once-ui-disabled-color;
+      }
+      &:first-child{
+        &:disabled{
+          background: transparent;
+          border-color: $once-ui-disabled-color !important;
+          color: $once-ui-disabled-color !important;
+          @include makeCursorDefault(auto);
+        }
+      }
+    }
+    .once-ui-cancel{
+      width: auto;
+      height: auto;
+      min-height: 35px;
+      background: 0 0;
+      border-width: 0;
+      @include makeCursorDefault(pointer);
+      margin-right: 40px;
+      margin-left: 0;
+      line-height: 34px;
+      font-weight: 400;
+      text-decoration: none;
+      font-size: 14px;
+      float: left;
+      margin-bottom: 5px;
+      color: $once-ui-base-color;
+      &:disabled{
+        border-color: $once-ui-disabled-color;
+        color: $once-ui-disabled-color;
+        @include makeCursorDefault(auto);
+      }
+    }
+    .once-ui-links{
+      float: left;
+    }
+    .once-ui-buttons{
+      float: right;
+      text-align: right;
+    }
+    .clearfix{
+      clear: both;
+    }
+  }
+}

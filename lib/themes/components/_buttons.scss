@@ -1,0 +1,22 @@
+@mixin themifyButtons($component) {
+  .once-ui-btn {
+    @include themeColor(map-get($component, "base"));
+    &:last-child {
+      &:hover {
+        @include themeColor(map-get($component, "light"));
+        @extend %once-ui-hover-color;
+      }
+    }
+  }
+  .once-ui-btn.once-ui-btn-secondary {
+    @include secondaryBtn(map-get($component, "base"));
+    @extend %once-ui-bg-transparent;
+    &:hover {
+      @include themeColor(map-get($component, "light"));
+    }
+  }
+}
+
+.once-ui-theme {
+  @include themifyButtons(map-get($once-ui-theme, 'buttons'));
+}
