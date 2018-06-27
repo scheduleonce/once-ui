@@ -38,7 +38,6 @@ import { DialogModule, DialogService } from '@once/ui';
 | [title]       | object         | `{text: '', icon: ''}`         | yes       | Expects title and icon from the user|               |
 | [video]       | object         | `{tooltip: 'Video',  link: "<any-valid-url>"}`               | no       | Will open a video in a new tab. |               |
 | [article]       | object         | `{tooltip: 'Article',  link: "<any-valid-url>"  }`               | no       | Will open a help article in a new tab |               |
-| [close]       | object         | {tooltip: 'Close'}                 | no       | Will close the popup without taking any action |               |
 
 ## FOOTER :: IFOOTER
 
