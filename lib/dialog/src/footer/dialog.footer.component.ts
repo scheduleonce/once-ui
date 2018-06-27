@@ -19,7 +19,7 @@ import {DialogService} from '../dialog.service';
     encapsulation: ViewEncapsulation.None
 })
 export class DialogFooterComponent {
-    @Input() footerSettings: string;
+    @Input() footerSettings: any;
 
     constructor(public _config: OnceDialogConfig, public dialog: DialogService) {
     }

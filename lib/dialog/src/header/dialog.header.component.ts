@@ -14,9 +14,8 @@ import {DialogService} from '../dialog.service';
   templateUrl: 'dialog.component.header.html',
   styleUrls: ['./dialog.header.component.scss'],
   host: {
-    'class': 'onceUiDialogOverlay'
-  },
-  encapsulation: ViewEncapsulation.None
+    'class': 'onceUiDialogHeader'
+  }
 })
 export class DialogHeaderComponent {
   @Input() headerSettings: any;

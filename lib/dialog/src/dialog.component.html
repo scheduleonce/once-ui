@@ -2,6 +2,8 @@
 <section class="once-ui-dialog-modal once-ui-theme"
          role="dialog"
          id="once-ui-dialog"
+         *ngIf="custom"
+         [ngClass]="custom.theme || 'once-ui-theme-blue'"
          aria-label="dialog"
          aria-labelledby="once-ui-modal-header"
          [style.visibility]="internalVisible ? 'visible' : 'hidden'">
@@ -9,20 +11,19 @@
          #dialog
          [style.marginTop.px]="dialogMargin"
          [style.top.%]="dialogTop"
-         [ngClass]="custom && custom.size? custom.size: ''">
+         [ngClass]="custom.size? custom.size: ''">
         <!--OnceUi header-->
         <once-ui-dialog-header
-                *ngIf="custom"
                 [headerSettings]="custom.header"></once-ui-dialog-header>
 
         <!--OnceUi content-->
         <once-ui-dialog-content
-                *ngIf="custom && custom.content"
+                *ngIf="custom.content"
                 [content]="custom.content"></once-ui-dialog-content>
 
         <!--OnceUi footer-->
         <once-ui-dialog-footer
-                *ngIf="custom && custom.footer"
+                *ngIf="custom.footer"
                 [footerSettings]="custom.footer"></once-ui-dialog-footer>
 
         <!--Overlay-->
