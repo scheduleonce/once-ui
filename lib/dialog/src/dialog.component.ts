@@ -25,6 +25,7 @@ import {DOCUMENT} from '@angular/platform-browser';
 export class DialogComponent implements OnInit {
   @Input() visible: boolean;
   @ViewChild('dialog') elementView: ElementRef;
+  custom: any;
   dialogTop = 50;
   dialogMargin: number;
   internalVisible = false;
@@ -36,6 +37,8 @@ export class DialogComponent implements OnInit {
   }
 
   ngOnInit() {
+    //For AOT compiler
+    this.custom = this.custom;
     this.ngOnChanges();
   }
 
