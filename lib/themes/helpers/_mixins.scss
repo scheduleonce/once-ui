@@ -1,9 +1,9 @@
-@mixin themeColor($color) {
+@mixin themeColor($color,$text-color) {
   background: $color;
-  color: $color;
+  color: $text-color;
 }
 
-@mixin secondaryBtn($color) {
+@mixin secondaryBtn($color,$text-color) {
   border: 1px solid $color !important;
-  color: $color !important;
+  color: $color;
 }
