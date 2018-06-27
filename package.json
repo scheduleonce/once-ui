@@ -1,6 +1,6 @@
 {
   "name": "@once/ui",
-  "version": "0.0.12",
+  "version": "0.0.19",
   "license": "MIT",
   "repository": "https://github.com/scheduleonce/ui-components.git",
   "bugs": "https://github.com/scheduleonce/ui-components/issues",
@@ -70,7 +70,7 @@
     "copyfiles": "^2.0.0",
     "css-loader": "^0.28.11",
     "file-loader": "^1.1.11",
-    "ng-packagr": "^2.4.4",
+    "ng-packagr": "3.0.3",
     "prettier": "^1.12.1",
     "rimraf": "^2.6.2",
     "sass-loader": "^7.0.1",
