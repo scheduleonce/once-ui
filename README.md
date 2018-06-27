@@ -65,7 +65,7 @@ When you want more customization than a pre-built theme offers, you can create y
 
 A custom theme file does three things:
 
-* Imports `@import '~@once/ui/themes/base.scss'` this includes all common styles that are used by multiple components. This should only be included once in your application. If this mixin is included multiple times, your application will end up with multiple copies of these common styles.
+* Imports `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss''` this includes all common styles that are used by multiple components. This should only be included once in your application. If this mixin is included multiple times, your application will end up with multiple copies of these common styles.
 
 * Defines a theme data structure as the composition of multiple palettes. This object can be created with any valid Sass map variable name, in my case this is `$my-light-theme`. In this you need to pass the components like buttons, inputs, checkbox etc..
 
@@ -73,16 +73,19 @@ A custom theme file does three things:
 
 * Last thing you need to tell the theme name to `@once/ui` component. 
 
+#### Note: 
+`base-theme-color` is/are blue and green only.
 
 A typical theme file will look something like this:
 
 ```sh
-@import '~@once/ui/themes/base.scss';
+@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss';
 
 $my-light-theme: (
   buttons: (
     base: red,
-    light: yellow
+    light: yellow,
+    text-color: blue
   )
 );
 
