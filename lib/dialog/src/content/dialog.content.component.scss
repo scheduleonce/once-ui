@@ -9,7 +9,4 @@
     font-size: 16px;
     @include preventTextSelectionOnDoubleClick();
     @include makeCursorDefault(default);
-    p {
-      margin-bottom: 22px;
-    }
 }
