@@ -39,12 +39,36 @@ import { DialogModule, DialogService } from '@once/ui';
 | [video]       | object         | `{tooltip: 'Video',  link: "<any-valid-url>"}`               | no       | Will open a video in a new tab. |               |
 | [article]       | object         | `{tooltip: 'Article',  link: "<any-valid-url>"  }`               | no       | Will open a help article in a new tab |               |
 
+## TITLE :: ITITLE
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [text]       | string         | null          | no       | Header title text for dialog |               |
+| [icon]       | string         |  null   | no       | Icon for dialog |               |
+
+
 ## FOOTER :: IFOOTER
 
 | Input            | Type            | Default                 | Required | Description |
 | ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
 | [linkButtons]       | object         | `[{ tooltip: 'Cancel 1', text: 'Cancel 1', disabled: false, callback: function () {} }]`          | no       | Array of “links” that will be stacked from the left corner of the footer.|               |
 | [buttons]       | object         | `{tooltip: 'Cancel 1', text: 'Cancel 1', disabled: true, callback: function () {}},`               | no       | Call to actions buttons. Props.: If disabled, button is disabled |               |
+
+## LINKBUTTONS :: ILINKBUTTONS
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [tooltip]       | string         | null         | no       | Tooltip text for link button|               |
+| [text]       | string         | null               | no       | Text for link button or simple button |      
+| [callback]       | function         | null               | no       | Event occurs when this particular button is clicked |    
+
+## BUTTONS :: IBUTTONS
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [tooltip]       | string         | null         | no       | Tooltip text for button|               |
+| [text]       | string         | null               | no       | Text for link button or simple button |      
+| [callback]       | function         | null               | no       | Event occurs when this particular button is clicked |    
 
 
 ## Methods
