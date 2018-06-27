@@ -37,7 +37,7 @@ import { DropDownModule, DatepickerModule } from '@once/ui';
 
 #### What is a theme?
 
-In Angular Material, a theme is created by composing multiple palettes.
+In @once/ui, a theme is created by composing multiple palettes.
 
 
 ### Using a pre-built theme
@@ -46,18 +46,26 @@ Once UI comes prepackaged with two pre-built theme css files. These theme files 
 
 Available pre-built themes:
 
-* once-ui-theme-blue - This is the default theme
+* once-ui-theme-blue
 * once-ui-theme-green
 
-To use any theme you need to pass the name of the theme in:
+### Applying a particular theme to your project
 
-```
-this.dialog.open(component, {
-   theme: 'once-ui-theme-green'
-})
-```
+In the whole project:
 
-The above code snippet apply the green theme for dialogbox component.
+* `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` in project's style.css 
+* You can import the theme file in `.angular-cli.json` file like as follows:-
+
+    `"styles": ["./node_modules/@once/ui/themes/once-ui-theme-blue.css"]`
+ 
+In a particular component:
+
+
+* `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` in particular component's style file.
+* You can import the theme file in component's .ts file like as show below
+
+    `"styleUrls": ["~@once/ui/themes/once-ui-theme-<base-theme-color>.scss"]` 
+
 
 ###  Defining a custom theme
 
@@ -65,29 +73,32 @@ When you want more customization than a pre-built theme offers, you can create y
 
 A custom theme file does three things:
 
-* Imports `@import '~@once/ui/themes/base.scss'` this includes all common styles that are used by multiple components. This should only be included once in your application. If this mixin is included multiple times, your application will end up with multiple copies of these common styles.
+* Imports `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` this includes all common styles that are used by multiple components. This should only be included once in your application. If this mixin is included multiple times, your application will end up with multiple copies of these common styles.
 
-* Defines a theme data structure as the composition of multiple palettes. This object can be created with any valid Sass map variable name, in my case this is `$my-light-theme`. In this you need to pass the components like buttons, inputs, checkbox etc..
+* Defines a theme data structure as the composition of multiple palettes. This object can be created with any valid Sass map variable name, in my case this is `$my-custom-theme`. In this you need to pass the components like buttons, inputs, checkbox etc..
 
-* The output of this map (`$my-light-theme` or custom theme name) is then passed to the `once-ui-create-theme` mixin, which will output all of the corresponding styles for the theme.
+* The output of this map (`$my-custom-theme` or custom theme name) is then passed to the `once-ui-create-theme` mixin, which will output all of the corresponding styles for the theme.
 
-* Last thing you need to tell the theme name to `@once/ui` component. 
+and you are done!
 
+#### Note: 
+`base-theme-color` is/are blue and green only.
 
 A typical theme file will look something like this:
 
 ```sh
-@import '~@once/ui/themes/base.scss';
+@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss';
 
-$my-light-theme: (
+$my-custom-theme: (
   buttons: (
     base: red,
-    light: yellow
+    light: yellow,
+    text-color: blue
   )
 );
 
 .onceUiDialogContainer .once-ui-theme  {
-  @include once-ui-create-theme($my-light-theme);
+  @include once-ui-create-theme($my-custom-theme);
 }
 ```
 
