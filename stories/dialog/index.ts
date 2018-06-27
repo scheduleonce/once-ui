@@ -1,4 +1,4 @@
-import {Component, OnInit, OnChanges} from '@angular/core';
+import {Component, OnInit, OnChanges, ViewEncapsulation} from '@angular/core';
 import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { action, configureActions } from '@storybook/addon-actions';
 import { text,object,button} from '@storybook/addon-knobs/dist/angular';
@@ -12,60 +12,53 @@ import { DialogService } from '../../lib/dialog';
 
 let properties = {
     header: {
-        article: {
-            tooltip: 'article',
-            link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        title: {
+            text: "What’s a version control system?",
+            icon: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
         },
         video: {
-            tooltip: 'Video',
-            link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+            link: 'https://www.youtube.com/watch?v=Y9XZQO1n_7c',
         },
-        close: {
-            tooltip: 'Close'
-        },
-        title: {
-            text: "Hello dialog",
-            icon: 'https://encodable.com/uploaddemo/files/reassinment.svg'
+        article: {
+            link: 'https://www.tutorialspoint.com/git/git_tutorial.pdf',
         }
     },
     footer: {
         linkButtons: [
             {
-                tooltip: 'link 1',
-                text: 'link 1',
-                disabled: false,
-                callback: action('linkButton clicked')
+                tooltip: 'Next >>',
+                text: 'Next >>',
+                callback: action('Link button - next clicked')
             },
             {
-                tooltip: 'link 2',
-                text: 'link 2',
-                callback: action('linkButton clicked')
+                tooltip: 'Prev <<',
+                text: 'Prev <<',
+                callback: action('Link button - prev clicked')
             }
         ],
         buttons: [
             {
-                tooltip: 'Yes',
-                text: 'Yes',
-                disabled: false,
-                callback: action('button clicked')
+                tooltip: 'Submit & finish',
+                text: 'Submit & finish',
+                callback: action('Button - submit all clicked')
 
             },
             {
-                tooltip: 'No',
-                text: 'No',
-                disabled: false,
-                callback: action('button clicked')
-
+                tooltip: 'Cancel & close',
+                text: 'Cancel & close',
+                callback: action('Button - Cancel and close is clicked')
             }
         ]
     },
     size: 'small',
     modal: false
-}
+};
 
 // Component for content of dialog
 @Component({
-    template: 'This is the test component for showing the data in the dialog.'
+    templateUrl: './dialog.html',
+    styleUrls: ['../../lib/themes/once-ui-theme-blue.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 
 class TestComponent {
