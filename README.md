@@ -51,20 +51,20 @@ Available pre-built themes:
 
 ### Applying a particular theme to your project
 
-If you want to apply the theme for the complete project:-
+In the whole project:
 
-*  `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` in project's style.css 
+* `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` in project's style.css 
 * You can import the theme file in `.angular-cli.json` file like as follows:-
 
- `"styles": ["./node_modules/@once/ui/themes/once-ui-theme-blue.css"]`
+    `"styles": ["./node_modules/@once/ui/themes/once-ui-theme-blue.css"]`
  
-If you want this only for a particular component-
+In a particular component:
 
 
-*  `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` in particular component's style file.
+* `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.scss'` in particular component's style file.
 * You can import the theme file in component's .ts file like as show below
 
- `"styleUrls": ["~@once/ui/themes/once-ui-theme-<base-theme-color>.scss"]` 
+    `"styleUrls": ["~@once/ui/themes/once-ui-theme-<base-theme-color>.scss"]` 
 
 
 ###  Defining a custom theme
