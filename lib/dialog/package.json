@@ -12,8 +12,7 @@
       "entryFile": "./index.ts",
       "cssUrl": "inline"
     },
-    "whitelistedNonPeerDependencies": [
-      "."
-    ]
+    "whitelistedNonPeerDependencies": ["."]
   }
 }
+

@@ -147,7 +147,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
       content: '';
       border-left: 4px solid transparent;
       border-right: 4px solid transparent;
-      border-top: 8px solid #000;
+      border-top: 8px solid #333;
       height: 0;
       position: absolute;
       right: 10px;
@@ -402,19 +402,6 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
 
   .disabledDropdown {
     pointer-events: none;
-    .img-caption {
-      opacity: 0.4;
-
-    }
-    .img-caption-label {
-      color: #9B9B9B;
-    }
-
-    .dropdown {
-      border-color: #E4E4E4 !important;
-      &:after {
-        border-top: 8px solid #9B9B9B;
-      }
-    }
+    opacity: 0.5;
   }
 }
