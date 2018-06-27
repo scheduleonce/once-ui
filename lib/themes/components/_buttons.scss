@@ -1,13 +1,10 @@
-/**
- * Buttons - Helper theme mixin
- */
-
 @mixin themifyButtons($component) {
   .once-ui-btn {
     @include themeColor(map-get($component, "base"));
     &:last-child {
       &:hover {
         @include themeColor(map-get($component, "light"));
+        @extend %once-ui-hover-color;
       }
     }
   }
@@ -16,32 +13,10 @@
     @extend %once-ui-bg-transparent;
     &:hover {
       @include themeColor(map-get($component, "light"));
-      @extend %once-ui-hover-color;
     }
   }
 }
 
-// @param $themeName: Name of the theme
-// @param $component: name of the theme (HTML class)
-@mixin theme($themeName, $component) {
-  .#{$themeName} {
-    @include themifyButtons($component);
-  }
+.once-ui-theme {
+  @include themifyButtons(map-get($once-ui-theme, 'buttons'));
 }
-
-/**
-* Create custom theme
-*/
-@mixin create-theme($component) {
-  @include themifyButtons($component);
-}
-
-// Including themes
-// @include theme('once-ui-theme-blue', map-get($once-ui-theme-blue, 'buttons'));
-// @include theme('once-ui-theme-green', map-get($once-ui-theme-green, 'buttons'));
-
-@each $key, $value in $themes{
-  @include theme($key, map-get($value, 'buttons'));
-}
-
-

@@ -1,8 +1,8 @@
 /**
  * Dialog mixins and variable
  */
-@import '../../../themes/base.scss';
- 
+@import '../../../themes/helpers/variables-common';
+
 @mixin preventTextSelectionOnDoubleClick() {
    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
    -moz-user-select: none; /* mozilla browsers */
@@ -10,11 +10,11 @@
    -o-user-select: none;
    user-select: none;
 }
- 
+
 @mixin makeCursorDefault($type) {
    cursor: $type;
 }
- 
+
 @mixin positionType($position,$top,$left,$right,$bottom) {
    position: $position;
    top: $top;
