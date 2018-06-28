@@ -64,7 +64,7 @@ In a particular component:
 * `@import '~@once/ui/themes/once-ui-theme-<base-theme-color>.css'` in particular component's style file.
 * You can import the theme file in component's .ts file like as show below
 
-    `"styleUrls": ["~@once/ui/themes/once-ui-theme-<base-theme-color>.scss"]` 
+    `"styleUrls": ["~@once/ui/themes/once-ui-theme-<base-theme-color>.css"]` 
 
 
 ###  Defining a custom theme
