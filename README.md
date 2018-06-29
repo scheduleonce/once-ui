@@ -7,7 +7,7 @@ Various UI components that we are using at Oncehub.
 - Minimal styling (easy to customize!),
 - Great performance.
 
-For demos, see the [project page](https://once-ui.azurewebsites.net).
+For demos, see the [project page](//once-ui-components.azurewebsites.net).
 
 ### Available components:
 
