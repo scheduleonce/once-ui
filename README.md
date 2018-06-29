@@ -114,4 +114,9 @@ Use **npm version <update_version>** to update npm version. Please read [semanti
 
 Run **npm run publish**. 
 
+
+## Publishing storybook
+
+Use **npm run build** which will generate storybook static folder that you need to push to git master branch.
+
 thats all!
