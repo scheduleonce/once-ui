@@ -1,4 +1,4 @@
-# DATEPICKER
+# Datepicker shared angular component
 
 The datepicker allows users to enter a date by choosing a date from the calendar. This component uses material datepicker API.
 
