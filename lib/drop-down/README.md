@@ -1,4 +1,4 @@
-# Angular once-ui-dropdown
+# Dropdown shared angular component
 
 # Table of contents
 
