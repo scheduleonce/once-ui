@@ -121,7 +121,7 @@ storiesOf('Dialog', module)
             setOptions: setOptions({ showAddonPanel: true }),
             component: MainComponent,
             props: {
-                custom:object('custom', properties),
+                custom:object('options', properties),
             }
         })
     });
