@@ -103,3 +103,20 @@ $my-custom-theme: (
 ```
 
 You only need this single Sass file; you do not need to use Sass to style the rest of your app.
+
+## Publishing npm module
+
+### Update npm version
+
+Use **npm version <update_version>** to update npm version. Please read [semantic versioning](https://docs.npmjs.com/getting-started/semantic-versioning)
+
+### Publish your npm module
+
+Run **npm run publish**. 
+
+
+## Publishing storybook
+
+Use **npm run build** which will generate storybook static folder that you need to push to git master branch.
+
+thats all!
