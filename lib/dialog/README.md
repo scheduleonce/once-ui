@@ -31,36 +31,56 @@ import { DialogModule, DialogService } from '@once/ui';
 | [modal]       | boolean         | false                 | no       | If `true` make the dialog a modal|               |
 | [escape]       | boolean         | false                 | no       | If `true`If true dialog gets closed on escape button press from keyboard|               |
 
-##### HEADER :: IHEADER
-##
+## HEADER :: IHEADER
 
 | Input            | Type            | Default                 | Required | Description |
 | ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
 | [title]       | object         | `{text: '', icon: ''}`         | yes       | Expects title and icon from the user|               |
 | [video]       | object         | `{tooltip: 'Video',  link: "<any-valid-url>"}`               | no       | Will open a video in a new tab. |               |
 | [article]       | object         | `{tooltip: 'Article',  link: "<any-valid-url>"  }`               | no       | Will open a help article in a new tab |               |
-| [close]       | object         | {tooltip: 'Close'}                 | no       | Will close the popup without taking any action |               |
 
-##### FOOTER :: IFOOTER
-##
+## TITLE :: ITITLE
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [text]       | string         | null          | no       | Header title text for dialog |               |
+| [icon]       | string         |  null   | no       | Icon for dialog |               |
+
+
+## FOOTER :: IFOOTER
 
 | Input            | Type            | Default                 | Required | Description |
 | ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
 | [linkButtons]       | object         | `[{ tooltip: 'Cancel 1', text: 'Cancel 1', disabled: false, callback: function () {} }]`          | no       | Array of “links” that will be stacked from the left corner of the footer.|               |
-| [buttons]       | object         | `{tooltip: 'Cancel 1', text: 'Cancel 1', disabled: true, callback: function () {}}`               | no       | Call to actions buttons. Props.: If disabled, button is disabled |               |
+| [buttons]       | object         | `{tooltip: 'Cancel 1', text: 'Cancel 1', disabled: true, callback: function () {}},`               | no       | Call to actions buttons. Props.: If disabled, button is disabled |               |
+
+## LINKBUTTONS :: ILINKBUTTONS
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [tooltip]       | string         | null         | no       | Tooltip text for link button|               |
+| [text]       | string         | null               | no       | Text for link button or simple button |
+| [callback]       | function         | null               | no       | Event occurs when this particular button is clicked |
+
+## BUTTONS :: IBUTTONS
+
+| Input            | Type            | Default                 | Required | Description |
+| ---------------- | --------------- | ----------------------- | -------- | ----------------------- |
+| [tooltip]       | string         | null         | no       | Tooltip text for button|               |
+| [text]       | string         | null               | no       | Text for link button or simple button |
+| [callback]       | function         | null               | no       | Event occurs when this particular button is clicked |
 
 
 ## Methods
 
 
-##### 1) Open(componentORTemplateRef, config)
-##
-| Description | 
+## 1) Open(componentORTemplateRef, config)
+
+| Description |
 |-------------|
 |Opens a dialog/popup containing the given component or template.|
 
-##### Params:
-#
+## Params:
 
 | Parameters        |      Description         |
 |-------------------| -------------------------|
@@ -72,12 +92,11 @@ import { DialogModule, DialogService } from '@once/ui';
 |Open dialog box instance|
 
 
-##### Basic example using component
+## Basic example using component
 
 - Import TestingComponent in the module
 - Declare TestingComponent in entryComponents
-###### any.module.ts
-#
+## any.module.ts
 
 ```js
 import { TestingComponent } from './testing/testing.component';
@@ -86,11 +105,10 @@ import { TestingComponent } from './testing/testing.component';
 });
 ```
 
-###### component.ts 
-#
+## component.ts
 
 
-```js 
+```js
 export class MyComponent {
 
 openDialog(){
@@ -100,6 +118,9 @@ openDialog(){
         video: {
           tooltip: 'Video',
           link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
+        },
+        close: {
+          tooltip: 'Close'
         }
       }
     });
@@ -107,15 +128,14 @@ openDialog(){
 }
 ```
 
-##### Basic example using template reference
+## Basic example using template reference
 - Import Dialog Service
 - Use @ViewChild to get the element from the view DOM
 
-###### component.ts
-#
+## component.ts
 
 ```js
-import {DialogService} from './dialog/src/dialog.service';
+import {DialogService} from '@once/ui';
 
 export class MyComponent {
 
@@ -138,9 +158,6 @@ openDialog() {
         video: {
           tooltip: 'Video',
           link: 'https://www.youtube.com/watch?v=b1ieJtIx1NY',
-        },
-        close: {
-          tooltip: 'Close'
         }
       },
       footer: {
@@ -182,8 +199,8 @@ openDialog() {
 }
 ```
 
-######  template.html
-#
+##  template.html
+
 ```js
 <div #vertex>
    Dialog box content goes here...
@@ -191,16 +208,16 @@ openDialog() {
 </div>
 ```
 
-##### 2) Close()
-##
+## 2) Close()
+
 |Description                           |
 |-------------------------------------|
 |Closes the currently opened dialog box|
 
-### Basic example
+## Basic example
 
 ```js
-import {DialogService} from '../dialog.service';
+import {DialogService} from '@once/ui';
 
 constructor(public dialog: DialogService) {
 }
