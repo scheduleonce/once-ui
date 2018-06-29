@@ -1,6 +1,6 @@
 import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { action, configureActions } from '@storybook/addon-actions';
-import { boolean, number, text, withKnobs, object, array } from '@storybook/addon-knobs/dist/angular';
+import { boolean, number, text, withKnobs, object, array, color } from '@storybook/addon-knobs/dist/angular';
 import { withReadme, withDocs } from 'storybook-readme';
 import { CommonModule } from '@angular/common';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
@@ -105,7 +105,7 @@ storiesOf('Dropdown', module)
             fixedTitle: boolean('fixedTitle', false),
             isBorderLess: boolean('isBorderLess', false),
             customClick: action('Option changed'),
-            borderBottomColor: text('borderBottomColor', '#008000'),
+            borderBottomColor: color('borderBottomColor', '#008000'),
             disabledDropdown: boolean('disabledDropdown', false),
             selectedAndDisabledOptions: object('selectedAndDisabledOptions', []),
         }
