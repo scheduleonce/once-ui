@@ -1,7 +1,7 @@
 import {Component, OnInit, OnChanges, ViewEncapsulation} from '@angular/core';
 import { storiesOf, moduleMetadata } from '@storybook/angular';
 import { action, configureActions } from '@storybook/addon-actions';
-import { text,object,button} from '@storybook/addon-knobs/dist/angular';
+import { text,object,button,boolean,select} from '@storybook/addon-knobs/dist/angular';
 import { setOptions } from '@storybook/addon-options';
 import { withReadme, withDocs }  from 'storybook-readme';
 import * as readmeFile from '../../lib/dialog/README.md';
@@ -28,30 +28,28 @@ let properties = {
             {
                 tooltip: 'Next >>',
                 text: 'Next >>',
-                callback: action('Link button - next clicked')
+                callback: action('Next >> clicked')
             },
             {
                 tooltip: 'Prev <<',
                 text: 'Prev <<',
-                callback: action('Link button - prev clicked')
+                callback: action('Prev << clicked')
             }
         ],
         buttons: [
             {
                 tooltip: 'Submit & finish',
                 text: 'Submit & finish',
-                callback: action('Button - submit all clicked')
+                callback: action('Submit & finish clicked')
 
             },
             {
                 tooltip: 'Cancel & close',
                 text: 'Cancel & close',
-                callback: action('Button - Cancel and close is clicked')
+                callback: action('Cancel & close clicked')
             }
         ]
-    },
-    size: 'small',
-    modal: false
+    }
 };
 
 // Component for content of dialog
@@ -71,30 +69,41 @@ class TestComponent {
 class MainComponent {
     custom: any;
     prevCustom: any;
+    modal:boolean = false;
+    size:any;
     constructor(private dialog: DialogService) {
     }
 
     ngOnChanges() {
         if(this.prevCustom && JSON.stringify(this.custom) !== JSON.stringify(this.prevCustom)) {
-            this.custom.footer.buttons.forEach((key, index) => {
-                this.custom.footer.buttons[index]['callback'] = action('button clicked');
-            });
+            if(this.custom.footer) { 
+                this.custom.footer.buttons && this.custom.footer.buttons.forEach((key, index) => {
+                    this.custom.footer.buttons[index]['callback'] = action((this.custom.footer.buttons[index]['text'] || 'Button') +' clicked');
+                });
 
-            this.custom.footer.linkButtons.forEach((key, index) => {
-                this.custom.footer.linkButtons[index]['callback'] = action('linkButton clicked');
-            });
+                this.custom.footer.linkButtons && this.custom.footer.linkButtons.forEach((key, index) => {
+                    this.custom.footer.linkButtons[index]['callback'] = action((this.custom.footer.linkButtons[index]['text'] || 'linkButton') + ' clicked');
+                });
+            }
 
             DialogService.componentRef.instance.custom = this.custom;
             DialogService.componentRef.instance.custom.content = TestComponent;
             DialogService.componentRef.changeDetectorRef.detectChanges();
         }
+
+        if(DialogService.componentRef.instance) {
+            DialogService.componentRef.instance.custom.modal = this.modal;
+            DialogService.componentRef.instance.custom.size = this.size;
+            DialogService.componentRef.changeDetectorRef.detectChanges();
+        }
+
         this.prevCustom = this.custom;
         properties = this.custom;
     }
 
     /**
      * Open dialog
-     */
+    */
     openDialog() {
         this.dialog.open(TestComponent, properties);
     }
@@ -122,6 +131,8 @@ storiesOf('Dialog', module)
             component: MainComponent,
             props: {
                 custom:object('custom', properties),
+                modal: boolean('modal', false),
+                size: select('size', ['small', 'large']),
             }
         })
     });
