@@ -91,14 +91,19 @@ class MainComponent {
             DialogService.componentRef.changeDetectorRef.detectChanges();
         }
 
-        if(DialogService.componentRef.instance) {
-            DialogService.componentRef.instance.custom.modal = this.modal;
-            DialogService.componentRef.instance.custom.size = this.size;
-            DialogService.componentRef.changeDetectorRef.detectChanges();
-        }
+        this.knobsChanges();
 
         this.prevCustom = this.custom;
         properties = this.custom;
+    }
+
+    /**
+     * Knob changes
+    */
+    knobsChanges(){
+        DialogService.componentRef.instance.custom.modal = this.modal;
+        DialogService.componentRef.instance.custom.size = this.size;
+        DialogService.componentRef.changeDetectorRef.detectChanges();
     }
 
     /**
@@ -106,6 +111,7 @@ class MainComponent {
     */
     openDialog() {
         this.dialog.open(TestComponent, properties);
+        this.knobsChanges();
     }
 
 };
