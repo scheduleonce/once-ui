@@ -14,7 +14,7 @@ let properties = {
     header: {
         title: {
             text: "What’s a version control system?",
-            icon: 'https://assets-cdn.github.com/images/modules/logos_page/Octocat.png'
+            icon: 'https://svgshare.com/i/7Sq.svg'
         },
         video: {
             link: 'https://www.youtube.com/watch?v=Y9XZQO1n_7c',
