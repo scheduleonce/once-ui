@@ -1,9 +1,0 @@
-@mixin themeColor($color,$text-color) {
-  background: $color;
-  color: $text-color;
-}
-
-@mixin secondaryBtn($color,$text-color) {
-  border: 1px solid $color !important;
-  color: $color;
-}
