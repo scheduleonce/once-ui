@@ -33,7 +33,7 @@ export const MY_FORMATS = {
   templateUrl: './datepicker.component.html',
   styleUrls: [
     './datepicker.component.scss',
-    '../../../../../../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css',
+    '../../../../../../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css',
     './material2-extended.scss',
     './border-less.component.scss'
   ],
