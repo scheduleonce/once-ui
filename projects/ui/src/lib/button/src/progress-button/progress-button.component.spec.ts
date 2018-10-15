@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProgressButtonComponent } from './progress-button.component';
+import { ButtonComponent } from '../button/button.component';
 
 describe('ProgressButtonComponent', () => {
   let component: ProgressButtonComponent;
@@ -8,7 +9,7 @@ describe('ProgressButtonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ProgressButtonComponent]
+      declarations: [ProgressButtonComponent, ButtonComponent]
     }).compileComponents();
   }));
 

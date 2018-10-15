@@ -1,8 +1,20 @@
 <?xml version="1.0"?>
-<testsuite name="HeadlessChrome 0.0.0 (Windows 10 0.0.0)" package="" timestamp="2018-10-15T10:29:43" id="0" hostname="LAPTOP-DJOOK17U" tests="0" errors="1" failures="0" time="0">
+<testsuite name="HeadlessChrome 0.0.0 (Windows 10 0.0.0)" package="" timestamp="2018-10-15T11:57:54" id="0" hostname="LAPTOP-DJOOK17U" tests="8" errors="0" failures="0" time="0.477">
   <properties>
     <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/69.0.3497.100 Safari/537.36"/>
   </properties>
+  <testcase name="ButtonComponent should create" time="0.045" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).ButtonComponent"/>
+  <testcase name="ProgressButtonComponent should create" time="0.048" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).ProgressButtonComponent"/>
+  <testcase name="DatepickerComponent should create" time="0" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).DatepickerComponent">
+    <skipped/>
+  </testcase>
+  <testcase name="DropDownComponent should create" time="0" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).DropDownComponent">
+    <skipped/>
+  </testcase>
+  <testcase name="OverlayPanelComponent should create" time="0.037" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).OverlayPanelComponent"/>
+  <testcase name="OverlayPanelModule should create an instance" time="0.001" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).OverlayPanelModule"/>
+  <testcase name="TooltipComponent should create" time="0.032" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).TooltipComponent"/>
+  <testcase name="ActionMenuComponent should create" time="0.314" classname="HeadlessChrome_0_0_0_(Windows_10_0_0_0).ActionMenuComponent"/>
   <system-out>
     <![CDATA[
 ]]>
