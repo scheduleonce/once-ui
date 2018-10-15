@@ -1,0 +1,9 @@
+<div #container class="panel" [ngClass]="{'small-panel': size === 'small', 'large-panel': size ==='large', 'panel-test': imageLink}"
+  *ngIf="visible" (mouseenter)="show($event)" (mouseleave)="hide()">
+
+  <h6 *ngIf="title">{{title}}</h6>
+  <img *ngIf="imageLink" [src]="imageLink">
+  <div class="panel-content">
+    <ng-content></ng-content>
+  </div>
+</div>

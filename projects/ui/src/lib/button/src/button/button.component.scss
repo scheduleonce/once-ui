@@ -1,0 +1,152 @@
+.btn,
+.btn-large {
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  background-color: #006bb1;
+  text-align: center;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  padding: 6px 22px;
+  line-height: 19px;
+  min-height: 35px;
+  min-width: 70px;
+  font-weight: 600;
+  margin-right: 12px;
+  float: left;
+  border: 0;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+  border-radius: 100px;
+  border: 1px solid transparent !important;
+}
+.btn,
+.btn-large,
+.btn-floating,
+.btn-large,
+.btn-flat {
+  outline: 0;
+}
+.btn:hover,
+.btn-large:hover {
+  background-color: #01568e;
+  text-decoration: none;
+}
+.btn.disabled,
+.disabled.btn-large,
+.btn-floating.disabled,
+.btn-large.disabled,
+.btn-flat.disabled,
+.btn:disabled,
+.btn-large:disabled,
+.btn-floating:disabled,
+.btn-large:disabled,
+.btn-flat:disabled,
+.btn[disabled],
+[disabled].btn-large,
+.btn-floating[disabled],
+.btn-large[disabled],
+.btn-flat[disabled] {
+  pointer-events: none;
+  background-color: #c8c8c8 !important;
+  box-shadow: none;
+  color: #fff !important;
+  cursor: default;
+}
+.btnLink.disabled {
+  color: #9b9b9b;
+  cursor: initial;
+  text-decoration: none !important;
+}
+.btn + .btnLink,
+.btnRow .btnLink,
+.btnRow .cancelLink {
+  margin-left: 20px;
+}
+.btnLink {
+  min-height: 35px;
+  background: transparent;
+  border-width: 0;
+  font-size: 14px;
+  letter-spacing: 0.1px;
+  line-height: 35px;
+  letter-spacing: 0.1;
+  cursor: pointer;
+  color: #006bb1;
+  margin-right: 34px;
+}
+.btnLink:hover {
+  text-decoration: underline;
+}
+button,
+html input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+  -webkit-appearance: button;
+  cursor: pointer;
+}
+
+.savingBtn.btn {
+  background: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  color: #333333 !important;
+  min-width: 79px !important;
+  font-weight: 700;
+  text-align: left;
+}
+.savedBtn.btn {
+  padding-right: 0 !important;
+  color: #333333 !important;
+  min-width: 79px !important;
+  text-align: left;
+  font-weight: 700;
+  padding-left: 23px;
+  position: relative;
+  background: url(../v-green-small.svg) transparent !important;
+  background-position: left center !important;
+  background-repeat: no-repeat !important;
+}
+.savingBtn.btn:hover {
+  background: transparent !important;
+}
+
+.sBtn {
+  text-decoration: none;
+  color: #006bb1;
+  background-color: transparent;
+  text-align: center;
+  letter-spacing: 0.1px;
+  cursor: pointer;
+  padding: 6px 22px;
+  font-size: 14px;
+  line-height: 19px;
+  min-height: 35px;
+  min-width: 70px;
+  font-weight: 600;
+  margin-right: 12px;
+  float: left;
+  border: none;
+  vertical-align: middle;
+  -webkit-tap-highlight-color: transparent;
+  border: 1px solid #006bb1;
+  border-radius: 100px;
+}
+.sBtn:hover {
+  background-color: #01568e;
+  color: #fff;
+  text-decoration: none;
+}
+.sBtn:disabled,
+.sBtn.disabled {
+  pointer-events: none;
+  background-color: #fff !important;
+  box-shadow: none;
+  color: #c8c8c8 !important;
+  cursor: default;
+  border: 1px solid #c8c8c8 !important;
+}
+.btnLink:focus {
+  border: 0 none !important;
+}

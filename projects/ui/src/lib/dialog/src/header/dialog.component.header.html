@@ -1,0 +1,46 @@
+<!--Header section with title and actions-->
+<div class="once-ui-modal-header" id="once-ui-modal-header" >
+  <img
+    tabindex="0"
+    *ngIf="headerSettings && headerSettings.title && headerSettings.title.icon" src="{{headerSettings.title.icon}}"
+    aria-label="Header icon"
+    alt="Icon"/>
+  <label
+    tabindex="0"
+    *ngIf="headerSettings && headerSettings.title && headerSettings.title.text">{{headerSettings.title.text}}</label>
+
+  <div class="so-ui-btn-combos">
+    <!--Video/article links-->
+    <span *ngIf="headerSettings">
+        <!--Video link-->
+        <a
+          tabindex="0"
+          *ngIf="headerSettings.video"
+          title="{{headerSettings.video.tooltip || _config.video.tooltip}}"
+          class="once-ui-action-icons once-ui-video-icon"
+          [attr.ariaLabel]="headerSettings.video.tooltip || _config.video.tooltip"
+          [attr.href]="headerSettings.video.link || null"
+          target='_blank'></a>
+
+      <!--Article link-->
+        <a
+          tabindex="0"
+          *ngIf="headerSettings.article"
+          title="{{headerSettings.article.tooltip || _config.article.tooltip}}"
+          class="once-ui-action-icons once-ui-help-icon"
+          [attr.ariaLabel]="headerSettings.article.tooltip || _config.article.tooltip"
+          [attr.href]="headerSettings.article.link || null"
+          target='_blank'></a>
+    </span>
+
+    <!--Close link-->
+    <a
+      tabindex="0"
+      title="Close"
+      role="button"
+      class="once-ui-action-icons once-ui-cross-icon"
+      (click)="close()"
+      aria-label="Close dialog"
+      (keydown)="closeDialog($event)"></a>
+  </div>
+</div>
