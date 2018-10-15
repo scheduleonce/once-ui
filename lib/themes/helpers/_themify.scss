@@ -1,7 +1,0 @@
-@mixin once-ui-theme($component) {
-  @include themifyButtons($component);
-}
-
-@mixin once-ui-create-theme($custom){
-  @include once-ui-theme(map-get($custom, 'buttons'));
-}
