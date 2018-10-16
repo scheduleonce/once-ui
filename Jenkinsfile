@@ -69,7 +69,6 @@ def notifyBuild(String buildStatus = 'STARTED', String channel = "jenkins") {
         color = 'RED'
         colorCode = '#FF0000'
     }
-
     // Send notifications
     slackSend(channel: "#$channel", color: colorCode, message: summary)
 }
