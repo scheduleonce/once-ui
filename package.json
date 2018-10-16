@@ -6,7 +6,7 @@
     "build": "ng build ui",
     "test": "ng test ui",
     "lint": "ng lint ui --format stylish",
-    "prettier": "prettier --list-different \"projects/oncehub/**/*.{ts, js, css, scss}\"",
+    "prettier": "prettier --list-different \"projects/ui/**/*.{ts, js, css, scss}\"",
     "e2e": "ng e2e",
     "fix:prettier": "prettier --write \"**/*.{ts, js, css, scss}\"",
     "fix:lint": "ng lint --fix *.ts -t verbose",
