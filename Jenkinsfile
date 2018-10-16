@@ -15,6 +15,7 @@ node {
             print "Environment will be : ${env.NODE_ENV}"
             def nodeHome = tool 'node:LTS:latest'
             env.PATH = "${env.PATH}:${nodeHome}/bin"
+                sh "npm install"
                 sh "npm run prettier"
                 sh "npm run lint"
                 sh "npm run test"
