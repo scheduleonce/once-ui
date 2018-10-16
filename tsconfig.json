@@ -10,20 +10,14 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "typeRoots": ["node_modules/@types"],
     "lib": [
       "es2017",
       "dom"
     ],
     "paths": {
-      "ui": [
-        "dist/ui"
-      ],
-      "ui/*": [
-        "dist/ui/*"
-      ],
+      "ui": ["dist/ui"],
+      "ui/*": ["dist/ui/*"],
       "moment": ["node_modules/moment/min/moment.min.js"]
     }
   }

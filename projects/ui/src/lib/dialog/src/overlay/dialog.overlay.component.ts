@@ -32,7 +32,7 @@ export class DialogOverlayComponent {
    */
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.keyCode === 27) {
+    if (event.key === 'Escape') {
       if (this.escape) {
         this.dialog.close();
       }
