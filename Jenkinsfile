@@ -1,3 +1,4 @@
+def testReports = false
 //stage 'Build'
 node {
     try {
@@ -19,11 +20,15 @@ node {
                 sh "npm run prettier"
                 sh "npm run lint"
                 sh "npm run test"
+                testReports = true
         }
     } catch (e) {
         currentBuild.result = "FAILED"
         throw e
     } finally {
+        if(testReports){
+            junit 'reports/**/*.xml'
+        }
         notifyBuild(currentBuild.result, env.channel)
         cleanWs()
     }
@@ -43,9 +48,6 @@ def getEnvironment(String branchName) {
         return [null];
     }
 }
-
-
-
 
 def notifyBuild(String buildStatus = 'STARTED', String channel = "jenkins") {
     // build status of null means successful
