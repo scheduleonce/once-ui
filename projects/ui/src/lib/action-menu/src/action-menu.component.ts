@@ -6,7 +6,8 @@ import {
   Input,
   AfterViewChecked,
   ElementRef,
-  ViewChild
+  ViewChild,
+  ChangeDetectorRef
 } from '@angular/core';
 import { ActionMenuConfig } from './action-menu-config';
 
@@ -30,7 +31,7 @@ export class ActionMenuComponent
   @ViewChild('target')
   target: ElementRef;
 
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   @HostListener('document:click')
   documentClick() {
@@ -79,7 +80,8 @@ export class ActionMenuComponent
     }
   }
 
-  onItemClick() {
+  onItemClick(event) {
+    this.hide();
     event.stopPropagation();
   }
 
@@ -97,15 +99,17 @@ export class ActionMenuComponent
     }
   }
 
-  actionMenuMouseenter(): void {
+  actionMenuMouseenter() {
     clearTimeout(this.timeOutEvent);
     this.timeOutEvent = null;
     this.show();
+    this.cdr.detectChanges();
   }
 
-  actionMenuMouseleave(): void {
+  actionMenuMouseleave() {
     this.timeOutEvent = setTimeout(() => {
       this.hide();
+      this.cdr.detectChanges();
     }, 500);
   }
 
