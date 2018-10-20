@@ -85,7 +85,10 @@ Several directives are availaible to make it easier to structure your dialog con
 |---|---------------------------------------------------------------------------------|
 | `once-dialog-title` | [Attr] Dialog title, applied to a heading element|
 | `<once-dialog-content>`  | container for content of the dialog   |
-| `<once-dialog-actions`|  container for actions buttons for the buttom of the dialog |
+| `<once-dialog-actions>`|  container for actions buttons for the bottom of the dialog |
+| `once-dialog-helpicon`|  [Attr] dialog helpicon on the top right |
+| `once-dialog-close`|  [Attr] dialog close icon on the top right |
+
 
 
 For example:
