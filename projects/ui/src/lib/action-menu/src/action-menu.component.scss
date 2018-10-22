@@ -11,6 +11,9 @@
   border: 1px solid transparent;
   line-height: 0.5px;
 }
+.action-menu-vertical {
+  height: 25px !important;
+}
 .action-menu .dot {
   width: 4px;
   height: 4px;
@@ -19,57 +22,69 @@
   border-radius: 50%;
   display: inline-block;
 }
+.action-menu .vertical-dot {
+  width: 4px;
+  height: 4px;
+  background-color: #4a4a4a;
+  margin: 1px 0 2px 0;
+  border-radius: 50%;
+}
 .action-menu.activeAnchor,
 .action-menu:hover {
   border: 1px solid #4a4a4a;
   background: #efefef;
 }
-
 .action-menu.action-menu-open {
   border: 1px solid #4a4a4a;
   background: #efefef;
 }
-
 .action-menu-dd {
   position: absolute;
-  width: 189px;
+  min-width: 200px;
+  max-width: 244px;
   background-color: #fff;
   box-shadow: 0 1px 3px 2px rgba(167, 167, 167, 0.5);
   border: 1px solid #c8c8c8;
-  z-index: 1;
-  // right: 0;
-  top: 29px;
+  z-index: 9999;
   font-size: 13px;
   line-height: 22px;
 }
-.reduced-top-spacing {
-  top: 15px !important;
-}
 .new-user-cat-box .action-menu-icon-links,
 .action-menu-dd .action-menu-icon-links {
-  padding: 10px 15px 6px 15px;
+  padding: 10px 15px;
   display: inline-block;
   width: 100%;
   color: #333;
   cursor: pointer;
   position: relative;
 }
-.new-user-cat-box:nth-child(1) .action-menu-icon-links {
+.action-menu-dd ul {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+/*.new-user-cat-box:nth-child(1) .action-menu-icon-links {
   padding-top: 10px;
 }
 .new-user-cat-box:nth-last-child(1) .action-menu-icon-links {
   padding-bottom: 10px;
-}
+}*/
 .action-menu-icon-links .icon-container {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
   width: 20px;
   height: 20px;
   margin-right: 10px;
   text-align: center;
 }
+.action-menu-icon-links .icon-description {
+  display: inline-block;
+  max-width: 138px;
+  vertical-align: middle;
+}
 .action-menu-icon-links .icon-container img {
   margin-top: 2px;
 }
 .action-menu-icon-links:hover {
+  background-color: #eee;
   text-decoration: none;
 }
