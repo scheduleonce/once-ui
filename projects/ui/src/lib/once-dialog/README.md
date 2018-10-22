@@ -73,26 +73,35 @@ export class YourDialog {
 
 Several directives are availaible to make it easier to structure your dialog content:
 
-| **Name**                | **Description**                                            |
-| ----------------------- | ---------------------------------------------------------- |
-| `once-dialog-title`     | [Attr] Dialog title, applied to a heading element          |
-| `<once-dialog-content>` | container for content of the dialog                        |
-| `<once-dialog-actions>` | container for actions buttons for the bottom of the dialog |
-| `once-dialog-helpicon`  | [Attr] dialog helpicon on the top right                    |
-| `once-dialog-close`     | [Attr] dialog close icon on the top right                  |
+| **Name**                      | **Description**                                            |
+| ----------------------------- | ---------------------------------------------------------- |
+| `<once-dialog-header>`        | Dialog header, applied to a heading element                |
+| `once-dialog-title`           | [Attr] dialog title on the top left                        |
+| `once-dialog-help`            | [Attr] dialog help icon on the top right                   |
+| `once-dialog-video`           | [Attr] dialog video icon on the top right                  |
+| `once-dialog-close`           | [Attr] dialog close icon on the top right                  |
+| `<once-dialog-content>`       | container for content of the dialog                        |
+| `<once-dialog-footer>`        | container for actions buttons for the bottom of the dialog |
+| `<once-dialog-actions-right>` | container for action buttons on the right                  |
+| `<once-dialog-actions-left>`  | container for action buttons on the left                   |
 
 For example:
 
 ```html
-    <h2 once-dialog-title once-dialog-helpicon="http://scheduleonce.com/article" once-dialog-close>Delete all</h2>
+    <once-dialog-header title="Delete all" once-dialog-help="http://scheduleonce.com/article" once-dialog-video="https://youtube.com/..." once-dialog-close />
     <once-dialog-content>Are you sure?</once-dialog-content>
-    <once-dialog-actions>
-        <once-button>No</button>
-        <once-button>save</once-button>
-    </once-dialog-actions>
+    <once-dialog-footer>
+      <once-dialog-action-right>
+        <button once-button-primary>No</button>
+        <button once-button>Yes</button>
+      </once-dialog-action-right>
+      <once-dialog-action-left>
+        <button once-button-link>Cancel</button>
+      </once-dialog-action-left>
+    </once-dialog-footer>
 ```
 
-## Configuring dialog content via `entryComponets`
+## Configuring dialog content via `entryComponents`
 
 The OnceDialog instantiates components at run-time, the Angular compiler need extra information to create the necessary ComponentFactory for your dialog content component.
 
@@ -116,7 +125,7 @@ export class AppModule {}
 
 The once-ui comes with prepackaged several themes in css files. These themes can be added in your style.css file( common css file). So you have to include single css file in your whole application.
 
-You can include a theme file direclty into your application from `@once/ui/prebuilt-themes`
+You can include a theme file directly into your application from `@once/ui/prebuilt-themes`
 
 Available prebuilt themes
 
