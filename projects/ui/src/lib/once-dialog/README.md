@@ -73,15 +73,13 @@ export class YourDialog {
 
 Several directives are availaible to make it easier to structure your dialog content:
 
-| **Name**  | **Description**                                                                 |
-|---|---------------------------------------------------------------------------------|
-| `once-dialog-title` | [Attr] Dialog title, applied to a heading element|
-| `<once-dialog-content>`  | container for content of the dialog   |
-| `<once-dialog-actions>`|  container for actions buttons for the bottom of the dialog |
-| `once-dialog-helpicon`|  [Attr] dialog helpicon on the top right |
-| `once-dialog-close`|  [Attr] dialog close icon on the top right |
-
-
+| **Name**                | **Description**                                            |
+| ----------------------- | ---------------------------------------------------------- |
+| `once-dialog-title`     | [Attr] Dialog title, applied to a heading element          |
+| `<once-dialog-content>` | container for content of the dialog                        |
+| `<once-dialog-actions>` | container for actions buttons for the bottom of the dialog |
+| `once-dialog-helpicon`  | [Attr] dialog helpicon on the top right                    |
+| `once-dialog-close`     | [Attr] dialog close icon on the top right                  |
 
 For example:
 
@@ -114,8 +112,6 @@ For any component loaded into a dialog, you must include your component class in
 export class AppModule {}
 ```
 
-
-
 ## Using a pre-built theme
 
 The once-ui comes with prepackaged several themes in css files. These themes can be added in your style.css file( common css file). So you have to include single css file in your whole application.
@@ -124,15 +120,13 @@ You can include a theme file direclty into your application from `@once/ui/prebu
 
 Available prebuilt themes
 
-* `oncehub.css`
-* `scheduleonce.css`
-* `inviteonce.css`
-* `chatonce.css`
+- `oncehub.css`
+- `scheduleonce.css`
+- `inviteonce.css`
+- `chatonce.css`
 
 You have to add single one line in style.css file
 
 ```css
-
 @import '~@once/ui/prebuilt-themes/oncehub.css';
-
 ```
