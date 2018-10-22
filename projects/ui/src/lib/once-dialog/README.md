@@ -86,7 +86,7 @@ Several directives are availaible to make it easier to structure your dialog con
 For example:
 
 ```html
-    <h2 once-dialog-title>Delete all</h2>
+    <h2 once-dialog-title once-dialog-helpicon="http://scheduleonce.com/article" once-dialog-close>Delete all</h2>
     <once-dialog-content>Are you sure?</once-dialog-content>
     <once-dialog-actions>
         <once-button>No</button>
@@ -112,4 +112,27 @@ For any component loaded into a dialog, you must include your component class in
   bootstrap: [AppComponent]
 })
 export class AppModule {}
+```
+
+
+
+## Using a pre-built theme
+
+The once-ui comes with prepackaged several themes in css files. These themes can be added in your style.css file( common css file). So you have to include single css file in your whole application.
+
+You can include a theme file direclty into your application from `@once/ui/prebuilt-themes`
+
+Available prebuilt themes
+
+* `oncehub.css`
+* `scheduleonce.css`
+* `inviteonce.css`
+* `chatonce.css`
+
+You have to add single one line in style.css file
+
+```css
+
+@import '~@once/ui/prebuilt-themes/oncehub.css';
+
 ```
