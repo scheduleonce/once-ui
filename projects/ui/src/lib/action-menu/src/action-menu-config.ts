@@ -7,3 +7,10 @@ export class ActionMenuConfig {
   click: Function;
   tooltip: string;
 }
+
+export const DefaultPositionConfig = {
+  right_bottom: 'right_bottom',
+  right_top: 'right_top',
+  left_bottom: 'left_bottom',
+  left_top: 'left_top'
+}

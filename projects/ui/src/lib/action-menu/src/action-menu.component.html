@@ -1,17 +1,18 @@
-<div class="three-dot-menu" (click)="onMouseClick($event)" [title]="dotsMenuTooltip">
-  <a class="action-menu" [class.action-menu-open]="dropdownVisible" #target (mouseleave)="actionMenuMouseleave();">
-    <div class="dot"></div>
-    <div class="dot"></div>
-    <div class="dot"></div>
+<div class="three-dot-menu" (click)="onMouseClick($event)" onceTooltip="dotsMenuTooltip" #relativeDiv>
+  <a class="action-menu" [class.action-menu-vertical]="isVertical" [class.action-menu-open]="dropdownVisible" #target
+    (mouseleave)="actionMenuMouseleave();">
+    <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
+    <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
+    <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
   </a>
-  <div #container *ngIf="dropdownVisible" class="action-menu-dd reduced-top-spacing">
+  <div #container *ngIf="dropdownVisible" class="action-menu-dd">
     <ul (mouseenter)="actionMenuMouseenter();" (mouseleave)="actionMenuMouseleave();">
       <li class="new-user-cat-box" *ngFor="let item of items">
         <a (click)="onItemClick($event); item.click(actionItem)" class="action-menu-icon-links" [title]="item.tooltip">
           <div class="icon-container">
             <img [src]="item.icon">
           </div>
-          {{item.label}}
+          <div class="icon-description">{{item.label}}</div>
         </a>
       </li>
     </ul>

@@ -23,8 +23,11 @@ actionMenuItems = [
 
 ## API
 
-| Input           | Type               | Default | Description                              |
-| --------------- | ------------------ | ------- | -----------------------------            |
-| items           | ActionMenuConfig[] | null    | items in the Action menu                 |
-| dotsMenuTooltip | string             | ''      | tooltip shown on 3 dots hover            |
-| actionItem      | any                | null    | object on which action will be performed |
+| Input           | Type               | Default                      | Description                              |
+| --------------- | ------------------ | ---------------------------- | ---------------------------------------- |
+| items           | ActionMenuConfig[] | null                         | items in the Action menu                 |
+| dotsMenuTooltip | string             | ''                           | tooltip shown on 3 dots hover            |
+| actionItem      | any                | null                         | object on which action will be performed |
+| isVertical      | boolean            | false                        | 3 dots styling - vertical or horizontal  |
+| defaultPosition | string             | 'left_bottom' if vertical    | default position of the menu to be       |
+|                 |                    | 'right_bottom' if horizontal | opened.                                  |
