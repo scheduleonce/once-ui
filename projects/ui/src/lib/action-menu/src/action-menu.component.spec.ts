@@ -14,7 +14,7 @@ describe('ActionMenuComponent', () => {
     }).compileComponents();
   }));
 
-  describe('Horizontal 3 dots', ()=> {
+  describe('Horizontal 3 dots', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ActionMenuComponent);
       component = fixture.componentInstance;
@@ -28,17 +28,17 @@ describe('ActionMenuComponent', () => {
       fixture.detectChanges();
       expect(component.isVertical).toBeFalsy();
     });
-  
+
     it('Default value of defaultPosition to be right-bottom for horizontal 3 dots', () => {
       component.ngOnInit();
       fixture.detectChanges();
-      expect(component.defaultPosition).toBe(DefaultPositionConfig.right_bottom);
+      expect(component.defaultPosition).toBe(
+        DefaultPositionConfig.right_bottom
+      );
     });
 
-    it('Clicking 3 dots should open action menu', ()=> {
-      const dotsButton = <HTMLElement>(
-        element.querySelector('.three-dot-menu')
-      );
+    it('Clicking 3 dots should open action menu', () => {
+      const dotsButton = <HTMLElement>element.querySelector('.three-dot-menu');
       if (dotsButton) {
         dotsButton.dispatchEvent(new MouseEvent('click'));
         fixture.detectChanges();
@@ -47,7 +47,7 @@ describe('ActionMenuComponent', () => {
     });
   });
 
-  describe('Vertical 3 dots', ()=> {
+  describe('Vertical 3 dots', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ActionMenuComponent);
       component = fixture.componentInstance;
@@ -68,26 +68,28 @@ describe('ActionMenuComponent', () => {
     });
   });
 
-  describe('Already open action menu', ()=> {
+  describe('Already open action menu', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ActionMenuComponent);
       component = fixture.componentInstance;
       component.isVertical = false;
       component.dropdownVisible = true;
-      component.items = [{
-        label: 'Delete User',
-        icon: '',
-        click: () => {console.log('Delete user callback')},
-        tooltip: 'Delete User'
-      }];
+      component.items = [
+        {
+          label: 'Delete User',
+          icon: '',
+          click: () => {
+            console.log('Delete user callback');
+          },
+          tooltip: 'Delete User'
+        }
+      ];
       element = fixture.nativeElement;
       fixture.detectChanges();
     });
 
-    it('Clicking 3 dots should close action menu', ()=> {
-      const dotsButton = <HTMLElement>(
-        element.querySelector('.three-dot-menu')
-      );
+    it('Clicking 3 dots should close action menu', () => {
+      const dotsButton = <HTMLElement>element.querySelector('.three-dot-menu');
       if (dotsButton) {
         dotsButton.dispatchEvent(new MouseEvent('click'));
         fixture.detectChanges();
@@ -95,7 +97,7 @@ describe('ActionMenuComponent', () => {
       }
     });
 
-    it('Clicking action menu action should close action menu', ()=> {
+    it('Clicking action menu action should close action menu', () => {
       const menuItem = <HTMLElement>(
         element.querySelector('.action-menu-icon-links')
       );

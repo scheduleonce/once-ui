@@ -13,4 +13,4 @@ export const DefaultPositionConfig = {
   right_top: 'right_top',
   left_bottom: 'left_bottom',
   left_top: 'left_top'
-}
+};
