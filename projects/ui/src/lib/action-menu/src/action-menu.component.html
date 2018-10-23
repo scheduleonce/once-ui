@@ -1,9 +1,11 @@
 <div class="three-dot-menu" (click)="onMouseClick($event)" onceTooltip="dotsMenuTooltip" #relativeDiv>
   <a class="action-menu" [class.action-menu-vertical]="isVertical" [class.action-menu-open]="dropdownVisible" #target
     (mouseleave)="actionMenuMouseleave();">
+    <!-- <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
     <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
-    <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
-    <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div>
+    <div [ngClass]="{'dot': !isVertical, 'vertical-dot': isVertical}"></div> -->
+    <img [src]="threeDotIcon" *ngIf="!isVertical">    
+    <img [src]="threeDotIconVertical" *ngIf="isVertical">
   </a>
   <div #container *ngIf="dropdownVisible" class="action-menu-dd">
     <ul (mouseenter)="actionMenuMouseenter();" (mouseleave)="actionMenuMouseleave();">
