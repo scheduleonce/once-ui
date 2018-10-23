@@ -29,7 +29,7 @@ export class ActionMenuComponent
   @Input()
   isVertical = false;
   @Input()
-  defaultPosition: string;  
+  defaultPosition: string;
   @Input()
   threeDotIcon: string;
   @Input()
