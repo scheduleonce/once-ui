@@ -30,6 +30,10 @@ export class ActionMenuComponent
   isVertical = false;
   @Input()
   defaultPosition: string;
+  @Input()
+  threeDotIcon: string;
+  @Input()
+  threeDotIconVertical: string;
   @ViewChild('container')
   container: ElementRef;
   @ViewChild('target')
