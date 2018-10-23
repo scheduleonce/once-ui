@@ -29,7 +29,11 @@ export class ActionMenuComponent
   @Input()
   isVertical = false;
   @Input()
-  defaultPosition: string;
+  defaultPosition: string;  
+  @Input()
+  threeDotIcon: string;
+  @Input()
+  threeDotIconVertical: string;
   @ViewChild('container')
   container: ElementRef;
   @ViewChild('target')

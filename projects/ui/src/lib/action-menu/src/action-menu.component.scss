@@ -12,7 +12,7 @@
   line-height: 0.5px;
 }
 .action-menu-vertical {
-  height: 25px !important;
+  height: 26px !important;
 }
 .action-menu .dot {
   width: 4px;
@@ -22,13 +22,13 @@
   border-radius: 50%;
   display: inline-block;
 }
-.action-menu .vertical-dot {
-  width: 4px;
-  height: 4px;
-  background-color: #4a4a4a;
-  margin: 1px 0 2px 0;
-  border-radius: 50%;
-}
+// .action-menu .vertical-dot {
+//   width: 4px;
+//   height: 4px;
+//   background-color: #4a4a4a;
+//   margin: 1px 0 2px 0;
+//   border-radius: 50%;
+// }
 .action-menu.activeAnchor,
 .action-menu:hover {
   border: 1px solid #4a4a4a;
