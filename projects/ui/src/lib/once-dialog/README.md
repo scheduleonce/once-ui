@@ -15,7 +15,7 @@ const config = {
 const dialogReference = this.dialog.open(AlertComponent, config);
 ```
 
-The `dialogRefrence` object provides utility that can be used to close it or provides other notifications utility.
+The `dialogReference` object provides utility that can be used to close it or provides other notifications utility.
 
 ```typescript
 dialogReference.afterClose().subscribe(result => {
@@ -71,7 +71,7 @@ export class YourDialog {
 
 ## Dialog Content
 
-Several directives are availaible to make it easier to structure your dialog content:
+Several directives are available to make it easier to structure your dialog content:
 
 | **Name**                      | **Description**                                            |
 | ----------------------------- | ---------------------------------------------------------- |
