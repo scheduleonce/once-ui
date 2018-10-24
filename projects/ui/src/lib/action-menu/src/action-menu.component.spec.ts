@@ -37,6 +37,27 @@ describe('ActionMenuComponent', () => {
       );
     });
 
+    it('Change value of defaultPosition to be left-bottom for horizontal 3 dots', () => {
+      component.defaultPosition = DefaultPositionConfig.left_bottom;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.defaultPosition).toBe(DefaultPositionConfig.left_bottom);
+    });
+
+    it('Change value of defaultPosition to be left-top for horizontal 3 dots', () => {
+      component.defaultPosition = DefaultPositionConfig.left_top;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.defaultPosition).toBe(DefaultPositionConfig.left_top);
+    });
+
+    it('Change value of defaultPosition to be right-top for horizontal 3 dots', () => {
+      component.defaultPosition = DefaultPositionConfig.right_top;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.defaultPosition).toBe(DefaultPositionConfig.right_top);
+    });
+
     it('Clicking 3 dots should open action menu', () => {
       const dotsButton = <HTMLElement>element.querySelector('.three-dot-menu');
       if (dotsButton) {
@@ -66,6 +87,29 @@ describe('ActionMenuComponent', () => {
       fixture.detectChanges();
       expect(component.defaultPosition).toBe(DefaultPositionConfig.left_bottom);
     });
+
+    it('Change value of defaultPosition to be right-bottom for horizontal 3 dots', () => {
+      component.defaultPosition = DefaultPositionConfig.right_bottom;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.defaultPosition).toBe(
+        DefaultPositionConfig.right_bottom
+      );
+    });
+
+    it('Change value of defaultPosition to be left-top for horizontal 3 dots', () => {
+      component.defaultPosition = DefaultPositionConfig.left_top;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.defaultPosition).toBe(DefaultPositionConfig.left_top);
+    });
+
+    it('Change value of defaultPosition to be right-top for horizontal 3 dots', () => {
+      component.defaultPosition = DefaultPositionConfig.right_top;
+      component.ngOnInit();
+      fixture.detectChanges();
+      expect(component.defaultPosition).toBe(DefaultPositionConfig.right_top);
+    });
   });
 
   describe('Already open action menu', () => {
@@ -88,6 +132,12 @@ describe('ActionMenuComponent', () => {
       fixture.detectChanges();
     });
 
+    it('Clicking anywhere in the document should close action menu', () => {
+      document.dispatchEvent(new MouseEvent('click'));
+      fixture.detectChanges();
+      expect(component.dropdownVisible).toBeFalsy();
+    });
+
     it('Clicking 3 dots should close action menu', () => {
       const dotsButton = <HTMLElement>element.querySelector('.three-dot-menu');
       if (dotsButton) {
@@ -105,6 +155,24 @@ describe('ActionMenuComponent', () => {
         menuItem.dispatchEvent(new MouseEvent('click'));
         fixture.detectChanges();
         expect(component.dropdownVisible).toBeFalsy();
+      }
+    });
+
+    it('Mouseleave from action menu should close action menu', () => {
+      const menuUl = <HTMLElement>element.querySelector('action-menu-dd ul');
+      if (menuUl) {
+        menuUl.dispatchEvent(new MouseEvent('mouseleave'));
+        fixture.detectChanges();
+        expect(component.dropdownVisible).toBeFalsy();
+      }
+    });
+
+    it('Mouseenter action menu should keep action menu open', () => {
+      const menuUl = <HTMLElement>element.querySelector('action-menu-dd ul');
+      if (menuUl) {
+        menuUl.dispatchEvent(new MouseEvent('mouseenter'));
+        fixture.detectChanges();
+        expect(component.dropdownVisible).toBeTruthy();
       }
     });
   });
