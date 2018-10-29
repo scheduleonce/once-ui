@@ -49,7 +49,7 @@
 }
 .new-user-cat-box .action-menu-icon-links,
 .action-menu-dd .action-menu-icon-links {
-  padding: 10px 10px;
+  padding: 10px 8px;
   display: inline-block;
   color: #333;
   cursor: pointer;
@@ -70,19 +70,20 @@
 .action-menu-icon-links .icon-container {
   display: inline-block;
   vertical-align: top;
-  width: 20px;
+  width: 22px;
   height: 20px;
-  margin-right: 10px;
+  margin-right: 8px;
   text-align: center;
+  margin-top: 1px;
 }
 .action-menu-icon-links .icon-description {
   display: inline-block;
-  max-width: 193px;
+  max-width: 198px;
   vertical-align: middle;
   line-height: 20px;
 }
 .action-menu-icon-links .icon-container img {
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .action-menu-icon-links:hover {
   background-color: #eee;
