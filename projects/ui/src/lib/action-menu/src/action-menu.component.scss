@@ -1,5 +1,9 @@
 .three-dot-menu {
-  position: relative;
+  /*position: relative;*/
+}
+.menu-hover{
+  padding: 2px;
+  float: right;
 }
 .action-menu {
   text-decoration: none !important;
@@ -40,8 +44,6 @@
 }
 .action-menu-dd {
   position: absolute;
-  min-width: 200px;
-  max-width: 244px;
   background-color: #fff;
   box-shadow: 0 1px 3px 2px rgba(167, 167, 167, 0.5);
   border: 1px solid #c8c8c8;
@@ -51,12 +53,13 @@
 }
 .new-user-cat-box .action-menu-icon-links,
 .action-menu-dd .action-menu-icon-links {
-  padding: 10px 15px;
+  padding: 10px 8px;
   display: inline-block;
-  width: 100%;
   color: #333;
   cursor: pointer;
   position: relative;
+  min-width: 200px;
+  max-width: 244px;
 }
 .action-menu-dd ul {
   padding-top: 10px;
@@ -71,20 +74,34 @@
 .action-menu-icon-links .icon-container {
   display: inline-block;
   vertical-align: top;
-  width: 20px;
+  width: 22px;
   height: 20px;
-  margin-right: 10px;
+  margin-right: 8px;
   text-align: center;
+  margin-top: 1px;
 }
 .action-menu-icon-links .icon-description {
   display: inline-block;
-  max-width: 138px;
+  max-width: 198px;
   vertical-align: middle;
+  line-height: 20px;
 }
 .action-menu-icon-links .icon-container img {
-  margin-top: 2px;
+  margin-top: 1px;
 }
 .action-menu-icon-links:hover {
   background-color: #eee;
   text-decoration: none;
+}
+
+@media screen and (min-width: 1400px){
+.action-menu {
+  line-height: 0.5px;
+}
+}
+@media screen and (min-width: 1700px){
+  .action-menu {
+    line-height: 1.8px;
+    padding: 2px 3px 2px 4px;
+  }
 }
