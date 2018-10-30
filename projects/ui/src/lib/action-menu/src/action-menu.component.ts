@@ -38,8 +38,6 @@ export class ActionMenuComponent
   container: ElementRef;
   @ViewChild('target')
   target: ElementRef;
-  @ViewChild('relativeDiv')
-  relativeDiv: ElementRef;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -61,28 +59,25 @@ export class ActionMenuComponent
       this.isVertical
         ? this.verticalPosition(
             this.container.nativeElement,
-            this.target.nativeElement,
-            this.relativeDiv.nativeElement
+            this.target.nativeElement
           )
         : this.horizontalPosition(
             this.container.nativeElement,
-            this.target.nativeElement,
-            this.relativeDiv.nativeElement
+            this.target.nativeElement
           );
     }
   }
 
-  private horizontalPosition(element, target, relativeDiv) {
+  private horizontalPosition(element, target) {
     let right, left, top, bottom;
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const targetOffset = target.getBoundingClientRect();
-    const relativeDivOffset = relativeDiv.getBoundingClientRect();
     const viewport = this.getViewport();
-    right = relativeDivOffset.right - targetOffset.right + 'px';
-    left = relativeDivOffset.width - targetOffset.width + 'px';
-    top = targetOffset.height + 'px';
-    bottom = relativeDivOffset.height + 'px';
+    right = targetOffset.left + 'px';
+    left = targetOffset.right - elementOuterWidth + 'px';
+    top = targetOffset.bottom - viewport.top + 'px';
+    bottom = viewport.height - targetOffset.top + viewport.top + 'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -132,17 +127,16 @@ export class ActionMenuComponent
     }
   }
 
-  private verticalPosition(element, target, relativeDiv) {
+  private verticalPosition(element, target) {
     let right, left, top, bottom;
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const targetOffset = target.getBoundingClientRect();
-    const relativeDivOffset = relativeDiv.getBoundingClientRect();
     const viewport = this.getViewport();
-    right = targetOffset.width + 'px';
-    left = relativeDivOffset.width + 'px';
-    top = relativeDivOffset.height + 'px';
-    bottom = -targetOffset.height + 'px';
+    right = targetOffset.right + 'px';
+    left = targetOffset.left - elementOuterWidth + 'px';
+    top = targetOffset.top - viewport.top + 'px';
+    bottom = viewport.height - targetOffset.bottom + viewport.top + 'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -197,9 +191,9 @@ export class ActionMenuComponent
       ? targetOffset.left - elementOuterWidth < 0
       : targetOffset.right - elementOuterWidth < 0;
     if (cannotShowOnLeft) {
-      this.showOnRight(element, left);
+      this.showOnRight(element, right);
     } else {
-      this.showOnLeft(element, right);
+      this.showOnLeft(element, left);
     }
   }
 
@@ -215,9 +209,9 @@ export class ActionMenuComponent
       targetOffset.left + targetOffset.width + elementOuterWidth >
       viewport.width
     ) {
-      this.showOnLeft(element, right);
+      this.showOnLeft(element, left);
     } else {
-      this.showOnRight(element, left);
+      this.showOnRight(element, right);
     }
   }
 
@@ -252,12 +246,12 @@ export class ActionMenuComponent
     element.style.top = top;
   }
 
-  private showOnLeft(element, right) {
-    element.style.right = right;
+  private showOnLeft(element, left) {
+    element.style.left = left;
   }
 
-  private showOnRight(element, left) {
-    element.style.left = left;
+  private showOnRight(element, right) {
+    element.style.left = right;
   }
 
   private getViewport(): any {
@@ -312,7 +306,7 @@ export class ActionMenuComponent
     this.timeOutEvent = setTimeout(() => {
       this.hide();
       this.cdr.detectChanges();
-    }, 500);
+    }, 1000);
   }
 
   ngOnDestroy() {
