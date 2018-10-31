@@ -2,8 +2,6 @@
   <div class="menu-hover">
     <a class="action-menu" [class.action-menu-vertical]="isVertical" [class.action-menu-open]="dropdownVisible" #target
       (mouseleave)="actionMenuMouseleave();">
-      <img [src]="threeDotIcon" *ngIf="!isVertical">
-      <img [src]="threeDotIconVertical" *ngIf="isVertical">
     </a>
   </div>
   <div #container *ngIf="dropdownVisible" class="action-menu-dd">
