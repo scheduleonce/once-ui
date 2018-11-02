@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ActionMenuComponent } from './action-menu.component';
 import { DefaultPositionConfig } from './action-menu-config';
+import { ActionMenuDropdownDirective } from './action-menu-dropdown.directive';
 
 describe('ActionMenuComponent', () => {
   let component: ActionMenuComponent;
@@ -10,7 +10,7 @@ describe('ActionMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ActionMenuComponent]
+      declarations: [ActionMenuComponent, ActionMenuDropdownDirective]
     }).compileComponents();
   }));
 
@@ -36,15 +36,6 @@ describe('ActionMenuComponent', () => {
         DefaultPositionConfig.right_bottom
       );
     });
-
-    it('Clicking 3 dots should open action menu', () => {
-      const dotsButton = <HTMLElement>element.querySelector('.three-dot-menu');
-      if (dotsButton) {
-        dotsButton.dispatchEvent(new MouseEvent('click'));
-        fixture.detectChanges();
-        expect(component.dropdownVisible).toBeTruthy();
-      }
-    });
   });
 
   describe('Vertical 3 dots', () => {
@@ -65,47 +56,6 @@ describe('ActionMenuComponent', () => {
       component.ngOnInit();
       fixture.detectChanges();
       expect(component.defaultPosition).toBe(DefaultPositionConfig.left_bottom);
-    });
-  });
-
-  describe('Already open action menu', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(ActionMenuComponent);
-      component = fixture.componentInstance;
-      component.isVertical = false;
-      component.dropdownVisible = true;
-      component.items = [
-        {
-          label: 'Delete User',
-          icon: '',
-          click: () => {
-            console.log('Delete user callback');
-          },
-          tooltip: 'Delete User'
-        }
-      ];
-      element = fixture.nativeElement;
-      fixture.detectChanges();
-    });
-
-    it('Clicking 3 dots should close action menu', () => {
-      const dotsButton = <HTMLElement>element.querySelector('.three-dot-menu');
-      if (dotsButton) {
-        dotsButton.dispatchEvent(new MouseEvent('click'));
-        fixture.detectChanges();
-        expect(component.dropdownVisible).toBeFalsy();
-      }
-    });
-
-    it('Clicking action menu action should close action menu', () => {
-      const menuItem = <HTMLElement>(
-        element.querySelector('.action-menu-icon-links')
-      );
-      if (menuItem) {
-        menuItem.dispatchEvent(new MouseEvent('click'));
-        fixture.detectChanges();
-        expect(component.dropdownVisible).toBeFalsy();
-      }
     });
   });
 });
