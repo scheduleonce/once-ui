@@ -1,8 +1,6 @@
-
-
-import {ViewContainerRef} from '@angular/core';
-import {Direction} from '@angular/cdk/bidi';
-import {ScrollStrategy} from '@angular/cdk/overlay';
+import { ViewContainerRef } from '@angular/core';
+import { Direction } from '@angular/cdk/bidi';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 
 /** Possible overrides for a dialog's position. */
 export interface DialogPosition {
@@ -23,7 +21,6 @@ export interface DialogPosition {
  * Configuration for opening a modal dialog with the OuiDialog service.
  */
 export class OuiDialogConfig<D = any> {
-
   /**
    * Where the attached component should live in Angular's *logical* component tree.
    * This affects what is available for injection and the change detection order for the
@@ -36,25 +33,25 @@ export class OuiDialogConfig<D = any> {
   id?: string;
 
   /** The ARIA role of the dialog element. */
-  role?: string = 'dialog';
+  role = 'dialog';
 
   /** Custom class for the overlay pane. */
   panelClass?: string | string[] = '';
 
   /** Whether the dialog has a backdrop. */
-  hasBackdrop?: boolean = true;
+  hasBackdrop = true;
 
   /** Custom class for the backdrop, */
-  backdropClass?: string = '';
+  backdropClass = '';
 
   /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-  disableClose?: boolean = true;
+  disableClose = true;
 
   /** Width of the dialog. */
-  width?: string = '607px';
+  width = '607px';
 
   /** Height of the dialog. */
-  height?: string = '';
+  height = '';
 
   /** Min-width of the dialog. If a number is provided, pixel units are assumed. */
   minWidth?: number | string = '607px';
@@ -84,13 +81,13 @@ export class OuiDialogConfig<D = any> {
   ariaLabel?: string | null = null;
 
   /** Whether the dialog should focus the first focusable element on open. */
-  autoFocus?: boolean = false;
+  autoFocus = false;
 
   /**
    * Whether the dialog should restore focus to the
    * previously-focused element, after it's closed.
    */
-  restoreFocus?: boolean = false;
+  restoreFocus = false;
 
   /** Scroll strategy to be used for the dialog. */
   scrollStrategy?: ScrollStrategy;

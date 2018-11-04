@@ -1,10 +1,9 @@
-import {ESCAPE} from '@angular/cdk/keycodes';
-import {GlobalPositionStrategy, OverlayRef} from '@angular/cdk/overlay';
-import {Observable, Subject} from 'rxjs';
-import {filter, concat} from 'rxjs/operators';
-import {DialogPosition} from './dialog-config';
-import {OuiDialogContainer} from './dialog-container';
-
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
+import { Observable, Subject } from 'rxjs';
+import { filter, concat } from 'rxjs/operators';
+import { DialogPosition } from './dialog-config';
+import { OuiDialogContainer } from './dialog-container';
 
 // TODO(jelbourn): resizing
 
@@ -19,7 +18,8 @@ export class OuiDialogRef<T, R = any> {
   componentInstance: T;
 
   /** Whether the user is allowed to close the dialog. */
-  disableClose: boolean | undefined = this._containerInstance._config.disableClose;
+  disableClose: boolean | undefined = this._containerInstance._config
+    .disableClose;
 
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();
@@ -34,7 +34,7 @@ export class OuiDialogRef<T, R = any> {
   private _result: R | undefined;
 
   /** Object to store Subject for notifying any custom events in dialog  */
-  private _dialogEvents : {[index: string]: Subject<void>} = {};
+  private _dialogEvents: { [index: string]: Subject<void> } = {};
 
   /** Subject for notifying the user on addition of event */
   private readonly _eventAdded = new Subject<void>();
@@ -42,8 +42,8 @@ export class OuiDialogRef<T, R = any> {
   constructor(
     private _overlayRef: OverlayRef,
     public _containerInstance: OuiDialogContainer,
-    readonly id: string = `oui-dialog-${uniqueId++}`) {
-
+    readonly id: string = `oui-dialog-${uniqueId++}`
+  ) {
     // Pass the id along to the container.
     _containerInstance._id = id;
 
@@ -59,8 +59,9 @@ export class OuiDialogRef<T, R = any> {
       this._overlayRef.dispose();
     });
 
-    _overlayRef.keydownEvents()
-      .pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose))
+    _overlayRef
+      .keydownEvents()
+      .pipe(filter(event => event.key === 'Escape' && !this.disableClose))
       .subscribe(() => this.close());
   }
 
@@ -111,43 +112,25 @@ export class OuiDialogRef<T, R = any> {
     return this._overlayRef.keydownEvents();
   }
 
-  eventAdded(): Observable<void>{
-    return this._eventAdded.asObservable();
-  }
-
-  /**
-   * Gets an observable of event which is added by dialog using some directives.
-   */
-  getEvent(eventName: string): Observable<void> {
-    if(this._dialogEvents[eventName]){
-      return this._eventAdded.pipe(concat(this._dialogEvents[eventName]));
-    }
-    throw new Error(`${eventName}: event not found in dialog`);
-  }
-
-  /**
-   * Adds an observable of event.
-   */
-  addEvent(eventName: string, eventSubject: Subject<void>): void {
-    this._dialogEvents[eventName] = eventSubject;
-    this._eventAdded.next();
-  }
-
   /**
    * Updates the dialog's position.
    * @param position New dialog position.
    */
   updatePosition(position?: DialogPosition): this {
-    let strategy = this._getPositionStrategy();
+    const strategy = this._getPositionStrategy();
 
     if (position && (position.left || position.right)) {
-      position.left ? strategy.left(position.left) : strategy.right(position.right);
+      position.left
+        ? strategy.left(position.left)
+        : strategy.right(position.right);
     } else {
       strategy.centerHorizontally();
     }
 
     if (position && (position.top || position.bottom)) {
-      position.top ? strategy.top(position.top) : strategy.bottom(position.bottom);
+      position.top
+        ? strategy.top(position.top)
+        : strategy.bottom(position.bottom);
     } else {
       strategy.centerVertically();
     }
@@ -163,13 +146,17 @@ export class OuiDialogRef<T, R = any> {
    * @param height New height of the dialog.
    */
   updateSize(width: string = '', height: string = ''): this {
-    this._getPositionStrategy().width(width).height(height);
+    // tslint:disable-next-line
+    this._getPositionStrategy()
+      .width(width)
+      .height(height);
     this._overlayRef.updatePosition();
     return this;
   }
 
   /** Fetches the position strategy object from the overlay ref. */
   private _getPositionStrategy(): GlobalPositionStrategy {
-    return this._overlayRef.getConfig().positionStrategy as GlobalPositionStrategy;
+    return this._overlayRef.getConfig()
+      .positionStrategy as GlobalPositionStrategy;
   }
 }

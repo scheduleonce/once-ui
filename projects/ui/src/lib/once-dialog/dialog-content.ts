@@ -1,11 +1,11 @@
 import {
-    Directive,
-    Input,
-    OnChanges,
-    OnInit,
-    Optional,
-    SimpleChanges,
-    ElementRef,
+  Directive,
+  Input,
+  OnChanges,
+  OnInit,
+  Optional,
+  SimpleChanges,
+  ElementRef
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
@@ -18,255 +18,243 @@ let dialogElementUid = 0;
  * Header section of ui.
  */
 @Directive({
-    selector: '[oui-dialog-header], [ouiDialogHeader]',
-    exportAs: 'ouiDialogHeader',
-    host: {
-        'class': 'oui-dialog-header'
-    },
+  selector: '[oui-dialog-header], [ouiDialogHeader]',
+  exportAs: 'ouiDialogHeader',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header'
+  }
 })
-export class OuiDialogHeader{
-    constructor() { }
+export class OuiDialogHeader {
+  constructor() {}
 }
 
 /**
  * Header Title of ui.
  */
 @Directive({
-    selector: '[oui-dialog-header-title], [ouiDialogHeaderTitle]',
-    exportAs: 'ouiDialogHeaderTitle',
-    host: {
-        'class': 'oui-dialog-header-title'
-    },
+  selector: '[oui-dialog-header-title], [ouiDialogHeaderTitle]',
+  exportAs: 'ouiDialogHeaderTitle',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-title'
+  }
 })
 export class OuiDialogHeaderTitle {
-    constructor() { }
+  constructor() {}
 }
 
 /**
  * Header Image of ui.
  */
 @Directive({
-    selector: '[oui-dialog-header-image], [ouiDialogHeaderImage]',
-    exportAs: 'ouiDialogHeaderImage',
-    host: {
-        'class': 'oui-dialog-header-image'
-    },
+  selector: '[oui-dialog-header-image], [ouiDialogHeaderImage]',
+  exportAs: 'ouiDialogHeaderImage',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-image'
+  }
 })
 export class OuiDialogHeaderImage {
-    constructor() { }
+  constructor() {}
 }
 
 /**
  * Header action area of dialog.
  */
 @Directive({
-    selector: '[oui-dialog-header-action], [ouiDialogHeaderAction]',
-    exportAs: 'ouiDialogHeaderAction',
-    host: {
-        'class': 'oui-dialog-header-action',
-    },
+  selector: '[oui-dialog-header-action], [ouiDialogHeaderAction]',
+  exportAs: 'ouiDialogHeaderAction',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-action'
+  }
 })
 export class OuiDialogHeaderAction {
-    constructor() { }
+  constructor() {}
 }
 
 /**
  * header action article.
  */
 @Directive({
-    selector: '[oui-dialog-header-article], [ouiDialogHeaderArticle]',
-    exportAs: 'ouiDialogHeaderArticle',
-    host: {
-        'class': 'oui-dialog-header-article',
-    },
+  selector: '[oui-dialog-header-article], [ouiDialogHeaderArticle]',
+  exportAs: 'ouiDialogHeaderArticle',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-article'
+  }
 })
 export class OuiDialogHeaderArticle {
-    constructor() { }
+  constructor() {}
 }
 
 /**
  * header action article.
  */
 @Directive({
-    selector: '[oui-dialog-header-video], [ouiDialogHeaderVideo]',
-    exportAs: 'ouiDialogHeaderVideo',
-    host: {
-        'class': 'oui-dialog-header-video',
-    },
+  selector: '[oui-dialog-header-video], [ouiDialogHeaderVideo]',
+  exportAs: 'ouiDialogHeaderVideo',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-video'
+  }
 })
 export class OuiDialogHeaderVideo {
-    constructor() { }
+  constructor() {}
 }
 
 /**
  * header action close
  */
 @Directive({
-    selector: '[oui-dialog-header-close], [ouiDialogHeaderClose]',
-    exportAs: 'ouiDialogHeaderClose',
-    host: {
-        'class': 'oui-dialog-header-close',
-    },
+  selector: '[oui-dialog-header-close], [ouiDialogHeaderClose]',
+  exportAs: 'ouiDialogHeaderClose',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-close'
+  }
 })
 export class OuiDialogHeaderClose {
-    constructor() { }
+  constructor() {}
 }
 
 /**
  * header action separator close
  */
 @Directive({
-    selector: '[oui-dialog-header-separator], [ouiDialogHeaderSeparator]',
-    exportAs: 'ouiDialogHeaderSeparator',
-    host: {
-        'class': 'oui-dialog-header-separator',
-    },
+  selector: '[oui-dialog-header-separator], [ouiDialogHeaderSeparator]',
+  exportAs: 'ouiDialogHeaderSeparator',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-header-separator'
+  }
 })
 export class OuiDialogHeaderSeparator {
-    constructor() { }
+  constructor() {}
 }
-
 
 /**
  * directive for close the current dialog.
  */
 @Directive({
-    selector: `[oui-dialog-close], [ouiDialogClose]`,
-    exportAs: 'ouiDialogClose',
-    host: {
-        '[class.cross-disabled]' : "dialogResult===false",
-        '(click)': 'closeDialog()',
-        '[attr.aria-label]': 'ariaLabel',
-        // 'type': 'button', // Prevents accidental form submits.
-    }
+  selector: `[oui-dialog-close], [ouiDialogClose]`,
+  exportAs: 'ouiDialogClose',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[class.cross-disabled]': 'dialogResult===false',
+    '(click)': 'closeDialog()',
+    '[attr.aria-label]': 'ariaLabel'
+    // 'type': 'button', // Prevents accidental form submits.
+  }
 })
 export class OuiDialogClose implements OnInit, OnChanges {
-    /** Screenreader label for the button. */
-    @Input('aria-label') ariaLabel: string = 'Close dialog';
+  /** Screenreader label for the button. */
+  @Input('aria-label')
+  ariaLabel = 'Close dialog';
 
-    /** Dialog close input. */
-    @Input('oui-dialog-close') dialogResult: any;
+  /** Dialog close input. */
+  @Input('oui-dialog-close')
+  dialogResult: any;
 
-    @Input('ouiDialogClose') _ouiDialogClose: any;
+  @Input('ouiDialogClose')
+  _ouiDialogClose: any;
 
-    constructor(
-        @Optional() public dialogRef: OuiDialogRef<any>,
-        private _elementRef: ElementRef<HTMLElement>,
-        private _dialog: OuiDialog) {
-        }
+  constructor(
+    @Optional() public dialogRef: OuiDialogRef<any>,
+    private _elementRef: ElementRef<HTMLElement>,
+    private _dialog: OuiDialog
+  ) {}
 
-    closeDialog(){
-        if(this.dialogResult !== false){
-            this.dialogRef.close(this.dialogResult);
-        }
+  closeDialog() {
+    if (this.dialogResult !== false) {
+      this.dialogRef.close(this.dialogResult);
     }
+  }
 
-    ngOnInit() {
-        if (!this.dialogRef) {
-            // When this directive is included in a dialog via TemplateRef (rather than being
-            // in a Component), the DialogRef isn't available via injection because embedded
-            // views cannot be given a custom injector. Instead, we look up the DialogRef by
-            // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
-            // be resolved at constructor time.
-            this.dialogRef = getClosestDialog(this._elementRef, this._dialog.openDialogs)!;
-        }
+  ngOnInit() {
+    if (!this.dialogRef) {
+      // When this directive is included in a dialog via TemplateRef (rather than being
+      // in a Component), the DialogRef isn't available via injection because embedded
+      // views cannot be given a custom injector. Instead, we look up the DialogRef by
+      // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
+      // be resolved at constructor time.
+      this.dialogRef = getClosestDialog(
+        this._elementRef,
+        this._dialog.openDialogs
+      )!;
     }
+  }
 
-    ngOnChanges(changes: SimpleChanges) {
-        const proxiedChange = changes._ouiDialogClose || changes._ouiDialogCloseResult;
-        if (proxiedChange) {
-            this.dialogResult = proxiedChange.currentValue;
-        }
+  ngOnChanges(changes: SimpleChanges) {
+    const proxiedChange =
+      changes._ouiDialogClose || changes._ouiDialogCloseResult;
+    if (proxiedChange) {
+      this.dialogResult = proxiedChange.currentValue;
     }
-}
-
-/** Directive for registering events to dialog-ref */
-@Directive({
-    selector: `button[oui-dialog-click], button[ouiDialogClick]`,
-    exportAs: 'ouiDialogClick',
-    host: {
-        '(click)': 'onClick()',
-    }
-})
-export class OuiDialogClick implements OnInit {
-
-    @Input() ouiDialogClick : string;
-    private _clickEvent = new Subject<void>();
-    constructor(
-        @Optional() public dialogRef: OuiDialogRef<any>,
-        private _elementRef: ElementRef<HTMLElement>,
-        private _dialog: OuiDialog) {
-       }
-
-    ngOnInit() {
-        if (!this.dialogRef) {
-            this.dialogRef = getClosestDialog(this._elementRef, this._dialog.openDialogs)!;
-        }
-        this.dialogRef.addEvent(this.ouiDialogClick,this._clickEvent);
-    }
-
-    onClick(){
-        this._clickEvent.next();
-    }
-}
-
-
-
-/**
- * Content section of dialog.
- */
-@Directive({
-    selector: '[oui-dialog-content], [ouiDialogContent]',
-    exportAs: 'ouiDialogContent',
-    host: {
-        'class': 'oui-dialog-content',
-    },
-})
-export class OuiDialogContent{
-    constructor() {}
+  }
 }
 
 /**
  * Content section of dialog.
  */
 @Directive({
-    selector: '[oui-dialog-footer], [ouiDialogFooter]',
-    exportAs: 'ouiDialogFooter',
-    host: {
-        'class': 'oui-dialog-footer',
-    },
+  selector: '[oui-dialog-content], [ouiDialogContent]',
+  exportAs: 'ouiDialogContent',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-content'
+  }
 })
-export class OuiDialogFooter{
-    @Input() id = `oui-dialog-footer-${dialogElementUid++}`;
-    constructor() { }    
+export class OuiDialogContent {
+  constructor() {}
+}
+
+/**
+ * Content section of dialog.
+ */
+@Directive({
+  selector: '[oui-dialog-footer], [ouiDialogFooter]',
+  exportAs: 'ouiDialogFooter',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-footer'
+  }
+})
+export class OuiDialogFooter {
+  @Input()
+  id = `oui-dialog-footer-${dialogElementUid++}`;
+  constructor() {}
 }
 
 /**
  * footer action left
  */
 @Directive({
-    selector: '[oui-dialog-footer-action-left], [ouiDialogFooterActionLeft]',
-    exportAs: 'ouiDialogFooterActionLeft',
-    host: {
-        'class': 'oui-dialog-footer-action-left',
-    },
+  selector: '[oui-dialog-footer-action-left], [ouiDialogFooterActionLeft]',
+  exportAs: 'ouiDialogFooterActionLeft',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-footer-action-left'
+  }
 })
-export class ouiDialogFooterActionLeft {
-    constructor() { }
+export class OuiDialogFooterActionLeft {
+  constructor() {}
 }
 
 /**
  * footer action right
  */
 @Directive({
-    selector: '[oui-dialog-footer-action-right], [ouiDialogFooterActionRight]',
-    exportAs: 'ouiDialogFooterActionRight',
-    host: {
-        'class': 'oui-dialog-footer-action-right',
-    },
+  selector: '[oui-dialog-footer-action-right], [ouiDialogFooterActionRight]',
+  exportAs: 'ouiDialogFooterActionRight',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    class: 'oui-dialog-footer-action-right'
+  }
 })
-export class ouiDialogFooterActionRight {
-    constructor() { }
+export class OuiDialogFooterActionRight {
+  constructor() {}
 }
 
 /**
@@ -274,12 +262,15 @@ export class ouiDialogFooterActionRight {
  * @param element Element relative to which to look for a dialog.
  * @param openDialogs References to the currently-open dialogs.
  */
-function getClosestDialog(element: ElementRef<HTMLElement>, openDialogs: OuiDialogRef<any>[]) {
-    let parent: HTMLElement | null = element.nativeElement.parentElement;
+function getClosestDialog(
+  element: ElementRef<HTMLElement>,
+  openDialogs: OuiDialogRef<any>[]
+) {
+  let parent: HTMLElement | null = element.nativeElement.parentElement;
 
-    while (parent && !parent.classList.contains('oui-dialog-container')) {
-        parent = parent.parentElement;
-    }
+  while (parent && !parent.classList.contains('oui-dialog-container')) {
+    parent = parent.parentElement;
+  }
 
-    return parent ? openDialogs.find(dialog => dialog.id === parent!.id) : null;
+  return parent ? openDialogs.find(dialog => dialog.id === parent!.id) : null;
 }
