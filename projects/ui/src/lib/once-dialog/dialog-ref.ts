@@ -146,9 +146,10 @@ export class OuiDialogRef<T, R = any> {
    * @param height New height of the dialog.
    */
   updateSize(width: string = '', height: string = ''): this {
-    // tslint:disable-next-line
     this._getPositionStrategy()
+      // tslint:disable-next-line
       .width(width)
+      // tslint:disable-next-line
       .height(height);
     this._overlayRef.updatePosition();
     return this;
