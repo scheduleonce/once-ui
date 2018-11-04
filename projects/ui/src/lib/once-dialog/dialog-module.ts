@@ -1,10 +1,10 @@
-import {OverlayModule} from '@angular/cdk/overlay';
-import {PortalModule} from '@angular/cdk/portal';
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import {OUI_DIALOG_SCROLL_STRATEGY_PROVIDER, OuiDialog} from './dialog';
-import {OuiDialogContainer} from './dialog-container';
-import { 
+import { OverlayModule } from '@angular/cdk/overlay';
+import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { OUI_DIALOG_SCROLL_STRATEGY_PROVIDER, OuiDialog } from './dialog';
+import { OuiDialogContainer } from './dialog-container';
+import {
   OuiDialogHeader,
   OuiDialogContent,
   OuiDialogFooter,
@@ -15,18 +15,13 @@ import {
   OuiDialogHeaderVideo,
   OuiDialogClose,
   OuiDialogHeaderSeparator,
-  ouiDialogFooterActionLeft,
-  ouiDialogFooterActionRight,
-  OuiDialogClick,
+  OuiDialogFooterActionLeft,
+  OuiDialogFooterActionRight,
   OuiDialogHeaderImage
 } from './dialog-content';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    PortalModule,
-  ],
+  imports: [CommonModule, OverlayModule, PortalModule],
   exports: [
     OuiDialogContainer,
     OuiDialogHeader,
@@ -40,9 +35,8 @@ import {
     OuiDialogHeaderVideo,
     OuiDialogClose,
     OuiDialogHeaderSeparator,
-    ouiDialogFooterActionLeft,
-    ouiDialogFooterActionRight,
-    OuiDialogClick
+    OuiDialogFooterActionLeft,
+    OuiDialogFooterActionRight
   ],
   declarations: [
     OuiDialogContainer,
@@ -57,14 +51,10 @@ import {
     OuiDialogHeaderVideo,
     OuiDialogClose,
     OuiDialogHeaderSeparator,
-    ouiDialogFooterActionLeft,
-    ouiDialogFooterActionRight,
-    OuiDialogClick
+    OuiDialogFooterActionLeft,
+    OuiDialogFooterActionRight
   ],
-  providers: [
-    OuiDialog,
-    OUI_DIALOG_SCROLL_STRATEGY_PROVIDER
-  ],
-  entryComponents: [OuiDialogContainer],
+  providers: [OuiDialog, OUI_DIALOG_SCROLL_STRATEGY_PROVIDER],
+  entryComponents: [OuiDialogContainer]
 })
 export class OuiDialogModule {}
