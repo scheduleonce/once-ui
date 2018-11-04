@@ -37,6 +37,8 @@ export class ActionMenuDropdownComponent
   componentRef: ComponentRef<ActionMenuDropdownComponent>;
   @Input()
   visible: boolean;
+  @Input()
+  targetOffset: any;
 
   ngAfterViewChecked() {
     this.show();
@@ -51,22 +53,21 @@ export class ActionMenuDropdownComponent
 
     if (this.container) {
       this.isVertical
-        ? this.verticalPosition(this.container.nativeElement, this.hostElement)
+        ? this.verticalPosition(this.container.nativeElement, this.targetOffset)
         : this.horizontalPosition(
             this.container.nativeElement,
-            this.hostElement
+            this.targetOffset
           );
     }
   }
 
-  private horizontalPosition(element, target) {
+  private horizontalPosition(element, targetOffset) {
     let right, left, top, bottom;
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
-    const targetOffset = target.getBoundingClientRect();
     const viewport = this.getViewport();
     right = targetOffset.left + 'px';
-    left = targetOffset.right - elementOuterWidth - viewport.left + 'px';
+    left = targetOffset.right - elementOuterWidth + 'px';
     top = targetOffset.bottom - viewport.top + 'px';
     bottom = viewport.height - targetOffset.top + viewport.top + 'px';
 
@@ -118,11 +119,10 @@ export class ActionMenuDropdownComponent
     }
   }
 
-  private verticalPosition(element, target) {
+  private verticalPosition(element, targetOffset) {
     let right, left, top, bottom;
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
-    const targetOffset = target.getBoundingClientRect();
     const viewport = this.getViewport();
     right = targetOffset.right + 'px';
     left = targetOffset.left - elementOuterWidth + 'px';
