@@ -1,7 +1,6 @@
-import { ESCAPE } from '@angular/cdk/keycodes';
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
 import { Observable, Subject } from 'rxjs';
-import { filter, concat } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { DialogPosition } from './dialog-config';
 import { OuiDialogContainer } from './dialog-container';
 
