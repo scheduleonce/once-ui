@@ -57,8 +57,8 @@
   top: 18px;
 }
 .oui-dialog-header-image img{
-    vertical-align: text-top;
-    margin-top: 1.5px;
+  vertical-align: super;
+  margin-top: 4.5px;
 }
 
 .oui-dialog-header-image + .oui-dialog-header-title{

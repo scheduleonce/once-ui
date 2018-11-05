@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
-import { Subject } from 'rxjs';
 
 /** Counter used to generate unique IDs for dialog elements. */
 let dialogElementUid = 0;
