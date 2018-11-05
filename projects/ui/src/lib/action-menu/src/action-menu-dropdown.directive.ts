@@ -36,6 +36,13 @@ export class ActionMenuDropdownDirective {
     this.hideActionMenuDropDown();
   }
 
+  @HostListener('window:resize')
+  onResize() {
+    if (this.actionMenuDropdown && this.actionMenuDropdown.instance) {
+      this.actionMenuDropdown.instance.targetOffset = this.viewContainerRef.element.nativeElement.getBoundingClientRect();
+    }
+  }
+
   @HostListener('click', ['$event'])
   show(event: MouseEvent) {
     event.stopPropagation();
@@ -56,6 +63,7 @@ export class ActionMenuDropdownDirective {
       .querySelector('body')
       .appendChild(this.actionMenuDropdown.location.nativeElement);
     this.actionMenuDropdown.instance.hostElement = this.viewContainerRef.element.nativeElement;
+    this.actionMenuDropdown.instance.targetOffset = this.viewContainerRef.element.nativeElement.getBoundingClientRect();
     this.actionMenuDropdown.instance.isVertical = this.isVertical;
     this.actionMenuDropdown.instance.defaultPosition = this.defaultPosition;
     this.actionMenuDropdown.instance.items = this.items;
