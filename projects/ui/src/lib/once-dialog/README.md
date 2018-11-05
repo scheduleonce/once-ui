@@ -1,6 +1,6 @@
 ## Using OnceDialog Service
 
-The `dialog` service can be used to open modal dialogs with Themes and Animation.
+The `dialog` service can be used to open modal dialogs.
 
 A dialog is opened by calling the `open` method with a component to be loaded. The open method will return an instance of
 `dialogReference`. The input properties can be passed optional in second argument.
@@ -29,14 +29,14 @@ dialogReference.close(user);
 
 ## Create your dialog components
 
-Components created via OnceDialog can Inject `OnceDialogRef` and use it to close a dialog or handle other events.
+Components created via OnceDialog can Inject `OuiDialogRef` and use it to close a dialog or handle other events.
 
 ```typescript
 @Component({
   /* ... */
 })
 export class YourDialog {
-  constructor(public dialogRef: OnceDialogRef<YourDialog>) {}
+  constructor(public dialogRef: OuiDialogRef<YourDialog>) {}
 
   closeDialog() {
     this.dialogRef.close('data...');
@@ -58,14 +58,14 @@ To access dialog data we have to use DIALOG_DATA injection token:
 
 ```typescript
 import { Component, Inject } from '@angular/core';
-import { DIALOG_DATA } from '@once/ui';
+import { OUI_DIALOG_DATA } from '@once/ui';
 
 @Component({
   selector: 'your-dialog',
   template: 'passed in {{ data.name }}'
 })
 export class YourDialog {
-  constructor(@Inject(DIALOG_DATA) public data: any) {}
+  constructor(@Inject(OUI_DIALOG_DATA) public data: any) {}
 }
 ```
 
@@ -73,32 +73,50 @@ export class YourDialog {
 
 Several directives are available to make it easier to structure your dialog content:
 
-| **Name**                      | **Description**                                            |
-| ----------------------------- | ---------------------------------------------------------- |
-| `<once-dialog-header>`        | Dialog header, applied to a heading element                |
-| `once-dialog-title`           | [Attr] dialog title on the top left                        |
-| `once-dialog-help`            | [Attr] dialog help icon on the top right                   |
-| `once-dialog-video`           | [Attr] dialog video icon on the top right                  |
-| `once-dialog-close`           | [Attr] dialog close icon on the top right                  |
-| `<once-dialog-content>`       | container for content of the dialog                        |
-| `<once-dialog-footer>`        | container for actions buttons for the bottom of the dialog |
-| `<once-dialog-actions-right>` | container for action buttons on the right                  |
-| `<once-dialog-actions-left>`  | container for action buttons on the left                   |
+| **Name**                        | **Description**                                            |
+| -----------------------------   | ---------------------------------------------------------- |
+| `oui-dialog-header`             | container for dialog header                                |
+| `oui-dialog-header-image`       | dialog header image before title                           |
+| `oui-dialog-header-title`       | dialog header title                                        |
+| `oui-dialog-header-action`      | dialog header action area                                  |
+| `oui-dialog-header-close`       | dialog header close icon                                   |
+| `oui-dialog-close`              | utility to close dialog                                    |
+| `oui-dialog-header-article`     | dialog header article icon                                 |
+| `oui-dialog-header-video`       | dialog header video icon                                   |
+| `oui-dialog-header-separator`   | dialog header separator between article and video          |
+| `oui-dialog-content`            | container for dialog content                               |
+| `oui-dialog-footer`             | container for dialog footer                                |
+| `oui-dialog-footer-action-left` | container for actions on left side of footer               |
+| `oui-dialog-footer-action-right`| container for actions on right side of footer              |
+
 
 For example:
 
 ```html
-    <once-dialog-header title="Delete all" once-dialog-help="http://scheduleonce.com/article" once-dialog-video="https://youtube.com/..." once-dialog-close />
-    <once-dialog-content>Are you sure?</once-dialog-content>
-    <once-dialog-footer>
-      <once-dialog-action-right>
-        <button once-button-primary>No</button>
-        <button once-button>Yes</button>
-      </once-dialog-action-right>
-      <once-dialog-action-left>
-        <button once-button-link>Cancel</button>
-      </once-dialog-action-left>
-    </once-dialog-footer>
+    <div oui-dialog-header>
+      <div oui-dialog-header-image><img src="/assets/images/v-green.svg"/></div>
+      <label oui-dialog-header-title>this is the title</label>
+      <div oui-dialog-header-action>
+        <div title="Close" oui-dialog-header-close oui-dialog-close></div>
+        <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
+        <a title="Video" href="https://youtube.com" target="blank" oui-dialog-header-video oui-dialog-header-separator></a>
+      </div>
+    </div>
+    <div oui-dialog-content>
+      <div class="simple">
+      </div>
+    </div>
+    <div oui-dialog-footer>
+      <div oui-dialog-footer-action-left>
+        <once-button type="link" label="left1"></app-button>
+        <once-button type="link" label="left2"></app-button>
+      </div>
+      <div oui-dialog-footer-action-right>
+        <once-button type="secondary" label="right 1"></app-button>
+        <once-button oui-dialog-close label="Close"></app-button>
+      </div>
+    </div>
+
 ```
 
 ## Configuring dialog content via `entryComponents`
