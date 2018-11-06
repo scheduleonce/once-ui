@@ -65,8 +65,8 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.left + 'px';
-    left = targetOffset.right - elementOuterWidth + 'px';
+    right = targetOffset.left - viewport.left + 'px';
+    left = targetOffset.right - elementOuterWidth - viewport.left + 'px';
     top = targetOffset.bottom - viewport.top + 'px';
     bottom = targetOffset.top - elementOuterHeight - viewport.top + 'px';
 
@@ -123,8 +123,8 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.right + 'px';
-    left = targetOffset.left - elementOuterWidth + 'px';
+    right = targetOffset.right - viewport.left + 'px';
+    left = targetOffset.left - elementOuterWidth - viewport.left + 'px';
     top = targetOffset.bottom - targetOffset.height - viewport.top + 'px';
     bottom =
       targetOffset.top +
