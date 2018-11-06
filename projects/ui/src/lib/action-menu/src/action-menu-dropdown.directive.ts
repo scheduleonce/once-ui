@@ -39,7 +39,9 @@ export class ActionMenuDropdownDirective {
   @HostListener('window:resize')
   onResize() {
     if (this.actionMenuDropdown && this.actionMenuDropdown.instance) {
-      this.actionMenuDropdown.instance.targetOffset = this.viewContainerRef.element.nativeElement.getBoundingClientRect();
+      this.actionMenuDropdown.instance.targetOffset = this.getHostDimensions(
+        this.viewContainerRef.element.nativeElement
+      );
     }
   }
 
@@ -63,7 +65,9 @@ export class ActionMenuDropdownDirective {
       .querySelector('body')
       .appendChild(this.actionMenuDropdown.location.nativeElement);
     this.actionMenuDropdown.instance.hostElement = this.viewContainerRef.element.nativeElement;
-    this.actionMenuDropdown.instance.targetOffset = this.viewContainerRef.element.nativeElement.getBoundingClientRect();
+    this.actionMenuDropdown.instance.targetOffset = this.getHostDimensions(
+      this.viewContainerRef.element.nativeElement
+    );
     this.actionMenuDropdown.instance.isVertical = this.isVertical;
     this.actionMenuDropdown.instance.defaultPosition = this.defaultPosition;
     this.actionMenuDropdown.instance.items = this.items;
@@ -91,5 +95,38 @@ export class ActionMenuDropdownDirective {
     if (this.actionMenuDropdown) {
       this.actionMenuDropdown.destroy();
     }
+  }
+
+  private getHostDimensions(element) {
+    let rect = element.getBoundingClientRect();
+    const style = window.getComputedStyle(element);
+    const margin = {
+      left: parseInt(style['margin-left'], 10),
+      right: parseInt(style['margin-right'], 10),
+      top: parseInt(style['margin-top'], 10),
+      bottom: parseInt(style['margin-bottom'], 10)
+    };
+    const padding = {
+      left: parseInt(style['padding-left'], 10),
+      right: parseInt(style['padding-right'], 10),
+      top: parseInt(style['padding-top'], 10),
+      bottom: parseInt(style['padding-bottom'], 10)
+    };
+    const border = {
+      left: parseInt(style['border-left'], 10),
+      right: parseInt(style['border-right'], 10),
+      top: parseInt(style['border-top'], 10),
+      bottom: parseInt(style['border-bottom'], 10)
+    };
+
+    rect = {
+      left: rect.left,
+      right: rect.right,
+      width: rect.right - rect.left,
+      height: rect.bottom - rect.top,
+      top: rect.top - margin.top - padding.top - border.top,
+      bottom: rect.bottom
+    };
+    return rect;
   }
 }
