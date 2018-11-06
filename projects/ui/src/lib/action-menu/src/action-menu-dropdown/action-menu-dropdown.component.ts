@@ -6,7 +6,7 @@ import {
   ElementRef,
   ChangeDetectorRef,
   OnDestroy,
-  AfterViewChecked
+  AfterViewInit
 } from '@angular/core';
 import { DefaultPositionConfig } from '../action-menu-config';
 
@@ -15,8 +15,7 @@ import { DefaultPositionConfig } from '../action-menu-config';
   templateUrl: './action-menu-dropdown.component.html',
   styleUrls: ['./action-menu-dropdown.component.scss']
 })
-export class ActionMenuDropdownComponent
-  implements AfterViewChecked, OnDestroy {
+export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
 
   @ViewChild('container')
@@ -40,7 +39,7 @@ export class ActionMenuDropdownComponent
   @Input()
   targetOffset: any;
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     this.show();
     this.cdr.detectChanges();
   }
@@ -66,10 +65,10 @@ export class ActionMenuDropdownComponent
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.left + 'px';
-    left = targetOffset.right - elementOuterWidth + 'px';
+    right = targetOffset.left - viewport.left + 'px';
+    left = targetOffset.right - elementOuterWidth - viewport.left + 'px';
     top = targetOffset.bottom - viewport.top + 'px';
-    bottom = viewport.height - targetOffset.top + viewport.top + 'px';
+    bottom = targetOffset.top - elementOuterHeight - viewport.top + 'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -124,10 +123,15 @@ export class ActionMenuDropdownComponent
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.right + 'px';
-    left = targetOffset.left - elementOuterWidth + 'px';
-    top = targetOffset.top - viewport.top + 'px';
-    bottom = viewport.height - targetOffset.bottom + viewport.top + 'px';
+    right = targetOffset.right - viewport.left + 'px';
+    left = targetOffset.left - elementOuterWidth - viewport.left + 'px';
+    top = targetOffset.bottom - targetOffset.height - viewport.top + 'px';
+    bottom =
+      targetOffset.top +
+      targetOffset.height -
+      elementOuterHeight -
+      viewport.top +
+      'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -230,7 +234,7 @@ export class ActionMenuDropdownComponent
   }
 
   private showOnTop(element, bottom) {
-    element.style.bottom = bottom;
+    element.style.top = bottom;
   }
 
   private showOnBottom(element, top) {
