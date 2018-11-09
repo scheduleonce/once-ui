@@ -2,7 +2,7 @@
     position: absolute;
     background-color: #fff;
     box-shadow: 0 1px 3px 2px rgba(167, 167, 167, 0.5);
-    border: 1px solid #c8c8c8;
+    /*border: 1px solid #c8c8c8;*/
     z-index: 9999;
     font-size: 13px;
     line-height: 22px;
@@ -20,7 +20,8 @@
   }
   .action-menu-dd ul {
     padding-top: 10px;
-    padding-bottom: 10px;
+    padding-bottom: 10px;    
+    box-shadow: 0 0 0 1px #C8C8C8;
   }
   .action-menu-icon-links .icon-container {
     display: inline-block;
