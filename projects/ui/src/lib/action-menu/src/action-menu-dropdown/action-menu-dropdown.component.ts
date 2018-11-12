@@ -65,10 +65,10 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.left - viewport.left + 'px';
-    left = targetOffset.right - elementOuterWidth - viewport.left + 'px';
-    top = targetOffset.bottom - viewport.top + 'px';
-    bottom = targetOffset.top - elementOuterHeight - viewport.top + 'px';
+    right = targetOffset.left + viewport.left + 'px';
+    left = targetOffset.right - elementOuterWidth + viewport.left + 'px';
+    top = targetOffset.bottom + viewport.top + 'px';
+    bottom = targetOffset.top - elementOuterHeight + viewport.top + 'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -123,13 +123,13 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.right - viewport.left + 'px';
-    left = targetOffset.left - elementOuterWidth - viewport.left + 'px';
-    top = targetOffset.bottom - targetOffset.height - viewport.top + 'px';
+    right = targetOffset.right + viewport.left + 'px';
+    left = targetOffset.left - elementOuterWidth + viewport.left + 'px';
+    top = targetOffset.bottom - targetOffset.height + viewport.top + 'px';
     bottom =
       targetOffset.top +
       targetOffset.height -
-      elementOuterHeight -
+      elementOuterHeight +
       viewport.top +
       'px';
 
@@ -256,14 +256,8 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
       g = d.getElementsByTagName('body')[0],
       w = win.innerWidth || e.clientWidth || g.clientWidth,
       h = win.innerHeight || e.clientHeight || g.clientHeight,
-      l =
-        win.screenLeft - win.scrollX ||
-        e.clientLeft - e.scrollLeft ||
-        g.clientLeft - g.scrollLeft,
-      t =
-        win.screenTop - win.scrollY ||
-        e.clientTop - e.scrollTop ||
-        g.clientTop - g.scrollTop;
+      l = (win.pageXOffset || e.scrollLeft) - (e.clientLeft || 0),
+      t = (win.pageYOffset || e.scrollTop) - (e.clientTop || 0);
 
     return { width: w, height: h, left: l, top: t };
   }
