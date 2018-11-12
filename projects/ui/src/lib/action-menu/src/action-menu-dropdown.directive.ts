@@ -120,12 +120,12 @@ export class ActionMenuDropdownDirective {
     };
 
     rect = {
+      left: rect.left,
       right: rect.right,
+      top: rect.top,
+      bottom: rect.bottom,
       width: rect.right - rect.left,
-      height: rect.bottom - rect.top,
-      left: this.isVertical ? rect.left - border.left : rect.left + border.left,
-      top: rect.top - margin.top - border.top,
-      bottom: this.isVertical ? rect.bottom + border.bottom : rect.bottom
+      height: rect.bottom - rect.top
     };
     return rect;
   }
