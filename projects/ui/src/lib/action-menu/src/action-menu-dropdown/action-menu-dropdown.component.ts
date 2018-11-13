@@ -6,7 +6,8 @@ import {
   ElementRef,
   ChangeDetectorRef,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  HostListener
 } from '@angular/core';
 import { DefaultPositionConfig } from '../action-menu-config';
 
@@ -38,6 +39,12 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   visible: boolean;
   @Input()
   targetOffset: any;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.show();
+    this.cdr.detectChanges();
+  }
 
   ngAfterViewInit() {
     this.show();
