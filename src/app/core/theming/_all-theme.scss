@@ -1,0 +1,6 @@
+@import 'theming';
+
+// Create a theme.
+@mixin once-ui-theme($theme) {
+    @debug map-get($theme, foreground);
+}
