@@ -9,7 +9,7 @@ There are several `<button>` variants, each applied as an attribute:
 | **Name**                        | **Description**                                            |
 | -----------------------------   | ---------------------------------------------------------- |
 | `oui-button`                    | rounded regular solid button                               |      
-| `oui-ghost-button`             | rounded regular hollow button                              |
+| `oui-ghost-button`              | rounded regular hollow button                              |
 | `oui-link-button`               | text link button                                           |
 | `oui-icon-button`               | rounded button meant to contain icon                       |
 
