@@ -3,7 +3,7 @@ import {
     Component,
     ElementRef,
     ViewEncapsulation,
-    OnDestroy,
+    OnDestroy
 } from '@angular/core';
 import { CanDisable, CanColor, CanDisableCtor, CanColorCtor, mixinColor, mixinDisabled } from '../core';
 
@@ -52,7 +52,6 @@ export class OuiButton extends OuiButtonMixinBase implements OnDestroy, CanDisab
     constructor(private elementRef: ElementRef) {
         super(elementRef);
         this.addClass();
-        console.log(this.hasHostAttributes('disabled'));
     }
 
     addClass() {
@@ -71,7 +70,7 @@ export class OuiButton extends OuiButtonMixinBase implements OnDestroy, CanDisab
         return attributes.some(attribute => this.getHostElement().hasAttribute(attribute));
     }
 
-    ngOnDestroy(){
+    ngOnDestroy() {
 
     }
 }
