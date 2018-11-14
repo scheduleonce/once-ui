@@ -72,10 +72,18 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.left + viewport.left + 'px';
-    left = targetOffset.right - elementOuterWidth + viewport.left + 'px';
-    top = targetOffset.bottom + viewport.top + 'px';
-    bottom = targetOffset.top - elementOuterHeight + viewport.top + 'px';
+    right = Math.floor(targetOffset.left) + Math.floor(viewport.left) + 'px';
+    left =
+      Math.floor(targetOffset.right) -
+      Math.floor(elementOuterWidth) +
+      Math.floor(viewport.left) +
+      'px';
+    top = Math.floor(targetOffset.bottom) + Math.floor(viewport.top) + 'px';
+    bottom =
+      Math.floor(targetOffset.top) -
+      Math.floor(elementOuterHeight) +
+      Math.floor(viewport.top) +
+      'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -130,14 +138,22 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.right + viewport.left + 'px';
-    left = targetOffset.left - elementOuterWidth + viewport.left + 'px';
-    top = targetOffset.bottom - targetOffset.height + viewport.top + 'px';
+    right = Math.floor(targetOffset.right) + Math.floor(viewport.left) + 'px';
+    left =
+      Math.floor(targetOffset.left) -
+      Math.floor(elementOuterWidth) +
+      Math.floor(viewport.left) +
+      'px';
+    top =
+      Math.floor(targetOffset.bottom) -
+      Math.floor(targetOffset.height) +
+      Math.floor(viewport.top) +
+      'px';
     bottom =
-      targetOffset.top +
-      targetOffset.height -
-      elementOuterHeight +
-      viewport.top +
+      Math.floor(targetOffset.top) +
+      Math.floor(targetOffset.height) -
+      Math.floor(elementOuterHeight) +
+      Math.floor(viewport.top) +
       'px';
 
     switch (this.defaultPosition) {
