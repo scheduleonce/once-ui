@@ -48,10 +48,6 @@ export class ActionMenuDropdownDirective {
   @HostListener('click', ['$event'])
   show(event: MouseEvent) {
     event.stopPropagation();
-    if (this.visible) {
-      this.hideActionMenuDropDown();
-      return;
-    }
 
     this.visible = true;
     const factory = this.resolver.resolveComponentFactory(
