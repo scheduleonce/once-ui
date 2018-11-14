@@ -48,6 +48,10 @@ export class ActionMenuDropdownDirective {
   @HostListener('click', ['$event'])
   show(event: MouseEvent) {
     event.stopPropagation();
+    if (this.visible) {
+      this.hideActionMenuDropDown();
+      return;
+    }
 
     this.visible = true;
     const factory = this.resolver.resolveComponentFactory(
@@ -69,16 +73,19 @@ export class ActionMenuDropdownDirective {
     this.actionMenuDropdown.instance.items = this.items;
     this.actionMenuDropdown.instance.actionItem = this.actionItem;
     this.actionMenuDropdown.instance.componentRef = this.actionMenuDropdown;
-    this.actionMenuDropdown.instance.visible = this.visible;
   }
 
-  @HostListener('mouseleave')
-  hide() {
-    this.timeOutEvent = setTimeout(() => {
-      this.hideActionMenuDropDown();
-    }, 1000);
-    if (this.actionMenuDropdown) {
-      this.actionMenuDropdown.instance.timeOutEvent = this.timeOutEvent;
+  @HostListener('mouseleave', ['$event'])
+  hide(event: MouseEvent) {
+    if (!event.relatedTarget) {
+      this.visible = false;
+    } else {
+      this.timeOutEvent = setTimeout(() => {
+        this.hideActionMenuDropDown();
+      }, 1000);
+      if (this.actionMenuDropdown) {
+        this.actionMenuDropdown.instance.timeOutEvent = this.timeOutEvent;
+      }
     }
   }
 
