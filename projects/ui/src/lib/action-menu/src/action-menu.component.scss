@@ -9,19 +9,16 @@
   text-decoration: none !important;
   display: inline-block;
   float: right;
-  height: 11px; /*12 to 11*/
-  width: 26px; /*new added*/
+  height: 12px;
+  width: 27px;
   cursor: pointer;
   padding: 2px 3px;
   border: 1px solid transparent;
-  line-height: 0px; /*0.5 to 0*/
-  position: relative; /*new added*/
+  line-height: 0px;
+  position: relative;
   background-image: url('/assets/images/three-dots-menu.svg');
   background-repeat: no-repeat;
   background-position: center center;
-  svg {
-    display: none;
-  }
 }
 .action-menu:hover,
 .action-menu.action-menu-open {

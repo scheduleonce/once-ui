@@ -100,12 +100,6 @@ export class ActionMenuDropdownDirective {
   private getHostDimensions(element) {
     let rect = element.getBoundingClientRect();
     const style = window.getComputedStyle(element);
-    const margin = {
-      left: parseInt(style['margin-left'], 10),
-      right: parseInt(style['margin-right'], 10),
-      top: parseInt(style['margin-top'], 10),
-      bottom: parseInt(style['margin-bottom'], 10)
-    };
     const padding = {
       left: parseInt(style['padding-left'], 10),
       right: parseInt(style['padding-right'], 10),
@@ -122,10 +116,16 @@ export class ActionMenuDropdownDirective {
     rect = {
       width: rect.right - rect.left,
       height: rect.bottom - rect.top,
-      left: this.isVertical ? rect.left - border.left : rect.left + border.left,
-      right: this.isVertical ? rect.right : rect.right - border.right,
-      top: this.isVertical ? rect.top - border.top : rect.top,
-      bottom: rect.bottom + border.bottom
+      left: this.isVertical
+        ? rect.left - padding.left + border.left
+        : rect.left + border.left,
+      right: this.isVertical
+        ? rect.right + padding.right - border.right
+        : rect.right - border.right,
+      top: rect.top - border.top,
+      bottom: this.isVertical
+        ? rect.bottom + border.bottom
+        : rect.bottom + padding.bottom
     };
     return rect;
   }
