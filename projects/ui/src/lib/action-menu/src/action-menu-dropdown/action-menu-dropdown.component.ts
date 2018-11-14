@@ -36,9 +36,9 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   @Input()
   componentRef: ComponentRef<ActionMenuDropdownComponent>;
   @Input()
-  visible: boolean;
-  @Input()
   targetOffset: any;
+
+  dropdownTimeOutEvent: any;
 
   @HostListener('window:resize')
   onResize() {
@@ -293,11 +293,15 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   actionMenuMouseenter() {
     clearTimeout(this.timeOutEvent);
     this.timeOutEvent = null;
+    if (this.dropdownTimeOutEvent) {
+      clearTimeout(this.dropdownTimeOutEvent);
+      this.dropdownTimeOutEvent = null;
+    }
     this.cdr.detectChanges();
   }
 
   actionMenuMouseleave() {
-    this.timeOutEvent = setTimeout(() => {
+    this.dropdownTimeOutEvent = setTimeout(() => {
       this.destroyActionMenuDropdown();
       this.cdr.detectChanges();
     }, 1000);
@@ -305,7 +309,8 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
 
   destroyActionMenuDropdown() {
     if (this.componentRef) {
-      this.visible = false;
+      const event = new MouseEvent('mouseleave', { bubbles: false });
+      this.hostElement.dispatchEvent(event);
       this.componentRef.destroy();
     }
   }
