@@ -3,19 +3,22 @@
 $default-primary : (
     default : $oui-blue,
     lighter: lighten($oui-blue, 10%),
-    darker: $oui-darker-blue
+    darker: $oui-darker-blue,
+    default-contrast: $oui-white
 );
 
 $default-accent : (
     default : $oui-white,
     lighter: lighten($oui-white, 10%),
-    darker:  darken($oui-white, 10%)
+    darker:  darken($oui-white, 10%),
+    default-contrast: $oui-dark-grey
 );
 
 $default-warn : (
     default : $oui-warn,
     lighter: lighten($oui-warn, 10%),
-    darker: darken($oui-warn, 10%)
+    darker: darken($oui-warn, 10%),
+    default-contrast: $oui-white
 );
 
 $default-background : (
@@ -30,11 +33,12 @@ $default-foreground : (
     secondary-text:    #666666
 );
 
-@function oui-palette($base, $lighter : null, $darker: null){
+@function oui-palette($base, $lighter : null, $darker: null, $contrast: $oui-white){
     @return (
         default : $base,
         lighter : if($lighter,$lighter,lighten($base,10%)),
-        darker  : if($darker,$darker,darken($base,10%))
+        darker  : if($darker,$darker,darken($base,10%)),
+        default-contrast: $contrast
     );
 }
 

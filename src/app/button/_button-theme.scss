@@ -1,0 +1,86 @@
+$border-radius: 100px;
+$font-size: 14px;
+$letter-spacing: .5px;
+$padding: 6px 22px;
+$line-height: 19px;
+$min-height: 35px;
+$min-width: 70px;
+$font-weight: 600;
+@mixin oui-button-theme($theme){
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  .oui-button, .oui-hollow-button, .oui-icon-button, .oui-link-button {
+    @include oui-button-reset();
+    @include oui-button-base();
+  }  
+  .oui-button{
+    @include oui-button-theme-palette($theme);
+  }    
+  .oui-link-button{
+    @include oui-link-button-theme-palette($theme);
+  }  
+}
+/*common properties in all buttons*/
+@mixin oui-button-base {
+    font-size: $font-size;
+    border-radius: $border-radius;
+    letter-spacing: $letter-spacing;
+    padding: $padding;
+    line-height: $line-height;
+    min-height: $min-height;
+    min-width: $min-width;
+    font-weight: $font-weight;    
+}
+/*reset the browser default properties*/
+@mixin oui-button-reset {
+    border: 0 none;
+    background: none;
+    font-family: 'Open Sans', sans-serif;
+    &:focus{
+        outline: 0 none;
+    }
+}
+/*generating themes for oui-button(Primary buttons)*/
+@mixin oui-button-theme-palette($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  &.oui-primary{
+      background: map-get($primary, default);
+      color:map-get($primary, default-contrast);
+  }
+  &.oui-accent{
+    background: map-get($accent, default);
+    color:map-get($accent, default-contrast);
+  }
+  &.oui-warn{
+    background: map-get($warn, default);
+    color:map-get($warn, default-contrast);
+  }
+}
+
+/*generating themes for oui-link-button(link buttons)*/
+@mixin oui-link-button-theme-palette($theme) {
+    $primary: map-get($theme, primary);
+    $accent: map-get($theme, accent);
+    $warn: map-get($theme, warn);
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    &.oui-primary{
+        background: map-get($primary, default);
+        color:map-get($primary, default-contrast);
+    }
+    &.oui-accent{
+      background: map-get($accent, default);
+      color:map-get($accent, default-contrast);
+    }
+    &.oui-warn{
+      background: map-get($warn, default);
+      color:map-get($warn, default-contrast);
+    }
+  }
