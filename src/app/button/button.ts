@@ -13,7 +13,7 @@ import { CanDisable, CanColor, CanDisableCtor, CanColorCtor, mixinColor, mixinDi
  */
 const BUTTON_HOST_ATTRIBUTES = [
     'oui-button',
-    'oui-hollow-button',
+    'oui-ghost-button',
     'oui-link-button',
     'oui-icon-button'
 ];
@@ -35,7 +35,7 @@ export const OuiButtonMixinBase:
  * Once Ui button.
  */
 @Component({
-    selector: `button[oui-button], button[oui-hollow-button], button[oui-link-button],
+    selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button],
                button[oui-icon-button]`,
     exportAs: 'ouiButton',
     host: {
@@ -80,7 +80,7 @@ export class OuiButton extends OuiButtonMixinBase implements OnDestroy, CanDisab
  * Once UI anchor.
  */
 @Component({
-    selector: `a[oui-button], a[oui-hollow-button], a[oui-link-button],
+    selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button],
     a[oui-icon-button]`,
     exportAs: 'ouiButton, ouiAnchor',
     host: {
