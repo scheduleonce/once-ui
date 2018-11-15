@@ -19,7 +19,7 @@ const BUTTON_HOST_ATTRIBUTES = [
 ];
 
 /** Default color palette for round buttons (mat-fab and mat-mini-fab) */
-const DEFAULT_COLOR = 'accent';
+const DEFAULT_COLOR = 'primary';
 
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
@@ -59,6 +59,9 @@ export class OuiButton extends OuiButtonMixinBase implements OnDestroy, CanDisab
             if (this.hasHostAttributes(attr)) {
                 (this.elementRef.nativeElement as HTMLElement).classList.add(attr);
             }
+        }
+        if(!this.color){
+            this.color = DEFAULT_COLOR;
         }
     }
 
