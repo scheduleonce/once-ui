@@ -1,0 +1,57 @@
+@import 'palette';
+
+$default-primary : (
+    default : $oui-blue,
+    lighter: lighten($oui-blue, 10%),
+    darker: $oui-darker-blue,
+    default-contrast: $oui-white
+);
+
+$default-accent : (
+    default : $oui-green,
+    lighter: lighten($oui-green, 10%),
+    darker:  darken($oui-green, 10%),
+    default-contrast: $oui-white
+);
+
+$default-warn : (
+    default : $oui-warn,
+    lighter: lighten($oui-warn, 10%),
+    darker: darken($oui-warn, 10%),
+    default-contrast: $oui-white
+);
+
+$default-background : (
+    background: $oui-white,
+    disabled-button: #c8c8c8,
+    disabled-button-border: $oui-disabled-grey
+);
+
+$default-foreground : (
+    base:              black,
+    disabled-link-button: $oui-disabled-grey,
+    disabled-ghost-button:$oui-disabled-grey,
+    disabled-button:   #ffffff,
+    text:              #333333,
+    secondary-text:    #666666
+);
+
+@function oui-palette($base, $lighter : null, $darker: null, $contrast: $oui-white){
+    @return (
+        default : $base,
+        lighter : if($lighter,$lighter,lighten($base,10%)),
+        darker  : if($darker,$darker,darken($base,10%)),
+        default-contrast: $contrast
+    );
+}
+
+@function oui-theme($primary : (), $accent: (), $warn: (), $foreground : (), $background: ()){
+    @return (
+        primary: map-merge($default-primary, $primary),
+        accent: map-merge($default-accent, $accent),
+        warn: map-merge($default-warn, $warn),
+        foreground: map-merge($default-foreground, $foreground),
+        background: map-merge($default-background, $background)
+    );
+}
+
