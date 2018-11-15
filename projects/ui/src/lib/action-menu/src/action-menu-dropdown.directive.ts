@@ -48,6 +48,7 @@ export class ActionMenuDropdownDirective {
   @HostListener('click', ['$event'])
   show(event: MouseEvent) {
     event.stopPropagation();
+    this.clearMenuTimeOut();
     if (this.visible) {
       this.hideActionMenuDropDown();
       return;
@@ -75,11 +76,30 @@ export class ActionMenuDropdownDirective {
     this.actionMenuDropdown.instance.componentRef = this.actionMenuDropdown;
   }
 
+  @HostListener('mouseenter')
+  mouseReEnter() {
+    if (this.visible) {
+      this.clearMenuTimeOut();
+    }
+  }
+
   @HostListener('mouseleave', ['$event'])
   hide(event: MouseEvent) {
     if (!event.relatedTarget) {
       this.visible = false;
+      const actionMenuDD = document.querySelector('once-action-menu-dropdown');
+      if (actionMenuDD) {
+        document
+          .querySelector('body')
+          .removeChild(this.actionMenuDropdown.location.nativeElement);
+        if (this.actionMenuDropdown) {
+          this.actionMenuDropdown.destroy();
+        }
+      }
     } else {
+      if (!this.visible) {
+        return;
+      }
       this.timeOutEvent = setTimeout(() => {
         this.hideActionMenuDropDown();
       }, 1000);
@@ -98,6 +118,11 @@ export class ActionMenuDropdownDirective {
     if (this.actionMenuDropdown) {
       this.actionMenuDropdown.destroy();
     }
+  }
+
+  clearMenuTimeOut() {
+    clearTimeout(this.timeOutEvent);
+    this.timeOutEvent = null;
   }
 
   private getHostDimensions(element) {
