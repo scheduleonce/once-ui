@@ -48,6 +48,7 @@ export class ActionMenuDropdownDirective {
   @HostListener('click', ['$event'])
   show(event: MouseEvent) {
     event.stopPropagation();
+    this.clearMenuTimeOut();
     if (this.visible) {
       this.hideActionMenuDropDown();
       return;
@@ -73,16 +74,38 @@ export class ActionMenuDropdownDirective {
     this.actionMenuDropdown.instance.items = this.items;
     this.actionMenuDropdown.instance.actionItem = this.actionItem;
     this.actionMenuDropdown.instance.componentRef = this.actionMenuDropdown;
-    this.actionMenuDropdown.instance.visible = this.visible;
   }
 
-  @HostListener('mouseleave')
-  hide() {
-    this.timeOutEvent = setTimeout(() => {
-      this.hideActionMenuDropDown();
-    }, 1000);
-    if (this.actionMenuDropdown) {
-      this.actionMenuDropdown.instance.timeOutEvent = this.timeOutEvent;
+  @HostListener('mouseenter')
+  mouseReEnter() {
+    if (this.visible) {
+      this.clearMenuTimeOut();
+    }
+  }
+
+  @HostListener('mouseleave', ['$event'])
+  hide(event: MouseEvent) {
+    if (!event.relatedTarget) {
+      this.visible = false;
+      const actionMenuDD = document.querySelector('once-action-menu-dropdown');
+      if (actionMenuDD) {
+        document
+          .querySelector('body')
+          .removeChild(this.actionMenuDropdown.location.nativeElement);
+        if (this.actionMenuDropdown) {
+          this.actionMenuDropdown.destroy();
+        }
+      }
+    } else {
+      if (!this.visible) {
+        return;
+      }
+      this.timeOutEvent = setTimeout(() => {
+        this.hideActionMenuDropDown();
+      }, 1000);
+      if (this.actionMenuDropdown) {
+        this.actionMenuDropdown.instance.timeOutEvent = this.timeOutEvent;
+      }
     }
   }
 
@@ -97,15 +120,14 @@ export class ActionMenuDropdownDirective {
     }
   }
 
+  clearMenuTimeOut() {
+    clearTimeout(this.timeOutEvent);
+    this.timeOutEvent = null;
+  }
+
   private getHostDimensions(element) {
     let rect = element.getBoundingClientRect();
     const style = window.getComputedStyle(element);
-    const margin = {
-      left: parseInt(style['margin-left'], 10),
-      right: parseInt(style['margin-right'], 10),
-      top: parseInt(style['margin-top'], 10),
-      bottom: parseInt(style['margin-bottom'], 10)
-    };
     const padding = {
       left: parseInt(style['padding-left'], 10),
       right: parseInt(style['padding-right'], 10),
@@ -120,12 +142,18 @@ export class ActionMenuDropdownDirective {
     };
 
     rect = {
-      right: rect.right,
       width: rect.right - rect.left,
       height: rect.bottom - rect.top,
-      left: this.isVertical ? rect.left - border.left : rect.left + border.left,
-      top: rect.top - margin.top - border.top,
-      bottom: this.isVertical ? rect.bottom + border.bottom : rect.bottom
+      left: this.isVertical
+        ? rect.left - padding.left + border.left
+        : rect.left + border.left,
+      right: this.isVertical
+        ? rect.right + padding.right - border.right
+        : rect.right - border.right,
+      top: rect.top - border.top,
+      bottom: this.isVertical
+        ? rect.bottom + border.bottom
+        : rect.bottom + padding.bottom
     };
     return rect;
   }
