@@ -24,9 +24,6 @@ $border: 1px solid transparent;
   }    
   .oui-link-button{
     @include oui-link-button-theme-palette($theme);
-    &:hover{        
-      text-decoration: underline;
-    }
   }     
   .oui-ghost-button{
     background: $ghost-button-background;
@@ -45,6 +42,7 @@ $border: 1px solid transparent;
     font-weight: $font-weight;    
     cursor: $cursor;
     border:$border;
+    background: transparent;
 }
 /*reset the browser default properties*/
 @mixin oui-button-reset {
@@ -86,12 +84,10 @@ $border: 1px solid transparent;
         color: map-get($warn, default-contrast);
     }
   }
-  &.oui-primary, &.oui-accent, &.oui-warn{
-    &:disabled{
+  &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{
         background: map-get($background, disabled-button);      
         color: map-get($foreground, disabled-button);
         cursor: default;
-      }
   }
 }
 
@@ -108,15 +104,20 @@ $border: 1px solid transparent;
     }
     &.oui-warn{
       color:map-get($warn, default);
-    }
-    
-  &.oui-primary, &.oui-accent, &.oui-warn{
-    &:disabled{   
+    }    
+    &.oui-primary, &.oui-accent, &.oui-warn{
+      &:hover{        
+        text-decoration: underline;
+      }
+     }
+    &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{   
         color: #c8c8c8;
         cursor: default;
+        &:hover{
+          text-decoration: none;
+        }
       }
-  }
-  }
+ }
 
 /*generating themes for oui-ghost-button(ghost buttons)*/
 @mixin oui-ghost-button-theme-palette($theme) {
@@ -149,11 +150,10 @@ $border: 1px solid transparent;
           color: map-get($warn, default-contrast);
       }
     }
-    &.oui-primary, &.oui-accent, &.oui-warn{
-        &:disabled{
-            background: map-get($background, disabled-button);      
-            color: map-get($foreground, disabled-button);
+    &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{
+            color: map-get($foreground, disabled-link-button);
+            border-color:map-get($foreground, disabled-button-border);
+            background: transparent;
             cursor: default;
-          }
       }
   }
