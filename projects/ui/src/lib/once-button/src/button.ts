@@ -12,7 +12,7 @@ import {
   CanColorCtor,
   mixinColor,
   mixinDisabled
-} from '../../once-core';
+} from '../core';
 
 /**
  * List of classes to add to Button instances based on host attributes to
