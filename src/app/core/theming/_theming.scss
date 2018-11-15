@@ -8,10 +8,10 @@ $default-primary : (
 );
 
 $default-accent : (
-    default : $oui-white,
-    lighter: lighten($oui-white, 10%),
-    darker:  darken($oui-white, 10%),
-    default-contrast: $oui-dark-grey
+    default : $oui-green,
+    lighter: lighten($oui-green, 10%),
+    darker:  darken($oui-green, 10%),
+    default-contrast: $oui-white
 );
 
 $default-warn : (
