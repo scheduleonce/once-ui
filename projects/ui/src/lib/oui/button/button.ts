@@ -3,7 +3,8 @@ import {
   Component,
   ElementRef,
   ViewEncapsulation,
-  OnDestroy
+  OnDestroy,
+  Input
 } from '@angular/core';
 import {
   CanDisable,
@@ -42,14 +43,17 @@ export const OuiButtonMixinBase: CanDisableCtor &
  * Once Ui button.
  */
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button],
                button[oui-icon-button]`,
   exportAs: 'ouiButton',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[disabled]': 'disabled || null'
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -89,14 +93,17 @@ export class OuiButton extends OuiButtonMixinBase
  * Once UI anchor.
  */
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button],
     a[oui-icon-button]`,
   exportAs: 'ouiButton, ouiAnchor',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
     '(click)': '_haltDisabledEvents($event)'
   },
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'color'],
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
