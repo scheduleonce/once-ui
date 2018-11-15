@@ -24,12 +24,13 @@ $default-warn : (
 $default-background : (
     background: $oui-white,
     disabled-button: #c8c8c8,
+    disabled-button-border: $oui-disabled-grey
 );
 
 $default-foreground : (
     base:              black,
     disabled-link-button: $oui-disabled-grey,
-    disabled-button-border: $oui-disabled-grey,
+    disabled-ghost-button:$oui-disabled-grey,
     disabled-button:   #ffffff,
     text:              #333333,
     secondary-text:    #666666
