@@ -1,0 +1,9 @@
+@import 'theming';
+@import '../../button/button-theme';
+
+// Create a theme.
+@mixin once-ui-theme($theme) {
+    @debug map-get($theme, foreground);
+    @include oui-button-theme($theme);
+}
+
