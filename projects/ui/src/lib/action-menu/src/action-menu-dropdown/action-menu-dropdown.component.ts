@@ -6,7 +6,8 @@ import {
   ElementRef,
   ChangeDetectorRef,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  HostListener
 } from '@angular/core';
 import { DefaultPositionConfig } from '../action-menu-config';
 
@@ -35,9 +36,15 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   @Input()
   componentRef: ComponentRef<ActionMenuDropdownComponent>;
   @Input()
-  visible: boolean;
-  @Input()
   targetOffset: any;
+
+  dropdownTimeOutEvent: any;
+
+  @HostListener('window:resize')
+  onResize() {
+    this.show();
+    this.cdr.detectChanges();
+  }
 
   ngAfterViewInit() {
     this.show();
@@ -65,10 +72,18 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.left - viewport.left + 'px';
-    left = targetOffset.right - elementOuterWidth - viewport.left + 'px';
-    top = targetOffset.bottom - viewport.top + 'px';
-    bottom = targetOffset.top - elementOuterHeight - viewport.top + 'px';
+    right = Math.floor(targetOffset.left) + Math.floor(viewport.left) + 'px';
+    left =
+      Math.floor(targetOffset.right) -
+      Math.floor(elementOuterWidth) +
+      Math.floor(viewport.left) +
+      'px';
+    top = Math.floor(targetOffset.bottom) + Math.floor(viewport.top) + 'px';
+    bottom =
+      Math.floor(targetOffset.top) -
+      Math.floor(elementOuterHeight) +
+      Math.floor(viewport.top) +
+      'px';
 
     switch (this.defaultPosition) {
       case DefaultPositionConfig.left_bottom:
@@ -123,14 +138,22 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
     const elementOuterWidth = element.offsetWidth;
     const elementOuterHeight = element.clientHeight;
     const viewport = this.getViewport();
-    right = targetOffset.right - viewport.left + 'px';
-    left = targetOffset.left - elementOuterWidth - viewport.left + 'px';
-    top = targetOffset.bottom - targetOffset.height - viewport.top + 'px';
+    right = Math.floor(targetOffset.right) + Math.floor(viewport.left) + 'px';
+    left =
+      Math.floor(targetOffset.left) -
+      Math.floor(elementOuterWidth) +
+      Math.floor(viewport.left) +
+      'px';
+    top =
+      Math.floor(targetOffset.bottom) -
+      Math.floor(targetOffset.height) +
+      Math.floor(viewport.top) +
+      'px';
     bottom =
-      targetOffset.top +
-      targetOffset.height -
-      elementOuterHeight -
-      viewport.top +
+      Math.floor(targetOffset.top) +
+      Math.floor(targetOffset.height) -
+      Math.floor(elementOuterHeight) +
+      Math.floor(viewport.top) +
       'px';
 
     switch (this.defaultPosition) {
@@ -256,14 +279,8 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
       g = d.getElementsByTagName('body')[0],
       w = win.innerWidth || e.clientWidth || g.clientWidth,
       h = win.innerHeight || e.clientHeight || g.clientHeight,
-      l =
-        win.screenLeft - win.scrollX ||
-        e.clientLeft - e.scrollLeft ||
-        g.clientLeft - g.scrollLeft,
-      t =
-        win.screenTop - win.scrollY ||
-        e.clientTop - e.scrollTop ||
-        g.clientTop - g.scrollTop;
+      l = (win.pageXOffset || e.scrollLeft) - (e.clientLeft || 0),
+      t = (win.pageYOffset || e.scrollTop) - (e.clientTop || 0);
 
     return { width: w, height: h, left: l, top: t };
   }
@@ -276,11 +293,15 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   actionMenuMouseenter() {
     clearTimeout(this.timeOutEvent);
     this.timeOutEvent = null;
+    if (this.dropdownTimeOutEvent) {
+      clearTimeout(this.dropdownTimeOutEvent);
+      this.dropdownTimeOutEvent = null;
+    }
     this.cdr.detectChanges();
   }
 
   actionMenuMouseleave() {
-    this.timeOutEvent = setTimeout(() => {
+    this.dropdownTimeOutEvent = setTimeout(() => {
       this.destroyActionMenuDropdown();
       this.cdr.detectChanges();
     }, 1000);
@@ -288,7 +309,8 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
 
   destroyActionMenuDropdown() {
     if (this.componentRef) {
-      this.visible = false;
+      const event = new MouseEvent('mouseleave', { bubbles: false });
+      this.hostElement.dispatchEvent(event);
       this.componentRef.destroy();
     }
   }
