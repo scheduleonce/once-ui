@@ -7,6 +7,7 @@ $min-height: 35px;
 $min-width: 70px;
 $font-weight: 600;
 $cursor:pointer;
+$disabled-cursor:default;
 $ghost-button-background:#fff;
 $border: 1px solid transparent;
 @mixin oui-button-theme($theme){
@@ -87,7 +88,7 @@ $border: 1px solid transparent;
   &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{
         background: map-get($background, disabled-button);      
         color: map-get($foreground, disabled-button);
-        cursor: default;
+        cursor: $disabled-cursor;
   }
 }
 
@@ -96,6 +97,7 @@ $border: 1px solid transparent;
     $primary: map-get($theme, primary);
     $accent: map-get($theme, accent);
     $warn: map-get($theme, warn);
+    $foreground: map-get($theme, foreground);
     &.oui-primary{
       color:map-get($primary, default);    
     }  
@@ -111,8 +113,8 @@ $border: 1px solid transparent;
       }
      }
     &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{   
-        color: #c8c8c8;
-        cursor: default;
+        color: map-get($foreground, disabled-ghost-button);
+        cursor: $disabled-cursor;
         &:hover{
           text-decoration: none;
         }
@@ -152,8 +154,8 @@ $border: 1px solid transparent;
     }
     &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{
             color: map-get($foreground, disabled-link-button);
-            border-color:map-get($foreground, disabled-button-border);
+            border-color:map-get($background, disabled-button-border);
             background: transparent;
-            cursor: default;
+            cursor: $disabled-cursor;
       }
   }
