@@ -1,0 +1,37 @@
+$border-color: #333333;
+$color:#4A4A4A;
+$background: #fff;
+$background-hover: #F7F7F7;
+$background-visited: #DCDCDC;
+$width: 20px;
+$height: 16px;
+$vertical-align-top:top;
+$margin:1px 6px 0px 0px;
+$cursor:pointer;
+@mixin oui-icon{  
+  .oui-icon-button{
+    @include oui-icon-button();
+  }  
+}
+/*generating themes for oui-icon-button(icon buttons)*/
+@mixin oui-icon-button {
+  color: $color !important;
+  background: $background !important;
+  border: 1px solid $border-color !important;
+  img{
+      width: $width;
+      height: $height;
+      vertical-align: $vertical-align-top;
+      margin: $margin;
+      cursor:$cursor;
+  }
+  label{
+    cursor:$cursor;
+  }
+  &:hover{
+    background: $background-hover !important;
+  }
+  &:active{
+    background: $background-visited !important;
+  }
+}

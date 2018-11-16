@@ -29,7 +29,7 @@ $border: 1px solid transparent;
   .oui-ghost-button{
     background: $ghost-button-background;
     @include oui-ghost-button-theme-palette($theme);
-  }  
+  }       
 }
 /*common properties in all buttons*/
 @mixin oui-button-base {
@@ -159,3 +159,4 @@ $border: 1px solid transparent;
             cursor: $disabled-cursor;
       }
   }
+  
