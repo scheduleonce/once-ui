@@ -5,3 +5,7 @@ div{
 button,a{
     margin-right: 10px;
 }
+a::after{
+    content: '';
+    clear: both;
+}
