@@ -10,6 +10,7 @@ $cursor:pointer;
 $disabled-cursor:default;
 $ghost-button-background:#fff;
 $border: 1px solid transparent;
+$text-decoration:none;
 @mixin oui-button-theme($theme){
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -44,6 +45,7 @@ $border: 1px solid transparent;
     cursor: $cursor;
     border:$border;
     background: transparent;
+    text-decoration: $text-decoration;    
 }
 /*reset the browser default properties*/
 @mixin oui-button-reset {
