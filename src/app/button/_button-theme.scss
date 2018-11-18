@@ -33,6 +33,7 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   }    
   .oui-link-button, .oui-progress-link-button{
     @include oui-link-button-theme-palette($theme);
+    padding: 6px 0px 6px 0px !important;
   }     
   .oui-ghost-button, .oui-progress-ghost-button{
     background: $ghost-button-background;
@@ -56,7 +57,7 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     padding: $padding;
     line-height: $line-height;
     min-height: $min-height;
-    min-width: $min-width;
+    //min-width: $min-width;
     font-weight: $font-semi-bold;    
     cursor: $cursor;
     border:$border;
