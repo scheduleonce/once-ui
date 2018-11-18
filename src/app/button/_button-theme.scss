@@ -37,7 +37,12 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   .oui-ghost-button, .oui-progress-ghost-button{
     background: $ghost-button-background;
     @include oui-ghost-button-theme-palette($theme);
-  }       
+  }
+  
+  .oui-progress-button{
+    @include oui-progress-button-stages($theme);
+  }
+
 }
 /*common properties in all buttons*/
 @mixin oui-button-base {
@@ -99,20 +104,6 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
         background: map-get($background, disabled-button);      
         color: map-get($foreground, disabled-button);
         cursor: $disabled-cursor;
-  }
-  &.oui-stage-progress{
-    background:transparent !important;
-    color: map-get($default-foreground, text) !important;
-    text-align: $text-align-left !important;
-    padding: $remove-padding !important;
-    font-weight: $font-bold !important;
-  }
-  &.oui-stage-done{
-    background:$green-tick-icon !important;
-    color: map-get($default-foreground, text) !important;
-    text-align: $text-align-left !important;
-    padding: $progress-icon-padding !important;
-    font-weight: $font-bold !important;
   }
 }
 
@@ -186,4 +177,22 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
             cursor: $disabled-cursor;
       }
   }
-  
+ 
+
+@mixin  oui-progress-button-stages($theme) {
+  $foreground: map-get($theme, foreground);
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+  }
+}
