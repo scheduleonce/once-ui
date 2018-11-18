@@ -2,15 +2,21 @@ $border-radius: 100px;
 $font-size: 14px;
 $letter-spacing: .5px;
 $padding: 6px 22px;
+$remove-padding:0px;
+$progress-icon-padding:0px 0px 0px 23px;
 $line-height: 19px;
 $min-height: 35px;
 $min-width: 70px;
-$font-weight: 600;
+$font-semi-bold: 600;
+$font-bold:700;
 $cursor:pointer;
 $disabled-cursor:default;
 $ghost-button-background:#fff;
 $border: 1px solid transparent;
 $text-decoration:none;
+$text-align-center:center;
+$text-align-left:left;
+$green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuMzUgMTAuMTVMMTYuNTgyLjk0OGwxLjQxNCAxLjQxNEw3LjM0NiAxMi45OCA1LjkzIDExLjU2NWwuMDAyLS4wMDItNC45MjItNC45NEwyLjQyNiA1LjIxbDQuOTI0IDQuOTQyeiIgZmlsbD0iIzAwOUI0OCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+') left center no-repeat;
 @mixin oui-button-theme($theme){
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -41,11 +47,12 @@ $text-decoration:none;
     line-height: $line-height;
     min-height: $min-height;
     min-width: $min-width;
-    font-weight: $font-weight;    
+    font-weight: $font-semi-bold;    
     cursor: $cursor;
     border:$border;
     background: transparent;
-    text-decoration: $text-decoration;    
+    text-decoration: $text-decoration;
+    text-align: $text-align-center;
 }
 /*reset the browser default properties*/
 @mixin oui-button-reset {
@@ -92,6 +99,20 @@ $text-decoration:none;
         color: map-get($foreground, disabled-button);
         cursor: $disabled-cursor;
   }
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($default-foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($default-foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+  }
 }
 
 /*generating themes for oui-link-button(link buttons)*/
@@ -120,6 +141,9 @@ $text-decoration:none;
         &:hover{
           text-decoration: none;
         }
+      }
+      &.oui-stage-progress{
+
       }
  }
 
@@ -154,7 +178,7 @@ $text-decoration:none;
           color: map-get($warn, default-contrast);
       }
     }
-    &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{
+    &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled],&.oui-stage-progress{
             color: map-get($foreground, disabled-link-button);
             border-color:map-get($background, disabled-button-border);
             background: transparent;
