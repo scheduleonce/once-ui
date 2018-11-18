@@ -5,9 +5,9 @@
 
         <button oui-button color="primary">this is super button</button>
 
-        <button oui-button color="accent">this is super button</button>
+        <!-- <button oui-button color="accent">this is super button</button>
 
-        <button oui-button color="warn">this is super button</button>
+        <button oui-button color="warn">this is super button</button> -->
 
         <button oui-button color="primary" disabled>this is super button</button>
     </div>
@@ -17,9 +17,9 @@
 
         <button oui-link-button color="primary">this is super button</button>
 
-        <button oui-link-button color="accent">this is super button</button>
+        <!-- <button oui-link-button color="accent">this is super button</button>
 
-        <button oui-link-button color="warn">this is super button</button>
+        <button oui-link-button color="warn">this is super button</button> -->
 
         <button oui-link-button color="primary" disabled>this is super button</button>
 
@@ -30,9 +30,9 @@
 
         <button oui-ghost-button color="primary">this is super button</button>
 
-        <button oui-ghost-button color="accent">this is super button</button>
+        <!-- <button oui-ghost-button color="accent">this is super button</button>
 
-        <button oui-ghost-button color="warn">this is super button</button>
+        <button oui-ghost-button color="warn">this is super button</button> -->
 
         <button oui-ghost-button color="primary" disabled>this is super button</button>
 
@@ -54,9 +54,9 @@
     <div>
         <a oui-button color="primary">this is super button</a>
 
-        <a oui-button color="accent">this is super button</a>
+        <!-- <a oui-button color="accent">this is super button</a>
 
-        <a oui-button color="warn">this is super button</a>
+        <a oui-button color="warn">this is super button</a> -->
 
         <a oui-button color="primary" disabled>this is super button</a>
     </div>
@@ -66,9 +66,9 @@
 
         <a oui-link-button color="primary">this is super button</a>
 
-        <a oui-link-button color="accent">this is super button</a>
+        <!-- <a oui-link-button color="accent">this is super button</a>
 
-        <a oui-link-button color="warn">this is super button</a>
+        <a oui-link-button color="warn">this is super button</a> -->
 
         <a oui-link-button color="primary" disabled>this is super button</a>
 
@@ -79,9 +79,9 @@
 
         <a oui-ghost-button color="primary">this is super button</a>
 
-        <a oui-ghost-button color="accent">this is super button</a>
+        <!-- <a oui-ghost-button color="accent">this is super button</a>
 
-        <a oui-ghost-button color="warn">this is super button</a>
+        <a oui-ghost-button color="warn">this is super button</a> -->
 
         <a oui-ghost-button color="primary" disabled>this is super button</a>
 
@@ -100,11 +100,11 @@
     <h1>Progress Button</h1>
 
     <div>
-        <button #progressButton oui-progress-button (click)="progressButtonClick()" color="accent"></button>
+        <button #progressButton oui-progress-button (click)="progressButtonClick()"></button>
 
-        <button #progressLinkButton oui-progress-link-button color="accent" (click)="progressButtonLinkClick()"></button>
+        <button #progressLinkButton oui-progress-link-button (click)="progressButtonLinkClick()"></button>
 
-        <button #progressGhostButton oui-progress-ghost-button color="accent" (click)="progressButtonGhostClick()"></button>
+        <button #progressGhostButton oui-progress-ghost-button (click)="progressButtonGhostClick()"></button>
     </div>
 
     <h1>Dialog</h1>
@@ -119,14 +119,14 @@
 <div>
     <ng-template #dialogTemplate>
         <div oui-dialog-header>
-            <div *ngIf="showIcon" oui-dialog-header-image><img src="/assets/images/v-green.svg" /></div>
+            <div oui-dialog-header-image><img src="/assets/images/v-green.svg" /></div>
             <label oui-dialog-header-title>this is the title</label>
             <div oui-dialog-header-action>
-                <div title="Close" *ngIf="closeIcon" oui-dialog-header-close oui-dialog-close></div>
-                <a title="Article" *ngIf="articleIcon" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
-                <a title="Video" *ngIf="videoIcon&&articleIcon" href="https://youtube.com" target="blank"
+                <div title="Close" oui-dialog-header-close oui-dialog-close></div>
+                <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
+                <a title="Video" href="https://youtube.com" target="blank"
                     oui-dialog-header-video oui-dialog-header-separator></a>
-                <a title="Video" *ngIf="videoIcon&&!articleIcon" href="https://youtube.com" target="blank"
+                <a title="Video" href="https://youtube.com" target="blank"
                     oui-dialog-header-video></a>
             </div>
         </div>

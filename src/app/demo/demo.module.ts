@@ -6,20 +6,16 @@ import { InviteonceComponent } from './inviteonce/inviteonce.component';
 import { ChatonceComponent } from './chatonce/chatonce.component';
 import { OncehubComponent } from './oncehub/oncehub.component';
 import { DemoRoutingModule } from './demo-routing.module';
-import { OuiButtonModule, OuiDialogModule} from '@once/ui';
+import { OuiButtonModule, OuiDialogModule } from '@once/ui';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    DemoRoutingModule,
-    OuiButtonModule,
-    OuiDialogModule
-  ],
-  declarations: [DemoComponent, 
+  imports: [CommonModule, DemoRoutingModule, OuiButtonModule, OuiDialogModule],
+  declarations: [
+    DemoComponent,
     ScheduleonceComponent,
     InviteonceComponent,
     ChatonceComponent,
     OncehubComponent
-  ],
+  ]
 })
-export class DemoModule { }
+export class DemoModule {}

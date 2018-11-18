@@ -8,9 +8,8 @@ describe('ChatonceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChatonceComponent ]
-    })
-    .compileComponents();
+      declarations: [ChatonceComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

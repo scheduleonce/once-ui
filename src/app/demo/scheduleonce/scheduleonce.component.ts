@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OuiProgressButton, OuiDialog} from '@once/ui';
+import { OuiProgressButton, OuiDialog } from '@once/ui';
 
 @Component({
   selector: 'app-scheduleonce',
@@ -7,38 +7,39 @@ import { OuiProgressButton, OuiDialog} from '@once/ui';
   styleUrls: ['./scheduleonce.component.scss']
 })
 export class ScheduleonceComponent {
-  @ViewChild('dialogTemplate') dialogTemplate;
-  @ViewChild('progressButton') progressButton: OuiProgressButton;
-  @ViewChild('progressLinkButton') progressLinkButton: OuiProgressButton;
-  @ViewChild('progressGhostButton') progressGhostButton: OuiProgressButton;
-  constructor(private dialog: OuiDialog){
-  }
+  @ViewChild('dialogTemplate')
+  dialogTemplate;
+  @ViewChild('progressButton')
+  progressButton: OuiProgressButton;
+  @ViewChild('progressLinkButton')
+  progressLinkButton: OuiProgressButton;
+  @ViewChild('progressGhostButton')
+  progressGhostButton: OuiProgressButton;
+  constructor(private dialog: OuiDialog) {}
 
   openDialog() {
     const dialogRef = this.dialog.open(this.dialogTemplate);
-    dialogRef.afterClosed().subscribe(() => {
-    });
+    dialogRef.afterClosed().subscribe(() => {});
   }
 
-  progressButtonClick(){
+  progressButtonClick() {
     this.progressButton.setToProgress();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.progressButton.setToDone();
-    },500);
+    }, 500);
   }
 
-  progressButtonLinkClick(){
+  progressButtonLinkClick() {
     this.progressLinkButton.setToProgress();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.progressLinkButton.setToDone();
-    },500);
+    }, 500);
   }
 
-  progressButtonGhostClick(){
+  progressButtonGhostClick() {
     this.progressGhostButton.setToProgress();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.progressGhostButton.setToDone();
-    },500);
+    }, 500);
   }
-
 }
