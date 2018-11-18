@@ -8,9 +8,8 @@ describe('InviteonceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InviteonceComponent ]
-    })
-    .compileComponents();
+      declarations: [InviteonceComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

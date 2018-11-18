@@ -8,9 +8,8 @@ describe('OncehubComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OncehubComponent ]
-    })
-    .compileComponents();
+      declarations: [OncehubComponent]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

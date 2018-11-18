@@ -34,7 +34,7 @@ const DEFAULT_COLOR = 'primary';
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
 export class OuiButtonBase {
-  constructor(public _elementRef: ElementRef) { }
+  constructor(public _elementRef: ElementRef) {}
 }
 
 export const OuiButtonMixinBase: CanDisableCtor &
@@ -88,7 +88,7 @@ export class OuiButton extends OuiButtonMixinBase
     );
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {}
 }
 
 /**
@@ -126,7 +126,6 @@ export class OuiAnchor extends OuiButton {
   }
 }
 
-
 const PROGRESS_BUTTON_HOST_ATTRIBUTES = [
   'oui-progress-button',
   'oui-progress-ghost-button',
@@ -143,7 +142,7 @@ const PROGRESS_BUTTON_HOST_ATTRIBUTES = [
   exportAs: 'ouiProgressButton',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-    '[disabled]': 'disabled || null',
+    '[disabled]': 'disabled || null'
   },
   template: '{{label}}',
   styleUrls: ['button.scss'],
@@ -155,35 +154,36 @@ const PROGRESS_BUTTON_HOST_ATTRIBUTES = [
 export class OuiProgressButton extends OuiButton implements OnInit {
   private _labels: string[] = ['Save', 'Saving...', 'Saved'];
 
-  get labels(): string[]{
+  get labels(): string[] {
     return this._labels;
   }
-  @Input() set labels(values){
+  @Input()
+  set labels(values) {
     this._labels = coerceArray(values);
-  };
+  }
   private stage: 'default' | 'progress' | 'done' = 'default';
   label: string;
   constructor(elementRef: ElementRef) {
     super(elementRef);
     this.addClass();
   }
-  
-  ngOnInit(){
-    this.setLabel();  
+
+  ngOnInit() {
+    this.setLabel();
   }
 
-  setToProgress(){
+  setToProgress() {
     this.stage = 'progress';
     this.setLabel();
   }
 
-  setToDone(){
+  setToDone() {
     this.stage = 'done';
     this.setLabel();
     this.resetToDefault();
   }
 
-  private resetToDefault(){
+  private resetToDefault() {
     setTimeout(() => {
       this.stage = 'default';
       this.setLabel();
@@ -194,7 +194,7 @@ export class OuiProgressButton extends OuiButton implements OnInit {
     const indexes = { default: 0, progress: 1, done: 2 };
     const labelIndex = indexes[this.stage];
     this.label = this.labels[labelIndex];
-    this.removeClasses();    
+    this.removeClasses();
     this.elementRef.nativeElement.classList.add(`oui-stage-${this.stage}`);
   }
 
@@ -209,11 +209,10 @@ export class OuiProgressButton extends OuiButton implements OnInit {
     }
   }
 
-  private removeClasses(){
+  private removeClasses() {
     const stages = ['default', 'progress', 'done'];
-    for(const stage of stages){
+    for (const stage of stages) {
       this.elementRef.nativeElement.classList.remove(`oui-stage-${stage}`);
     }
   }
-
 }

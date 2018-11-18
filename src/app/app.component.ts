@@ -7,30 +7,32 @@ import { OuiProgressButton } from './button/button';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild('progressButton') progressButton: OuiProgressButton;
-  @ViewChild('progressLinkButton') progressLinkButton: OuiProgressButton;
-  @ViewChild('progressGhostButton') progressGhostButton: OuiProgressButton;
+  @ViewChild('progressButton')
+  progressButton: OuiProgressButton;
+  @ViewChild('progressLinkButton')
+  progressLinkButton: OuiProgressButton;
+  @ViewChild('progressGhostButton')
+  progressGhostButton: OuiProgressButton;
   title = 'ui-components';
 
-
-  progressButtonClick(){
+  progressButtonClick() {
     this.progressButton.setToProgress();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.progressButton.setToDone();
-    },500);
+    }, 500);
   }
 
-  progressButtonLinkClick(){
+  progressButtonLinkClick() {
     this.progressLinkButton.setToProgress();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.progressLinkButton.setToDone();
-    },500);
+    }, 500);
   }
 
-  progressButtonGhostClick(){
+  progressButtonGhostClick() {
     this.progressGhostButton.setToProgress();
-    setTimeout(()=>{
+    setTimeout(() => {
       this.progressGhostButton.setToDone();
-    },500);
+    }, 500);
   }
 }
