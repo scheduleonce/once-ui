@@ -17,11 +17,11 @@ $text-decoration:none;
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  .oui-button, .oui-ghost-button, .oui-icon-button, .oui-link-button {
+  .oui-button, .oui-ghost-button, .oui-icon-button, .oui-link-button, .oui-progress-button, .oui-progress-ghost-button{
     @include oui-button-reset();
     @include oui-button-base();
-  }  
-  .oui-button{
+  }
+  .oui-button, .oui-progress-button{
     @include oui-button-theme-palette($theme);
   }    
   .oui-link-button{
