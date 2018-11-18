@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OuiProgressButton } from 'src/app/button/button';
+import { OuiDialog, OuiProgressButton } from '@once/ui';
 
 @Component({
   selector: 'app-oncehub',
@@ -7,10 +7,18 @@ import { OuiProgressButton } from 'src/app/button/button';
   styleUrls: ['./oncehub.component.scss']
 })
 export class OncehubComponent {
-
+  @ViewChild('dialogTemplate') dialogTemplate;
   @ViewChild('progressButton') progressButton: OuiProgressButton;
   @ViewChild('progressLinkButton') progressLinkButton: OuiProgressButton;
   @ViewChild('progressGhostButton') progressGhostButton: OuiProgressButton;
+  constructor(private dialog: OuiDialog){
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {
+    });
+  }
 
   progressButtonClick(){
     this.progressButton.setToProgress();

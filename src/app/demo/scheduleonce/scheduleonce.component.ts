@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OuiProgressButton} from '@once/ui';
+import { OuiProgressButton, OuiDialog} from '@once/ui';
 
 @Component({
   selector: 'app-scheduleonce',
@@ -7,11 +7,18 @@ import { OuiProgressButton} from '@once/ui';
   styleUrls: ['./scheduleonce.component.scss']
 })
 export class ScheduleonceComponent {
-
+  @ViewChild('dialogTemplate') dialogTemplate;
   @ViewChild('progressButton') progressButton: OuiProgressButton;
   @ViewChild('progressLinkButton') progressLinkButton: OuiProgressButton;
   @ViewChild('progressGhostButton') progressGhostButton: OuiProgressButton;
+  constructor(private dialog: OuiDialog){
+  }
 
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {
+    });
+  }
 
   progressButtonClick(){
     this.progressButton.setToProgress();

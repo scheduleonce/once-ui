@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OuiProgressButton } from 'src/app/button/button';
+import { OuiDialog,OuiProgressButton } from '@once/ui';
 
 @Component({
   selector: 'app-chatonce',
@@ -8,9 +8,18 @@ import { OuiProgressButton } from 'src/app/button/button';
 })
 export class ChatonceComponent{
 
+  @ViewChild('dialogTemplate') dialogTemplate;
   @ViewChild('progressButton') progressButton: OuiProgressButton;
   @ViewChild('progressLinkButton') progressLinkButton: OuiProgressButton;
   @ViewChild('progressGhostButton') progressGhostButton: OuiProgressButton;
+  constructor(private dialog: OuiDialog){
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {
+    });
+  }
 
 
   progressButtonClick(){

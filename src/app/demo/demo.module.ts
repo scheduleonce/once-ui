@@ -15,6 +15,11 @@ import { OuiButtonModule, OuiDialogModule} from '@once/ui';
     OuiButtonModule,
     OuiDialogModule
   ],
-  declarations: [DemoComponent, ScheduleonceComponent, InviteonceComponent, ChatonceComponent, OncehubComponent]
+  declarations: [DemoComponent, 
+    ScheduleonceComponent,
+    InviteonceComponent,
+    ChatonceComponent,
+    OncehubComponent
+  ],
 })
 export class DemoModule { }
