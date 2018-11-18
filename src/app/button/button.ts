@@ -3,7 +3,9 @@ import {
   Component,
   ElementRef,
   ViewEncapsulation,
-  OnDestroy
+  OnDestroy,
+  Input,
+  OnInit
 } from '@angular/core';
 import {
   CanDisable,
@@ -13,6 +15,7 @@ import {
   mixinColor,
   mixinDisabled
 } from '../core';
+import { coerceArray } from '@angular/cdk/coercion';
 
 /**
  * List of classes to add to Button instances based on host attributes to
@@ -31,7 +34,7 @@ const DEFAULT_COLOR = 'primary';
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
 export class OuiButtonBase {
-  constructor(public _elementRef: ElementRef) {}
+  constructor(public _elementRef: ElementRef) { }
 }
 
 export const OuiButtonMixinBase: CanDisableCtor &
@@ -56,7 +59,7 @@ export const OuiButtonMixinBase: CanDisableCtor &
 })
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor {
-  constructor(private elementRef: ElementRef) {
+  constructor(protected elementRef: ElementRef) {
     super(elementRef);
     this.addClass();
   }
@@ -82,7 +85,7 @@ export class OuiButton extends OuiButtonMixinBase
     );
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }
 
 /**
@@ -115,4 +118,59 @@ export class OuiAnchor extends OuiButton {
       event.stopImmediatePropagation();
     }
   }
+}
+
+
+/**
+ * Once Ui progress button.
+ */
+@Component({
+  selector: `button[oui-progress-button]`,
+  exportAs: 'ouiProgressButton',
+  host: {
+    '[disabled]': 'disabled || null',
+    'class': 'oui-progress-button'
+  },
+  template: '{{label}}',
+  styleUrls: ['button.scss'],
+  inputs: ['disabled', 'color'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush
+})
+export class OuiProgressButton extends OuiButton implements OnInit {
+  private _labels: string[] = ['Save', 'Saving...', 'Saved'];
+
+  get labels(): string[]{
+    return this._labels;
+  }
+  @Input() set labels(values){
+    this._labels = coerceArray(values);
+    console.log(this._labels);
+  };
+  @Input() stage: 'default' | 'progress' | 'done' = 'default';
+
+  label: string;
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+    this.addClass();
+  }
+  
+  ngOnInit(){
+    this.setLabel();  
+  }
+
+  setLabel() {
+    const indexes = { default: 0, progress: 1, done: 2 };
+    const labelIndex = indexes[this.stage];
+    this.label = this.labels[labelIndex];
+    this.elementRef.nativeElement.classList.add(`oui-stage-${this.stage}`);
+  }
+
+  addClass() {
+    if (!this.color) {
+      this.color = DEFAULT_COLOR;
+    }
+  }
+
+  ngOnDestroy() { }
 }
