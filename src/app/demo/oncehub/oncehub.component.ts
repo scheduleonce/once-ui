@@ -4,7 +4,7 @@ import { OuiProgressButton } from 'src/app/button/button';
 @Component({
   selector: 'app-oncehub',
   templateUrl: './oncehub.component.html',
-  styleUrls: ['./oncehub.component.css']
+  styleUrls: ['./oncehub.component.scss']
 })
 export class OncehubComponent {
 

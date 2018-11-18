@@ -16,7 +16,5 @@
     "**/*.d.ts"
   ],
   "paths": {
-    "@once/ui": ["dist/ui"],
-    "@once/ui*": ["dist/ui/*"]
   }
 }
