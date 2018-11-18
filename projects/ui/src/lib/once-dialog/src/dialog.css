@@ -164,17 +164,23 @@
 .oui-dialog-footer-action-right{
   float: right;
 }
-
+/* 
 .oui-dialog-footer-action-right input{
   margin-top: 0.5px;
   margin-bottom: 3px;
+} */
+.oui-dialog-footer-action-left button{
+  margin-right: 36px;
 }
-
-.oui-dialog-footer-action-right >*:last-child > input{
- margin-right: 0px;
+.oui-dialog-footer-action-left button:nth-last-child(1){
+  margin-right: 0px;
 }
-
-
+.oui-dialog-footer-action-right button{
+  margin-left: 12px;
+}
+.oui-dialog-footer-action-right button:nth-child(1){
+  margin-left: 0px;
+}
 .cross-disabled{
   pointer-events: none;
   cursor: default;
