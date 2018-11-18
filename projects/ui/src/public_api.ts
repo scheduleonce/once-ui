@@ -2,7 +2,6 @@
  * Public API Surface of ui
  */
 
-export * from './lib/once-dialog/index';
 export * from './lib/oui/index';
 export * from './lib/action-menu/index';
 export * from './lib/button/index';

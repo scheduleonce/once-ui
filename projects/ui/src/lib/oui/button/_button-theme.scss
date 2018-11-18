@@ -2,35 +2,52 @@ $border-radius: 100px;
 $font-size: 14px;
 $letter-spacing: .5px;
 $padding: 6px 22px;
+$remove-padding:0px;
+$progress-icon-padding:0px 0px 0px 23px;
 $line-height: 19px;
 $min-height: 35px;
 $min-width: 70px;
-$font-weight: 600;
+$font-semi-bold: 600;
+$font-bold:700;
 $cursor:pointer;
 $disabled-cursor:default;
 $ghost-button-background:#fff;
 $border: 1px solid transparent;
 $text-decoration:none;
+$text-align-center:center;
+$text-align-left:left;
+$green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuMzUgMTAuMTVMMTYuNTgyLjk0OGwxLjQxNCAxLjQxNEw3LjM0NiAxMi45OCA1LjkzIDExLjU2NWwuMDAyLS4wMDItNC45MjItNC45NEwyLjQyNiA1LjIxbDQuOTI0IDQuOTQyeiIgZmlsbD0iIzAwOUI0OCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+') left center no-repeat;
 @mixin oui-button-theme($theme){
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  .oui-button, .oui-ghost-button, .oui-icon-button, .oui-link-button {
+  .oui-button, .oui-ghost-button, .oui-icon-button, .oui-link-button, .oui-progress-button,
+   .oui-progress-ghost-button, .oui-progress-link-button{
     @include oui-button-reset();
     @include oui-button-base();
-  }  
-  .oui-button{
+  }
+  .oui-button, .oui-progress-button{
     @include oui-button-theme-palette($theme);
   }    
-  .oui-link-button{
+  .oui-link-button, .oui-progress-link-button{
     @include oui-link-button-theme-palette($theme);
+    padding: 6px 0px 6px 0px !important;
   }     
-  .oui-ghost-button{
+  .oui-ghost-button, .oui-progress-ghost-button{
     background: $ghost-button-background;
     @include oui-ghost-button-theme-palette($theme);
   }  
+  .oui-progress-button{
+    @include oui-progress-button-stages($theme);
+  }
+  .oui-progress-link-button{
+    @include oui-progress-link-button-stages($theme);
+  }
+  .oui-progress-ghost-button{
+    @include oui-progress-ghost-button-stages($theme);
+  }
 }
 /*common properties in all buttons*/
 @mixin oui-button-base {
@@ -40,12 +57,13 @@ $text-decoration:none;
     padding: $padding;
     line-height: $line-height;
     min-height: $min-height;
-    min-width: $min-width;
-    font-weight: $font-weight;    
+    //min-width: $min-width;
+    font-weight: $font-semi-bold;    
     cursor: $cursor;
     border:$border;
     background: transparent;
     text-decoration: $text-decoration;
+    text-align: $text-align-center;
 }
 /*reset the browser default properties*/
 @mixin oui-button-reset {
@@ -154,10 +172,73 @@ $text-decoration:none;
           color: map-get($warn, default-contrast);
       }
     }
-    &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled]{
+    &.oui-primary[disabled], &.oui-accent[disabled], &.oui-warn[disabled],&.oui-stage-progress{
             color: map-get($foreground, disabled-link-button);
             border-color:map-get($background, disabled-button-border);
             background: transparent;
             cursor: $disabled-cursor;
       }
   }
+ 
+
+@mixin oui-progress-button-stages($theme) {
+  $foreground: map-get($theme, foreground);
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+  }
+}
+@mixin oui-progress-link-button-stages($theme) {
+  $foreground: map-get($theme, foreground);
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    text-decoration: $text-decoration !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    text-decoration: $text-decoration !important;
+  }
+}
+@mixin oui-progress-ghost-button-stages($theme) {
+  $foreground: map-get($theme, foreground);
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    border: $border !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    border: $border !important;
+  }
+}

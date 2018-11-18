@@ -1,0 +1,20 @@
+@import '~@once/ui/prebuilt-themes/oncehub.scss';
+
+.fit{
+    div{
+        margin: 20px;
+        button,a{
+            margin-right: 10px;
+        }
+        a::after{
+            content: '';
+            clear: both;
+        }
+    }
+}
+
+.simple {
+    height: 300px;
+    width: 100%;
+    background-color: darkgray
+}

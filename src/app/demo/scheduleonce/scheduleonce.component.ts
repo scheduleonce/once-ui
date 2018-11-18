@@ -1,19 +1,26 @@
-import { Component, ViewChild } from '@angular/core';
-import { OuiProgressButton } from './button/button';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { OuiProgressButton, OuiDialog } from '@once/ui';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: 'app-scheduleonce',
+  templateUrl: './scheduleonce.component.html',
+  styleUrls: ['./scheduleonce.component.scss']
 })
-export class AppComponent {
+export class ScheduleonceComponent {
+  @ViewChild('dialogTemplate')
+  dialogTemplate;
   @ViewChild('progressButton')
   progressButton: OuiProgressButton;
   @ViewChild('progressLinkButton')
   progressLinkButton: OuiProgressButton;
   @ViewChild('progressGhostButton')
   progressGhostButton: OuiProgressButton;
-  title = 'ui-components';
+  constructor(private dialog: OuiDialog) {}
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {});
+  }
 
   progressButtonClick() {
     this.progressButton.setToProgress();

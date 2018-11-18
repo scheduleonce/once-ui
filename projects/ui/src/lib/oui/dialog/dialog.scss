@@ -1,6 +1,5 @@
-
+@import 'dialog-theme';
 @import '~@angular/cdk/overlay-prebuilt.css';
-
 .cdk-overlay-backdrop{
     background: rgba(255,255,255,.8);
 }
@@ -147,7 +146,7 @@
   max-height: 65vh;
 }
 .oui-dialog-footer{
-  padding: 12px 22px 10px 22px;
+  padding: 12px 22px;
   width: 100%;
   border-top: 1px solid #c8c8c8;
   box-sizing: border-box;
@@ -164,17 +163,23 @@
 .oui-dialog-footer-action-right{
   float: right;
 }
-
+/* 
 .oui-dialog-footer-action-right input{
   margin-top: 0.5px;
   margin-bottom: 3px;
+} */
+.oui-dialog-footer-action-left button{
+  margin-right: 36px;
 }
-
-.oui-dialog-footer-action-right >*:last-child > input{
- margin-right: 0px;
+.oui-dialog-footer-action-left button:nth-last-child(1){
+  margin-right: 0px;
 }
-
-
+.oui-dialog-footer-action-right button{
+  margin-left: 12px;
+}
+.oui-dialog-footer-action-right button:nth-child(1){
+  margin-left: 0px;
+}
 .cross-disabled{
   pointer-events: none;
   cursor: default;
