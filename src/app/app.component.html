@@ -99,10 +99,9 @@
 <h1>Progress Button</h1>
 
 <div>
-    <button oui-progress-button [labels]="['Button','Saving...','Saved']" stage="default" color="accent"></button>
+    <button #progressButton oui-progress-button (click)="progressButtonClick()" color="accent"></button>
 
-    <button oui-progress-link-button [labels]="['Button','Saving...','Saved']" stage="default" color="accent"></button>
+    <button #progressLinkButton oui-progress-link-button color="accent" (click)="progressButtonLinkClick()"></button>
 
-    <button oui-progress-ghost-button [labels]="['Button','Saving...','Saved']" stage="default" color="accent"></button>
-
+    <button #progressGhostButton oui-progress-ghost-button color="accent" (click)="progressButtonGhostClick()"></button>
 </div>
