@@ -23,17 +23,18 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  .oui-button, .oui-ghost-button, .oui-icon-button, .oui-link-button, .oui-progress-button, .oui-progress-ghost-button{
+  .oui-button, .oui-ghost-button, .oui-icon-button, .oui-link-button, .oui-progress-button,
+   .oui-progress-ghost-button, .oui-progress-link-button{
     @include oui-button-reset();
     @include oui-button-base();
   }
   .oui-button, .oui-progress-button{
     @include oui-button-theme-palette($theme);
   }    
-  .oui-link-button{
+  .oui-link-button, .oui-progress-link-button{
     @include oui-link-button-theme-palette($theme);
   }     
-  .oui-ghost-button{
+  .oui-ghost-button, .oui-progress-ghost-button{
     background: $ghost-button-background;
     @include oui-ghost-button-theme-palette($theme);
   }       

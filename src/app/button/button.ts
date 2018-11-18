@@ -121,15 +121,22 @@ export class OuiAnchor extends OuiButton {
 }
 
 
+
+const PROGRESS_BUTTON_HOST_ATTRIBUTES = [
+  'oui-progress-button',
+  'oui-progress-ghost-button',
+  'oui-progress-link-button'
+];
+
 /**
  * Once Ui progress button.
  */
 @Component({
-  selector: `button[oui-progress-button]`,
+  selector: `button[oui-progress-button], button[oui-progress-ghost-button],
+             button[oui-progress-link-button]`,
   exportAs: 'ouiProgressButton',
   host: {
     '[disabled]': 'disabled || null',
-    'class': 'oui-progress-button'
   },
   template: '{{label}}',
   styleUrls: ['button.scss'],
@@ -167,6 +174,11 @@ export class OuiProgressButton extends OuiButton implements OnInit {
   }
 
   addClass() {
+    for (const attr of PROGRESS_BUTTON_HOST_ATTRIBUTES) {
+      if (this.hasHostAttributes(attr)) {
+        (this.elementRef.nativeElement as HTMLElement).classList.add(attr);
+      }
+    }
     if (!this.color) {
       this.color = DEFAULT_COLOR;
     }
