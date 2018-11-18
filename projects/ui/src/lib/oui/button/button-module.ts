@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OuiAnchor, OuiButton } from './button';
+import { OuiAnchor, OuiButton, OuiProgressButton } from './button';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [OuiButton, OuiAnchor],
-  declarations: [OuiButton, OuiAnchor]
+  exports: [OuiButton, OuiAnchor, OuiProgressButton],
+  declarations: [OuiButton, OuiAnchor, OuiProgressButton]
 })
 export class OuiButtonModule {}
