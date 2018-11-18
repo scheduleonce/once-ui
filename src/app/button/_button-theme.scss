@@ -37,12 +37,16 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   .oui-ghost-button, .oui-progress-ghost-button{
     background: $ghost-button-background;
     @include oui-ghost-button-theme-palette($theme);
-  }
-  
+  }  
   .oui-progress-button{
     @include oui-progress-button-stages($theme);
   }
-
+  .oui-progress-link-button{
+    @include oui-progress-link-button-stages($theme);
+  }
+  .oui-progress-ghost-button{
+    @include oui-progress-ghost-button-stages($theme);
+  }
 }
 /*common properties in all buttons*/
 @mixin oui-button-base {
@@ -134,9 +138,6 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
           text-decoration: none;
         }
       }
-      &.oui-stage-progress{
-
-      }
  }
 
 /*generating themes for oui-ghost-button(ghost buttons)*/
@@ -179,7 +180,7 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   }
  
 
-@mixin  oui-progress-button-stages($theme) {
+@mixin oui-progress-button-stages($theme) {
   $foreground: map-get($theme, foreground);
   &.oui-stage-progress{
     background:transparent !important;
@@ -187,6 +188,7 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     text-align: $text-align-left !important;
     padding: $remove-padding !important;
     font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
   }
   &.oui-stage-done{
     background:$green-tick-icon !important;
@@ -194,5 +196,48 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     text-align: $text-align-left !important;
     padding: $progress-icon-padding !important;
     font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+  }
+}
+@mixin oui-progress-link-button-stages($theme) {
+  $foreground: map-get($theme, foreground);
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    text-decoration: $text-decoration !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    text-decoration: $text-decoration !important;
+  }
+}
+@mixin oui-progress-ghost-button-stages($theme) {
+  $foreground: map-get($theme, foreground);
+  &.oui-stage-progress{
+    background:transparent !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    border: $border !important;
+  }
+  &.oui-stage-done{
+    background:$green-tick-icon !important;
+    color: map-get($foreground, text) !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    border: $border !important;
   }
 }
