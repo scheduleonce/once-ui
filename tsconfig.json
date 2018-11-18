@@ -18,7 +18,6 @@
     "paths": {
       "ui": ["dist/ui"],
       "ui/*": ["dist/ui/*"],
-      "moment": ["node_modules/moment/min/moment.min.js"]
     }
   }
 }

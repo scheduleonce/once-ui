@@ -4,7 +4,8 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
-  Input
+  Input,
+  OnInit
 } from '@angular/core';
 import {
   CanDisable,
@@ -14,6 +15,7 @@ import {
   mixinColor,
   mixinDisabled
 } from '../core';
+import { coerceArray } from '@angular/cdk/coercion';
 
 /**
  * List of classes to add to Button instances based on host attributes to
@@ -32,7 +34,7 @@ const DEFAULT_COLOR = 'primary';
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
 export class OuiButtonBase {
-  constructor(public _elementRef: ElementRef) {}
+  constructor(public _elementRef: ElementRef) { }
 }
 
 export const OuiButtonMixinBase: CanDisableCtor &
@@ -60,12 +62,12 @@ export const OuiButtonMixinBase: CanDisableCtor &
 })
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor {
-  constructor(private elementRef: ElementRef) {
+  constructor(protected elementRef: ElementRef) {
     super(elementRef);
     this.addClass();
   }
 
-  addClass() {
+  protected addClass() {
     for (const attr of BUTTON_HOST_ATTRIBUTES) {
       if (this.hasHostAttributes(attr)) {
         (this.elementRef.nativeElement as HTMLElement).classList.add(attr);
@@ -86,7 +88,7 @@ export class OuiButton extends OuiButtonMixinBase
     );
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() { }
 }
 
 /**
@@ -122,4 +124,96 @@ export class OuiAnchor extends OuiButton {
       event.stopImmediatePropagation();
     }
   }
+}
+
+
+const PROGRESS_BUTTON_HOST_ATTRIBUTES = [
+  'oui-progress-button',
+  'oui-progress-ghost-button',
+  'oui-progress-link-button'
+];
+
+/**
+ * Once Ui progress button.
+ */
+@Component({
+  // tslint:disable-next-line:component-selector
+  selector: `button[oui-progress-button], button[oui-progress-ghost-button],
+             button[oui-progress-link-button]`,
+  exportAs: 'ouiProgressButton',
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[disabled]': 'disabled || null',
+  },
+  template: '{{label}}',
+  styleUrls: ['button.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
+  inputs: ['disabled', 'color'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default
+})
+export class OuiProgressButton extends OuiButton implements OnInit {
+  private _labels: string[] = ['Save', 'Saving...', 'Saved'];
+
+  get labels(): string[]{
+    return this._labels;
+  }
+  @Input() set labels(values){
+    this._labels = coerceArray(values);
+  };
+  private stage: 'default' | 'progress' | 'done' = 'default';
+  label: string;
+  constructor(elementRef: ElementRef) {
+    super(elementRef);
+    this.addClass();
+  }
+  
+  ngOnInit(){
+    this.setLabel();  
+  }
+
+  setToProgress(){
+    this.stage = 'progress';
+    this.setLabel();
+  }
+
+  setToDone(){
+    this.stage = 'done';
+    this.setLabel();
+    this.resetToDefault();
+  }
+
+  private resetToDefault(){
+    setTimeout(() => {
+      this.stage = 'default';
+      this.setLabel();
+    }, 3000);
+  }
+
+  private setLabel() {
+    const indexes = { default: 0, progress: 1, done: 2 };
+    const labelIndex = indexes[this.stage];
+    this.label = this.labels[labelIndex];
+    this.removeClasses();    
+    this.elementRef.nativeElement.classList.add(`oui-stage-${this.stage}`);
+  }
+
+  protected addClass() {
+    for (const attr of PROGRESS_BUTTON_HOST_ATTRIBUTES) {
+      if (this.hasHostAttributes(attr)) {
+        (this.elementRef.nativeElement as HTMLElement).classList.add(attr);
+      }
+    }
+    if (!this.color) {
+      this.color = DEFAULT_COLOR;
+    }
+  }
+
+  private removeClasses(){
+    const stages = ['default', 'progress', 'done'];
+    for(const stage of stages){
+      this.elementRef.nativeElement.classList.remove(`oui-stage-${stage}`);
+    }
+  }
+
 }
