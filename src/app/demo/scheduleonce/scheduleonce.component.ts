@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { } from '@once/ui';
+import { OuiProgressButton} from '@once/ui';
 
 @Component({
   selector: 'app-scheduleonce',

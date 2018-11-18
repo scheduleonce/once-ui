@@ -4,7 +4,7 @@ import { OuiProgressButton } from 'src/app/button/button';
 @Component({
   selector: 'app-chatonce',
   templateUrl: './chatonce.component.html',
-  styleUrls: ['./chatonce.component.css']
+  styleUrls: ['./chatonce.component.scss']
 })
 export class ChatonceComponent{
 

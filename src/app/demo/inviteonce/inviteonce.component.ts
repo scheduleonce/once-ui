@@ -4,7 +4,7 @@ import { OuiProgressButton } from 'src/app/button/button';
 @Component({
   selector: 'app-inviteonce',
   templateUrl: './inviteonce.component.html',
-  styleUrls: ['./inviteonce.component.css']
+  styleUrls: ['./inviteonce.component.scss']
 })
 export class InviteonceComponent {
 

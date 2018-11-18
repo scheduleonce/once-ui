@@ -1,0 +1,12 @@
+@import 'dist/ui/prebuilt-themes/oncehub.scss';
+
+div{
+    margin: 20px;
+}
+button,a{
+    margin-right: 10px;
+}
+a::after{
+    content: '';
+    clear: both;
+}
