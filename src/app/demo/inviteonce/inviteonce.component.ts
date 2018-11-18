@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { OuiProgressButton } from 'src/app/button/button';
+import { OuiDialog, OuiProgressButton } from '@once/ui';
 
 @Component({
   selector: 'app-inviteonce',
@@ -8,10 +8,18 @@ import { OuiProgressButton } from 'src/app/button/button';
 })
 export class InviteonceComponent {
 
+  @ViewChild('dialogTemplate') dialogTemplate;
   @ViewChild('progressButton') progressButton: OuiProgressButton;
   @ViewChild('progressLinkButton') progressLinkButton: OuiProgressButton;
   @ViewChild('progressGhostButton') progressGhostButton: OuiProgressButton;
-  title = 'ui-components';
+  constructor(private dialog: OuiDialog){
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {
+    });
+  }
 
 
   progressButtonClick(){
