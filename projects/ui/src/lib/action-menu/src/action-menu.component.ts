@@ -1,12 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, OnDestroy } from '@angular/core';
 import { ActionMenuConfig, DefaultPositionConfig } from './action-menu-config';
+import { ActionMenuDropdownDirective } from './action-menu-dropdown.directive';
 
 @Component({
   selector: 'once-action-menu',
   templateUrl: './action-menu.component.html',
   styleUrls: ['./action-menu.component.scss']
 })
-export class ActionMenuComponent implements OnInit {
+export class ActionMenuComponent implements OnInit, OnDestroy {
   @Input()
   items: ActionMenuConfig[];
   @Input()
@@ -17,6 +18,8 @@ export class ActionMenuComponent implements OnInit {
   isVertical = false;
   @Input()
   defaultPosition: string;
+  @ViewChild(ActionMenuDropdownDirective)
+  onceActionMenuDropdown: ActionMenuDropdownDirective;
 
   constructor() {}
 
@@ -26,5 +29,9 @@ export class ActionMenuComponent implements OnInit {
       : this.isVertical
         ? DefaultPositionConfig.left_bottom
         : DefaultPositionConfig.right_bottom;
+  }
+
+  ngOnDestroy() {
+    this.onceActionMenuDropdown.hideActionMenuDropDown();
   }
 }
