@@ -1,11 +1,14 @@
-@import './core/theming/prebuilt/scheduleonce.scss';
-div{
-    margin: 20px;
-}
-button,a{
-    margin-right: 10px;
-}
-a::after{
-    content: '';
-    clear: both;
+@import './core/theming/prebuilt/chatonce.scss';
+
+.fit{
+    div{
+        margin: 20px;
+        button,a{
+            margin-right: 10px;
+        }
+        a::after{
+            content: '';
+            clear: both;
+        }
+    }
 }

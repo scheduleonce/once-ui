@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { OuiProgressButton } from './button/button';
+import { OuiDialog } from './dialog/dialog';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +8,20 @@ import { OuiProgressButton } from './button/button';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  @ViewChild('dialogTemplate')
+  dialogTemplate;
   @ViewChild('progressButton')
   progressButton: OuiProgressButton;
   @ViewChild('progressLinkButton')
   progressLinkButton: OuiProgressButton;
   @ViewChild('progressGhostButton')
   progressGhostButton: OuiProgressButton;
-  title = 'ui-components';
+  constructor(private dialog: OuiDialog) {}
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {});
+  }
 
   progressButtonClick() {
     this.progressButton.setToProgress();

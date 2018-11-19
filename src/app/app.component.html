@@ -1,3 +1,153 @@
-<p>application works</p>
+<div class="fit">
+    <h1>Buttons</h1>
+    <!--primary buttons-->
+    <div>
 
-<router-outlet></router-outlet>
+        <button oui-button color="primary">this is super button</button>
+
+        <!-- <button oui-button color="accent">this is super button</button>
+
+        <button oui-button color="warn">this is super button</button> -->
+
+        <button oui-button color="primary" disabled>this is super button</button>
+    </div>
+
+    <!--link buttons-->
+    <div>
+
+        <button oui-link-button color="primary">this is super button</button>
+
+        <!-- <button oui-link-button color="accent">this is super button</button>
+
+        <button oui-link-button color="warn">this is super button</button> -->
+
+        <button oui-link-button color="primary" disabled>this is super button</button>
+
+    </div>
+
+    <!--ghost buttons-->
+    <div>
+
+        <button oui-ghost-button color="primary">this is super button</button>
+
+        <!-- <button oui-ghost-button color="accent">this is super button</button>
+
+        <button oui-ghost-button color="warn">this is super button</button> -->
+
+        <button oui-ghost-button color="primary" disabled>this is super button</button>
+
+    </div>
+
+    <!--icon buttons-->
+    <div>
+
+        <button oui-icon-button color="primary"><img src="../assets/images/excel.png"><label>this is super button</label></button>
+
+        <button oui-icon-button color="accent"><img src="../assets/images/csv.png"><label>this is super button</label></button>
+
+        <button oui-icon-button color="warn"><img src="../assets/images/pdf.png"><label>this is super button</label></button>
+
+        <button oui-icon-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super button</label></button>
+
+    </div>
+
+    <h1>A tags</h1>
+    <!--primary buttons-->
+    <div>
+        <a oui-button color="primary">this is super button</a>
+
+        <!-- <a oui-button color="accent">this is super button</a>
+
+        <a oui-button color="warn">this is super button</a> -->
+
+        <a oui-button color="primary" disabled>this is super button</a>
+    </div>
+
+    <!--link buttons-->
+    <div>
+
+        <a oui-link-button color="primary">this is super button</a>
+
+        <!-- <a oui-link-button color="accent">this is super button</a>
+
+        <a oui-link-button color="warn">this is super button</a> -->
+
+        <a oui-link-button color="primary" disabled>this is super button</a>
+
+    </div>
+
+    <!--ghost buttons-->
+    <div>
+
+        <a oui-ghost-button color="primary">this is super button</a>
+
+        <!-- <a oui-ghost-button color="accent">this is super button</a>
+
+        <a oui-ghost-button color="warn">this is super button</a> -->
+
+        <a oui-ghost-button color="primary" disabled>this is super button</a>
+
+    </div>
+    <!--icon buttons-->
+    <div>
+
+        <a oui-icon-button color="primary"><img src="../assets/images/excel.png"><label>this is super button</label></a>
+
+        <a oui-icon-button color="accent"><img src="../assets/images/csv.png"><label>this is super button</label></a>
+
+        <a oui-icon-button color="warn"><img src="../assets/images/pdf.png"><label>this is super button</label></a>
+
+        <a oui-icon-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super button</label></a>
+
+
+    </div>
+
+    <h1>Progress Button</h1>
+
+    <div>
+        <button #progressButton oui-progress-button (click)="progressButtonClick()"></button>
+
+        <button #progressLinkButton oui-progress-link-button (click)="progressButtonLinkClick()"></button>
+
+        <button #progressGhostButton oui-progress-ghost-button (click)="progressButtonGhostClick()"></button>
+    </div>
+
+    <h1>Dialog</h1>
+
+    <div>
+        <button oui-button (click)="openDialog()">Open</button>
+    </div>
+
+</div>
+
+
+<div>
+    <ng-template #dialogTemplate>
+        <div oui-dialog-header>
+            <div oui-dialog-header-image><img src="/assets/images/v-green.svg" /></div>
+            <label oui-dialog-header-title>this is the title</label>
+            <div oui-dialog-header-action>
+                <div title="Close" oui-dialog-header-close oui-dialog-close></div>
+                <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
+                <a title="Video" href="https://youtube.com" target="blank"
+                    oui-dialog-header-video oui-dialog-header-separator></a>
+                <a title="Video" href="https://youtube.com" target="blank"
+                    oui-dialog-header-video></a>
+            </div>
+        </div>
+        <div oui-dialog-content>
+            <div class="simple">
+            </div>
+        </div>
+        <div oui-dialog-footer>
+            <div oui-dialog-footer-action-left>
+                <button oui-link-button>Left</button>
+                <button oui-link-button>Left</button>
+            </div>
+            <div oui-dialog-footer-action-right>
+                <button oui-ghost-button>Open</button>
+                <button oui-button ouiDialogClose>Close</button>
+            </div>
+        </div>
+    </ng-template>
+</div>

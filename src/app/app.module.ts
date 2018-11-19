@@ -3,12 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OuiButtonModule } from './button/button-module';
-import { DemoModule } from './demo/demo.module';
-import { AppRoutingModule } from './app-routing.module';
+import { OuiDialogModule } from './dialog/dialog-module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, OuiButtonModule, AppRoutingModule],
+  imports: [BrowserModule, OuiButtonModule, OuiDialogModule],
   providers: [],
   bootstrap: [AppComponent]
 })

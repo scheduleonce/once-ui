@@ -1,9 +1,10 @@
 @import 'theming';
 @import '../../button/button-theme';
+@import '../../dialog/dialog-theme';
+
 
 // Create a theme.
 @mixin once-ui-theme($theme) {
-    @debug map-get($theme, foreground);
     @include oui-button-theme($theme);
+    @include oui-dialog-theme($theme);
 }
-
