@@ -1,12 +1,13 @@
 $border-radius: 100px;
 $font-size: 14px;
-$letter-spacing: .5px;
-$padding: 6px 22px;
+$letter-spacing: .2px;
+$padding: 6px 20px;
 $remove-padding:0px;
 $progress-icon-padding:0px 0px 0px 23px;
 $line-height: 19px;
 $min-height: 35px;
 $min-width: 70px;
+$font-normal: normal;
 $font-semi-bold: 600;
 $font-bold:700;
 $cursor:pointer;
@@ -33,7 +34,6 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   }    
   .oui-link-button, .oui-progress-link-button{
     @include oui-link-button-theme-palette($theme);
-    padding: 6px 0px 6px 0px !important;
   }     
   .oui-ghost-button, .oui-progress-ghost-button{
     background: $ghost-button-background;
@@ -57,7 +57,7 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     padding: $padding;
     line-height: $line-height;
     min-height: $min-height;
-    //min-width: $min-width;
+    min-width: $min-width;
     font-weight: $font-semi-bold;    
     cursor: $cursor;
     border:$border;
@@ -119,15 +119,18 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     $warn: map-get($theme, warn);
     $foreground: map-get($theme, foreground);
     &.oui-primary{
-      color:map-get($primary, default);    
+      color:$oui-blue;    
     }  
     &.oui-accent{
-      color:map-get($accent, default);
+      color:$oui-blue;
     }
     &.oui-warn{
-      color:map-get($warn, default);
+      color:$oui-blue;
     }    
-    &.oui-primary, &.oui-accent, &.oui-warn{
+    &.oui-primary, &.oui-accent, &.oui-warn{      
+    padding: 6px 0px 6px 0px !important;
+    min-width: auto !important;
+    font-weight: $font-normal !important;
       &:hover{        
         text-decoration: underline;
       }

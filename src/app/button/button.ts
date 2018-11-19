@@ -45,14 +45,17 @@ export const OuiButtonMixinBase: CanDisableCtor &
  * Once Ui button.
  */
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button],
                button[oui-icon-button]`,
   exportAs: 'ouiButton',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[disabled]': 'disabled || null'
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -92,14 +95,17 @@ export class OuiButton extends OuiButtonMixinBase
  * Once UI anchor.
  */
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button],
     a[oui-icon-button]`,
   exportAs: 'ouiButton, ouiAnchor',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
     '(click)': '_haltDisabledEvents($event)'
   },
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'color'],
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
@@ -130,14 +136,17 @@ const PROGRESS_BUTTON_HOST_ATTRIBUTES = [
  * Once Ui progress button.
  */
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: `button[oui-progress-button], button[oui-progress-ghost-button],
              button[oui-progress-link-button]`,
   exportAs: 'ouiProgressButton',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[disabled]': 'disabled || null'
   },
   template: '{{label}}',
   styleUrls: ['button.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default
@@ -151,7 +160,6 @@ export class OuiProgressButton extends OuiButton implements OnInit {
   @Input()
   set labels(values) {
     this._labels = coerceArray(values);
-    console.log(this._labels);
   }
   private stage: 'default' | 'progress' | 'done' = 'default';
   label: string;
@@ -203,10 +211,8 @@ export class OuiProgressButton extends OuiButton implements OnInit {
 
   private removeClasses() {
     const stages = ['default', 'progress', 'done'];
-    for (let stage of stages) {
+    for (const stage of stages) {
       this.elementRef.nativeElement.classList.remove(`oui-stage-${stage}`);
     }
   }
-
-  ngOnDestroy() {}
 }
