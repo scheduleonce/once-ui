@@ -135,10 +135,10 @@ export class ActionMenuDropdownDirective {
       bottom: parseInt(style['padding-bottom'], 10)
     };
     const border = {
-      left: parseInt(style['border-left'], 10),
-      right: parseInt(style['border-right'], 10),
-      top: parseInt(style['border-top'], 10),
-      bottom: parseInt(style['border-bottom'], 10)
+      left: parseInt(style['border-left-width'], 10),
+      right: parseInt(style['border-right-width'], 10),
+      top: parseInt(style['border-top-width'], 10),
+      bottom: parseInt(style['border-bottom-width'], 10)
     };
 
     rect = {
