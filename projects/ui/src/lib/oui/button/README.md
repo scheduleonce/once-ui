@@ -8,15 +8,26 @@ There are several `<button>` variants, each applied as an attribute:
 
 | **Name**                        | **Description**                                            |
 | -----------------------------   | ---------------------------------------------------------- |
-| `oui-solid-button`              | rounded regular solid button                               |      
+| `oui-button`                    | rounded regular solid button                               |      
 | `oui-ghost-button`              | rounded regular hollow button                              |
 | `oui-link-button`               | text link button                                           |
 | `oui-icon-button`               | rounded button meant to contain icon                       |
-
-
+| `color`                         | it can be from `primary`,`accent` and `warn`               |
+| `disabled`                      | to disable the button                                      |
 
 ## Theming
 
 Buttons can be colored in terms of the current theme using the color property to set the background color to primary, accent, or warn.
 
+## Usage Example
 
+```html
+    <!-- regular solid button with primary color -->
+    <button oui-button color="primary"></button>
+
+    <!-- ghost button with warn color -->
+    <button oui-ghost-button color="warn" ></button>
+
+    <!-- regular disabled button -->
+    <button oui-button disabled ></button>
+```
