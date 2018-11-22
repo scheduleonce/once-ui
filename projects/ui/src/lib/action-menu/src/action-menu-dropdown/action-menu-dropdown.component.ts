@@ -309,7 +309,29 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
 
   destroyActionMenuDropdown() {
     if (this.componentRef) {
-      const event = new MouseEvent('mouseleave', { bubbles: false });
+      let event;
+      if (typeof MouseEvent === 'function') {
+        event = new MouseEvent('mouseleave', { bubbles: false });
+      } else {
+        event = document.createEvent('MouseEvent');
+        event.initMouseEvent(
+          'mouseout',
+          false,
+          true,
+          window,
+          0,
+          0,
+          0,
+          0,
+          0,
+          false,
+          false,
+          false,
+          false,
+          0,
+          null
+        );
+      }
       this.hostElement.dispatchEvent(event);
       this.componentRef.destroy();
     }
