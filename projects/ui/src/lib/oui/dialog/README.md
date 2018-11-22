@@ -138,3 +138,56 @@ For any component loaded into a dialog, you must include your component class in
 })
 export class AppModule {}
 ```
+
+
+## Making dialog using template ref method
+
+You can instantiate your dialog from template-reference method
+
+include this code in your html
+
+```html
+  <ng-template #dialogTemplate>
+      <div oui-dialog-header>
+          <div oui-dialog-header-image><img src="/assets/images/v-green.svg" /></div>
+          <label oui-dialog-header-title>this is the title</label>
+          <div oui-dialog-header-action>
+              <div title="Close" oui-dialog-header-close oui-dialog-close></div>
+              <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
+              <a title="Video" href="https://youtube.com" target="blank"
+                  oui-dialog-header-video oui-dialog-header-separator></a>
+              <a title="Video" href="https://youtube.com" target="blank"
+                  oui-dialog-header-video></a>
+          </div>
+      </div>
+      <div oui-dialog-content>
+          <div class="simple">
+          </div>
+      </div>
+      <div oui-dialog-footer>
+          <div oui-dialog-footer-action-left>
+              <button oui-link-button>Left</button>
+              <button oui-link-button>Left</button>
+          </div>
+          <div oui-dialog-footer-action-right>
+              <button oui-ghost-button>Open</button>
+              <button oui-button ouiDialogClose>Close</button>
+          </div>
+      </div>
+  </ng-template>
+```
+
+In your component class code you can do like following
+
+```typescript
+
+  @ViewChild('dialogTemplate')
+    dialogTemplate;
+
+  openDialog() {
+    const dialogRef = this.dialog.open(this.dialogTemplate);
+    dialogRef.afterClosed().subscribe(() => {});
+  }
+
+
+```
