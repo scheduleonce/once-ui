@@ -14,6 +14,8 @@ There are several `<button>` variants, each applied as an attribute:
 | `oui-icon-button`               | rounded button meant to contain icon                       |
 | `color`                         | it can be from `primary`,`accent` and `warn`               |
 | `disabled`                      | to disable the button                                      |
+| `progress`                      | to add button states                                       |
+
 
 ## Theming
 
@@ -30,4 +32,40 @@ Buttons can be colored in terms of the current theme using the color property to
 
     <!-- regular disabled button -->
     <button oui-button disabled ></button>
+```
+
+## Steps for making progress button
+
+1. Add `progress` input attribute in your `<button>` along with the type of button
+
+If you want to add your custom text for stages then you can provide array of strings like below.
+
+``` html
+<button #progressButton oui-button [progress]="['Discard','Discarding...','Discarded']" (click)="buttonClick()"></button>
+```
+
+If you want to use default texts for stages you can use below code, the default values 
+for progress is ['Save', 'Saving...', 'Saved']
+
+``` html
+<button #progressButton oui-button progress (click)="buttonClick()"></button>
+```
+
+
+2. In your component typescript file you can use ViewChild template-reference variable to call button methods to change states;
+
+```typescript
+
+export class AppComponent {
+     @ViewChild('progressButton')
+    progressButton: OuiButton;
+
+    buttonClick(){
+        this.progressButton.setToProgress();
+        this.someService.callApi().subscribe(()=>{
+            this.progressButton.setToDone();
+        });
+    }
+}
+
 ```
