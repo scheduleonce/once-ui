@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { OuiProgressButton } from './button/button';
 import { OuiDialog } from './dialog/dialog';
 
 @Component({
@@ -11,11 +10,11 @@ export class AppComponent {
   @ViewChild('dialogTemplate')
   dialogTemplate;
   @ViewChild('progressButton')
-  progressButton: OuiProgressButton;
+  progressButton: any;
   @ViewChild('progressLinkButton')
-  progressLinkButton: OuiProgressButton;
+  progressLinkButton: any;
   @ViewChild('progressGhostButton')
-  progressGhostButton: OuiProgressButton;
+  progressGhostButton: any;
   constructor(private dialog: OuiDialog) {}
 
   openDialog() {
@@ -27,20 +26,20 @@ export class AppComponent {
     this.progressButton.setToProgress();
     setTimeout(() => {
       this.progressButton.setToDone();
-    }, 500);
+    }, 1000);
   }
 
   progressButtonLinkClick() {
     this.progressLinkButton.setToProgress();
     setTimeout(() => {
       this.progressLinkButton.setToDone();
-    }, 500);
+    }, 1000);
   }
 
   progressButtonGhostClick() {
     this.progressGhostButton.setToProgress();
     setTimeout(() => {
       this.progressGhostButton.setToDone();
-    }, 500);
+    }, 1000);
   }
 }
