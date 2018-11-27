@@ -4,38 +4,38 @@
 
 1. Import `OuiDialogModule` in your module.
 
-```typescript
+    ```typescript
 
-  import { OuiDialogModule } from '@once/ui';
+      import { OuiDialogModule } from '@once/ui';
 
-  @NgModule({
-    declarations: [AppComponent],
-    imports: [BrowserModule, OuiDialogModule],
-    providers: [],
-    bootstrap: [AppComponent]
-  })
+      @NgModule({
+        declarations: [AppComponent],
+        imports: [BrowserModule, OuiDialogModule],
+        providers: [],
+        bootstrap: [AppComponent]
+      })
 
-```
+    ```
 Now we are ready to use all utilities of dialog in our components under that module.
 
 2. Import and Inject `OuiDialog` service in your component. This service will open the dialog with configuration and returns
    dialog reference object.;
 
-```typescript
-  import { OuiDialog } from '@once/ui';
+  ```typescript
+    import { OuiDialog } from '@once/ui';
 
-  @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
-  })
-  export class AppComponent {
-    constructor(private dialog: OuiDialog) {}
+    @Component({
+      selector: 'app-root',
+      templateUrl: './app.component.html',
+      styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent {
+      constructor(private dialog: OuiDialog) {}
 
 
-  }
+    }
 
-```
+  ```
 
 3. In your component html code add the required button to open the dialog and add your dialog html in the <ng-template> tag      with template-ref id.
    You can use helper directives to design your dialogs. Please see the docs related to helper directives for more information.
@@ -74,35 +74,35 @@ Now we are ready to use all utilities of dialog in our components under that mod
 
 4. Open dialog in your component.
 
-```typescript
+  ```typescript
 
-  @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
-  })
-  export class AppComponent {
-    @ViewChild('dialogTemplate')
-    dialogTemplate;
-    dialogRef: any = null;
-    constructor(private dialog: OuiDialog) {}
+    @Component({
+      selector: 'app-root',
+      templateUrl: './app.component.html',
+      styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent {
+      @ViewChild('dialogTemplate')
+      dialogTemplate;
+      dialogRef: any = null;
+      constructor(private dialog: OuiDialog) {}
 
-    openDialog() {
-      this.dialogRef = this.dialog.open(this.dialogTemplate);
-      this.dialogRef.afterClosed().subscribe(() => {
-        // do something after dialog popup closed
-      });
-    }
-
-    closeDialog(){
-      if(this.dialogRef){
-        this.dialogRef.close();
+      openDialog() {
+        this.dialogRef = this.dialog.open(this.dialogTemplate);
+        this.dialogRef.afterClosed().subscribe(() => {
+          // do something after dialog popup closed
+        });
       }
+
+      closeDialog(){
+        if(this.dialogRef){
+          this.dialogRef.close();
+        }
+      }
+
     }
 
-  }
-
-```
+  ```
 
 
 ## Steps for making dialog using component method.
@@ -115,31 +115,31 @@ Now we are ready to use all utilities of dialog in our components under that mod
 3. Add this component in your module in declarations and entrycomponents. 
   For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory for it.
 
-```typescript
+  ```typescript
 
-  @NgModule({
-    declarations: [AppComponent, SomeDialogComponent],
-    imports: [BrowserModule, OuiButtonModule, OuiDialogModule],
-    providers: [],
-    entryComponents: [SomeDialogComponent],
-  })
-  export class AppModule {}
+    @NgModule({
+      declarations: [AppComponent, SomeDialogComponent],
+      imports: [BrowserModule, OuiButtonModule, OuiDialogModule],
+      providers: [],
+      entryComponents: [SomeDialogComponent],
+    })
+    export class AppModule {}
 
-```
+  ```
 4. Inject `OUI_DIALOG_DATA` to your dialog component, using this utility you can get data from your main component (from where you are invoking your dialog component).
 
-```typescript
-import { Component, Inject } from '@angular/core';
-import { OUI_DIALOG_DATA } from '@once/ui';
+  ```typescript
+  import { Component, Inject } from '@angular/core';
+  import { OUI_DIALOG_DATA } from '@once/ui';
 
-@Component({
-  selector: 'your-dialog',
-  template: 'passed in {{ data.name }}'
-})
-export class SomeDialogComponent {
-  constructor(@Inject(OUI_DIALOG_DATA) public data: any) {}
-}
-```
+  @Component({
+    selector: 'your-dialog',
+    template: 'passed in {{ data.name }}'
+  })
+  export class SomeDialogComponent {
+    constructor(@Inject(OUI_DIALOG_DATA) public data: any) {}
+  }
+  ```
 
 Now you can use data object to get all the properties provided by main component.
 
@@ -147,48 +147,48 @@ Now you can use data object to get all the properties provided by main component
 5. Open your dialog component from your main component and pass input data;
 
 
-```typescript
+  ```typescript
 
-  import {SomeDialogComponent} from 'some-dialog/some-dialog.component.ts'
+    import {SomeDialogComponent} from 'some-dialog/some-dialog.component.ts'
 
-  @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
-  })
-  export class AppComponent {
-    @ViewChild('dialogTemplate')
-    dialogTemplate;
-    dialogRef: any = null;
-    constructor(private dialog: OuiDialog) {}
+    @Component({
+      selector: 'app-root',
+      templateUrl: './app.component.html',
+      styleUrls: ['./app.component.scss']
+    })
+    export class AppComponent {
+      @ViewChild('dialogTemplate')
+      dialogTemplate;
+      dialogRef: any = null;
+      constructor(private dialog: OuiDialog) {}
 
-    openDialog() {
-      const config = {
-        data: {
-          title: 'this is the title',
-          save: this.save.bind(this)
+      openDialog() {
+        const config = {
+          data: {
+            title: 'this is the title',
+            save: this.save.bind(this)
+          }
+        }
+        this.dialogRef = this.dialog.open(SomeDialogComponent);
+        this.dialogRef.afterClosed().subscribe(() => {
+          // do something after dialog popup closed
+        });
+      }
+
+      save(){
+        // save something
+        console.log('save..');
+      }
+
+      closeDialog(){
+        if(this.dialogRef){
+          this.dialogRef.close();
         }
       }
-      this.dialogRef = this.dialog.open(SomeDialogComponent);
-      this.dialogRef.afterClosed().subscribe(() => {
-        // do something after dialog popup closed
-      });
+
     }
 
-    save(){
-      // save something
-      console.log('save..');
-    }
-
-    closeDialog(){
-      if(this.dialogRef){
-        this.dialogRef.close();
-      }
-    }
-
-  }
-
-```
+  ```
 
 
 ## Dialog Content
