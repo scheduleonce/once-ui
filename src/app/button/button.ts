@@ -14,7 +14,7 @@ import {
   mixinDisabled
 } from '../core';
 
-import { CanProgress,CanProgressCtor,mixinProgress } from './progress';
+import { CanProgress, CanProgressCtor, mixinProgress } from './progress';
 
 /**
  * List of classes to add to Button instances based on host attributes to
@@ -37,8 +37,11 @@ export class OuiButtonBase {
 }
 
 export const OuiButtonMixinBase: CanDisableCtor &
-  CanColorCtor & CanProgressCtor &
-  typeof OuiButtonBase = mixinProgress(mixinColor(mixinDisabled(OuiButtonBase)));
+  CanColorCtor &
+  CanProgressCtor &
+  typeof OuiButtonBase = mixinProgress(
+  mixinColor(mixinDisabled(OuiButtonBase))
+);
 
 /**
  * Once Ui button.
@@ -50,7 +53,7 @@ export const OuiButtonMixinBase: CanDisableCtor &
   exportAs: 'ouiButton',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-    '[disabled]': 'disabled || null',
+    '[disabled]': 'disabled || null'
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
@@ -124,4 +127,3 @@ export class OuiAnchor extends OuiButton {
     }
   }
 }
-

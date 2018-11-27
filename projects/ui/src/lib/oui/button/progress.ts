@@ -4,7 +4,7 @@ import { ElementRef } from '@angular/core';
 /** @docs-private */
 export interface CanProgress {
   /** progress texts */
-  progress: string[]|string;
+  progress: string[] | string;
   setToProgress: Function;
   setToDone: Function;
 }
@@ -20,43 +20,45 @@ export type CanProgressCtor = Constructor<CanProgress>;
 /** Mixin to augment a directive with a `color` property. */
 export function mixinProgress<T extends Constructor<HasElementRef>>(
   base: T
-  ): CanProgressCtor & T {
+): CanProgressCtor & T {
   return class extends base {
-    private _progress: string[]|string;
+    private _progress: string[] | string;
     private _stage: 'default' | 'progress' | 'done' = 'default';
-    get progress(): string[] | string{
+    get progress(): string[] | string {
       return this._progress;
     }
     set progress(value: string[] | string) {
-      if(value === ''){
-        this._progress = ['Save','Saving...','Saved'];
-      }else{
+      if (value === '') {
+        this._progress = ['Save', 'Saving...', 'Saved'];
+      } else {
         this._progress = value;
       }
       this._changeStage();
     }
-    
+
     constructor(...args: any[]) {
       super(...args);
       this._progress = null;
     }
 
-    private _setButtonText(text: string){
+    private _setButtonText(text: string) {
       this._elementRef.nativeElement.children[0].innerHTML = text;
     }
 
-    private _addClass(className : string){
+    private _addClass(className: string) {
       this._elementRef.nativeElement.classList.add(className);
     }
 
-    private _checkAttribute(){
-      if(!this._progress){
-        throw Error('please add progress input attribute to change button state');
+    private _checkAttribute() {
+      if (!this._progress) {
+        throw Error(
+          'please add progress input attribute to change button state'
+        );
       }
     }
 
-    private _changeStage(){
-      if(!this._progress){
+    private _changeStage() {
+      if (!this._progress) {
         return;
       }
       const indexes = { default: 0, progress: 1, done: 2 };
@@ -72,14 +74,14 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
         this._elementRef.nativeElement.classList.remove(`oui-stage-${stage}`);
       }
     }
-    
-    setToProgress(){
+
+    setToProgress() {
       this._checkAttribute();
       this._stage = 'progress';
       this._changeStage();
     }
 
-    setToDone(){
+    setToDone() {
       this._checkAttribute();
       this._stage = 'done';
       this._changeStage();
