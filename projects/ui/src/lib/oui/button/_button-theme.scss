@@ -29,23 +29,17 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     @include oui-button-reset();
     @include oui-button-base();
   }
-  .oui-button, .oui-progress-button{
+  .oui-button{
     @include oui-button-theme-palette($theme);
+    @include oui-progress-button-stages($theme);
   }    
-  .oui-link-button, .oui-progress-link-button{
+  .oui-link-button{
     @include oui-link-button-theme-palette($theme);
+    @include oui-progress-link-button-stages($theme);
   }     
-  .oui-ghost-button, .oui-progress-ghost-button{
+  .oui-ghost-button{
     background: $ghost-button-background;
     @include oui-ghost-button-theme-palette($theme);
-  }  
-  .oui-progress-button{
-    @include oui-progress-button-stages($theme);
-  }
-  .oui-progress-link-button{
-    @include oui-progress-link-button-stages($theme);
-  }
-  .oui-progress-ghost-button{
     @include oui-progress-ghost-button-stages($theme);
   }
 }
