@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OuiAnchor, OuiButton} from './button';
+import { OuiAnchor, OuiButton } from './button';
 
 @NgModule({
   imports: [CommonModule],
