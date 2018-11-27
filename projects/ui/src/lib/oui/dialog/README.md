@@ -51,8 +51,6 @@ Now we are ready to use all utilities of dialog in our components under that mod
                 <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
                 <a title="Video" href="https://youtube.com" target="blank"
                     oui-dialog-header-video oui-dialog-header-separator></a>
-                <a title="Video" href="https://youtube.com" target="blank"
-                    oui-dialog-header-video></a>
             </div>
         </div>
         <div oui-dialog-content>
@@ -218,27 +216,28 @@ For example:
 
 ```html
     <div oui-dialog-header>
-      <div oui-dialog-header-image><img src="/assets/images/v-green.svg"/></div>
-      <label oui-dialog-header-title>this is the title</label>
-      <div oui-dialog-header-action>
-        <div title="Close" oui-dialog-header-close oui-dialog-close></div>
-        <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
-        <a title="Video" href="https://youtube.com" target="blank" oui-dialog-header-video oui-dialog-header-separator></a>
-      </div>
+        <div oui-dialog-header-image><img src="/assets/images/v-green.svg" /></div>
+        <label oui-dialog-header-title>this is the title</label>
+        <div oui-dialog-header-action>
+            <div title="Close" oui-dialog-header-close oui-dialog-close></div>
+            <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
+            <a title="Video" href="https://youtube.com" target="blank"
+                oui-dialog-header-video oui-dialog-header-separator></a>
+        </div>
     </div>
     <div oui-dialog-content>
-      <div class="simple">
-      </div>
+        <div class="simple">
+        </div>
     </div>
     <div oui-dialog-footer>
-      <div oui-dialog-footer-action-left>
-        <once-button type="link" label="left1"></app-button>
-        <once-button type="link" label="left2"></app-button>
-      </div>
-      <div oui-dialog-footer-action-right>
-        <once-button type="secondary" label="right 1"></app-button>
-        <once-button oui-dialog-close label="Close"></app-button>
-      </div>
+        <div oui-dialog-footer-action-left>
+            <button oui-link-button>Left</button>
+            <button oui-link-button>Left</button>
+        </div>
+        <div oui-dialog-footer-action-right>
+            <button oui-ghost-button>Open</button>
+            <button oui-button ouiDialogClose>Close</button>
+        </div>
     </div>
 
 ```
