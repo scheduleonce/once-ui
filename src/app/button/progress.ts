@@ -7,6 +7,7 @@ export interface CanProgress {
   progress: string[] | string;
   setToProgress: Function;
   setToDone: Function;
+  setToDefault: Function;
 }
 
 /** @docs-private */
@@ -76,6 +77,13 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
       for (const stage of stages) {
         this._elementRef.nativeElement.classList.remove(`oui-stage-${stage}`);
       }
+    }
+
+    setToDefault() {
+      this._checkAttribute();
+      this._elementRef.nativeElement.disabled = false;
+      this._stage = 'default';
+      this._changeStage();
     }
 
     setToProgress() {
