@@ -7,6 +7,7 @@ export interface CanProgress {
   progress: string[] | string;
   setToProgress: Function;
   setToDone: Function;
+  setToDefault: Function;
 }
 
 /** @docs-private */
@@ -50,6 +51,9 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
     }
 
     private _checkAttribute() {
+      if (this._elementRef.nativeElement.tagName === 'A') {
+        throw Error('please use <button> tag to use progress button');
+      }
       if (!this._progress) {
         throw Error(
           'please add progress input attribute to change button state'
@@ -75,14 +79,23 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
       }
     }
 
+    setToDefault() {
+      this._checkAttribute();
+      this._elementRef.nativeElement.disabled = false;
+      this._stage = 'default';
+      this._changeStage();
+    }
+
     setToProgress() {
       this._checkAttribute();
+      this._elementRef.nativeElement.disabled = true;
       this._stage = 'progress';
       this._changeStage();
     }
 
     setToDone() {
       this._checkAttribute();
+      this._elementRef.nativeElement.disabled = true;
       this._stage = 'done';
       this._changeStage();
       this._resetToDefault();
@@ -90,8 +103,8 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
 
     private _resetToDefault() {
       setTimeout(() => {
+        this._elementRef.nativeElement.disabled = false;
         this._stage = 'default';
-        console.log();
         this._changeStage();
       }, 3000);
     }
