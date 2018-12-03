@@ -33,25 +33,25 @@ export class OuiDialogConfig<D = any> {
   id?: string;
 
   /** The ARIA role of the dialog element. */
-  role = 'dialog';
+  role? = 'dialog';
 
   /** Custom class for the overlay pane. */
   panelClass?: string | string[] = '';
 
   /** Whether the dialog has a backdrop. */
-  hasBackdrop = true;
+  hasBackdrop? = true;
 
   /** Custom class for the backdrop, */
-  backdropClass = '';
+  backdropClass? = '';
 
   /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-  disableClose = true;
+  disableClose? = true;
 
   /** Width of the dialog. */
-  width = '607px';
+  width? = '607px';
 
   /** Height of the dialog. */
-  height = '';
+  height? = '';
 
   /** Min-width of the dialog. If a number is provided, pixel units are assumed. */
   minWidth?: number | string = '607px';
@@ -81,13 +81,13 @@ export class OuiDialogConfig<D = any> {
   ariaLabel?: string | null = null;
 
   /** Whether the dialog should focus the first focusable element on open. */
-  autoFocus = false;
+  autoFocus? = false;
 
   /**
    * Whether the dialog should restore focus to the
    * previously-focused element, after it's closed.
    */
-  restoreFocus = false;
+  restoreFocus? = false;
 
   /** Scroll strategy to be used for the dialog. */
   scrollStrategy?: ScrollStrategy;
