@@ -45,14 +45,14 @@ export const OUI_DIALOG_SCROLL_STRATEGY = new InjectionToken<
 export function OUI_DIALOG_SCROLL_STRATEGY_FACTORY(
   overlay: Overlay
 ): () => ScrollStrategy {
-  return () => overlay.scrollStrategies.reposition();
+  return () => overlay.scrollStrategies.block();
 }
 
 /** @docs-private */
 export function OUI_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
   overlay: Overlay
 ): () => ScrollStrategy {
-  return () => overlay.scrollStrategies.reposition();
+  return () => overlay.scrollStrategies.block();
 }
 
 /** @docs-private */
