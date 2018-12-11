@@ -7,7 +7,7 @@ In this document, "form field" refers to the wrapper component `<oui-form-field>
 (e.g. the input, textarea, select, etc.)
 
 The following Once UI components are designed to work inside a `<oui-form-field>`:
-* [`<input ouiNativeControl>` &amp; `<textarea ouiNativeControl>`](https://ouierial.angular.io/components/input/overview)
+* `<input ouiInput>` &amp; `<textarea ouiInput>`
 
 <!-- example(form-field-overview) -->
 
