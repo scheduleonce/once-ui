@@ -34,3 +34,17 @@ be used with `ouiInput` in future:
 * time
 * url
 * week
+
+
+## API
+
+Directive that allows a native input to work inside a OuiFormField.
+
+Selector: `input[ouiInput], textarea[ouiInput]`
+
+Exported as: `ouiInput`
+
+| Input            | Type            | Default                 | Required | Description                                                                                         |
+| ---------------- | --------------- | ----------------------- | -------- | --------------------------------------------------------------------------------------------------- |
+| type             | string          | text                   | no        | Input type of the element.                      |
+| readonly         | boolean         | false                   | no       | Whether the element is readonly.                 |
