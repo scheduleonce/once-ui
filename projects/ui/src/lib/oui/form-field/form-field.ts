@@ -1,4 +1,3 @@
-import { Directionality } from '@angular/cdk/bidi';
 import {
   AfterContentChecked,
   AfterContentInit,
@@ -10,7 +9,6 @@ import {
   ElementRef,
   Inject,
   InjectionToken,
-  NgZone,
   Optional,
   ViewChild,
   ViewEncapsulation,
@@ -20,7 +18,6 @@ import { LabelOptions, OUI_LABEL_GLOBAL_OPTIONS, mixinColor } from '../core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OuiFormFieldControl } from './form-field-control';
-import { Platform } from '@angular/cdk/platform';
 import { getOuiFormFieldMissingControlError } from './form-field-errors';
 
 /**
@@ -40,7 +37,7 @@ export const _OuiFormFieldMixinBase: typeof OuiFormFieldBase = mixinColor(
 );
 
 /** Possible appearance styles for the form field. */
-export type OuiFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
+export type OuiFormFieldAppearance = 'standard' | 'underline';
 
 /**
  * Represents the default options form the form field that can be configured
@@ -96,13 +93,9 @@ export class OuiFormField extends _OuiFormFieldMixinBase
     @Optional()
     @Inject(OUI_LABEL_GLOBAL_OPTIONS)
     labelOptions: LabelOptions,
-    @Optional() private _dir: Directionality,
     @Optional()
     @Inject(OUI_FORM_FIELD_DEFAULT_OPTIONS)
-    private _defaults: OuiFormFieldDefaultOptions,
-    // @breaking-change 8.0.0 _platform, _ngZone and _animationMode to be made required.
-    private _platform?: Platform,
-    private _ngZone?: NgZone
+    private _defaults: OuiFormFieldDefaultOptions
   ) {
     super(_elementRef);
 
