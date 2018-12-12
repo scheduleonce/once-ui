@@ -20,3 +20,7 @@ The following Once UI components are designed to work inside a `<oui-form-field>
   <input placeholder="Just a placeholder">
 </oui-form-field>
 ```
+
+### Accessibility
+
+The user should label the form field control themselves using `aria-label`, `aria-labelledby` or `<label for=...>`.

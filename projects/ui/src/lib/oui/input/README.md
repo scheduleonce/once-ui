@@ -48,3 +48,10 @@ Exported as: `ouiInput`
 | ---------------- | --------------- | ----------------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | type             | string          | text                   | no        | Input type of the element.                      |
 | readonly         | boolean         | false                   | no       | Whether the element is readonly.                 |
+
+### Accessibility
+
+The `ouiInput` directive works with native `<input>` to provide an accessible experience.
+
+If the containing <oui-form-field> has a label it will automatically be used as the aria-label for the `<input>`.
+However, if there's no label specified in the form field, aria-label, aria-labelledby or <label for=...> should be added.
