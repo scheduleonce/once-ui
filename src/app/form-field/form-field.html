@@ -1,0 +1,19 @@
+<div class="oui-form-field-wrapper">
+  <div class="oui-form-field-flex" #connectionContainer
+       (click)="_control.onContainerClick && _control.onContainerClick($event)">
+
+    <!-- TODO: Enable for prefix
+    <div class="oui-form-field-prefix" *ngIf="_prefixChildren.length">
+      <ng-content select="[ouiPrefix]"></ng-content>
+    </div>-->
+
+    <div class="oui-form-field-infix" #inputContainer>
+      <ng-content></ng-content>
+    </div>
+
+    <!-- TODO: Enable for suffix
+    <div class="oui-form-field-suffix" *ngIf="_suffixChildren.length">
+      <ng-content select="[ouiSuffix]"></ng-content>
+    </div>-->
+  </div>
+</div>
