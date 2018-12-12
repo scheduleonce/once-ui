@@ -16,16 +16,11 @@ import {
   ViewEncapsulation,
   OnDestroy
 } from '@angular/core';
-import {
-  LabelOptions,
-  MAT_LABEL_GLOBAL_OPTIONS,
-  mixinColor
-} from '@angular/material/core';
+import { LabelOptions, OUI_LABEL_GLOBAL_OPTIONS, mixinColor } from '../core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OuiFormFieldControl } from './form-field-control';
 import { Platform } from '@angular/cdk/platform';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { getOuiFormFieldMissingControlError } from './form-field-errors';
 
 /**
@@ -63,7 +58,7 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
   OuiFormFieldDefaultOptions
 >('OUI_FORM_FIELD_DEFAULT_OPTIONS');
 
-/** Container for form controls that applies Material Design styling and behavior. */
+/** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
   selector: 'oui-form-field',
   exportAs: 'ouiFormField',
@@ -88,21 +83,10 @@ export class OuiFormField extends _OuiFormFieldMixinBase
 
   private _destroyed = new Subject<void>();
 
-  /** Whether the Angular animations are enabled. */
-  _animationsEnabled: boolean;
-
-  /**
-   * @deprecated
-   * @breaking-change 8.0.0
-   */
-  @ViewChild('underline')
-  underlineRef: ElementRef;
   @ViewChild('connectionContainer')
   _connectionContainerRef: ElementRef;
   @ViewChild('inputContainer')
   _inputContainerRef: ElementRef;
-  @ViewChild('label')
-  private _label: ElementRef;
   @ContentChild(OuiFormFieldControl)
   _control: OuiFormFieldControl<any>;
 
@@ -110,7 +94,7 @@ export class OuiFormField extends _OuiFormFieldMixinBase
     public _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     @Optional()
-    @Inject(MAT_LABEL_GLOBAL_OPTIONS)
+    @Inject(OUI_LABEL_GLOBAL_OPTIONS)
     labelOptions: LabelOptions,
     @Optional() private _dir: Directionality,
     @Optional()
@@ -118,15 +102,11 @@ export class OuiFormField extends _OuiFormFieldMixinBase
     private _defaults: OuiFormFieldDefaultOptions,
     // @breaking-change 8.0.0 _platform, _ngZone and _animationMode to be made required.
     private _platform?: Platform,
-    private _ngZone?: NgZone,
-    @Optional()
-    @Inject(ANIMATION_MODULE_TYPE)
-    _animationMode?: string
+    private _ngZone?: NgZone
   ) {
     super(_elementRef);
 
     this._labelOptions = labelOptions ? labelOptions : {};
-    this._animationsEnabled = _animationMode !== 'NoopAnimations';
   }
 
   ngAfterContentInit() {
