@@ -47,7 +47,6 @@ Exported as: `ouiInput`
 | Input            | Type            | Default                 | Required | Description                                                                                         |
 | ---------------- | --------------- | ----------------------- | -------- | --------------------------------------------------------------------------------------------------- |
 | type             | string          | text                   | no        | Input type of the element.                      |
-| readonly         | boolean         | false                   | no       | Whether the element is readonly.                 |
 
 ### Accessibility
 
