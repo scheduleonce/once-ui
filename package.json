@@ -1,6 +1,6 @@
 {
   "name": "ui-components",
-  "version": "0.1.0",
+  "version": "1.2.56",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
