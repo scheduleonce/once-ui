@@ -14,7 +14,7 @@ import {
   ViewEncapsulation,
   OnDestroy
 } from '@angular/core';
-import { LabelOptions, OUI_LABEL_GLOBAL_OPTIONS, mixinColor } from '../core';
+import { mixinColor } from '../core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OuiFormFieldControl } from './form-field-control';
@@ -76,8 +76,6 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
 })
 export class OuiFormField extends _OuiFormFieldMixinBase
   implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
-  private _labelOptions: LabelOptions;
-
   private _destroyed = new Subject<void>();
 
   @ViewChild('connectionContainer')
@@ -91,15 +89,10 @@ export class OuiFormField extends _OuiFormFieldMixinBase
     public _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     @Optional()
-    @Inject(OUI_LABEL_GLOBAL_OPTIONS)
-    labelOptions: LabelOptions,
-    @Optional()
     @Inject(OUI_FORM_FIELD_DEFAULT_OPTIONS)
     private _defaults: OuiFormFieldDefaultOptions
   ) {
     super(_elementRef);
-
-    this._labelOptions = labelOptions ? labelOptions : {};
   }
 
   ngAfterContentInit() {
