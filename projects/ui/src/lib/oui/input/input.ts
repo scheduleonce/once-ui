@@ -314,6 +314,9 @@ export class OuiInput extends _OuiInputMixinBase
   /** Callback for the cases where the focused state of the input changes. */
   _focusChanged(isFocused: boolean) {
     if (isFocused !== this.focused && !this.readonly) {
+      this._elementRef.nativeElement['placeholder'] = isFocused
+        ? ''
+        : this.placeholder; // Removing placeholder when focused
       this.focused = isFocused;
       this.stateChanges.next();
     }
