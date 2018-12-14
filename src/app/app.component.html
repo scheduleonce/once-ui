@@ -1,6 +1,6 @@
 <div class="fit">
     <h1>Form field</h1>
-    <div>
+    <div class="input-outer">
       <oui-form-field>
         <input oui-input placeholder="Any"/>
       </oui-form-field>
@@ -8,50 +8,66 @@
     <h1>Input</h1>
     <h3>Bordered</h3>
     <div>
-      <oui-form-field>
-        <input oui-input placeholder="Any"/>
-      </oui-form-field>
-
-      <oui-form-field>
-        <input oui-input placeholder="Any"/>
-      </oui-form-field>
-
-      <oui-form-field>
-        <input oui-input placeholder="Any"/>
-      </oui-form-field>
-
-      <oui-form-field>
-        <input oui-input disabled placeholder="Any"/>
-      </oui-form-field>
+       <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-input placeholder="Any"/>
+            </oui-form-field>
+        </div>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-input placeholder="Any"/>
+            </oui-form-field>
+        </div>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-input placeholder="Any"/>
+            </oui-form-field>
+        </div>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-input disabled placeholder="Any"/>
+            </oui-form-field>
+        </div>
     </div>
 
     <h3>Underline</h3>
     <div>
-      <oui-form-field>
-        <input oui-underline-input placeholder="Any"/>
-      </oui-form-field>
-
-      <oui-form-field>
-        <input oui-underline-input placeholder="Any"/>
-      </oui-form-field>
-
-      <oui-form-field>
-        <input oui-underline-input placeholder="Any"/>
-      </oui-form-field>
-
-      <oui-form-field>
-        <input oui-underline-input disabled placeholder="Any"/>
-      </oui-form-field>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-underline-input placeholder="Any"/>
+                <div class="bottom-line"></div>
+            </oui-form-field>
+        </div>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-underline-input placeholder="Any"/>
+                <div class="bottom-line"></div>
+            </oui-form-field>
+        </div>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-underline-input placeholder="Any"/>
+                <div class="bottom-line"></div>
+            </oui-form-field>
+        </div>
+        <div class="input-outer display-inline">
+            <oui-form-field>
+                <input oui-underline-input disabled placeholder="Any"/>
+                <div class="bottom-line"></div>
+            </oui-form-field>
+        </div>
     </div>
 
     <h1>Textarea</h1>
     <div>
-      <textarea oui-input></textarea>
+        <div class="textarea-outer display-inline">
+            <textarea oui-input></textarea>
+        </div>
+        <div class="textarea-outer display-inline">
+            <textarea oui-input disabled></textarea>
+        </div>
     </div>
-
-    <div>
-      <textarea oui-input disabled></textarea>
-    </div>
+    
     <h1>Buttons</h1>
     <!--primary buttons-->
     <div>
