@@ -1,0 +1,46 @@
+$input-font: inherit;
+$input-outline: 0;
+$input-padding: 0;
+$input-margin: 0;
+$input-width: 100%;
+$input-max-width: 100%;
+$input-vertical-align: bottom;
+$input-text-align: inherit;
+$input-border-bottom: 1px solid;
+@mixin oui-input-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  .oui-input {
+    @include oui-input-base();
+    @include oui-input-theme-palette($theme);
+  }
+  .oui-underline-input {
+    @include oui-input-base();
+    @include oui-underline-input-theme-palette($theme);
+  }
+}
+
+/*common properties in all inputs*/
+@mixin oui-input-base {
+  font: $input-font;
+  outline: $input-outline;
+  padding: $input-padding;
+  margin: $input-margin;
+  width: $input-width;
+  max-width: $input-max-width;
+  vertical-align: $input-vertical-align;
+  text-align: $input-text-align;
+}
+
+/*generating themes for oui-input(Standard inputs)*/
+@mixin oui-input-theme-palette($theme) {
+}
+
+/*generating themes for oui-ghost-input(underline inputs)*/
+@mixin oui-underline-input-theme-palette($theme) {
+  border: 0;
+  border-bottom: $input-border-bottom;
+}
