@@ -1,4 +1,3 @@
-$input-font: inherit;
 $input-outline: 0;
 $input-padding: 6px 9px;
 $input-margin: 0;
@@ -29,7 +28,6 @@ $input-box-sizing: border-box;
 /*common properties in all inputs*/
 @mixin oui-input-base {
   font-family: 'Open Sans', sans-serif;
-  font: $input-font;
   outline: $input-outline;
   padding: $input-padding;
   margin: $input-margin;
@@ -51,9 +49,9 @@ $input-box-sizing: border-box;
   border: 0;
   border-bottom: $input-border-bottom;
   &:focus~.bottom-line{
-    background-color: red;
+    background-color: map-get($primary, lighter);
   }
   &:focus{
-    border-bottom: 1px solid red;
+    border-bottom: 1px solid map-get($primary, lighter);
   }
 }
