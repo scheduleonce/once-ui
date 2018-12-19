@@ -40,7 +40,7 @@ const DEFAULT_COLOR = 'primary';
  * List of classes to add to Button instances based on host attributes to
  * style as different variants.
  */
-const INPUT_HOST_ATTRIBUTES = ['oui-input', 'oui-underline-input'];
+const INPUT_HOST_ATTRIBUTES = ['oui-input'];
 
 let nextUniqueId = 0;
 
@@ -54,7 +54,7 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 /** Directive that allows a native input to work inside a `MatFormField`. */
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: `input[oui-input], textarea[oui-input], input[oui-underline-input]`,
+  selector: `input[oui-input], textarea[oui-input]`,
   exportAs: 'ouiInput',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -314,9 +314,11 @@ export class OuiInput extends _OuiInputMixinBase
   /** Callback for the cases where the focused state of the input changes. */
   _focusChanged(isFocused: boolean) {
     if (isFocused !== this.focused && !this.readonly) {
-      this._elementRef.nativeElement['placeholder'] = isFocused
-        ? ''
-        : this.placeholder; // Removing placeholder when focused
+      if (this.placeholder) {
+        this._elementRef.nativeElement['placeholder'] = isFocused
+          ? ''
+          : this.placeholder; // Removing placeholder when focused
+      }
       this.focused = isFocused;
       this.stateChanges.next();
     }
