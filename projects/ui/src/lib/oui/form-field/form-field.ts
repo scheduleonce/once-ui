@@ -12,7 +12,8 @@ import {
   Optional,
   ViewChild,
   ViewEncapsulation,
-  OnDestroy
+  OnDestroy,
+  Input
 } from '@angular/core';
 import { mixinColor } from '../core';
 import { Subject } from 'rxjs';
@@ -67,7 +68,8 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-form-field',
-    '[class.oui-form-field-appearance-standard]': 'appearance == "standard"'
+    '[class.oui-form-field-appearance-standard]': 'appearance == "standard"',
+    '[class.oui-form-field-appearance-underline]': 'appearance == "underline"'
   },
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['color'],
@@ -77,6 +79,17 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
 export class OuiFormField extends _OuiFormFieldMixinBase
   implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
   private _destroyed = new Subject<void>();
+
+  /** The form-field appearance style. */
+  @Input()
+  get appearance(): OuiFormFieldAppearance {
+    return this._appearance;
+  }
+  set appearance(value: OuiFormFieldAppearance) {
+    this._appearance =
+      value || (this._defaults && this._defaults.appearance) || 'standard';
+  }
+  _appearance: OuiFormFieldAppearance;
 
   @ViewChild('connectionContainer')
   _connectionContainerRef: ElementRef;
@@ -93,6 +106,10 @@ export class OuiFormField extends _OuiFormFieldMixinBase
     private _defaults: OuiFormFieldDefaultOptions
   ) {
     super(_elementRef);
+
+    // Set the default through here so we invoke the setter on the first run.
+    this.appearance =
+      _defaults && _defaults.appearance ? _defaults.appearance : 'standard';
   }
 
   ngAfterContentInit() {

@@ -1,14 +1,3 @@
-$input-outline: 0;
-$input-padding: 6px 9px;
-$input-margin: 0;
-$input-width: 100%;
-$input-max-width: 100%;
-$input-vertical-align: bottom;
-$input-text-align: inherit;
-$input-border-bottom: 1px solid #9c9c9c;
-$input-border: 1px solid #9c9c9c;
-$input-color: #333333;
-$input-box-sizing: border-box;
 @mixin oui-input-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -19,39 +8,12 @@ $input-box-sizing: border-box;
     @include oui-input-base();
     @include oui-input-theme-palette($theme);
   }
-  .oui-underline-input {
-    @include oui-input-base();
-    @include oui-underline-input-theme-palette($theme);
-  }
 }
 
 /*common properties in all inputs*/
 @mixin oui-input-base {
-  font-family: 'Open Sans', sans-serif;
-  outline: $input-outline;
-  padding: $input-padding;
-  margin: $input-margin;
-  width: $input-width;
-  max-width: $input-max-width;
-  vertical-align: $input-vertical-align;
-  text-align: $input-text-align;
-  color: $input-color;
-  box-sizing: $input-box-sizing;
 }
 
 /*generating themes for oui-input(Standard inputs)*/
 @mixin oui-input-theme-palette($theme) {
-  border: $input-border;
-}
-
-/*generating themes for oui-ghost-input(underline inputs)*/
-@mixin oui-underline-input-theme-palette($theme) {
-  border: 0;
-  border-bottom: $input-border-bottom;
-  &:focus~.bottom-line{
-    background-color: map-get($primary, lighter);
-  }
-  &:focus{
-    border-bottom: 1px solid map-get($primary, lighter);
-  }
 }
