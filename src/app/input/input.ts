@@ -33,7 +33,7 @@ const OUI_INPUT_INVALID_TYPES = [
   'submit'
 ];
 
-/** Default color palette for round buttons (mat-fab and mat-mini-fab) */
+/** Default color palette for input */
 const DEFAULT_COLOR = 'primary';
 
 /**
@@ -51,7 +51,7 @@ export class OuiInputBase {
 }
 export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 
-/** Directive that allows a native input to work inside a `MatFormField`. */
+/** Directive that allows a native input to work inside a `OuiFormField`. */
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: `input[oui-input], textarea[oui-input]`,
