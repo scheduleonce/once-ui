@@ -9,7 +9,6 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ErrorStateMatcher } from '@angular/material/core';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiInput } from './input';
 
@@ -18,11 +17,11 @@ import { OuiInput } from './input';
   imports: [CommonModule, TextFieldModule, OuiFormFieldModule],
   exports: [
     TextFieldModule,
-    // We re-export the `MatFormFieldModule` since `OuiInput` will almost always
-    // be used together with `MatFormField`.
+    // We re-export the `OuiFormFieldModule` since `OuiInput` will almost always
+    // be used together with `OuiFormField`.
     OuiFormFieldModule,
     OuiInput
   ],
-  providers: [ErrorStateMatcher]
+  providers: []
 })
 export class OuiInputModule {}
