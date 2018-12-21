@@ -1,0 +1,44 @@
+/**
+Implement autocomplete css here
+ */
+/**
+ * The max-height of the panel, currently ouiching oui-select value.
+ */
+$oui-autocomplete-panel-max-height: 256px !default;
+$oui-autocomplete-panel-border-radius: 4px !default;
+
+.oui-autocomplete-panel {
+  //@include oui-menu-base();
+
+  visibility: hidden;
+  max-width: none;
+  max-height: $oui-autocomplete-panel-max-height;
+  position: relative;
+  width: 100%;
+  border-bottom-left-radius: $oui-autocomplete-panel-border-radius;
+  border-bottom-right-radius: $oui-autocomplete-panel-border-radius;
+
+  &.oui-autocomplete-visible {
+    visibility: visible;
+  }
+
+  &.oui-autocomplete-hidden {
+    visibility: hidden;
+  }
+
+  .oui-autocomplete-panel-above & {
+    border-radius: 0;
+    border-top-left-radius: $oui-autocomplete-panel-border-radius;
+    border-top-right-radius: $oui-autocomplete-panel-border-radius;
+  }
+
+  // We need to offset horizontal dividers by their height, because
+  // they throw off the keyboard navigation inside the panel.
+  .oui-divider-horizontal {
+    margin-top: -1px;
+  }
+
+  //@include cdk-high-contrast {
+  //  outline: solid 1px;
+  //}
+}
