@@ -2,7 +2,7 @@
 
 .fit{
     div{
-        margin: 20px;
+        margin: 10px;
         button,a{
             margin-right: 10px;
         }
@@ -10,5 +10,35 @@
             content: '';
             clear: both;
         }
+    }
+    .input-outer{
+        max-width: 137px;
+    }
+    .textarea-outer{
+        max-width: 326px;
+        width: 100%;
+    }
+    .display-inline{
+        display: inline-block;
+    }
+    input:disabled{
+        border-color: #E4E4E4;
+        color: #9C9C9C;
+        background-color: transparent;
+    }
+    textarea{
+        line-height: 19px;
+        padding: 8px 9px;
+    }
+    &:disabled{
+        border-color: #E4E4E4;
+        color: #9C9C9C;
+        background-color: transparent;
+    }
+    .bottom-line {
+        background-color: transparent;
+        height: 1px;
+        transition: all .1s;
+        margin: 0px;
     }
 }
