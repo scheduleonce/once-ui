@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import {OuiSlideToggle} from "./slide-toggle"
+import { OuiSlideToggle } from './slide-toggle';
 
 describe('OuiSlideToggle', () => {
   let component: OuiSlideToggle;
@@ -8,9 +8,8 @@ describe('OuiSlideToggle', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OuiSlideToggle ]
-    })
-    .compileComponents();
+      declarations: [OuiSlideToggle]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -23,57 +22,65 @@ describe('OuiSlideToggle', () => {
     expect(component).toBeTruthy();
   });
 
-  it("should trigger toggle function event mouse click",()=>{
+  it('should trigger toggle function event mouse click', () => {
     spyOn(component, 'toggle');
-    fixture.nativeElement.children[0].children[0].dispatchEvent(new Event('click'));
+    fixture.nativeElement.children[0].children[0].dispatchEvent(
+      new Event('click')
+    );
     fixture.detectChanges();
     expect(component.toggle).toHaveBeenCalled();
   });
 
-  it("should update checked on mouse click",()=>{
-    component.checked=true;
-    fixture.nativeElement.children[0].children[0].dispatchEvent(new Event('click'));
+  it('should update checked on mouse click', () => {
+    component.checked = true;
+    fixture.nativeElement.children[0].children[0].dispatchEvent(
+      new Event('click')
+    );
     fixture.detectChanges();
     expect(component.checked).toBeFalsy();
   });
 
-  it("should not change on click when disabled",()=>{
-    component.checked=false;
-    component.disabled=true;
-    fixture.nativeElement.children[0].children[0].dispatchEvent(new Event('click'));
+  it('should not change on click when disabled', () => {
+    component.checked = false;
+    component.disabled = true;
+    fixture.nativeElement.children[0].children[0].dispatchEvent(
+      new Event('click')
+    );
     fixture.detectChanges();
     expect(component.checked).toBeFalsy();
   });
 
-  it("should not emit change event on click when disabled",()=>{
-    fixture.nativeElement.children[0].children[0].dispatchEvent(new Event('click'));
+  it('should not emit change event on click when disabled', () => {
+    fixture.nativeElement.children[0].children[0].dispatchEvent(
+      new Event('click')
+    );
     fixture.detectChanges();
-    component.change.subscribe(val=>{
+    component.change.subscribe(val => {
       expect(val).toBeTruthy();
-    })
+    });
   });
 
-  it("should use user defined id when provided",()=>{
-    component.id="test"
+  it('should use user defined id when provided', () => {
+    component.id = 'test';
     fixture.detectChanges();
     expect(fixture.nativeElement.children[0].children[0]).toBeDefined();
   });
   describe('OuiSlideToggle', () => {
+    // tslint:disable-next-line:no-shadowed-variable
     let component: OuiSlideToggle;
+    // tslint:disable-next-line:no-shadowed-variable
     let fixture: ComponentFixture<OuiSlideToggle>;
     beforeEach(() => {
       fixture = TestBed.createComponent(OuiSlideToggle);
       component = fixture.componentInstance;
-      component.id="test";
+      component.id = 'test';
       fixture.detectChanges();
     });
-  
-    it("should use user defined id when provided",()=>{
-      component.id="test"
+
+    it('should use user defined id when provided', () => {
+      component.id = 'test';
       fixture.detectChanges();
-      expect(fixture.nativeElement.children[0].children[0].id).toBe("test");
+      expect(fixture.nativeElement.children[0].children[0].id).toBe('test');
     });
   });
 });
-
-

@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ObserversModule } from '@angular/cdk/observers';
-import { OuiSlideToggle } from './slide-toggle';
+import { OuiFormField } from './form-field';
 
 @NgModule({
-  declarations: [OuiSlideToggle],
+  declarations: [OuiFormField],
   imports: [CommonModule, ObserversModule],
-  exports: [OuiSlideToggle]
+  exports: [OuiFormField]
 })
-export class OuiSlideToggleModule {}
+export class OuiFormFieldModule {}

@@ -34,13 +34,13 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
     class: 'oui-slide-toggle',
     '[class.oui-disabled]': 'disabled'
   },
-  inputs: ['disabled'],
   // tslint:disable-next-line:use-input-property-decorator
+  inputs: ['disabled'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
-  private _checked: boolean = false;
+  private _checked = false;
   /** Whether the slide-toggle element is checked or not. */
   @Input()
   get checked(): boolean {
@@ -51,11 +51,13 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
     this._changeDetectorRef.markForCheck();
   }
   @Input()
-  disabled: boolean = false;
+  disabled = false;
   @Input()
-  color: string = 'primary';
+  withText = false;
   @Input()
-  id: string = `oui-slide-toggletoggle-${++nextUniqueId}`;
+  color = 'primary';
+  @Input()
+  id = `oui-slide-toggletoggle-${++nextUniqueId}`;
 
   /** Used to set the aria-label attribute on the underlying input element. */
   @Input('aria-label')
@@ -65,6 +67,7 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
   @Input('aria-labelledby')
   ariaLabelledby: string | null = null;
 
+  // tslint:disable-next-line:no-output-rename
   @Output('state-change')
   change = new EventEmitter();
 

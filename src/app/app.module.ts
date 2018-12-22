@@ -4,11 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { OuiButtonModule } from './button/button-module';
 import { OuiDialogModule } from './dialog/dialog-module';
-import { OuiSlideToggleModule } from './slide-toggle/public-api';
+import { OuiFormFieldModule } from './form-field/form-field-module';
+import { OuiInputModule } from './input/input-module';
+import { OuiSlideToggleModule } from 'projects/ui/src/lib/oui/slide-toggle/public-api';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, OuiButtonModule, OuiDialogModule,OuiSlideToggleModule],
+  imports: [
+    BrowserModule,
+    OuiButtonModule,
+    OuiDialogModule,
+    OuiSlideToggleModule,
+    OuiFormFieldModule,
+    OuiInputModule
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
