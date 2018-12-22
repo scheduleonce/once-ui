@@ -2,7 +2,8 @@
 @import '../../button/button-theme';
 @import '../../dialog/dialog-theme';
 @import '../../slide-toggle/slide-toggle-theme';
-
+@import '../../input/input-theme';
+@import '../../form-field/form-field-theme';
 
 
 // Create a theme.
@@ -10,4 +11,6 @@
     @include oui-button-theme($theme);
     @include oui-dialog-theme($theme);
     @include oui-slide-toggle-theme($theme);
+    @include oui-input-theme($theme);
+    @include oui-form-field-theme($theme);
 }

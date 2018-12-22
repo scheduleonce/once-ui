@@ -1,16 +1,47 @@
-.fit{
-    div{
-        margin: 20px;
-        button,a{
-            margin-right: 10px;
-        }
-        a::after{
-            content: '';
-            clear: both;
-        }
+.fit {
+  div {
+    margin: 10px;
+    button,
+    a {
+      margin-right: 10px;
     }
+    a::after {
+      content: '';
+      clear: both;
+    }
+  }
 }
 
-oui-slide-toggle{
-margin-right: 10px;
+oui-slide-toggle {
+  margin-right: 10px;
+}
+.input-outer {
+  max-width: 137px;
+}
+.textarea-outer {
+  max-width: 326px;
+  width: 100%;
+}
+.display-inline {
+  display: inline-block;
+}
+input:disabled {
+  border-color: #e4e4e4;
+  color: #9c9c9c;
+  background-color: transparent;
+}
+textarea {
+  line-height: 19px;
+  padding: 8px 9px;
+}
+&:disabled{	
+  border-color: #E4E4E4;	
+  color: #9C9C9C;	
+  background-color: transparent;	
+}
+.bottom-line {
+  background-color: transparent;
+  height: 1px;
+  transition: all 0.1s;
+  margin: 0px;
 }
