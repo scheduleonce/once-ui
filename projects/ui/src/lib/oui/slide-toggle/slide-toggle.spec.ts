@@ -66,10 +66,6 @@ describe('OuiSlideToggle', () => {
     expect(fixture.nativeElement.children[0].children[0]).toBeDefined();
   });
   describe('OuiSlideToggle', () => {
-    // tslint:disable-next-line:no-shadowed-variable
-    let component: OuiSlideToggle;
-    // tslint:disable-next-line:no-shadowed-variable
-    let fixture: ComponentFixture<OuiSlideToggle>;
     beforeEach(() => {
       fixture = TestBed.createComponent(OuiSlideToggle);
       component = fixture.componentInstance;
