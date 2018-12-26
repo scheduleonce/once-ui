@@ -1,30 +1,41 @@
 $width: 46px;
 $border-radius: 13px;
 $height: 25px;
-$padding: 4px;
-$font-size: 15px;
-$translate-px:22px;
-$text-translate-px:16px;
+$padding-checked: 5px 6.57px;
+$padding-unchecked: 5px 5.05px;
+$font-size: 11px;
+$translate-px: 15px;
+$text-translate-px: 16px;
+$grey:#ccc;
 
 @mixin oui-slide-toggle-theme($theme) {
+  @include oui-slide-toggle-theme-base($theme);
+  @include oui-slide-toggle-theme-palette($theme);
+}
+
+@mixin oui-slide-toggle-theme-base($theme){
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  .oui-slide-toogle {
+  .oui-slide-toogle-wrapper {
     position: relative;
     display: inline-block;
     width: $width;
     height: $height;
+    opacity: 0.5;
   }
-  .oui-slide-toogle input {
+  .oui-slide-toogle-wrapper input {
     opacity: 0;
     width: 0;
     height: 0;
   }
-  .oui-disabled{
+  .oui-disabled {
     opacity: 0.5;
+  }
+  .oui-checked {
+    opacity: 1 !important;
   }
   .slider {
     position: absolute;
@@ -35,29 +46,34 @@ $text-translate-px:16px;
     bottom: 0;
     transition: 0.4s;
   }
-  .slider:before {
+  :not(.with-text) + .slider:before {
     position: absolute;
-    content:'';
+    content: '';
     color: white;
     font-size: $font-size;
-    padding: 12px;
+    width: 30px;
+    height: 25px;
     top: -1px;
     left: -1px;
-    background-color: map-get($primary, darker);
+    background-color: $grey;
     transition: 0.4s;
-  }
-  input:checked + .slider:before {
-    background-color: map-get($primary, darker);
   }
 
   input:checked.with-text + .slider:before {
     content: 'ON';
-    padding: $padding;
+    padding: $padding-checked;
   }
 
   input.with-text + .slider:before {
     content: 'OFF';
-    padding: $padding;
+    padding: $padding-unchecked;
+    position: absolute;
+    color: white;
+    font-size: $font-size;
+    top: -1px;
+    left: -1px;
+    background-color: $grey;
+    transition: 0.4s;
   }
   input:checked + .slider:before {
     -webkit-transform: translateX($translate-px);
@@ -69,10 +85,36 @@ $text-translate-px:16px;
   }
   /* Rounded sliders */
   .slider.round {
-    border-radius: 34px;   
-    border: 1px solid map-get($primary, darker);
+    border-radius: 34px;
+    border: 1px solid $grey;
   }
   .slider.round:before {
-    border-radius: 50%;
+    border-radius: 34px;
+  }
+}
+
+@mixin oui-slide-toggle-theme-palette($theme){
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  &.oui-primary input:checked + .slider:before {
+    background-color: map-get($primary, darker);
+  }
+  &.oui-primary input:checked + .slider.round {
+    border: 1px solid map-get($primary, darker);
+  }
+  &.oui-accent input:checked + .slider:before {
+    background-color: map-get($accent, darker);
+  }
+  &.oui-accent input:checked + .slider.round {
+    border: 1px solid map-get($accent, darker);
+  }
+  &.oui-warn input:checked + .slider:before {
+    background-color: map-get($warn, darker);
+  }
+  &.oui-warn input:checked + .slider.round {
+    border: 1px solid map-get($warn, darker);
   }
 }
