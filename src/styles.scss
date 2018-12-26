@@ -1,3 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
 @import '../projects/ui/src/lib/oui/core/theming/prebuilt/chatonce.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i');
+
+*{
+  font-family: Open Sans; 
+}

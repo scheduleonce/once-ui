@@ -4,6 +4,24 @@ The slide-toggle behaves similarly to a checkbox.
 
 A `<oui-slide-toggle>` element should be used whenever some toggle action is performed.
 
+## Getting started
+
+```js
+import { OuiSlideToggleModule } from '@once/ui';
+````
+
+### Usage
+
+```js
+import { OuiSlideToggleModule } from '@once/ui';
+
+@NgModule({
+  imports: [
+    OuiSlideToggleModule
+  ]
+})
+```
+
 ## Usage Example
 
 ```html
@@ -37,6 +55,13 @@ A `<oui-slide-toggle>` element should be used whenever some toggle action is per
 ## Theming
 
 Slide toggles can be colored in terms of the current theme using the color property to set the background color to `primary`, `accent`, or `warn`.
+
+
+## Stackblitz demo link
+
+[https://stackblitz.com/edit/oncehub-slide-toggle](https://stackblitz.com/edit/oncehub-slide-toggle)
+
+You can click here and can change code to try and test different scenarios.
 
 ## Accessibility
 

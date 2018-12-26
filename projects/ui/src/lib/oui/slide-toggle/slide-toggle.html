@@ -1,4 +1,6 @@
-<label #wrapper class="oui-slide-toogle">
+<label #wrapper 
+[class.oui-checked]= "checked"
+class="oui-slide-toogle-wrapper">
   <input
     [id]="id"
     (click)="emitChange()"
