@@ -31,7 +31,7 @@ export class AppComponent {
 
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://i.icomoon.io/public/temp/7cccb86d6d/UntitledProject/symbol-defs.svg'
+        'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
       )
     );
   }

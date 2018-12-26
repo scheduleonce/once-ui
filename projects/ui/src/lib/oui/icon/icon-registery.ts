@@ -394,37 +394,43 @@ export class OuiIconRegistry {
    * cached, so future calls with the same URL may not cause another HTTP request.
    */
   private _fetchUrl(safeUrl: SafeResourceUrl | null): Observable<string> {
-    if (!this._httpClient) {
-      throw getOuiIconNoHttpProviderError();
+    try {
+      if (!this._httpClient) {
+        throw getOuiIconNoHttpProviderError();
+      }
+
+      if (safeUrl == null) {
+        throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
+      }
+
+      const url = this._sanitizer.sanitize(
+        SecurityContext.RESOURCE_URL,
+        safeUrl
+      );
+
+      if (!url) {
+        throw getOuiIconFailedToSanitizeUrlError(safeUrl);
+      }
+
+      // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
+      // already a request in progress for that URL. It's necessary to call share() on the
+      // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
+      const inProgressFetch = this._inProgressUrlFetches.get(url);
+
+      if (inProgressFetch) {
+        return inProgressFetch;
+      }
+      // Observable. Figure out why and fix it.
+      const req = this._httpClient.get(url, { responseType: 'text' }).pipe(
+        finalize(() => this._inProgressUrlFetches.delete(url)),
+        share()
+      );
+
+      this._inProgressUrlFetches.set(url, req);
+      return req;
+    } catch (e) {
+      throw Error(`Cannot fetch icon from URL "${e.Message}".`);
     }
-
-    if (safeUrl == null) {
-      throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
-    }
-
-    const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
-
-    if (!url) {
-      throw getOuiIconFailedToSanitizeUrlError(safeUrl);
-    }
-
-    // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
-    // already a request in progress for that URL. It's necessary to call share() on the
-    // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
-    const inProgressFetch = this._inProgressUrlFetches.get(url);
-
-    if (inProgressFetch) {
-      return inProgressFetch;
-    }
-
-    // Observable. Figure out why and fix it.
-    const req = this._httpClient.get(url, { responseType: 'text' }).pipe(
-      finalize(() => this._inProgressUrlFetches.delete(url)),
-      share()
-    );
-
-    this._inProgressUrlFetches.set(url, req);
-    return req;
   }
 }
 

@@ -11,4 +11,4 @@ import { OuiIconRegistry } from './icon-registery';
   providers: [OuiIconRegistry],
   entryComponents: [Icon]
 })
-export class IconModule {}
+export class OuiIconModule {}
