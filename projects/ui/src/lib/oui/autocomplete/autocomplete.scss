@@ -1,3 +1,4 @@
+@import 'autocomplete-theme';
 /**
 Implement autocomplete css here
  */
@@ -10,14 +11,19 @@ $oui-autocomplete-panel-border-radius: 4px !default;
 .oui-autocomplete-panel {
   //@include oui-menu-base();
 
-  visibility: hidden;
+  border-bottom-left-radius: $oui-autocomplete-panel-border-radius;
+  border-bottom-right-radius: $oui-autocomplete-panel-border-radius;  
+  min-width: 112px;
+  max-width: none;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
   max-width: none;
   max-height: $oui-autocomplete-panel-max-height;
   position: relative;
   width: 100%;
-  border-bottom-left-radius: $oui-autocomplete-panel-border-radius;
-  border-bottom-right-radius: $oui-autocomplete-panel-border-radius;
-
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+  background: #fff;
+  color: rgba(0,0,0,.87);  
   &.oui-autocomplete-visible {
     visibility: visible;
   }
@@ -41,4 +47,27 @@ $oui-autocomplete-panel-border-radius: 4px !default;
   //@include cdk-high-contrast {
   //  outline: solid 1px;
   //}
+  .oui-option{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 16px;
+    text-align: left;
+    text-decoration: none;
+    max-width: 100%;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    -webkit-tap-highlight-color: transparent;
+    font-size: 16px;
+    color: rgba(0,0,0,.87);
+  }
 }
