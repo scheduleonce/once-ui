@@ -1,18 +1,12 @@
-@import 'autocomplete-theme';
 /**
-Implement autocomplete css here
- */
-/**
- * The max-height of the panel, currently ouiching oui-select value.
+ * The max-height of the panel, currently matching oui-select value.
  */
 $oui-autocomplete-panel-max-height: 256px !default;
 $oui-autocomplete-panel-border-radius: 4px !default;
 
 .oui-autocomplete-panel {
-  //@include oui-menu-base();
-
   border-bottom-left-radius: $oui-autocomplete-panel-border-radius;
-  border-bottom-right-radius: $oui-autocomplete-panel-border-radius;  
+  border-bottom-right-radius: $oui-autocomplete-panel-border-radius;
   min-width: 112px;
   max-width: none;
   overflow: auto;
@@ -23,7 +17,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
   width: 100%;
   box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
   background: #fff;
-  color: rgba(0,0,0,.87);  
+  color: rgba(0,0,0,.87);
   &.oui-autocomplete-visible {
     visibility: visible;
   }
@@ -44,9 +38,6 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     margin-top: -1px;
   }
 
-  //@include cdk-high-contrast {
-  //  outline: solid 1px;
-  //}
   .oui-option{
     white-space: nowrap;
     overflow: hidden;
@@ -69,5 +60,59 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     -webkit-tap-highlight-color: transparent;
     font-size: 16px;
     color: rgba(0,0,0,.87);
+  }
+}
+
+.cdk-overlay-container {
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  z-index: 1000;
+  &:empty {
+    display: none;
+  }
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  z-index: 1000;
+}
+
+.cdk-overlay-pane {
+  position: absolute;
+  pointer-events: auto;
+  box-sizing: border-box;
+  z-index: 1000;
+  display: flex;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.oui-option {
+  color: rgba(0, 0, 0, 0.87);
+  &:focus:not(.oui-option-disabled), &:hover:not(.oui-option-disabled), &.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled) {
+    background: rgba(0, 0, 0, 0.04);
+  }
+  &.oui-active {
+    background: rgba(0, 0, 0, 0.04);
+    color: rgba(0, 0, 0, 0.87);
+  }
+  &.oui-option-disabled {
+    color: rgba(0, 0, 0, 0.38);
+  }
+}
+
+.oui-autocomplete-panel {
+  background: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  .oui-option.oui-selected:not(.oui-active):not(:hover) {
+    background: #fff;
+    &:not(.oui-option-disabled) {
+      color: rgba(0, 0, 0, 0.87);
+    }
   }
 }
