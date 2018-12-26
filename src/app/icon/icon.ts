@@ -84,8 +84,6 @@ export class Icon implements OnInit {
           svg => this._setSvgElement(svg),
           (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
         );
-    } else {
-      console.log('Error retrieving icon: <svg> tag not found');
     }
   }
 

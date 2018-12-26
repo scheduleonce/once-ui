@@ -1,10 +1,10 @@
-import { IconModule } from './icon.module';
+import { OuiIconModule } from './icon.module';
 
 describe('IconModule', () => {
-  let iconModule: IconModule;
+  let iconModule: OuiIconModule;
 
   beforeEach(() => {
-    iconModule = new IconModule();
+    iconModule = new OuiIconModule();
   });
 
   it('should create an instance', () => {

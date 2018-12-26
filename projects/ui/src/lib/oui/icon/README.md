@@ -11,8 +11,31 @@ To associate a name with an icon URL, use the `addSvgIcon`. The methods of `OuiI
 By default, icons will use the current font color (`currentColor`). This color can be changed to match the current theme's colors using the `color` attribute. This can be changed to  `'primary'`,  `'accent'`, or  `'warn'`.
 
 ## API references
-OuiIconRegistry
-`import { OuiIconModule } from '@once/ui';`
+**OuiIconModule**
+
+`import { OuiIconModule } from '@Once/ui';`
+
+**OuiIconRegistery**
+
+You need to inject `OuiIconRegistry` service in your component like as follows-
+ 
+ ```
+ import { OuiIconRegistry } from '@Once/ui';
+ export class AppComponent {
+    constructor(
+        private matIconRegistry: OuiIconRegistry,
+        private domSanitizer: DomSanitizer
+      ) {
+          this.matIconRegistry.addSvgIcon(
+            `local`,
+            this.domSanitizer.bypassSecurityTrustResourceUrl(
+              `/assets/images/v-green.svg`
+            )
+          );
+      }
+ }
+ ```
+ 
 
 ## Services
 ### `OuiIconRegistry`
