@@ -80,3 +80,8 @@ autocomplete is attached to using the `ouiAutocompleteOrigin` directive together
 The input for an `autocomplete` without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
 
 The autocomplete trigger is given `role="combobox"`. The trigger sets `aria-owns` to the autocomplete's id, and sets `aria-activedescendant` to the active option's id.
+
+
+### Stackblitz demo link
+
+https://stackblitz.com/edit/angular-ptkety
