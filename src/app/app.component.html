@@ -169,6 +169,19 @@
         <button oui-button (click)="openDialog()">Open</button>
     </div>
 
+
+    <h1>Autocomplete</h1>
+    <div class="input-outer">
+      <oui-form-field>
+        <input oui-input [ouiAutocomplete]="auto"/>
+      </oui-form-field>
+      <oui-autocomplete #auto="ouiAutocomplete">
+        <oui-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </oui-option>
+      </oui-autocomplete>
+    </div>
+
 </div>
 
 

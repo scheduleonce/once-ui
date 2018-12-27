@@ -9,6 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  options: string[] = ['One', 'Two', 'Three'];
+
   @ViewChild('dialogTemplate')
   dialogTemplate;
   @ViewChild('progressButton')
