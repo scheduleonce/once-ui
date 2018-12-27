@@ -62,8 +62,6 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'ouiAutocomplete',
-  // tslint:disable-next-line:use-input-property-decorator
-  inputs: [],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-autocomplete'
