@@ -1,11 +1,4 @@
 import {
-  DOWN_ARROW,
-  ENTER,
-  ESCAPE,
-  TAB,
-  UP_ARROW
-} from '@angular/cdk/keycodes';
-import {
   FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
@@ -36,6 +29,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
+  keycodes,
   OuiOption,
   OuiOptionSelectionChange
 } from '../core';
@@ -400,26 +394,26 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   }
 
   _handleKeydown(event: KeyboardEvent): void {
-    // tslint:disable-next-line:deprecation
-    const keyCode = event.keyCode;
+    const key = event.key;
 
     // Prevent the default action on all escape key presses. This is here primarily to bring IE
     // in line with other browsers. By default, pressing escape on IE will cause it to revert
     // the input value to the one that it had on focus, however it won't dispatch any events
     // which means that the model value will be out of sync with the view.
-    if (keyCode === ESCAPE) {
+    if (key === keycodes.ESCAPE) {
       event.preventDefault();
     }
 
-    if (this.activeOption && keyCode === ENTER && this.panelOpen) {
+    if (this.activeOption && key === keycodes.ENTER && this.panelOpen) {
       this.activeOption._selectViaInteraction();
       this._resetActiveItem();
       event.preventDefault();
     } else if (this.autocomplete) {
       const prevActiveItem = this.autocomplete._keyManager.activeItem;
-      const isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
+      const isArrowKey =
+        key === keycodes.UP_ARROW || key === keycodes.DOWN_ARROW;
 
-      if (this.panelOpen || keyCode === TAB) {
+      if (this.panelOpen || key === keycodes.TAB) {
         this.autocomplete._keyManager.onKeydown(event);
       } else if (isArrowKey && this._canOpen()) {
         this.openPanel();
@@ -607,10 +601,8 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
         if (
-          // tslint:disable-next-line:deprecation
-          event.keyCode === ESCAPE ||
-          // tslint:disable-next-line:deprecation
-          (event.keyCode === UP_ARROW && event.altKey)
+          event.key === keycodes.ESCAPE ||
+          (event.key === keycodes.UP_ARROW && event.altKey)
         ) {
           this._resetActiveItem();
           this._closeKeyEventStream.next();
