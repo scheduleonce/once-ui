@@ -13,14 +13,14 @@ By default, icons will use the current font color (`currentColor`). This color c
 ## API references
 **OuiIconModule**
 
-`import { OuiIconModule } from '@Once/ui';`
+`import { OuiIconModule } from '@once/ui';`
 
 **OuiIconRegistery**
 
 You need to inject `OuiIconRegistry` service in your component like as follows-
  
  ```
- import { OuiIconRegistry } from '@Once/ui';
+ import { OuiIconRegistry } from '@once/ui';
  export class AppComponent {
     constructor(
         private matIconRegistry: OuiIconRegistry,
