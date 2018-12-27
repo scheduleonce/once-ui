@@ -1,7 +1,10 @@
 <div class="fit">
     <h1>Menu</h1>
     <oui-menu #appMenu yPosition="below">
-        <button oui-menu-item>Settings</button>
+        <button oui-menu-item>
+            <oui-icon svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon>
+            <label>Settings</label>
+        </button>
         <button oui-menu-item>Help 1</button>
         <button oui-menu-item>Help 2</button>
         <button oui-menu-item>Help 3</button>
@@ -10,7 +13,8 @@
         <button oui-menu-item>Help 6</button>
         <button oui-menu-item>Help 7</button>
     </oui-menu>
-    <button [ouiMenuTriggerFor]="appMenu">open menu</button>
+    <oui-icon svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon>
+    <button>open menu</button>
 
     <h1>Nested Menu</h1>
     <oui-menu #rootMenu="ouiMenu">
@@ -81,7 +85,10 @@
     <!--primary buttons-->
     <div>
 
-        <button oui-button color="primary">this is super button</button>
+        <button oui-button color="primary">
+            <oui-icon svgIcon="icon-bullhorn" color="primary"></oui-icon>
+            this is super button
+        </button>
 
         <!-- <button oui-button color="accent">this is super button</button>
 
