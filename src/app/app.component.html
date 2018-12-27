@@ -169,6 +169,19 @@
         <button oui-button (click)="openDialog()">Open</button>
     </div>
 
+
+    <h1>Autocomplete</h1>
+    <div class="input-outer">
+      <oui-form-field>
+        <input oui-input [ouiAutocomplete]="auto"/>
+      </oui-form-field>
+      <oui-autocomplete #auto="ouiAutocomplete">
+        <oui-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </oui-option>
+      </oui-autocomplete>
+    </div>
+
 </div>
 
 
@@ -202,3 +215,14 @@
         </div>
     </ng-template>
 </div>
+<h1>Icons </h1>
+<h3>Relative to project:</h3>
+<oui-icon svgIcon="local" color="primary"></oui-icon>
+<br/>
+<h3>IcoMoon: </h3>
+<oui-icon svgIcon="icon-bullhorn" inline="true" color="primary"></oui-icon>
+<oui-icon svgIcon="icon-diamonds" inline="true" color="accent"></oui-icon>
+<oui-icon svgIcon="icon-pacman" inline="true" color="warn"></oui-icon>
+
+
+<br/><br/>
