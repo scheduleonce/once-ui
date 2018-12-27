@@ -41,7 +41,6 @@ export class OuiOptionSelectionChange {
  * @docs-private
  */
 export interface OuiOptionParentComponent {
-  disableRipple?: boolean;
   multiple?: boolean;
 }
 
@@ -110,11 +109,6 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   }
   set disabled(value: any) {
     this._disabled = coerceBooleanProperty(value);
-  }
-
-  /** Whether ripples for the option are disabled. */
-  get disableRipple() {
-    return this._parent && this._parent.disableRipple;
   }
 
   /** Event emitted when the option is selected or deselected. */
