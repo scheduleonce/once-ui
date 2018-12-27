@@ -54,3 +54,7 @@ The `ouiInput` directive works with native `<input>` to provide an accessible ex
 
 If the containing <oui-form-field> has a label it will automatically be used as the aria-label for the `<input>`.
 However, if there's no label specified in the form field, aria-label, aria-labelledby or <label for=...> should be added.
+
+### Stackblitz demo link
+
+https://stackblitz.com/edit/angular-ptkety

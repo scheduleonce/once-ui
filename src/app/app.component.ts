@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { OuiDialog } from './dialog/dialog';
+import { OuiIconRegistry } from './icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,8 @@ import { OuiDialog } from './dialog/dialog';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  options: string[] = ['One', 'Two', 'Three'];
+
   @ViewChild('dialogTemplate')
   dialogTemplate;
   @ViewChild('progressButton')
@@ -15,7 +19,24 @@ export class AppComponent {
   progressLinkButton: any;
   @ViewChild('progressGhostButton')
   progressGhostButton: any;
-  constructor(private dialog: OuiDialog) {}
+  constructor(
+    private dialog: OuiDialog,
+    private matIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.matIconRegistry.addSvgIcon(
+      `local`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        `/assets/images/v-green.svg`
+      )
+    );
+
+    this.matIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
+      )
+    );
+  }
 
   openDialog() {
     const dialogRef = this.dialog.open(this.dialogTemplate);
