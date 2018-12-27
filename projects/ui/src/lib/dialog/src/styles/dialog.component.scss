@@ -38,8 +38,8 @@ once-ui-dialog{
       background-color: #fff;
       max-width: 607px;
       min-width: 540px;
-      box-shadow: 0 1px 3px 2px #A7A7A7;
-      -webkit-box-shadow: 0 1px 3px 2px #A7A7A7;
+      box-shadow: 0 1px 3px 2px rgba(167,167,167,0.5);
+      -webkit-box-shadow: 0 1px 3px 2px rgba(167,167,167,0.5);
       margin: 0 auto;
       @include positionType(relative,auto,auto,auto,auto);
     }
