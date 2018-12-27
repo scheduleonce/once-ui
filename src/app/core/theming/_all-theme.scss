@@ -4,6 +4,7 @@
 @import '../../icon/icon-theme';
 @import '../../input/input-theme';
 @import '../../form-field/form-field-theme';
+@import '../../menu/menu-theme';
 
 // Create a theme.
 @mixin once-ui-theme($theme) {
@@ -12,4 +13,5 @@
   @include oui-input-theme($theme);
   @include oui-form-field-theme($theme);
   @include oui-icon-theme($theme);
+  @include oui-menu-theme($theme);
 }
