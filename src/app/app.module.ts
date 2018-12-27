@@ -7,6 +7,7 @@ import { OuiDialogModule } from './dialog/dialog-module';
 import { OuiFormFieldModule } from './form-field/form-field-module';
 import { OuiInputModule } from './input/input-module';
 import { OuiAutocompleteModule } from './autocomplete/autocomplete-module';
+import { OuiIconModule } from './icon/icon.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,8 @@ import { OuiAutocompleteModule } from './autocomplete/autocomplete-module';
     OuiDialogModule,
     OuiFormFieldModule,
     OuiAutocompleteModule,
-    OuiInputModule
+    OuiInputModule,
+    OuiIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
