@@ -57,6 +57,7 @@ $form-field-box-sizing: border-box;
 
 /* Generating themes for oui-form-field-appearance-underline(underline form-fields)*/
 @mixin oui-form-field-appearance-underline-theme-palette($theme) {
+  $primary: map-get($theme, primary);
   .oui-input {
     border: 0;
     border-bottom: $form-field-border-bottom;
