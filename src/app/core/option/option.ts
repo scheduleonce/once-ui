@@ -287,7 +287,7 @@ export function _countGroupLabelsBeforeOption(
     const groups = optionGroups.toArray();
     let groupCounter = 0;
 
-    for (let i = 0; i < optionIndex + 1; i++) {
+    for (let i = 0; i <= optionIndex; i++) {
       if (
         optionsArray[i].group &&
         optionsArray[i].group === groups[groupCounter]

@@ -18,13 +18,7 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import {
-  CanDisableRipple,
-  OUI_OPTION_PARENT_COMPONENT,
-  OuiOptgroup,
-  OuiOption,
-  mixinDisableRipple
-} from '../core';
+import { OUI_OPTION_PARENT_COMPONENT, OuiOptgroup, OuiOption } from '../core';
 
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
@@ -41,13 +35,6 @@ export class OuiAutocompleteSelectedEvent {
     public option: OuiOption
   ) {}
 }
-
-// Boilerplate for applying mixins to OuiAutocomplete.
-/** @docs-private */
-export class OuiAutocompleteBase {}
-export const _OuiAutocompleteMixinBase: typeof OuiAutocompleteBase = mixinDisableRipple(
-  OuiAutocompleteBase
-);
 
 /** Default `oui-autocomplete` options that can be overridden. */
 export interface OuiAutocompleteDefaultOptions {
@@ -76,7 +63,7 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'ouiAutocomplete',
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['disableRipple'],
+  inputs: [],
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-autocomplete'
@@ -85,15 +72,7 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
     { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiAutocomplete }
   ]
 })
-export class OuiAutocomplete extends _OuiAutocompleteMixinBase
-  implements AfterContentInit, CanDisableRipple {
-  /**
-   * Implemented as part of CanDisableRipple.
-   * @docs-private
-   */
-  // tslint:disable-next-line:no-inferrable-types
-  disableRipple: boolean = false;
-
+export class OuiAutocomplete implements AfterContentInit {
   /** Manages active item in option list based on key events. */
   _keyManager: ActiveDescendantKeyManager<OuiOption>;
 
@@ -187,8 +166,6 @@ export class OuiAutocomplete extends _OuiAutocompleteMixinBase
     @Inject(OUI_AUTOCOMPLETE_DEFAULT_OPTIONS)
     defaults: OuiAutocompleteDefaultOptions
   ) {
-    super();
-
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
   }
 

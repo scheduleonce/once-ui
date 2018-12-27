@@ -175,9 +175,6 @@
       <oui-form-field>
         <input oui-input [ouiAutocomplete]="auto"/>
       </oui-form-field>
-      <!--<mat-form-field>
-        <input matInput [ouiAutocomplete]="auto"/>
-      </mat-form-field>-->
       <oui-autocomplete #auto="ouiAutocomplete">
         <oui-option *ngFor="let option of options" [value]="option">
           {{option}}
