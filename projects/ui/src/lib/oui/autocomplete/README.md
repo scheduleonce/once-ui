@@ -75,6 +75,41 @@ autocomplete is attached to using the `ouiAutocompleteOrigin` directive together
 - <kbd>UP_ARROW</kbd>: Previous option becomes active.
 - <kbd>ENTER</kbd>: Select currently active item.
 
+## Directives
+###  `OuiAutocomplete`
+
+Selector: `oui-autocomplete`
+
+Exported as: `ouiAutocomplete`
+
+## Properties
+
+| Name  | Description |
+| ------------- | ------------- |
+| @Input() <br/>`autoActiveFirstOption: boolean`  | Whether the first option should be highlighted when the autocomplete panel is opened.  |
+| @Input('class') <br/>`classList: string`  | Takes classes set on the host oui-autocomplete element and applies them to the panel inside the overlay container to allow for easy styling.  |
+| @Input() <br/>`displayWith: ((value: any) => string) | null`  | Function that maps an option's control value to its display value in the trigger.  |
+| @Input() <br/>`panelWidth: string | number`  | Used to set the aria-label attribute on the underlying element.  |
+| @Output() <br/>`closed: EventEmitter<void>`  | Event that is emitted when the autocomplete panel is closed.  |
+| @Output() <br/>`opened: EventEmitter<void>`  | Event that is emitted when the autocomplete panel is opened.  |
+| @Output() <br/>`optionSelected: EventEmitter<OuiAutocompleteSelectedEvent>`  | Event that is emitted whenever an option from the list is selected.  |
+
+
+### `OuiAutocompleteTrigger`
+
+Selector: `input[ouiAutocomplete]` `textarea[ouiAutocomplete]`
+
+Exported as: ouiAutocompleteTrigger
+
+## Properties
+
+| Name  | Description |
+| ------------- | ------------- |
+| @Input('ouiAutocomplete') <br/>`autocomplete: OuiAutocomplete`  | The autocomplete panel to be attached to this trigger.  |
+| @Input('ouiAutocompleteDisabled') <br/>`autocompleteDisabled: boolean`  | Whether the autocomplete is disabled. When disabled, the element will act as a regular input and the user won't be able to open the panel.  |
+| @Input('ouiAutocompleteConnectedTo') <br/>`connectedTo: OuiAutocompleteOrigin`  | Reference relative to which to position the autocomplete panel. Defaults to the autocomplete trigger element.  |
+
+
 ### Accessibility
 
 The input for an `autocomplete` without text or labels should be given a meaningful label via `aria-label` or `aria-labelledby`.
