@@ -31,6 +31,13 @@ export class AppComponent {
       )
     );
 
+    this.matIconRegistry.addSvgIcon(
+      `three-dot`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        `/assets/images/three-dot.svg`
+      )
+    );
+
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
