@@ -7,9 +7,20 @@ import {
   Attribute,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { CanColor, CanColorCtor, mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OuiIconRegistry } from './icon-registery';
 import { take } from 'rxjs/operators';
+
+// Boilerplate for applying mixins to OuiButton.
+/** @docs-private */
+export class OuiIconBase {
+  constructor(public _elementRef: ElementRef) {}
+}
+
+export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
+  OuiIconBase
+);
 
 /**
  * oui-icon makes it easier to use vector-based icons in your app. This directive supports only SVG icons.
@@ -33,18 +44,12 @@ import { take } from 'rxjs/operators';
   host: {
     role: 'img',
     class: 'oui-icon',
-    '[class.oui-icon-inline]': 'inline',
-    '[class.oui-icon-no-color]':
-      'color !== "primary" && color !== "accent" && color !== "warn"',
-    '[class.oui-primary]': 'color === "primary"',
-    '[class.oui-accent]': 'color === "accent"',
-    '[class.oui-warn]': 'color === "warn"'
+    '[class.oui-icon-inline]': 'inline'
   },
-
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class Icon implements OnInit {
+export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   /**
    * Whether the icon should be inlined, automatically sizing the icon to match the font size of
    * the element the icon is contained in.
@@ -59,6 +64,11 @@ export class Icon implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   private _inline: boolean = false;
 
+  /**
+   * Implemented as part of CanColor.
+   */
+  color: any;
+
   /** Name of the icon in the SVG icon set. */
   @Input()
   svgIcon: string;
@@ -68,6 +78,7 @@ export class Icon implements OnInit {
     public _elementRef: ElementRef,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
+    super(_elementRef);
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
     // the right thing to do for the majority of icon use-cases.
     if (!ariaHidden) {
