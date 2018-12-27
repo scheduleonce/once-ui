@@ -1,4 +1,31 @@
 <div class="fit">
+    <h1>Menu</h1>
+    <oui-menu #appMenu yPosition="below">
+        <button oui-menu-item>Settings</button>
+        <button oui-menu-item>Help 1</button>
+        <button oui-menu-item>Help 2</button>
+        <button oui-menu-item>Help 3</button>
+        <button oui-menu-item>Help 4</button>
+        <button oui-menu-item>Help 5</button>
+        <button oui-menu-item>Help 6</button>
+        <button oui-menu-item>Help 7</button>
+    </oui-menu>
+    <button [ouiMenuTriggerFor]="appMenu">open menu</button>
+
+    <h1>Nested Menu</h1>
+    <oui-menu #rootMenu="ouiMenu">
+        <button oui-menu-item [ouiMenuTriggerFor]="subMenu">Power</button>
+        <button oui-menu-item [ouiMenuTriggerFor]="subMenu">System settings</button>
+    </oui-menu>
+    
+    <oui-menu #subMenu="ouiMenu">
+        <button oui-menu-item>Shut down</button>
+        <button oui-menu-item>Restart</button>
+        <button oui-menu-item>Hibernate</button>
+    </oui-menu>
+    
+    <button [ouiMenuTriggerFor]="rootMenu">nested-menu</button>
+
     <h1>Form field</h1>
     <div class="input-outer">
       <oui-form-field>

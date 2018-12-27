@@ -1,0 +1,92 @@
+@import './menu-theme';
+@import '~@angular/cdk/a11y';
+@import '~@angular/cdk/overlay-prebuilt.css';
+
+// menu width must be a multiple of 56px
+$oui-menu-overlay-min-width: 112px !default;   // 56 * 2
+$oui-menu-overlay-max-width: 280px !default;   // 56 * 5
+
+$oui-menu-item-height: 48px !default;
+$oui-menu-side-padding: 16px !default;
+$oui-menu-icon-margin: 16px !default;
+
+$oui-menu-border-radius: 4px !default;
+
+@mixin oui-menu-base() {
+    min-width: $oui-menu-overlay-min-width;
+    max-width: $oui-menu-overlay-max-width;
+    overflow: auto;
+}
+
+
+.oui-menu-panel {
+    @include oui-menu-base();
+    max-height: calc(100vh - #{$oui-menu-item-height});
+    background-color: #fff;
+    box-shadow: 0px 1px 3px 0px #4A4A4A;
+    outline:0;
+}
+
+/*reset the browser default properties*/
+@mixin oui-button-reset {
+    border: 0 none;
+    background: none;
+    font-family: 'Open Sans', sans-serif;
+    &:focus{
+        outline: 0 none;
+    }
+}
+
+@mixin oui-menu-item-base() {
+    white-space: nowrap;
+    font-size: 13px;
+    font-family: 'Open Sans';
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // Needs to be a block for the ellipsis to work.
+    display: block;
+    line-height: $oui-menu-item-height;
+    height: $oui-menu-item-height;
+    padding: 0 $oui-menu-side-padding;
+    text-align: left;
+    text-decoration: none;   // necessary to reset anchor tags
+    // Required for Edge not to show scrollbars when setting the width manually. See #12112.
+    max-width: 100%;
+    width: 100%;
+
+    &[disabled] {
+      cursor: default;
+    }  
+      
+    .oui-icon {
+      vertical-align: middle;
+      svg {
+        vertical-align: top;
+      }
+    }
+  }
+
+.oui-menu-item {
+    @include oui-button-reset();
+    @include oui-menu-item-base();
+    position: relative;
+    
+    @include cdk-high-contrast {
+        &.cdk-program-focused,
+        &.cdk-keyboard-focused,
+        &-highlighted {
+            outline: dotted 1px;
+        }
+    }
+}
+
+.oui-menu-item:hover,
+.oui-menu-item.cdk-program-focused,
+.oui-menu-item.cdk-keyboard-focused,
+.oui-menu-item-highlighted {
+    &:not([disabled]) {
+        background: #EEEEEE;
+    }
+}
+
