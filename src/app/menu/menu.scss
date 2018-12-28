@@ -3,14 +3,36 @@
 @import '~@angular/cdk/overlay-prebuilt.css';
 
 // menu width must be a multiple of 56px
-$oui-menu-overlay-min-width: 112px !default;   // 56 * 2
-$oui-menu-overlay-max-width: 280px !default;   // 56 * 5
+$oui-menu-overlay-min-width: 205px !default;   // 56 * 2
+$oui-menu-overlay-max-width: 244px !default;   // 56 * 5
 
 $oui-menu-item-height: 48px !default;
 $oui-menu-side-padding: 16px !default;
 $oui-menu-icon-margin: 16px !default;
 
 $oui-menu-border-radius: 4px !default;
+
+$oui-menu-z-index: 9999;
+
+/*box shadow and border as a boxshadow(good for zoom-in and zoom-out in browsers) */
+$oui-menu-box-shadow: 0px 1px 3px 0px #4A4A4A;
+$oui-menu-border-box-shadow: 0 0 0 1px #c8c8c8;
+
+
+/*font size and line-height*/
+$oui-menu-font-size: 13px;
+$oui-menu-line-height: 22px;
+
+/*reset the browser default properties*/
+@mixin oui-button-reset {
+    border: 0 none;
+    background: none;
+    font-family: 'Open Sans', sans-serif;
+    &:focus{
+        outline: 0 none;
+    }
+}
+
 
 @mixin oui-menu-base() {
     min-width: $oui-menu-overlay-min-width;
@@ -23,22 +45,21 @@ $oui-menu-border-radius: 4px !default;
     @include oui-menu-base();
     max-height: calc(100vh - #{$oui-menu-item-height});
     background-color: #fff;
-    box-shadow: 0px 1px 3px 0px #4A4A4A;
-    outline:0;
+    box-shadow: $oui-menu-box-shadow;
+    outline: 0;
+    z-index: $oui-menu-z-index;
+    font-size: $oui-menu-font-size;
+    line-height: $oui-menu-line-height;
 }
 
-/*reset the browser default properties*/
-@mixin oui-button-reset {
-    border: 0 none;
-    background: none;
-    font-family: 'Open Sans', sans-serif;
-    &:focus{
-        outline: 0 none;
-    }
+.oui-menu-content{
+    box-shadow: $oui-menu-border-box-shadow;
+    padding: 10px 0px;
 }
+
 
 @mixin oui-menu-item-base() {
-    white-space: nowrap;
+    //white-space: nowrap;
     font-size: 13px;
     font-family: 'Open Sans';
     font-weight: 600;
@@ -46,8 +67,7 @@ $oui-menu-border-radius: 4px !default;
     text-overflow: ellipsis;
     // Needs to be a block for the ellipsis to work.
     display: block;
-    line-height: $oui-menu-item-height;
-    height: $oui-menu-item-height;
+    line-height: $oui-menu-line-height;
     padding: 0 $oui-menu-side-padding;
     text-align: left;
     text-decoration: none;   // necessary to reset anchor tags
@@ -60,7 +80,13 @@ $oui-menu-border-radius: 4px !default;
     }  
       
     .oui-icon {
-      vertical-align: middle;
+      display: inline-block;
+      vertical-align: top;
+      width: 22px;
+      height: 20px;
+      margin-right: 8px;
+      text-align: center;
+      margin-top: 0px;
       svg {
         vertical-align: top;
       }
@@ -70,7 +96,23 @@ $oui-menu-border-radius: 4px !default;
 .oui-menu-item {
     @include oui-button-reset();
     @include oui-menu-item-base();
+    position: relative;    
+    padding: 10px 8px;
+    display: inline-block;
+    color: #333;
+    cursor: pointer;
     position: relative;
+    min-width:$oui-menu-overlay-min-width;
+    max-width: $oui-menu-overlay-max-width;
+    width: 100%;
+
+    span{
+        display: inline-block;
+        max-width: 198px;
+        vertical-align: top;
+        line-height: 20px;
+        margin-top: 2px;
+    }
     
     @include cdk-high-contrast {
         &.cdk-program-focused,
@@ -87,6 +129,7 @@ $oui-menu-border-radius: 4px !default;
 .oui-menu-item-highlighted {
     &:not([disabled]) {
         background: #EEEEEE;
+        text-decoration: none;
     }
 }
 

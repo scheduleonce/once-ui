@@ -37,6 +37,24 @@ export class AppComponent {
         `/assets/images/three-dot.svg`
       )
     );
+    this.matIconRegistry.addSvgIcon(
+      `edit-menu`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        `/assets/images/edit-menu.svg`
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `invitation-menu`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        `/assets/images/invitation-menu.svg`
+      )
+    );
+    this.matIconRegistry.addSvgIcon(
+      `delete-menu`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        `/assets/images/delete-menu.svg`
+      )
+    );
 
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
