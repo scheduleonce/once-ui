@@ -13,12 +13,12 @@ $default-cursor:default;
 $cursor:pointer;
 $opacity:0.5;
 @mixin oui-icon{  
-  .oui-icon-button{
-    @include oui-icon-button();
+  .oui-icon-text-button{
+    @include oui-icon-text-button();
   }  
 }
-/*generating themes for oui-icon-button(icon buttons)*/
-@mixin oui-icon-button {
+/*generating themes for oui-icon-text-button(icon buttons)*/
+@mixin oui-icon-text-button {
   color: $color !important;
   background: $background !important;
   border: 1px solid $border-color !important;
@@ -40,7 +40,7 @@ $opacity:0.5;
     background: $background-visited !important;
     text-decoration: underline !important;
   }
-  &.oui-icon-button[disabled]{
+  &.oui-icon-text-button[disabled]{
     border-color: $disabled-border-color !important;
     color: $disabled-color !important;
     cursor: $default-cursor !important;
