@@ -42,6 +42,9 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     @include oui-ghost-button-theme-palette($theme);
     @include oui-progress-ghost-button-stages($theme);
   }
+  .oui-icon-button{
+    @include oui-button-reset();
+  }
 }
 /*common properties in all buttons*/
 @mixin oui-button-base {

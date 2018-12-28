@@ -26,7 +26,8 @@
             <span>Settings</span>
         </button>
     </oui-menu>
-    <oui-icon svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon>
+    <h2>OUI ICON BUTTON</h2>
+    <button oui-icon-button><oui-icon svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon></button>
     <button>open menu</button>
 
     <h1>Nested Menu</h1>
@@ -136,7 +137,7 @@
 
     </div>
 
-    <!--icon buttons-->
+    <!--icon-text buttons-->
     <div>
 
         <button oui-icon-text-button color="primary"><img src="../assets/images/excel.png"><label>this is super button</label></button>
@@ -148,6 +149,22 @@
         <button oui-icon-text-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super button</label></button>
 
     </div>
+
+ <!--icon buttons-->
+ <div>
+
+    <button oui-icon-button>
+        <oui-icon svgIcon="invitation-menu"></oui-icon>
+    </button>
+    <button oui-icon-button>
+        <oui-icon svgIcon="edit-menu"></oui-icon>
+    </button>
+    <button oui-icon-button>
+        <oui-icon svgIcon="delete-menu"></oui-icon>
+    </button>
+
+</div>
+
 
     <h1>A tags</h1>
     <!--primary buttons-->

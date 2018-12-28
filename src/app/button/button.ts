@@ -49,7 +49,7 @@ export const OuiButtonMixinBase: CanDisableCtor &
  */
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button], button[oui-icon-button]
+  selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button], button[oui-icon-button],
                button[oui-icon-text-button]`,
   exportAs: 'ouiButton',
   // tslint:disable-next-line:use-host-property-decorator
@@ -99,7 +99,7 @@ export class OuiButton extends OuiButtonMixinBase
  */
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button], a[oui-icon-button]
+  selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button], a[oui-icon-button],
     a[oui-icon-text-button]`,
   exportAs: 'ouiButton, ouiAnchor',
   // tslint:disable-next-line:use-host-property-decorator
