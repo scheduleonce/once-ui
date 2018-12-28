@@ -15,7 +15,7 @@ $oui-menu-border-radius: 4px !default;
 $oui-menu-z-index: 9999;
 
 /*box shadow and border as a boxshadow(good for zoom-in and zoom-out in browsers) */
-$oui-menu-box-shadow: 0px 1px 3px 0px #4A4A4A;
+$oui-menu-box-shadow: 0px 1px 3px 0px #4A4A4A, 0 0 0 1px #c8c8c8;
 $oui-menu-border-box-shadow: 0 0 0 1px #c8c8c8;
 
 
@@ -35,7 +35,7 @@ $oui-menu-line-height: 22px;
 
 
 @mixin oui-menu-base() {
-    min-width: $oui-menu-overlay-min-width;
+    //min-width: $oui-menu-overlay-min-width;
     max-width: $oui-menu-overlay-max-width;
     overflow: auto;
 }
@@ -53,7 +53,7 @@ $oui-menu-line-height: 22px;
 }
 
 .oui-menu-content{
-    box-shadow: $oui-menu-border-box-shadow;
+    //box-shadow: $oui-menu-border-box-shadow;
     padding: 10px 0px;
 }
 
@@ -98,7 +98,7 @@ $oui-menu-line-height: 22px;
     @include oui-menu-item-base();
     position: relative;    
     padding: 10px 8px;
-    display: inline-block;
+    display: block;
     color: #333;
     cursor: pointer;
     position: relative;
@@ -132,4 +132,3 @@ $oui-menu-line-height: 22px;
         text-decoration: none;
     }
 }
-
