@@ -12,7 +12,7 @@ $margin:1px 6px 0px 0px;
 $default-cursor:default;
 $cursor:pointer;
 $opacity:0.5;
-@mixin oui-icon{  
+@mixin oui-icon-text{  
   .oui-icon-text-button{
     @include oui-icon-text-button();
   }  
