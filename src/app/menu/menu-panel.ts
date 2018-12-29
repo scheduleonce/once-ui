@@ -25,8 +25,6 @@ export interface OuiMenuPanel<T = any> {
   resetActiveItem: () => void;
   setPositionClasses?: (x: MenuPositionX, y: MenuPositionY) => void;
   lazyContent?: OuiMenuContent;
-  backdropClass?: string;
-  hasBackdrop?: boolean;
   addItem?: (item: T) => void;
   removeItem?: (item: T) => void;
 }

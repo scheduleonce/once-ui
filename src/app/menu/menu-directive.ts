@@ -44,9 +44,6 @@ export interface OuiMenuDefaultOptions {
 
   /** Class to be applied to the menu's backdrop. */
   backdropClass: string;
-
-  /** Whether the menu has a backdrop. */
-  hasBackdrop?: boolean;
 }
 
 /** Injection token to be used to override the default options for `oui-menu`. */
@@ -146,14 +143,6 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
     this._overlapTrigger = coerceBooleanProperty(value);
   }
   private _overlapTrigger: boolean = this._defaultOptions.overlapTrigger;
-
-  /** Whether the menu has a backdrop. */
-  @Input()
-  get hasBackdrop(): boolean | undefined { return this._hasBackdrop; }
-  set hasBackdrop(value: boolean | undefined) {
-    this._hasBackdrop = coerceBooleanProperty(value);
-  }
-  private _hasBackdrop: boolean | undefined = this._defaultOptions.hasBackdrop;
 
   /**
    * This method takes classes set on the host oui-menu element and applies them on the
