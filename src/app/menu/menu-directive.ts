@@ -1,5 +1,4 @@
 import {FocusKeyManager, FocusOrigin} from '@angular/cdk/a11y';
-import {Direction} from '@angular/cdk/bidi';
 import {coerceBooleanProperty} from '@angular/cdk/coercion';
 import {ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW} from '@angular/cdk/keycodes';
 import {
@@ -66,11 +65,6 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
     backdropClass: 'cdk-overlay-transparent-backdrop',
   };
 }
-/**
- * Start elevation for the menu panel.
- * @docs-private
- */
-const OUI_MENU_BASE_ELEVATION = 4;
 
 
 @Component({
@@ -88,7 +82,6 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
   private _keyManager: FocusKeyManager<OuiMenuItem>;
   private _xPosition: MenuPositionX = this._defaultOptions.xPosition;
   private _yPosition: MenuPositionY = this._defaultOptions.yPosition;
-  private _previousElevation: string;
 
   /** Menu items inside the current menu. */
   private _items: OuiMenuItem[] = [];
@@ -104,9 +97,6 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
 
   /** Parent menu of the current menu panel. */
   parentMenu: OuiMenuPanel | undefined;
-
-  /** Layout direction of the menu. */
-  direction: Direction;
 
   /** Class to be added to the backdrop element. */
   @Input() backdropClass: string = this._defaultOptions.backdropClass;
@@ -230,12 +220,7 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
         this.closed.emit('keydown');
       break;
       case LEFT_ARROW:
-        if (this.parentMenu && this.direction === 'ltr') {
-          this.closed.emit('keydown');
-        }
-      break;
-      case RIGHT_ARROW:
-        if (this.parentMenu && this.direction === 'rtl') {
+        if (this.parentMenu) {
           this.closed.emit('keydown');
         }
       break;
@@ -269,25 +254,6 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
    */
   resetActiveItem() {
     this._keyManager.setActiveItem(-1);
-  }
-
-  /**
-   * Sets the menu panel elevation.
-   * @param depth Number of parent menus that come before the menu.
-   */
-  setElevation(depth: number): void {
-    // The elevation starts at the base and increases by one for each level.
-    const newElevation = `oui-elevation-z${OUI_MENU_BASE_ELEVATION + depth}`;
-    const customElevation = Object.keys(this._classList).find(c => c.startsWith('oui-elevation-z'));
-
-    if (!customElevation || customElevation === this._previousElevation) {
-      if (this._previousElevation) {
-        this._classList[this._previousElevation] = false;
-      }
-
-      this._classList[newElevation] = true;
-      this._previousElevation = newElevation;
-    }
   }
 
   /**

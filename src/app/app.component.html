@@ -1,34 +1,20 @@
 <div class="fit">
     <h1>Menu</h1>
-    <oui-menu #appMenu yPosition="below">
+    <oui-menu #appMenu xPosition="before" yPosition="above">
         <button oui-menu-item>
-            <oui-icon svgIcon="edit-menu" [ouiMenuTriggerFor]="appMenu"></oui-icon>
+            <oui-icon svgIcon="edit-menu"></oui-icon>
             <span>Settings</span>
         </button>
         <button oui-menu-item>
-            <oui-icon svgIcon="invitation-menu" [ouiMenuTriggerFor]="appMenu"></oui-icon>
+            <oui-icon svgIcon="invitation-menu"></oui-icon>
             <span>Settings</span>
         </button>
         <button oui-menu-item>
-            <oui-icon svgIcon="delete-menu" [ouiMenuTriggerFor]="appMenu"></oui-icon>
-            <span>Settings</span>
-        </button>
-        <button oui-menu-item>
-            <oui-icon svgIcon="edit-menu" [ouiMenuTriggerFor]="appMenu"></oui-icon>
-            <span>Settings</span>
-        </button>
-        <button oui-menu-item>
-            <oui-icon svgIcon="invitation-menu" [ouiMenuTriggerFor]="appMenu"></oui-icon>
-            <span>Settings</span>
-        </button>
-        <button oui-menu-item>
-            <oui-icon svgIcon="delete-menu" [ouiMenuTriggerFor]="appMenu"></oui-icon>
+            <oui-icon svgIcon="delete-menu"></oui-icon>
             <span>Settings</span>
         </button>
     </oui-menu>
-    <h2>OUI ICON BUTTON</h2>
-    <button oui-icon-button><oui-icon svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon></button>
-    <button>open menu</button>
+    <button oui-icon-button style="margin:200px"><oui-icon style="height:9px" svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon></button>
 
     <h1>Nested Menu</h1>
     <oui-menu #rootMenu="ouiMenu">
