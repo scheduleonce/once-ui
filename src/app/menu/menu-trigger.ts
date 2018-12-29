@@ -1,5 +1,4 @@
 import { FocusMonitor, FocusOrigin, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
-import { Direction, Directionality } from '@angular/cdk/bidi';
 import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
@@ -51,7 +50,7 @@ export const OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 };
 
 /** Default top padding of the menu panel. */
-export const MENU_PANEL_TOP_PADDING = 8;
+export const MENU_PANEL_TOP_PADDING = 10;
 
 /** Options for binding a passive event listener. */
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
@@ -99,7 +98,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     if (menu === this._menu) {
       return;
     }
-
     this._menu = menu;
     this._menuCloseSubscription.unsubscribe();
 
@@ -259,25 +257,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    */
   private _initMenu(): void {
     this.menu.parentMenu = this.triggersSubmenu() ? this._parentMenu : undefined;
-    this.menu.direction = 'ltr';
-    this._setMenuElevation();
     this._setIsMenuOpen(true);
     this.menu.focusFirstItem(this._openedBy || 'program');
-  }
-
-  /** Updates the menu elevation based on the amount of parent menus that it has. */
-  private _setMenuElevation(): void {
-    if (this.menu.setElevation) {
-      let depth = 0;
-      let parentMenu = this.menu.parentMenu;
-
-      while (parentMenu) {
-        depth++;
-        parentMenu = parentMenu.parentMenu;
-      }
-
-      this.menu.setElevation(depth);
-    }
   }
 
   /**
