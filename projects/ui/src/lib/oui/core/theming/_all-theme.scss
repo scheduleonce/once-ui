@@ -3,6 +3,7 @@
 @import '../../dialog/dialog-theme';
 @import '../../input/input-theme';
 @import '../../form-field/form-field-theme';
+@import '../../icon/icon-theme';
 
 
 // Create a theme.
@@ -11,4 +12,5 @@
   @include oui-dialog-theme($theme);
   @include oui-input-theme($theme);
   @include oui-form-field-theme($theme);
+  @include oui-icon-theme($theme);
 }

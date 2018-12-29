@@ -18,7 +18,8 @@ import {
   ViewEncapsulation
 } from '@angular/core';
 
-import { OUI_OPTION_PARENT_COMPONENT, OuiOptgroup, OuiOption } from '../core';
+import { OUI_OPTION_PARENT_COMPONENT, OuiOption } from '../core/option/option';
+import { OuiOptgroup } from '../core/option/optgroup';
 
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of

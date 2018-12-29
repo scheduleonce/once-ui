@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { OuiOptionModule } from '../core';
+import { OuiOptionModule } from '../core/option/index';
 import { OuiAutocomplete } from './autocomplete';
 import {
   OuiAutocompleteTrigger,
