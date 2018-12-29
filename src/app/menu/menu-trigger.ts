@@ -203,7 +203,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     const overlayConfig = overlayRef.getConfig();
 
     this._setPosition(overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy);
-    overlayConfig.hasBackdrop = false;
+    overlayConfig.hasBackdrop = true;
     overlayRef.attach(this._getPortal());
 
     if (this.menu.lazyContent) {
@@ -367,6 +367,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     let [originY, originFallbackY] = [overlayY, overlayFallbackY];
     let [overlayX, overlayFallbackX] = [originX, originFallbackX];
     let offsetY = 0;
+    const overlapTrigger = false;
 
     if (this.triggersSubmenu()) {
       // When the menu is a sub-menu, it should always align itself
@@ -374,7 +375,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       overlayFallbackX = originX = this.menu.xPosition === 'before' ? 'start' : 'end';
       originFallbackX = overlayX = originX === 'end' ? 'start' : 'end';
       offsetY = overlayY === 'bottom' ? MENU_PANEL_TOP_PADDING : -MENU_PANEL_TOP_PADDING;
-    } else if (!this.menu.overlapTrigger) {
+    } else if (!overlapTrigger) {
       originY = overlayY === 'top' ? 'bottom' : 'top';
       originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
     }
