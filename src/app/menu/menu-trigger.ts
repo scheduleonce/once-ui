@@ -1,5 +1,5 @@
 import { FocusMonitor, FocusOrigin, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
-import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { RIGHT_ARROW } from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
   HorizontalConnectionPos,
@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { asapScheduler, merge, of as observableOf, Subscription } from 'rxjs';
-import { delay, filter, take, takeUntil } from 'rxjs/operators';
+import { delay, filter} from 'rxjs/operators';
 import { OuiMenu } from './menu-directive';
 import { throwOuiMenuMissingError } from './menu-errors';
 import { OuiMenuItem } from './menu-item';
@@ -39,7 +39,7 @@ export const OUI_MENU_SCROLL_STRATEGY =
 
 /** @docs-private */
 export function OUI_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
-  return () => overlay.scrollStrategies.reposition();
+  return () => overlay.scrollStrategies.close();
 }
 
 /** @docs-private */
@@ -203,8 +203,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     const overlayConfig = overlayRef.getConfig();
 
     this._setPosition(overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy);
-    overlayConfig.hasBackdrop = this.menu.hasBackdrop == null ? !this.triggersSubmenu() :
-      this.menu.hasBackdrop;
+    overlayConfig.hasBackdrop = false;
     overlayRef.attach(this._getPortal());
 
     if (this.menu.lazyContent) {
@@ -331,7 +330,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         .flexibleConnectedTo(this._element)
         .withLockedPosition()
         .withTransformOriginOn('.oui-menu-panel'),
-      backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
+      backdropClass: 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this._scrollStrategy(),
       direction: 'ltr'
     });
