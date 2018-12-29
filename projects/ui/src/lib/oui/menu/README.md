@@ -140,3 +140,27 @@ When using lazy rendering, additional context data can be passed to the menu pan
 * RIGHT_ARROW: Opens the menu item's sub-menu
 * LEFT_ARROW: Closes the current menu, if it is a sub-menu.
 * ENTER: Activates the focused menu item
+
+
+
+## Api Reference for menu
+
+`import {OuiMenuModule} from '@once/ui';`
+
+### Directive
+------
+
+**OuiMenu**
+
+Selector : `oui-menu`
+Exported as : `ouiMenu`
+
+**properties**
+
+| Name                                                             | Description                            |
+|------------------------------------------------------------------|----------------------------------------|
+| @Input() <br> xPosition: MenuPositionX                           | Position of the menu in the X axis     |
+| @Input() <br> yPosition: MenuPositionY                           | Position of the menu in the Y axis     |
+| @Output()<br> closed: EventEmitter<void 'click' 'keydown' 'tab'> | Event emitted when the menu is closed  |
+| parentMenu: OuiMenuPanel undefined                               | Parent menu of the current menu panel. |
+

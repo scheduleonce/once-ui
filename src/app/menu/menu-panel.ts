@@ -17,7 +17,6 @@ export const OUI_MENU_PANEL = new InjectionToken<OuiMenuPanel>('OUI_MENU_PANEL')
 export interface OuiMenuPanel<T = any> {
   xPosition: MenuPositionX;
   yPosition: MenuPositionY;
-  overlapTrigger: boolean;
   templateRef: TemplateRef<any>;
   close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
   parentMenu?: OuiMenuPanel | undefined;

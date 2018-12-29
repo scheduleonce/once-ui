@@ -39,9 +39,6 @@ export interface OuiMenuDefaultOptions {
   /** The y-axis position of the menu. */
   yPosition: MenuPositionY;
 
-  /** Whether the menu should overlap the menu trigger. */
-  overlapTrigger: boolean;
-
   /** Class to be applied to the menu's backdrop. */
   backdropClass: string;
 }
@@ -56,7 +53,6 @@ export const OUI_MENU_DEFAULT_OPTIONS =
 /** @docs-private */
 export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   return {
-    overlapTrigger: false,
     xPosition: 'after',
     yPosition: 'below',
     backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -135,14 +131,6 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
    * @docs-private
    */
   @ContentChild(OuiMenuContent) lazyContent: OuiMenuContent;
-
-  /** Whether the menu should overlap its trigger. */
-  @Input()
-  get overlapTrigger(): boolean { return this._overlapTrigger; }
-  set overlapTrigger(value: boolean) {
-    this._overlapTrigger = coerceBooleanProperty(value);
-  }
-  private _overlapTrigger: boolean = this._defaultOptions.overlapTrigger;
 
   /**
    * This method takes classes set on the host oui-menu element and applies them on the
