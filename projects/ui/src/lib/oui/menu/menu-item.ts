@@ -25,9 +25,12 @@ export const _OuiMenuItemMixinBase: CanDisableCtor &
  * It exists mostly to set the role attribute.
  */
 @Component({
-  selector: '[oui-menu-item]',
+  // tslint:disable-next-line:component-selector
+  selector: `[oui-menu-item]`,
   exportAs: 'ouiMenuItem',
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '[attr.role]': 'role',
     class: 'oui-menu-item',
@@ -55,10 +58,10 @@ export class OuiMenuItem extends _OuiMenuItemMixinBase
   readonly _hovered: Subject<OuiMenuItem> = new Subject<OuiMenuItem>();
 
   /** Whether the menu item is highlighted. */
-  _highlighted: boolean = false;
+  _highlighted = false;
 
   /** Whether the menu item acts as a trigger for a sub-menu. */
-  _triggersSubmenu: boolean = false;
+  _triggersSubmenu = false;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,

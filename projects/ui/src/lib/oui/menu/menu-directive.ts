@@ -1,9 +1,7 @@
 import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ESCAPE,
   LEFT_ARROW,
-  RIGHT_ARROW,
   DOWN_ARROW,
   UP_ARROW
 } from '@angular/cdk/keycodes';
@@ -215,6 +213,7 @@ export class OuiMenu
 
   /** Handle a keyboard event from the menu, delegating to the appropriate action. */
   _handleKeydown(event: KeyboardEvent) {
+    // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
 
     switch (keyCode) {
