@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { OuiDialog } from './dialog/dialog';
-import { OuiIconRegistry } from './icon/icon-registery';
+import { OuiDialog } from 'projects/ui/src/lib/oui';
+import { OuiIconRegistry } from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
