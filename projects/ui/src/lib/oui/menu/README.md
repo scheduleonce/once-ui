@@ -274,3 +274,7 @@ Injection token to be used to override the default options for oui-menu.
 const OUI_MENU_DEFAULT_OPTIONS: InjectionToken<OUIMenuDefaultOptions>;
 
 ```
+
+## Stackblitz link 
+
+[https://stackblitz.com/edit/angular-menu-oui-234uuwvads](https://stackblitz.com/edit/angular-menu-oui-234uuwvads)
