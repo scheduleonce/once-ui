@@ -1,4 +1,4 @@
-import {FocusableOption, FocusMonitor, FocusOrigin} from '@angular/cdk/a11y';
+import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,21 +7,18 @@ import {
   ViewEncapsulation,
   Inject,
   Optional,
-  Input,
+  Input
 } from '@angular/core';
-import {
-  CanDisable, CanDisableCtor,
-  mixinDisabled,
-} from '../core';
-import {Subject} from 'rxjs';
-import {DOCUMENT} from '@angular/common';
-import {OUI_MENU_PANEL, OuiMenuPanel} from './menu-panel';
+import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
+import { Subject } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
+import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
 
 // Boilerplate for applying mixins to OuiMenuItem.
 /** @docs-private */
 export class OuiMenuItemBase {}
-export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
-    mixinDisabled(OuiMenuItemBase);
+export const _OuiMenuItemMixinBase: CanDisableCtor &
+  typeof OuiMenuItemBase = mixinDisabled(OuiMenuItemBase);
 
 /**
  * This directive is intended to be used inside an oui-menu tag.
@@ -33,24 +30,24 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
   inputs: ['disabled'],
   host: {
     '[attr.role]': 'role',
-    'class': 'oui-menu-item',
+    class: 'oui-menu-item',
     '[class.oui-menu-item-highlighted]': '_highlighted',
     '[class.oui-menu-item-submenu-trigger]': '_triggersSubmenu',
     '[attr.tabindex]': '_getTabIndex()',
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.disabled]': 'disabled || null',
     '(click)': '_checkDisabled($event)',
-    '(mouseenter)': '_handleMouseEnter()',
+    '(mouseenter)': '_handleMouseEnter()'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  templateUrl: 'menu-item.html',
+  templateUrl: 'menu-item.html'
 })
 export class OuiMenuItem extends _OuiMenuItemMixinBase
-    implements FocusableOption, CanDisable, OnDestroy {
-
+  implements FocusableOption, CanDisable, OnDestroy {
   /** ARIA role for the menu item. */
-  @Input() role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
+  @Input()
+  role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
 
   private _document: Document;
 
@@ -67,8 +64,10 @@ export class OuiMenuItem extends _OuiMenuItemMixinBase
     private _elementRef: ElementRef<HTMLElement>,
     @Inject(DOCUMENT) document?: any,
     private _focusMonitor?: FocusMonitor,
-    @Inject(OUI_MENU_PANEL) @Optional() private _parentMenu?: OuiMenuPanel<OuiMenuItem>) {
-
+    @Inject(OUI_MENU_PANEL)
+    @Optional()
+    private _parentMenu?: OuiMenuPanel<OuiMenuItem>
+  ) {
     // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
     super();
 
@@ -151,6 +150,4 @@ export class OuiMenuItem extends _OuiMenuItemMixinBase
 
     return output.trim();
   }
-
 }
-
