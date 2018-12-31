@@ -150,7 +150,7 @@ When using lazy rendering, additional context data can be passed to the menu pan
 ### Directive
 ------
 
-**OuiMenu**
+### **OuiMenu**
 
 Selector : `oui-menu`
 Exported as : `ouiMenu`
@@ -164,3 +164,113 @@ Exported as : `ouiMenu`
 | @Output()<br> closed: EventEmitter<void 'click' 'keydown' 'tab'> | Event emitted when the menu is closed  |
 | parentMenu: OuiMenuPanel undefined                               | Parent menu of the current menu panel. |
 
+**methods**
+
+| Name            | Description                         |
+|-----------------|-------------------------------------|
+| focusFirstItem  | Focus the first item in the menu.   |
+| resetActiveItem | Resets the active item in the menu. |
+
+
+
+
+### **OuiMenuItem**
+
+This directive is intended to be used inside an oui-menu tag. It exists mostly to set the role attribute.
+
+Selector: `[oui-menu-item]`
+
+Exported as: `ouiMenuItem`
+
+**properties**
+
+| Name                                                              | Description                        |
+|-------------------------------------------------------------------|------------------------------------|
+| @Input() <br> disabled                                            | Whether the menu-item is disabled. |
+| @Input() <br> role: 'menuitem' 'menuitemradio' 'menuitemcheckbox' | Position of the menu in the Y axis |
+
+
+**methods**
+
+| Name     | Description                                                                      |
+|----------|----------------------------------------------------------------------------------|
+| focus    | Focuses the menu item.                                                           |
+| getLabel | Gets the label to be used when determining whether the option should be focused. |
+
+
+### **OuiMenuTrigger**
+
+This directive is intended to be used in conjunction with an oui-menu tag. It is responsible for toggling the display of the provided menu instance.
+
+Selector: `[oui-menu-trigger-for] [ouiMenuTriggerFor]`
+
+Exported as: `ouiMenuTrigger`
+
+**properties**
+
+| Name                                                    | Description                                                      |
+|---------------------------------------------------------|------------------------------------------------------------------|
+| @Input('ouiMenuTriggerFor')<br> menu: OuiMenuPanel<any> | References the menu instance that the trigger is associated with |
+| @Input('ouiMenuTriggerData') <br> menuData: any         | Data to be passed along to any lazily-rendered content.          |
+| @Output()<br>menuClosed: EventEmitter<void>             | Event emitted when the associated menu is closed.                |
+| @Output(): menuOpened: EventEmitter<void>               | Event emitted when the associated menu is opened.                |
+| menuOpen: boolean                                       | Whether the menu is open.                                        |
+
+
+
+**methods**
+
+| Name                             | Description                                              |
+|----------------------------------|----------------------------------------------------------|
+| closeMenu                        | Closes the menu.                                         |
+| focus                            | Focuses the menu trigger.                                |
+| openMenu                         | Opens the menu.                                          |
+| toggleMenu                       | Toggles the menu between the open and closed states.     |
+| triggerSubmenu (returns boolean) | Whether the menu triggers a sub-menu or a top-level one. |
+
+
+
+### **OuiMenuContent**
+
+Menu content that will be rendered lazily once the menu is opened.
+
+Selector: ng-template[ouiMenuContent]
+
+### Interfaces
+
+Default oui-menu options that can be overridden.
+
+**properties**
+
+| Name                     | Description                      |
+|--------------------------|----------------------------------|
+| xPosition: MenuPositionX | The x-axis position of the menu. |
+| yPosition: MenuPositionY | The y-axis position of the menu. |
+
+
+## Type Aliases
+
+### MenuPositionX
+
+```typescript
+  type MenuPositionX = 'before' | 'after';
+```
+
+### MenuPositionY
+
+
+```typescript
+  type MenuPositionY = 'above' | 'below';
+```
+
+## Constants
+
+### OUI_MENU_DEFAULT_OPTIONS
+
+Injection token to be used to override the default options for oui-menu.
+
+```typescript
+
+const OUI_MENU_DEFAULT_OPTIONS: InjectionToken<OUIMenuDefaultOptions>;
+
+```
