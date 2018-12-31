@@ -1,52 +1,126 @@
 <div class="fit">
     <h1>Menu</h1>
-    <oui-menu #appMenu xPosition="before" yPosition="above">
-        <button oui-menu-item>
-            <oui-icon svgIcon="edit-menu"></oui-icon>
-            <span>Settings</span>
+    <div class="trigger">
+        <span>x-axis:after y-axis:"above"</span>
+        <button oui-icon-button>
+            <oui-icon style="height:9px" svgIcon="three-dot" [ouiMenuTriggerFor]="afterAboveMenu"></oui-icon>
         </button>
-        <button oui-menu-item>
-            <oui-icon svgIcon="invitation-menu"></oui-icon>
-            <span>Settings</span>
-        </button>
-        <button oui-menu-item>
-            <oui-icon svgIcon="delete-menu"></oui-icon>
-            <span>Settings</span>
-        </button>
-    </oui-menu>
-    <button oui-icon-button style="margin:200px"><oui-icon style="height:9px" svgIcon="three-dot" [ouiMenuTriggerFor]="appMenu"></oui-icon></button>
+        <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
+            <button oui-menu-item>
+                <oui-icon svgIcon="edit-menu"></oui-icon>
+                <span>Edit</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="invitation-menu"></oui-icon>
+                <span>Invite</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="delete-menu"></oui-icon>
+                <span>Delete</span>
+            </button>
+        </oui-menu>
+    </div>
 
-    <h1>Nested Menu</h1>
-    <oui-menu #rootMenu="ouiMenu">
-        <button oui-menu-item [ouiMenuTriggerFor]="subMenu">Power</button>
-        <button oui-menu-item [ouiMenuTriggerFor]="subMenu">System settings</button>
-    </oui-menu>
-    
-    <oui-menu #subMenu="ouiMenu">
-        <button oui-menu-item>Shut down</button>
-        <button oui-menu-item>Restart</button>
-        <button oui-menu-item>Hibernate</button>
-    </oui-menu>
-    
-    <button [ouiMenuTriggerFor]="rootMenu">nested-menu</button>
+    <div class="trigger">
+        <span>x-axis:before y-axis:"above"</span>
+        <button oui-icon-button>
+            <oui-icon style="height:9px" svgIcon="three-dot" [ouiMenuTriggerFor]="beforeAboveMenu"></oui-icon>
+        </button>
+        <oui-menu #beforeAboveMenu xPosition="before" yPosition="above">
+            <button oui-menu-item>
+                <oui-icon svgIcon="edit-menu"></oui-icon>
+                <span>Edit</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="invitation-menu"></oui-icon>
+                <span>Invite</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="delete-menu"></oui-icon>
+                <span>Delete</span>
+            </button>
+        </oui-menu>
+    </div>
+
+    <div class="trigger">
+        <span>x-axis:before y-axis:"below"</span>
+        <button oui-icon-button>
+            <oui-icon style="height:9px" svgIcon="three-dot" [ouiMenuTriggerFor]="beforeBelowMenu"></oui-icon>
+        </button>
+        <oui-menu #beforeBelowMenu xPosition="before" yPosition="below">
+            <button oui-menu-item>
+                <oui-icon svgIcon="edit-menu"></oui-icon>
+                <span>Edit</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="invitation-menu"></oui-icon>
+                <span>Invite</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="delete-menu"></oui-icon>
+                <span>Delete</span>
+            </button>
+        </oui-menu>
+    </div>
+
+    <div class="trigger">
+        <span>x-axis:after y-axis:"below"</span>
+        <button oui-icon-button>
+            <oui-icon style="height:9px" svgIcon="three-dot" [ouiMenuTriggerFor]="afterBelowMenu"></oui-icon>
+        </button>
+        <oui-menu #afterBelowMenu xPosition="after" yPosition="below">
+            <button oui-menu-item>
+                <oui-icon svgIcon="edit-menu"></oui-icon>
+                <span>Edit</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="invitation-menu"></oui-icon>
+                <span>Invite</span>
+            </button>
+            <button oui-menu-item>
+                <oui-icon svgIcon="delete-menu"></oui-icon>
+                <span>Delete</span>
+            </button>
+        </oui-menu>
+    </div>
+
+    <div class="trigger">
+        <span> nested menu </span>
+        <button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
+            <oui-icon svgIcon="three-dot"></oui-icon>
+        </button>
+
+        <oui-menu #rootMenu="ouiMenu">
+            <button oui-menu-item [ouiMenuTriggerFor]="subMenu">Power</button>
+            <button oui-menu-item [ouiMenuTriggerFor]="subMenu">System settings</button>
+        </oui-menu>
+        
+        <oui-menu #subMenu="ouiMenu">
+            <button oui-menu-item>Shut down</button>
+            <button oui-menu-item>Restart</button>
+            <button oui-menu-item>Hibernate</button>
+        </oui-menu>
+        
+    </div>
+
 
     <h1>Form field</h1>
     <div class="input-outer">
-      <oui-form-field>
-        <input oui-input placeholder="Any"/>
-      </oui-form-field>
+        <oui-form-field>
+            <input oui-input placeholder="Any" />
+        </oui-form-field>
     </div>
     <h1>Input</h1>
     <h3>Bordered</h3>
     <div>
         <div class="input-outer display-inline">
             <oui-form-field>
-                <input oui-input placeholder="Any"/>
+                <input oui-input placeholder="Any" />
             </oui-form-field>
         </div>
         <div class="input-outer display-inline">
             <oui-form-field>
-                <input oui-input disabled placeholder="Any"/>
+                <input oui-input disabled placeholder="Any" />
             </oui-form-field>
         </div>
     </div>
@@ -55,13 +129,13 @@
     <div>
         <div class="input-outer display-inline">
             <oui-form-field [appearance]="'underline'">
-                <input oui-input placeholder="Any"/>
+                <input oui-input placeholder="Any" />
                 <div class="bottom-line"></div>
             </oui-form-field>
         </div>
         <div class="input-outer display-inline">
             <oui-form-field [appearance]="'underline'">
-                <input oui-input disabled placeholder="Any"/>
+                <input oui-input disabled placeholder="Any" />
                 <div class="bottom-line"></div>
             </oui-form-field>
         </div>
@@ -70,14 +144,14 @@
     <h1>Textarea</h1>
     <div>
         <div class="textarea-outer display-inline">
-          <oui-form-field>
-            <textarea oui-input></textarea>
-          </oui-form-field>
+            <oui-form-field>
+                <textarea oui-input></textarea>
+            </oui-form-field>
         </div>
         <div class="textarea-outer display-inline">
-          <oui-form-field>
-            <textarea oui-input disabled></textarea>
-          </oui-form-field>
+            <oui-form-field>
+                <textarea oui-input disabled></textarea>
+            </oui-form-field>
         </div>
     </div>
 
@@ -132,24 +206,25 @@
 
         <button oui-icon-text-button color="warn"><img src="../assets/images/pdf.png"><label>this is super button</label></button>
 
-        <button oui-icon-text-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super button</label></button>
+        <button oui-icon-text-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super
+                button</label></button>
 
     </div>
 
- <!--icon buttons-->
- <div>
+    <!--icon buttons-->
+    <div>
 
-    <button oui-icon-button>
-        <oui-icon svgIcon="invitation-menu"></oui-icon>
-    </button>
-    <button oui-icon-button>
-        <oui-icon svgIcon="edit-menu"></oui-icon>
-    </button>
-    <button oui-icon-button>
-        <oui-icon svgIcon="delete-menu"></oui-icon>
-    </button>
+        <button oui-icon-button>
+            <oui-icon svgIcon="invitation-menu"></oui-icon>
+        </button>
+        <button oui-icon-button>
+            <oui-icon svgIcon="edit-menu"></oui-icon>
+        </button>
+        <button oui-icon-button>
+            <oui-icon svgIcon="delete-menu"></oui-icon>
+        </button>
 
-</div>
+    </div>
 
 
     <h1>A tags</h1>
@@ -222,14 +297,14 @@
 
     <h1>Autocomplete</h1>
     <div class="input-outer">
-      <oui-form-field>
-        <input oui-input [ouiAutocomplete]="auto"/>
-      </oui-form-field>
-      <oui-autocomplete #auto="ouiAutocomplete">
-        <oui-option *ngFor="let option of options" [value]="option">
-          {{option}}
-        </oui-option>
-      </oui-autocomplete>
+        <oui-form-field>
+            <input oui-input [ouiAutocomplete]="auto" />
+        </oui-form-field>
+        <oui-autocomplete #auto="ouiAutocomplete">
+            <oui-option *ngFor="let option of options" [value]="option">
+                {{option}}
+            </oui-option>
+        </oui-autocomplete>
     </div>
 
 </div>
@@ -243,10 +318,9 @@
             <div oui-dialog-header-action>
                 <div title="Close" oui-dialog-header-close oui-dialog-close></div>
                 <a title="Article" oui-dialog-header-article href="https://youtube.com" target="blank"></a>
-                <a title="Video" href="https://youtube.com" target="blank"
-                    oui-dialog-header-video oui-dialog-header-separator></a>
-                <a title="Video" href="https://youtube.com" target="blank"
-                    oui-dialog-header-video></a>
+                <a title="Video" href="https://youtube.com" target="blank" oui-dialog-header-video
+                    oui-dialog-header-separator></a>
+                <a title="Video" href="https://youtube.com" target="blank" oui-dialog-header-video></a>
             </div>
         </div>
         <div oui-dialog-content>
@@ -268,11 +342,11 @@
 <h1>Icons </h1>
 <h3>Relative to project:</h3>
 <oui-icon svgIcon="local" color="primary"></oui-icon>
-<br/>
+<br />
 <h3>IcoMoon: </h3>
 <oui-icon svgIcon="icon-bullhorn" inline="true" color="primary"></oui-icon>
 <oui-icon svgIcon="icon-diamonds" inline="true" color="accent"></oui-icon>
 <oui-icon svgIcon="icon-pacman" inline="true" color="warn"></oui-icon>
 
 
-<br/><br/>
+<br /><br />

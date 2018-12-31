@@ -61,7 +61,7 @@ $oui-menu-line-height: 22px;
 @mixin oui-menu-item-base() {
     //white-space: nowrap;
     font-size: 13px;
-    font-family: 'Open Sans';
+    font-family: 'Open Sans', sans-serif;
     font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
