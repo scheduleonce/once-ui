@@ -1,6 +1,12 @@
-import {FocusKeyManager, FocusOrigin} from '@angular/cdk/a11y';
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW} from '@angular/cdk/keycodes';
+import { FocusKeyManager, FocusOrigin } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  ESCAPE,
+  LEFT_ARROW,
+  RIGHT_ARROW,
+  DOWN_ARROW,
+  UP_ARROW
+} from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -19,17 +25,18 @@ import {
   QueryList,
   ViewChild,
   ViewEncapsulation,
-  OnInit,
+  OnInit
 } from '@angular/core';
-import {merge, Observable, Subject, Subscription} from 'rxjs';
-import {startWith, switchMap, take} from 'rxjs/operators';
-import {OuiMenuContent} from './menu-content';
-import {throwOuiMenuInvalidPositionX, throwOuiMenuInvalidPositionY} from './menu-errors';
-import {OuiMenuItem} from './menu-item';
-import {OUI_MENU_PANEL, OuiMenuPanel} from './menu-panel';
-import {MenuPositionX, MenuPositionY} from './menu-positions';
-
-
+import { merge, Observable, Subject, Subscription } from 'rxjs';
+import { startWith, switchMap, take } from 'rxjs/operators';
+import { OuiMenuContent } from './menu-content';
+import {
+  throwOuiMenuInvalidPositionX,
+  throwOuiMenuInvalidPositionY
+} from './menu-errors';
+import { OuiMenuItem } from './menu-item';
+import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
+import { MenuPositionX, MenuPositionY } from './menu-positions';
 
 /** Default `oui-menu` options that can be overridden. */
 export interface OuiMenuDefaultOptions {
@@ -44,21 +51,21 @@ export interface OuiMenuDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `oui-menu`. */
-export const OUI_MENU_DEFAULT_OPTIONS =
-    new InjectionToken<OuiMenuDefaultOptions>('oui-menu-default-options', {
-      providedIn: 'root',
-      factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY
-    });
+export const OUI_MENU_DEFAULT_OPTIONS = new InjectionToken<
+  OuiMenuDefaultOptions
+>('oui-menu-default-options', {
+  providedIn: 'root',
+  factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY
+});
 
 /** @docs-private */
 export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   return {
     xPosition: 'after',
     yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop',
+    backdropClass: 'cdk-overlay-transparent-backdrop'
   };
 }
-
 
 @Component({
   selector: 'oui-menu',
@@ -67,11 +74,10 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenu',
-  providers: [
-    {provide: OUI_MENU_PANEL, useExisting: OuiMenu}
-  ]
+  providers: [{ provide: OUI_MENU_PANEL, useExisting: OuiMenu }]
 })
-export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy {
+export class OuiMenu
+  implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy {
   private _keyManager: FocusKeyManager<OuiMenuItem>;
   private _xPosition: MenuPositionX = this._defaultOptions.xPosition;
   private _yPosition: MenuPositionY = this._defaultOptions.yPosition;
@@ -86,17 +92,20 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
   private _tabSubscription = Subscription.EMPTY;
 
   /** Config object to be passed into the menu's ngClass */
-  _classList: {[key: string]: boolean} = {};
+  _classList: { [key: string]: boolean } = {};
 
   /** Parent menu of the current menu panel. */
   parentMenu: OuiMenuPanel | undefined;
 
   /** Class to be added to the backdrop element. */
-  @Input() backdropClass: string = this._defaultOptions.backdropClass;
+  @Input()
+  backdropClass: string = this._defaultOptions.backdropClass;
 
   /** Position of the menu in the X axis. */
   @Input()
-  get xPosition(): MenuPositionX { return this._xPosition; }
+  get xPosition(): MenuPositionX {
+    return this._xPosition;
+  }
   set xPosition(value: MenuPositionX) {
     if (value !== 'before' && value !== 'after') {
       throwOuiMenuInvalidPositionX();
@@ -107,7 +116,9 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
 
   /** Position of the menu in the Y axis. */
   @Input()
-  get yPosition(): MenuPositionY { return this._yPosition; }
+  get yPosition(): MenuPositionY {
+    return this._yPosition;
+  }
   set yPosition(value: MenuPositionY) {
     if (value !== 'above' && value !== 'below') {
       throwOuiMenuInvalidPositionY();
@@ -117,20 +128,23 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
   }
 
   /** @docs-private */
-  @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
+  @ViewChild(TemplateRef)
+  templateRef: TemplateRef<any>;
 
   /**
    * List of the items inside of a menu.
    * @deprecated
    * @breaking-change 8.0.0
    */
-  @ContentChildren(OuiMenuItem) items: QueryList<OuiMenuItem>;
+  @ContentChildren(OuiMenuItem)
+  items: QueryList<OuiMenuItem>;
 
   /**
    * Menu content that will be rendered lazily.
    * @docs-private
    */
-  @ContentChild(OuiMenuContent) lazyContent: OuiMenuContent;
+  @ContentChild(OuiMenuContent)
+  lazyContent: OuiMenuContent;
 
   /**
    * This method takes classes set on the host oui-menu element and applies them on the
@@ -141,38 +155,49 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
   @Input('class')
   set panelClass(classes: string) {
     if (classes && classes.length) {
-      this._classList = classes.split(' ').reduce((obj: any, className: string) => {
-        obj[className] = true;
-        return obj;
-      }, {});
+      this._classList = classes
+        .split(' ')
+        .reduce((obj: any, className: string) => {
+          obj[className] = true;
+          return obj;
+        }, {});
 
       this._elementRef.nativeElement.className = '';
     }
   }
 
   /** Event emitted when the menu is closed. */
-  @Output() readonly closed: EventEmitter<void | 'click' | 'keydown' | 'tab'> =
-      new EventEmitter<void | 'click' | 'keydown' | 'tab'>();
+  @Output()
+  readonly closed: EventEmitter<
+    void | 'click' | 'keydown' | 'tab'
+  > = new EventEmitter<void | 'click' | 'keydown' | 'tab'>();
 
   /**
    * Event emitted when the menu is closed.
    * @deprecated Switch to `closed` instead
    * @breaking-change 8.0.0
    */
-  @Output() close = this.closed;
+  @Output()
+  close = this.closed;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
     private _ngZone: NgZone,
-    @Inject(OUI_MENU_DEFAULT_OPTIONS) private _defaultOptions: OuiMenuDefaultOptions) { }
+    @Inject(OUI_MENU_DEFAULT_OPTIONS)
+    private _defaultOptions: OuiMenuDefaultOptions
+  ) {}
 
   ngOnInit() {
     this.setPositionClasses();
   }
 
   ngAfterContentInit() {
-    this._keyManager = new FocusKeyManager<OuiMenuItem>(this._items).withWrap().withTypeAhead();
-    this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.closed.emit('tab'));
+    this._keyManager = new FocusKeyManager<OuiMenuItem>(this._items)
+      .withWrap()
+      .withTypeAhead();
+    this._tabSubscription = this._keyManager.tabOut.subscribe(() =>
+      this.closed.emit('tab')
+    );
   }
 
   ngOnDestroy() {
@@ -195,12 +220,12 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
     switch (keyCode) {
       case ESCAPE:
         this.closed.emit('keydown');
-      break;
+        break;
       case LEFT_ARROW:
         if (this.parentMenu) {
           this.closed.emit('keydown');
         }
-      break;
+        break;
       default:
         if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
           this._keyManager.setFocusOrigin('keyboard');
@@ -217,9 +242,12 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
   focusFirstItem(origin: FocusOrigin = 'program'): void {
     // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
     if (this.lazyContent) {
-      this._ngZone.onStable.asObservable()
+      this._ngZone.onStable
+        .asObservable()
         .pipe(take(1))
-        .subscribe(() => this._keyManager.setFocusOrigin(origin).setFirstItemActive());
+        .subscribe(() =>
+          this._keyManager.setFocusOrigin(origin).setFirstItemActive()
+        );
     } else {
       this._keyManager.setFocusOrigin(origin).setFirstItemActive();
     }
@@ -269,7 +297,10 @@ export class OuiMenu implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnI
    * @param posY Position of the menu along the y axis.
    * @docs-private
    */
-  setPositionClasses(posX: MenuPositionX = this.xPosition, posY: MenuPositionY = this.yPosition) {
+  setPositionClasses(
+    posX: MenuPositionX = this.xPosition,
+    posY: MenuPositionY = this.yPosition
+  ) {
     const classes = this._classList;
     classes['oui-menu-before'] = posX === 'before';
     classes['oui-menu-after'] = posX === 'after';

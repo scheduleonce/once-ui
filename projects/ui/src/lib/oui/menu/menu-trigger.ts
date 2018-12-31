@@ -1,4 +1,8 @@
-import { FocusMonitor, FocusOrigin, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
+import {
+  FocusMonitor,
+  FocusOrigin,
+  isFakeMousedownFromScreenReader
+} from '@angular/cdk/a11y';
 import { RIGHT_ARROW } from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
@@ -7,7 +11,7 @@ import {
   OverlayConfig,
   OverlayRef,
   VerticalConnectionPos,
-  ScrollStrategy,
+  ScrollStrategy
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
@@ -22,11 +26,11 @@ import {
   Optional,
   Output,
   Self,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { asapScheduler, merge, of as observableOf, Subscription } from 'rxjs';
-import { delay, filter} from 'rxjs/operators';
+import { delay, filter } from 'rxjs/operators';
 import { OuiMenu } from './menu-directive';
 import { throwOuiMenuMissingError } from './menu-errors';
 import { OuiMenuItem } from './menu-item';
@@ -34,11 +38,14 @@ import { OuiMenuPanel } from './menu-panel';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 
 /** Injection token that determines the scroll handling while the menu is open. */
-export const OUI_MENU_SCROLL_STRATEGY =
-  new InjectionToken<() => ScrollStrategy>('oui-menu-scroll-strategy');
+export const OUI_MENU_SCROLL_STRATEGY = new InjectionToken<
+  () => ScrollStrategy
+>('oui-menu-scroll-strategy');
 
 /** @docs-private */
-export function OUI_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
+export function OUI_MENU_SCROLL_STRATEGY_FACTORY(
+  overlay: Overlay
+): () => ScrollStrategy {
   return () => overlay.scrollStrategies.close();
 }
 
@@ -46,14 +53,16 @@ export function OUI_MENU_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => Scroll
 export const OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_MENU_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_MENU_SCROLL_STRATEGY_FACTORY,
+  useFactory: OUI_MENU_SCROLL_STRATEGY_FACTORY
 };
 
 /** Default top padding of the menu panel. */
 export const MENU_PANEL_TOP_PADDING = 10;
 
 /** Options for binding a passive event listener. */
-const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
+const passiveEventListenerOptions = normalizePassiveListenerOptions({
+  passive: true
+});
 
 // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
 
@@ -68,7 +77,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
     '[attr.aria-expanded]': 'menuOpen || null',
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
-    '(click)': '_handleClick($event)',
+    '(click)': '_handleClick($event)'
   },
   exportAs: 'ouiMenuTrigger'
 })
@@ -85,7 +94,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * Handles touch start events on the trigger.
    * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
    */
-  private _handleTouchStart = () => this._openedBy = 'touch';
+  private _handleTouchStart = () => (this._openedBy = 'touch');
 
   // Tracking input type is necessary so it's possible to only auto-focus
   // the first item of the list when the menu is opened via the keyboard
@@ -93,7 +102,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** References the menu instance that the trigger is associated with. */
   @Input('ouiMenuTriggerFor')
-  get menu() { return this._menu; }
+  get menu() {
+    return this._menu;
+  }
   set menu(menu: OuiMenuPanel) {
     if (menu === this._menu) {
       return;
@@ -102,23 +113,27 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     this._menuCloseSubscription.unsubscribe();
 
     if (menu) {
-      this._menuCloseSubscription = menu.close.asObservable().subscribe(reason => {
-        this._destroyMenu();
+      this._menuCloseSubscription = menu.close
+        .asObservable()
+        .subscribe(reason => {
+          this._destroyMenu();
 
-        // If a click closed the menu, we should close the entire chain of nested menus.
-        if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
-          this._parentMenu.closed.emit(reason);
-        }
-      });
+          // If a click closed the menu, we should close the entire chain of nested menus.
+          if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
+            this._parentMenu.closed.emit(reason);
+          }
+        });
     }
   }
   private _menu: OuiMenuPanel;
 
   /** Data to be passed along to any lazily-rendered content. */
-  @Input('ouiMenuTriggerData') menuData: any;
+  @Input('ouiMenuTriggerData')
+  menuData: any;
 
   /** Event emitted when the associated menu is opened. */
-  @Output() readonly menuOpened: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  readonly menuOpened: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * Event emitted when the associated menu is opened.
@@ -126,10 +141,12 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * @breaking-change 8.0.0
    */
   // tslint:disable-next-line:no-output-on-prefix
-  @Output() readonly onMenuOpen: EventEmitter<void> = this.menuOpened;
+  @Output()
+  readonly onMenuOpen: EventEmitter<void> = this.menuOpened;
 
   /** Event emitted when the associated menu is closed. */
-  @Output() readonly menuClosed: EventEmitter<void> = new EventEmitter<void>();
+  @Output()
+  readonly menuClosed: EventEmitter<void> = new EventEmitter<void>();
 
   /**
    * Event emitted when the associated menu is closed.
@@ -137,20 +154,27 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * @breaking-change 8.0.0
    */
   // tslint:disable-next-line:no-output-on-prefix
-  @Output() readonly onMenuClose: EventEmitter<void> = this.menuClosed;
+  @Output()
+  readonly onMenuClose: EventEmitter<void> = this.menuClosed;
 
-  constructor(private _overlay: Overlay,
+  constructor(
+    private _overlay: Overlay,
     private _element: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
     @Inject(OUI_MENU_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional() private _parentMenu: OuiMenu,
-    @Optional() @Self() private _menuItemInstance: OuiMenuItem,
+    @Optional()
+    @Self()
+    private _menuItemInstance: OuiMenuItem,
     // TODO(crisbeto): make the _focusMonitor required when doing breaking changes.
     // @breaking-change 8.0.0
-    private _focusMonitor?: FocusMonitor) {
-
-    _element.nativeElement.addEventListener('touchstart', this._handleTouchStart,
-      passiveEventListenerOptions);
+    private _focusMonitor?: FocusMonitor
+  ) {
+    _element.nativeElement.addEventListener(
+      'touchstart',
+      this._handleTouchStart,
+      passiveEventListenerOptions
+    );
 
     if (_menuItemInstance) {
       _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
@@ -170,8 +194,11 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       this._overlayRef = null;
     }
 
-    this._element.nativeElement.removeEventListener('touchstart', this._handleTouchStart,
-      passiveEventListenerOptions);
+    this._element.nativeElement.removeEventListener(
+      'touchstart',
+      this._handleTouchStart,
+      passiveEventListenerOptions
+    );
 
     this._cleanUpSubscriptions();
   }
@@ -202,7 +229,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     const overlayRef = this._createOverlay();
     const overlayConfig = overlayRef.getConfig();
 
-    this._setPosition(overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy);
+    this._setPosition(
+      overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy
+    );
     overlayConfig.hasBackdrop = true;
     overlayRef.attach(this._getPortal());
 
@@ -210,7 +239,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       this.menu.lazyContent.attach(this.menuData);
     }
 
-    this._closeSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
+    this._closeSubscription = this._menuClosingActions().subscribe(() =>
+      this.closeMenu()
+    );
     this._initMenu();
   }
 
@@ -249,13 +280,14 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     }
   }
 
-
   /**
    * This method sets the menu state to open and focuses the first item if
    * the menu was opened via the keyboard.
    */
   private _initMenu(): void {
-    this.menu.parentMenu = this.triggersSubmenu() ? this._parentMenu : undefined;
+    this.menu.parentMenu = this.triggersSubmenu()
+      ? this._parentMenu
+      : undefined;
     this._setIsMenuOpen(true);
     this.menu.focusFirstItem(this._openedBy || 'program');
   }
@@ -308,7 +340,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _createOverlay(): OverlayRef {
     if (!this._overlayRef) {
       const config = this._getOverlayConfig();
-      this._subscribeToPositions(config.positionStrategy as FlexibleConnectedPositionStrategy);
+      this._subscribeToPositions(
+        config.positionStrategy as FlexibleConnectedPositionStrategy
+      );
       this._overlayRef = this._overlay.create(config);
 
       // Consume the `keydownEvents` in order to prevent them from going to another overlay.
@@ -326,7 +360,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    */
   private _getOverlayConfig(): OverlayConfig {
     return new OverlayConfig({
-      positionStrategy: this._overlay.position()
+      positionStrategy: this._overlay
+        .position()
         .flexibleConnectedTo(this._element)
         .withLockedPosition()
         .withTransformOriginOn('.oui-menu-panel'),
@@ -341,11 +376,15 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * on the menu based on the new position. This ensures the animation origin is always
    * correct, even if a fallback position is used for the overlay.
    */
-  private _subscribeToPositions(position: FlexibleConnectedPositionStrategy): void {
+  private _subscribeToPositions(
+    position: FlexibleConnectedPositionStrategy
+  ): void {
     if (this.menu.setPositionClasses) {
       position.positionChanges.subscribe(change => {
-        const posX: MenuPositionX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-        const posY: MenuPositionY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
+        const posX: MenuPositionX =
+          change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+        const posY: MenuPositionY =
+          change.connectionPair.overlayY === 'top' ? 'below' : 'above';
 
         this.menu.setPositionClasses!(posX, posY);
       });
@@ -372,9 +411,13 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     if (this.triggersSubmenu()) {
       // When the menu is a sub-menu, it should always align itself
       // to the edges of the trigger, instead of overlapping it.
-      overlayFallbackX = originX = this.menu.xPosition === 'before' ? 'start' : 'end';
+      overlayFallbackX = originX =
+        this.menu.xPosition === 'before' ? 'start' : 'end';
       originFallbackX = overlayX = originX === 'end' ? 'start' : 'end';
-      offsetY = overlayY === 'bottom' ? MENU_PANEL_TOP_PADDING : -MENU_PANEL_TOP_PADDING;
+      offsetY =
+        overlayY === 'bottom'
+          ? MENU_PANEL_TOP_PADDING
+          : -MENU_PANEL_TOP_PADDING;
     } else if (!overlapTrigger) {
       originY = overlayY === 'top' ? 'bottom' : 'top';
       originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
@@ -382,7 +425,13 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
     positionStrategy.withPositions([
       { originX, originY, overlayX, overlayY, offsetY },
-      { originX: originFallbackX, originY, overlayX: overlayFallbackX, overlayY, offsetY },
+      {
+        originX: originFallbackX,
+        originY,
+        overlayX: overlayFallbackX,
+        overlayY,
+        offsetY
+      },
       {
         originX,
         originY: originFallbackY,
@@ -410,11 +459,15 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _menuClosingActions() {
     const backdrop = this._overlayRef!.backdropClick();
     const detachments = this._overlayRef!.detachments();
-    const parentClose = this._parentMenu ? this._parentMenu.closed : observableOf();
-    const hover = this._parentMenu ? this._parentMenu._hovered().pipe(
-      filter(active => active !== this._menuItemInstance),
-      filter(() => this._menuOpen)
-    ) : observableOf();
+    const parentClose = this._parentMenu
+      ? this._parentMenu.closed
+      : observableOf();
+    const hover = this._parentMenu
+      ? this._parentMenu._hovered().pipe(
+          filter(active => active !== this._menuItemInstance),
+          filter(() => this._menuOpen)
+        )
+      : observableOf();
 
     return merge(backdrop, parentClose, hover, detachments);
   }
@@ -462,7 +515,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       return;
     }
 
-    this._hoverSubscription = this._parentMenu._hovered()
+    this._hoverSubscription = this._parentMenu
+      ._hovered()
       // Since we might have multiple competing triggers for the same menu (e.g. a sub-menu
       // with different data and triggers), we have to delay it by a tick to ensure that
       // it won't be closed immediately after it is opened.
@@ -487,10 +541,12 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     // While it would be cleaner, we'd have to introduce another required method on
     // `OuiMenuPanel`, making it harder to consume.
     if (!this._portal || this._portal.templateRef !== this.menu.templateRef) {
-      this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+      this._portal = new TemplatePortal(
+        this.menu.templateRef,
+        this._viewContainerRef
+      );
     }
 
     return this._portal;
   }
-
 }
