@@ -72,6 +72,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
  */
 @Directive({
   selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'menuOpen || null',
@@ -84,17 +85,11 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
 export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _portal: TemplatePortal;
   private _overlayRef: OverlayRef | null = null;
-  private _menuOpen: boolean = false;
+  private _menuOpen = false;
   private _closeSubscription = Subscription.EMPTY;
   private _hoverSubscription = Subscription.EMPTY;
   private _menuCloseSubscription = Subscription.EMPTY;
   private _scrollStrategy: () => ScrollStrategy;
-
-  /**
-   * Handles touch start events on the trigger.
-   * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
-   */
-  private _handleTouchStart = () => (this._openedBy = 'touch');
 
   // Tracking input type is necessary so it's possible to only auto-focus
   // the first item of the list when the menu is opened via the keyboard
@@ -128,6 +123,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _menu: OuiMenuPanel;
 
   /** Data to be passed along to any lazily-rendered content. */
+
+  // tslint:disable-next-line:no-input-rename
   @Input('ouiMenuTriggerData')
   menuData: any;
 
@@ -135,27 +132,17 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   @Output()
   readonly menuOpened: EventEmitter<void> = new EventEmitter<void>();
 
-  /**
-   * Event emitted when the associated menu is opened.
-   * @deprecated Switch to `menuOpened` instead
-   * @breaking-change 8.0.0
-   */
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output()
-  readonly onMenuOpen: EventEmitter<void> = this.menuOpened;
-
   /** Event emitted when the associated menu is closed. */
   @Output()
   readonly menuClosed: EventEmitter<void> = new EventEmitter<void>();
 
   /**
-   * Event emitted when the associated menu is closed.
-   * @deprecated Switch to `menuClosed` instead
-   * @breaking-change 8.0.0
+   * Handles touch start events on the trigger.
+   * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
    */
-  // tslint:disable-next-line:no-output-on-prefix
-  @Output()
-  readonly onMenuClose: EventEmitter<void> = this.menuClosed;
+  private _handleTouchStart = () => (this._openedBy = 'touch');
+
+
 
   constructor(
     private _overlay: Overlay,
@@ -400,7 +387,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     let [originX, originFallbackX]: HorizontalConnectionPos[] =
       this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'];
 
-    let [overlayY, overlayFallbackY]: VerticalConnectionPos[] =
+    const [overlayY, overlayFallbackY]: VerticalConnectionPos[] =
       this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
 
     let [originY, originFallbackY] = [overlayY, overlayFallbackY];
@@ -490,6 +477,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Handles key presses on the trigger. */
   _handleKeydown(event: KeyboardEvent): void {
+    // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
 
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
