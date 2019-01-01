@@ -35,6 +35,7 @@ import {
 import { OuiMenuItem } from './menu-item';
 import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Default `oui-menu` options that can be overridden. */
 export interface OuiMenuDefaultOptions {
@@ -46,6 +47,9 @@ export interface OuiMenuDefaultOptions {
 
   /** Class to be applied to the menu's backdrop. */
   backdropClass: string;
+
+  /** Whether the menu has a backdrop. */
+  hasBackdrop?: boolean;
 }
 
 /** Injection token to be used to override the default options for `oui-menu`. */
@@ -98,6 +102,16 @@ export class OuiMenu
   /** Class to be added to the backdrop element. */
   @Input()
   backdropClass: string = this._defaultOptions.backdropClass;
+
+  /** Whether the menu has a backdrop. */
+  @Input()
+  get hasBackdrop(): boolean | undefined {
+    return this._hasBackdrop;
+  }
+  set hasBackdrop(value: boolean | undefined) {
+    this._hasBackdrop = coerceBooleanProperty(value);
+  }
+  private _hasBackdrop: boolean | undefined = this._defaultOptions.hasBackdrop;
 
   /** Position of the menu in the X axis. */
   @Input()

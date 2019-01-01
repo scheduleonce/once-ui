@@ -30,7 +30,7 @@ import {
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { asapScheduler, merge, of as observableOf, Subscription } from 'rxjs';
-import { delay, filter } from 'rxjs/operators';
+import { delay, filter, tap } from 'rxjs/operators';
 import { OuiMenu } from './menu-directive';
 import { throwOuiMenuMissingError } from './menu-errors';
 import { OuiMenuItem } from './menu-item';
@@ -112,7 +112,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         .asObservable()
         .subscribe(reason => {
           this._destroyMenu();
-
           // If a click closed the menu, we should close the entire chain of nested menus.
           if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
             this._parentMenu.closed.emit(reason);
@@ -141,8 +140,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * Needs to be an arrow function so we can easily use addEventListener and removeEventListener.
    */
   private _handleTouchStart = () => (this._openedBy = 'touch');
-
-
 
   constructor(
     private _overlay: Overlay,
@@ -219,16 +216,16 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     this._setPosition(
       overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy
     );
-    overlayConfig.hasBackdrop = true;
+    overlayConfig.hasBackdrop = !this.triggersSubmenu();
     overlayRef.attach(this._getPortal());
 
     if (this.menu.lazyContent) {
       this.menu.lazyContent.attach(this.menuData);
     }
 
-    this._closeSubscription = this._menuClosingActions().subscribe(() =>
-      this.closeMenu()
-    );
+    this._closeSubscription = this._menuClosingActions().subscribe(() => {
+      this.closeMenu();
+    });
     this._initMenu();
   }
 
@@ -261,9 +258,13 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     this._closeSubscription.unsubscribe();
     this._overlayRef.detach();
 
-    this._resetMenu();
-    if (menu.lazyContent) {
-      menu.lazyContent.detach();
+    if (menu instanceof OuiMenu) {
+      this._resetMenu();
+    } else {
+      this._resetMenu();
+      if (menu.lazyContent) {
+        menu.lazyContent.detach();
+      }
     }
   }
 
