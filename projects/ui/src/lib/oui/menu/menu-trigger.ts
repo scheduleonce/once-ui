@@ -59,6 +59,9 @@ export const OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 /** Default top padding of the menu panel. */
 export const MENU_PANEL_TOP_PADDING = 10;
 
+/** Default left padding of the menu panel */
+export const MENU_PANEL_LEFT_PADDING = 2;
+
 /** Options for binding a passive event listener. */
 const passiveEventListenerOptions = normalizePassiveListenerOptions({
   passive: true
@@ -394,6 +397,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     let [originY, originFallbackY] = [overlayY, overlayFallbackY];
     let [overlayX, overlayFallbackX] = [originX, originFallbackX];
     let offsetY = 0;
+    let offsetX = 0;
     const overlapTrigger = false;
 
     if (this.triggersSubmenu()) {
@@ -406,33 +410,39 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayY === 'bottom'
           ? MENU_PANEL_TOP_PADDING
           : -MENU_PANEL_TOP_PADDING;
+
+      offsetX =
+        overlayX === 'end' ? MENU_PANEL_LEFT_PADDING : -MENU_PANEL_LEFT_PADDING;
     } else if (!overlapTrigger) {
       originY = overlayY === 'top' ? 'bottom' : 'top';
       originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
     }
 
     positionStrategy.withPositions([
-      { originX, originY, overlayX, overlayY, offsetY },
+      { originX, originY, overlayX, overlayY, offsetY, offsetX },
       {
         originX: originFallbackX,
         originY,
         overlayX: overlayFallbackX,
         overlayY,
-        offsetY
+        offsetY,
+        offsetX
       },
       {
         originX,
         originY: originFallbackY,
         overlayX,
         overlayY: overlayFallbackY,
-        offsetY: -offsetY
+        offsetY: -offsetY,
+        offsetX: -offsetX
       },
       {
         originX: originFallbackX,
         originY: originFallbackY,
         overlayX: overlayFallbackX,
         overlayY: overlayFallbackY,
-        offsetY: -offsetY
+        offsetY: -offsetY,
+        offsetX: -offsetX
       }
     ]);
   }
