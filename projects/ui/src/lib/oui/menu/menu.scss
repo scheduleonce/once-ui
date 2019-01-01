@@ -62,7 +62,6 @@ $oui-menu-line-height: 22px;
     //white-space: nowrap;
     font-size: 13px;
     font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
     overflow: hidden;
     text-overflow: ellipsis;
     // Needs to be a block for the ellipsis to work.
@@ -111,7 +110,7 @@ $oui-menu-line-height: 22px;
         max-width: 198px;
         vertical-align: top;
         line-height: 20px;
-        margin-top: 2px;
+        margin-top: 1px;
     }
     
     @include cdk-high-contrast {
