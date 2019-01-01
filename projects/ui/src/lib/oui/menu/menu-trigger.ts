@@ -412,7 +412,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
           : -MENU_PANEL_TOP_PADDING;
 
       offsetX =
-        overlayX === 'end' ? MENU_PANEL_LEFT_PADDING : -MENU_PANEL_LEFT_PADDING;
+        overlayX === 'start'
+          ? MENU_PANEL_LEFT_PADDING
+          : -MENU_PANEL_LEFT_PADDING;
     } else if (!overlapTrigger) {
       originY = overlayY === 'top' ? 'bottom' : 'top';
       originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
@@ -434,7 +436,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayX,
         overlayY: overlayFallbackY,
         offsetY: -offsetY,
-        offsetX: -offsetX
+        offsetX
       },
       {
         originX: originFallbackX,
