@@ -24,38 +24,17 @@ export class AppComponent {
     private matIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.matIconRegistry.addSvgIcon(
-      `local`,
+    this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/v-green.svg`
+        `https://i.icomoon.io/public/temp/bcb5bc86a0/Oncehub/symbol-defs.svg`
       )
     );
-
     this.matIconRegistry.addSvgIcon(
       `three-dot`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         `/assets/images/three-dot.svg`
       )
     );
-    this.matIconRegistry.addSvgIcon(
-      `edit-menu`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/edit-menu.svg`
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `invitation-menu`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/invitation-menu.svg`
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `delete-menu`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/delete-menu.svg`
-      )
-    );
-
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
