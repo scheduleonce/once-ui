@@ -26,7 +26,7 @@ export class AppComponent {
   ) {
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `https://i.icomoon.io/public/temp/bcb5bc86a0/Oncehub/symbol-defs.svg`
+        `https://i.icomoon.io/public/temp/649229bb86/Oncehub/symbol-defs.svg`
       )
     );
     this.matIconRegistry.addSvgIcon(
