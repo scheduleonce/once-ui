@@ -9,7 +9,29 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  options: string[] = ['One', 'Two', 'Three'];
+  options: string[] = [
+    'One',
+    'Two',
+    'Three'
+  ];
+  stateGroups = [
+    {
+      letter: 'A',
+      names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas']
+    },
+    {
+      letter: 'C',
+      names: ['California', 'Colorado', 'Connecticut']
+    },
+    {
+      letter: 'D',
+      names: ['Delaware']
+    },
+    {
+      letter: 'F',
+      names: ['Florida']
+    }
+  ];
 
   @ViewChild('dialogTemplate')
   dialogTemplate;

@@ -267,72 +267,67 @@
 
         <a oui-ghost-button color="warn">this is super button</a> -->
 
-    <a oui-ghost-button color="primary" disabled>this is super button</a>
-  </div>
-  <!--icon buttons-->
-  <div>
-    <a oui-icon-text-button color="primary"
-      ><img src="../assets/images/excel.png" /><label
-        >this is super button</label
-      ></a
-    >
+        <a oui-ghost-button color="primary" disabled>this is super button</a>
 
-    <a oui-icon-text-button color="accent"
-      ><img src="../assets/images/csv.png" /><label
-        >this is super button</label
-      ></a
-    >
+    </div>
+    <!--icon buttons-->
+    <div>
 
-    <a oui-icon-text-button color="warn"
-      ><img src="../assets/images/pdf.png" /><label
-        >this is super button</label
-      ></a
-    >
+        <a oui-icon-button color="primary"><img src="../assets/images/excel.png"><label>this is super button</label></a>
 
-    <a oui-icon-text-button color="warn" disabled
-      ><img src="../assets/images/pdf.png" /><label
-        >this is super button</label
-      ></a
-    >
-  </div>
+        <a oui-icon-button color="accent"><img src="../assets/images/csv.png"><label>this is super button</label></a>
 
-  <h1>Progress Button</h1>
+        <a oui-icon-button color="warn"><img src="../assets/images/pdf.png"><label>this is super button</label></a>
 
-  <div>
-    <button #progressButton oui-button progress (click)="progressButtonClick()">
-      button
-    </button>
+        <a oui-icon-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super button</label></a>
 
-    <button
-      #progressLinkButton
-      oui-link-button
-      progress
-      (click)="progressButtonLinkClick()"
-    ></button>
 
-    <button
-      #progressGhostButton
-      oui-ghost-button
-      progress
-      (click)="progressButtonGhostClick()"
-    ></button>
-  </div>
+    </div>
 
-  <h1>Dialog</h1>
+    <h1>Progress Button</h1>
 
-  <div><button oui-button (click)="openDialog()">Open</button></div>
+    <div>
+        <button #progressButton oui-button progress (click)="progressButtonClick()">button</button>
 
-  <h1>Autocomplete</h1>
-  <div class="input-outer">
-    <oui-form-field>
-      <input oui-input [ouiAutocomplete]="auto" />
-    </oui-form-field>
-    <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let option of options" [value]="option">
-        {{ option }}
-      </oui-option>
-    </oui-autocomplete>
-  </div>
+        <button #progressLinkButton oui-link-button progress (click)="progressButtonLinkClick()"></button>
+
+        <button #progressGhostButton oui-ghost-button progress (click)="progressButtonGhostClick()"></button>
+    </div>
+
+    <h1>Dialog</h1>
+
+    <div>
+        <button oui-button (click)="openDialog()">Open</button>
+    </div>
+
+
+    <h1>Autocomplete</h1>
+    <div class="input-outer">
+      <oui-form-field>
+        <input oui-input [ouiAutocomplete]="auto"/>
+      </oui-form-field>
+      <oui-autocomplete #auto="ouiAutocomplete">
+        <oui-option *ngFor="let option of options" [value]="option">
+          {{option}}
+        </oui-option>
+      </oui-autocomplete>
+    </div>
+
+
+    <h1>Autocomplete with group</h1>
+    <div class="input-outer">
+      <oui-form-field>
+        <input type="text" oui-input [ouiAutocomplete]="autoGroup"/>
+          <oui-autocomplete #autoGroup="ouiAutocomplete" class="autocomplete-group">
+            <oui-optgroup *ngFor="let group of stateGroups" [label]="group.letter">
+              <oui-option *ngFor="let name of group.names" [value]="name">
+                {{name}}
+              </oui-option>
+          </oui-optgroup>
+        </oui-autocomplete>
+      </oui-form-field>
+    </div>
+
 </div>
 
 <div>
