@@ -81,11 +81,11 @@ $oui-menu-line-height: 22px;
     .oui-icon {
       display: inline-block;
       vertical-align: top;
-      width: 22px;
+      width: 20px;
       height: 20px;
       margin-right: 8px;
       text-align: center;
-      margin-top: 0px;
+      margin-top: 1px;
       svg {
         vertical-align: top;
       }
@@ -96,7 +96,7 @@ $oui-menu-line-height: 22px;
     @include oui-button-reset();
     @include oui-menu-item-base();
     position: relative;    
-    padding: 9px 8px;
+    padding: 8px 8px;
     display: block;
     color: #333;
     cursor: pointer;
@@ -107,7 +107,7 @@ $oui-menu-line-height: 22px;
 
     span{
         display: inline-block;
-        max-width: 198px;
+        max-width: 200px;
         vertical-align: top;
         line-height: 20px;
         margin-top: 1px;
