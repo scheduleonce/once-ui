@@ -1,9 +1,9 @@
-@import './core/theming/prebuilt/chatonce.scss';
+@import 'projects/ui/prebuilt-themes/chatonce.scss';
 
 .fit{
     div{
         margin: 10px;
-        button,a{
+        button, a{
             margin-right: 10px;
         }
         a::after{
@@ -40,5 +40,20 @@
         height: 1px;
         transition: all .1s;
         margin: 0px;
+    }
+
+    .trigger{
+        width: 200px;
+        height: 50px;
+        margin-top: 100px;
+        margin-left: 100px;
+        background-color: rgb(240, 234, 234); 
+        display: inline-block;
+        padding: 15px 20px;
+        text-align: center;
+
+        span{
+            display: block;
+        }
     }
 }

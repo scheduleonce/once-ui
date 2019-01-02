@@ -6,15 +6,15 @@ A `<button>` element should be used whenever some action is performed. An `<a>` 
 
 There are several `<button>` variants, each applied as an attribute:
 
-| **Name**                        | **Description**                                            |
-| -----------------------------   | ---------------------------------------------------------- |
-| `oui-button`                    | rounded regular solid button                               |      
-| `oui-ghost-button`              | rounded regular hollow button                              |
-| `oui-link-button`               | text link button                                           |
-| `oui-icon-button`               | rounded button meant to contain icon                       |
-| `color`                         | it can be from `primary`,`accent` and `warn`               |
-| `disabled`                      | to disable the button                                      |
-| `progress`                      | to add button states                                       |
+| **Name**               | **Description**                              |
+|------------------------|----------------------------------------------|
+| `oui-button`           | rounded regular solid button                 |
+| `oui-ghost-button`     | rounded regular hollow button                |
+| `oui-link-button`      | text link button                             |
+| `oui-icon-text-button` | rounded button meant to contain icon         |
+| `color`                | it can be from `primary`,`accent` and `warn` |
+| `disabled`             | to disable the button                        |
+| `progress`             | to add button states                         |
 
 
 ## Theming
