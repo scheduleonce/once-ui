@@ -6,7 +6,7 @@ $padding-unchecked: 5px 5.05px;
 $font-size: 11px;
 $translate-px: 15px;
 $text-translate-px: 16px;
-$grey:#ccc;
+$grey:#c8c8c8;
 
 @mixin oui-slide-toggle-theme($theme) {
   @include oui-slide-toggle-theme-base($theme);
@@ -24,7 +24,6 @@ $grey:#ccc;
     display: inline-block;
     width: $width;
     height: $height;
-    opacity: 0.5;
   }
   .oui-slide-toogle-wrapper input {
     opacity: 0;
@@ -62,13 +61,14 @@ $grey:#ccc;
   input:checked.with-text + .slider:before {
     content: 'ON';
     padding: $padding-checked;
+    color: #ffffff;
   }
 
   input.with-text + .slider:before {
     content: 'OFF';
     padding: $padding-unchecked;
     position: absolute;
-    color: white;
+    color: #333333;
     font-size: $font-size;
     top: -1px;
     left: -1px;
@@ -90,6 +90,13 @@ $grey:#ccc;
   }
   .slider.round:before {
     border-radius: 34px;
+  }
+  input:not(.with-text):checked + .slider:before{    
+    width: 19px;
+    height: 19px;
+    left: 8px;
+    top: 2px;
+    border-radius: 50%;
   }
 }
 
