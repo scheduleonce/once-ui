@@ -182,6 +182,21 @@
       </oui-autocomplete>
     </div>
 
+
+    <h1>Autocomplete with group</h1>
+    <div class="input-outer">
+      <oui-form-field>
+        <input type="text" oui-input [ouiAutocomplete]="autoGroup"/>
+          <oui-autocomplete #autoGroup="ouiAutocomplete" class="autocomplete-group">
+            <oui-optgroup *ngFor="let group of stateGroups" [label]="group.letter">
+              <oui-option *ngFor="let name of group.names" [value]="name">
+                {{name}}
+              </oui-option>
+          </oui-optgroup>
+        </oui-autocomplete>
+      </oui-form-field>
+    </div>
+
 </div>
 
 
