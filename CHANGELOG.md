@@ -28,3 +28,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Placeholder
+
+
+
+
+
+## [1.4.0] - 2019-01-02
+
+### Added
+
+- oui-icon, oui-menu, oui-icon-button with oui-icon support
+
+### Changed
+
+- oui-icon-button changed to oui-icon-text-button
+
+### Removed
+
+- NA
+
+### Fixed
+
+- cdk overlay bug fixes
