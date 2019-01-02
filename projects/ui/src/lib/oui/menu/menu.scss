@@ -1,5 +1,4 @@
 @import './menu-theme';
-@import '~@angular/cdk/a11y';
 @import '~@angular/cdk/overlay-prebuilt.css';
 
 // menu width must be a multiple of 56px
@@ -108,14 +107,7 @@ $oui-menu-line-height: 22px;
     line-height: 20px;
     margin-top: 1px;
   }
-
-  @include cdk-high-contrast {
-    &.cdk-program-focused,
-    &.cdk-keyboard-focused,
-    &-highlighted {
-      outline: dotted 1px;
-    }
-  }
+  
 }
 
 .oui-menu-item:hover,
