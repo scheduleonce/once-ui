@@ -5,26 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
-
-### Changed
-
-- Placeholder
-
-## [1.0.0] - 2017-06-20
+## [1.4.0] - 2019-01-02
 
 ### Added
 
-- Placeholder
+- oui-icon, oui-menu, oui-icon-button with oui-icon support
 
 ### Changed
 
-- Placeholder
+- oui-icon-button changed to oui-icon-text-button
 
 ### Removed
 
-- Placeholder
+- NA
 
 ### Fixed
 
-- Placeholder
+- cdk overlay bug fixes
