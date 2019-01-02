@@ -1,8 +1,12 @@
 <ng-template>
-    <div class="oui-menu-panel" [ngClass]="_classList" (keydown)="_handleKeydown($event)" (click)="closed.emit('click')"
-        tabindex="-1" role="menu">
-        <div class="oui-menu-content">
-            <ng-content></ng-content>
-        </div>
-    </div>
+  <div
+    class="oui-menu-panel"
+    [ngClass]="_classList"
+    (keydown)="_handleKeydown($event)"
+    (click)="closed.emit('click')"
+    tabindex="-1"
+    role="menu"
+  >
+    <div class="oui-menu-content"><ng-content></ng-content></div>
+  </div>
 </ng-template>

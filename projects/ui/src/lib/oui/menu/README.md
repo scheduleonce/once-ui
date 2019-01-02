@@ -4,7 +4,7 @@
 
 The `<oui-menu>` doesn't render anything by itself. The menu is attached to and opened via application of the `ouiMenuTriggerFor` directive.
 
-```html 
+```html
 <oui-menu #appMenu="yourMenu">
   <button oui-menu-item>Settings</button> <button oui-menu-item>Help</button>
 </oui-menu>
@@ -13,7 +13,6 @@ The `<oui-menu>` doesn't render anything by itself. The menu is attached to and 
   <!-- specify any icon -->
   <oui-icon svgIcon="three-dots"></oui-icon>
 </button>
-
 ```
 
 ## Toggling the menu programmatically
@@ -22,14 +21,14 @@ The menu exposes an API to open/close programmatically. Please note that in this
 
 ```typescript
 class MyComponent {
-    @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
+  @ViewChild(OuiMenuTrigger)
+  trigger: OuiMenuTrigger;
 
-    someMethod() {
-        this.trigger.openMenu();
-    }
+  someMethod() {
+    this.trigger.openMenu();
+  }
 }
 ```
-
 
 ## Icons
 
@@ -135,20 +134,19 @@ When using lazy rendering, additional context data can be passed to the menu pan
 
 ## Keyboard Interaction
 
-* DOWN_ARROW: Focuses the next menu item
-* UP_ARROW: Focuses previous menu item
-* RIGHT_ARROW: Opens the menu item's sub-menu
-* LEFT_ARROW: Closes the current menu, if it is a sub-menu.
-* ENTER: Activates the focused menu item
-
-
+- DOWN_ARROW: Focuses the next menu item
+- UP_ARROW: Focuses previous menu item
+- RIGHT_ARROW: Opens the menu item's sub-menu
+- LEFT_ARROW: Closes the current menu, if it is a sub-menu.
+- ENTER: Activates the focused menu item
 
 ## Api Reference for menu
 
 `import {OuiMenuModule} from '@once/ui';`
 
 ### Directive
-------
+
+---
 
 ### **OuiMenu**
 
@@ -158,7 +156,7 @@ Exported as : `ouiMenu`
 **properties**
 
 | Name                                                             | Description                            |
-|------------------------------------------------------------------|----------------------------------------|
+| ---------------------------------------------------------------- | -------------------------------------- |
 | @Input() <br> xPosition: MenuPositionX                           | Position of the menu in the X axis     |
 | @Input() <br> yPosition: MenuPositionY                           | Position of the menu in the Y axis     |
 | @Output()<br> closed: EventEmitter<void 'click' 'keydown' 'tab'> | Event emitted when the menu is closed  |
@@ -167,12 +165,9 @@ Exported as : `ouiMenu`
 **methods**
 
 | Name            | Description                         |
-|-----------------|-------------------------------------|
+| --------------- | ----------------------------------- |
 | focusFirstItem  | Focus the first item in the menu.   |
 | resetActiveItem | Resets the active item in the menu. |
-
-
-
 
 ### **OuiMenuItem**
 
@@ -185,18 +180,16 @@ Exported as: `ouiMenuItem`
 **properties**
 
 | Name                                                              | Description                        |
-|-------------------------------------------------------------------|------------------------------------|
+| ----------------------------------------------------------------- | ---------------------------------- |
 | @Input() <br> disabled                                            | Whether the menu-item is disabled. |
 | @Input() <br> role: 'menuitem' 'menuitemradio' 'menuitemcheckbox' | Position of the menu in the Y axis |
-
 
 **methods**
 
 | Name     | Description                                                                      |
-|----------|----------------------------------------------------------------------------------|
+| -------- | -------------------------------------------------------------------------------- |
 | focus    | Focuses the menu item.                                                           |
 | getLabel | Gets the label to be used when determining whether the option should be focused. |
-
 
 ### **OuiMenuTrigger**
 
@@ -209,26 +202,22 @@ Exported as: `ouiMenuTrigger`
 **properties**
 
 | Name                                                    | Description                                                      |
-|---------------------------------------------------------|------------------------------------------------------------------|
+| ------------------------------------------------------- | ---------------------------------------------------------------- |
 | @Input('ouiMenuTriggerFor')<br> menu: OuiMenuPanel<any> | References the menu instance that the trigger is associated with |
 | @Input('ouiMenuTriggerData') <br> menuData: any         | Data to be passed along to any lazily-rendered content.          |
 | @Output()<br>menuClosed: EventEmitter<void>             | Event emitted when the associated menu is closed.                |
 | @Output(): menuOpened: EventEmitter<void>               | Event emitted when the associated menu is opened.                |
 | menuOpen: boolean                                       | Whether the menu is open.                                        |
 
-
-
 **methods**
 
 | Name                             | Description                                              |
-|----------------------------------|----------------------------------------------------------|
+| -------------------------------- | -------------------------------------------------------- |
 | closeMenu                        | Closes the menu.                                         |
 | focus                            | Focuses the menu trigger.                                |
 | openMenu                         | Opens the menu.                                          |
 | toggleMenu                       | Toggles the menu between the open and closed states.     |
 | triggerSubmenu (returns boolean) | Whether the menu triggers a sub-menu or a top-level one. |
-
-
 
 ### **OuiMenuContent**
 
@@ -243,24 +232,22 @@ Default oui-menu options that can be overridden.
 **properties**
 
 | Name                     | Description                      |
-|--------------------------|----------------------------------|
+| ------------------------ | -------------------------------- |
 | xPosition: MenuPositionX | The x-axis position of the menu. |
 | yPosition: MenuPositionY | The y-axis position of the menu. |
-
 
 ## Type Aliases
 
 ### MenuPositionX
 
 ```typescript
-  type MenuPositionX = 'before' | 'after';
+type MenuPositionX = 'before' | 'after';
 ```
 
 ### MenuPositionY
 
-
 ```typescript
-  type MenuPositionY = 'above' | 'below';
+type MenuPositionY = 'above' | 'below';
 ```
 
 ## Constants
@@ -270,11 +257,9 @@ Default oui-menu options that can be overridden.
 Injection token to be used to override the default options for oui-menu.
 
 ```typescript
-
 const OUI_MENU_DEFAULT_OPTIONS: InjectionToken<OUIMenuDefaultOptions>;
-
 ```
 
-## Stackblitz link 
+## Stackblitz link
 
 [https://stackblitz.com/edit/angular-menu-oui-234uuwvads](https://stackblitz.com/edit/angular-menu-oui-234uuwvads)
