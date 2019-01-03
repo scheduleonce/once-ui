@@ -36,7 +36,7 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   },
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled'],
-  styleUrls:['./slide-toggle.scss'],
+  styleUrls: ['./slide-toggle.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
