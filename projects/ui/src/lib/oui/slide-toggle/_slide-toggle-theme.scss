@@ -97,6 +97,14 @@ $grey:#c8c8c8;
     left: 8px;
     top: 2px;
     border-radius: 50%;
+    background-color: #ffffff !important;
+  }
+  input:not(.with-text) + .slider:before{    
+    width: 19px;
+    height: 19px;
+    left: 2px;
+    top: 2px;
+    border-radius: 50%;
   }
 }
 
@@ -123,5 +131,15 @@ $grey:#c8c8c8;
   }
   &.oui-warn input:checked + .slider.round {
     border: 1px solid map-get($warn, darker);
+  }  
+  &.oui-primary input:not(.with-text):checked + .slider{   
+    background-color: map-get($primary, darker);
   }
+  &.oui-accent input:not(.with-text):checked + .slider{   
+    background-color: map-get($accent, darker);
+  }
+  &.oui-warn input:not(.with-text):checked + .slider{   
+    background-color: map-get($warn, darker);
+  }
+
 }
