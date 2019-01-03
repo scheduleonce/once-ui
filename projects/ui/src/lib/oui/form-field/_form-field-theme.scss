@@ -8,7 +8,14 @@ $form-field-text-align: inherit;
 $form-field-border-bottom: 1px solid #9c9c9c;
 $form-field-border: 1px solid #9c9c9c;
 $form-field-color: #333333;
+$form-field-disabled-color: #9C9C9C;
+$form-field-disabled-border: #E4E4E4;
 $form-field-box-sizing: border-box;
+$form-field-font-size: 14px;
+$form-field-height: 34px;
+$form-field-textarea-height: 71px;
+$form-field-line-height: 19px;
+$form-field-default-background: #fff;
 @mixin oui-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -40,6 +47,18 @@ $form-field-box-sizing: border-box;
     text-align: $form-field-text-align;
     color: $form-field-color;
     box-sizing: $form-field-box-sizing;
+    font-size: $form-field-font-size;
+    height: $form-field-height;
+    line-height: $form-field-line-height;
+    background: $form-field-default-background;
+    &:disabled{
+      border-color: $form-field-disabled-border;
+      color: $form-field-disabled-color;
+    }
+  }
+  textarea.oui-input{
+    min-height: $form-field-textarea-height;
+    min-width: $form-field-width;
   }
 }
 
@@ -65,7 +84,11 @@ $form-field-box-sizing: border-box;
       background-color: map-get($primary, lighter);
     }
     &:focus{
-      border-bottom: 1px solid map-get($primary, lighter);
+      border-bottom: 2px solid map-get($primary, lighter);
+    }
+    &:disabled{
+      border-color: #CBCBCB;
+      color: #666666;
     }
   }
 }
