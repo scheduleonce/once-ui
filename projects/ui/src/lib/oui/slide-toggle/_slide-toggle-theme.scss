@@ -1,8 +1,7 @@
 $width: 46px;
 $border-radius: 13px;
 $height: 25px;
-$padding-checked: 5px 6.57px;
-$padding-unchecked: 5px 5.05px;
+$padding: 5px 5.5px;
 $font-size: 11px;
 $translate-px: 15px;
 $text-translate-px: 16px;
@@ -60,13 +59,13 @@ $grey:#c8c8c8;
 
   input:checked.with-text + .slider:before {
     content: 'ON';
-    padding: $padding-checked;
+    padding: $padding;
     color: #ffffff;
   }
 
   input.with-text + .slider:before {
     content: 'OFF';
-    padding: $padding-unchecked;
+    padding: $padding;
     position: absolute;
     color: #333333;
     font-size: $font-size;
@@ -74,6 +73,9 @@ $grey:#c8c8c8;
     left: -1px;
     background-color: $grey;
     transition: 0.4s;
+    width: 19px;
+    text-align: center;
+    height: 15px;
   }
   input:checked + .slider:before {
     -webkit-transform: translateX($translate-px);
