@@ -41,3 +41,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Autocomplete, input, textarea theme improved according to Oncehub
 - Removed overriding css of CDK from Autocomplete
+- https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/autocomplete/README.md, https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/input/README.md
