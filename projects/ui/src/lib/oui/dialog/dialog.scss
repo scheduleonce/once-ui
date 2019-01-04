@@ -1,5 +1,4 @@
 @import 'dialog-theme';
-@import '~@angular/cdk/overlay-prebuilt.css';
 .cdk-overlay-backdrop{
     background: rgba(255,255,255,.8);
 }
@@ -48,7 +47,7 @@
 }
 
 .oui-dialog-header-image{
-  position: absolute; 
+  position: absolute;
   width: 20px;
   margin-right: 10px;
   text-align: center;
@@ -73,7 +72,7 @@
     bottom: auto;
 }
 .oui-dialog-header-action::after{
-  clear: both;  
+  clear: both;
   content: '';
   display: block;
 }
@@ -129,7 +128,7 @@
   right:-9px;
 }
 
-.oui-dialog-content{  
+.oui-dialog-content{
   color: #333;
   min-height: 30px;
   line-height: 22px;
@@ -152,7 +151,7 @@
 }
 .oui-dialog-footer::after{
   clear: both;
-  content: '';  
+  content: '';
   display: block;
 }
 .oui-dialog-footer-action-left{
@@ -162,7 +161,7 @@
 .oui-dialog-footer-action-right{
   float: right;
 }
-/* 
+/*
 .oui-dialog-footer-action-right input{
   margin-top: 0.5px;
   margin-bottom: 3px;
