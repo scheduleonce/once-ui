@@ -327,7 +327,41 @@
         </oui-autocomplete>
       </oui-form-field>
     </div>
+    <h1>Slide toggle</h1>
 
+    <h3>Enabled</h3>
+    
+    <h4>Primary</h4>
+    
+    <oui-slide-toggle [checked]="true"></oui-slide-toggle>
+    <oui-slide-toggle [checked]="false"></oui-slide-toggle>
+    
+    <h4>Accent</h4>
+    
+    <oui-slide-toggle color="accent" [checked]="true"></oui-slide-toggle>
+    <oui-slide-toggle color="accent" [checked]="false"></oui-slide-toggle>
+    
+    <h4>Warn</h4>
+    
+    <oui-slide-toggle color="warn" [checked]="true"></oui-slide-toggle>
+    <oui-slide-toggle color="warn" [checked]="false"></oui-slide-toggle>
+    
+    <h3>Disabled</h3>
+    
+    <h4>Primary</h4>
+    
+    <oui-slide-toggle [checked]="true" [disabled]="true"></oui-slide-toggle>
+    <oui-slide-toggle [checked]="false" [disabled]="true"></oui-slide-toggle>
+    
+    <h4>Accent</h4>
+    
+    <oui-slide-toggle color="accent" [checked]="true" [disabled]="true"></oui-slide-toggle>
+    <oui-slide-toggle color="accent" [checked]="false" [disabled]="true"></oui-slide-toggle>
+    
+    <h4>Warn</h4>
+    
+    <oui-slide-toggle color="warn" [checked]="true" [disabled]="true"></oui-slide-toggle>
+    <oui-slide-toggle color="warn" [checked]="false" [disabled]="true"></oui-slide-toggle>
 </div>
 
 <div>
@@ -373,6 +407,7 @@
     </div>
   </ng-template>
 </div>
+
 <h1>Icons</h1>
 <h3>Relative to project:</h3>
 <oui-icon svgIcon="local" color="primary"></oui-icon>
