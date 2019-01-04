@@ -1,44 +1,62 @@
-@import './core/theming/prebuilt/chatonce.scss';
+.fit {
+  div {
+    margin: 10px;
+    button,
+    a {
+      margin-right: 10px;
+    }
+    a::after {
+      content: '';
+      clear: both;
+    }
+  }
+  .input-outer {
+    max-width: 237px;
+  }
+  .textarea-outer {
+    max-width: 326px;
+    width: 100%;
+  }
+  .display-inline {
+    display: inline-block;
+  }
+  input:disabled {
+    border-color: #e4e4e4;
+    color: #9c9c9c;
+    background-color: transparent;
+  }
+  textarea {
+    line-height: 19px;
+    padding: 8px 9px;
+  }
+  &:disabled {
+    border-color: #e4e4e4;
+    color: #9c9c9c;
+    background-color: transparent;
+  }
+  .bottom-line {
+    background-color: transparent;
+    height: 1px;
+    transition: all 0.1s;
+    margin: 0px;
+  }
 
-.fit{
-    div{
-        margin: 10px;
-        button,a{
-            margin-right: 10px;
-        }
-        a::after{
-            content: '';
-            clear: both;
-        }
+  .trigger {
+    width: 200px;
+    height: 50px;
+    margin-top: 100px;
+    margin-left: 100px;
+    background-color: rgb(240, 234, 234);
+    display: inline-block;
+    padding: 15px 20px;
+    text-align: center;
+
+    span {
+      display: block;
     }
-    .input-outer{
-        max-width: 137px;
-    }
-    .textarea-outer{
-        max-width: 326px;
-        width: 100%;
-    }
-    .display-inline{
-        display: inline-block;
-    }
-    input:disabled{
-        border-color: #E4E4E4;
-        color: #9C9C9C;
-        background-color: transparent;
-    }
-    textarea{
-        line-height: 19px;
-        padding: 8px 9px;
-    }
-    &:disabled{
-        border-color: #E4E4E4;
-        color: #9C9C9C;
-        background-color: transparent;
-    }
-    .bottom-line {
-        background-color: transparent;
-        height: 1px;
-        transition: all .1s;
-        margin: 0px;
-    }
+  }
+
+  oui-slide-toggle {
+    margin-right: 10px;
+  }
 }
