@@ -22,3 +22,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - cdk overlay bug fixes
+
+## [1.4.1] - 2019-01-04
+
+### Added
+
+- NA
+
+### Changed
+
+- Autocomplete, input, textarea theme improved according to Oncehub
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Autocomplete, input, textarea theme improved according to Oncehub
+- Removed overriding css of CDK from Autocomplete
