@@ -1,4 +1,4 @@
-## Overview
+o## Overview
 
 ## oui-icon
 `<oui-checkbox>` provides the same functionality as a native `<input type="checkbox">`.
@@ -70,6 +70,6 @@ Exported as: `ouiCheckbox`
 
 ## Stackblitz demo link
 
-Demo coming soon..
+[https://stackblitz.com/edit/oui-checkbox](https://stackblitz.com/edit/oui-checkbox)
 
-
+You can click here and can change code to try and test different scenarios. 
