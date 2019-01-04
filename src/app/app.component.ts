@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { OuiDialog } from './dialog/dialog';
-import { OuiIconRegistry } from './icon/icon-registery';
+import { OuiDialog } from 'projects/ui/src/lib/oui';
+import { OuiIconRegistry } from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -10,6 +10,24 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   options: string[] = ['One', 'Two', 'Three'];
+  stateGroups = [
+    {
+      letter: 'A',
+      names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas']
+    },
+    {
+      letter: 'C',
+      names: ['California', 'Colorado', 'Connecticut']
+    },
+    {
+      letter: 'D',
+      names: ['Delaware']
+    },
+    {
+      letter: 'F',
+      names: ['Florida']
+    }
+  ];
 
   @ViewChild('dialogTemplate')
   dialogTemplate;
@@ -24,13 +42,17 @@ export class AppComponent {
     private matIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.matIconRegistry.addSvgIcon(
-      `local`,
+    this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/v-green.svg`
+        `https://i.icomoon.io/public/temp/649229bb86/Oncehub/symbol-defs.svg`
       )
     );
-
+    this.matIconRegistry.addSvgIcon(
+      `three-dot`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        `/assets/images/three-dot.svg`
+      )
+    );
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
