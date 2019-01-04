@@ -383,3 +383,14 @@
 <oui-icon svgIcon="icon-pacman" inline="true" color="warn"></oui-icon>
 
 <br /><br />
+<h3>Checkbox: </h3>
+<oui-checkbox
+  class="example-margin"
+  [(ngModel)]="checked"
+  [ngModelOptions]="{standalone: true}"
+  ngDefaultControl
+  [labelPosition]="labelPosition"
+  [disabled]="disabled"
+  (change)="func($event)">
+  I'm a checkbox
+</oui-checkbox>
