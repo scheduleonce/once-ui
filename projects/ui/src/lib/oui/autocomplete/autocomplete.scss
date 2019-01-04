@@ -42,7 +42,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 48px;
-    height: 32px;
+    height: 38px;
     padding: 0 12px;
     text-align: left;
     text-decoration: none;
@@ -82,7 +82,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
   background: #fff;
   color: rgba(0, 0, 0, 0.87);
   border: 1px solid #9C9C9C;
-  padding: 11px 0;
+  padding: 10px 0;
   .oui-option.oui-selected:not(.oui-active):not(:hover) {
     background: #fff;
     &:not(.oui-option-disabled) {
