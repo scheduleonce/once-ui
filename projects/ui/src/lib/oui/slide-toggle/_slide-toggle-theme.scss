@@ -22,13 +22,4 @@
   &.oui-warn input:checked + .slider.round {
     border: 1px solid map-get($warn, darker) !important;
   }
-  &.oui-primary input:not(.with-text):checked + .slider {
-    background-color: map-get($primary, darker) !important;
-  }
-  &.oui-accent input:not(.with-text):checked + .slider {
-    background-color: map-get($accent, darker) !important;
-  }
-  &.oui-warn input:not(.with-text):checked + .slider {
-    background-color: map-get($warn, darker) !important;
-  }
 }

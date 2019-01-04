@@ -2,11 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  ViewEncapsulation,
   Input,
   Output,
   EventEmitter,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  ViewEncapsulation
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
@@ -37,7 +37,8 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled'],
   styleUrls: ['./slide-toggle.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None
 })
 export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
   private _checked = false;
@@ -52,8 +53,6 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
   }
   @Input()
   disabled = false;
-  @Input()
-  withText = false;
   @Input()
   color = 'primary';
   @Input()
