@@ -1,4 +1,3 @@
-@import '~@angular/cdk/overlay-prebuilt.css';
 /**
  * The max-height of the panel, currently matching oui-select value.
  */
@@ -7,8 +6,6 @@ $oui-autocomplete-panel-border-radius: 4px !default;
 
 .oui-autocomplete-panel {
   font-family: 'Open Sans', sans-serif;
-  border-bottom-left-radius: $oui-autocomplete-panel-border-radius;
-  border-bottom-right-radius: $oui-autocomplete-panel-border-radius;
   min-width: 112px;
   max-width: none;
   overflow: auto;
@@ -44,7 +41,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 48px;
-    height: 32px;
+    height: 38px;
     padding: 0 12px;
     text-align: left;
     text-decoration: none;
@@ -66,35 +63,6 @@ $oui-autocomplete-panel-border-radius: 4px !default;
   }
 }
 
-.cdk-overlay-container {
-  pointer-events: none;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  z-index: 1000;
-  &:empty {
-    display: none;
-  }
-}
-
-.cdk-global-overlay-wrapper {
-  display: flex;
-  position: absolute;
-  z-index: 1000;
-}
-
-.cdk-overlay-pane {
-  position: absolute;
-  pointer-events: auto;
-  box-sizing: border-box;
-  z-index: 1000;
-  display: flex;
-  max-width: 100%;
-  max-height: 100%;
-}
-
 .oui-option {
   color: rgba(0, 0, 0, 0.87);
   &:focus:not(.oui-option-disabled), &:hover:not(.oui-option-disabled), &.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled) {
@@ -113,7 +81,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
   background: #fff;
   color: rgba(0, 0, 0, 0.87);
   border: 1px solid #9C9C9C;
-  padding: 11px 0;
+  padding: 10px 0;
   .oui-option.oui-selected:not(.oui-active):not(:hover) {
     background: #fff;
     &:not(.oui-option-disabled) {
@@ -128,6 +96,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     margin-bottom: 7px;
     display: inline-block;
     margin-top: 7px;
+    font-size: 14px;
   }
   &.autocomplete-group{
     padding: 5px 0;

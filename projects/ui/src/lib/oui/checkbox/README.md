@@ -1,6 +1,6 @@
-o## Overview
+## Overview
 
-## oui-icon
+## oui-checkbox
 `<oui-checkbox>` provides the same functionality as a native `<input type="checkbox">`.
 
 ## Checkbox label
