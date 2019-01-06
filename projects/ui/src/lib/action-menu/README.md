@@ -7,7 +7,11 @@ Action menu Component
 Example of simple usage:
 
 ```html
-<oh-action-menu [items]="actionMenuItems" [dotsMenuTooltip]="'User profile menu'" [actionItem]="user"></oh-action-menu>
+<oh-action-menu
+  [items]="actionMenuItems"
+  [dotsMenuTooltip]="'User profile menu'"
+  [actionItem]="user"
+></oh-action-menu>
 ```
 
 ```js

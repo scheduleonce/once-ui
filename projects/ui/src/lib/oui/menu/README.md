@@ -57,8 +57,7 @@ By default, the menu will display below (y-axis), after (x-axis), and overlappin
 
 ```html
 <oui-menu #appMenu="ouiMenu" yPosition="above">
-  <button oui-menu-item>Settings</button>
-  <button oui-menu-item>Help</button>
+  <button oui-menu-item>Settings</button> <button oui-menu-item>Help</button>
 </oui-menu>
 
 <button oui-icon-button [ouiMenuTriggerFor]="appMenu">

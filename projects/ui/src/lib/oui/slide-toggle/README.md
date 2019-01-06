@@ -8,7 +8,7 @@ A `<oui-slide-toggle>` element should be used whenever some toggle action is per
 
 ```js
 import { OuiSlideToggleModule } from '@once/ui';
-````
+```
 
 ### Usage
 
@@ -29,7 +29,7 @@ import { OuiSlideToggleModule } from '@once/ui';
 <oui-slide-toggle color="primary"></oui-slide-toggle>
 
 <!-- slide toggle with warn color -->
-<oui-slide-toggle color="warn" ></oui-slide-toggle>
+<oui-slide-toggle color="warn"></oui-slide-toggle>
 ```
 
 ## API SlideToggleComponent
@@ -55,7 +55,6 @@ import { OuiSlideToggleModule } from '@once/ui';
 ## Theming
 
 Slide toggles can be colored in terms of the current theme using the color property to set the background color to `primary`, `accent`, or `warn`.
-
 
 ## Stackblitz demo link
 

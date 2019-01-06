@@ -1,13 +1,13 @@
-.optionSelectedAndDisabled{
+.optionSelectedAndDisabled {
   cursor: not-allowed !important;
-  opacity: .5;
+  opacity: 0.5;
 }
-.borderLessDropDown{
+.borderLessDropDown {
   border-bottom: 1px solid #9c9c9c;
-  .dropdown{
-      border:none;
+  .dropdown {
+    border: none;
   }
-  .active{
+  .active {
     border-bottom: 2px solid #9c9c9c;
   }
 }

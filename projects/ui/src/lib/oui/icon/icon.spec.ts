@@ -16,21 +16,37 @@ function sortedClassNames(element: Element): string[] {
 /**
  * Test components
  */
-@Component({ template: `<oui-icon></oui-icon>` })
+@Component({
+  template: `
+    <oui-icon></oui-icon>
+  `
+})
 class IconWithLigature {}
 
-@Component({ template: `<oui-icon [color]="iconColor"></oui-icon>` })
+@Component({
+  template: `
+    <oui-icon [color]="iconColor"></oui-icon>
+  `
+})
 class IconWithColor {
   iconName = '';
   iconColor = 'primary';
 }
 
-@Component({ template: `<oui-icon [svgIcon]="iconName"></oui-icon>` })
+@Component({
+  template: `
+    <oui-icon [svgIcon]="iconName"></oui-icon>
+  `
+})
 class IconFromSvgName {
   iconName: string | undefined = '';
 }
 
-@Component({ template: `<oui-icon [inline]="inline"></oui-icon>` })
+@Component({
+  template: `
+    <oui-icon [inline]="inline"></oui-icon>
+  `
+})
 class InlineIcon {
   inline = false;
 }

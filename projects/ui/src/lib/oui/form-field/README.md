@@ -7,7 +7,8 @@ In this document, "form field" refers to the wrapper component `<oui-form-field>
 (e.g. the input, textarea, select, etc.)
 
 The following Once UI components are designed to work inside a `<oui-form-field>`:
-* `<input ouiInput>` &amp; `<textarea ouiInput>`
+
+- `<input ouiInput>` &amp; `<textarea ouiInput>`
 
 <!-- example(form-field-overview) -->
 
@@ -16,15 +17,12 @@ The following Once UI components are designed to work inside a `<oui-form-field>
 ### Example usages
 
 ```html
-<oui-form-field>
-  <input placeholder="Just a placeholder">
-</oui-form-field>
+<oui-form-field> <input placeholder="Just a placeholder" /> </oui-form-field>
 ```
 
 ### Accessibility
 
 The user should label the form field control themselves using `aria-label`, `aria-labelledby` or `<label for=...>`.
-
 
 ### Stackblitz demo link
 
