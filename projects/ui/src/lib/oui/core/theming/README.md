@@ -13,10 +13,11 @@ You can include a theme file directly into your application from
 `@once/ui/prebuilt-themes`
 
 Available pre-built themes:
-* `scheduleonce.scss`
-* `oncehub.scss`
-* `chatonce.scss`
-* `inviteonce.css`
+
+- `scheduleonce.scss`
+- `oncehub.scss`
+- `chatonce.scss`
+- `inviteonce.css`
 
 If you want to import theme in style.scss file than you can include below line:
 
@@ -33,9 +34,7 @@ To generate your customize theme you need to provide some data objects which con
 A typical theme file will look something like this:
 
 ```scss
-
 @import '~@once/ui/theming';
-
 
 /*
     oui-palette(base,lighter,darker,contrast) is a helper function which generate color objects according to given params
@@ -45,9 +44,9 @@ A typical theme file will look something like this:
     * @param contrast: color of foreground over base color (optional) default value is set to white.
 
 */
-$custom-primary: oui-palette(#31698a, null, #224960, #FFFFFF);
-$custom-accent: oui-palette(#16623A, #448161, #0d3a22, #FFFFFF);
-$custom-warn: oui-palette(#800000, #a64c4c, #4c0000, #FFFFFF);
+$custom-primary: oui-palette(#31698a, null, #224960, #ffffff);
+$custom-accent: oui-palette(#16623a, #448161, #0d3a22, #ffffff);
+$custom-warn: oui-palette(#800000, #a64c4c, #4c0000, #ffffff);
 
 /*
     oui-theme(primary,accent,warn,foreground,background) is a helper function which generates theme objects according to given params.
@@ -58,12 +57,11 @@ $custom-warn: oui-palette(#800000, #a64c4c, #4c0000, #FFFFFF);
     * @param background: primary color object (optional) if not provided then it takes default background color.
 */
 
-$custom-theme : oui-theme($custom-primary,$custom);
+$custom-theme: oui-theme($custom-primary, $custom);
 
 /*
     once-ui-theme(theme) is a mixins which generates all css classes according to provided theme object
     @param theme: theme object (required)
 */
 @include once-ui-theme($custom-theme);
-
 ```

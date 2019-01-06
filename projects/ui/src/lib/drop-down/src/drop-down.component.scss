@@ -12,7 +12,7 @@ once-ui-dropdown:focus {
 }
 
 once-ui-dropdown {
-  font-family: Open Sans,Helvetica,Arial,sans-serif;
+  font-family: Open Sans, Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 19px;
   font-style: normal;
@@ -21,7 +21,7 @@ once-ui-dropdown {
   .dropdownMenu.once-ui-dropdown-up {
     top: auto;
     bottom: 35px;
-    box-shadow: 0 -1px 2px 0 #9B9B9B;
+    box-shadow: 0 -1px 2px 0 #9b9b9b;
   }
 }
 
@@ -51,50 +51,51 @@ once-ui-dropdown {
   text-overflow: ellipsis;
 }
 
-@mixin setFontAndPointerEvents(){
+@mixin setFontAndPointerEvents() {
   span {
     font-size: 14px;
     pointer-events: none;
   }
 }
 
-@mixin setDropDownImageDimensions($height, $width){
-  height: $height!important;
-  width: $width!important;
-  display: block!important;
-  background-size: 100%!important;
+@mixin setDropDownImageDimensions($height, $width) {
+  height: $height !important;
+  width: $width !important;
+  display: block !important;
+  background-size: 100% !important;
 }
 
 /*********************************************************************************
 @ Perfect scrollbar css reset
  **********************************************************************************/
 once-ui-dropdown {
- .ps__rail-y {
-  background-color: #eee;
-  width: 6px;
-}
-.ps__thumb-y {
-  background-color: #999;
-  width: 6px;
-  right: 13px;
-}
-perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
-  right: 2px !important;
-  opacity: 0.6 !important;
-
+  .ps__rail-y {
+    background-color: #eee;
+    width: 6px;
+  }
   .ps__thumb-y {
-    right: 1px !important;
+    background-color: #999;
+    width: 6px;
+    right: 13px;
   }
-  &:hover {
-    width: 6.4px !important;
-  }
-}
-.ps__rail-y:focus > .ps__thumb-y, .ps__rail-y:hover > .ps__thumb-y {
-  width: 6px !important;
-  background-color: #999 !important;
-}
+  perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
+    right: 2px !important;
+    opacity: 0.6 !important;
 
-/*********************************************************************************
+    .ps__thumb-y {
+      right: 1px !important;
+    }
+    &:hover {
+      width: 6.4px !important;
+    }
+  }
+  .ps__rail-y:focus > .ps__thumb-y,
+  .ps__rail-y:hover > .ps__thumb-y {
+    width: 6px !important;
+    background-color: #999 !important;
+  }
+
+  /*********************************************************************************
 @ Dropdown styles
  **********************************************************************************/
 
@@ -115,20 +116,21 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     @include setFontAndPointerEvents();
   }
 
-
   .newthemevalue {
     @include setFontAndPointerEvents();
   }
 
   .dropdown > p {
-    span, img {
+    span,
+    img {
       position: relative;
       z-index: -1;
     }
   }
 
   .active {
-    + .dropdownMenu, .dropdownMenu {
+    + .dropdownMenu,
+    .dropdownMenu {
       display: block;
     }
   }
@@ -166,7 +168,8 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
       /* Safari */
       transform: rotate(180deg);
     }
-    &:hover {}
+    &:hover {
+    }
   }
 
   .dropdownMenu {
@@ -177,15 +180,15 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     right: 0;
     margin: 0;
     display: none;
-    border: 1px solid #C8C8C8;
+    border: 1px solid #c8c8c8;
     border-top: none;
     z-index: 5;
     overflow: hidden;
     background-color: #fff;
     width: 100%;
-    box-shadow: 0 1px 3px 0 #9B9B9B;
-    .searchBoxOuter{
-      padding:10px 10px 2px 10px;
+    box-shadow: 0 1px 3px 0 #9b9b9b;
+    .searchBoxOuter {
+      padding: 10px 10px 2px 10px;
     }
     input {
       width: 100%;
@@ -209,7 +212,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
         font-weight: 700;
         opacity: 1;
         span.dd-img {
-          display: none!important;
+          display: none !important;
         }
         span {
           @include makeCursorDefault('default');
@@ -221,13 +224,13 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
       &.optionSelectedAndDisabled:hover {
         background: transparent;
       }
-      &:last-child:hover{
+      &:last-child:hover {
         background: #fff;
         cursor: default;
       }
     }
-    li.noResult{
-      &:hover{
+    li.noResult {
+      &:hover {
         background: #fff;
       }
     }
@@ -260,7 +263,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     @include makeTextMultiline(94%, auto, normal, break-word);
     @include preventTextSelectionOnDoubleClick();
   }
-  .dropdownMenu li{
+  .dropdownMenu li {
     span {
       display: block;
       float: left;
@@ -272,13 +275,13 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
         margin: 0 auto;
       }
     }
-    &:last-child{
-      span{
+    &:last-child {
+      span {
         margin-bottom: 0;
       }
     }
-    p.noResultsFound{
-      span{
+    p.noResultsFound {
+      span {
         margin-bottom: 0;
       }
     }
@@ -288,7 +291,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     @include makeCursorDefault('default');
     opacity: 0.6;
     @include preventTextSelectionOnDoubleClick();
-    .dd-value{
+    .dd-value {
       width: 100%;
       word-wrap: break-word;
       white-space: normal;
@@ -303,7 +306,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
       margin-bottom: 0;
       line-height: 20px;
       @include nowrapText();
-      span.dd-value{
+      span.dd-value {
         padding: 3px 0;
       }
     }
@@ -352,22 +355,23 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
     span.img-caption-label.ellipseTheTextWithImage {
       width: calc(100% - 50px);
     }
-    .defaultTxt{
+    .defaultTxt {
       color: #666;
     }
     overflow: visible;
   }
 
-  .ps-scrollbar-x-rail, .ps-scrollbar-y-rail {
+  .ps-scrollbar-x-rail,
+  .ps-scrollbar-y-rail {
     opacity: 0.6;
   }
 
-  perfect-scrollbar.scrollbar-active > .ps.ps--active-y > .ps__rail-y{
+  perfect-scrollbar.scrollbar-active > .ps.ps--active-y > .ps__rail-y {
     right: 4px !important;
     top: 8px !important;
   }
 
-  perfect-scrollbar > div{
+  perfect-scrollbar > div {
     margin: 8px 0 0;
   }
 
@@ -395,7 +399,7 @@ perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
   }
 
   .ddDefaultImageNotExists {
-    background: url("icon-noImage2x.svg")!important;
+    background: url('icon-noImage2x.svg') !important;
     background-size: 100%;
     @include setDropDownImageDimensions(26px, 26px);
   }
