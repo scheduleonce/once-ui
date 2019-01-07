@@ -1,7 +1,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .mat-form-field {
-  width:100%;
+  width: 100%;
   max-width: 170px;
   min-width: 134px;
   .mat-form-field-infix {
@@ -28,13 +28,14 @@
     }
   }
 }
-.mat-button, .mat-icon-button {
+.mat-button,
+.mat-icon-button {
   .mat-ripple-element {
     display: none;
   }
 }
 .mat-calendar-table .mat-calendar-body-selected {
-  background-color: #006BB1;
+  background-color: #006bb1;
 }
 
 .datePickerCalendarIcon {
@@ -56,7 +57,7 @@
       display: block;
       width: 34px;
       height: 32px;
-      background: url("calendar-picker.svg") right 10px center no-repeat;
+      background: url('calendar-picker.svg') right 10px center no-repeat;
       svg {
         display: none;
       }
@@ -66,62 +67,64 @@
 .mat-button-focus-overlay {
   opacity: 0 !important;
 }
-.mat-form-field-prefix .mat-icon-button, .mat-form-field-suffix .mat-icon-button {
+.mat-form-field-prefix .mat-icon-button,
+.mat-form-field-suffix .mat-icon-button {
   height: 34px;
   width: 34px;
   border-radius: 0;
 }
-.mat-calendar-next-button, .mat-calendar-previous-button {
+.mat-calendar-next-button,
+.mat-calendar-previous-button {
   &:disabled {
     &:hover {
       &:after {
-        color: rgba(0,0,0,.26);
+        color: rgba(0, 0, 0, 0.26);
       }
     }
   }
   &:hover {
     &:after {
-      color: #006BB1;
+      color: #006bb1;
     }
   }
 }
-.mat-form-field-label{
+.mat-form-field-label {
   padding: 3px 10px 5px;
   font-size: 14px;
 }
 
-.mat-datepicker-content{
-  border: 1px solid #C8C8C8;
+.mat-datepicker-content {
+  border: 1px solid #c8c8c8;
 }
 
-.mat-datepicker-popup .mat-datepicker-content{
+.mat-datepicker-popup .mat-datepicker-content {
   box-shadow: 0 1px 3px 0 #9b9b9b;
 }
 
-.mat-datepicker-popup .mat-datepicker-content{
+.mat-datepicker-popup .mat-datepicker-content {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  .mat-calendar{
+  .mat-calendar {
     width: 298px;
   }
 }
 
-.mat-form-field-wrapper .mat-input-element{
+.mat-form-field-wrapper .mat-input-element {
   caret-color: #fff;
 }
 
-.cdk-overlay-pane{
+.cdk-overlay-pane {
   margin-top: -1px;
 }
-.mat-button .mat-button-wrapper{
+.mat-button .mat-button-wrapper {
   font-weight: bold;
 }
 
-.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
   display: none !important;
 }
 
-.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label.mat-empty{
+.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label.mat-empty {
   display: block;
-
 }

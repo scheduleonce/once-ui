@@ -8,8 +8,8 @@ $form-field-text-align: inherit;
 $form-field-border-bottom: 1px solid #9c9c9c;
 $form-field-border: 1px solid #9c9c9c;
 $form-field-color: #333333;
-$form-field-disabled-color: #9C9C9C;
-$form-field-disabled-border: #E4E4E4;
+$form-field-disabled-color: #9c9c9c;
+$form-field-disabled-border: #e4e4e4;
 $form-field-box-sizing: border-box;
 $form-field-font-size: 14px;
 $form-field-height: 34px;
@@ -52,10 +52,10 @@ $form-field-default-background: #fff;
     line-height: $form-field-line-height;
     background: $form-field-default-background;
     font-weight: normal;
-    &:disabled{
+    &:disabled {
       border-color: $form-field-disabled-border;
     }
-    &:disabled{
+    &:disabled {
       border-color: $form-field-disabled-border;
     }
     &:disabled::-webkit-input-placeholder {
@@ -71,7 +71,7 @@ $form-field-default-background: #fff;
       color: $form-field-disabled-color;
     }
   }
-  textarea.oui-input{
+  textarea.oui-input {
     min-height: $form-field-textarea-height;
     min-width: $form-field-width;
   }
@@ -82,7 +82,7 @@ $form-field-default-background: #fff;
   $primary: map-get($theme, primary);
   .oui-input {
     border: $form-field-border;
-    &:focus{
+    &:focus {
       border-color: map-get($primary, lighter);
     }
   }
@@ -90,7 +90,6 @@ $form-field-default-background: #fff;
 
 /* Generating themes for oui-form-field-appearance-standard(standard form-fields)*/
 @mixin oui-form-field-appearance-standard-theme-palette($theme) {
-
 }
 
 /* Generating themes for oui-form-field-appearance-underline(underline form-fields)*/
@@ -99,15 +98,15 @@ $form-field-default-background: #fff;
   .oui-input {
     border: 0;
     border-bottom: $form-field-border-bottom;
-    &:focus~.bottom-line{
+    &:focus ~ .bottom-line {
       background-color: map-get($primary, lighter);
     }
-    &:focus{
+    &:focus {
       border-bottom: 2px solid map-get($primary, lighter);
       padding-bottom: 6px;
     }
-    &:disabled{
-      border-color: #CBCBCB;
+    &:disabled {
+      border-color: #cbcbcb;
       color: #666666;
     }
   }

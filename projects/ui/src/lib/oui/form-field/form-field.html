@@ -1,7 +1,9 @@
 <div class="oui-form-field-wrapper">
-  <div class="oui-form-field-flex" #connectionContainer
-       (click)="_control.onContainerClick && _control.onContainerClick($event)">
-
+  <div
+    class="oui-form-field-flex"
+    #connectionContainer
+    (click)="_control.onContainerClick && _control.onContainerClick($event)"
+  >
     <!-- TODO: uncomment for prefix
     <div class="oui-form-field-prefix" *ngIf="_prefixChildren.length">
       <ng-content select="[ouiPrefix]"></ng-content>
