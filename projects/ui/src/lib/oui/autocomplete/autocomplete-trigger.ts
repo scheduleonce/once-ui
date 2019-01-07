@@ -665,12 +665,12 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           originX: 'start',
           originY: 'top',
           overlayX: 'start',
-          overlayY: 'bottom'
+          overlayY: 'bottom',
 
           // The overlay edge connected to the trigger should have squared corners, while
           // the opposite end has rounded corners. We apply a CSS class to swap the
           // border-radius based on the overlay position.
-          // panelClass: 'oui-autocomplete-panel-above'
+          panelClass: 'oui-autocomplete-panel-above'
         }
       ]);
 
