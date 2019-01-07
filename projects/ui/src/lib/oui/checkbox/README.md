@@ -70,6 +70,6 @@ Exported as: `ouiCheckbox`
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-checkbox](https://stackblitz.com/edit/oui-checkbox)
+[https://stackblitz.com/edit/oui-checkbox-component](https://stackblitz.com/edit/oui-checkbox-component)
 
 You can click here and can change code to try and test different scenarios. 

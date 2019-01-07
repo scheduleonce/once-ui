@@ -8,11 +8,12 @@ import {
   NgZone,
   ChangeDetectorRef,
   forwardRef,
-  ElementRef
+  ElementRef,
+  Attribute
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import { HasTabIndex } from '../core';
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
 
@@ -76,7 +77,7 @@ export enum TransitionCheckState {
     }
   ]
 })
-export class Checkbox implements ControlValueAccessor {
+export class Checkbox implements ControlValueAccessor, HasTabIndex {
   /**
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
    * take precedence so this may be omitted.
@@ -167,12 +168,18 @@ export class Checkbox implements ControlValueAccessor {
   private _disabled: any = false;
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
   private _currentAnimationClass: any = '';
-
+  /**
+   * Implemented as part of HasTabIndex.
+   */
+  tabIndex: any;
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     public _elementRef: ElementRef,
-    private _ngZone: NgZone
-  ) {}
+    private _ngZone: NgZone,
+    @Attribute('tabindex') tabIndex: string
+  ) {
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
+  }
 
   _getAriaChecked(): 'true' | 'false' {
     return this.checked ? 'true' : 'false';
@@ -198,7 +205,6 @@ export class Checkbox implements ControlValueAccessor {
     // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
     if (!this.disabled) {
       this.toggle();
-
       this._transitionCheckState(
         this._checked
           ? TransitionCheckState.Checked
@@ -247,6 +253,7 @@ export class Checkbox implements ControlValueAccessor {
     const event: any = new OuiCheckboxChange();
     event.source = this;
     event.checked = this.checked;
+    this._controlValueAccessorChangeFn(this.checked);
     this.change.emit(event);
   }
 
