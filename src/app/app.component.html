@@ -453,4 +453,50 @@
 <oui-icon svgIcon="icon-diamonds" inline="true" color="accent"></oui-icon>
 <oui-icon svgIcon="icon-pacman" inline="true" color="warn"></oui-icon>
 
+<br />
+<h2 class="example-h2">Checkbox configuration</h2>
+<section class="example-section">
+  <oui-checkbox class="example-margin" [(ngModel)]="checked">
+    Checked
+  </oui-checkbox>
+</section>
+<section class="example-section">
+  <label class="example-margin">Align:</label>
+  <input
+    [(ngModel)]="labelPosition"
+    type="radio"
+    id="after"
+    name="align"
+    class="example-margin"
+    value="after"
+  />
+  <label for="after">After </label>
+  <input
+    type="radio"
+    [(ngModel)]="labelPosition"
+    id="before"
+    name="align"
+    class="example-margin"
+    value="before"
+  />
+  <label for="before">Before </label>
+</section>
+<section class="example-section">
+  <oui-checkbox class="example-margin" [(ngModel)]="disabled">
+    Disabled
+  </oui-checkbox>
+</section>
+<section class="result">
+  <h2 class="example-h2">Result</h2>
+  <section class="example-section">
+    <oui-checkbox
+      class="example-margin"
+      [(ngModel)]="checked"
+      [labelPosition]="labelPosition"
+      [disabled]="disabled"
+    >
+      I'm a checkbox
+    </oui-checkbox>
+  </section>
+</section>
 <br /><br />

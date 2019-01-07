@@ -28,7 +28,9 @@ export class AppComponent {
       names: ['Florida']
     }
   ];
-
+  checked;
+  labelPosition;
+  disabled;
   @ViewChild('dialogTemplate')
   dialogTemplate;
   @ViewChild('progressButton')
@@ -58,6 +60,9 @@ export class AppComponent {
         'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
       )
     );
+    this.checked = false;
+    this.labelPosition = 'after';
+    this.disabled = false;
   }
 
   openDialog() {
@@ -77,6 +82,10 @@ export class AppComponent {
     setTimeout(() => {
       this.progressLinkButton.setToDone();
     }, 1000);
+  }
+
+  func($event) {
+    console.log($event);
   }
 
   progressButtonGhostClick() {
