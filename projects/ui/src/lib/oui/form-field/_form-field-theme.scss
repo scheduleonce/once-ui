@@ -54,6 +54,7 @@ $form-field-default-background: #fff;
     font-weight: normal;
     &:disabled {
       border-color: $form-field-disabled-border;
+      resize: none;
     }
     &:disabled {
       border-color: $form-field-disabled-border;
