@@ -13,9 +13,9 @@ $oui-autocomplete-panel-border-radius: 4px !default;
   max-height: $oui-autocomplete-panel-max-height;
   position: relative;
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   background: #fff;
-  color: rgba(0,0,0,.87);
+  color: rgba(0, 0, 0, 0.87);
   &.oui-autocomplete-visible {
     visibility: visible;
   }
@@ -36,7 +36,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     margin-top: -1px;
   }
 
-  .oui-option{
+  .oui-option {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -55,8 +55,8 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     align-items: center;
     -webkit-tap-highlight-color: transparent;
     font-size: 14px;
-    color: rgba(0,0,0,.87);
-    .oui-option-text{
+    color: rgba(0, 0, 0, 0.87);
+    .oui-option-text {
       text-overflow: ellipsis;
       overflow: hidden;
     }
@@ -65,7 +65,9 @@ $oui-autocomplete-panel-border-radius: 4px !default;
 
 .oui-option {
   color: rgba(0, 0, 0, 0.87);
-  &:focus:not(.oui-option-disabled), &:hover:not(.oui-option-disabled), &.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled) {
+  &:focus:not(.oui-option-disabled),
+  &:hover:not(.oui-option-disabled),
+  &.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled) {
     background: #eee;
   }
   &.oui-active {
@@ -80,7 +82,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
 .oui-autocomplete-panel {
   background: #fff;
   color: rgba(0, 0, 0, 0.87);
-  border: 1px solid #9C9C9C;
+  border: 1px solid #9c9c9c;
   padding: 10px 0;
   .oui-option.oui-selected:not(.oui-active):not(:hover) {
     background: #fff;
@@ -88,7 +90,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
       color: rgba(0, 0, 0, 0.87);
     }
   }
-  .oui-optgroup-label{
+  .oui-optgroup-label {
     padding: 0 12px;
     color: #333;
     font-weight: bold;
@@ -98,7 +100,7 @@ $oui-autocomplete-panel-border-radius: 4px !default;
     margin-top: 7px;
     font-size: 14px;
   }
-  &.autocomplete-group{
+  &.autocomplete-group {
     padding: 5px 0;
   }
 }

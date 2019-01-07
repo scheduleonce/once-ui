@@ -1,8 +1,7 @@
-
 @import '../all-theme';
 
-$primary : oui-palette($oui-green, null, $oui-darker-green, $oui-white);
+$primary: oui-palette($oui-green, null, $oui-darker-green, $oui-white);
 
-$theme : oui-theme($primary);
+$theme: oui-theme($primary);
 
 @include once-ui-theme($theme);

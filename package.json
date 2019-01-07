@@ -7,9 +7,9 @@
     "postbuild": "gulp copy",
     "test": "ng test ui",
     "lint": "ng lint ui --format stylish",
-    "prettier": "prettier --list-different \"projects/ui/**/*.{ts, js, css, scss, md}\"",
+    "prettier": "prettier --list-different \"projects/ui/**/*.{ts,js,css,scss,md,html}\"",
     "e2e": "ng e2e",
-    "fix:prettier": "prettier --write \"**/*.{ts, js, css, scss, md}\"",
+    "fix:prettier": "prettier --write \"**/*.{ts,js,css,scss,md,html}\"",
     "fix:lint": "ng lint --fix *.ts -t verbose",
     "bundle-styles": "npm run bundle-styles-blue && npm run compile-scss-blue && npm run bundle-styles-green && npm run compile-scss-green",
     "bundle-styles-blue": "scss-bundle -e ./projects/ui/src/lib/themes/once-ui-theme-blue.scss -d ./dist/ui/themes/once-ui-theme-blue.scss",
@@ -60,7 +60,7 @@
     "moment": "^2.22.2",
     "ng-packagr": "^4.1.0",
     "ngx-perfect-scrollbar": "^6.2.0",
-    "prettier": "^1.14.3",
+    "prettier": "^1.15.3",
     "protractor": "~5.4.0",
     "puppeteer": "^1.7.0",
     "rimraf": "^2.6.2",
@@ -68,8 +68,8 @@
     "ts-node": "~7.0.0",
     "tsickle": ">=0.29.0",
     "tslib": "^1.9.0",
-    "tslint": "~5.11.0",
-    "tslint-config-prettier": "^1.15.0",
+    "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.17.0",
     "typescript": "~2.9.2"
   }
 }

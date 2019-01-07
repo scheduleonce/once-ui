@@ -7,7 +7,6 @@
 @import '../../icon/icon-theme';
 @import '../cdk/overlay/overlay-prebuilt'; // Loading overlay
 
-
 // Create a theme.
 @mixin once-ui-theme($theme) {
   @include oui-button-theme($theme);
