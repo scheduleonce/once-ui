@@ -3,7 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OuiSlideToggleModule } from 'projects/ui/src/lib/oui/slide-toggle/public-api';
-import { OuiButtonModule, OuiProgressSpinnerModule } from 'projects/ui/src/lib/oui';
+import {
+  OuiButtonModule,
+  OuiProgressSpinnerModule
+} from 'projects/ui/src/lib/oui';
 import { OuiDialogModule } from 'projects/ui/src/lib/oui';
 import { OuiFormFieldModule } from 'projects/ui/src/lib/oui';
 import { OuiInputModule } from 'projects/ui/src/lib/oui';

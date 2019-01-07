@@ -8,4 +8,4 @@ import { OuiProgressSpinner } from './progress-spinner';
   declarations: [OuiProgressSpinner],
   exports: [OuiProgressSpinner]
 })
-export class OuiProgressSpinnerModule { }
+export class OuiProgressSpinnerModule {}

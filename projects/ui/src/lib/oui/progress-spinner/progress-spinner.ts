@@ -66,30 +66,29 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
     '[attr.mode]': 'mode'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
-  
-  private static diameters = new Set<number>([BASE_SIZE]); 
-  private static styleTag: HTMLStyleElement|null = null;
+  private static diameters = new Set<number>([BASE_SIZE]);
+  private static styleTag: HTMLStyleElement | null = null;
 
   @Input() percentage = 50;
   @Input() color = 'primary';
   @Input()
-  get size(): number { return this._diameter; }
-  set size(value: number) {        
+  get size(): number {
+    return this._diameter;
+  }
+  set size(value: number) {
     this._diameter = coerceNumberProperty(value);
     if (!OuiProgressSpinner.diameters.has(this._diameter)) {
-      
       this._attachStyleNode();
-      
     }
   }
   private _diameter = BASE_SIZE;
 
   @Input() mode = 'determinate';
   @Input() strokeWidth = BASE_STROKE_WIDTH;
-  private radius;  
+  private radius;
   constructor(
     _elementRef: ElementRef,
     @Optional() @Inject(DOCUMENT) private _document: any
@@ -103,9 +102,9 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
     return `0 0 ${viewBox} ${viewBox}`;
   }
   get _circleStrokeWidth() {
-    return this.strokeWidth / this.size * 100;
+    return (this.strokeWidth / this.size) * 100;
   }
-  
+
   /** The stroke circumference of the svg circle. */
   get _strokeCircumference(): number {
     return 2 * Math.PI * this.radius;
@@ -113,8 +112,8 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
 
   /** The dash offset of the svg circle. */
   get _strokeDashOffset() {
-    if (this.mode === 'determinate') {      
-    return this._strokeCircumference * (100 - this.percentage) / 100;
+    if (this.mode === 'determinate') {
+      return (this._strokeCircumference * (100 - this.percentage)) / 100;
     }
 
     // In fallback mode set the circle to 80% and rotate it with CSS.
@@ -128,7 +127,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   /** Dynamically generates a style tag containing the correct animation for this diameter. */
   private _attachStyleNode(): void {
     let styleTag = OuiProgressSpinner.styleTag;
-    
+
     if (!styleTag) {
       styleTag = this._document.createElement('style');
       this._document.head.appendChild(styleTag);
@@ -144,11 +143,12 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
 
   /** Generates animation styles adjusted for the spinner's diameter. */
   private _getAnimationText(): string {
-       return INDETERMINATE_ANIMATION_TEMPLATE
+    return (
+      INDETERMINATE_ANIMATION_TEMPLATE
         // Animation should begin at 5% and end at 80%
         .replace(/START_VALUE/g, `${0.95 * this._strokeCircumference}`)
         .replace(/END_VALUE/g, `${0.2 * this._strokeCircumference}`)
-        .replace(/SIZE/g, `${this.size}`);
+        .replace(/SIZE/g, `${this.size}`)
+    );
   }
-  
 }

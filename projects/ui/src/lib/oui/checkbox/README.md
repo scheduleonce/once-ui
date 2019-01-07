@@ -37,6 +37,7 @@ Selector: `oui-checkbox`
 Exported as: `ouiCheckbox`
 
 **Properties**
+
 <br/>
 
 | Name                                                     | Description                                                                         |
@@ -53,6 +54,7 @@ Exported as: `ouiCheckbox`
 | @Output() <br/>`change: EventEmitter<OuiCheckboxChange>` | Event emitted when the checkbox's checked value changes.                            |
 
 **Method**
+
 <br/>
 
 | Name   | Description                                |
@@ -62,18 +64,16 @@ Exported as: `ouiCheckbox`
 
 ## Examples
 
-```
-<oui-checkbox
-    class="example-margin"
-    [(ngModel)]="checked"
-    [labelPosition]="labelPosition"
-    [disabled]="disabled">
-    I'm a checkbox
-</oui-checkbox>
-```
+    <oui-checkbox
+        class="example-margin"
+        [(ngModel)]="checked"
+        [labelPosition]="labelPosition"
+        [disabled]="disabled">
+        I'm a checkbox
+    </oui-checkbox>
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-checkbox-component](https://stackblitz.com/edit/oui-checkbox-component)
+You can click here and can change code to try and test different scenarios.
 
 You can click here and can change code to try and test different scenarios.
