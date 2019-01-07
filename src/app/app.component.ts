@@ -60,8 +60,8 @@ export class AppComponent {
         'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
       )
     );
-    this.checked = true;
-    this.labelPosition = 'before';
+    this.checked = false;
+    this.labelPosition = 'after';
     this.disabled = false;
   }
 
