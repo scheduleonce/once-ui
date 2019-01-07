@@ -1,0 +1,14 @@
+<svg 
+    [style.width.px]="size" 
+    [style.height.px]="size" 
+    [attr.viewBox]="_viewBox">
+
+    <circle 
+    cx="50%" 
+    cy="50%" 
+    [attr.r]="radius"
+    [style.animation-name]="mode === 'indeterminate' ? 'oui-progress-spinner-stroke-rotate-' + size: 'none'"
+    [style.stroke-dashoffset.px]="_strokeDashOffset"
+    [style.stroke-dasharray.px]="_strokeCircumference"
+    [style.stroke-width.%]="_circleStrokeWidth"></circle>
+</svg>

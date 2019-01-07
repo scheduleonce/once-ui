@@ -1,0 +1,63 @@
+$oui-progress-spinner-default-radius: 45px;
+$oui-progress-spinner-default-circumference: 3.14 * $oui-progress-spinner-default-radius * 2;
+$start: (1 - 0.05) * $oui-progress-spinner-default-circumference; // start the animation at 5%
+$end: (1 - 0.8) * $oui-progress-spinner-default-circumference; // end the animation at 80%
+
+// Progress Spinner
+.oui-progress-spinner{
+  display: block;
+  position: relative;
+  svg {
+    position: absolute;
+    transform: rotate(-90deg);
+    top: 0;
+    left: 0;
+    transform-origin: center;
+    overflow: visible;
+    circle {
+      fill: transparent;
+      transform-origin: center;
+      stroke-linecap: square;
+    }
+  }
+  &[mode="indeterminate"]{
+    animation: oui-progress-spinner-linear-rotate 2s linear infinite;
+    circle{
+      stroke-dashoffset: unset !important;
+      transition-property: stroke;
+      animation-duration: 4s;
+      animation-timing-function: cubic-bezier(.35,0,.25,1);
+      animation-iteration-count: infinite;  
+    }
+  }
+}
+
+// Indeterminate mode animation
+@keyframes oui-progress-spinner-linear-rotate {
+  0%       { transform: rotate(0deg); }
+  100%     { transform: rotate(360deg); }
+}
+
+@keyframes oui-progress-spinner-stroke-rotate-100 {
+
+  0%      { stroke-dashoffset: $start;  transform: rotate(0); }
+  12.5%   { stroke-dashoffset: $end;    transform: rotate(0); }
+  12.5001%  { stroke-dashoffset: $end;    transform: rotateX(180deg) rotate(72.5deg); }
+  25%     { stroke-dashoffset: $start;  transform: rotateX(180deg) rotate(72.5deg); }
+
+  25.0001%   { stroke-dashoffset: $start;  transform: rotate(270deg); }
+  37.5%   { stroke-dashoffset: $end;    transform: rotate(270deg); }
+  37.5001%  { stroke-dashoffset: $end;    transform: rotateX(180deg) rotate(161.5deg); }
+  50%     { stroke-dashoffset: $start;  transform: rotateX(180deg) rotate(161.5deg); }
+
+  50.0001%  { stroke-dashoffset: $start;  transform: rotate(180deg); }
+  62.5%   { stroke-dashoffset: $end;    transform: rotate(180deg); }
+  62.5001%  { stroke-dashoffset: $end;    transform: rotateX(180deg) rotate(251.5deg); }
+  75%     { stroke-dashoffset: $start;  transform: rotateX(180deg) rotate(251.5deg); }
+
+  75.0001%  { stroke-dashoffset: $start;  transform: rotate(90deg); }
+  87.5%   { stroke-dashoffset: $end;    transform: rotate(90deg); }
+  87.5001%  { stroke-dashoffset: $end;    transform: rotateX(180deg) rotate(341.5deg); }
+  100%    { stroke-dashoffset: $start;  transform: rotateX(180deg) rotate(341.5deg); }
+
+}
