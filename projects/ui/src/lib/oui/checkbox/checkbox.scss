@@ -1,0 +1,223 @@
+$_oui-checkbox-mark-path-length: 22.910259;
+$_oui-checkbox-indeterminate-checked-easing-function: cubic-bezier(
+  0.14,
+  0,
+  0,
+  1
+);
+$oui-toggle-padding: 8px !default;
+$oui-checkbox-size: 16px !default;
+$oui-checkbox-border-width: 1px;
+$oui-checkbox-border-enable: #9c9c9c;
+$oui-checkbox-stoke-enable: #333333;
+$oui-checkbox-border-disable: #e4e4e4;
+$oui-checkbox-stoke-disable: #9b9b9b;
+$_oui-checkbox-item-spacing: $oui-toggle-padding;
+$_oui-checkbox-mark-stroke-size: 3 / 15 * $oui-checkbox-size !default;
+$oui-linear-out-slow-in-timing-function: cubic-bezier(0, 0, 0.2, 0.1) !default;
+$oui-fast-out-linear-in-timing-function: cubic-bezier(0.4, 0, 1, 1) !default;
+$oui-checkbox-transition-duration: 90ms;
+@mixin oui-fill {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+@mixin cdk-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+@mixin cdk-high-contrast($target: active) {
+  @media (-ms-high-contrast: $target) {
+    @content;
+  }
+}
+
+@keyframes oui-checkbox-unchecked-checked-checkmark-path {
+  0%,
+  50% {
+    stroke-dashoffset: $_oui-checkbox-mark-path-length;
+  }
+
+  50% {
+    animation-timing-function: $oui-linear-out-slow-in-timing-function;
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes oui-checkbox-checked-unchecked-checkmark-path {
+  from {
+    animation-timing-function: $oui-fast-out-linear-in-timing-function;
+    stroke-dashoffset: 0;
+  }
+
+  to {
+    stroke-dashoffset: $_oui-checkbox-mark-path-length * -1;
+  }
+}
+
+%oui-checkbox-outer-box {
+  @include oui-fill;
+  border-radius: 3px;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.oui-checkbox {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.oui-checkbox-layout {
+  cursor: inherit;
+  align-items: baseline;
+  vertical-align: middle;
+  display: inline-flex;
+  white-space: nowrap;
+}
+
+.oui-checkbox-inner-container {
+  display: inline-block;
+  height: $oui-checkbox-size;
+  line-height: 0;
+  margin: auto;
+  margin-right: $_oui-checkbox-item-spacing;
+  order: 0;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: $oui-checkbox-size;
+  flex-shrink: 0;
+
+  [dir='rtl'] & {
+    margin: {
+      left: $_oui-checkbox-item-spacing;
+      right: auto;
+    }
+  }
+}
+
+.oui-checkbox-inner-container-no-side-margin {
+  margin: {
+    left: 0;
+    right: 0;
+  }
+}
+
+.oui-checkbox-frame {
+  @extend %oui-checkbox-outer-box;
+
+  background-color: transparent;
+  border: {
+    width: $oui-checkbox-border-width;
+    style: solid;
+    color: $oui-checkbox-border-enable;
+  }
+}
+
+.oui-checkbox-checkmark {
+  @include oui-fill;
+  width: 100%;
+}
+
+.oui-checkbox-checkmark-path {
+  stroke: {
+    dashoffset: $_oui-checkbox-mark-path-length;
+    dasharray: $_oui-checkbox-mark-path-length;
+    width: $_oui-checkbox-mark-stroke-size;
+  }
+}
+
+.oui-checkbox-mixedmark {
+  $height: floor($_oui-checkbox-mark-stroke-size);
+
+  width: calc(100% - 6px);
+  height: $height;
+  opacity: 0;
+  transform: scaleX(0) rotate(0deg);
+  border-radius: 2px;
+
+  @include cdk-high-contrast {
+    height: 0;
+    border-top: solid $height;
+    margin-top: $height;
+  }
+}
+
+.oui-checkbox-label-before {
+  .oui-checkbox-inner-container {
+    order: 1;
+    margin: {
+      left: $_oui-checkbox-item-spacing;
+      right: auto;
+    }
+
+    [dir='rtl'] & {
+      margin: {
+        left: auto;
+        right: $_oui-checkbox-item-spacing;
+      }
+    }
+  }
+}
+
+.oui-checkbox-checked {
+  .oui-checkbox-checkmark {
+    opacity: 1;
+  }
+
+  .oui-checkbox-checkmark-path {
+    stroke-dashoffset: 0;
+  }
+
+  .oui-checkbox-mixedmark {
+    transform: scaleX(1) rotate(-45deg);
+  }
+}
+
+.oui-checkbox-disabled {
+  cursor: default;
+  .oui-checkbox-frame {
+    border: {
+      color: $oui-checkbox-border-disable;
+    }
+  }
+  .oui-checkbox-checkmark-path {
+    stroke: $oui-checkbox-stoke-disable;
+  }
+}
+
+.oui-checkbox-anim {
+  &-unchecked-checked {
+    .oui-checkbox-checkmark-path {
+      animation: $oui-checkbox-transition-duration * 2 linear 0ms
+        oui-checkbox-unchecked-checked-checkmark-path;
+    }
+  }
+
+  &-checked-unchecked {
+    .oui-checkbox-checkmark-path {
+      animation: $oui-checkbox-transition-duration linear 0ms
+        oui-checkbox-checked-unchecked-checkmark-path;
+    }
+  }
+}
+
+.oui-checkbox-input {
+  @include cdk-visually-hidden;
+  bottom: 0;
+  left: 50%;
+}
