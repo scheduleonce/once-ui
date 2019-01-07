@@ -17,12 +17,6 @@ export class TooltipDirective {
   private tooltip: ComponentRef<TooltipComponent>;
   private visible: boolean;
 
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private resolver: ComponentFactoryResolver,
-    @Inject(DOCUMENT) private _document: any
-  ) {}
-
   @Input()
   onceTooltip: string | TooltipComponent;
 
@@ -31,6 +25,12 @@ export class TooltipDirective {
 
   @Input()
   tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'top';
+
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private resolver: ComponentFactoryResolver,
+    @Inject(DOCUMENT) private _document: any
+  ) {}
 
   @HostListener('mouseenter')
   show(): void {
