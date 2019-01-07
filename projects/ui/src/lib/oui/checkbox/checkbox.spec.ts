@@ -18,8 +18,11 @@ import { Checkbox, OuiCheckboxModule } from './public-api';
 /** Simple component for testing a single checkbox. */
 @Component({
   template: `
-  <div (click)="parentElementClicked = true" (keyup)="parentElementKeyedUp = true">
-    <oui-checkbox
+    <div
+      (click)="parentElementClicked = true"
+      (keyup)="parentElementKeyedUp = true"
+    >
+      <oui-checkbox
         [id]="checkboxId"
         [required]="isRequired"
         [labelPosition]="labelPos"
@@ -27,10 +30,12 @@ import { Checkbox, OuiCheckboxModule } from './public-api';
         [disabled]="isDisabled"
         [value]="checkboxValue"
         (click)="onCheckboxClick($event)"
-        (change)="onCheckboxChange($event)">
-      Simple checkbox
-    </oui-checkbox>
-  </div>`
+        (change)="onCheckboxChange($event)"
+      >
+        Simple checkbox
+      </oui-checkbox>
+    </div>
+  `
 })
 class SingleCheckbox {
   labelPos = 'after';
@@ -46,7 +51,11 @@ class SingleCheckbox {
 
 /** Simple component for testing an Checkbox with required ngModel. */
 @Component({
-  template: `<oui-checkbox [required]="isRequired" [(ngModel)]="isGood">Be good</oui-checkbox>`
+  template: `
+    <oui-checkbox [required]="isRequired" [(ngModel)]="isGood"
+      >Be good</oui-checkbox
+    >
+  `
 })
 class CheckboxWithNgModel {
   isGood = false;
@@ -65,10 +74,9 @@ class MultipleCheckboxes {}
 /** Simple test component with tabIndex */
 @Component({
   template: `
-    <oui-checkbox
-        [tabIndex]="customTabIndex"
-        [disabled]="isDisabled">
-    </oui-checkbox>`
+    <oui-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
+    </oui-checkbox>
+  `
 })
 class CheckboxWithTabIndex {
   customTabIndex = 7;
@@ -78,7 +86,8 @@ class CheckboxWithTabIndex {
 /** Simple test component that accesses Checkbox using ViewChild. */
 @Component({
   template: `
-    <oui-checkbox></oui-checkbox>`
+    <oui-checkbox></oui-checkbox>
+  `
 })
 class CheckboxUsingViewChild {
   @ViewChild(Checkbox)
@@ -91,25 +100,33 @@ class CheckboxUsingViewChild {
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `<oui-checkbox aria-label="Super effective"></oui-checkbox>`
+  template: `
+    <oui-checkbox aria-label="Super effective"></oui-checkbox>
+  `
 })
 class CheckboxWithAriaLabel {}
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `<oui-checkbox aria-labelledby="some-id"></oui-checkbox>`
+  template: `
+    <oui-checkbox aria-labelledby="some-id"></oui-checkbox>
+  `
 })
 class CheckboxWithAriaLabelledby {}
 
 /** Simple test component with name attribute */
 @Component({
-  template: `<oui-checkbox name="test-name"></oui-checkbox>`
+  template: `
+    <oui-checkbox name="test-name"></oui-checkbox>
+  `
 })
 class CheckboxWithNameAttribute {}
 
 /** Test component with reactive forms */
 @Component({
-  template: `<oui-checkbox [formControl]="formControl"></oui-checkbox>`
+  template: `
+    <oui-checkbox [formControl]="formControl"></oui-checkbox>
+  `
 })
 class CheckboxWithFormControl {
   formControl = new FormControl();
@@ -117,7 +134,9 @@ class CheckboxWithFormControl {
 
 /** Test component without label */
 @Component({
-  template: `<oui-checkbox>{{ label }}</oui-checkbox>`
+  template: `
+    <oui-checkbox>{{ label }}</oui-checkbox>
+  `
 })
 class CheckboxWithoutLabel {
   label: string;
@@ -125,13 +144,17 @@ class CheckboxWithoutLabel {
 
 /** Test component with the native tabindex attribute. */
 @Component({
-  template: `<oui-checkbox tabindex="5"></oui-checkbox>`
+  template: `
+    <oui-checkbox tabindex="5"></oui-checkbox>
+  `
 })
 class CheckboxWithTabindexAttr {}
 
 /** Test component that uses another component for its label. */
 @Component({
-  template: `<oui-checkbox><some-text></some-text></oui-checkbox>`
+  template: `
+    <oui-checkbox><some-text></some-text></oui-checkbox>
+  `
 })
 class CheckboxWithProjectedLabel {}
 

@@ -1,18 +1,18 @@
-@import "../styles/dialog.mixin.scss"; // Including Mixin
+@import '../styles/dialog.mixin.scss'; // Including Mixin
 
 .once-ui-btn-row {
   padding: 12px 22px 0;
   width: 100%;
   border-top: 1px solid #c8c8c8;
   box-sizing: border-box;
-  .once-ui-btn{
+  .once-ui-btn {
     width: auto;
     height: auto;
     font-size: 14px;
     text-decoration: none;
     color: #fff;
     text-align: center;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     @include makeCursorDefault(pointer);
     padding: 6px 22px;
     line-height: 22px;
@@ -26,11 +26,11 @@
     margin-right: 0;
     margin-left: 12px;
     margin-bottom: 5px;
-    &:disabled{
+    &:disabled {
       background: $once-ui-disabled-color;
     }
-    &:first-child{
-      &:disabled{
+    &:first-child {
+      &:disabled {
         background: transparent;
         border-color: $once-ui-disabled-color !important;
         color: $once-ui-disabled-color !important;
@@ -38,7 +38,7 @@
       }
     }
   }
-  .once-ui-cancel{
+  .once-ui-cancel {
     width: auto;
     height: auto;
     min-height: 35px;
@@ -54,20 +54,20 @@
     float: left;
     margin-bottom: 5px;
     color: $once-ui-base-color;
-    &:disabled{
+    &:disabled {
       border-color: $once-ui-disabled-color;
       color: $once-ui-disabled-color;
       @include makeCursorDefault(auto);
     }
   }
-  .once-ui-links{
+  .once-ui-links {
     float: left;
   }
-  .once-ui-buttons{
+  .once-ui-buttons {
     float: right;
     text-align: right;
   }
-  .clearfix{
+  .clearfix {
     clear: both;
   }
 }
