@@ -27,8 +27,8 @@ export class ActionMenuComponent implements OnInit, OnDestroy {
     this.defaultPosition = this.defaultPosition
       ? this.defaultPosition
       : this.isVertical
-        ? DefaultPositionConfig.left_bottom
-        : DefaultPositionConfig.right_bottom;
+      ? DefaultPositionConfig.left_bottom
+      : DefaultPositionConfig.right_bottom;
   }
 
   ngOnDestroy() {

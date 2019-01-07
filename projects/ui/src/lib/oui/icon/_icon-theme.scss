@@ -1,4 +1,4 @@
-@mixin oui-icon-theme($theme){
+@mixin oui-icon-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
@@ -6,9 +6,9 @@
   $foreground: map-get($theme, foreground);
   .oui-icon {
   }
-  .oui-icon{
+  .oui-icon {
     @include oui-icon-theme-palette($theme);
-  }    
+  }
 }
 
 /*generating themes for oui-icon(Primary buttons)*/
@@ -16,13 +16,13 @@
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
-  &.oui-primary{
+  &.oui-primary {
     color: map-get($primary, default);
   }
-  &.oui-accent{
+  &.oui-accent {
     color: map-get($accent, default);
   }
-  &.oui-warn{
+  &.oui-warn {
     color: map-get($warn, default);
   }
 }

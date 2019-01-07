@@ -267,101 +267,137 @@
 
         <a oui-ghost-button color="warn">this is super button</a> -->
 
-        <a oui-ghost-button color="primary" disabled>this is super button</a>
+    <a oui-ghost-button color="primary" disabled>this is super button</a>
+  </div>
+  <!--icon buttons-->
+  <div>
+    <a oui-icon-button color="primary"
+      ><img src="../assets/images/excel.png" /><label
+        >this is super button</label
+      ></a
+    >
 
-    </div>
-    <!--icon buttons-->
-    <div>
+    <a oui-icon-button color="accent"
+      ><img src="../assets/images/csv.png" /><label
+        >this is super button</label
+      ></a
+    >
 
-        <a oui-icon-button color="primary"><img src="../assets/images/excel.png"><label>this is super button</label></a>
+    <a oui-icon-button color="warn"
+      ><img src="../assets/images/pdf.png" /><label
+        >this is super button</label
+      ></a
+    >
 
-        <a oui-icon-button color="accent"><img src="../assets/images/csv.png"><label>this is super button</label></a>
+    <a oui-icon-button color="warn" disabled
+      ><img src="../assets/images/pdf.png" /><label
+        >this is super button</label
+      ></a
+    >
+  </div>
 
-        <a oui-icon-button color="warn"><img src="../assets/images/pdf.png"><label>this is super button</label></a>
+  <h1>Progress Button</h1>
 
-        <a oui-icon-button color="warn" disabled><img src="../assets/images/pdf.png"><label>this is super button</label></a>
+  <div>
+    <button #progressButton oui-button progress (click)="progressButtonClick()">
+      button
+    </button>
 
+    <button
+      #progressLinkButton
+      oui-link-button
+      progress
+      (click)="progressButtonLinkClick()"
+    ></button>
 
-    </div>
+    <button
+      #progressGhostButton
+      oui-ghost-button
+      progress
+      (click)="progressButtonGhostClick()"
+    ></button>
+  </div>
 
-    <h1>Progress Button</h1>
+  <h1>Dialog</h1>
 
-    <div>
-        <button #progressButton oui-button progress (click)="progressButtonClick()">button</button>
+  <div><button oui-button (click)="openDialog()">Open</button></div>
 
-        <button #progressLinkButton oui-link-button progress (click)="progressButtonLinkClick()"></button>
+  <h1>Autocomplete</h1>
+  <div class="input-outer">
+    <oui-form-field>
+      <input oui-input [ouiAutocomplete]="auto" />
+    </oui-form-field>
+    <oui-autocomplete #auto="ouiAutocomplete">
+      <oui-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </oui-option>
+    </oui-autocomplete>
+  </div>
 
-        <button #progressGhostButton oui-ghost-button progress (click)="progressButtonGhostClick()"></button>
-    </div>
-
-    <h1>Dialog</h1>
-
-    <div>
-        <button oui-button (click)="openDialog()">Open</button>
-    </div>
-
-
-    <h1>Autocomplete</h1>
-    <div class="input-outer">
-      <oui-form-field>
-        <input oui-input [ouiAutocomplete]="auto"/>
-      </oui-form-field>
-      <oui-autocomplete #auto="ouiAutocomplete">
-        <oui-option *ngFor="let option of options" [value]="option">
-          {{option}}
-        </oui-option>
+  <h1>Autocomplete with group</h1>
+  <div class="input-outer">
+    <oui-form-field>
+      <input type="text" oui-input [ouiAutocomplete]="autoGroup" />
+      <oui-autocomplete #autoGroup="ouiAutocomplete" class="autocomplete-group">
+        <oui-optgroup *ngFor="let group of stateGroups" [label]="group.letter">
+          <oui-option *ngFor="let name of group.names" [value]="name">
+            {{ name }}
+          </oui-option>
+        </oui-optgroup>
       </oui-autocomplete>
-    </div>
+    </oui-form-field>
+  </div>
+  <h1>Slide toggle</h1>
 
+  <h3>Enabled</h3>
 
-    <h1>Autocomplete with group</h1>
-    <div class="input-outer">
-      <oui-form-field>
-        <input type="text" oui-input [ouiAutocomplete]="autoGroup"/>
-          <oui-autocomplete #autoGroup="ouiAutocomplete" class="autocomplete-group">
-            <oui-optgroup *ngFor="let group of stateGroups" [label]="group.letter">
-              <oui-option *ngFor="let name of group.names" [value]="name">
-                {{name}}
-              </oui-option>
-          </oui-optgroup>
-        </oui-autocomplete>
-      </oui-form-field>
-    </div>
-    <h1>Slide toggle</h1>
+  <h4>Primary</h4>
 
-    <h3>Enabled</h3>
-    
-    <h4>Primary</h4>
-    
-    <oui-slide-toggle [checked]="true"></oui-slide-toggle>
-    <oui-slide-toggle [checked]="false"></oui-slide-toggle>
-    
-    <h4>Accent</h4>
-    
-    <oui-slide-toggle color="accent" [checked]="true"></oui-slide-toggle>
-    <oui-slide-toggle color="accent" [checked]="false"></oui-slide-toggle>
-    
-    <h4>Warn</h4>
-    
-    <oui-slide-toggle color="warn" [checked]="true"></oui-slide-toggle>
-    <oui-slide-toggle color="warn" [checked]="false"></oui-slide-toggle>
-    
-    <h3>Disabled</h3>
-    
-    <h4>Primary</h4>
-    
-    <oui-slide-toggle [checked]="true" [disabled]="true"></oui-slide-toggle>
-    <oui-slide-toggle [checked]="false" [disabled]="true"></oui-slide-toggle>
-    
-    <h4>Accent</h4>
-    
-    <oui-slide-toggle color="accent" [checked]="true" [disabled]="true"></oui-slide-toggle>
-    <oui-slide-toggle color="accent" [checked]="false" [disabled]="true"></oui-slide-toggle>
-    
-    <h4>Warn</h4>
-    
-    <oui-slide-toggle color="warn" [checked]="true" [disabled]="true"></oui-slide-toggle>
-    <oui-slide-toggle color="warn" [checked]="false" [disabled]="true"></oui-slide-toggle>
+  <oui-slide-toggle [checked]="true"></oui-slide-toggle>
+  <oui-slide-toggle [checked]="false"></oui-slide-toggle>
+
+  <h4>Accent</h4>
+
+  <oui-slide-toggle color="accent" [checked]="true"></oui-slide-toggle>
+  <oui-slide-toggle color="accent" [checked]="false"></oui-slide-toggle>
+
+  <h4>Warn</h4>
+
+  <oui-slide-toggle color="warn" [checked]="true"></oui-slide-toggle>
+  <oui-slide-toggle color="warn" [checked]="false"></oui-slide-toggle>
+
+  <h3>Disabled</h3>
+
+  <h4>Primary</h4>
+
+  <oui-slide-toggle [checked]="true" [disabled]="true"></oui-slide-toggle>
+  <oui-slide-toggle [checked]="false" [disabled]="true"></oui-slide-toggle>
+
+  <h4>Accent</h4>
+
+  <oui-slide-toggle
+    color="accent"
+    [checked]="true"
+    [disabled]="true"
+  ></oui-slide-toggle>
+  <oui-slide-toggle
+    color="accent"
+    [checked]="false"
+    [disabled]="true"
+  ></oui-slide-toggle>
+
+  <h4>Warn</h4>
+
+  <oui-slide-toggle
+    color="warn"
+    [checked]="true"
+    [disabled]="true"
+  ></oui-slide-toggle>
+  <oui-slide-toggle
+    color="warn"
+    [checked]="false"
+    [disabled]="true"
+  ></oui-slide-toggle>
 </div>
 
 <div>
