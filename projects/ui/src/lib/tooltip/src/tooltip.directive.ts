@@ -5,23 +5,32 @@ import {
   ViewContainerRef,
   Input,
   ComponentFactoryResolver,
-  Inject
+  Inject,
+  OnInit
 } from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
 import { DOCUMENT } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Directive({
   selector: '[onceTooltip]'
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnInit {
   private tooltip: ComponentRef<TooltipComponent>;
   private visible: boolean;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
     private resolver: ComponentFactoryResolver,
+    private router: Router,
     @Inject(DOCUMENT) private _document: any
   ) {}
+
+  ngOnInit() {
+    this.router.events.subscribe(() => {
+      this.tooltip.destroy(); // Destroying tooltip when route changed
+    });
+  }
 
   @Input()
   onceTooltip: string | TooltipComponent;
