@@ -17,11 +17,6 @@ import { HasTabIndex } from '../core';
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
 
-// Declare id
-declare const module: {
-  id: string;
-};
-
 /** Change event object emitted by MatCheckbox. */
 export class OuiCheckboxChange {
   /** The source MatCheckbox of the event. */
@@ -51,7 +46,6 @@ export enum TransitionCheckState {
  * See: https://github.com/scheduleonce/once-ui/tree/master/projects/ui/src/lib/oui/checkbox/README.md
  */
 @Component({
-  moduleId: module.id,
   selector: 'oui-checkbox',
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.scss'],
