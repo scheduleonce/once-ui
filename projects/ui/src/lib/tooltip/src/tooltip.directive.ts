@@ -25,7 +25,9 @@ export class TooltipDirective implements OnDestroy {
   ) {}
 
   ngOnDestroy() {
-    this.tooltip.destroy();
+    if (this.tooltip) {
+      this.tooltip.destroy();
+    }
   }
 
   @Input()
