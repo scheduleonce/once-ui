@@ -12,8 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - NA
 
 ### Changed
+- oui-icon
 - Make SVG title hidden (Problem only on latest chrome windows browser).
-- README link https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/checkbox/README.md
+- README link https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/icon/README.md
 
 ### Removed
 
