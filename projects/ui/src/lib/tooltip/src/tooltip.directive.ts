@@ -18,6 +18,15 @@ export class TooltipDirective implements OnDestroy {
   private tooltip: ComponentRef<TooltipComponent>;
   private visible: boolean;
 
+  @Input()
+  onceTooltip: string | TooltipComponent;
+
+  @Input()
+  tooltipDisabled: boolean;
+
+  @Input()
+  tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'top';
+
   constructor(
     private viewContainerRef: ViewContainerRef,
     private resolver: ComponentFactoryResolver,
@@ -29,15 +38,6 @@ export class TooltipDirective implements OnDestroy {
       this.tooltip.destroy();
     }
   }
-
-  @Input()
-  onceTooltip: string | TooltipComponent;
-
-  @Input()
-  tooltipDisabled: boolean;
-
-  @Input()
-  tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'top';
 
   @HostListener('mouseenter')
   show(): void {
