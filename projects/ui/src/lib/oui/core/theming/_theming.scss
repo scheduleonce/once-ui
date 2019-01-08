@@ -35,7 +35,6 @@ $default-foreground: (
   text: #333333,
   secondary-text: #666666
 );
-
 @function oui-palette(
   $base,
   $lighter: null,
@@ -49,7 +48,6 @@ $default-foreground: (
     default-contrast: $contrast
   );
 }
-
 @function oui-theme(
   $primary: (),
   $accent: (),
