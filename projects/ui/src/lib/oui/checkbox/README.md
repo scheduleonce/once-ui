@@ -36,7 +36,7 @@ Selector: `oui-checkbox`
 
 Exported as: `ouiCheckbox`
 
-**Properties**
+**Properties**
 <br/>
 
 | Name                                                     | Description                                                                         |
@@ -52,7 +52,7 @@ Exported as: `ouiCheckbox`
 | @Input() <br/>`value: string`                            | The value attribute of the native input element.                                    |
 | @Output() <br/>`change: EventEmitter<OuiCheckboxChange>` | Event emitted when the checkbox's checked value changes.                            |
 
-**Method**
+**Method**
 <br/>
 
 | Name   | Description                                |

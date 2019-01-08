@@ -299,7 +299,13 @@
   <h1>Progress Button</h1>
 
   <div>
-    <button #progressButton oui-button progress (click)="progressButtonClick()">
+    <button
+      #progressButton
+      oui-button
+      progress
+      [disabled]="isDisable"
+      (click)="progressButtonClick()"
+    >
       button
     </button>
 
