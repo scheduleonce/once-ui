@@ -37,7 +37,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/autocomplete/README.md
 - https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/input/README.md
 
-
 ### Removed
 
 - NA
