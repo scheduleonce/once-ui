@@ -17,12 +17,12 @@ import { OuiTooltipModule } from '@once/ui';
 
 ```html
 <!-- default tooltip -->
-<button oui-tooltip="Button Tooltip" oui-button color="primary"></button>
+<button ouiTooltip="Button Tooltip" oui-button color="primary"></button>
 
 <!-- tooltip with above position -->
 <button
-  oui-tooltip="Button Tooltip"
-  oui-tooltip-position="above"
+  ouiTooltip="Button Tooltip"
+  ouiTooltipPosition="above"
   oui-button
   color="primary"
 ></button>
@@ -30,12 +30,12 @@ import { OuiTooltipModule } from '@once/ui';
 
 ## API OuiTooltip
 
-| Input                | Type    | Default | Description                              |
-| -------------------- | ------- | ------- | ---------------------------------------- |
-| oui-tooltip          | string  | empty   | Tooltip Text                             |
-| oui-tooltip-position | string  | below   | 'left','right' , 'above' , 'below'       |
-| oui-tooltip-disabled | boolean | false   | Whether the tooltip is disabled          |
-| oui-tooltip-class    | string  | null    | Used to set class on underlying element. |
+| Input              | Type    | Default | Description                              |
+| ------------------ | ------- | ------- | ---------------------------------------- |
+| ouiTooltip         | string  | empty   | Tooltip Text                             |
+| ouiTooltipPosition | string  | below   | 'left','right' , 'above' , 'below'       |
+| ouiTooltipDisabled | boolean | false   | Whether the tooltip is disabled          |
+| ouiTooltipClass    | string  | null    | Used to set class on underlying element. |
 
 | Method | Description      |
 | ------ | ---------------- |
@@ -69,6 +69,12 @@ To manually cause the tooltip to show or hide, you can call the `show` and `hide
 
 To completely disable a tooltip, set `ouiTooltipDisabled`. While disabled, a tooltip will never be
 shown.
+
+## Stackblitz demo link
+
+[https://stackblitz.com/edit/oui-tooltip](https://stackblitz.com/edit/oui-tooltip)
+
+You can click here and can change code to try and test different scenarios.
 
 ### Accessibility
 
