@@ -14,4 +14,8 @@ $oui-icon-size: 20px !default;
     line-height: inherit;
     width: inherit;
   }
+
+  svg {
+    pointer-events: none;
+  }
 }
