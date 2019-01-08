@@ -36,11 +36,11 @@ Selector: `oui-checkbox`
 
 Exported as: `ouiCheckbox`
 
-**Properties**
+**Properties**
 <br/>
 
 | Name                                                     | Description                                                                         |
-| -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+|----------------------------------------------------------|-------------------------------------------------------------------------------------|
 | @Input() <br/>`aria-label:String`                        | Used to set the aria-label attribute on the underlying element.                     |
 | @Input() <br/>`aria-labelledby: String`                  | Used to set the aria-labelledby attribute on the underlying element.                |
 | @Input() <br/>`checked: boolean`                         | Whether the checkbox is checked.                                                    |
@@ -52,11 +52,11 @@ Exported as: `ouiCheckbox`
 | @Input() <br/>`value: string`                            | The value attribute of the native input element.                                    |
 | @Output() <br/>`change: EventEmitter<OuiCheckboxChange>` | Event emitted when the checkbox's checked value changes.                            |
 
-**Method**
+**Method**
 <br/>
 
 | Name   | Description                                |
-| ------ | ------------------------------------------ |
+|--------|--------------------------------------------|
 | focus  | Focuses the checkbox.                      |
 | toggle | Toggles the checked state of the checkbox. |
 
