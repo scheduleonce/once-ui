@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   options: string[] = ['One', 'Two', 'Three'];
+  isDisable = false;
   stateGroups = [
     {
       letter: 'A',
@@ -74,6 +75,8 @@ export class AppComponent {
     this.progressButton.setToProgress();
     setTimeout(() => {
       this.progressButton.setToDone();
+      console.log('disable true');
+      this.isDisable = true;
     }, 1000);
   }
 
