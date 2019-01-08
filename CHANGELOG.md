@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.5] - 2019-01-08
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- https://scheduleonce.atlassian.net/browse/ONCEHUB-3457
+
+## [1.5.4] - 2019-01-08
+
+### Added
+
+- NA
+
+### Changed
+
+- oui-icon
+- Make SVG title hidden (Problem only on latest chrome windows browser).
+- README link https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/icon/README.md
+
+### Removed
+
+- NA
+
 ## [1.5.3] - 2019-01-08
 
 ### Added
@@ -36,7 +70,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improved textarea styling after Graphic QA
 - https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/autocomplete/README.md
 - https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/input/README.md
-
 
 ### Removed
 

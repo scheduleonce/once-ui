@@ -37,7 +37,6 @@ Selector: `oui-checkbox`
 Exported as: `ouiCheckbox`
 
 **Properties**
-<br/>
 
 | Name                                                     | Description                                                                         |
 | -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
@@ -53,7 +52,6 @@ Exported as: `ouiCheckbox`
 | @Output() <br/>`change: EventEmitter<OuiCheckboxChange>` | Event emitted when the checkbox's checked value changes.                            |
 
 **Method**
-<br/>
 
 | Name   | Description                                |
 | ------ | ------------------------------------------ |
