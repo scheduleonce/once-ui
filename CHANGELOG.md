@@ -5,6 +5,48 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.2] - 2019-01-07
+
+### Added
+
+- NA
+
+### Changed
+
+- Improved styling of Autocomplete after Graphic QA
+- Improved textarea styling after Graphic QA
+- https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/autocomplete/README.md
+- https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/input/README.md
+
+
+### Removed
+
+- NA
+
+### Fixed
+
+- NA
+
+## [1.5.1] - 2019-01-07
+
+### Added
+
+- oui-checkbox
+
+* https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/checkbox/README.md
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- NA
+
 ## [1.5.0] - 2019-01-04
 
 ### Added
