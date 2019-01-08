@@ -1,0 +1,18 @@
+@mixin oui-progress-spinner-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  .oui-progress-spinner {
+    &.oui-primary circle {
+      stroke: map-get($primary, default);
+    }
+
+    &.oui-accent circle {
+      stroke: map-get($accent, default);
+    }
+
+    &.oui-warn circle {
+      stroke: map-get($warn, default);
+    }
+  }
+}
