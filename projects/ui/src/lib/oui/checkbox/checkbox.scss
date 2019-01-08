@@ -73,7 +73,6 @@ $oui-checkbox-transition-duration: 90ms;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
-
 .oui-checkbox-layout {
   cursor: inherit;
   align-items: baseline;
@@ -119,7 +118,6 @@ $oui-checkbox-transition-duration: 90ms;
   @include oui-fill;
   width: 100%;
 }
-
 .oui-checkbox-checkmark-path {
   stroke: {
     dashoffset: $_oui-checkbox-mark-path-length;
