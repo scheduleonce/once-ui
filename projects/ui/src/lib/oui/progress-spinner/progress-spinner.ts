@@ -78,6 +78,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private static diameters = new Set<number>([BASE_SIZE]);
   private static styleTag: HTMLStyleElement | null = null;
   private _value = 0;
+  private _strokeWidth: number;
 
   @Input() color = 'primary';
   @Input()
@@ -104,7 +105,12 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
     this.mode = 'determinate';
   }
 
-  @Input() strokeWidth = BASE_STROKE_WIDTH;
+  @Input() get strokeWidth(): number {
+    return this._strokeWidth || this.diameter / 10;
+  }
+  set strokeWidth(value: number) {
+    this._strokeWidth = coerceNumberProperty(value);
+  }
   constructor(
     _elementRef: ElementRef,
     @Optional() @Inject(DOCUMENT) private _document: any

@@ -64,16 +64,18 @@ Exported as: `ouiCheckbox`
 
 ## Examples
 
-    <oui-checkbox
-        class="example-margin"
-        [(ngModel)]="checked"
-        [labelPosition]="labelPosition"
-        [disabled]="disabled">
-        I'm a checkbox
-    </oui-checkbox>
+```
+<oui-checkbox
+    class="example-margin"
+    [(ngModel)]="checked"
+    [labelPosition]="labelPosition"
+    [disabled]="disabled">
+    I'm a checkbox
+</oui-checkbox>
+```
 
 ## Stackblitz demo link
 
-You can click here and can change code to try and test different scenarios.
+[https://stackblitz.com/edit/oui-checkbox-component](https://stackblitz.com/edit/oui-checkbox-component)
 
 You can click here and can change code to try and test different scenarios.
