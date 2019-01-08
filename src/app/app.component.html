@@ -518,3 +518,33 @@
   </section>
 </section>
 <br /><br />
+
+<h1>Progress Spinner</h1>
+
+<h3>Indeterminate</h3>
+<oui-progress-spinner></oui-progress-spinner>
+<br />
+<oui-progress-spinner
+  diameter="150"
+  [strokeWidth]="5"
+  color="accent"
+></oui-progress-spinner>
+<br />
+<oui-progress-spinner [strokeWidth]="10" color="warn"></oui-progress-spinner>
+<br />
+
+<h3>Determinate Spinner</h3>
+<oui-progress-spinner [value]="50" [strokeWidth]="5"></oui-progress-spinner>
+<br />
+<oui-progress-spinner
+  [value]="70"
+  [strokeWidth]="10"
+  color="accent"
+></oui-progress-spinner>
+<br />
+<oui-progress-spinner
+  [value]="90"
+  [strokeWidth]="15"
+  color="warn"
+></oui-progress-spinner>
+<br />
