@@ -95,7 +95,6 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
 
     setToDone() {
       this._checkAttribute();
-      this._elementRef.nativeElement.disabled = true;
       this._stage = 'done';
       this._changeStage();
       this._resetToDefault();
@@ -103,7 +102,6 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
 
     private _resetToDefault() {
       setTimeout(() => {
-        this._elementRef.nativeElement.disabled = false;
         this._stage = 'default';
         this._changeStage();
       }, 3000);
