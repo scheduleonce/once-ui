@@ -38,8 +38,6 @@ Exported as: `ouiCheckbox`
 
 **Properties**
 
-<br/>
-
 | Name                                                     | Description                                                                         |
 | -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | @Input() <br/>`aria-label:String`                        | Used to set the aria-label attribute on the underlying element.                     |
@@ -54,8 +52,6 @@ Exported as: `ouiCheckbox`
 | @Output() <br/>`change: EventEmitter<OuiCheckboxChange>` | Event emitted when the checkbox's checked value changes.                            |
 
 **Method**
-
-<br/>
 
 | Name   | Description                                |
 | ------ | ------------------------------------------ |
