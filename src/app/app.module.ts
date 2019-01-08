@@ -10,6 +10,8 @@ import { OuiInputModule } from 'projects/ui/src/lib/oui';
 import { OuiAutocompleteModule } from 'projects/ui/src/lib/oui';
 import { OuiIconModule } from 'projects/ui/src/lib/oui';
 import { OuiMenuModule } from 'projects/ui/src/lib/oui';
+import { OuiCheckboxModule } from 'projects/ui/src/lib/oui';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +24,10 @@ import { OuiMenuModule } from 'projects/ui/src/lib/oui';
     OuiAutocompleteModule,
     OuiInputModule,
     OuiIconModule,
-    OuiMenuModule
+    OuiMenuModule,
+    OuiCheckboxModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
