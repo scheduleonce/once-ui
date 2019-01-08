@@ -334,6 +334,18 @@
     </oui-autocomplete>
   </div>
 
+  <h1>Autocomplete with underline Input</h1>
+  <div class="input-outer">
+    <oui-form-field [appearance]="'underline'">
+      <input oui-input [ouiAutocomplete]="auto" />
+    </oui-form-field>
+    <oui-autocomplete #auto="ouiAutocomplete">
+      <oui-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </oui-option>
+    </oui-autocomplete>
+  </div>
+
   <h1>Autocomplete with group</h1>
   <div class="input-outer">
     <oui-form-field>
