@@ -25,13 +25,13 @@ export type ProgressSpinnerMode = 'determinate' | 'indeterminate';
  * Base reference size of the spinner.
  * @docs-private
  */
-const BASE_SIZE = 100;
+const BASE_SIZE = 15;
 
 /**
  * Base reference stroke width of the spinner.
  * @docs-private
  */
-const BASE_STROKE_WIDTH = 10;
+const BASE_STROKE_WIDTH = 2;
 
 const INDETERMINATE_ANIMATION_TEMPLATE = `
  @keyframes oui-progress-spinner-stroke-rotate-DIAMETER {
@@ -107,7 +107,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   }
 
   @Input() get strokeWidth(): number {
-    return this._strokeWidth || this.diameter / 10;
+    return this._strokeWidth || BASE_STROKE_WIDTH;
   }
   set strokeWidth(value: number) {
     this._strokeWidth = coerceNumberProperty(value);
@@ -121,7 +121,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
 
   /** The radius of the spinner, adjusted for stroke width. */
   get _circleRadius() {
-    return (this.diameter - BASE_STROKE_WIDTH) / 2;
+    return (this.diameter - this.strokeWidth) / 2;
   }
 
   /** The view box of the spinner's svg element. */
