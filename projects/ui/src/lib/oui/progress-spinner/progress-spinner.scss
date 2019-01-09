@@ -1,4 +1,4 @@
-$oui-progress-spinner-default-radius: 45px;
+$oui-progress-spinner-default-radius: 6.5px;
 $oui-progress-spinner-default-circumference: 3.14 *
   $oui-progress-spinner-default-radius * 2;
 $start: (1 - 0.05) * $oui-progress-spinner-default-circumference; // start the animation at 5%
@@ -42,7 +42,7 @@ $end: (1 - 0.8) * $oui-progress-spinner-default-circumference; // end the animat
   }
 }
 
-@keyframes oui-progress-spinner-stroke-rotate-100 {
+@keyframes oui-progress-spinner-stroke-rotate-15 {
   0% {
     stroke-dashoffset: $start;
     transform: rotate(0);
