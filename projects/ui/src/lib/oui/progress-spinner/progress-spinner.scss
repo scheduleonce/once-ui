@@ -24,7 +24,6 @@ $end: (1 - 0.8) * $oui-progress-spinner-default-circumference; // end the animat
   &[mode='indeterminate'] {
     animation: oui-progress-spinner-linear-rotate 2s linear infinite;
     circle {
-      stroke-dashoffset: unset !important;
       transition-property: stroke;
       animation-duration: 4s;
       animation-timing-function: cubic-bezier(0.35, 0, 0.25, 1);
