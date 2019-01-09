@@ -112,7 +112,7 @@ describe('OuiProgressSpinner', () => {
     expect(progressComponent.value).toBe(0);
   });
 
-  it('should default to a stroke width that is 10% of the diameter', () => {
+  it('should default to a stroke width of the 2', () => {
     const spinner = progressSpinnerDiameterFixture.debugElement.query(
       By.directive(OuiProgressSpinner)
     );
@@ -120,7 +120,7 @@ describe('OuiProgressSpinner', () => {
     progressSpinnerDiameterFixture.componentInstance.diameter = 57;
     progressSpinnerDiameterFixture.detectChanges();
 
-    expect(spinner.componentInstance.strokeWidth).toBe(5.7);
+    expect(spinner.componentInstance.strokeWidth).toBe(2);
   });
 
   it('should allow to set a custom diameter', () => {
@@ -151,7 +151,7 @@ describe('OuiProgressSpinner', () => {
       'Expected the custom diameter to be applied to the svg element height.'
     );
     expect(svgElement.getAttribute('viewBox')).toBe(
-      '0 0 25.2 25.2',
+      '0 0 32 32',
       'Expected the custom diameter to be applied to the svg viewBox.'
     );
   });
