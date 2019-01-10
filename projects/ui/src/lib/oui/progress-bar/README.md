@@ -24,15 +24,15 @@ import { OuiProgressBarModule } from '@once/ui';
 
 ## API ProgressSpinner
 
-| Input  | Type   | Description                                                                                              |
-| ------ | ------ | -------------------------------------------------------------------------------------------------------- |
-| color  | string | Theme color palette for the component.                                                                   |
-| height | number | Height of the progress bar.                                                                              |
-| value  | number | Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow only works with determinate mode. |
+| Input       | Type   | Description                                                                                              |
+| ----------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| color       | string | Theme color palette for the component.                                                                   |
+| strokeWidth | number | Stroke width of the progress bar.                                                                        |
+| value       | number | Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow only works with determinate mode. |
 
 The default mode is `indeterminate`. If value is passed mode will automatically switch to `determinate` mode. The progress is set via the `value` property, which can be a whole number between 0 and 100.
 
-Default value for "height" is 4. You can simply override and give a own value.
+Default value for "strokeWidth" is 4. You can simply override and give your own value.
 
 ### Theming
 
