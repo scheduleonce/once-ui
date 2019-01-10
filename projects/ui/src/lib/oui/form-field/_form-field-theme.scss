@@ -5,17 +5,20 @@ $form-field-width: 100%;
 $form-field-max-width: 100%;
 $form-field-vertical-align: bottom;
 $form-field-text-align: inherit;
-$form-field-border-bottom: 1px solid #9c9c9c;
-$form-field-border: 1px solid #9c9c9c;
+$form-field-border-bottom: 1px solid #c8c8c8;
+$form-field-border: 1px solid #c8c8c8;
 $form-field-color: #333333;
+$form-field-color-placeholder: #666666;
 $form-field-disabled-color: #9c9c9c;
 $form-field-disabled-border: #e4e4e4;
+$form-field-disabled-background: #f9f9f9;
 $form-field-box-sizing: border-box;
 $form-field-font-size: 14px;
-$form-field-height: 34px;
+$form-field-height: 40px;
 $form-field-textarea-height: 58px;
 $form-field-line-height: 19px;
 $form-field-default-background: #fff;
+$form-field-transition-border: border 0.5s;
 @mixin oui-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -52,12 +55,30 @@ $form-field-default-background: #fff;
     line-height: $form-field-line-height;
     background: $form-field-default-background;
     font-weight: normal;
+    transition: $form-field-transition-border;
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
+      color: $form-field-color-placeholder;
+    }
+    &::-moz-placeholder {
+      /* Firefox 19+ */
+      color: $form-field-color-placeholder;
+    }
+    &:-ms-input-placeholder {
+      /* IE 10+ */
+      color: $form-field-color-placeholder;
+    }
+    &:-moz-placeholder {
+      /* Firefox 18- */
+      color: $form-field-color-placeholder;
+    }
     &:disabled {
       border-color: $form-field-disabled-border;
       resize: none;
     }
     &:disabled {
       border-color: $form-field-disabled-border;
+      background-color: $form-field-disabled-background;
     }
     &:disabled::-webkit-input-placeholder {
       color: $form-field-disabled-color;
@@ -99,6 +120,8 @@ $form-field-default-background: #fff;
   .oui-input {
     border: 0;
     border-bottom: $form-field-border-bottom;
+    padding-left: 1px;
+    padding-right: 1px;
     &:focus ~ .bottom-line {
       background-color: map-get($primary, lighter);
     }
@@ -109,6 +132,7 @@ $form-field-default-background: #fff;
     &:disabled {
       border-color: #cbcbcb;
       color: #666666;
+      background-color: transparent;
     }
   }
 }
