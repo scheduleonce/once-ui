@@ -5,3 +5,4 @@ export * from './autocomplete/public-api';
 export * from './form-field/public-api';
 export * from './input/public-api';
 export * from './menu/public-api';
+export * from './checkbox/public-api';

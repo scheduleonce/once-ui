@@ -5,7 +5,8 @@ import {
   ViewContainerRef,
   Input,
   ComponentFactoryResolver,
-  Inject
+  Inject,
+  OnDestroy
 } from '@angular/core';
 import { TooltipComponent } from './tooltip.component';
 import { DOCUMENT } from '@angular/common';
@@ -13,15 +14,9 @@ import { DOCUMENT } from '@angular/common';
 @Directive({
   selector: '[onceTooltip]'
 })
-export class TooltipDirective {
+export class TooltipDirective implements OnDestroy {
   private tooltip: ComponentRef<TooltipComponent>;
   private visible: boolean;
-
-  constructor(
-    private viewContainerRef: ViewContainerRef,
-    private resolver: ComponentFactoryResolver,
-    @Inject(DOCUMENT) private _document: any
-  ) {}
 
   @Input()
   onceTooltip: string | TooltipComponent;
@@ -31,6 +26,18 @@ export class TooltipDirective {
 
   @Input()
   tooltipPlacement: 'top' | 'bottom' | 'left' | 'right' = 'top';
+
+  constructor(
+    private viewContainerRef: ViewContainerRef,
+    private resolver: ComponentFactoryResolver,
+    @Inject(DOCUMENT) private _document: any
+  ) {}
+
+  ngOnDestroy() {
+    if (this.tooltip) {
+      this.tooltip.destroy();
+    }
+  }
 
   @HostListener('mouseenter')
   show(): void {

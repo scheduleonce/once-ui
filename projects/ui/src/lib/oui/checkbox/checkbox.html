@@ -1,0 +1,43 @@
+<label [attr.for]="inputId" class="oui-checkbox-layout">
+  <div class="oui-checkbox-inner-container">
+    <input
+      class="oui-checkbox-input cdk-visually-hidden"
+      type="checkbox"
+      [id]="inputId"
+      [required]="required"
+      [checked]="checked"
+      [attr.value]="value"
+      [disabled]="disabled"
+      [attr.name]="name"
+      [tabIndex]="tabIndex"
+      [attr.aria-label]="ariaLabel || null"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-checked]="_getAriaChecked()"
+      (change)="_onInteractionEvent($event)"
+      (click)="_onInputClick($event)"
+    />
+
+    <div class="oui-checkbox-frame"></div>
+    <div class="oui-checkbox-background">
+      <svg
+        version="1.1"
+        focusable="false"
+        class="oui-checkbox-checkmark"
+        viewBox="0 0 24 24"
+        xml:space="preserve"
+      >
+        <path
+          class="oui-checkbox-checkmark-path"
+          fill="none"
+          stroke="#333333"
+          d="M4.1,12.7 9,17.6 20.3,6.3"
+        />
+      </svg>
+      <div class="oui-checkbox-mixedmark"></div>
+    </div>
+  </div>
+  <span class="oui-checkbox-label">
+    <span style="display:none">&nbsp;</span>
+    <ng-content></ng-content>
+  </span>
+</label>

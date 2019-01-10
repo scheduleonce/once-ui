@@ -1,0 +1,31 @@
+.oui-tooltip-wrapper {
+  padding: 8px;
+}
+.oui-tooltip {
+  display: block;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  line-break: auto;
+  border: 1px solid #c8c8c8;
+  background-color: #ffffff;
+  -webkit-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 1px -1px rgba(0, 0, 0, 0.3);
+  z-index: 9999999;
+}
+.oui-tooltip .tooltip-inner {
+  max-width: 280px;
+  padding: 10px;
+  color: #333333;
+  font-size: 13px;
+  line-height: 17px;
+  text-align: center;
+}

@@ -10,6 +10,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent {
   options: string[] = ['One', 'Two', 'Three'];
+  isDisable = false;
   stateGroups = [
     {
       letter: 'A',
@@ -28,7 +29,9 @@ export class AppComponent {
       names: ['Florida']
     }
   ];
-
+  checked;
+  labelPosition;
+  disabled;
   @ViewChild('dialogTemplate')
   dialogTemplate;
   @ViewChild('progressButton')
@@ -58,6 +61,9 @@ export class AppComponent {
         'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
       )
     );
+    this.checked = false;
+    this.labelPosition = 'after';
+    this.disabled = false;
   }
 
   openDialog() {
@@ -69,6 +75,8 @@ export class AppComponent {
     this.progressButton.setToProgress();
     setTimeout(() => {
       this.progressButton.setToDone();
+      console.log('disable true');
+      this.isDisable = true;
     }, 1000);
   }
 
@@ -77,6 +85,10 @@ export class AppComponent {
     setTimeout(() => {
       this.progressLinkButton.setToDone();
     }, 1000);
+  }
+
+  func($event) {
+    console.log($event);
   }
 
   progressButtonGhostClick() {
