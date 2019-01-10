@@ -497,7 +497,7 @@ export class OuiTooltip implements OnDestroy {
 
   /** Handles the keydown events on the host element. */
   _handleKeydown(e: KeyboardEvent) {
-    if (this._isTooltipVisible() && e.keyCode === ESCAPE) {
+    if (this._isTooltipVisible() && e.key === 'Escape') {
       e.stopPropagation();
       this.hide();
     }
