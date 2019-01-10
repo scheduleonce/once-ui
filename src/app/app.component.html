@@ -299,7 +299,13 @@
   <h1>Progress Button</h1>
 
   <div>
-    <button #progressButton oui-button progress (click)="progressButtonClick()">
+    <button
+      #progressButton
+      oui-button
+      progress
+      [disabled]="isDisable"
+      (click)="progressButtonClick()"
+    >
       button
     </button>
 
@@ -325,6 +331,18 @@
   <h1>Autocomplete</h1>
   <div class="input-outer">
     <oui-form-field>
+      <input oui-input [ouiAutocomplete]="auto" />
+    </oui-form-field>
+    <oui-autocomplete #auto="ouiAutocomplete">
+      <oui-option *ngFor="let option of options" [value]="option">
+        {{ option }}
+      </oui-option>
+    </oui-autocomplete>
+  </div>
+
+  <h1>Autocomplete with underline Input</h1>
+  <div class="input-outer">
+    <oui-form-field [appearance]="'underline'">
       <input oui-input [ouiAutocomplete]="auto" />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
@@ -449,8 +467,84 @@
 <oui-icon svgIcon="local" color="primary"></oui-icon>
 <br />
 <h3>IcoMoon:</h3>
-<oui-icon svgIcon="icon-bullhorn" inline="true" color="primary"></oui-icon>
-<oui-icon svgIcon="icon-diamonds" inline="true" color="accent"></oui-icon>
-<oui-icon svgIcon="icon-pacman" inline="true" color="warn"></oui-icon>
+<oui-icon svgIcon="icon-bullhorn" color="primary" class="bigImage"></oui-icon>
+<oui-icon svgIcon="icon-diamonds" color="accent" class="bigImage"></oui-icon>
+<oui-icon svgIcon="icon-pacman" color="warn" class="bigImage"></oui-icon>
 
+<br />
+<h2 class="example-h2">Checkbox configuration</h2>
+<section class="example-section">
+  <oui-checkbox class="example-margin" [(ngModel)]="checked">
+    Checked
+  </oui-checkbox>
+</section>
+<section class="example-section">
+  <label class="example-margin">Align:</label>
+  <input
+    [(ngModel)]="labelPosition"
+    type="radio"
+    id="after"
+    name="align"
+    class="example-margin"
+    value="after"
+  />
+  <label for="after">After </label>
+  <input
+    type="radio"
+    [(ngModel)]="labelPosition"
+    id="before"
+    name="align"
+    class="example-margin"
+    value="before"
+  />
+  <label for="before">Before </label>
+</section>
+<section class="example-section">
+  <oui-checkbox class="example-margin" [(ngModel)]="disabled">
+    Disabled
+  </oui-checkbox>
+</section>
+<section class="result">
+  <h2 class="example-h2">Result</h2>
+  <section class="example-section">
+    <oui-checkbox
+      class="example-margin"
+      [(ngModel)]="checked"
+      [labelPosition]="labelPosition"
+      [disabled]="disabled"
+    >
+      I'm a checkbox
+    </oui-checkbox>
+  </section>
+</section>
+<br /><br />
+<button
+  oui-button
+  ouiTooltip="this is a tooltip"
+  ouiTooltipPosition="above"
+  color="primary"
+>
+  this is super button
+</button>
+<button oui-button ouiTooltip="this is a tooltip" color="primary">
+  this is super button
+</button>
+<button
+  oui-button
+  ouiTooltip="this is a tooltip"
+  ouiTooltipPosition="left"
+  color="primary"
+>
+  this is super button
+</button>
+<button
+  oui-button
+  ouiTooltip="this is a tooltip"
+  ouiTooltipClass="test"
+  ouiTooltipPosition="right"
+  color="primary"
+>
+  this is super button
+</button>
+<br /><br />
 <br /><br />
