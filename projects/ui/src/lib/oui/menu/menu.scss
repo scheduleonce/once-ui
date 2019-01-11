@@ -51,6 +51,8 @@ $oui-menu-line-height: 22px;
 .oui-menu-content {
   //box-shadow: $oui-menu-border-box-shadow;
   padding: 10px 0px;
+  //added border
+  border: $oui-menu-border-color;
 }
 
 @mixin oui-menu-item-base() {
