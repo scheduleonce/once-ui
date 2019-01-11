@@ -13,8 +13,10 @@ $oui-menu-border-radius: 4px !default;
 
 $oui-menu-z-index: 9999;
 
+$oui-menu-border-color: 1px solid #c8c8c8;
+
 /*box shadow and border as a boxshadow(good for zoom-in and zoom-out in browsers) */
-$oui-menu-box-shadow: 0px 1px 3px 0px #4a4a4a, 0 0 0 1px #c8c8c8;
+$oui-menu-box-shadow: 0px 1px 3px 0px #4a4a4a;
 $oui-menu-border-box-shadow: 0 0 0 1px #c8c8c8;
 
 /*font size and line-height*/
