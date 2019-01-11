@@ -55,17 +55,21 @@ $form-field-transition-border: border 0.5s;
     line-height: $form-field-line-height;
     background: $form-field-default-background;
     font-weight: normal;
-    transition:$form-field-transition-border;
-    &::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    transition: $form-field-transition-border;
+    &::-webkit-input-placeholder {
+      /* Chrome/Opera/Safari */
       color: $form-field-color-placeholder;
     }
-    &::-moz-placeholder { /* Firefox 19+ */
+    &::-moz-placeholder {
+      /* Firefox 19+ */
       color: $form-field-color-placeholder;
     }
-    &:-ms-input-placeholder { /* IE 10+ */
+    &:-ms-input-placeholder {
+      /* IE 10+ */
       color: $form-field-color-placeholder;
     }
-    &:-moz-placeholder { /* Firefox 18- */
+    &:-moz-placeholder {
+      /* Firefox 18- */
       color: $form-field-color-placeholder;
     }
     &:disabled {
@@ -116,8 +120,8 @@ $form-field-transition-border: border 0.5s;
   .oui-input {
     border: 0;
     border-bottom: $form-field-border-bottom;
-    padding-left:1px;
-    padding-right:1px;
+    padding-left: 1px;
+    padding-right: 1px;
     &:focus ~ .bottom-line {
       background-color: map-get($primary, lighter);
     }
