@@ -95,7 +95,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private _diameter = BASE_SIZE;
 
   /** Mode of the progress circle */
-  private mode: ProgressSpinnerMode = 'indeterminate';
+  mode: ProgressSpinnerMode = 'indeterminate';
 
   @Input()
   get value(): number {
