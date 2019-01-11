@@ -23,7 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - https://scheduleonce.atlassian.net/browse/ONCEHUB-3942
 
-
 ## [1.6.1] - 2019-01-10
 
 ### Added
