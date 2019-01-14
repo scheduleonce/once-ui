@@ -1,0 +1,27 @@
+@mixin oui-progress-bar-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  .oui-progress-bar {
+    &.oui-primary .progress {
+      background: rgba(map-get($primary, default), 0.3);
+      .progress-bar {
+        background: map-get($primary, default);
+      }
+    }
+
+    &.oui-accent .progress {
+      background: rgba(map-get($accent, default), 0.3);
+      .progress-bar {
+        background: map-get($accent, default);
+      }
+    }
+
+    &.oui-warn .progress {
+      background: rgba(map-get($warn, default), 0.3);
+      .progress-bar {
+        background: map-get($warn, default);
+      }
+    }
+  }
+}

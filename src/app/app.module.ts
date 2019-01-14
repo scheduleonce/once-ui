@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import { OuiSlideToggleModule } from 'projects/ui/src/lib/oui/slide-toggle/public-api';
 import {
   OuiButtonModule,
-  OuiProgressSpinnerModule
+  OuiProgressSpinnerModule,
+  OuiProgressBarModule
 } from 'projects/ui/src/lib/oui';
 import { OuiDialogModule } from 'projects/ui/src/lib/oui';
 import { OuiFormFieldModule } from 'projects/ui/src/lib/oui';
@@ -35,7 +36,8 @@ import { OuiTooltipModule } from 'projects/ui/src/public_api';
     OuiCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
-    OuiProgressSpinnerModule
+    OuiProgressSpinnerModule,
+    OuiProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
