@@ -1,0 +1,85 @@
+$width: 18px;
+$height: 18px;
+$circle-color: #333333;
+
+.oui-radio-label {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.oui-radio-container {
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+  width: $width;
+  height: $height;
+  flex-shrink: 0;
+}
+.oui-radio-outer-circle {
+  box-sizing: border-box;
+  height: $height;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: border-color ease 280ms;
+  width: $width;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+}
+.oui-radio-outer-circle {
+  border-color: rgba(0, 0, 0, 0.54);
+}
+.oui-radio-button.oui-accent.oui-radio-checked .oui-radio-outer-circle {
+  border-color: $circle-color;
+}
+.oui-radio-inner-circle {
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: $height;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform ease 280ms, background-color ease 280ms;
+  width: $width;
+  transform: scale(0.001);
+  background-color: $circle-color;
+}
+.oui-radio-checked .oui-radio-inner-circle {
+  transform: scale(0.5);
+}
+.oui-radio-input {
+  bottom: 0;
+  left: 50%;
+}
+.oui-visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  outline: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.oui-radio-label-content {
+  display: inline-block;
+  order: 0;
+  line-height: inherit;
+  padding-left: 8px;
+  padding-right: 0;
+}
+.oui-radio-disabled .oui-radio-container {
+  opacity: 0.5;
+}
+
+.oui-radio-label-before {
+  order: -1;
+  padding-left: 0;
+  padding-right: 8px;
+}

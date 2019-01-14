@@ -37,9 +37,9 @@ import { OuiRadioModule } from '@once/ui';
 | selected      | OuiRadioButton      | null    | The currently selected radio button. If set to a new radio button, the radio group value will be updated to match the new selected button.                                                                                                                                                     |
 | value         | any                 | false   | Value for the radio-group. Should equal the value of the selected radio button if there is a corresponding radio button with a matching value. If there is not such a corresponding radio button, this value persists to be applied in case a new radio button is added with a matching value. |
 
-| Output | Type          | Description                                                                                                                                                                                |
-| ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| change | Event Emitter | Event emitted when the group value changes. Change events are only emitted when the value changes due to user interaction with a radio button (the same behavior as <input type-"radio">). |
+| Output | Type                          | Description                                                                                                                                                                                |
+| ------ | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| change | Event Emitter<OuiRadioChange> | Event emitted when the group value changes. Change events are only emitted when the value changes due to user interaction with a radio button (the same behavior as <input type-"radio">). |
 
 ## API OuiRadioButtonComponent
 
@@ -57,13 +57,24 @@ import { OuiRadioModule } from '@once/ui';
 | value           | any                 | null    | The value of this radio button.                                                       |
 | radioGroup      | OuiRadioGroup       | null    | The parent radio group. May or may not be present.                                    |
 
-| Output | Type          | Description                                                                                                                                                                                                         |
-| ------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| change | Event Emitter | Event emitted when the checked state of this radio button changes. Change events are only emitted when the value changes due to user interaction with the radio button (the same behavior as <input type-"radio">). |
+| Output | Type                          | Description                                                                                                                                                                                                         |
+| ------ | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| change | Event Emitter<OuiRadioChange> | Event emitted when the checked state of this radio button changes. Change events are only emitted when the value changes due to user interaction with the radio button (the same behavior as <input type-"radio">). |
 
 | Method | Description               |
 | ------ | ------------------------- |
 | focus  | Focuses the radio button. |
+
+## Classes
+
+#### OuiRadioChange
+
+Properties
+
+| Method                 | Description                                     |
+| ---------------------- | ----------------------------------------------- |
+| source: OuiRadioButton | The OuiRadioButton that emits the change event. |
+| value: any             | The value of the OuiRadioButton.                |
 
 ### Radio-button label
 
