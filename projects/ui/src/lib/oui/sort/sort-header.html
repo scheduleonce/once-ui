@@ -1,0 +1,42 @@
+<div
+  class="oui-sort-header-container"
+  [class.oui-sort-header-sorted]="_isSorted()"
+  [class.oui-sort-header-position-before]="arrowPosition == 'before'"
+>
+  <button
+    class="oui-sort-header-button"
+    type="button"
+    [attr.disabled]="_isDisabled() || null"
+    [attr.aria-label]="_intl.sortButtonLabel(id)"
+    (focus)="_setIndicatorHintVisible(true)"
+    (blur)="_setIndicatorHintVisible(false)"
+  >
+    <ng-content></ng-content>
+  </button>
+
+  <!-- Disable animations while a current animation is running -->
+  <div
+    class="oui-sort-header-arrow"
+    [@arrowOpacity]="_getArrowViewState()"
+    [@arrowPosition]="_getArrowViewState()"
+    [@allowChildren]="_getArrowDirectionState()"
+    (@arrowPosition.start)="_disableViewStateAnimation = true"
+    (@arrowPosition.done)="_disableViewStateAnimation = false"
+  >
+    <div class="oui-sort-header-stem"></div>
+    <div
+      class="oui-sort-header-indicator"
+      [@indicator]="_getArrowDirectionState()"
+    >
+      <div
+        class="oui-sort-header-pointer-left"
+        [@leftPointer]="_getArrowDirectionState()"
+      ></div>
+      <div
+        class="oui-sort-header-pointer-right"
+        [@rightPointer]="_getArrowDirectionState()"
+      ></div>
+      <div class="oui-sort-header-pointer-middle"></div>
+    </div>
+  </div>
+</div>
