@@ -7,3 +7,5 @@ export * from './input/public-api';
 export * from './menu/public-api';
 export * from './checkbox/public-api';
 export * from './progress-spinner/public-api';
+export * from './tooltip/public-api';
+export * from './radio/public-api';
