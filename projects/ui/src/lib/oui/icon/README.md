@@ -120,7 +120,7 @@ By default the svg images in the icon sets has not prefilled colors. All the ui 
 - Accent
 - Warn
 
-If you need to theme the icons with a different color you can do this in the host application. The colors can be overridden globally i.e., in the whole host application or in a component only. 
+If you need to theme the icons with a different color you can do this in the host application. The colors can be overridden globally i.e., in the whole host application or in a component only.
 
 ## Global (Reflected in the whole application)
 
@@ -141,6 +141,7 @@ oui-icon {
     }
 }
 ```
+
 The above code will make all the icon look gray in the whole application.
 
 ## Locally (Reflected in the component only)
@@ -150,7 +151,9 @@ The above code will make all the icon look gray in the whole application.
 <oui-icon svgIcon="resourcepool"  class="defaultColor"></oui-icon>
 <oui-icon svgIcon="calendar" class="defaultColor"></oui-icon>
 ```
+
 **Style [any.component.scss]:**
+
 ```
 oui-icon {
   &.defaultColor svg {
