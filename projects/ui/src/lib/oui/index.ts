@@ -6,3 +6,7 @@ export * from './form-field/public-api';
 export * from './input/public-api';
 export * from './menu/public-api';
 export * from './checkbox/public-api';
+export * from './tooltip/public-api';
+export * from './paginator/public-api';
+export * from './sort/public-api';
+export * from './table/public_api';
