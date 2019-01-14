@@ -21,8 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Same name team members and Rooms resource pool highlighted twice in drop down
-- Readme: [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/drop-down/README.md) (@dinesh-rawat)
+- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected.
 
 ## [1.7.0] - 2019-01-11
 
