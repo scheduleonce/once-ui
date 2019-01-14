@@ -2,6 +2,7 @@
 @import '../../button/button-theme';
 @import '../../dialog/dialog-theme';
 @import '../../slide-toggle/slide-toggle-theme';
+@import '../../progress-spinner/progress-spinner-theme';
 @import '../../input/input-theme';
 @import '../../form-field/form-field-theme';
 @import '../../icon/icon-theme';
@@ -15,4 +16,5 @@
   @include oui-form-field-theme($theme);
   @include oui-icon-theme($theme);
   @include oui-slide-toggle-theme($theme);
+  @include oui-progress-spinner-theme($theme);
 }
