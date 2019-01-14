@@ -42,16 +42,7 @@ describe('OuiProgressBar', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should apply a mode of "indeterminate" if no mode is provided.', () => {
-    BasicProgressBarFixture.detectChanges();
-
-    const testElement = BasicProgressBarFixture.debugElement.query(
-      By.css('oui-progress-bar')
-    );
-    expect(testElement.componentInstance.mode).toBe('indeterminate');
-  });
-
-  it('should apply a mode of "determinate" if value is provided.', () => {
+  it('should apply a mode of "indeterminate" if no value is provided.', () => {
     BasicProgressBarFixture.detectChanges();
 
     const testElement = BasicProgressBarFixture.debugElement.query(
