@@ -1,21 +1,33 @@
-$oui-header-row-height: 56px;
-$oui-row-height: 48px;
-$oui-row-horizontal-padding: 24px;
-
 /**
  * Flex-based table structure
  */
 oui-table {
   display: block;
+  border-spacing: 0;
+  margin: 0px 16px 0px 16px;
 }
 
 oui-header-row {
-  min-height: $oui-header-row-height;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
 }
 
-oui-row,
-oui-footer-row {
-  min-height: $oui-row-height;
+oui-header-cell {
+  padding: 15px 12.5px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  color: #333;
+  text-align: left;
+}
+
+oui-cell {
+  padding: 13px 12.5px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+  line-height: 24px;
 }
 
 oui-row,
@@ -25,8 +37,7 @@ oui-footer-row {
   // Define a border style, but then widths default to 3px. Reset them to 0px except the bottom
   // which should be 1px;
   border-width: 0;
-  border-bottom-width: 1px;
-  border-style: solid;
+  border-bottom: 1px solid #dfdfdf;
   align-items: center;
   box-sizing: border-box;
 
@@ -39,19 +50,11 @@ oui-footer-row {
     content: '';
   }
 }
-
-// Note: we use `first-of-type`/`last-of-type` here in order to prevent extra
-// elements like ripples or badges from throwing off the layout (see #11165).
-oui-cell:first-of-type,
-oui-header-cell:first-of-type,
-oui-footer-cell:first-of-type {
-  padding-left: $oui-row-horizontal-padding;
-}
-
-oui-cell:last-of-type,
-oui-header-cell:last-of-type,
-oui-footer-cell:last-of-type {
-  padding-right: $oui-row-horizontal-padding;
+oui-row {
+  &:hover {
+    background: #f6f6f6;
+    cursor: pointer;
+  }
 }
 
 oui-cell,
@@ -93,7 +96,19 @@ th.oui-header-cell {
   font-weight: 700;
   line-height: 19px;
   color: #333;
+  text-align: left;
 }
 td.oui-cell {
   padding: 13px 12.5px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+  line-height: 24px;
+}
+tr.oui-row {
+  border-bottom: 1px solid #dfdfdf;
+  &:hover {
+    background: #f6f6f6;
+    cursor: pointer;
+  }
 }
