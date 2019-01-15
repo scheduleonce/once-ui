@@ -518,6 +518,36 @@
   </section>
 </section>
 <br /><br />
+<h1>Progress Spinner</h1>
+
+<h3>Indeterminate</h3>
+<oui-progress-spinner></oui-progress-spinner>
+<br />
+<oui-progress-spinner diameter="30" color="accent"></oui-progress-spinner>
+<br />
+<oui-progress-spinner diameter="40" color="warn"></oui-progress-spinner>
+
+<h3>Determinate Spinner</h3>
+<oui-progress-spinner
+  diameter="50"
+  [value]="50"
+  [strokeWidth]="5"
+></oui-progress-spinner>
+<br />
+<oui-progress-spinner
+  diameter="70"
+  [value]="70"
+  [strokeWidth]="8"
+  color="accent"
+></oui-progress-spinner>
+<br />
+<oui-progress-spinner
+  diameter="80"
+  [value]="80"
+  [strokeWidth]="10"
+  color="warn"
+></oui-progress-spinner>
+<br />
 <button
   oui-button
   ouiTooltip="this is a tooltip"
