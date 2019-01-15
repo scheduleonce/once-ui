@@ -34,6 +34,12 @@ The default mode is `indeterminate`. If value is passed mode will automatically 
 
 Default value for "strokeWidth" is 4. You can simply override and give your own value.
 
+## Stackblitz demo link
+
+[https://stackblitz.com/edit/oncehub-progress-bar](https://stackblitz.com/edit/oncehub-progress-bar)
+
+You can click here and can change code to try and test different scenarios.
+
 ### Theming
 
 The color of a progress bar can be changed by using the `color` property. By default,
