@@ -111,3 +111,55 @@ OuiIcon should be given a meaningful label via `aria-label` or `aria-labelledby`
 [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1)
 
 You can click here and can change code to try and test different scenarios.
+
+## Overwriting the OUI Icons
+
+By default the svg images in the icon sets has not prefilled colors. All the ui components are blessed with 3 predefined themes-
+
+- Primary
+- Accent
+- Warn
+
+If you need to theme the icons with a different color you can do this in the host application. The colors can be overridden globally i.e., in the whole host application or in a component only.
+
+## Global (Reflected in the whole application)
+
+You can implement `#4B4B4B` color on the below icons, by overridding styles in `app.component.scss` like as follow-
+
+```
+<oui-icon svgIcon="notification-editor"></oui-icon>
+<oui-icon svgIcon="resourcepool"></oui-icon>
+<oui-icon svgIcon="calendar"></oui-icon>
+```
+
+**Style [app.component.scss]:**
+
+```
+oui-icon {
+    svg {
+      fill: #4B4B4B;
+    }
+}
+```
+
+The above code will make all the icon look gray in the whole application.
+
+## Locally (Reflected in the component only)
+
+```
+<oui-icon svgIcon="notification-editor" class="defaultColor"></oui-icon>
+<oui-icon svgIcon="resourcepool"  class="defaultColor"></oui-icon>
+<oui-icon svgIcon="calendar" class="defaultColor"></oui-icon>
+```
+
+**Style [any.component.scss]:**
+
+```
+oui-icon {
+  &.defaultColor svg {
+    fill: #FF0000;
+  }
+}
+```
+
+You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.

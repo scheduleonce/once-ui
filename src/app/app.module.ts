@@ -15,7 +15,8 @@ import {
   OuiMenuModule,
   OuiCheckboxModule,
   OuiTooltipModule,
-  OuiRadioModule
+  OuiRadioModule,
+  OuiProgressBarModule
 } from 'projects/ui/src/lib/oui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -37,7 +38,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ReactiveFormsModule,
     FormsModule,
     OuiProgressSpinnerModule,
-    OuiRadioModule
+    OuiRadioModule,
+    OuiProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
