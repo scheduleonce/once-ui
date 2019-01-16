@@ -1,6 +1,6 @@
-$width: 18px;
-$height: 18px;
-$circle-color: #333333;
+$width: 16px;
+$height: 16px;
+$circle-color: #000;
 
 .oui-radio-label {
   cursor: pointer;
@@ -25,12 +25,12 @@ $circle-color: #333333;
   top: 0;
   transition: border-color ease 280ms;
   width: $width;
-  border-width: 2px;
+  border-width: 1px;
   border-style: solid;
   border-radius: 50%;
 }
 .oui-radio-outer-circle {
-  border-color: rgba(0, 0, 0, 0.54);
+  border-color: #9c9c9c;
 }
 .oui-radio-button.oui-accent.oui-radio-checked .oui-radio-outer-circle {
   border-color: $circle-color;
