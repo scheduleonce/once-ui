@@ -97,10 +97,10 @@ class StandaloneRadioButtons {
   `
 })
 class DisableableRadioButton {
-  @ViewChild(OuiRadioButton) matRadioButton: OuiRadioButton;
+  @ViewChild(OuiRadioButton) ouiRadioButton: OuiRadioButton;
 
   set disabled(value: boolean) {
-    this.matRadioButton.disabled = value;
+    this.ouiRadioButton.disabled = value;
   }
 }
 
