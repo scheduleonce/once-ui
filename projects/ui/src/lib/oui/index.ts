@@ -9,3 +9,4 @@ export * from './checkbox/public-api';
 export * from './progress-spinner/public-api';
 export * from './tooltip/public-api';
 export * from './radio/public-api';
+export * from './progress-bar/public-api';
