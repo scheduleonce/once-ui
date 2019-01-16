@@ -1,6 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
-import { OuiDialog } from 'projects/ui/src/lib/oui';
-import { OuiIconRegistry } from 'projects/ui/src/lib/oui';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { OuiDialog, OuiSort } from 'projects/ui/src/lib/oui';
+import { OuiIconRegistry, OuiTableDataSource } from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -8,7 +8,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  @ViewChild(OuiSort) sort: OuiSort;
   options: string[] = ['One', 'Two', 'Three'];
   isDisable = false;
   stateGroups = [
@@ -41,7 +42,7 @@ export class AppComponent {
   @ViewChild('progressGhostButton')
   progressGhostButton: any;
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = [
+  dataSource = new OuiTableDataSource([
     { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
     { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
     { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
@@ -52,7 +53,7 @@ export class AppComponent {
     { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
     { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
     { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
-  ];
+  ]);
   constructor(
     private dialog: OuiDialog,
     private matIconRegistry: OuiIconRegistry,
@@ -77,6 +78,10 @@ export class AppComponent {
     this.checked = false;
     this.labelPosition = 'after';
     this.disabled = false;
+  }
+
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
   }
 
   openDialog() {

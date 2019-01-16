@@ -17,26 +17,13 @@
   <!-- Disable animations while a current animation is running -->
   <div
     class="oui-sort-header-arrow"
-    [@arrowOpacity]="_getArrowViewState()"
-    [@arrowPosition]="_getArrowViewState()"
-    [@allowChildren]="_getArrowDirectionState()"
     (@arrowPosition.start)="_disableViewStateAnimation = true"
     (@arrowPosition.done)="_disableViewStateAnimation = false"
   >
-    <div class="oui-sort-header-stem"></div>
     <div
-      class="oui-sort-header-indicator"
+      [class.oui-sort-header-arrow-selected]="_isSorted()"
+      [class.oui-sort-header-arrow-faded]="!_isSorted()"
       [@indicator]="_getArrowDirectionState()"
-    >
-      <div
-        class="oui-sort-header-pointer-left"
-        [@leftPointer]="_getArrowDirectionState()"
-      ></div>
-      <div
-        class="oui-sort-header-pointer-right"
-        [@rightPointer]="_getArrowDirectionState()"
-      ></div>
-      <div class="oui-sort-header-pointer-middle"></div>
-    </div>
+    ></div>
   </div>
 </div>

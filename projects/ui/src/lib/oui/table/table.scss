@@ -1,6 +1,10 @@
 /**
  * Flex-based table structure
  */
+table {
+  width: 100%;
+}
+
 oui-table {
   display: block;
   border-spacing: 0;

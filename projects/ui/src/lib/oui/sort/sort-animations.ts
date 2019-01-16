@@ -28,9 +28,8 @@ export const ouiSortAnimations: {
 } = {
   /** Animation that moves the sort indicator. */
   indicator: trigger('indicator', [
-    state('active-asc, asc', style({ transform: 'translateY(0px)' })),
-    // 10px is the height of the sort indicator, minus the width of the pointers
-    state('active-desc, desc', style({ transform: 'translateY(10px)' })),
+    state('active-asc', style({ transform: 'rotateX(0deg)' })),
+    state('active-desc', style({ transform: 'rotateX(180deg)' })),
     transition('active-asc <=> active-desc', animate(SORT_ANIMATION_TRANSITION))
   ]),
 

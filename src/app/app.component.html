@@ -579,35 +579,36 @@
 <br /><br />
 
 <h1>table</h1>
-
-<table oui-table [dataSource]="dataSource">
-  <!--- Note that these columns can be defined in any order.
+<div class="width80">
+  <table oui-table [dataSource]="dataSource" ouiSort>
+    <!--- Note that these columns can be defined in any order.
         The actual rendered columns are set as a property on the row definition" -->
 
-  <!-- Position Column -->
-  <ng-container ouiColumnDef="position">
-    <th oui-header-cell *ouiHeaderCellDef>No.</th>
-    <td oui-cell *ouiCellDef="let element">{{ element.position }}</td>
-  </ng-container>
+    <!-- Position Column -->
+    <ng-container ouiColumnDef="position">
+      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>No.</th>
+      <td oui-cell *ouiCellDef="let element">{{ element.position }}</td>
+    </ng-container>
 
-  <!-- Name Column -->
-  <ng-container ouiColumnDef="name">
-    <th oui-header-cell *ouiHeaderCellDef>Name</th>
-    <td oui-cell *ouiCellDef="let element">{{ element.name }}</td>
-  </ng-container>
+    <!-- Name Column -->
+    <ng-container ouiColumnDef="name">
+      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Name</th>
+      <td oui-cell *ouiCellDef="let element">{{ element.name }}</td>
+    </ng-container>
 
-  <!-- Weight Column -->
-  <ng-container ouiColumnDef="weight">
-    <th oui-header-cell *ouiHeaderCellDef>Weight</th>
-    <td oui-cell *ouiCellDef="let element">{{ element.weight }}</td>
-  </ng-container>
+    <!-- Weight Column -->
+    <ng-container ouiColumnDef="weight">
+      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Weight</th>
+      <td oui-cell *ouiCellDef="let element">{{ element.weight }}</td>
+    </ng-container>
 
-  <!-- Symbol Column -->
-  <ng-container ouiColumnDef="symbol">
-    <th oui-header-cell *ouiHeaderCellDef>Symbol</th>
-    <td oui-cell *ouiCellDef="let element">{{ element.symbol }}</td>
-  </ng-container>
+    <!-- Symbol Column -->
+    <ng-container ouiColumnDef="symbol">
+      <th oui-header-cell *ouiHeaderCellDef>Symbol</th>
+      <td oui-cell *ouiCellDef="let element">{{ element.symbol }}</td>
+    </ng-container>
 
-  <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
-  <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
-</table>
+    <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
+    <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>
