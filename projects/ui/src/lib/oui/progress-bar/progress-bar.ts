@@ -41,7 +41,7 @@ export class OuiProgressBar extends _OuiProgressBarMixinBase {
   @Input() color = 'primary';
 
   /** Mode of the progress circle */
-  private mode: ProgressBarMode = 'indeterminate';
+  mode: ProgressBarMode = 'indeterminate';
 
   @Input()
   get value(): number {
