@@ -4,7 +4,7 @@ import {
   tick,
   fakeAsync
 } from '@angular/core/testing';
-import { Component, DebugElement, inject } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OuiTooltipModule } from './tooltip-module';
 import { OuiTooltip } from './tooltip';
