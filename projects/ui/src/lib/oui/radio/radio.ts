@@ -331,7 +331,7 @@ export class OuiRadioButtonBase {
     // programmatically set, for example inside of a focus trap, in this case we want to forward
     // the focus to the native element.
     '(focus)': '_inputElement.nativeElement.focus()',
-    '(click)': '_fireInputChange($event)'
+    '(click)': '_fireInputChange()'
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
