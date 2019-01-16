@@ -272,12 +272,20 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
 
   /** Returns the animation state for the arrow direction (indicator and pointers). */
   _getArrowDirectionState() {
+    console.log(
+      'arrow-direction-state',
+      `${this._isSorted() ? 'active-' : ''}${this._arrowDirection}`
+    );
     return `${this._isSorted() ? 'active-' : ''}${this._arrowDirection}`;
   }
 
   /** Returns the arrow position state (opacity, translation). */
   _getArrowViewState() {
     const fromState = this._viewState.fromState;
+    console.log(
+      'arrow-viewstate',
+      (fromState ? `${fromState}-to-` : '') + this._viewState.toState
+    );
     return (fromState ? `${fromState}-to-` : '') + this._viewState.toState;
   }
 
