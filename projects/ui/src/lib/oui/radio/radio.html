@@ -1,0 +1,28 @@
+<label class="oui-radio-label" for="oui-radio-14-input">
+  <div class="oui-radio-container">
+    <div class="oui-radio-outer-circle"></div>
+    <div class="oui-radio-inner-circle"></div>
+    <input
+      #input
+      class="oui-radio-input oui-visually-hidden"
+      (change)="_onInputChange($event)"
+      (click)="_onInputClick($event)"
+      type="radio"
+      [checked]="checked"
+      [disabled]="disabled"
+      [required]="required"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-labelledby]="ariaLabelledby"
+      [attr.aria-describedby]="ariaDescribedby"
+      [id]="inputId"
+      [tabIndex]="tabIndex"
+      [attr.name]="name"
+    />
+  </div>
+  <div
+    class="oui-radio-label-content"
+    [class.oui-radio-label-before]="labelPosition == 'before'"
+  >
+    <span style="display:none">&nbsp;</span><ng-content></ng-content>
+  </div>
+</label>
