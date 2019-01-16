@@ -32,12 +32,6 @@ export class OuiDialogRef<T, R = any> {
   /** Result to be passed to afterClosed. */
   private _result: R | undefined;
 
-  /** Object to store Subject for notifying any custom events in dialog  */
-  private _dialogEvents: { [index: string]: Subject<void> } = {};
-
-  /** Subject for notifying the user on addition of event */
-  private readonly _eventAdded = new Subject<void>();
-
   constructor(
     private _overlayRef: OverlayRef,
     public _containerInstance: OuiDialogContainer,

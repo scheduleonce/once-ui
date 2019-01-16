@@ -6,7 +6,6 @@ import { ActionMenuDropdownDirective } from './action-menu-dropdown.directive';
 describe('ActionMenuComponent', () => {
   let component: ActionMenuComponent;
   let fixture: ComponentFixture<ActionMenuComponent>;
-  let element: HTMLElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -19,7 +18,6 @@ describe('ActionMenuComponent', () => {
       fixture = TestBed.createComponent(ActionMenuComponent);
       component = fixture.componentInstance;
       component.isVertical = false;
-      element = fixture.nativeElement;
       fixture.detectChanges();
     });
 

@@ -150,23 +150,6 @@ class CheckboxWithoutLabel {
 })
 class CheckboxWithTabindexAttr {}
 
-/** Test component that uses another component for its label. */
-@Component({
-  template: `
-    <oui-checkbox><some-text></some-text></oui-checkbox>
-  `
-})
-class CheckboxWithProjectedLabel {}
-
-/** Component that renders some text through a binding. */
-@Component({
-  selector: 'oui-some-text',
-  template: '<span>{{text}}</span>'
-})
-class TextBindingComponent {
-  text = 'Some text';
-}
-
 describe('Checkbox', () => {
   let fixture: ComponentFixture<any>;
 
@@ -724,7 +707,6 @@ describe('Checkbox', () => {
   });
 
   describe('without label', () => {
-    let testComponent: CheckboxWithoutLabel;
     let checkboxInnerContainer: HTMLElement;
 
     beforeEach(() => {
@@ -734,7 +716,6 @@ describe('Checkbox', () => {
         By.directive(Checkbox)
       );
 
-      testComponent = fixture.componentInstance;
       checkboxInnerContainer = checkboxDebugEl.query(
         By.css('.oui-checkbox-inner-container')
       ).nativeElement;

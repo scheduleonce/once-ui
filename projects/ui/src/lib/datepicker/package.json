@@ -10,7 +10,10 @@
     "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
     "lib": {
       "entryFile": "./index.ts",
-      "cssUrl": "inline"
+      "cssUrl": "inline",
+      "umdModuleIds": {
+        "moment": "moment_"
+      }
     },
     "whitelistedNonPeerDependencies": [
       "."
