@@ -4,7 +4,6 @@ import {
   Input,
   ViewChild,
   Inject,
-  ElementRef,
   OnInit,
   OnChanges
 } from '@angular/core';
@@ -28,7 +27,7 @@ export class DialogComponent implements OnInit, OnChanges {
   @Input()
   visible: boolean;
   @ViewChild('dialog')
-  elementView: ElementRef;
+  elementView;
   custom: any;
   dialogTop = 50;
   dialogMargin: number;

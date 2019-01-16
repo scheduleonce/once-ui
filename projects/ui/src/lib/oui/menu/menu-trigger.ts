@@ -30,7 +30,7 @@ import {
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { asapScheduler, merge, of as observableOf, Subscription } from 'rxjs';
-import { delay, filter, tap } from 'rxjs/operators';
+import { delay, filter } from 'rxjs/operators';
 import { OuiMenu } from './menu-directive';
 import { throwOuiMenuMissingError } from './menu-errors';
 import { OuiMenuItem } from './menu-item';
