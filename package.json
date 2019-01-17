@@ -17,7 +17,9 @@
     "compile-scss-blue": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-blue.scss ./dist/ui/themes/once-ui-theme-blue.css && rimraf ./dist/ui/themes/once-ui-theme-blue.scss",
     "compile-scss-green": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-green.scss ./dist/ui/themes/once-ui-theme-green.css && rimraf -f ./dist/ui/themes/once-ui-theme-green.scss",
     "npm-pack": "cd dist/ui && npm pack",
-    "package": "npm run build && npm run bundle-styles && npm run npm-pack"
+    "package": "npm run build && npm run bundle-styles && npm run npm-pack",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -31,9 +33,12 @@
     "@angular/platform-browser": "^7.2.0",
     "@angular/platform-browser-dynamic": "^7.2.0",
     "@angular/router": "^7.2.0",
+    "@storybook/addon-knobs": "^4.1.6",
+    "@storybook/addon-options": "^4.1.6",
     "core-js": "^2.6.1",
     "gulp": "^4.0.0",
     "rxjs": "^6.3.3",
+    "storybook-readme": "^4.0.5",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
@@ -44,10 +49,17 @@
     "@angular/language-service": "^7.2.0",
     "@angular/material": "^7.2.1",
     "@angular/material-moment-adapter": "^7.2.1",
+    "@babel/core": "^7.2.2",
+    "@storybook/addon-actions": "^4.1.6",
+    "@storybook/addon-links": "^4.1.6",
+    "@storybook/addon-notes": "^4.1.6",
+    "@storybook/addons": "^4.1.6",
+    "@storybook/angular": "^4.1.6",
     "@types/jasmine": "^3.3.5",
     "@types/jasminewd2": "^2.0.6",
     "@types/moment": "^2.13.0",
     "@types/node": "^10.12.18",
+    "babel-loader": "^8.0.5",
     "codelyzer": "^4.4.4",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
