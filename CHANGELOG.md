@@ -23,8 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed dialog overlay disposal on browser back event [oncehub-4396](https://scheduleonce.atlassian.net/browse/ONCEHUB-4396)
 
-## [1.8.0] - 2019-01-16
-
 ## [1.8.1] - 2019-01-16
 
 ### Added
