@@ -1,0 +1,77 @@
+.fit div {
+  margin: 10px;
+}
+.fit div button,
+.fit div a {
+  margin-right: 10px;
+}
+.fit div a::after {
+  content: '';
+  clear: both;
+}
+.fit .input-outer {
+  max-width: 237px;
+}
+.fit .textarea-outer {
+  max-width: 326px;
+  width: 100%;
+}
+.fit .display-inline {
+  display: inline-block;
+}
+.fit input:disabled {
+  border-color: #e4e4e4;
+  color: #9c9c9c;
+  background-color: transparent;
+}
+.fit textarea {
+  line-height: 19px;
+  padding: 8px 9px;
+}
+.fit:disabled {
+  border-color: #e4e4e4;
+  color: #9c9c9c;
+  background-color: transparent;
+}
+.fit .bottom-line {
+  background-color: transparent;
+  height: 1px;
+  transition: all 0.1s;
+  margin: 0px;
+}
+.fit .trigger {
+  width: 200px;
+  height: 50px;
+  margin-top: 100px;
+  margin-left: 100px;
+  background-color: #f0eaea;
+  display: inline-block;
+  padding: 15px 20px;
+  text-align: center;
+}
+.fit .trigger span {
+  display: block;
+}
+.fit oui-slide-toggle {
+  margin-right: 10px;
+}
+.example-section {
+  display: flex;
+  align-content: center;
+  align-items: center;
+  height: 60px;
+}
+.example-margin {
+  margin: 0 10px;
+}
+.bigImage {
+  height: 33px;
+  width: 33px;
+}
+oui-radio-button {
+  margin-right: 10px;
+}
+
+body{
+  font-family: 'Open Sans', sans-serif;
+}
