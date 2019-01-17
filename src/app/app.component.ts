@@ -1,6 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { OuiDialog, OuiSort } from 'projects/ui/src/lib/oui';
-import { OuiIconRegistry, OuiTableDataSource } from 'projects/ui/src/lib/oui';
+import {
+  OuiIconRegistry,
+  OuiTableDataSource,
+  OuiPaginator
+} from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -10,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
   @ViewChild(OuiSort) sort: OuiSort;
+  @ViewChild(OuiPaginator) paginator: OuiPaginator;
   options: string[] = ['One', 'Two', 'Three'];
   isDisable = false;
   stateGroups = [
@@ -82,6 +87,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialog() {

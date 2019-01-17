@@ -57,7 +57,7 @@ export class PageEvent {
   length: number;
 }
 
-// Boilerplate for applying mixins to MatPaginator.
+// Boilerplate for applying mixins to OuiPaginator.
 /** @docs-private */
 export class OuiPaginatorBase {}
 export const _OuiPaginatorBase: CanDisableCtor &
