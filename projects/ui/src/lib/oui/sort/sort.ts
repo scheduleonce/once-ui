@@ -153,12 +153,8 @@ export class OuiSort extends _OuiSortMixinBase
       return '';
     }
 
-    // Get the sort direction cycle with the potential sortable overrides.
-    const disableClear =
-      sortable.disableClear != null ? sortable.disableClear : this.disableClear;
     let sortDirectionCycle = getSortDirectionCycle(
-      sortable.start || this.start,
-      disableClear
+      sortable.start || this.start
     );
 
     // Get and return the next direction in the cycle
@@ -183,16 +179,10 @@ export class OuiSort extends _OuiSortMixinBase
 }
 
 /** Returns the sort direction cycle to use given the provided parameters of order and clear. */
-function getSortDirectionCycle(
-  start: 'asc' | 'desc',
-  disableClear: boolean
-): SortDirection[] {
+function getSortDirectionCycle(start: 'asc' | 'desc'): SortDirection[] {
   let sortOrder: SortDirection[] = ['asc', 'desc'];
   if (start == 'desc') {
     sortOrder.reverse();
-  }
-  if (!disableClear) {
-    sortOrder.push('');
   }
 
   return sortOrder;

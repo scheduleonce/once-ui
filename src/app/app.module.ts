@@ -17,7 +17,11 @@ import { OuiMenuModule } from 'projects/ui/src/lib/oui';
 import { OuiCheckboxModule } from 'projects/ui/src/lib/oui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { OuiTooltipModule } from 'projects/ui/src/public_api';
-import { OuiTableModule, OuiSortModule } from 'projects/ui/src/public_api';
+import {
+  OuiTableModule,
+  OuiSortModule,
+  OuiPaginatorModule
+} from 'projects/ui/src/public_api';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +42,8 @@ import { OuiTableModule, OuiSortModule } from 'projects/ui/src/public_api';
     FormsModule,
     OuiTableModule,
     OuiProgressSpinnerModule,
-    OuiSortModule
+    OuiSortModule,
+    OuiPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -254,6 +254,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
 
     // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
     // the direction it is facing.
+    console.log(this._isSorted(), this._arrowDirection);
     const viewState: ArrowViewStateTransition = this._isSorted()
       ? { fromState: this._arrowDirection, toState: 'active' }
       : { fromState: 'active', toState: this._arrowDirection };
@@ -272,20 +273,20 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
 
   /** Returns the animation state for the arrow direction (indicator and pointers). */
   _getArrowDirectionState() {
-    console.log(
-      'arrow-direction-state',
-      `${this._isSorted() ? 'active-' : ''}${this._arrowDirection}`
-    );
+    // console.log(
+    //   'arrow-direction-state',
+    //   `${this._isSorted() ? 'active-' : ''}${this._arrowDirection}`
+    // );
     return `${this._isSorted() ? 'active-' : ''}${this._arrowDirection}`;
   }
 
   /** Returns the arrow position state (opacity, translation). */
   _getArrowViewState() {
     const fromState = this._viewState.fromState;
-    console.log(
-      'arrow-viewstate',
-      (fromState ? `${fromState}-to-` : '') + this._viewState.toState
-    );
+    // console.log(
+    //   'arrow-viewstate',
+    //   (fromState ? `${fromState}-to-` : '') + this._viewState.toState
+    // );
     return (fromState ? `${fromState}-to-` : '') + this._viewState.toState;
   }
 
