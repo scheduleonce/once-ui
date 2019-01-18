@@ -7,6 +7,10 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
   }
 }
 
+.oui-paginator-outer-container {
+  margin-top: 30px;
+}
+
 .oui-paginator-container {
   text-align: center;
   .oui-paginator-range-actions {
@@ -33,18 +37,12 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
       height: 35px;
       width: 46px;
       transform: rotate(180deg);
-      /*border-bottom-right-radius: 20px;
-      border: 1px solid #c8c8c8;
-      border-top-right-radius: 20px;*/
       @include oui-paginator-button-disable;
     }
     .oui-paginator-navigation-last {
       background: $double-arrow center center no-repeat;
       height: 35px;
       width: 46px;
-      /*border-top-right-radius: 20px;
-      border: 1px solid #c8c8c8;
-      border-bottom-right-radius: 20px;*/
       @include oui-paginator-button-disable;
     }
     .oui-paginator-navigation-previous {
@@ -64,8 +62,6 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
     }
     .oui-paginator-current-page {
       display: inline-block;
-      /*border-top: 1px solid #c8c8c8;
-      border-bottom: 1px solid #c8c8c8;*/
       width: 32px;
       height: 28px;
       text-align: center;
