@@ -7,6 +7,53 @@ import {
 } from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
 
+export interface UserData {
+  id: string;
+  name: string;
+  progress: string;
+  color: string;
+}
+
+/** Constants used to fill up our data base. */
+const COLORS: string[] = [
+  'maroon',
+  'red',
+  'orange',
+  'yellow',
+  'olive',
+  'green',
+  'purple',
+  'fuchsia',
+  'lime',
+  'teal',
+  'aqua',
+  'blue',
+  'navy',
+  'black',
+  'gray'
+];
+const NAMES: string[] = [
+  'Maia',
+  'Asher',
+  'Olivia',
+  'Atticus',
+  'Amelia',
+  'Jack',
+  'Charlotte',
+  'Theodore',
+  'Isla',
+  'Oliver',
+  'Isabella',
+  'Jasper',
+  'Cora',
+  'Levi',
+  'Violet',
+  'Arthur',
+  'Mia',
+  'Thomas',
+  'Elizabeth'
+];
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -46,19 +93,8 @@ export class AppComponent implements OnInit {
   progressLinkButton: any;
   @ViewChild('progressGhostButton')
   progressGhostButton: any;
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new OuiTableDataSource([
-    { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-    { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-    { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-    { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-    { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-    { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-    { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-    { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-    { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-    { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' }
-  ]);
+  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  dataSource: OuiTableDataSource<UserData>;
   constructor(
     private dialog: OuiDialog,
     private matIconRegistry: OuiIconRegistry,
@@ -75,14 +111,15 @@ export class AppComponent implements OnInit {
         `/assets/images/three-dot.svg`
       )
     );
-    this.matIconRegistry.addSvgIconSet(
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
-      )
-    );
     this.checked = false;
     this.labelPosition = 'after';
     this.disabled = false;
+    // Create 100 users
+    const users = Array.from({ length: 100 }, (_, k) =>
+      this.createNewUser(k + 1)
+    );
+    console.log(users[0]);
+    this.dataSource = new OuiTableDataSource(users);
   }
 
   ngOnInit() {
@@ -93,6 +130,21 @@ export class AppComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(this.dialogTemplate);
     dialogRef.afterClosed().subscribe(() => {});
+  }
+
+  createNewUser(id: number): UserData {
+    const name =
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+      ' ' +
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+      '.';
+
+    return {
+      id: id.toString(),
+      name: name,
+      progress: Math.round(Math.random() * 100).toString(),
+      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+    };
   }
 
   progressButtonClick() {

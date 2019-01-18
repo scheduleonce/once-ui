@@ -34,7 +34,7 @@ import {
 } from '../core';
 
 /** The default page size if there is no page size and there are no provided page size options. */
-const DEFAULT_PAGE_SIZE = 50;
+const DEFAULT_PAGE_SIZE = 30;
 
 /**
  * Change event object that is emitted when the user selects a
@@ -118,20 +118,8 @@ export class OuiPaginator extends _OuiPaginatorBase
   }
   set pageSize(value: number) {
     this._pageSize = Math.max(coerceNumberProperty(value), 0);
-    this._updateDisplayedPageSizeOptions();
   }
-  private _pageSize: number;
-
-  /** The set of provided page size options to display to the user. */
-  @Input()
-  get pageSizeOptions(): number[] {
-    return this._pageSizeOptions;
-  }
-  set pageSizeOptions(value: number[]) {
-    this._pageSizeOptions = (value || []).map(p => coerceNumberProperty(p));
-    this._updateDisplayedPageSizeOptions();
-  }
-  private _pageSizeOptions: number[] = [];
+  private _pageSize: number = DEFAULT_PAGE_SIZE;
 
   /** Whether to hide the page size selection UI from the user. */
   @Input()
@@ -159,7 +147,7 @@ export class OuiPaginator extends _OuiPaginatorBase
   >();
 
   /** Displayed set of page size options. Will be sorted and include current page size. */
-  _displayedPageSizeOptions: number[];
+  _displayedPageSizeOptions: number;
 
   constructor(
     public _intl: OuiPaginatorIntl,
@@ -173,7 +161,6 @@ export class OuiPaginator extends _OuiPaginatorBase
 
   ngOnInit() {
     this._initialized = true;
-    this._updateDisplayedPageSizeOptions();
     this._markInitialized();
   }
 
@@ -274,34 +261,6 @@ export class OuiPaginator extends _OuiPaginatorBase
   /** Checks whether the buttons for going backwards should be disabled. */
   _previousButtonsDisabled() {
     return this.disabled || !this.hasPreviousPage();
-  }
-
-  /**
-   * Updates the list of page size options to display to the user. Includes making sure that
-   * the page size is an option and that the list is sorted.
-   */
-  private _updateDisplayedPageSizeOptions() {
-    if (!this._initialized) {
-      return;
-    }
-
-    // If no page size is provided, use the first page size option or the default page size.
-    if (!this.pageSize) {
-      this._pageSize =
-        this.pageSizeOptions.length != 0
-          ? this.pageSizeOptions[0]
-          : DEFAULT_PAGE_SIZE;
-    }
-
-    this._displayedPageSizeOptions = this.pageSizeOptions.slice();
-
-    if (this._displayedPageSizeOptions.indexOf(this.pageSize) === -1) {
-      this._displayedPageSizeOptions.push(this.pageSize);
-    }
-
-    // Sort the numbers using a number-specific sort function.
-    this._displayedPageSizeOptions.sort((a, b) => a - b);
-    this._changeDetectorRef.markForCheck();
   }
 
   /** Emits an event notifying that a change of the paginator's properties has been triggered. */
