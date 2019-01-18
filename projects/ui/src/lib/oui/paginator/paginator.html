@@ -21,7 +21,7 @@
         [ouiTooltipPosition]="'above'"
         [disabled]="_previousButtonsDisabled()"
       ></button>
-      <div class="oui-paginator-current-page">100</div>
+      <div class="oui-paginator-current-page">{{ pageIndex + 1 }}</div>
       <button
         type="button"
         class="oui-paginator-navigation-next"
@@ -43,6 +43,6 @@
         [disabled]="_nextButtonsDisabled()"
       ></button>
     </div>
-    <div class="oui-paginator-total-count">of 120</div>
+    <div class="oui-paginator-total-count">of {{ length / pageSize }}</div>
   </div>
 </div>
