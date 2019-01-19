@@ -6,17 +6,19 @@ import { AppComponent } from './app.component';
 import { OuiSlideToggleModule } from 'projects/ui/src/lib/oui/slide-toggle/public-api';
 import {
   OuiButtonModule,
-  OuiProgressSpinnerModule
+  OuiProgressSpinnerModule,
+  OuiDialogModule,
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiAutocompleteModule,
+  OuiIconModule,
+  OuiMenuModule,
+  OuiCheckboxModule,
+  OuiTooltipModule,
+  OuiRadioModule,
+  OuiProgressBarModule
 } from 'projects/ui/src/lib/oui';
-import { OuiDialogModule } from 'projects/ui/src/lib/oui';
-import { OuiFormFieldModule } from 'projects/ui/src/lib/oui';
-import { OuiInputModule } from 'projects/ui/src/lib/oui';
-import { OuiAutocompleteModule } from 'projects/ui/src/lib/oui';
-import { OuiIconModule } from 'projects/ui/src/lib/oui';
-import { OuiMenuModule } from 'projects/ui/src/lib/oui';
-import { OuiCheckboxModule } from 'projects/ui/src/lib/oui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { OuiTooltipModule } from 'projects/ui/src/public_api';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,7 +37,9 @@ import { OuiTooltipModule } from 'projects/ui/src/public_api';
     OuiCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
-    OuiProgressSpinnerModule
+    OuiProgressSpinnerModule,
+    OuiRadioModule,
+    OuiProgressBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
