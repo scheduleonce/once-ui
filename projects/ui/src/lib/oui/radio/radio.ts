@@ -16,7 +16,6 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChildren,
-  Directive,
   ElementRef,
   EventEmitter,
   forwardRef,

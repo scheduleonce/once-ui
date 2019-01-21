@@ -9,7 +9,6 @@ import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ESCAPE } from '@angular/cdk/keycodes';
 import {
   BreakpointObserver,
   Breakpoints,
@@ -373,10 +372,7 @@ export class OuiTooltip implements OnDestroy {
     private _ariaDescriber: AriaDescriber,
     private _focusMonitor: FocusMonitor,
     @Inject(OUI_TOOLTIP_SCROLL_STRATEGY) scrollStrategy: any,
-    @Optional() private _dir: Directionality,
-    @Optional()
-    @Inject(OUI_TOOLTIP_DEFAULT_OPTIONS)
-    private _defaultOptions: OuiTooltipDefaultOptions
+    @Optional() private _dir: Directionality
   ) {
     this._scrollStrategy = scrollStrategy;
     const element: HTMLElement = _elementRef.nativeElement;
