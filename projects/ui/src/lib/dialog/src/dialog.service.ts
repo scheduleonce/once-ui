@@ -69,11 +69,11 @@ export class DialogService {
     // Template Reference
     if (typeof content === 'object') {
       content.nativeElement.classList.add('showTemplate');
-      let loadInto = document.getElementById('loadComponent');
-      if (!loadInto) {
-        loadInto = document.getElementById('once-ui-dialog-content');
+      let loadElementInto = document.getElementById('loadComponent');
+      if (!loadElementInto) {
+        loadElementInto = document.getElementById('once-ui-dialog-content');
       }
-      loadInto.appendChild(content.nativeElement);
+      loadElementInto.appendChild(content.nativeElement);
     }
     // Component
     if (typeof content === 'function') {
