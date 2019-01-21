@@ -5,19 +5,22 @@ import {
   OuiDialogModule,
   OuiDialog
 } from '../../../projects/ui/src/lib/oui';
+import { boolean } from '@storybook/addon-knobs';
 import {
-  withKnobs,
-  text,
-  select,
-  boolean,
-  number
-} from '@storybook/addon-knobs';
-import { Component, ViewChild, Output, EventEmitter, Input } from '@angular/core';
+  Component,
+  ViewChild,
+  Output,
+  EventEmitter,
+  Input
+} from '@angular/core';
+import markdownText from '../../../projects/ui/src/lib/oui/dialog/README.md';
 
 @Component({
   selector: 'oui-dialog-storybook',
   template: `
-    <button oui-button [disabled]="disabled" (click)="openDialog($event)">Open</button>
+    <button oui-button [disabled]="disabled" (click)="openDialog($event)">
+      Open
+    </button>
     <ng-template #dialogTemplate>
       <div oui-dialog-header>
         <label oui-dialog-header-title>this is the title</label>
@@ -61,7 +64,7 @@ import { Component, ViewChild, Output, EventEmitter, Input } from '@angular/core
 export class OuiDialogStorybook {
   @Output()
   readonly close: EventEmitter<string> = new EventEmitter<string>();
-  @Input() disabled:boolean=false;
+  @Input() disabled: boolean = false;
   @ViewChild('dialogTemplate')
   dialogTemplate;
   constructor(private dialog: OuiDialog) {}
@@ -72,16 +75,20 @@ export class OuiDialogStorybook {
     });
   }
 }
-storiesOf('Dialog', module).add('default', () => ({
-  moduleMetadata: {
-    imports: [OuiButtonModule, OuiDialogModule],
-    schemas: [],
-    declarations: [OuiDialogStorybook]
-  },
-  template: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
-  props: {
-    click: action('clicked'),
-    close: action('closed'),
-    disabled: boolean('disabled', false)
-  }
-}));
+storiesOf('Dialog', module).add(
+  'default',
+  () => ({
+    moduleMetadata: {
+      imports: [OuiButtonModule, OuiDialogModule],
+      schemas: [],
+      declarations: [OuiDialogStorybook]
+    },
+    component: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
+    props: {
+      click: action('clicked'),
+      close: action('closed'),
+      disabled: boolean('disabled', false)
+    }
+  }),
+  { notes: { markdown: markdownText } }
+);

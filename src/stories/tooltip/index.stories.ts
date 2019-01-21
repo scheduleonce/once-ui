@@ -5,16 +5,11 @@ import {
   OuiIconRegistry,
   OuiIconModule
 } from '../../../projects/ui/src/lib/oui';
-import {
-  withKnobs,
-  text,
-  select,
-  boolean,
-  number
-} from '@storybook/addon-knobs';
+import { text, select, boolean } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Input, Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import markdownText from '../../../projects/ui/src/lib/oui/tooltip/README.md';
 
 @Component({
   selector: 'oui-tooltip-storybook',
@@ -30,8 +25,8 @@ import { DomSanitizer } from '@angular/platform-browser';
   `
 })
 export class OuiTooltipStorybook {
-  @Input() icon: string = 'notification-editor';
-  @Input() color: string = 'primary';
+  private icon: string = 'help-library';
+  private color: string = 'primary';
   @Input() disabled: boolean = false;
   @Input() _ouiTooltip: string = 'This is a tooltip';
   @Input() _ouiTooltipPosition: string = 'above';
@@ -54,25 +49,27 @@ export class OuiTooltipStorybook {
   }
 }
 
-storiesOf('Tooltip', module).add('default', () => ({
-  moduleMetadata: {
-    imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],
-    schemas: [],
-    declarations: [OuiTooltipStorybook]
-  },
-  template: `<oui-tooltip-storybook [disabled]="disabled"
+storiesOf('Tooltip', module).add(
+  'default',
+  () => ({
+    moduleMetadata: {
+      imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],
+      schemas: [],
+      declarations: [OuiTooltipStorybook]
+    },
+    template: `<oui-tooltip-storybook [disabled]="disabled"
   [_ouiTooltip]="ouiTooltip"
-  [_ouiTooltipPosition]="ouiTooltipPosition"
-  [color]="color"></oui-tooltip-storybook>`,
-  props: {
-    changed: action('change'),
-    disabled: boolean('ouiTooltipDisabled', false),
-    color: select('color', ['primary', 'accent', 'warn'], 'primary'),
-    ouiTooltip: text('ouiTooltip', 'This is a tooltip'),
-    ouiTooltipPosition: select(
-      'ouiTooltipPosition',
-      ['above', 'below', 'left', 'right'],
-      'above'
-    )
-  }
-}));
+  [_ouiTooltipPosition]="ouiTooltipPosition"></oui-tooltip-storybook>`,
+    props: {
+      changed: action('change'),
+      disabled: boolean('ouiTooltipDisabled', false),
+      ouiTooltip: text('ouiTooltip', 'This is a tooltip'),
+      ouiTooltipPosition: select(
+        'ouiTooltipPosition',
+        ['above', 'below', 'left', 'right'],
+        'above'
+      )
+    }
+  }),
+  { notes: { markdown: markdownText } }
+);
