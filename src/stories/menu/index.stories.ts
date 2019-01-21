@@ -1,29 +1,17 @@
 import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import {
   OuiIconModule,
   OuiMenuModule,
   OuiIconRegistry,
   OuiButtonModule
 } from '../../../projects/ui/src/lib/oui';
-import {
-  withKnobs,
-  text,
-  select,
-  boolean,
-  number
-} from '@storybook/addon-knobs';
-import {
-  Component,
-  ViewChild,
-  Output,
-  EventEmitter,
-  Input
-} from '@angular/core';
+import { select } from '@storybook/addon-knobs';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
 
 import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
+import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
 
 const icons = [
   'local',
@@ -42,9 +30,9 @@ const icons = [
   selector: 'oui-menu-storybook',
   template: `
     <oui-icon
-      [svgIcon]="icon"
+      [svgIcon]="'dots-vertical'"
       [ouiMenuTriggerFor]="afterAboveMenu"
-      [color]="color"
+      [color]="'primary'"
       style="margin-top:250px;margin-left:200px;"
     ></oui-icon>
     <oui-menu #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
@@ -64,8 +52,6 @@ const icons = [
   `
 })
 export class OuiMenuStorybook {
-  @Input() icon: string = 'notification-editor';
-  @Input() color: string = 'primary';
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
   constructor(
@@ -91,9 +77,9 @@ export class OuiMenuStorybook {
   selector: 'oui-nested-menu-storybook',
   template: `
     <oui-icon
-      [svgIcon]="icon"
+      [svgIcon]="'dots-vertical'"
       [ouiMenuTriggerFor]="rootMenu"
-      [color]="color"
+      [color]="'primary'"
       style="margin-top:250px;margin-left:200px;"
     ></oui-icon>
     <oui-menu
@@ -115,8 +101,6 @@ export class OuiMenuStorybook {
   `
 })
 export class OuiNestedMenuStorybook {
-  @Input() icon: string = 'notification-editor';
-  @Input() color: string = 'primary';
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
   constructor(
@@ -139,41 +123,41 @@ export class OuiNestedMenuStorybook {
 }
 
 storiesOf('Menu', module)
-  .add('default', () => ({
-    moduleMetadata: {
-      imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
-      schemas: [],
-      declarations: [OuiMenuStorybook]
-    },
-    template: `<oui-menu-storybook
+  .add(
+    'default',
+    () => ({
+      moduleMetadata: {
+        imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
+        schemas: [],
+        declarations: [OuiMenuStorybook]
+      },
+      template: `<oui-menu-storybook
   [xPosition]="xPosition"
-  [yPosition]="yPosition"
-              [color]="color"
-              [icon]="icon">
+  [yPosition]="yPosition">
             </oui-menu-storybook>`,
-    props: {
-      color: select('color', ['primary', 'accent', 'warn'], 'primary'),
-      xPosition: select('xPosition', ['before', 'after'], 'before'),
-      yPosition: select('yPosotion', ['above', 'below'], 'above'),
-      icon: select('icon', icons, 'notification-editor')
-    }
-  }))
-  .add('nested Menu', () => ({
-    moduleMetadata: {
-      imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
-      schemas: [],
-      declarations: [OuiNestedMenuStorybook]
-    },
-    template: `<oui-nested-menu-storybook
+      props: {
+        xPosition: select('xPosition', ['before', 'after'], 'before'),
+        yPosition: select('yPosotion', ['above', 'below'], 'above')
+      }
+    }),
+    { notes: { markdown: markdownText } }
+  )
+  .add(
+    'nested Menu',
+    () => ({
+      moduleMetadata: {
+        imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
+        schemas: [],
+        declarations: [OuiNestedMenuStorybook]
+      },
+      template: `<oui-nested-menu-storybook
   [xPosition]="xPosition"
-  [yPosition]="yPosition"
-              [color]="color"
-              [icon]="icon">
+  [yPosition]="yPosition">
             </oui-nested-menu-storybook>`,
-    props: {
-      color: select('color', ['primary', 'accent', 'warn'], 'primary'),
-      xPosition: select('xPosition', ['before', 'after'], 'before'),
-      yPosition: select('yPosotion', ['above', 'below'], 'above'),
-      icon: select('icon', icons, 'notification-editor')
-    }
-  }));
+      props: {
+        xPosition: select('xPosition', ['before', 'after'], 'before'),
+        yPosition: select('yPosotion', ['above', 'below'], 'above')
+      }
+    }),
+    { notes: { markdown: markdownText } }
+  );

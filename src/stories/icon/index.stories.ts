@@ -1,37 +1,12 @@
 import { storiesOf } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
 import {
   OuiIconModule,
   OuiIconRegistry
 } from '../../../projects/ui/src/lib/oui';
-import {
-  withKnobs,
-  text,
-  select,
-  boolean,
-  number
-} from '@storybook/addon-knobs';
-import {
-  Component,
-  ViewChild,
-  Output,
-  EventEmitter,
-  Input
-} from '@angular/core';
+import { select, text } from '@storybook/addon-knobs';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-
-const icons = [
-  'local',
-  'notification-editor',
-  'resourcepool',
-  'calendar',
-  'help-library',
-  'configuration',
-  'edit',
-  'duplicate',
-  'trash',
-  'search'
-];
+import markdownText from '../../../projects/ui/src/lib/oui/icon/README.md';
 
 @Component({
   selector: 'oui-icon-storybook',
@@ -60,19 +35,19 @@ export class OuiiconStorybook {
     );
   }
 }
-storiesOf('Icon', module).add('default', () => ({
-  moduleMetadata: {
-    imports: [OuiIconModule],
-    schemas: [],
-    declarations: [OuiiconStorybook]
-  },
-  template: `<oui-icon-storybook [color]="color" [icon]="icon"></oui-icon-storybook>`,
-  props: {
-    color: select('color', ['primary', 'accent', 'warn'], 'primary'),
-    icon: select(
-      'icon',
-      icons,
-      'notification-editor'
-    )
-  }
-}));
+storiesOf('Icon', module).add(
+  'default',
+  () => ({
+    moduleMetadata: {
+      imports: [OuiIconModule],
+      schemas: [],
+      declarations: [OuiiconStorybook]
+    },
+    template: `<oui-icon-storybook [color]="color" [icon]="icon"></oui-icon-storybook>`,
+    props: {
+      color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+      icon: text('icon', 'notification-editor')
+    }
+  }),
+  { notes: { markdown: markdownText } }
+);

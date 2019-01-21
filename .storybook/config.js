@@ -1,10 +1,17 @@
 import { configure, addDecorator } from '@storybook/angular';
-import { boolean, number, text, withKnobs } from '@storybook/addon-knobs/angular';
+import {
+  boolean,
+  number,
+  text,
+  withKnobs
+} from '@storybook/addon-knobs/angular';
+import { withNotes } from '@storybook/addon-notes';
 import { withOptions } from '@storybook/addon-options';
-import "../src/stories/style.css";
-import "../projects/ui/prebuilt-themes/oncehub.css";
+import '../src/stories/style.css';
+import '../projects/ui/prebuilt-themes/oncehub.css';
 
 addDecorator(withKnobs);
+addDecorator(withNotes);
 withOptions({
   /**
    * name to display in the top left corner
