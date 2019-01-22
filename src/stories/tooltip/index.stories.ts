@@ -15,18 +15,16 @@ import markdownText from '../../../projects/ui/src/lib/oui/tooltip/README.md';
   selector: 'oui-tooltip-storybook',
   template: `
     <oui-icon
-      [svgIcon]="icon"
+      [svgIcon]="'help-library'"
       [ouiTooltip]="_ouiTooltip"
       [ouiTooltipPosition]="_ouiTooltipPosition"
-      [color]="color"
+      [color]="'primary'"
       [ouiTooltipDisabled]="disabled"
       style="margin-top:250px;margin-left:200px;"
     ></oui-icon>
   `
 })
 export class OuiTooltipStorybook {
-  private icon: string = 'help-library';
-  private color: string = 'primary';
   @Input() disabled: boolean = false;
   @Input() _ouiTooltip: string = 'This is a tooltip';
   @Input() _ouiTooltipPosition: string = 'above';

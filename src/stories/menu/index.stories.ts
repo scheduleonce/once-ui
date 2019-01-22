@@ -10,21 +10,8 @@ import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
 
-import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
+// import '../../../node_modules/@angular/cdk/overlay-prebuilt.css';
 import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
-
-const icons = [
-  'local',
-  'notification-editor',
-  'resourcepool',
-  'calendar',
-  'help-library',
-  'configuration',
-  'edit',
-  'duplicate',
-  'trash',
-  'search'
-];
 
 @Component({
   selector: 'oui-menu-storybook',
