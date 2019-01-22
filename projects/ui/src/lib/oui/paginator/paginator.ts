@@ -19,7 +19,6 @@ import {
   HasInitialized,
   HasInitializedCtor,
   mixinInitialized,
-  ThemePalette,
   mixinDisabled,
   CanDisableCtor,
   CanDisable
@@ -66,7 +65,9 @@ export const _OuiPaginatorBase: CanDisableCtor &
   exportAs: 'ouiPaginator',
   templateUrl: 'paginator.html',
   styleUrls: ['paginator.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-paginator'
   },
@@ -87,7 +88,7 @@ export class OuiPaginator extends _OuiPaginatorBase
     this._pageIndex = Math.max(coerceNumberProperty(value), 0);
     this._changeDetectorRef.markForCheck();
   }
-  _pageIndex: number = 0;
+  _pageIndex = 0;
 
   /** The length of the total number of items that are being paginated. Defaulted to 0. */
   @Input()
@@ -98,7 +99,7 @@ export class OuiPaginator extends _OuiPaginatorBase
     this._length = coerceNumberProperty(value);
     this._changeDetectorRef.markForCheck();
   }
-  _length: number = 0;
+  _length = 0;
 
   /** Number of items to display on a page. By default set to 50. */
   @Input()
@@ -195,13 +196,13 @@ export class OuiPaginator extends _OuiPaginatorBase
 
   /** Whether there is a previous page. */
   hasPreviousPage(): boolean {
-    return this.pageIndex >= 1 && this.pageSize != 0;
+    return this.pageIndex >= 1 && this.pageSize !== 0;
   }
 
   /** Whether there is a next page. */
   hasNextPage(): boolean {
     const maxPageIndex = this.getNumberOfPages() - 1;
-    return this.pageIndex < maxPageIndex && this.pageSize != 0;
+    return this.pageIndex < maxPageIndex && this.pageSize !== 0;
   }
 
   /** Calculate the number of pages */

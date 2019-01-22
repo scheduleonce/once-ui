@@ -14,6 +14,81 @@ import {
   OuiPaginatorIntl
 } from './public-api';
 
+function getPreviousButton(fixture: ComponentFixture<any>) {
+  return fixture.nativeElement.querySelector(
+    '.oui-paginator-navigation-previous'
+  );
+}
+
+function getNextButton(fixture: ComponentFixture<any>) {
+  return fixture.nativeElement.querySelector('.oui-paginator-navigation-next');
+}
+
+function getFirstButton(fixture: ComponentFixture<any>) {
+  return fixture.nativeElement.querySelector('.oui-paginator-navigation-first');
+}
+
+function getLastButton(fixture: ComponentFixture<any>) {
+  return fixture.nativeElement.querySelector('.oui-paginator-navigation-last');
+}
+
+@Component({
+  template: `
+    <oui-paginator
+      [pageIndex]="pageIndex"
+      [pageSize]="pageSize"
+      [hidePageSize]="hidePageSize"
+      [length]="length"
+      [disabled]="disabled"
+      (page)="pageEvent($event)"
+    >
+    </oui-paginator>
+  `
+})
+class OuiPaginatorApp {
+  pageIndex = 0;
+  pageSize = 10;
+  hidePageSize = false;
+  showFirstLastButtons = false;
+  length = 100;
+  disabled: boolean;
+  pageEvent = jasmine.createSpy('page event');
+  color: ThemePalette;
+
+  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+
+  goToLastPage() {
+    this.pageIndex = Math.ceil(this.length / this.pageSize) - 1;
+  }
+}
+
+@Component({
+  template: `
+    <oui-paginator></oui-paginator>
+  `
+})
+class OuiPaginatorWithoutInputsApp {
+  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+}
+
+@Component({
+  template: `
+    <oui-paginator [pageSize]="10"></oui-paginator>
+  `
+})
+class OuiPaginatorWithoutOptionsApp {
+  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+}
+
+@Component({
+  template: `
+    <oui-paginator pageIndex="0" pageSize="10" length="100"> </oui-paginator>
+  `
+})
+class OuiPaginatorWithStringValues {
+  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+}
+
 describe('OuiPaginator', () => {
   let fixture: ComponentFixture<OuiPaginatorApp>;
   let component: OuiPaginatorApp;
@@ -329,78 +404,3 @@ describe('OuiPaginator', () => {
     expect(getLastButton(fixture).hasAttribute('disabled')).toBe(true);
   });
 });
-
-function getPreviousButton(fixture: ComponentFixture<any>) {
-  return fixture.nativeElement.querySelector(
-    '.oui-paginator-navigation-previous'
-  );
-}
-
-function getNextButton(fixture: ComponentFixture<any>) {
-  return fixture.nativeElement.querySelector('.oui-paginator-navigation-next');
-}
-
-function getFirstButton(fixture: ComponentFixture<any>) {
-  return fixture.nativeElement.querySelector('.oui-paginator-navigation-first');
-}
-
-function getLastButton(fixture: ComponentFixture<any>) {
-  return fixture.nativeElement.querySelector('.oui-paginator-navigation-last');
-}
-
-@Component({
-  template: `
-    <oui-paginator
-      [pageIndex]="pageIndex"
-      [pageSize]="pageSize"
-      [hidePageSize]="hidePageSize"
-      [length]="length"
-      [disabled]="disabled"
-      (page)="pageEvent($event)"
-    >
-    </oui-paginator>
-  `
-})
-class OuiPaginatorApp {
-  pageIndex = 0;
-  pageSize = 10;
-  hidePageSize = false;
-  showFirstLastButtons = false;
-  length = 100;
-  disabled: boolean;
-  pageEvent = jasmine.createSpy('page event');
-  color: ThemePalette;
-
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
-
-  goToLastPage() {
-    this.pageIndex = Math.ceil(this.length / this.pageSize) - 1;
-  }
-}
-
-@Component({
-  template: `
-    <oui-paginator></oui-paginator>
-  `
-})
-class OuiPaginatorWithoutInputsApp {
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
-}
-
-@Component({
-  template: `
-    <oui-paginator [pageSize]="10"></oui-paginator>
-  `
-})
-class OuiPaginatorWithoutOptionsApp {
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
-}
-
-@Component({
-  template: `
-    <oui-paginator pageIndex="0" pageSize="10" length="100"> </oui-paginator>
-  `
-})
-class OuiPaginatorWithStringValues {
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
-}

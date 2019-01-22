@@ -57,6 +57,7 @@ export const _OuiSortMixinBase: HasInitializedCtor &
 @Directive({
   selector: '[ouiSort]',
   exportAs: 'ouiSort',
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled: ouiSortDisabled']
 })
 export class OuiSort extends _OuiSortMixinBase
@@ -137,7 +138,7 @@ export class OuiSort extends _OuiSortMixinBase
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: OuiSortable): void {
-    if (this.active != sortable.id) {
+    if (this.active !== sortable.id) {
       this.active = sortable.id;
       this.direction = sortable.start ? sortable.start : this.start;
     } else {
@@ -153,7 +154,7 @@ export class OuiSort extends _OuiSortMixinBase
       return '';
     }
 
-    let sortDirectionCycle = getSortDirectionCycle(
+    const sortDirectionCycle = getSortDirectionCycle(
       sortable.start || this.start
     );
 
@@ -180,8 +181,8 @@ export class OuiSort extends _OuiSortMixinBase
 
 /** Returns the sort direction cycle to use given the provided parameters of order and clear. */
 function getSortDirectionCycle(start: 'asc' | 'desc'): SortDirection[] {
-  let sortOrder: SortDirection[] = ['asc', 'desc'];
-  if (start == 'desc') {
+  const sortOrder: SortDirection[] = ['asc', 'desc'];
+  if (start === 'desc') {
     sortOrder.reverse();
   }
 

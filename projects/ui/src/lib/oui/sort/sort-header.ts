@@ -63,6 +63,7 @@ interface OuiSortHeaderColumnDef {
   exportAs: 'ouiSortHeader',
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     '(click)': '_handleClick()',
     '(mouseenter)': '_setIndicatorHintVisible(true)',
@@ -73,6 +74,7 @@ interface OuiSortHeaderColumnDef {
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled'],
   animations: [
     ouiSortAnimations.indicator,
@@ -91,7 +93,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
    * Flag set to true when the indicator should be displayed while the sort is not active. Used to
    * provide an affordance that the header is sortable by showing on focus and hover.
    */
-  _showIndicatorHint: boolean = false;
+  _showIndicatorHint = false;
 
   /**
    * The view transition state of the arrow (translation/ opacity) - indicates its `from` and `to`
@@ -265,7 +267,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
   _isSorted() {
     return (
-      this._sort.active == this.id &&
+      this._sort.active === this.id &&
       (this._sort.direction === 'asc' || this._sort.direction === 'desc')
     );
   }
@@ -312,6 +314,6 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
       return null;
     }
 
-    return this._sort.direction == 'asc' ? 'ascending' : 'descending';
+    return this._sort.direction === 'asc' ? 'ascending' : 'descending';
   }
 }

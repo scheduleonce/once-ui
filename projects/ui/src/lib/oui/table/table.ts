@@ -13,13 +13,11 @@ import {
   exportAs: 'ouiTable',
   template: CDK_TABLE_TEMPLATE,
   styleUrls: ['table.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-table'
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OuiTable<T> extends CdkTable<T> {
-  /** Overrides the sticky CSS class set by the `CdkTable`. */
-  protected stickyCssClass = 'oui-table-sticky';
-}
+export class OuiTable<T> extends CdkTable<T> {}

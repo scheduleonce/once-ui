@@ -14,16 +14,16 @@ export class OuiPaginatorIntl {
   readonly changes: Subject<void> = new Subject<void>();
 
   /** A label for the button that increments the current page. */
-  nextPageLabel: string = 'Next page';
+  nextPageLabel = 'Next page';
 
   /** A label for the button that decrements the current page. */
-  previousPageLabel: string = 'Previous page';
+  previousPageLabel = 'Previous page';
 
   /** A label for the button that moves to the first page. */
-  firstPageLabel: string = 'First page';
+  firstPageLabel = 'First page';
 
   /** A label for the button that moves to the last page. */
-  lastPageLabel: string = 'Last page';
+  lastPageLabel = 'Last page';
 }
 
 /** @docs-private */
