@@ -77,6 +77,9 @@ $disable-circle-color: #9b9b9b;
   padding-right: 0;
 }
 .oui-radio-disabled {
+  .oui-radio-label {
+    cursor: default;
+  }
   .oui-radio-outer-circle {
     background-color: #f9f9f9;
     border-color: #e4e4e4;
