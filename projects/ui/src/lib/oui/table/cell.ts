@@ -53,17 +53,12 @@ export class OuiFooterCellDef extends CdkFooterCellDef {}
 export class OuiColumnDef extends CdkColumnDef {
   /** Unique name for this column. */
   @Input('ouiColumnDef') name: string;
-
-  /** Whether this column should be sticky positioned at the start of the row */
-  @Input() sticky: boolean;
-
-  /** Whether this column should be sticky positioned on the end of the row */
-  @Input() stickyEnd: boolean;
 }
 
 /** Header cell template container that adds the right classes and role. */
 @Directive({
   selector: 'oui-header-cell, th[oui-header-cell]',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-header-cell',
     role: 'columnheader'
@@ -81,6 +76,7 @@ export class OuiHeaderCell extends CdkHeaderCell {
 /** Footer cell template container that adds the right classes and role. */
 @Directive({
   selector: 'oui-footer-cell, td[oui-footer-cell]',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-footer-cell',
     role: 'gridcell'
@@ -98,6 +94,7 @@ export class OuiFooterCell extends CdkFooterCell {
 /** Cell template container that adds the right classes and role. */
 @Directive({
   selector: 'oui-cell, td[oui-cell]',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-cell',
     role: 'gridcell'

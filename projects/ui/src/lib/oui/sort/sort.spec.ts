@@ -29,95 +29,6 @@ import {
   getSortInvalidDirectionError
 } from './sort-errors';
 
-describe('OuiSort', () => {
-  let fixture: ComponentFixture<SimpleOuiSortApp>;
-
-  let component: SimpleOuiSortApp;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        OuiSortModule,
-        OuiTableModule,
-        CdkTableModule,
-        NoopAnimationsModule
-      ],
-      declarations: [
-        SimpleOuiSortApp,
-        CdkTableOuiSortApp,
-        OuiTableOuiSortApp,
-        OuiSortHeaderMissingOuiSortApp,
-        OuiSortDuplicateOuiSortableIdsApp,
-        OuiSortableMissingIdApp,
-        OuiSortableInvalidDirection
-      ]
-    }).compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(SimpleOuiSortApp);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should have the sort headers register and deregister themselves', () => {
-    const sortables = component.ouiSort.sortables;
-    expect(sortables.size).toBe(4);
-    expect(sortables.get('defaultA')).toBe(component.defaultA);
-    expect(sortables.get('defaultB')).toBe(component.defaultB);
-
-    fixture.destroy();
-    expect(sortables.size).toBe(0);
-  });
-
-  it('should mark itself as initialized', fakeAsync(() => {
-    let isMarkedInitialized = false;
-    component.ouiSort.initialized.subscribe(() => (isMarkedInitialized = true));
-
-    tick();
-    expect(isMarkedInitialized).toBeTruthy();
-  }));
-
-  it('should use the column definition if used within an oui table', () => {
-    let ouiTableOuiSortAppFixture = TestBed.createComponent(OuiTableOuiSortApp);
-    let ouiTableOuiSortAppComponent =
-      ouiTableOuiSortAppFixture.componentInstance;
-
-    ouiTableOuiSortAppFixture.detectChanges();
-    ouiTableOuiSortAppFixture.detectChanges();
-
-    const sortables = ouiTableOuiSortAppComponent.ouiSort.sortables;
-    expect(sortables.size).toBe(3);
-    expect(sortables.has('column_a')).toBe(true);
-    expect(sortables.has('column_b')).toBe(true);
-    expect(sortables.has('column_c')).toBe(true);
-  });
-
-  it('should throw an error if an OuiSortable is not contained within an OuiSort directive', () => {
-    expect(() =>
-      TestBed.createComponent(OuiSortHeaderMissingOuiSortApp).detectChanges()
-    ).toThrow(getSortHeaderNotContainedWithinSortError());
-  });
-
-  it('should throw an error if two OuiSortables have the same id', () => {
-    expect(() =>
-      TestBed.createComponent(OuiSortDuplicateOuiSortableIdsApp).detectChanges()
-    ).toThrow(getSortDuplicateSortableIdError('duplicateId'));
-  });
-
-  it('should throw an error if an OuiSortable is missing an id', () => {
-    expect(() =>
-      TestBed.createComponent(OuiSortableMissingIdApp).detectChanges()
-    ).toThrow(getSortHeaderMissingIdError());
-  });
-
-  it('should throw an error if the provided direction is invalid', () => {
-    expect(() =>
-      TestBed.createComponent(OuiSortableInvalidDirection).detectChanges()
-    ).toThrow(getSortInvalidDirectionError('ascending'));
-  });
-});
-
 /**
  * Performs a sequence of sorting on a single column to see if the sort directions are
  * consistent with expectations. Detects any changes in the fixture to reflect any changes in
@@ -137,7 +48,7 @@ function testSingleColumnSortDirectionSequence(
   component.ouiSort.direction = '';
 
   // Run through the sequence to confirm the order
-  let actualSequence = expectedSequence.map(() => {
+  const actualSequence = expectedSequence.map(() => {
     component.sort(id);
 
     // Check that the sort event's active sort is consistent with the OuiSort
@@ -382,3 +293,94 @@ class OuiSortableMissingIdApp {}
   `
 })
 class OuiSortableInvalidDirection {}
+
+describe('OuiSort', () => {
+  let fixture: ComponentFixture<SimpleOuiSortApp>;
+
+  let component: SimpleOuiSortApp;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        OuiSortModule,
+        OuiTableModule,
+        CdkTableModule,
+        NoopAnimationsModule
+      ],
+      declarations: [
+        SimpleOuiSortApp,
+        CdkTableOuiSortApp,
+        OuiTableOuiSortApp,
+        OuiSortHeaderMissingOuiSortApp,
+        OuiSortDuplicateOuiSortableIdsApp,
+        OuiSortableMissingIdApp,
+        OuiSortableInvalidDirection
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SimpleOuiSortApp);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should have the sort headers register and deregister themselves', () => {
+    const sortables = component.ouiSort.sortables;
+    expect(sortables.size).toBe(4);
+    expect(sortables.get('defaultA')).toBe(component.defaultA);
+    expect(sortables.get('defaultB')).toBe(component.defaultB);
+
+    fixture.destroy();
+    expect(sortables.size).toBe(0);
+  });
+
+  it('should mark itself as initialized', fakeAsync(() => {
+    let isMarkedInitialized = false;
+    component.ouiSort.initialized.subscribe(() => (isMarkedInitialized = true));
+
+    tick();
+    expect(isMarkedInitialized).toBeTruthy();
+  }));
+
+  it('should use the column definition if used within an oui table', () => {
+    const ouiTableOuiSortAppFixture = TestBed.createComponent(
+      OuiTableOuiSortApp
+    );
+    const ouiTableOuiSortAppComponent =
+      ouiTableOuiSortAppFixture.componentInstance;
+
+    ouiTableOuiSortAppFixture.detectChanges();
+    ouiTableOuiSortAppFixture.detectChanges();
+
+    const sortables = ouiTableOuiSortAppComponent.ouiSort.sortables;
+    expect(sortables.size).toBe(3);
+    expect(sortables.has('column_a')).toBe(true);
+    expect(sortables.has('column_b')).toBe(true);
+    expect(sortables.has('column_c')).toBe(true);
+  });
+
+  it('should throw an error if an OuiSortable is not contained within an OuiSort directive', () => {
+    expect(() =>
+      TestBed.createComponent(OuiSortHeaderMissingOuiSortApp).detectChanges()
+    ).toThrow(getSortHeaderNotContainedWithinSortError());
+  });
+
+  it('should throw an error if two OuiSortables have the same id', () => {
+    expect(() =>
+      TestBed.createComponent(OuiSortDuplicateOuiSortableIdsApp).detectChanges()
+    ).toThrow(getSortDuplicateSortableIdError('duplicateId'));
+  });
+
+  it('should throw an error if an OuiSortable is missing an id', () => {
+    expect(() =>
+      TestBed.createComponent(OuiSortableMissingIdApp).detectChanges()
+    ).toThrow(getSortHeaderMissingIdError());
+  });
+
+  it('should throw an error if the provided direction is invalid', () => {
+    expect(() =>
+      TestBed.createComponent(OuiSortableInvalidDirection).detectChanges()
+    ).toThrow(getSortInvalidDirectionError('ascending'));
+  });
+});
