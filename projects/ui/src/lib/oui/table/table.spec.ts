@@ -47,7 +47,7 @@ class FakeDataSource extends DataSource<TestData> {
   addData() {
     const nextIndex = this.data.length + 1;
 
-    let copiedData = this.data.slice();
+    const copiedData = this.data.slice();
     copiedData.push({
       a: `a_${nextIndex}`,
       b: `b_${nextIndex}`,
@@ -93,11 +93,10 @@ class FakeDataSource extends DataSource<TestData> {
   `
 })
 class OuiTableApp {
+  @ViewChild(OuiTable) table: OuiTable<TestData>;
   dataSource: FakeDataSource | null = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
-
-  @ViewChild(OuiTable) table: OuiTable<TestData>;
 }
 
 @Component({
@@ -124,10 +123,9 @@ class OuiTableApp {
   `
 })
 class NativeHtmlTableApp {
+  @ViewChild(OuiTable) table: OuiTable<TestData>;
   dataSource: FakeDataSource | null = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
-
-  @ViewChild(OuiTable) table: OuiTable<TestData>;
 }
 
 @Component({
@@ -156,11 +154,10 @@ class NativeHtmlTableApp {
   `
 })
 class OuiTableWithWhenRowApp {
+  @ViewChild(OuiTable) table: OuiTable<TestData>;
   multiTemplateDataRows = false;
   dataSource: FakeDataSource | null = new FakeDataSource();
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
-
-  @ViewChild(OuiTable) table: OuiTable<TestData>;
 }
 
 @Component({
