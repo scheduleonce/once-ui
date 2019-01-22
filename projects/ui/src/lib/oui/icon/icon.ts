@@ -72,6 +72,9 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   /** Name of the icon in the SVG icon set. */
   @Input()
   svgIcon: string;
+  /** Name of the icon in the SVG icon set. */
+  @Input()
+  size: number;
 
   constructor(
     private _iconRegistry: OuiIconRegistry,
@@ -101,6 +104,17 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   private _setSvgElement(svg: SVGElement) {
     this._clearSvgElement();
     this._elementRef.nativeElement.appendChild(svg);
+    let svgSize = svg.getAttribute('height');
+    if (this.size) {
+      //noinspection TypeScriptUnresolvedFunction
+      const { x, y, width, height } = (<any>svg).getBBox();
+      svg.setAttribute('height', '100%');
+      svg.setAttribute('width', '100%');
+      svg.setAttribute('viewBox', `${x} ${y} ${width} ${height}`);
+      svgSize = `${this.size}px`;
+    }
+    this._elementRef.nativeElement.style.height = svgSize;
+    this._elementRef.nativeElement.style.width = svgSize;
   }
 
   private _clearSvgElement() {
