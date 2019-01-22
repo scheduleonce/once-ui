@@ -266,7 +266,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
     this._showIndicatorHint = false;
   }
 
-  /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
+  /** Whether this OuiSortHeader is currently sorted in either ascending or descending order. */
   _isSorted() {
     return (
       this._sort.active === this.id &&

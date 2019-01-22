@@ -70,8 +70,8 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   }
 
   /**
-   * Instance of the MatSort directive used by the table to control its sorting. Sort changes
-   * emitted by the MatSort will trigger an update to the table's rendered data.
+   * Instance of the OuiSort directive used by the table to control its sorting. Sort changes
+   * emitted by the OuiSort will trigger an update to the table's rendered data.
    */
   get sort(): OuiSort | null {
     return this._sort;
@@ -83,8 +83,8 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   private _sort: OuiSort | null;
 
   /**
-   * Instance of the MatPaginator component used by the table to control what page of the data is
-   * displayed. Page changes emitted by the MatPaginator will trigger an update to the
+   * Instance of the OuiPaginator component used by the table to control what page of the data is
+   * displayed. Page changes emitted by the OuiPaginator will trigger an update to the
    * table's rendered data.
    *
    * Note that the data source uses the paginator's properties to calculate which page of data
@@ -128,13 +128,13 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   };
 
   /**
-   * Gets a sorted copy of the data array based on the state of the MatSort. Called
-   * after changes are made to the filtered data or when sort changes are emitted from MatSort.
+   * Gets a sorted copy of the data array based on the state of the OuiSort. Called
+   * after changes are made to the filtered data or when sort changes are emitted from OuiSort.
    * By default, the function retrieves the active sort and its direction and compares data
    * by retrieving data using the sortingDataAccessor. May be overridden for a custom implementation
    * of data ordering.
    * @param data The array of data that should be sorted.
-   * @param sort The connected MatSort that holds the current sort state.
+   * @param sort The connected OuiSort that holds the current sort state.
    */
   sortData: ((data: T[], sort: OuiSort) => T[]) = (
     data: T[],
@@ -217,7 +217,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
    * the provided base data and send it to the table for rendering.
    */
   _updateChangeSubscription() {
-    // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
+    // Sorting and/or pagination should be watched if OuiSort and/or OuiPaginator are provided.
     // The events should emit whenever the component emits a change or initializes, or if no
     // component is provided, a stream with just a null event should be provided.
     // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
@@ -274,7 +274,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   }
 
   /**
-   * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the
+   * Returns a sorted copy of the data if OuiSort has a sort applied, otherwise just returns the
    * data array as provided. Uses the default data accessor for data lookup, unless a
    * sortDataAccessor function is defined.
    */
@@ -288,7 +288,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   }
 
   /**
-   * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+   * Returns a paged splice of the provided data array according to the provided OuiPaginator's page
    * index and length. If there is no paginator provided, returns the data array as provided.
    */
   _pageData(data: T[]): T[] {
@@ -326,7 +326,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   }
 
   /**
-   * Used by the MatTable. Called when it connects to the data source.
+   * Used by the OuiTable. Called when it connects to the data source.
    * @docs-private
    */
   connect() {
@@ -334,7 +334,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   }
 
   /**
-   * Used by the MatTable. Called when it is destroyed. No-op.
+   * Used by the OuiTable. Called when it is destroyed. No-op.
    * @docs-private
    */
   disconnect() {}
