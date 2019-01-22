@@ -14,13 +14,14 @@ storiesOf('Form Field', module).add(
       schemas: [],
       declarations: []
     },
-    template: `<oui-form-field> <input [disabled]="disabled" (blur)="blured()" (focus)="focused()" [type]="type" oui-input [placeholder]="placeholder" /> </oui-form-field>`,
+    template: `<oui-form-field [appearance]="appearance"> <input [disabled]="disabled" (blur)="blured()" (focus)="focused()" [type]="type" oui-input [placeholder]="placeholder" /> </oui-form-field>`,
     props: {
       type: select(
         'type',
         ['text', 'number', 'color', 'email', 'password'],
         'text'
       ),
+      appearance: select('appearance', ['standard', 'underline'], 'standard'),
       disabled: boolean('disabled', false),
       placeholder: text('placeholder', 'Type Here'),
       focused: action('focus'),
