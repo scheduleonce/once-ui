@@ -150,7 +150,7 @@ export class OuiPaginator extends _OuiPaginatorBase
 
   /** Advances to the next page if it exists. */
   nextPage(): void {
-    if (!this.hasNextPage()) {
+    if (!this.hasNextPage() || !this._initialized) {
       return;
     }
 

@@ -5,11 +5,9 @@ import {
   async,
   ComponentFixture,
   fakeAsync,
-  inject,
   TestBed,
   tick
 } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,7 +15,6 @@ import { OuiTableModule } from '../table/public_api';
 import {
   OuiSort,
   OuiSortHeader,
-  OuiSortHeaderIntl,
   OuiSortModule,
   Sort,
   SortDirection
@@ -28,52 +25,6 @@ import {
   getSortHeaderNotContainedWithinSortError,
   getSortInvalidDirectionError
 } from './sort-errors';
-
-/**
- * Performs a sequence of sorting on a single column to see if the sort directions are
- * consistent with expectations. Detects any changes in the fixture to reflect any changes in
- * the inputs and resets the OuiSort to remove any side effects from previous tests.
- */
-function testSingleColumnSortDirectionSequence(
-  fixture: ComponentFixture<SimpleOuiSortApp>,
-  expectedSequence: SortDirection[],
-  id: SimpleOuiSortAppColumnIds = 'defaultA'
-) {
-  // Detect any changes that were made in preparation for this sort sequence
-  fixture.detectChanges();
-
-  // Reset the sort to make sure there are no side affects from previous tests
-  const component = fixture.componentInstance;
-  component.ouiSort.active = '';
-  component.ouiSort.direction = '';
-
-  // Run through the sequence to confirm the order
-  const actualSequence = expectedSequence.map(() => {
-    component.sort(id);
-
-    // Check that the sort event's active sort is consistent with the OuiSort
-    expect(component.ouiSort.active).toBe(id);
-    expect(component.latestSortEvent.active).toBe(id);
-
-    // Check that the sort event's direction is consistent with the OuiSort
-    expect(component.ouiSort.direction).toBe(
-      component.latestSortEvent.direction
-    );
-    return component.ouiSort.direction;
-  });
-  expect(actualSequence).toEqual(expectedSequence);
-
-  // Expect that performing one more sort will loop it back to the beginning.
-  component.sort(id);
-  expect(component.ouiSort.direction).toBe(expectedSequence[0]);
-}
-
-/** Column IDs of the SimpleOuiSortApp for typing of function params in the component (e.g. sort) */
-type SimpleOuiSortAppColumnIds =
-  | 'defaultA'
-  | 'defaultB'
-  | 'overrideStart'
-  | 'overrideDisableClear';
 
 @Component({
   template: `
@@ -131,15 +82,6 @@ class SimpleOuiSortApp {
   @ViewChild('overrideDisableClear') overrideDisableClear: OuiSortHeader;
 
   constructor(public elementRef: ElementRef<HTMLElement>) {}
-
-  sort(id: SimpleOuiSortAppColumnIds) {
-    // this.dispatchMouseEvent(id, 'click');
-  }
-
-  dispatchMouseEvent(id: SimpleOuiSortAppColumnIds, event: string) {
-    const sortElement = this.elementRef.nativeElement.querySelector(`#${id}`)!;
-    // dispatchMouseEvent(sortElement, event);
-  }
 
   /**
    * Checks expectations for each sort header's view state and arrow direction states. Receives a
