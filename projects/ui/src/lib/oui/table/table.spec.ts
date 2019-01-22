@@ -575,7 +575,7 @@ describe('OuiTable', () => {
     }).not.toThrow();
   }));
 
-  describe('with MatTableDataSource and sort/pagination/filter', () => {
+  describe('with OuiTableDataSource and sort/pagination/filter', () => {
     let tableElement: HTMLElement;
     let fixture: ComponentFixture<ArrayDataSourceOuiTableApp>;
     let dataSource: OuiTableDataSource<TestData>;
