@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.3] - 2019-01-22
+
+### Added
+
+- Icon size will be taken from the svg in Icomoon dynamically
+- User will be able to supply a size property for overriding the size
+- Allow passing size input along with the icon moon directive [oncehub-4394](https://scheduleonce.atlassian.net/browse/ONCEHUB-4394)
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+NA
+
 ## [1.8.2] - 2019-01-17
 
 ### Added

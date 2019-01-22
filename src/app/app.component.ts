@@ -97,20 +97,26 @@ export class AppComponent implements OnInit {
   dataSource: OuiTableDataSource<UserData>;
   constructor(
     private dialog: OuiDialog,
-    private matIconRegistry: OuiIconRegistry,
+    private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.matIconRegistry.addSvgIconSet(
+    this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         `https://i.icomoon.io/public/temp/649229bb86/Oncehub/symbol-defs.svg`
       )
     );
-    this.matIconRegistry.addSvgIcon(
+    this.ouiIconRegistry.addSvgIcon(
       `three-dot`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         `/assets/images/three-dot.svg`
       )
     );
+    this.ouiIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
+      )
+    );
+
     this.checked = false;
     this.labelPosition = 'after';
     this.disabled = false;
