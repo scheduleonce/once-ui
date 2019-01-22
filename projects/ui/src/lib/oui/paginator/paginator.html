@@ -21,7 +21,7 @@
         [ouiTooltipPosition]="'above'"
         [disabled]="_previousButtonsDisabled()"
       ></button>
-      <div class="oui-paginator-current-page">{{ pageIndex + 1 }}</div>
+      <div class="oui-paginator-current-page">{{ getCurrentPage() }}</div>
       <button
         type="button"
         class="oui-paginator-navigation-next"
