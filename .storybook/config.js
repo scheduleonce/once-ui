@@ -8,7 +8,7 @@ import {
 import { withNotes } from '@storybook/addon-notes';
 import { withOptions } from '@storybook/addon-options';
 import '../src/stories/style.css';
-import '../projects/ui/prebuilt-themes/oncehub.css';
+import '../src/stories/themes/oncehub.css';
 
 addDecorator(withKnobs);
 addDecorator(withNotes);
@@ -22,12 +22,7 @@ withOptions({
    * URL for name in top left corner to link to
    * @type {String}
    */
-  url: '//github.com/ScheduleOnce/once-ui/',
-  /**
-   * show addon panel as a vertical panel on the right
-   * @type {Boolean}
-   */
-  addonPanelInRight: true
+  url: '//github.com/ScheduleOnce/once-ui/'
 });
 const req = require.context('../src/stories', true, /.stories.ts$/);
 function loadStories() {

@@ -83,7 +83,7 @@ storiesOf('Dialog', module).add(
       schemas: [],
       declarations: [OuiDialogStorybook]
     },
-    component: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
+    template: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
     props: {
       click: action('clicked'),
       close: action('closed'),
