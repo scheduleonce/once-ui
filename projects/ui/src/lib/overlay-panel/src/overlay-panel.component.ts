@@ -3,7 +3,6 @@ import {
   OnInit,
   Input,
   ViewChild,
-  ElementRef,
   AfterViewChecked
 } from '@angular/core';
 
@@ -20,7 +19,7 @@ export class OverlayPanelComponent implements OnInit, AfterViewChecked {
   @Input()
   imageLink: string;
   @ViewChild('container')
-  container: ElementRef;
+  container;
   visible = false;
   canClose = true;
   target;

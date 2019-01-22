@@ -1,9 +1,7 @@
 import {
   Component,
   Input,
-  ComponentRef,
   ViewChild,
-  ElementRef,
   ChangeDetectorRef,
   OnDestroy,
   AfterViewInit,
@@ -20,7 +18,7 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
 
   @ViewChild('container')
-  container: ElementRef;
+  container;
   @Input()
   hostElement: HTMLElement;
   @Input()
@@ -34,7 +32,7 @@ export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   @Input()
   timeOutEvent: any;
   @Input()
-  componentRef: ComponentRef<ActionMenuDropdownComponent>;
+  componentRef;
   @Input()
   targetOffset: any;
 

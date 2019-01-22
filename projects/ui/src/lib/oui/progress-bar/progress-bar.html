@@ -1,0 +1,9 @@
+<div class="progress" [style.height.px]="strokeWidth">
+  <div
+    class="progress-bar"
+    [style.height.px]="strokeWidth"
+    [style.animation-name]="mode === 'indeterminate' ? 'loading' : 'none'"
+    [style.width.%]="mode === 'indeterminate' ? ' ' : value"
+    [style.left.px]="mode === 'indeterminate' ? '-200' : '0'"
+  ></div>
+</div>

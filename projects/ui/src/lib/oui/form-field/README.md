@@ -26,4 +26,4 @@ The user should label the form field control themselves using `aria-label`, `ari
 
 ### Stackblitz demo link
 
-https://stackblitz.com/edit/angular-ptkety
+https://stackblitz.com/edit/form-field-component
