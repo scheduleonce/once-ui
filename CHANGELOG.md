@@ -5,6 +5,62 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.2] - 2019-01-17
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed dialog overlay disposal on browser back event [oncehub-4396](https://scheduleonce.atlassian.net/browse/ONCEHUB-4396)
+
+## [1.8.1] - 2019-01-16
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed tslint issues from once ui project
+- Removed unused code from the project
+
+## [1.8.0] - 2019-01-16
+
+### Added
+
+- [`oui-radio-button`](projects/ui/src/lib/oui/radio/README.md)
+- [`oui-progress-bar`](projects/ui/src/lib/oui/progress-bar/README.md)
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- NA
+
 ## [1.7.1] - 2019-01-14
 
 ### Added
@@ -21,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected.
+- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected ([@dinesh-rawat](https://github.com/scheduleonce/once-ui/pull/323))
 
 ## [1.7.0] - 2019-01-11
 
@@ -57,7 +113,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [ONCEHUB-3942](https://scheduleonce.atlassian.net/browse/ONCEHUB-3942) - Styling changes to input and textarea fields
+- [ONCEHUB-3942](https://scheduleonce.atlassian.net/browse/ONCEHUB-3942) - Styling changes to input and textarea fields ([@so-kushal](https://github.com/scheduleonce/once-ui/pull/318/files))
 
 ## [1.6.1] - 2019-01-10
 

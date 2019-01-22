@@ -52,11 +52,7 @@ class InlineIcon {
 }
 
 describe('OuiIcon', () => {
-  let fakePath: string;
-
   beforeEach(async(() => {
-    fakePath = '/fake-path';
-
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, OuiIconModule],
       declarations: [
@@ -70,17 +66,9 @@ describe('OuiIcon', () => {
     TestBed.compileComponents();
   }));
 
-  let iconRegistry: OuiIconRegistry;
-  let http: HttpTestingController;
-  let sanitizer: DomSanitizer;
-
   beforeEach(inject(
     [OuiIconRegistry, HttpTestingController, DomSanitizer],
-    (mir: OuiIconRegistry, h: HttpTestingController, ds: DomSanitizer) => {
-      iconRegistry = mir;
-      http = h;
-      sanitizer = ds;
-    }
+    () => {}
   ));
 
   it('should apply class based on color attribute', () => {

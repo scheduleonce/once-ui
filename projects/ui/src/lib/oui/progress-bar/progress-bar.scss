@@ -1,0 +1,63 @@
+.progress {
+  height: 4px;
+  max-width: 100%;
+  min-width: 260px;
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+  .progress-bar {
+    display: block;
+    position: absolute;
+    left: -200px;
+    width: 200px;
+    height: 4px;
+    animation: loading 2s linear infinite;
+    -webkit-animation: loading 2s linear infinite;
+    -moz-animation: loading 2s linear infinite;
+    -o-animation: loading 2s linear infinite;
+    -ms-animation: loading 2s linear infinite;
+  }
+}
+@keyframes loading {
+  from {
+    left: -200px;
+    width: 30%;
+  }
+  50% {
+    width: 30%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    left: 50%;
+  }
+  95% {
+    left: 120%;
+  }
+  to {
+    left: 100%;
+  }
+}
+@-webkit-keyframes loading {
+  from {
+    left: -200px;
+    width: 30%;
+  }
+  50% {
+    width: 30%;
+  }
+  70% {
+    width: 70%;
+  }
+  80% {
+    left: 50%;
+  }
+  95% {
+    left: 120%;
+  }
+  to {
+    left: 100%;
+  }
+}

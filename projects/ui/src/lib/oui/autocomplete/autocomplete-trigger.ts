@@ -138,9 +138,6 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   /** Strategy that is used to position the panel. */
   private _positionStrategy: FlexibleConnectedPositionStrategy;
 
-  /** Whether or not the label state is being overridden. */
-  private _manuallyFloatingLabel = false;
-
   /** The subscription for closing actions (some are bound to document). */
   private _closingActionsSubscription: Subscription;
 
