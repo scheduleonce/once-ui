@@ -125,7 +125,6 @@ export class OuiIconRegistry {
    * if not, the Observable will throw an error.
    * @param name
    * @param namespace
-   * @returns {any}
    */
   getNamedSvgIcon(name, namespace: string = ''): Observable<SVGElement> {
     // Return (copy of) cached icon if possible.
