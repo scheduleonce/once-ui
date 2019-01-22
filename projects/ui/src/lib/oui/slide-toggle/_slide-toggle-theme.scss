@@ -4,22 +4,22 @@
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  &.oui-primary input:checked + .slider:before {
+  .oui-primary input:checked + .slider:before {
     background-color: map-get($primary, darker) !important;
   }
-  &.oui-primary input:checked + .slider.round {
+  .oui-primary input:checked + .slider.round {
     border: 1px solid map-get($primary, darker) !important;
   }
-  &.oui-accent input:checked + .slider:before {
+  .oui-accent input:checked + .slider:before {
     background-color: map-get($accent, darker) !important;
   }
-  &.oui-accent input:checked + .slider.round {
+  .oui-accent input:checked + .slider.round {
     border: 1px solid map-get($accent, darker) !important;
   }
-  &.oui-warn input:checked + .slider:before {
+  .oui-warn input:checked + .slider:before {
     background-color: map-get($warn, darker) !important;
   }
-  &.oui-warn input:checked + .slider.round {
+  .oui-warn input:checked + .slider.round {
     border: 1px solid map-get($warn, darker) !important;
   }
 }
