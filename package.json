@@ -18,7 +18,7 @@
     "compile-scss-green": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-green.scss ./dist/ui/themes/once-ui-theme-green.css && rimraf -f ./dist/ui/themes/once-ui-theme-green.scss",
     "npm-pack": "cd dist/ui && npm pack",
     "package": "npm run build && npm run bundle-styles && npm run npm-pack",
-    "storybook": "start-storybook",
+    "start": "start-storybook",
     "build-storybook": "build-storybook"
   },
   "private": true,
