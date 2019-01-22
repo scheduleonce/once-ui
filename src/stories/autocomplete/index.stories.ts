@@ -56,12 +56,7 @@ let stateGroups = [
       [appearance]="appearance"
       style="max-width:300px;display:block;"
     >
-      <input
-        [disabled]="disabled"
-        [formControl]="myControl"
-        oui-input
-        [ouiAutocomplete]="auto"
-      />
+      <input [formControl]="myControl" oui-input [ouiAutocomplete]="auto" />
     </oui-form-field>
     <oui-autocomplete
       (closed)="closed()"
@@ -83,6 +78,11 @@ export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
   myControl = new FormControl();
   @Input() options: any[];
+  @Input()
+  set disabled(value: boolean) {
+    if (value) this.myControl.disable();
+    else this.myControl.enable();
+  }
   constructor() {}
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -109,7 +109,6 @@ export class OuiAutocompleteStorybook implements OnInit {
       style="max-width:300px;display:block;"
     >
       <input
-        [disabled]="disabled"
         type="text"
         formControlName="stateGroup"
         oui-input
@@ -136,6 +135,11 @@ export class OuiAutocompleteStorybook implements OnInit {
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {
   @Input() stateGroups: any[];
+  @Input()
+  set disabled(value: boolean) {
+    if (value) this.stateForm.get('stateGroup')!.disable();
+    else this.stateForm.get('stateGroup')!.enable();
+  }
   stateForm: FormGroup = this.fb.group({
     stateGroup: ''
   });
