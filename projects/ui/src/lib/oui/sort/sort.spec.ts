@@ -29,7 +29,7 @@ import {
   getSortInvalidDirectionError
 } from './sort-errors';
 
-fdescribe('OuiSort', () => {
+describe('OuiSort', () => {
   let fixture: ComponentFixture<SimpleOuiSortApp>;
 
   let component: SimpleOuiSortApp;
