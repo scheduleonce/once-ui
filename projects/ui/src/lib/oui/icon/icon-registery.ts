@@ -52,7 +52,6 @@ export function getOuiIconFailedToSanitizeUrlError(
 class SvgIconConfig {
   url: SafeResourceUrl | null;
   svgElement: SVGElement | null;
-
   constructor(url: SafeResourceUrl);
   constructor(data: SafeResourceUrl | SVGElement) {
     this.url = data as SafeResourceUrl;
@@ -124,18 +123,14 @@ export class OuiIconRegistry {
    * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
    * and namespace. The icon must have been previously registered with addIcon or addIconSet;
    * if not, the Observable will throw an error.
-   *
-   * @param name Name of the icon to be retrieved.
-   * @param namespace Namespace in which to look for the icon.
+   * @param name
+   * @param namespace
+   * @returns {any}
    */
-  getNamedSvgIcon(
-    name: string,
-    namespace: string = ''
-  ): Observable<SVGElement> {
+  getNamedSvgIcon(name, namespace: string = ''): Observable<SVGElement> {
     // Return (copy of) cached icon if possible.
     const key = iconKey(namespace, name);
     const config = this._svgIconConfigs.get(key);
-
     if (config) {
       return this._getSvgFromConfig(config);
     }
@@ -366,14 +361,17 @@ export class OuiIconRegistry {
    * Converts an element into an SVG node by cloning all of its children.
    */
   private _toSvgElement(element: Element): SVGElement {
-    const svg = this._svgElementFromString('<svg></svg>');
+    const viewBox = element.getAttribute('viewBox').split(' ');
+    const width = `${viewBox[2]}px`;
+    const height = `${viewBox[3]}px`;
+    const svgTag = `<svg height="${height}" width="${width}"></svg>`;
 
+    const svg = this._svgElementFromString(svgTag);
     for (let i = 0; i < element.childNodes.length; i++) {
       if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
         svg.appendChild(element.childNodes[i].cloneNode(true));
       }
     }
-
     return svg;
   }
 
@@ -382,10 +380,9 @@ export class OuiIconRegistry {
    */
   private _setSvgAttributes(svg: SVGElement): SVGElement {
     svg.setAttribute('fit', '');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('width', '100%');
     svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
     svg.setAttribute('focusable', 'false'); // Disable IE11 default behavior to make SVGs focusable.
+
     return svg;
   }
 
