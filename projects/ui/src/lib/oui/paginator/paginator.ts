@@ -1,11 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 import {
   coerceNumberProperty,
   coerceBooleanProperty
@@ -86,9 +78,6 @@ export class OuiPaginator extends _OuiPaginatorBase
   private _initialized: boolean;
   private _intlChanges: Subscription;
 
-  /** Theme color to be used for the underlying form controls. */
-  @Input() color: ThemePalette;
-
   /** The zero-based page index of the displayed list of items. Defaulted to 0. */
   @Input()
   get pageIndex(): number {
@@ -130,16 +119,6 @@ export class OuiPaginator extends _OuiPaginatorBase
     this._hidePageSize = coerceBooleanProperty(value);
   }
   private _hidePageSize = false;
-
-  /** Whether to show the first/last buttons UI to the user. */
-  @Input()
-  get showFirstLastButtons(): boolean {
-    return this._showFirstLastButtons;
-  }
-  set showFirstLastButtons(value: boolean) {
-    this._showFirstLastButtons = coerceBooleanProperty(value);
-  }
-  private _showFirstLastButtons = false;
 
   /** Event emitted when the paginator changes the page size or page index. */
   @Output() readonly page: EventEmitter<PageEvent> = new EventEmitter<
@@ -227,11 +206,20 @@ export class OuiPaginator extends _OuiPaginatorBase
 
   /** Calculate the number of pages */
   getNumberOfPages(): number {
-    if (!this.pageSize) {
+    if (!this.pageSize || this.length < 0) {
       return 0;
     }
 
     return Math.ceil(this.length / this.pageSize);
+  }
+
+  /** Get current page */
+  getCurrentPage(): number {
+    if (!this.pageSize || this.length <= 0) {
+      return 0;
+    }
+
+    return this.pageIndex + 1;
   }
 
   /**

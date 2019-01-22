@@ -14,12 +14,7 @@
     <ng-content></ng-content>
   </button>
 
-  <!-- Disable animations while a current animation is running -->
-  <div
-    class="oui-sort-header-arrow"
-    (@arrowPosition.start)="_disableViewStateAnimation = true"
-    (@arrowPosition.done)="_disableViewStateAnimation = false"
-  >
+  <div class="oui-sort-header-arrow">
     <div
       [class.oui-sort-header-arrow-selected]="_isSorted()"
       [class.oui-sort-header-arrow-faded]="!_isSorted()"
