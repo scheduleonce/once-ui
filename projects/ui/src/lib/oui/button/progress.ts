@@ -95,6 +95,7 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
 
     setToDone() {
       this._checkAttribute();
+      this._elementRef.nativeElement.disabled = false;
       this._stage = 'done';
       this._changeStage();
       this._resetToDefault();
