@@ -73,6 +73,7 @@
     "moment": "^2.23.0",
     "ng-packagr": "^4.4.5",
     "ngx-perfect-scrollbar": "^7.1.0",
+    "node-sass": "^4.11.0",
     "prettier": "^1.15.3",
     "protractor": "^5.4.2",
     "puppeteer": "^1.11.0",
