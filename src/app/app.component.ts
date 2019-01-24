@@ -157,8 +157,6 @@ export class AppComponent implements OnInit {
     this.progressButton.setToProgress();
     setTimeout(() => {
       this.progressButton.setToDone();
-      console.log('disable true');
-      this.isDisable = true;
     }, 1000);
   }
 
