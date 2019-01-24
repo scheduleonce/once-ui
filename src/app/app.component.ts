@@ -45,20 +45,21 @@ export class AppComponent {
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.ouiIconRegistry.addSvgIconSet(
+    this.ouiIconRegistry.addSvgIcon(
+      `horizontal`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `https://i.icomoon.io/public/temp/649229bb86/Oncehub/symbol-defs.svg`
+        `/assets/images/3-dots-horizontal-20x8.svg`
       )
     );
     this.ouiIconRegistry.addSvgIcon(
-      `three-dot`,
+      `vertical`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/three-dot.svg`
+        `/assets/images/3-dots-vertical-20x8.svg`
       )
     );
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg'
+        'https://s3.amazonaws.com/icomoon.io/135790/oncehub-20/symbol-defs.svg?nhbz3f'
       )
     );
 
