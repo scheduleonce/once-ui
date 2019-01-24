@@ -809,7 +809,7 @@ describe('OuiTable', () => {
       ]);
     });
 
-    it('should sort zero correctly', () => {
+    it('should sort zero correctly', fakeAsync(() => {
       // Activate column A sort
       dataSource.data[0].a = 1;
       dataSource.data[1].a = 0;
@@ -818,6 +818,7 @@ describe('OuiTable', () => {
       // Expect that zero comes after the negative numbers and before the positive ones.
       component.sort.sort(component.sortHeader);
       fixture.detectChanges();
+      tick();
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['-1', 'b_3', 'c_3'],
@@ -837,7 +838,7 @@ describe('OuiTable', () => {
         ['-1', 'b_3', 'c_3'],
         ['Footer A', 'Footer B', 'Footer C']
       ]);
-    });
+    }));
 
     it('should be able to page the table contents', fakeAsync(() => {
       // Add 100 rows, should only display first 5 since page length is 5
