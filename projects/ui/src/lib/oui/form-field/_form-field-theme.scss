@@ -121,6 +121,10 @@ $form-field-transition-border: border 0.5s;
     border: 0;
     padding-left: 1px;
     padding-right: 1px;
+    &:disabled {
+      color: #666666;
+      background-color: transparent;
+    }
   }
   .oui-form-field-wrapper {
     height: 40px;
