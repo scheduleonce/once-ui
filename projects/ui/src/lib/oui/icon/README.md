@@ -174,4 +174,6 @@ oui-icon {
 }
 ```
 
+## Stackblitz demo link
+
 You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.
