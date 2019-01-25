@@ -20,25 +20,9 @@
   .display-inline {
     display: inline-block;
   }
-  input:disabled {
-    border-color: #e4e4e4;
-    color: #9c9c9c;
-    background-color: transparent;
-  }
   textarea {
     line-height: 19px;
     padding: 8px 9px;
-  }
-  &:disabled {
-    border-color: #e4e4e4;
-    color: #9c9c9c;
-    background-color: transparent;
-  }
-  .bottom-line {
-    background-color: transparent;
-    height: 1px;
-    transition: all 0.1s;
-    margin: 0px;
   }
 
   .trigger {
