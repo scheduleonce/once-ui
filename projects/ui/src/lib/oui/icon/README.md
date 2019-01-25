@@ -174,4 +174,10 @@ oui-icon {
 }
 ```
 
+## Stackblitz demo link
+
 You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.
+
+This demo link shows how you can work with `oui-icon-component`:
+
+You can see the [https://stackblitz.com/edit/oui-button-component](https://stackblitz.com/edit/oui-button-component) demo for more details.
