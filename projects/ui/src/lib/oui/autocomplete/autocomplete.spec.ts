@@ -1,5 +1,11 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { DOWN_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import {
+  DOWN_ARROW,
+  SPACE,
+  UP_ARROW,
+  ESCAPE,
+  TAB
+} from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   createKeyboardEvent,
@@ -37,7 +43,7 @@ import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiFormField } from '../form-field/form-field';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Subscription, EMPTY } from 'rxjs';
+import { Subscription, EMPTY, Observable } from 'rxjs';
 import { OuiInputModule } from '../input/input-module';
 import { OuiAutocomplete } from './autocomplete';
 import {
@@ -45,6 +51,7 @@ import {
   OuiAutocompleteModule,
   OuiAutocompleteTrigger
 } from './index';
+import { map, startWith } from 'rxjs/operators';
 
 describe('OuiAutocomplete', () => {
   let overlayContainer: OverlayContainer;
@@ -1208,6 +1215,104 @@ describe('OuiAutocomplete', () => {
       subscription!.unsubscribe();
     }));
   });
+  describe('panel closing', () => {
+    let fixture: ComponentFixture<SimpleAutocomplete>;
+    let input: HTMLInputElement;
+    let trigger: OuiAutocompleteTrigger;
+    let closingActionSpy: jasmine.Spy;
+    let closingActionsSub: Subscription;
+
+    beforeEach(fakeAsync(() => {
+      fixture = createComponent(SimpleAutocomplete);
+      fixture.detectChanges();
+
+      input = fixture.debugElement.query(By.css('input')).nativeElement;
+
+      fixture.componentInstance.trigger.openPanel();
+      fixture.detectChanges();
+      flush();
+
+      trigger = fixture.componentInstance.trigger;
+      closingActionSpy = jasmine.createSpy('closing action listener');
+      closingActionsSub = trigger.panelClosingActions.subscribe(
+        closingActionSpy
+      );
+    }));
+
+    afterEach(() => {
+      closingActionsSub.unsubscribe();
+    });
+
+    it('should emit panel close event when clicking away', () => {
+      expect(closingActionSpy).not.toHaveBeenCalled();
+      dispatchFakeEvent(document, 'click');
+      expect(closingActionSpy).toHaveBeenCalledWith(null);
+    });
+
+    it('should emit panel close event when tabbing out', () => {
+      const tabEvent = createKeyboardEvent('keydown', TAB);
+      input.focus();
+
+      expect(closingActionSpy).not.toHaveBeenCalled();
+      trigger._handleKeydown(tabEvent);
+      expect(closingActionSpy).toHaveBeenCalledWith(null);
+    });
+
+    it('should not emit when tabbing away from a closed panel', () => {
+      const tabEvent = createKeyboardEvent('keydown', TAB);
+
+      input.focus();
+      zone.simulateZoneExit();
+
+      trigger._handleKeydown(tabEvent);
+
+      // Ensure that it emitted once while the panel was open.
+      expect(closingActionSpy).toHaveBeenCalledTimes(1);
+
+      trigger._handleKeydown(tabEvent);
+
+      // Ensure that it didn't emit again when tabbing out again.
+      expect(closingActionSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should emit panel close event when selecting an option', () => {
+      const option = overlayContainerElement.querySelector(
+        'oui-option'
+      ) as HTMLElement;
+
+      expect(closingActionSpy).not.toHaveBeenCalled();
+      option.click();
+      expect(closingActionSpy).toHaveBeenCalledWith(
+        jasmine.any(OuiOptionSelectionChange)
+      );
+    });
+
+    it('should close the panel when pressing escape', () => {
+      expect(closingActionSpy).not.toHaveBeenCalled();
+      dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
+      expect(closingActionSpy).toHaveBeenCalledWith(null);
+    });
+  });
+
+  describe('without ouiInput', () => {
+    let fixture: ComponentFixture<AutocompleteWithNativeInput>;
+
+    beforeEach(() => {
+      fixture = createComponent(AutocompleteWithNativeInput);
+      fixture.detectChanges();
+    });
+
+    it('should not throw when clicking outside', fakeAsync(() => {
+      dispatchFakeEvent(
+        fixture.debugElement.query(By.css('input')).nativeElement,
+        'focus'
+      );
+      fixture.detectChanges();
+      flush();
+
+      expect(() => dispatchFakeEvent(document, 'click')).not.toThrow();
+    }));
+  });
 });
 
 @Component({
@@ -1310,3 +1415,40 @@ class AutocompleteWithNativeAutocompleteAttribute {
   template: '<input [ouiAutocomplete]="null" ouiAutocompleteDisabled>'
 })
 class InputWithoutAutocompleteAndDisabled {}
+
+@Component({
+  template: `
+    <input
+      placeholder="Choose"
+      [ouiAutocomplete]="auto"
+      [formControl]="optionCtrl"
+    />
+    <oui-autocomplete #auto="ouiAutocomplete">
+      <oui-option
+        *ngFor="let option of (filteredOptions | async)"
+        [value]="option"
+      >
+        {{ option }}
+      </oui-option>
+    </oui-autocomplete>
+  `
+})
+class AutocompleteWithNativeInput {
+  optionCtrl = new FormControl();
+  filteredOptions: Observable<any>;
+  options = ['En', 'To', 'Tre', 'Fire', 'Fem'];
+
+  @ViewChild(OuiAutocompleteTrigger) trigger: OuiAutocompleteTrigger;
+  @ViewChildren(OuiOption) matOptions: QueryList<OuiOption>;
+
+  constructor() {
+    this.filteredOptions = this.optionCtrl.valueChanges.pipe(
+      startWith(null),
+      map((val: string) => {
+        return val
+          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          : this.options.slice();
+      })
+    );
+  }
+}
