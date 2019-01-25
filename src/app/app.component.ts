@@ -77,8 +77,6 @@ export class AppComponent {
     this.progressButton.setToProgress();
     setTimeout(() => {
       this.progressButton.setToDone();
-      console.log('disable true');
-      this.isDisable = true;
     }, 1000);
   }
 

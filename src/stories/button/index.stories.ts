@@ -123,8 +123,6 @@ storiesOf('Button', module)
       component: OuiIconButtonStorybook,
       props: {
         color: select('color', ['primary', 'accent', 'warn'], 'primary'),
-        disabled: boolean('disabled', false),
-        text: text('text', 'This is a button'),
         clicked: action('click'),
         icon: text('icon', 'notification-editor')
       }
