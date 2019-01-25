@@ -16,12 +16,9 @@ import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
 @Component({
   selector: 'oui-menu-storybook',
   template: `
-    <oui-icon
-      [svgIcon]="'dots-vertical'"
-      [ouiMenuTriggerFor]="afterAboveMenu"
-      [color]="'primary'"
-      style="margin-top:250px;margin-left:200px;"
-    ></oui-icon>
+    <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
+      <oui-icon [svgIcon]="'dots-horizontal'"></oui-icon>
+    </button>
     <oui-menu #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
       <button oui-menu-item>
         <oui-icon svgIcon="edit"></oui-icon>
@@ -63,12 +60,9 @@ export class OuiMenuStorybook {
 @Component({
   selector: 'oui-nested-menu-storybook',
   template: `
-    <oui-icon
-      [svgIcon]="'dots-vertical'"
-      [ouiMenuTriggerFor]="rootMenu"
-      [color]="'primary'"
-      style="margin-top:250px;margin-left:200px;"
-    ></oui-icon>
+    <button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
+      <oui-icon [svgIcon]="'dots-vertical'"></oui-icon>
+    </button>
     <oui-menu
       [xPosition]="xPosition"
       [yPosition]="yPosition"
