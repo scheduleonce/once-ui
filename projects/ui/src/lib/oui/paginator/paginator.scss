@@ -4,6 +4,7 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
 @mixin oui-paginator-button-disable {
   &:disabled {
     opacity: 0.5;
+    cursor: default;
   }
 }
 
@@ -16,7 +17,7 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
   .oui-paginator-range-actions {
     text-align: center;
     border: 1px solid #c8c8c8;
-    height: 35px;
+    height: 33px;
     border-radius: 20px;
     background: #fff;
     display: inline-block;
@@ -34,20 +35,20 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
     }
     .oui-paginator-navigation-first {
       background: $double-arrow center center no-repeat;
-      height: 35px;
+      height: 33px;
       width: 46px;
       transform: rotate(180deg);
       @include oui-paginator-button-disable;
     }
     .oui-paginator-navigation-last {
       background: $double-arrow center center no-repeat;
-      height: 35px;
+      height: 33px;
       width: 46px;
       @include oui-paginator-button-disable;
     }
     .oui-paginator-navigation-previous {
       background: $single-arrow center center no-repeat;
-      height: 35px;
+      height: 33px;
       width: 47px;
       transform: rotate(180deg);
       border-right: 1px solid #c8c8c8;
@@ -55,7 +56,7 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
     }
     .oui-paginator-navigation-next {
       background: $single-arrow center center no-repeat;
-      height: 35px;
+      height: 33px;
       width: 47px;
       border-right: 1px solid #c8c8c8;
       @include oui-paginator-button-disable;
@@ -63,13 +64,13 @@ $double-arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjA
     .oui-paginator-current-page {
       display: inline-block;
       width: 32px;
-      height: 28px;
+      height: 26px;
       text-align: center;
       font-size: 16px;
       line-height: 22px;
       vertical-align: top;
       font-weight: 600;
-      padding-top: 5px;
+      padding-top: 6.5px;
       color: #333;
     }
   }
