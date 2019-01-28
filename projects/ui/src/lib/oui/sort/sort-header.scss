@@ -16,13 +16,15 @@ $arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG
 .oui-sort-header-arrow {
   display: inline-block;
   vertical-align: middle;
+  cursor: pointer;
+  height: 19px;
 }
 .oui-sort-header-arrow-selected {
   height: 20px;
   width: 20px;
   background: $arrow center center no-repeat;
   display: inline-block;
-  margin: 2px 0px 0px 2px;
+  margin: -1px 0px 0px 5px;
 }
 .oui-sort-header-arrow-faded {
   opacity: 0;
@@ -30,7 +32,7 @@ $arrow: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG
   width: 20px;
   background: $arrow center center no-repeat;
   display: inline-block;
-  margin: 2px 0px 0px 2px;
+  margin: -1px 0px 0px 5px;
 }
 .oui-header-cell:hover .oui-sort-header-arrow-faded {
   opacity: 0.3;
