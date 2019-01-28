@@ -785,7 +785,14 @@ describe('OuiTable', () => {
     it('should by default correctly sort undefined values', () => {
       // Activate column A sort
       dataSource.data[0].a = undefined;
-
+      fixture.detectChanges();
+      console.log(tableElement, [
+        ['Column A', 'Column B', 'Column C'],
+        ['', 'b_1', 'c_1'],
+        ['a_2', 'b_2', 'c_2'],
+        ['a_3', 'b_3', 'c_3'],
+        ['Footer A', 'Footer B', 'Footer C']
+      ]);
       // Expect that undefined row comes before the other values
       component.sort.sort(component.sortHeader);
       fixture.detectChanges();
