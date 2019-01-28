@@ -1,10 +1,10 @@
+$oui-header-row-height: 56px;
+$oui-row-height: 48px;
+$oui-row-horizontal-padding: 24px;
+
 /**
  * Flex-based table structure
  */
-table {
-  width: 100%;
-}
-
 oui-table {
   display: block;
   border-spacing: 0;
@@ -14,16 +14,17 @@ oui-table {
 oui-header-row {
   background-color: #f6f6f6;
   border-bottom: 1px solid #dfdfdf;
-  border-top: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf !important;
 }
 
 oui-header-cell {
-  padding: 15px 12.5px;
+  padding: 16px 12.5px;
   font-size: 14px;
   font-weight: 700;
   line-height: 19px;
   color: #333;
-  text-align: left;
+  text-align: left;  
+  vertical-align: middle;
 }
 
 oui-cell {
@@ -31,9 +32,14 @@ oui-cell {
   vertical-align: middle;
   font-size: 14px;
   color: #333;
-  line-height: 24px;
+  line-height: 20px;
 }
-
+.oui-row .oui-cell:nth-child(1), .oui-header-row .oui-header-cell:nth-child(1){
+  padding-left: 16px;
+}
+.oui-row .oui-cell:nth-last-child(1), .oui-header-row .oui-header-cell:nth-last-child(1){
+  padding-right: 16px;
+}
 oui-row,
 oui-header-row,
 oui-footer-row {
@@ -55,7 +61,7 @@ oui-footer-row {
   }
 }
 oui-row {
-  &:hover {
+  &:hover{
     background: #f6f6f6;
     cursor: pointer;
   }
@@ -95,23 +101,26 @@ th.oui-header-cell {
 }
 
 th.oui-header-cell {
-  padding: 15px 12.5px;
+  padding: 16px 12.5px;
   font-size: 14px;
   font-weight: 700;
   line-height: 19px;
   color: #333;
   text-align: left;
+  width: 100%;
+  vertical-align: middle;
 }
 td.oui-cell {
   padding: 13px 12.5px;
   vertical-align: middle;
   font-size: 14px;
   color: #333;
-  line-height: 24px;
+  line-height: 20px;
+  width: 100%;
 }
 tr.oui-row {
   border-bottom: 1px solid #dfdfdf;
-  &:hover {
+  &:hover{
     background: #f6f6f6;
     cursor: pointer;
   }
