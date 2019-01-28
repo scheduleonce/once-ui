@@ -58,4 +58,4 @@ However, if there's no label specified in the form field, aria-label, aria-label
 
 ### Stackblitz demo link
 
-https://stackblitz.com/edit/oui-form-field-component
+https://stackblitz.com/edit/oui-input-field

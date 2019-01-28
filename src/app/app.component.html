@@ -2,12 +2,8 @@
   <h1>Menu</h1>
   <div class="trigger">
     <span>x-axis:after y-axis:"above"</span>
-    <button oui-icon-button>
-      <oui-icon
-        style="height:9px"
-        svgIcon="three-dot"
-        [ouiMenuTriggerFor]="afterAboveMenu"
-      ></oui-icon>
+    <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
+      <oui-icon svgIcon="horizontal"></oui-icon>
     </button>
     <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
       <button oui-menu-item>
@@ -27,12 +23,8 @@
 
   <div class="trigger">
     <span>x-axis:before y-axis:"above"</span>
-    <button oui-icon-button>
-      <oui-icon
-        style="height:9px"
-        svgIcon="three-dot"
-        [ouiMenuTriggerFor]="beforeAboveMenu"
-      ></oui-icon>
+    <button oui-icon-button [ouiMenuTriggerFor]="beforeAboveMenu">
+      <oui-icon svgIcon="horizontal"></oui-icon>
     </button>
     <oui-menu #beforeAboveMenu xPosition="before" yPosition="above">
       <button oui-menu-item>
@@ -52,12 +44,8 @@
 
   <div class="trigger">
     <span>x-axis:before y-axis:"below"</span>
-    <button oui-icon-button>
-      <oui-icon
-        style="height:9px"
-        svgIcon="three-dot"
-        [ouiMenuTriggerFor]="beforeBelowMenu"
-      ></oui-icon>
+    <button oui-icon-button [ouiMenuTriggerFor]="beforeBelowMenu">
+      <oui-icon svgIcon="horizontal"></oui-icon>
     </button>
     <oui-menu #beforeBelowMenu xPosition="before" yPosition="below">
       <button oui-menu-item>
@@ -77,12 +65,8 @@
 
   <div class="trigger">
     <span>x-axis:after y-axis:"below"</span>
-    <button oui-icon-button>
-      <oui-icon
-        style="height:9px"
-        svgIcon="three-dot"
-        [ouiMenuTriggerFor]="afterBelowMenu"
-      ></oui-icon>
+    <button oui-icon-button [ouiMenuTriggerFor]="afterBelowMenu">
+      <oui-icon svgIcon="horizontal"></oui-icon>
     </button>
     <oui-menu #afterBelowMenu xPosition="after" yPosition="below">
       <button oui-menu-item>
@@ -103,7 +87,7 @@
   <div class="trigger">
     <span> nested menu </span>
     <button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
-      <oui-icon svgIcon="three-dot"></oui-icon>
+      <oui-icon svgIcon="horizontal"></oui-icon>
     </button>
 
     <oui-menu #rootMenu="ouiMenu">
@@ -142,13 +126,11 @@
     <div class="input-outer display-inline">
       <oui-form-field [appearance]="'underline'">
         <input oui-input placeholder="Any" />
-        <div class="bottom-line"></div>
       </oui-form-field>
     </div>
     <div class="input-outer display-inline">
       <oui-form-field [appearance]="'underline'">
         <input oui-input disabled placeholder="Any" />
-        <div class="bottom-line"></div>
       </oui-form-field>
     </div>
   </div>
@@ -169,7 +151,7 @@
   <!--primary buttons-->
   <div>
     <button oui-button color="primary">
-      <oui-icon svgIcon="icon-bullhorn" color="primary"></oui-icon>
+      <oui-icon svgIcon="hourglass" color="primary"></oui-icon>
       this is super button
     </button>
 
@@ -464,12 +446,15 @@
 
 <h1>Icons</h1>
 <h3>Relative to project:</h3>
-<oui-icon svgIcon="three-dot" color="primary"></oui-icon>
+<oui-icon svgIcon="dots-horizontal" color="primary"></oui-icon>
 <br />
 <h3>IcoMoon:</h3>
-<oui-icon svgIcon="icon-bullhorn" color="primary"></oui-icon>
-<oui-icon svgIcon="icon-diamonds" color="accent"></oui-icon>
-<oui-icon svgIcon="icon-pacman" color="warn" size="60"></oui-icon>
+<oui-icon svgIcon="hourglass" color="primary"></oui-icon>
+<oui-icon svgIcon="conversation" color="accent"></oui-icon>
+<oui-icon svgIcon="home" color="warn" size="60"></oui-icon>
+
+<button oui-icon-button><oui-icon svgIcon="vertical"></oui-icon></button>
+<button oui-icon-button><oui-icon svgIcon="horizontal"></oui-icon></button>
 
 <br />
 <h2 class="example-h2">Checkbox configuration</h2>
