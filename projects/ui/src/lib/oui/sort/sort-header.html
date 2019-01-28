@@ -1,0 +1,24 @@
+<div
+  class="oui-sort-header-container"
+  [class.oui-sort-header-sorted]="_isSorted()"
+  [class.oui-sort-header-position-before]="arrowPosition == 'before'"
+>
+  <button
+    class="oui-sort-header-button"
+    type="button"
+    [attr.disabled]="_isDisabled() || null"
+    [attr.aria-label]="_intl.sortButtonLabel(id)"
+    (focus)="_setIndicatorHintVisible(true)"
+    (blur)="_setIndicatorHintVisible(false)"
+  >
+    <ng-content></ng-content>
+  </button>
+
+  <div class="oui-sort-header-arrow">
+    <div
+      [class.oui-sort-header-arrow-selected]="_isSorted()"
+      [class.oui-sort-header-arrow-faded]="!_isSorted()"
+      [@indicator]="_getArrowDirectionState()"
+    ></div>
+  </div>
+</div>
