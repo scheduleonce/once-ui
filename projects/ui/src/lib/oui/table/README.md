@@ -244,7 +244,7 @@ Note that this approach means you cannot include certain native-table features s
 
 ## StackBlitz
 
-[https://stackblitz.com/edit/angular-oui-table-lksdj](https://stackblitz.com/edit/angular-oui-table-lksdj)
+[https://stackblitz.com/edit/angular-oui-table-lksdj-2kxihs](https://stackblitz.com/edit/angular-oui-table-lksdj-2kxihs)
 
 # Api Reference
 
