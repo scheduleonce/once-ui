@@ -12,6 +12,27 @@ $margin: 1px 6px 0px 0px;
 $default-cursor: default;
 $cursor: pointer;
 $opacity: 0.5;
+$oui-icon-spacing: 2px !default;
+
+.oui-icon-button {
+  cursor: $cursor;
+  padding: $oui-icon-spacing;
+  .oui-icon,
+  .oui-button-wrapper {
+    display: block;
+    margin: 0 auto;
+    svg {
+      display: block;
+    }
+  }
+  &:hover {
+    background: rgba(200, 200, 200, 0.4);
+    border-radius: $oui-icon-spacing;
+    transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
+      background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
+  }
+}
+
 @mixin oui-icon-text {
   .oui-icon-text-button {
     @include oui-icon-text-button();
