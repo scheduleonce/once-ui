@@ -23,7 +23,7 @@ oui-header-cell {
   font-weight: 700;
   line-height: 19px;
   color: #333;
-  text-align: left;  
+  text-align: left;
   vertical-align: middle;
 }
 
@@ -34,10 +34,12 @@ oui-cell {
   color: #333;
   line-height: 20px;
 }
-.oui-row .oui-cell:nth-child(1), .oui-header-row .oui-header-cell:nth-child(1){
+.oui-row .oui-cell:nth-child(1),
+.oui-header-row .oui-header-cell:nth-child(1) {
   padding-left: 16px;
 }
-.oui-row .oui-cell:nth-last-child(1), .oui-header-row .oui-header-cell:nth-last-child(1){
+.oui-row .oui-cell:nth-last-child(1),
+.oui-header-row .oui-header-cell:nth-last-child(1) {
   padding-right: 16px;
 }
 oui-row,
@@ -61,7 +63,7 @@ oui-footer-row {
   }
 }
 oui-row {
-  &:hover{
+  &:hover {
     background: #f6f6f6;
     cursor: pointer;
   }
@@ -120,7 +122,7 @@ td.oui-cell {
 }
 tr.oui-row {
   border-bottom: 1px solid #dfdfdf;
-  &:hover{
+  &:hover {
     background: #f6f6f6;
     cursor: pointer;
   }
