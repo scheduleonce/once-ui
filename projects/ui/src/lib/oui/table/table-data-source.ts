@@ -163,13 +163,17 @@ export class OuiTableDataSource<T> extends DataSource<T> {
         } else if (valueA < valueB) {
           comparatorResult = -1;
         }
-      } else if (valueA !== null) {
+      }
+      // tslint:disable-next-line
+      else if (valueA != null) {
         comparatorResult = 1;
-      } else if (valueB !== null) {
+      }
+      // tslint:disable-next-line
+      else if (valueB != null) {
         comparatorResult = -1;
       }
-
-      return comparatorResult * (direction === 'asc' ? 1 : -1);
+      // tslint:disable-next-line
+      return comparatorResult * (direction == 'asc' ? 1 : -1);
     });
   };
 
