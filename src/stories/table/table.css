@@ -1,3 +1,7 @@
+.table-container table {
+  width: 99%;
+}
+
 .ul-name {
   position: relative;
   padding-left: 42px;
@@ -154,7 +158,7 @@ table {
   table-layout: fixed;
 }
 .col-one-width {
-  width: 250px;
+  width: 100px;
 }
 .col-two-width {
   width: 100px;
