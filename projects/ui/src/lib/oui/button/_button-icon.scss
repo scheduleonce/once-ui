@@ -14,7 +14,7 @@ $cursor: pointer;
 $opacity: 0.5;
 $oui-icon-spacing: 2px !default;
 
-%hover-state {
+%make-oui-icon-button-focused {
   background: rgba(200, 200, 200, 0.4);
   border-radius: $oui-icon-spacing;
   transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
@@ -22,7 +22,7 @@ $oui-icon-spacing: 2px !default;
 }
 
 .focused-oui-icon-button {
-  @extend %hover-state;
+  @extend %make-oui-icon-button-focused;
 }
 .oui-icon-button {
   cursor: $cursor;
@@ -36,7 +36,7 @@ $oui-icon-spacing: 2px !default;
     }
   }
   &:hover {
-    @extend %hover-state;
+    @extend %make-oui-icon-button-focused;
   }
 }
 
