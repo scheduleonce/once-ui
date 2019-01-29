@@ -76,6 +76,12 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   &:focus {
     outline: 0 none;
   }
+  // The `outline: none` from above works on all browsers, however Firefox also
+  // adds a special `focus-inner` which we have to disable explicitly. See:
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Firefox
+  &::-moz-focus-inner {
+    border: 0;
+  }
 }
 /*generating themes for oui-button(Primary buttons)*/
 @mixin oui-button-theme-palette($theme) {
