@@ -13,7 +13,7 @@ import { object, number } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import markdownText from '../../../projects/ui/src/lib/oui/table/README.md';
-
+import './table.css';
 import paypal from '../../assets/images/paypal.svg';
 import zapier from '../../assets/images/zapier.svg';
 import google_calender from '../../assets/images/google-calender.svg';

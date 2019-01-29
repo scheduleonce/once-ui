@@ -8,6 +8,7 @@ import {
 import { withNotes } from '@storybook/addon-notes';
 import { withOptions } from '@storybook/addon-options';
 import '../src/stories/style.css';
+import '../src/stories/readme.css';
 import '../src/stories/themes/oncehub.css';
 
 addDecorator(withKnobs);
