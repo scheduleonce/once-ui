@@ -1,0 +1,127 @@
+$oui-header-row-height: 56px;
+$oui-row-height: 48px;
+$oui-row-horizontal-padding: 24px;
+
+/**
+ * Flex-based table structure
+ */
+oui-table {
+  display: block;
+  border-spacing: 0;
+  margin: 0px 16px 0px 16px;
+}
+
+oui-header-row {
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf !important;
+}
+
+oui-header-cell {
+  padding: 16px 12.5px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  color: #333;
+  text-align: left;
+  vertical-align: middle;
+}
+
+oui-cell {
+  padding: 13px 12.5px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+  line-height: 20px;
+}
+.oui-row .oui-cell:nth-child(1),
+.oui-header-row .oui-header-cell:nth-child(1) {
+  padding-left: 16px;
+}
+.oui-row .oui-cell:nth-last-child(1),
+.oui-header-row .oui-header-cell:nth-last-child(1) {
+  padding-right: 16px;
+}
+oui-row,
+oui-header-row,
+oui-footer-row {
+  display: flex;
+  // Define a border style, but then widths default to 3px. Reset them to 0px except the bottom
+  // which should be 1px;
+  border-width: 0;
+  border-bottom: 1px solid #dfdfdf;
+  align-items: center;
+  box-sizing: border-box;
+
+  // Workaround for https://goo.gl/pFmjJD in IE 11. Adds a pseudo
+  // element that will stretch the row the correct height. See:
+  // https://connect.microsoft.com/IE/feedback/details/802625
+  &::after {
+    display: inline-block;
+    min-height: inherit;
+    content: '';
+  }
+}
+oui-row {
+  &:hover {
+    background: #f6f6f6;
+    cursor: pointer;
+  }
+}
+
+oui-cell,
+oui-header-cell,
+oui-footer-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  word-wrap: break-word;
+  min-height: inherit;
+}
+
+/**
+ * Native HTML table structure
+ */
+
+table.oui-table {
+  border-spacing: 0;
+  margin: 0px 16px 0px 16px;
+}
+
+tr.oui-header-row {
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
+}
+
+tr.oui-row,
+tr.oui-footer-row {
+}
+
+th.oui-header-cell {
+}
+
+th.oui-header-cell {
+  padding: 16px 12.5px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  color: #333;
+  text-align: left;
+  vertical-align: middle;
+}
+td.oui-cell {
+  padding: 13px 12.5px;
+  vertical-align: middle;
+  font-size: 14px;
+  color: #333;
+  line-height: 20px;
+}
+tr.oui-row {
+  border-bottom: 1px solid #dfdfdf;
+  &:hover {
+    background: #f6f6f6;
+    cursor: pointer;
+  }
+}
