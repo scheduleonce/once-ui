@@ -846,3 +846,194 @@ body {
 .addon-notes-container .pl-12 {
   padding-left: 128px !important;
 }
+.ul-name {
+  position: relative;
+  padding-left: 42px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /*margin-left: 18px;*/
+}
+.userListingRow .ul-name .u-img {
+  top: -5px;
+}
+.ul-name .u-img.noImg {
+  padding: 8px 0 7px;
+}
+.ul-name .u-img img {
+  width: 100%;
+}
+.ul-name .u-img {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  margin: 6px 10px 0 0;
+  font-size: 14px;
+  font-weight: 700;
+  border: 1px solid #9b9b9b;
+  padding: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+}
+.noImg {
+  width: 51px;
+  height: 51px;
+  border: 1px dashed #9b9b9b;
+  border-radius: 100px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 14px;
+  padding-top: 8px;
+  color: #333;
+}
+.userListingRow .usersName {
+  font-weight: 600;
+  line-height: 20px;
+  float: left;
+  max-width: 150px;
+  min-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.max-width367 {
+  max-width: 367px;
+  width: 367px;
+}
+.usersName {
+  width: 100%;
+}
+.username-text {
+  box-sizing: border-box;
+  font-weight: 700;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 5px;
+}
+.useremail-text {
+  box-sizing: border-box;
+  font-weight: normal;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/*.integrationsContainer {
+ margin-top: 5px;
+ }
+ .licensesContainer,
+ .statusContainer {
+ margin-top: 6px;
+ }*/
+.integrationsContainer ul li {
+  display: inline-block;
+  padding: 0px 8px;
+}
+.integrationsContainer ul li img {
+  vertical-align: middle;
+}
+.integrationsContainer ul li:nth-child(1) {
+  padding-left: 0px;
+}
+.integrationsContainer {
+  min-width: 130px;
+}
+.licensesContainer {
+  min-width: 105px;
+}
+
+.integrationsContainer ul {
+  margin-block-start: 0px;
+  padding-inline-start: 0px;
+}
+
+.licensesContainer ul {
+  margin-block-start: 0px;
+  padding-inline-start: 0px;
+}
+.licensesContainer ul li {
+  display: inline-block;
+  padding: 0px 8px;
+}
+.licensesContainer ul li img {
+  vertical-align: middle;
+}
+.licensesContainer ul li:nth-child(1) {
+  padding-left: 0px;
+}
+.statusContainer ul li img {
+  vertical-align: middle;
+}
+.horiMenuBtn {
+  text-decoration: none !important;
+  display: inline-block;
+  float: right;
+  height: 12px;
+  cursor: pointer;
+  padding: 2px 3px;
+  border: 1px solid transparent;
+  line-height: 0.5px;
+}
+.horiMenuBtn .dot {
+  width: 4px;
+  height: 4px;
+  background-color: #4a4a4a;
+  margin: 0 1px 0 2px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.horiMenuBtn.activeAnchor,
+.horiMenuBtn:hover {
+  border: 1px solid #4a4a4a;
+  background: #efefef;
+}
+.user-lobby-table-row:hover {
+  background: #f6f6f6;
+  cursor: pointer;
+}
+.text-red {
+  color: #f00;
+}
+table {
+  table-layout: fixed;
+}
+.col-one-width {
+  width: 250px;
+}
+.col-two-width {
+  width: 100px;
+}
+.col-three-width {
+  width: 130px;
+}
+.col-four-width {
+  width: 100px;
+}
+.col-five-width {
+  width: 100px;
+}
+.col-six-width {
+  width: 100px;
+}
+.oui-col-one-width {
+  flex-basis: 40%;
+}
+.oui-col-two-width {
+  flex-basis: 10%;
+}
+.oui-col-three-width {
+  flex-basis: 20%;
+}
+.oui-col-four-width {
+  flex-basis: 20%;
+}
+.oui-col-five-width {
+  flex-basis: 10%;
+}
+.oui-col-six-width {
+  flex-basis: 15%;
+}
