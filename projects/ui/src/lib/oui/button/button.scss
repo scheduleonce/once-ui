@@ -1,3 +1,159 @@
 @import 'button-theme';
 @import 'button-icon';
 @include oui-icon-text();
+
+$border-radius: 100px;
+$font-size: 14px;
+$letter-spacing: 0.2px;
+$padding: 6px 20px;
+$remove-padding: 0px;
+$progress-icon-padding: 0px 0px 0px 23px;
+$line-height: 19px;
+$min-height: 35px;
+$min-width: 70px;
+$font-normal: normal;
+$font-semi-bold: 600;
+$font-bold: 700;
+$cursor: pointer;
+$disabled-cursor: default;
+$ghost-button-background: #fff;
+$border: 1px solid transparent;
+$text-decoration: none;
+$text-align-center: center;
+$text-align-left: left;
+$green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTMiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTcuMzUgMTAuMTVMMTYuNTgyLjk0OGwxLjQxNCAxLjQxNEw3LjM0NiAxMi45OCA1LjkzIDExLjU2NWwuMDAyLS4wMDItNC45MjItNC45NEwyLjQyNiA1LjIxbDQuOTI0IDQuOTQyeiIgZmlsbD0iIzAwOUI0OCIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+')
+  left center no-repeat;
+@mixin oui-button-core() {
+  .oui-button,
+  .oui-ghost-button,
+  .oui-icon-text-button,
+  .oui-link-button,
+  .oui-progress-button,
+  .oui-progress-ghost-button,
+  .oui-progress-link-button {
+    @include oui-button-reset();
+    @include oui-button-base();
+  }
+  .oui-button {
+    @include oui-progress-button-stages();
+  }
+  .oui-link-button {
+    @include oui-progress-link-button-stages();
+  }
+  .oui-ghost-button {
+    background: $ghost-button-background;
+    @include oui-progress-ghost-button-stages();
+  }
+  .oui-icon-button {
+    @include oui-button-reset();
+  }
+}
+/*common properties in all buttons*/
+@mixin oui-button-base {
+  font-size: $font-size;
+  border-radius: $border-radius;
+  letter-spacing: $letter-spacing;
+  padding: $padding;
+  line-height: $line-height;
+  min-height: $min-height;
+  min-width: $min-width;
+  font-weight: $font-semi-bold;
+  cursor: $cursor;
+  border: $border;
+  background: transparent;
+  text-decoration: $text-decoration;
+  text-align: $text-align-center;
+  &[disabled] {
+    cursor: $disabled-cursor;
+  }
+}
+/*reset the browser default properties*/
+@mixin oui-button-reset {
+  border: 0 none;
+  background: none;
+  font-family: 'Open Sans', sans-serif;
+  &:focus {
+    outline: 0 none;
+  }
+  // The `outline: none` from above works on all browsers, however Firefox also
+  // adds a special `focus-inner` which we have to disable explicitly. See:
+  // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Firefox
+  &::-moz-focus-inner {
+    border: 0;
+  }
+}
+
+.oui-link-button {
+  padding: 6px 0px 6px 0px !important;
+  min-width: auto !important;
+  font-weight: $font-normal !important;
+  &:hover {
+    text-decoration: underline;
+  }
+  &[disabled]:hover {
+    text-decoration: none;
+  }
+}
+
+.oui-ghost-button {
+  &[disabled],
+  &.oui-stage-progress {
+    background: transparent !important;
+    cursor: $disabled-cursor !important;
+  }
+}
+
+@mixin oui-progress-button-stages {
+  &.oui-stage-progress {
+    background: transparent !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+  }
+  &.oui-stage-done {
+    background: $green-tick-icon !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+  }
+}
+@mixin oui-progress-link-button-stages {
+  &.oui-stage-progress {
+    background: transparent !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    text-decoration: $text-decoration !important;
+  }
+  &.oui-stage-done {
+    background: $green-tick-icon !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    text-decoration: $text-decoration !important;
+  }
+}
+@mixin oui-progress-ghost-button-stages {
+  &.oui-stage-progress {
+    background: transparent !important;
+    text-align: $text-align-left !important;
+    padding: $remove-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    border: $border !important;
+  }
+  &.oui-stage-done {
+    background: $green-tick-icon !important;
+    text-align: $text-align-left !important;
+    padding: $progress-icon-padding !important;
+    font-weight: $font-bold !important;
+    cursor: $disabled-cursor !important;
+    border: $border !important;
+  }
+}
+
+@include oui-button-core();
