@@ -47,9 +47,7 @@ NA
 
 ### Added
 
-- Icon size will be taken from the svg in Icomoon dynamically
-- User will be able to supply a size property for overriding the size
-- Allow passing size input along with the icon moon directive [oncehub-4394](https://scheduleonce.atlassian.net/browse/ONCEHUB-4394)
+- NA
 
 ### Changed
 
@@ -61,7 +59,9 @@ NA
 
 ### Fixed
 
-NA
+- Icon size will be taken from the svg in Icomoon dynamically
+- User will be able to supply a size property for overriding the size
+- Allow passing size input along with the icon moon directive [oncehub-4394](https://scheduleonce.atlassian.net/browse/ONCEHUB-4394)
 
 ## [1.8.2] - 2019-01-17
 
