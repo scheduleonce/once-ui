@@ -3,6 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { OuiCheckboxModule } from '../../../projects/ui/src/lib/oui';
 import { select, boolean } from '@storybook/addon-knobs';
 import markdownText from '../../../projects/ui/src/lib/oui/checkbox/README.md';
+import { LABELPOSITION } from '../const';
 
 storiesOf('Checkbox', module).add(
   'default',
@@ -22,7 +23,7 @@ storiesOf('Checkbox', module).add(
               </oui-checkbox>`,
     props: {
       changed: action('change'),
-      position: select('labelPosition', ['before', 'after'], 'after'),
+      position: select('labelPosition', LABELPOSITION, LABELPOSITION[0]),
       disabled: boolean('disabled', false),
       checked: boolean('checked', false)
     }

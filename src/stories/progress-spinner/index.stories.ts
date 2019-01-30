@@ -3,6 +3,7 @@ import { setOptions } from '@storybook/addon-options';
 import { select, number } from '@storybook/addon-knobs';
 import { OuiProgressSpinner } from '../../../projects/ui/src/lib/oui/progress-spinner/progress-spinner';
 import markdownText from '../../../projects/ui/src/lib/oui/progress-spinner/README.md';
+import { COLORS } from '../const';
 
 const diameterOptions = {
   range: true,
@@ -29,7 +30,7 @@ storiesOf('Progress Spinner', module)
       setOptions: setOptions({ downPanelInRight: true }),
       component: OuiProgressSpinner,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         diameter: number('diameter', 100, diameterOptions),
         strokeWidth: number('strokeWidth', 5, strokeWidthOptions),
         value: number('value', 60, valueOptions)
@@ -43,7 +44,7 @@ storiesOf('Progress Spinner', module)
       setOptions: setOptions({ downPanelInRight: true }),
       component: OuiProgressSpinner,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         diameter: number('diameter', 100, diameterOptions),
         strokeWidth: number('strokeWidth', 5, strokeWidthOptions)
       }

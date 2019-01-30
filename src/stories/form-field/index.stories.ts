@@ -6,6 +6,7 @@ import {
 } from '../../../projects/ui/src/lib/oui';
 import markdownText from '../../../projects/ui/src/lib/oui/form-field/README.md';
 import { text, select, boolean } from '@storybook/addon-knobs';
+import { APPEARANCE } from '../const';
 storiesOf('Form Field', module).add(
   'input',
   () => ({
@@ -21,7 +22,7 @@ storiesOf('Form Field', module).add(
         ['text', 'number', 'color', 'email', 'password'],
         'text'
       ),
-      appearance: select('appearance', ['standard', 'underline'], 'standard'),
+      appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
       disabled: boolean('disabled', false),
       placeholder: text('placeholder', 'Type Here'),
       focused: action('focus'),

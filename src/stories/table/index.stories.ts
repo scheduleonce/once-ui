@@ -20,44 +20,7 @@ import google_calender from '../../assets/images/google-calender.svg';
 import salesforce from '../../assets/images/salesforce.svg';
 import scheduleonce from '../../assets/images/scheduleonce.svg';
 import inviteonce from '../../assets/images/inviteonce.svg';
-const NAMES: string[] = [
-  'Maia',
-  'Asher',
-  'Olivia',
-  'Atticus',
-  'Amelia',
-  'Jack',
-  'Charlotte',
-  'Theodore',
-  'Isla',
-  'Oliver',
-  'Isabella',
-  'Jasper',
-  'Cora',
-  'Levi',
-  'Violet',
-  'Arthur',
-  'Mia',
-  'Thomas',
-  'Elizabeth'
-];
-const COLORS: string[] = [
-  'maroon',
-  'red',
-  'orange',
-  'yellow',
-  'olive',
-  'green',
-  'purple',
-  'fuchsia',
-  'lime',
-  'teal',
-  'aqua',
-  'blue',
-  'navy',
-  'black',
-  'gray'
-];
+import { NAMES, COLORS, USERINFODATASOURCE, USERINFOCOLUMNS } from './const';
 
 function createNewUser(id: number) {
   const name =
@@ -123,45 +86,6 @@ export class OuiTableStorybook implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
-
-const USERINFODATASOURCE = [
-  {
-    name: 'anurag',
-    email: 'anurag+122333223423523523.scheduleonce@gmail.com',
-    role: 'member',
-    image: '',
-    integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
-    licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited'
-  },
-  {
-    name: 'anurag',
-    email: 'anurag.scheduleonce@gmail.com',
-    role: 'member',
-    image: '',
-    integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
-    licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited'
-  },
-  {
-    name: 'anurag',
-    email: 'anurag.scheduleonce@gmail.com',
-    role: 'member',
-    image: '',
-    integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
-    licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited'
-  },
-  {
-    name: 'anurag',
-    email: 'anurag.scheduleonce@gmail.com',
-    role: 'member',
-    image: '',
-    integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
-    licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited'
-  }
-];
 
 @Component({
   selector: 'oui-table-custom-storybook',
@@ -241,13 +165,7 @@ export class OuiTableCustomStorybook implements OnInit {
     inviteonce: inviteonce
   };
   @ViewChild(OuiSort) sort: OuiSort;
-  userInfoColumns: string[] = [
-    'Users',
-    'Role',
-    'Integrations',
-    'Licenses',
-    'Status'
-  ];
+  userInfoColumns = USERINFOCOLUMNS;
   @Input() users: any[] = [];
   @Input() pageSize: any[] = [];
   userInfoDataSource = new OuiTableDataSource(this.users);
