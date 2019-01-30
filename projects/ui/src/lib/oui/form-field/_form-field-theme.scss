@@ -118,28 +118,20 @@ $form-field-transition-border: border 0.5s;
 @mixin oui-form-field-appearance-underline-theme-palette($theme) {
   $primary: map-get($theme, primary);
   .oui-input {
-    border: 0;
+    border: none;
     padding-left: 1px;
     padding-right: 1px;
+    border-bottom: $form-field-border-bottom;
+    transition: border 0.5s, padding 0.5s;
     &:disabled {
       color: #666666;
       background-color: transparent;
+      border-color: #cbcbcb;
     }
-  }
-  .oui-form-field-wrapper {
-    height: 40px;
-  }
-  .oui-form-field-underline {
-    border-top: $form-field-border-bottom;
-    height: 2px;
-    transition: all 0.1s;
-    box-sizing: border-box;
-  }
-  &.oui-focused .oui-form-field-underline {
-    border-width: 2px;
-    border-color: map-get($primary, lighter);
-  }
-  &.oui-disabled .oui-form-field-underline {
-    border-color: #cbcbcb;
+    &:focus {
+      border-width: 2px;
+      border-color: map-get($primary, lighter);
+      padding-bottom: 6px;
+    }
   }
 }
