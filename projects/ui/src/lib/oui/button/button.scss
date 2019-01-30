@@ -1,6 +1,5 @@
 @import 'button-theme';
 @import 'button-icon';
-
 @include oui-icon-text();
 
 $border-radius: 100px;
@@ -36,16 +35,13 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     @include oui-button-base();
   }
   .oui-button {
-    @include oui-button-theme-palette();
     @include oui-progress-button-stages();
   }
   .oui-link-button {
-    @include oui-link-button-theme-palette();
     @include oui-progress-link-button-stages();
   }
   .oui-ghost-button {
     background: $ghost-button-background;
-    @include oui-ghost-button-theme-palette();
     @include oui-progress-ghost-button-stages();
   }
   .oui-icon-button {
@@ -67,6 +63,9 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   background: transparent;
   text-decoration: $text-decoration;
   text-align: $text-align-center;
+  &[disabled] {
+    cursor: $disabled-cursor;
+  }
 }
 /*reset the browser default properties*/
 @mixin oui-button-reset {
@@ -83,45 +82,24 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     border: 0;
   }
 }
-/*generating themes for oui-button(Primary buttons)*/
-@mixin oui-button-theme-palette {
-  &.oui-primary[disabled],
-  &.oui-accent[disabled],
-  &.oui-warn[disabled] {
-    cursor: $disabled-cursor;
+
+.oui-link-button {
+  padding: 6px 0px 6px 0px !important;
+  min-width: auto !important;
+  font-weight: $font-normal !important;
+  &:hover {
+    text-decoration: underline;
+  }
+  &[disabled]:hover {
+    text-decoration: none;
   }
 }
 
-/*generating themes for oui-link-button(link buttons)*/
-@mixin oui-link-button-theme-palette {
-  &.oui-primary,
-  &.oui-accent,
-  &.oui-warn {
-    padding: 6px 0px 6px 0px !important;
-    min-width: auto !important;
-    font-weight: $font-normal !important;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  &.oui-primary[disabled],
-  &.oui-accent[disabled],
-  &.oui-warn[disabled] {
-    cursor: $disabled-cursor;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-/*generating themes for oui-ghost-button(ghost buttons)*/
-@mixin oui-ghost-button-theme-palette {
-  &.oui-primary[disabled],
-  &.oui-accent[disabled],
-  &.oui-warn[disabled],
+.oui-ghost-button {
+  &[disabled],
   &.oui-stage-progress {
-    background: transparent;
-    cursor: $disabled-cursor;
+    background: transparent !important;
+    cursor: $disabled-cursor !important;
   }
 }
 
