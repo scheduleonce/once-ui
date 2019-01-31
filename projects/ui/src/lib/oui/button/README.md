@@ -11,6 +11,7 @@ There are several `<button>` variants, each applied as an attribute:
 | `oui-ghost-button`     | rounded regular hollow button                |
 | `oui-link-button`      | text link button                             |
 | `oui-icon-text-button` | rounded button meant to contain icon         |
+| `oui-icon-button`      | Button which contains the icon with hover effect         |
 | `color`                | it can be from `primary`,`accent` and `warn` |
 | `disabled`             | to disable the button                        |
 | `progress`             | to add button states                         |
