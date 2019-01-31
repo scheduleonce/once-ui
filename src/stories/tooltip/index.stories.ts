@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { Input, Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import markdownText from '../../../projects/ui/src/lib/oui/tooltip/README.md';
+import { TOOLTIPPOSITION } from '../const';
 
 @Component({
   selector: 'oui-tooltip-storybook',
@@ -64,8 +65,8 @@ storiesOf('Tooltip', module).add(
       ouiTooltip: text('ouiTooltip', 'This is a tooltip'),
       ouiTooltipPosition: select(
         'ouiTooltipPosition',
-        ['above', 'below', 'left', 'right'],
-        'above'
+        TOOLTIPPOSITION,
+        TOOLTIPPOSITION[0]
       )
     }
   }),
