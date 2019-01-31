@@ -81,8 +81,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     '[attr.aria-expanded]': 'menuOpen || null',
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
-    '(click)': '_handleClick($event)',
-    '[class.focused-oui-icon-button]': 'menuOpen || null'
+    '(click)': '_handleClick($event)'
   },
   exportAs: 'ouiMenuTrigger'
 })
