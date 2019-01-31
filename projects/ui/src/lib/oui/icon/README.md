@@ -178,6 +178,26 @@ oui-icon {
 
 You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.
 
-This demo link shows how you can work with `oui-icon-component`:
+## How to use oui-icons in any project?
 
-You can see the [https://stackblitz.com/edit/oui-button-component](https://stackblitz.com/edit/oui-button-component) demo for more details.
+Using `oui-icon` includes two steps-
+
+**1- Registration**
+
+Simply inject `IconRegistry` shared service from `shared-layout` in the root component of your project. Ex.- 
+
+```
+import { IconRegistry } from 'shared-layout';
+
+constructor(private ir: IconRegistry) {
+    this.ir.init();
+}
+```
+
+**2- Usage**
+
+```
+<oui-icon svgIcon="edit"></oui-icon>
+```
+
+*Note: Apart from the regular size icons we have two special icons- horizontal 3 dots icon and vertical 3 dots icon, special because there sizes are different. There names are fixed and you need to supply these names whenever you need to use them. There names are- `3-dots-horizontal` and `3-dots-vertical`.*

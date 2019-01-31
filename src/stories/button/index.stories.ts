@@ -10,6 +10,8 @@ import markdownText from '../../../projects/ui/src/lib/oui/button/README.md';
 import { Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
+import { COLORS } from '../const';
+
 @Component({
   selector: 'oui-icon-button-storybook',
   template: `
@@ -54,7 +56,7 @@ storiesOf('Button', module)
       },
       template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         disabled: boolean('disabled', false),
         text: text('text', 'This is a button'),
         clicked: action('click')
@@ -96,7 +98,7 @@ storiesOf('Button', module)
                   button
                 </button>`,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         isDisable: boolean('disabled', false),
         text: text('text', 'This is a button'),
         clicked: action('click'),
@@ -122,7 +124,7 @@ storiesOf('Button', module)
       },
       component: OuiIconButtonStorybook,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         clicked: action('click'),
         icon: text('icon', 'notification-editor')
       }
