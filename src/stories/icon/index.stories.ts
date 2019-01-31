@@ -7,6 +7,7 @@ import { select, text, number } from '@storybook/addon-knobs';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import markdownText from '../../../projects/ui/src/lib/oui/icon/README.md';
+import { COLORS } from '../const';
 
 @Component({
   selector: 'oui-icon-storybook',
@@ -52,7 +53,7 @@ storiesOf('Icon', module).add(
     },
     template: `<oui-icon-storybook [color]="color" [icon]="icon" [size]="size"></oui-icon-storybook>`,
     props: {
-      color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+      color: select('color', COLORS, COLORS[0]),
       icon: text('icon', 'notification-editor'),
       size: number('size', 20, sizeOptions)
     }
