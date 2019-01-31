@@ -11,6 +11,7 @@ There are several `<button>` variants, each applied as an attribute:
 | `oui-ghost-button`     | rounded regular hollow button                |
 | `oui-link-button`      | text link button                             |
 | `oui-icon-text-button` | rounded button meant to contain icon         |
+| `oui-icon-button`      | Button which contains the icon with hover effect         |
 | `color`                | it can be from `primary`,`accent` and `warn` |
 | `disabled`             | to disable the button                        |
 | `progress`             | to add button states                         |
@@ -80,3 +81,14 @@ Buttons can be colored in terms of the current theme using the color property to
 This demo link shows how you can work with `oui-icon-button` component:
 
 You can see the [https://stackblitz.com/edit/oui-button-component](https://stackblitz.com/edit/oui-button-component) demo for more details.
+
+*Note-`oui-icon-button` has a hover effect. It is basically box surrounding the `icon`. the general rule for the hover size is +4px from the icon size. `oui-icon-button` is enriched with a `shared-layout` directive called `focusOnIconButton`. `focusOnIconButton` works as a glue for `oui-icon-button` and `oui-menu`. `focusOnIconButton` will keep the border box opened as long as `oui-menu` is opened.*
+
+## How to use `focusOnIconButton` with `oui-icon-button`?
+
+```
+<button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu" focusOnIconButton>
+    <oui-icon svgIcon="3-dots-horizontal"></oui-icon>
+</button>
+...menu code
+```
