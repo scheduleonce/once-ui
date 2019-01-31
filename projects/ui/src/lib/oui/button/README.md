@@ -82,7 +82,7 @@ This demo link shows how you can work with `oui-icon-button` component:
 
 You can see the [https://stackblitz.com/edit/oui-button-component](https://stackblitz.com/edit/oui-button-component) demo for more details.
 
-*Note-`oui-icon-button` has a hover effect. It is basically box sorrounding the `icon`. the general rule for the hover size is +4px from the icon size. `oui-icon-button` is enriched with a `shared-layout` directive called `focusOnIconButton`. `focusOnIconButton` works as glue for `oui-icon-button` and `oui-menu`. `focusOnIconButton` will keep the border box opened as long as `oui-menu` is opened.*
+*Note-`oui-icon-button` has a hover effect. It is basically box surrounding the `icon`. the general rule for the hover size is +4px from the icon size. `oui-icon-button` is enriched with a `shared-layout` directive called `focusOnIconButton`. `focusOnIconButton` works as a glue for `oui-icon-button` and `oui-menu`. `focusOnIconButton` will keep the border box opened as long as `oui-menu` is opened.*
 
 ## How to use `focusOnIconButton` with `oui-icon-button`?
 
