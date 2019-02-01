@@ -1,0 +1,40 @@
+<div class="oui-calendar-header">
+  <div class="oui-calendar-controls">
+    <button
+      oui-button
+      type="button"
+      class="oui-calendar-period-button"
+      (click)="currentPeriodClicked()"
+      [attr.aria-label]="periodButtonLabel"
+      cdkAriaLive="polite"
+    >
+      {{periodButtonText}}
+      <div
+        class="oui-calendar-arrow"
+        [class.oui-calendar-invert]="calendar.currentView != 'month'"
+      ></div>
+    </button>
+
+    <div class="oui-calendar-spacer"></div>
+
+    <ng-content></ng-content>
+
+    <button
+      oui-icon-button
+      type="button"
+      class="oui-calendar-previous-button"
+      [disabled]="!previousEnabled()"
+      (click)="previousClicked()"
+      [attr.aria-label]="prevButtonLabel"
+    ></button>
+
+    <button
+      oui-icon-button
+      type="button"
+      class="oui-calendar-next-button"
+      [disabled]="!nextEnabled()"
+      (click)="nextClicked()"
+      [attr.aria-label]="nextButtonLabel"
+    ></button>
+  </div>
+</div>
