@@ -1,12 +1,14 @@
 <ng-template>
   <div
-    class="oui-menu-panel"
+    class="oui-menu-panel-container"
     [ngClass]="_classList"
     (keydown)="_handleKeydown($event)"
     (click)="closed.emit('click')"
     tabindex="-1"
     role="menu"
   >
-    <div class="oui-menu-content"><ng-content></ng-content></div>
+    <oui-scrollbar containerClass="oui-menu-panel">
+      <div class="oui-menu-content"><ng-content></ng-content></div>
+    </oui-scrollbar>
   </div>
 </ng-template>

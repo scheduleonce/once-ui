@@ -47,19 +47,21 @@ $oui-menu-line-height: 22px;
 .oui-menu-panel {
   @include oui-menu-base();
   max-height: calc(100vh - #{$oui-menu-item-height});
-  background-color: #fff;
-  box-shadow: $oui-menu-box-shadow;
   outline: 0;
   z-index: $oui-menu-z-index;
   font-size: $oui-menu-font-size;
   line-height: $oui-menu-line-height;
+}
+.oui-menu-panel-container {
+  box-shadow: $oui-menu-box-shadow;
+  background-color: #fff;
 }
 
 .oui-menu-content {
   //box-shadow: $oui-menu-border-box-shadow;
   padding: 10px 0px;
   //added border
-  border: $oui-menu-border-color;
+  //border: $oui-menu-border-color;
 }
 
 @mixin oui-menu-item-base() {

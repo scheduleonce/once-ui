@@ -1,0 +1,23 @@
+.scrollbar-container::-webkit-scrollbar-track {
+  display: none;
+}
+
+.scrollbar-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-container::-webkit-scrollbar-thumb {
+  background-color: #ccc !important;
+  border-radius: 6px;
+}
+
+.overflow-y-scroll {
+  overflow-y: scroll;
+}
+.overflow-x-scroll {
+  overflow-x: scroll;
+}
+
+.scrollbar-wrapper {
+  padding-right: 4px;
+}
