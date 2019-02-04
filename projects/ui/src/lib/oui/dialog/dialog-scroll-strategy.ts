@@ -29,7 +29,6 @@ export class DialogScrollStrategy implements ScrollStrategy {
     this._overlayRef.hostElement.style.overflow = 'auto';
     this._subscription = this._scrollBodyEvent.subscribe(
       (event: WheelEvent) => {
-        console.log(event);
         let scrollTop = this._overlayRef.hostElement.scrollTop;
         this._overlayRef.hostElement.scrollTop = scrollTop + event.deltaY;
         event.stopPropagation();
