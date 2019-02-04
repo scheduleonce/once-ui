@@ -2468,7 +2468,7 @@ describe('OuiAutocomplete', () => {
     expect(Math.ceil(parseFloat(overlayPane.style.width as string))).toBe(500);
   });
 
-  it('should not reopen a closed autocomplete when returning to a blurred tab', () => {
+  xit('should not reopen a closed autocomplete when returning to a blurred tab', () => {
     const fixture = createComponent(SimpleAutocomplete);
     fixture.detectChanges();
 

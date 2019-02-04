@@ -36,13 +36,6 @@ import {
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
-import {
-  CanColor,
-  CanColorCtor,
-  DateAdapter,
-  mixinColor,
-  ThemePalette
-} from '@angular/material/core';
 import { OuiDialog, OuiDialogRef } from '../dialog/public-api';
 import { merge, Subject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -51,6 +44,8 @@ import { ouiDatepickerAnimations } from './datepicker-animations';
 import { createMissingDateImplError } from './datepicker-errors';
 import { OuiDatepickerInput } from './datepicker-input';
 import { OuiCalendarCellCssClasses } from './calendar-body';
+import { DateAdapter } from './native-date.module';
+import { CanColorCtor, mixinColor, CanColor, ThemePalette } from '../core';
 
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;

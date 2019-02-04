@@ -37,6 +37,11 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
     $oui-calendar-controls-side-margin;
 }
 
+.oui-calendar-controls svg{
+  height:20px;
+  width: 20px;
+}
+
 .oui-calendar-spacer {
   flex: 1 1 auto;
 }
@@ -77,7 +82,6 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
 
   &::after {
     @include oui-fill;
-    content: '';
     margin: $oui-calendar-prev-next-icon-margin;
     border: 0 solid currentColor;
     border-top-width: $oui-calendar-prev-next-icon-border-width;

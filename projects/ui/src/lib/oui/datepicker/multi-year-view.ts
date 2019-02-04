@@ -30,7 +30,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { DateAdapter } from '@angular/material/core';
+import { DateAdapter } from './native-date.module';
 import { Directionality } from '@angular/cdk/bidi';
 import { OuiCalendarBody, OuiCalendarCell } from './calendar-body';
 import { createMissingDateImplError } from './datepicker-errors';

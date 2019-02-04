@@ -62,7 +62,7 @@ const DEFAULT_DAY_OF_WEEK_NAMES = {
     'Saturday'
   ],
   short: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  narrow: ['S', 'M', 'T', 'W', 'T', 'F', 'S']
+  narrow: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sat']
 };
 
 /**
@@ -129,58 +129,18 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   }
 
   getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
-    if (SUPPORTS_INTL_API) {
-      const dtf = new Intl.DateTimeFormat(this.locale, {
-        month: style,
-        timeZone: 'utc'
-      });
-      return range(12, i =>
-        this._stripDirectionalityCharacters(
-          this._format(dtf, new Date(2017, i, 1))
-        )
-      );
-    }
     return DEFAULT_MONTH_NAMES[style];
   }
 
   getDateNames(): string[] {
-    if (SUPPORTS_INTL_API) {
-      const dtf = new Intl.DateTimeFormat(this.locale, {
-        day: 'numeric',
-        timeZone: 'utc'
-      });
-      return range(31, i =>
-        this._stripDirectionalityCharacters(
-          this._format(dtf, new Date(2017, 0, i + 1))
-        )
-      );
-    }
     return DEFAULT_DATE_NAMES;
   }
 
   getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
-    if (SUPPORTS_INTL_API) {
-      const dtf = new Intl.DateTimeFormat(this.locale, {
-        weekday: style,
-        timeZone: 'utc'
-      });
-      return range(7, i =>
-        this._stripDirectionalityCharacters(
-          this._format(dtf, new Date(2017, 0, i + 1))
-        )
-      );
-    }
     return DEFAULT_DAY_OF_WEEK_NAMES[style];
   }
 
   getYearName(date: Date): string {
-    if (SUPPORTS_INTL_API) {
-      const dtf = new Intl.DateTimeFormat(this.locale, {
-        year: 'numeric',
-        timeZone: 'utc'
-      });
-      return this._stripDirectionalityCharacters(this._format(dtf, date));
-    }
     return String(this.getYear(date));
   }
 

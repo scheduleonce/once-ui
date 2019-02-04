@@ -21,12 +21,11 @@ import {
   OuiNativeDateModule,
   NativeDateModule
 } from './native-date.module';
-import { OuiFormField, OuiFormFieldModule } from '../';
+import { OuiFormFieldModule, OuiInputModule, OuiFormField } from '../';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
-import { OuiInputModule } from '../';
 import { OuiDatepicker } from './datepicker';
 import { OuiDatepickerInput } from './datepicker-input';
 import { OuiDatepickerToggle } from './datepicker-toggle';
@@ -773,7 +772,6 @@ describe('OuiDatepicker', () => {
           OuiNativeDateModule
         ]);
         fixture.detectChanges();
-
         expect(
           fixture.nativeElement.querySelector(
             '.oui-datepicker-toggle .custom-icon'
@@ -847,18 +845,6 @@ describe('OuiDatepicker', () => {
         fixture.detectChanges();
         flush();
       }));
-
-      it('should float the placeholder when an invalid value is entered', () => {
-        testComponent.datepickerInput.value = 'totally-not-a-date' as any;
-        fixture.debugElement.nativeElement.querySelector('input').value =
-          'totally-not-a-date';
-        fixture.detectChanges();
-
-        expect(
-          fixture.debugElement.nativeElement.querySelector('oui-form-field')
-            .classList
-        ).toContain('oui-form-field-should-float');
-      });
 
       it('should pass the form field theme color to the overlay', fakeAsync(() => {
         testComponent.formField.color = 'primary';
@@ -1212,99 +1198,6 @@ describe('OuiDatepicker', () => {
     });
   });
 
-  describe('popup positioning', () => {
-    let fixture: ComponentFixture<StandardDatepicker>;
-    let testComponent: StandardDatepicker;
-    let input: HTMLElement;
-
-    beforeEach(fakeAsync(() => {
-      fixture = createComponent(StandardDatepicker, [OuiNativeDateModule]);
-      fixture.detectChanges();
-      testComponent = fixture.componentInstance;
-      input = fixture.debugElement.query(By.css('input')).nativeElement;
-      input.style.position = 'fixed';
-    }));
-
-    it('should be below and to the right when there is plenty of space', () => {
-      input.style.top = input.style.left = '20px';
-      testComponent.datepicker.open();
-      fixture.detectChanges();
-
-      const overlayRect = document
-        .querySelector('.cdk-overlay-pane')!
-        .getBoundingClientRect();
-      const inputRect = input.getBoundingClientRect();
-
-      expect(Math.floor(overlayRect.top)).toBe(
-        Math.floor(inputRect.bottom),
-        'Expected popup to align to input bottom.'
-      );
-      expect(Math.floor(overlayRect.left)).toBe(
-        Math.floor(inputRect.left),
-        'Expected popup to align to input left.'
-      );
-    });
-
-    it('should be above and to the right when there is no space below', () => {
-      input.style.bottom = input.style.left = '20px';
-      testComponent.datepicker.open();
-      fixture.detectChanges();
-
-      const overlayRect = document
-        .querySelector('.cdk-overlay-pane')!
-        .getBoundingClientRect();
-      const inputRect = input.getBoundingClientRect();
-
-      expect(Math.floor(overlayRect.bottom)).toBe(
-        Math.floor(inputRect.top),
-        'Expected popup to align to input top.'
-      );
-      expect(Math.floor(overlayRect.left)).toBe(
-        Math.floor(inputRect.left),
-        'Expected popup to align to input left.'
-      );
-    });
-
-    it('should be below and to the left when there is no space on the right', () => {
-      input.style.top = input.style.right = '20px';
-      testComponent.datepicker.open();
-      fixture.detectChanges();
-
-      const overlayRect = document
-        .querySelector('.cdk-overlay-pane')!
-        .getBoundingClientRect();
-      const inputRect = input.getBoundingClientRect();
-
-      expect(Math.floor(overlayRect.top)).toBe(
-        Math.floor(inputRect.bottom),
-        'Expected popup to align to input bottom.'
-      );
-      expect(Math.floor(overlayRect.right)).toBe(
-        Math.floor(inputRect.right),
-        'Expected popup to align to input right.'
-      );
-    });
-
-    it('should be above and to the left when there is no space on the bottom', () => {
-      input.style.bottom = input.style.right = '20px';
-      testComponent.datepicker.open();
-      fixture.detectChanges();
-
-      const overlayRect = document
-        .querySelector('.cdk-overlay-pane')!
-        .getBoundingClientRect();
-      const inputRect = input.getBoundingClientRect();
-
-      expect(Math.floor(overlayRect.bottom)).toBe(
-        Math.floor(inputRect.top),
-        'Expected popup to align to input top.'
-      );
-      expect(Math.floor(overlayRect.right)).toBe(
-        Math.floor(inputRect.right),
-        'Expected popup to align to input right.'
-      );
-    });
-  });
 
   describe('internationalization', () => {
     let fixture: ComponentFixture<DatepickerWithi18n>;
@@ -1501,7 +1394,7 @@ class DatepickerWithCustomIcon {}
 @Component({
   template: `
     <oui-form-field>
-      <input ouiInput [ouiDatepicker]="d" />
+      <input oui-input [ouiDatepicker]="d" />
       <oui-datepicker #d></oui-datepicker>
     </oui-form-field>
   `
