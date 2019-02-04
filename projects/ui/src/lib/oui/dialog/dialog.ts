@@ -27,6 +27,7 @@ import { startWith } from 'rxjs/operators';
 import { OuiDialogConfig } from './dialog-config';
 import { OuiDialogContainer } from './dialog-container';
 import { OuiDialogRef } from './dialog-ref';
+import { DialogScrollStrategy } from './dialog-scroll-strategy';
 
 /** Injection token that can be used to access the data that was passed in to a dialog. */
 export const OUI_DIALOG_DATA = new InjectionToken<any>('OuiDialogData');
@@ -52,7 +53,9 @@ export function OUI_DIALOG_SCROLL_STRATEGY_FACTORY(
 export function OUI_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
   overlay: Overlay
 ): () => ScrollStrategy {
-  return () => overlay.scrollStrategies.block();
+  return () => {
+    return overlay.scrollStrategies.block();
+  };
 }
 
 /** @docs-private */
@@ -71,7 +74,7 @@ export class OuiDialog implements OnDestroy {
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
   private readonly _afterOpenedAtThisLevel = new Subject<OuiDialogRef<any>>();
   private _ariaHiddenElements = new Map<Element, string | null>();
-  private _scrollStrategy: () => ScrollStrategy;
+  // private _scrollStrategy: () => ScrollStrategy;
 
   /** Keeps track of the currently-open dialogs. */
   get openDialogs(): OuiDialogRef<any>[] {
@@ -108,13 +111,14 @@ export class OuiDialog implements OnDestroy {
     @Optional()
     @Inject(OUI_DIALOG_DEFAULT_OPTIONS)
     private _defaultOptions: OuiDialogConfig,
-    @Inject(OUI_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
+    // @Inject(OUI_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional()
     @SkipSelf()
     private _parentDialog: OuiDialog,
-    private _overlayContainer: OverlayContainer
+    private _overlayContainer: OverlayContainer,
+    private _dialogScrollStrategy: DialogScrollStrategy
   ) {
-    this._scrollStrategy = scrollStrategy;
+    // this._scrollStrategy = scrollStrategy;
   }
 
   /**
@@ -201,7 +205,7 @@ export class OuiDialog implements OnDestroy {
   private _getOverlayConfig(dialogConfig: OuiDialogConfig): OverlayConfig {
     const state = new OverlayConfig({
       positionStrategy: this._overlay.position().global(),
-      scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
+      scrollStrategy: dialogConfig.scrollStrategy || this._dialogScrollStrategy,
       panelClass: dialogConfig.panelClass,
       hasBackdrop: dialogConfig.hasBackdrop,
       direction: dialogConfig.direction,
