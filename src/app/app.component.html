@@ -627,4 +627,14 @@
   <oui-progress-bar color="warn"></oui-progress-bar>
 </div>
 
-<oui-datepicker matSuffix [for]="minDatePicker"></oui-datepicker>
+<br /><br />
+<h1>Datepicker</h1>
+<div class="fit">
+  <div class="input-outer">
+    <oui-form-field [appearance]="'underline'">
+      <input oui-input [ouiDatepicker]="picker" placeholder="Choose a date" />
+      <oui-datepicker #picker></oui-datepicker>
+      <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
+    </oui-form-field>
+  </div>
+</div>
