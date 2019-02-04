@@ -3,145 +3,141 @@
 // @import '../core/theming/theming';
 // @import '../core/typography/typography-utils';
 
-$mat-datepicker-selected-today-box-shadow-width: 1px;
-$mat-datepicker-selected-fade-amount: 0.6;
-$mat-datepicker-today-fade-amount: 0.2;
-$mat-calendar-body-font-size: 13px !default;
-$mat-calendar-weekday-table-font-size: 11px !default;
+$oui-datepicker-selected-today-box-shadow-width: 1px;
+$oui-datepicker-selected-fade-amount: 0.6;
+$oui-datepicker-today-fade-amount: 0.2;
+$oui-calendar-body-font-size: 13px !default;
+$oui-calendar-weekday-table-font-size: 11px !default;
 
-@mixin _mat-datepicker-color($palette) {
-  .mat-calendar-body-selected {
-    background-color: mat-color($palette);
-    color: mat-color($palette, default-contrast);
+@mixin _oui-datepicker-color($palette) {
+  .oui-calendar-body-selected {
+    background-color: oui-color($palette);
+    color: oui-color($palette, default-contrast);
   }
 
-  .mat-calendar-body-disabled > .mat-calendar-body-selected {
-    background-color: fade-out(
-      mat-color($palette),
-      $mat-datepicker-selected-fade-amount
-    );
-  }
+  // .oui-calendar-body-disabled > .oui-calendar-body-selected {
+  //   background-color: fade-out(
+  //     oui-color($palette),
+  //     $oui-datepicker-selected-fade-amount
+  //   );
+  // }
 
-  .mat-calendar-body-today.mat-calendar-body-selected {
-    box-shadow: inset 0 0 0 $mat-datepicker-selected-today-box-shadow-width
-      mat-color($palette, default-contrast);
+  .oui-calendar-body-today.oui-calendar-body-selected {
+    box-shadow: inset 0 0 0 $oui-datepicker-selected-today-box-shadow-width
+      oui-color($palette, default-contrast);
   }
 }
 
-@mixin mat-datepicker-theme($theme) {
+@mixin oui-datepicker-theme($theme) {
   $foreground: map-get($theme, foreground);
   $background: map-get($theme, background);
 
-  .mat-calendar-arrow {
-    border-top-color: mat-color($foreground, icon);
+  .oui-calendar-arrow {
+    border-top-color: oui-color($foreground, icon);
   }
 
   // The prev/next buttons need a bit more specificity to
-  // avoid being overwritten by the .mat-icon-button.
-  .mat-datepicker-toggle,
-  .mat-datepicker-content .mat-calendar-next-button,
-  .mat-datepicker-content .mat-calendar-previous-button {
-    color: mat-color($foreground, icon);
+  // avoid being overwritten by the .oui-icon-button.
+  .oui-datepicker-toggle,
+  .oui-datepicker-content .oui-calendar-next-button,
+  .oui-datepicker-content .oui-calendar-previous-button {
+    color: oui-color($foreground, icon);
   }
 
-  .mat-calendar-table-header {
-    color: mat-color($foreground, hint-text);
+  .oui-calendar-table-header {
+    color: oui-color($foreground, hint-text);
   }
 
-  .mat-calendar-table-header-divider::after {
-    background: mat-color($foreground, divider);
+  .oui-calendar-table-header-divider::after {
+    background: oui-color($foreground, divider);
   }
 
-  .mat-calendar-body-label {
-    color: mat-color($foreground, secondary-text);
+  .oui-calendar-body-label {
+    color: oui-color($foreground, secondary-text);
   }
 
-  .mat-calendar-body-cell-content {
-    color: mat-color($foreground, text);
+  .oui-calendar-body-cell-content {
+    color: oui-color($foreground, text);
     border-color: transparent;
   }
 
-  .mat-calendar-body-disabled
-    > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
-    color: mat-color($foreground, disabled-text);
+  .oui-calendar-body-disabled
+    > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
+    color: oui-color($foreground, disabled-text);
   }
 
-  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover,
-  .cdk-keyboard-focused .mat-calendar-body-active,
-  .cdk-program-focused .mat-calendar-body-active {
-    & > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected) {
-      background-color: mat-color($background, hover);
+  .oui-calendar-body-cell:not(.oui-calendar-body-disabled):hover,
+  .cdk-keyboard-focused .oui-calendar-body-active,
+  .cdk-program-focused .oui-calendar-body-active {
+    & > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
+      background-color: oui-color($background, hover);
     }
   }
 
-  .mat-calendar-body-today:not(.mat-calendar-body-selected) {
+  .oui-calendar-body-today:not(.oui-calendar-body-selected) {
     // Note: though it's not text, the border is a hint about the fact that this is today's date,
     // so we use the hint color.
-    border-color: mat-color($foreground, hint-text);
+    border-color: oui-color($foreground, hint-text);
   }
 
-  .mat-calendar-body-disabled
-    > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
-    border-color: fade-out(
-      mat-color($foreground, hint-text),
-      $mat-datepicker-today-fade-amount
-    );
-  }
+  // .oui-calendar-body-disabled
+  //   > .oui-calendar-body-today:not(.oui-calendar-body-selected) {
+  //   border-color: fade-out(
+  //     oui-color($foreground, hint-text),
+  //     $oui-datepicker-today-fade-amount
+  //   );
+  // }
 
-  @include _mat-datepicker-color(map-get($theme, primary));
+  @include _oui-datepicker-color(map-get($theme, primary));
 
-  .mat-datepicker-content {
-    @include _mat-theme-elevation(4, $theme);
-    background-color: mat-color($background, card);
-    color: mat-color($foreground, text);
-
-    &.mat-accent {
-      @include _mat-datepicker-color(map-get($theme, accent));
+  .oui-datepicker-content {
+    &.oui-accent {
+      @include _oui-datepicker-color(map-get($theme, accent));
     }
 
-    &.mat-warn {
-      @include _mat-datepicker-color(map-get($theme, warn));
+    &.oui-warn {
+      @include _oui-datepicker-color(map-get($theme, warn));
     }
   }
 
-  .mat-datepicker-content-touch {
-    @include _mat-theme-elevation(0, $theme);
+  .oui-datepicker-content-touch {
+    @include _oui-theme-elevation(0, $theme);
   }
 
-  .mat-datepicker-toggle-active {
-    color: mat-color(map-get($theme, primary));
+  .oui-datepicker-toggle-active {
+    color: oui-color(map-get($theme, primary));
 
-    &.mat-accent {
-      color: mat-color(map-get($theme, accent));
+    &.oui-accent {
+      color: oui-color(map-get($theme, accent));
     }
 
-    &.mat-warn {
-      color: mat-color(map-get($theme, warn));
+    &.oui-warn {
+      color: oui-color(map-get($theme, warn));
     }
   }
 }
 
-@mixin mat-datepicker-typography($config) {
-  .mat-calendar {
-    font-family: mat-font-family($config);
+@mixin oui-datepicker-typography($config) {
+  .oui-calendar {
+    font-family: oui-font-family($config);
   }
 
-  .mat-calendar-body {
-    font-size: $mat-calendar-body-font-size;
+  .oui-calendar-body {
+    font-size: $oui-calendar-body-font-size;
   }
 
-  .mat-calendar-body-label,
-  .mat-calendar-period-button {
+  .oui-calendar-body-label,
+  .oui-calendar-period-button {
     font: {
-      size: mat-font-size($config, button);
-      weight: mat-font-weight($config, button);
+      size: oui-font-size($config, button);
+      weight: oui-font-weight($config, button);
     }
   }
 
-  .mat-calendar-table-header th {
+  .oui-calendar-table-header th {
     font: {
-      size: $mat-calendar-weekday-table-font-size;
-      weight: mat-font-weight($config, body-1);
+      size: $oui-calendar-weekday-table-font-size;
+      weight: oui-font-weight($config, body-1);
     }
   }
 }
