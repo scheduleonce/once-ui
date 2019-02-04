@@ -74,8 +74,6 @@ export class OuiDatepickerToggle<D>
   }
   private _disabled: boolean;
 
-  /** Whether ripples on the toggle should be disabled. */
-  @Input() disableRipple: boolean;
 
   /** Custom icon set by the consumer. */
   @ContentChild(OuiDatepickerToggleIcon) _customIcon: OuiDatepickerToggleIcon;

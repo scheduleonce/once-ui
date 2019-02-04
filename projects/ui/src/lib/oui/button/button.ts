@@ -80,6 +80,11 @@ export class OuiButton extends OuiButtonMixinBase
       this.color = DEFAULT_COLOR;
     }
   }
+  
+  /** Focuses the button. */
+  focus(): void {
+    this.getHostElement().focus();
+  }
 
   getHostElement() {
     return this.elementRef.nativeElement;

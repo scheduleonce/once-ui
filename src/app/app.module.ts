@@ -24,7 +24,6 @@ import {
   OuiSortModule,
   OuiPaginatorModule
 } from 'projects/ui/src/public_api';
-import { MatNativeDateModule } from '@angular/material';
 import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
 import { OuiNativeDateModule } from 'projects/ui/src/lib/oui/datepicker/native-date.module';
 
@@ -52,7 +51,6 @@ import { OuiNativeDateModule } from 'projects/ui/src/lib/oui/datepicker/native-d
     OuiProgressSpinnerModule,
     OuiRadioModule,
     OuiProgressBarModule,
-    MatNativeDateModule,
     OuiDatepickerModule,
     OuiNativeDateModule
   ],

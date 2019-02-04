@@ -137,40 +137,6 @@ describe('NativeDateAdapter', () => {
     }
   });
 
-  it('should get month names in a different locale', () => {
-    adapter.setLocale('ja-JP');
-    if (SUPPORTS_INTL) {
-      expect(adapter.getMonthNames('long')).toEqual([
-        '1月',
-        '2月',
-        '3月',
-        '4月',
-        '5月',
-        '6月',
-        '7月',
-        '8月',
-        '9月',
-        '10月',
-        '11月',
-        '12月'
-      ]);
-    } else {
-      expect(adapter.getMonthNames('long')).toEqual([
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-      ]);
-    }
-  });
 
   it('should get date names', () => {
     expect(adapter.getDateNames()).toEqual([
@@ -208,78 +174,6 @@ describe('NativeDateAdapter', () => {
     ]);
   });
 
-  it('should get date names in a different locale', () => {
-    adapter.setLocale('ja-JP');
-    if (SUPPORTS_INTL) {
-      expect(adapter.getDateNames()).toEqual([
-        '1日',
-        '2日',
-        '3日',
-        '4日',
-        '5日',
-        '6日',
-        '7日',
-        '8日',
-        '9日',
-        '10日',
-        '11日',
-        '12日',
-        '13日',
-        '14日',
-        '15日',
-        '16日',
-        '17日',
-        '18日',
-        '19日',
-        '20日',
-        '21日',
-        '22日',
-        '23日',
-        '24日',
-        '25日',
-        '26日',
-        '27日',
-        '28日',
-        '29日',
-        '30日',
-        '31日'
-      ]);
-    } else {
-      expect(adapter.getDateNames()).toEqual([
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '10',
-        '11',
-        '12',
-        '13',
-        '14',
-        '15',
-        '16',
-        '17',
-        '18',
-        '19',
-        '20',
-        '21',
-        '22',
-        '23',
-        '24',
-        '25',
-        '26',
-        '27',
-        '28',
-        '29',
-        '30',
-        '31'
-      ]);
-    }
-  });
 
   it('should get long day of week names', () => {
     expect(adapter.getDayOfWeekNames('long')).toEqual([
@@ -305,68 +199,12 @@ describe('NativeDateAdapter', () => {
     ]);
   });
 
-  it('should get narrow day of week names', () => {
-    // Edge & IE use two-letter narrow days.
-    if (platform.EDGE || platform.TRIDENT) {
-      expect(adapter.getDayOfWeekNames('narrow')).toEqual([
-        'Su',
-        'Mo',
-        'Tu',
-        'We',
-        'Th',
-        'Fr',
-        'Sa'
-      ]);
-    } else {
-      expect(adapter.getDayOfWeekNames('narrow')).toEqual([
-        'S',
-        'M',
-        'T',
-        'W',
-        'T',
-        'F',
-        'S'
-      ]);
-    }
-  });
 
-  it('should get day of week names in a different locale', () => {
-    adapter.setLocale('ja-JP');
-    if (SUPPORTS_INTL) {
-      expect(adapter.getDayOfWeekNames('long')).toEqual([
-        '日曜日',
-        '月曜日',
-        '火曜日',
-        '水曜日',
-        '木曜日',
-        '金曜日',
-        '土曜日'
-      ]);
-    } else {
-      expect(adapter.getDayOfWeekNames('long')).toEqual([
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ]);
-    }
-  });
 
   it('should get year name', () => {
     expect(adapter.getYearName(new Date(2017, JAN, 1))).toBe('2017');
   });
 
-  it('should get year name in a different locale', () => {
-    adapter.setLocale('ja-JP');
-    if (SUPPORTS_INTL) {
-      expect(adapter.getYearName(new Date(2017, JAN, 1))).toBe('2017年');
-    } else {
-      expect(adapter.getYearName(new Date(2017, JAN, 1))).toBe('2017');
-    }
-  });
 
   it('should get first day of week', () => {
     expect(adapter.getFirstDayOfWeek()).toBe(0);

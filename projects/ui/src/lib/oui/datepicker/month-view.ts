@@ -177,15 +177,12 @@ export class OuiMonthView<D> implements AfterContentInit {
     const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
     const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
     const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-
+    console.log(narrowWeekdays);
     // Rotate the labels for days of the week based on the configured first day of the week.
     let weekdays = longWeekdays.map((long, i) => {
       return { long, narrow: narrowWeekdays[i] };
     });
-    this._weekdays = weekdays
-      .slice(firstDayOfWeek)
-      .concat(weekdays.slice(0, firstDayOfWeek));
-
+    this._weekdays = weekdays.slice(firstDayOfWeek).concat();
     this._activeDate = this._dateAdapter.today();
   }
 
