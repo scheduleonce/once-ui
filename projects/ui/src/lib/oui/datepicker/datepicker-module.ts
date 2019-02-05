@@ -1,11 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 import { A11yModule } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
@@ -28,6 +20,7 @@ import {
 import { OuiMonthView } from './month-view';
 import { OuiMultiYearView } from './multi-year-view';
 import { OuiYearView } from './year-view';
+import { OuiNativeDateModule } from './native-date.module';
 
 @NgModule({
   imports: [
@@ -36,7 +29,8 @@ import { OuiYearView } from './year-view';
     OuiDialogModule,
     OverlayModule,
     A11yModule,
-    PortalModule
+    PortalModule,
+    OuiNativeDateModule
   ],
   exports: [
     OuiCalendar,

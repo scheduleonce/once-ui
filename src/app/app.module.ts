@@ -25,7 +25,6 @@ import {
   OuiPaginatorModule
 } from 'projects/ui/src/public_api';
 import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
-import { OuiNativeDateModule } from 'projects/ui/src/lib/oui/datepicker/native-date.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -51,8 +50,7 @@ import { OuiNativeDateModule } from 'projects/ui/src/lib/oui/datepicker/native-d
     OuiProgressSpinnerModule,
     OuiRadioModule,
     OuiProgressBarModule,
-    OuiDatepickerModule,
-    OuiNativeDateModule
+    OuiDatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1198,7 +1198,6 @@ describe('OuiDatepicker', () => {
     });
   });
 
-
   describe('internationalization', () => {
     let fixture: ComponentFixture<DatepickerWithi18n>;
     let testComponent: DatepickerWithi18n;

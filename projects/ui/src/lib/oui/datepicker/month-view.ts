@@ -1,11 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 import {
   DOWN_ARROW,
   END,
@@ -177,9 +169,8 @@ export class OuiMonthView<D> implements AfterContentInit {
     const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
     const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
     const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-    console.log(narrowWeekdays);
     // Rotate the labels for days of the week based on the configured first day of the week.
-    let weekdays = longWeekdays.map((long, i) => {
+    const weekdays = longWeekdays.map((long, i) => {
       return { long, narrow: narrowWeekdays[i] };
     });
     this._weekdays = weekdays.slice(firstDayOfWeek).concat();
@@ -192,7 +183,7 @@ export class OuiMonthView<D> implements AfterContentInit {
 
   /** Handles when a new date is selected. */
   _dateSelected(date: number) {
-    if (this._selectedDate != date) {
+    if (this._selectedDate !== date) {
       const selectedYear = this._dateAdapter.getYear(this.activeDate);
       const selectedMonth = this._dateAdapter.getMonth(this.activeDate);
       const selectedDate = this._dateAdapter.createDate(
