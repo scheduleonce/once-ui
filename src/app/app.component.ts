@@ -135,7 +135,9 @@ export class AppComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(this.dialogTemplate);
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      panelClass: 'something'
+    });
     dialogRef.afterClosed().subscribe(() => {});
   }
 

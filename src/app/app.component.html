@@ -431,8 +431,8 @@
       </div>
     </div>
     <div oui-dialog-content>
-      <div style="background-color: grey; height: 100px; width: 100%"></div>
-      <div style="background-color: blue; height: 100px; width: 100%"></div>
+      <div style="background-color: grey; height: 400px; width: 100%"></div>
+      <div style="background-color: blue; height: 400px; width: 100%"></div>
     </div>
     <div oui-dialog-footer>
       <div oui-dialog-footer-action-left>
@@ -440,7 +440,7 @@
         <button oui-link-button>Left</button>
       </div>
       <div oui-dialog-footer-action-right>
-        <button oui-ghost-button>Open</button>
+        <button oui-ghost-button (click)="openDialog()">Open</button>
         <button oui-button ouiDialogClose>Close</button>
       </div>
     </div>
