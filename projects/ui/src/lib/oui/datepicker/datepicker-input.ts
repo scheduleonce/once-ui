@@ -1,11 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW } from '@angular/cdk/keycodes';
 import {
@@ -17,7 +9,8 @@ import {
   Input,
   OnDestroy,
   Optional,
-  Output
+  Output,
+  AfterViewInit
 } from '@angular/core';
 import {
   AbstractControl,
@@ -73,6 +66,7 @@ export class OuiDatepickerInputEvent<D> {
     this.value = this.target.value;
   }
 }
+const DATEPICKER_FOCUS_CLASS: string = 'oui-datepicker-focused';
 
 /** Directive used to connect an input to a OuiDatepicker. */
 @Directive({
@@ -83,6 +77,7 @@ export class OuiDatepickerInputEvent<D> {
     { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput }
   ],
   host: {
+    class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',
     '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
     '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
@@ -96,7 +91,7 @@ export class OuiDatepickerInputEvent<D> {
   exportAs: 'ouiDatepickerInput'
 })
 export class OuiDatepickerInput<D>
-  implements ControlValueAccessor, OnDestroy, Validator {
+  implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator {
   /** The datepicker that this input is associated with. */
   @Input()
   set ouiDatepicker(value: OuiDatepicker<D>) {
@@ -172,6 +167,13 @@ export class OuiDatepickerInput<D>
     this._validatorOnChange();
   }
   private _max: D | null;
+
+  focus() {
+    this._elementRef.nativeElement.classList.add(DATEPICKER_FOCUS_CLASS);
+  }
+  blur() {
+    this._elementRef.nativeElement.classList.remove(DATEPICKER_FOCUS_CLASS);
+  }
 
   /** Whether the datepicker-input is disabled. */
   @Input()
@@ -305,6 +307,10 @@ export class OuiDatepickerInput<D>
     this._localeSubscription.unsubscribe();
     this._valueChange.complete();
     this._disabledChange.complete();
+  }
+
+  ngAfterViewInit() {
+    this._elementRef.nativeElement.setAttribute('disabled', 'true');
   }
 
   /** @docs-private */

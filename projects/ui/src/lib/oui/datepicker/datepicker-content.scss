@@ -22,11 +22,10 @@ $oui-datepicker-touch-max-height: 788px;
 
 .oui-datepicker-content {
   display: block;
-  border-radius: 4px;
   background-color: #ffffff;
   color: #000;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
-    0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 1px 3px 0px #4a4a4a;
+  border: 1px solid #c8c8c8;
   .oui-calendar {
     width: $oui-datepicker-non-touch-calendar-width;
     height: $oui-datepicker-non-touch-calendar-height;

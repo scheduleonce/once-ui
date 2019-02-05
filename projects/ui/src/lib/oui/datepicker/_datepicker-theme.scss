@@ -1,26 +1,20 @@
-// @import '../core/style/elevation';
-// @import '../core/theming/palette';
-// @import '../core/theming/theming';
-// @import '../core/typography/typography-utils';
-
 $oui-datepicker-selected-today-box-shadow-width: 1px;
 $oui-datepicker-selected-fade-amount: 0.6;
 $oui-datepicker-today-fade-amount: 0.2;
 $oui-calendar-body-font-size: 13px !default;
+$oui-calendar-body-label-size: 14px !default;
+$form-field-border-color: #9c9c9c;
+$form-field-placeholder-color: #333333;
+$oui-calendar-body-label-weight: 400;
+$oui-calendar-table-header-weight: 400;
 $oui-calendar-weekday-table-font-size: 11px !default;
+$oui-datepicker-input-padding: 7px 9px !important;
 
 @mixin _oui-datepicker-color($palette) {
   .oui-calendar-body-selected {
     background-color: map-get($palette, default);
     color: map-get($palette, default-contrast);
   }
-
-  // .oui-calendar-body-disabled > .oui-calendar-body-selected {
-  //   background-color: fade-out(
-  //     map-get($palette),
-  //     $oui-datepicker-selected-fade-amount
-  //   );
-  // }
 
   .oui-calendar-body-today.oui-calendar-body-selected {
     box-shadow: inset 0 0 0 $oui-datepicker-selected-today-box-shadow-width
@@ -44,6 +38,13 @@ $oui-calendar-weekday-table-font-size: 11px !default;
   .oui-datepicker-content .oui-calendar-previous-button {
     color: map-get($foreground, icon);
   }
+  .oui-datepicker-content .oui-calendar-next-button,
+  .oui-datepicker-content .oui-calendar-previous-button {
+    &:hover {
+      background-color: map-get($foreground, hover);
+      border-radius: 50%;
+    }
+  }
 
   .oui-calendar-table-header {
     color: map-get($foreground, hint-text);
@@ -62,6 +63,9 @@ $oui-calendar-weekday-table-font-size: 11px !default;
     border-color: transparent;
   }
 
+  .oui-datepicker-focused {
+    border-color: map-get($primary, lighter) !important;
+  }
   .oui-calendar-body-disabled
     > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
     color: map-get($foreground, disabled-text);
@@ -71,14 +75,14 @@ $oui-calendar-weekday-table-font-size: 11px !default;
   .cdk-keyboard-focused .oui-calendar-body-active,
   .cdk-program-focused .oui-calendar-body-active {
     & > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
-      background-color: map-get($background, hover);
+      background-color: map-get($foreground, hover);
     }
   }
 
   .oui-calendar-body-today:not(.oui-calendar-body-selected) {
     // Note: though it's not text, the border is a hint about the fact that this is today's date,
     // so we use the hint color.
-    border-color: map-get($primary, default);
+    border-color: map-get($foreground, hint-text);
   }
 
   .oui-calendar-body-disabled
@@ -98,10 +102,6 @@ $oui-calendar-weekday-table-font-size: 11px !default;
     }
   }
 
-  // .oui-datepicker-content-touch {
-  //   @include _oui-theme-elevation(0, $theme);
-  // }
-
   .oui-datepicker-toggle-active {
     color: map-get(map-get($theme, primary), default);
 
@@ -113,31 +113,48 @@ $oui-calendar-weekday-table-font-size: 11px !default;
       color: map-get(map-get($theme, warn), default);
     }
   }
+
+  .oui-form-field-infix .oui-datepicker-input:disabled {
+    border-color: $form-field-border-color;
+    background-color: transparent !important;
+    &::placeholder {
+      color: $form-field-placeholder-color;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: $form-field-placeholder-color;
+    }
+
+    &::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: $form-field-placeholder-color;
+    }
+  }
 }
 
-@mixin oui-datepicker-typography($config) {
-  .oui-calendar {
-    font-family: oui-font-family($config);
-  }
+.oui-calendar-body {
+  font-size: $oui-calendar-body-font-size;
+}
 
-  .oui-calendar-body {
-    font-size: $oui-calendar-body-font-size;
+.oui-calendar-body-label,
+.oui-calendar-period-button {
+  font: {
+    size: $oui-calendar-body-label-size;
+    weight: $oui-calendar-body-label-weight;
   }
+}
 
-  .oui-calendar-body-label,
-  .oui-calendar-period-button {
-    font: {
-      size: oui-font-size($config, button);
-      weight: oui-font-weight($config, button);
-    }
+.oui-calendar-table-header th {
+  font: {
+    size: $oui-calendar-weekday-table-font-size;
+    weight: $oui-calendar-table-header-weight;
   }
+}
 
-  .oui-calendar-table-header th {
-    font: {
-      size: $oui-calendar-weekday-table-font-size;
-      weight: oui-font-weight($config, body-1);
-    }
-  }
+.oui-form-field-appearance-underline .oui-datepicker-input {
+  padding: $oui-datepicker-input-padding;
 }
 
 .cdk-visually-hidden {

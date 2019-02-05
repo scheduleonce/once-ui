@@ -1,11 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE, UP_ARROW } from '@angular/cdk/keycodes';
@@ -372,6 +364,8 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
 
     this.touchUi ? this._openAsDialog() : this._openAsPopup();
     this._opened = true;
+    // add input focus here
+    this._datepickerInput.focus();
     this.openedStream.emit();
   }
 
@@ -398,6 +392,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
         this._opened = false;
         this.closedStream.emit();
         this._focusedElementBeforeOpen = null;
+        this._datepickerInput.blur();
       }
     };
 

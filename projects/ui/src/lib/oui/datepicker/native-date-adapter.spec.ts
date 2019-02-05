@@ -137,7 +137,6 @@ describe('NativeDateAdapter', () => {
     }
   });
 
-
   it('should get date names', () => {
     expect(adapter.getDateNames()).toEqual([
       '1',
@@ -174,7 +173,6 @@ describe('NativeDateAdapter', () => {
     ]);
   });
 
-
   it('should get long day of week names', () => {
     expect(adapter.getDayOfWeekNames('long')).toEqual([
       'Sunday',
@@ -199,12 +197,9 @@ describe('NativeDateAdapter', () => {
     ]);
   });
 
-
-
   it('should get year name', () => {
     expect(adapter.getYearName(new Date(2017, JAN, 1))).toBe('2017');
   });
-
 
   it('should get first day of week', () => {
     expect(adapter.getFirstDayOfWeek()).toBe(0);
