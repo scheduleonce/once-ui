@@ -74,7 +74,6 @@ export class OuiDialog implements OnDestroy {
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
   private readonly _afterOpenedAtThisLevel = new Subject<OuiDialogRef<any>>();
   private _ariaHiddenElements = new Map<Element, string | null>();
-  // private _scrollStrategy: () => ScrollStrategy;
 
   /** Keeps track of the currently-open dialogs. */
   get openDialogs(): OuiDialogRef<any>[] {
@@ -111,14 +110,11 @@ export class OuiDialog implements OnDestroy {
     @Optional()
     @Inject(OUI_DIALOG_DEFAULT_OPTIONS)
     private _defaultOptions: OuiDialogConfig,
-    // @Inject(OUI_DIALOG_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional()
     @SkipSelf()
     private _parentDialog: OuiDialog,
     private _overlayContainer: OverlayContainer
-  ) {
-    // this._scrollStrategy = scrollStrategy;
-  }
+  ) {}
 
   /**
    * Opens a modal dialog containing the given component.
