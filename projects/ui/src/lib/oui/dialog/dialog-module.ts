@@ -2,7 +2,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { OUI_DIALOG_SCROLL_STRATEGY_PROVIDER, OuiDialog } from './dialog';
 import { OuiDialogContainer } from './dialog-container';
 import { DialogScrollStrategy } from './dialog-scroll-strategy';
@@ -23,7 +22,7 @@ import {
 } from './dialog-content';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, PortalModule, ScrollDispatchModule],
+  imports: [CommonModule, OverlayModule, PortalModule],
   exports: [
     OuiDialogContainer,
     OuiDialogHeader,

@@ -115,8 +115,7 @@ export class OuiDialog implements OnDestroy {
     @Optional()
     @SkipSelf()
     private _parentDialog: OuiDialog,
-    private _overlayContainer: OverlayContainer,
-    private _dialogScrollStrategy: DialogScrollStrategy
+    private _overlayContainer: OverlayContainer
   ) {
     // this._scrollStrategy = scrollStrategy;
   }
@@ -205,7 +204,7 @@ export class OuiDialog implements OnDestroy {
   private _getOverlayConfig(dialogConfig: OuiDialogConfig): OverlayConfig {
     const state = new OverlayConfig({
       positionStrategy: this._overlay.position().global(),
-      scrollStrategy: dialogConfig.scrollStrategy || this._dialogScrollStrategy,
+      scrollStrategy: dialogConfig.scrollStrategy || new DialogScrollStrategy(),
       panelClass: dialogConfig.panelClass,
       hasBackdrop: dialogConfig.hasBackdrop,
       direction: dialogConfig.direction,
@@ -272,6 +271,8 @@ export class OuiDialog implements OnDestroy {
       config.id
     );
 
+    dialogRef.dialogConfig = config;
+
     // When the dialog backdrop is clicked, we want to close it.
     if (config.hasBackdrop) {
       overlayRef.backdropClick().subscribe(() => {
@@ -299,7 +300,6 @@ export class OuiDialog implements OnDestroy {
       );
       dialogRef.componentInstance = contentRef.instance;
     }
-
     dialogRef
       .updateSize(config.width, config.height)
       .updatePosition(config.position);
