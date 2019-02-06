@@ -205,8 +205,33 @@ export class OuiDialogClose implements OnInit, OnChanges {
     class: 'oui-dialog-content'
   }
 })
-export class OuiDialogContent {
-  constructor() {}
+export class OuiDialogContent implements OnInit {
+  constructor(
+    @Optional() public dialogRef: OuiDialogRef<any>,
+    private _elementRef: ElementRef<HTMLElement>,
+    private _dialog: OuiDialog
+  ) {}
+
+  ngOnInit() {
+    if (!this.dialogRef) {
+      // When this directive is included in a dialog via TemplateRef (rather than being
+      // in a Component), the DialogRef isn't available via injection because embedded
+      // views cannot be given a custom injector. Instead, we look up the DialogRef by
+      // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
+      // be resolved at constructor time.
+      this.dialogRef = getClosestDialog(
+        this._elementRef,
+        this._dialog.openDialogs
+      )!;
+    }
+    this._setContentHeight();
+  }
+  /* prevent content scroll in default scroll strategy **/
+  private _setContentHeight() {
+    if (!this.dialogRef.dialogConfig.scrollStrategy) {
+      this._elementRef.nativeElement.style.maxHeight = 'none';
+    }
+  }
 }
 
 /**
