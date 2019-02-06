@@ -2475,7 +2475,7 @@ describe('OuiAutocomplete', () => {
     const trigger = fixture.componentInstance.trigger;
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
 
-    input.dispatchEvent(new Event('focusin'));
+    input.focus();
     fixture.detectChanges();
 
     expect(trigger.panelOpen).toBe(true, 'Expected panel to be open.');
