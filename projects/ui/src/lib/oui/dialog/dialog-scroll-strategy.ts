@@ -1,3 +1,8 @@
+/* This file provides dialog-scroll strategy which prevents inner content scroll 
+   and adds scrollbar at document level. This is default strategy but it can be overidded
+   by other angular cdk overlay strategies.
+ **/
+
 import { Injectable } from '@angular/core';
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { OverlayReference } from '@angular/cdk/overlay/typings/overlay-reference';
