@@ -1,7 +1,7 @@
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { DialogPosition } from './dialog-config';
+import { DialogPosition, OuiDialogConfig } from './dialog-config';
 import { OuiDialogContainer } from './dialog-container';
 
 // TODO(jelbourn): resizing
@@ -31,6 +31,16 @@ export class OuiDialogRef<T, R = any> {
 
   /** Result to be passed to afterClosed. */
   private _result: R | undefined;
+
+  private _dialogConfig: OuiDialogConfig;
+
+  public get dialogConfig(): OuiDialogConfig {
+    return this._dialogConfig;
+  }
+
+  public set dialogConfig(config: OuiDialogConfig) {
+    this._dialogConfig = config;
+  }
 
   constructor(
     private _overlayRef: OverlayRef,
