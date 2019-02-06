@@ -239,6 +239,30 @@ For example:
 </div>
 ```
 
+## Scroll Strategies
+
+By default the dialog provides its own scroll strategy in which if the content is larger the scrollbar will be added on the document level. But this scroll strategy can be overrided by [angular cdk scroll strategies](https://material.angular.io/cdk/overlay/overview#scroll-strategies).
+
+For example you can override default strategy by block strategy provided by angular cdk
+
+```typescript
+
+  @ViewChild('dialogScrollTemplate')
+  dialogScrollTemplate;
+
+  private dialogRef: any = null;
+  constructor(private dialog: OuiDialog, private overlay: Overlay){
+
+  }
+
+  openBlockScrollDialog(){
+    const dialogRef = this.dialog.open(this.dialogScrollTemplate, {
+      scrollStrategy : this.overlay.scrollStrategies.block()
+    });
+  }
+
+```
+
 ## Stackblitz demo link
 
 [https://stackblitz.com/edit/angular-buz89v](https://stackblitz.com/edit/angular-buz89v)
