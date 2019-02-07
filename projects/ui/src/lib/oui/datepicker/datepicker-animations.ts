@@ -9,7 +9,6 @@ import {
 
 /**
  * Animations used by the Material datepicker.
- * @docs-private
  */
 export const ouiDatepickerAnimations: {
   readonly transformPanel: AnimationTriggerMetadata;

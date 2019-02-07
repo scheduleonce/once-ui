@@ -40,7 +40,6 @@ const DAYS_PER_WEEK = 7;
 
 /**
  * An internal component used to display a single month in the datepicker.
- * @docs-private
  */
 @Component({
   moduleId: module.id,

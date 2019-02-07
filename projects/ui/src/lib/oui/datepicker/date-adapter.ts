@@ -7,7 +7,6 @@ export const OUI_DATE_LOCALE = new InjectionToken<string>('OUI_DATE_LOCALE', {
   factory: OUI_DATE_LOCALE_FACTORY
 });
 
-/** @docs-private */
 export function OUI_DATE_LOCALE_FACTORY(): string {
   return inject(LOCALE_ID);
 }

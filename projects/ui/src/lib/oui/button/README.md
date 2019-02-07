@@ -76,6 +76,10 @@ Buttons can be colored in terms of the current theme using the color property to
    }
    ```
 
+| Method | Description      |
+| ------ | ---------------- |
+| focus  | Focus the button |
+
 ## Stackblitz demo link
 
 This demo link shows how you can work with `oui-icon-button` component:

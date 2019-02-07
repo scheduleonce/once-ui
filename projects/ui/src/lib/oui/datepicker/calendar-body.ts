@@ -23,7 +23,6 @@ export type OuiCalendarCellCssClasses =
 
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
- * @docs-private
  */
 export class OuiCalendarCell {
   constructor(
@@ -37,7 +36,6 @@ export class OuiCalendarCell {
 
 /**
  * An internal component used to display calendar data in a table.
- * @docs-private
  */
 @Component({
   moduleId: module.id,
