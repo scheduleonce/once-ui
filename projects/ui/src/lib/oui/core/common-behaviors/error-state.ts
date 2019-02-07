@@ -10,13 +10,10 @@ import { Constructor } from './constructor';
 
 /** @docs-private */
 export interface CanUpdateErrorState {
-  updateErrorState(): void;
-  // tslint:disable-next-line:member-ordering
   readonly stateChanges: Subject<void>;
-  // tslint:disable-next-line:member-ordering
   errorState: boolean;
-  // tslint:disable-next-line:member-ordering
   errorStateMatcher: ErrorStateMatcher;
+  updateErrorState(): void;
 }
 
 /** @docs-private */
