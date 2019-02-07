@@ -47,14 +47,12 @@ export const OUI_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<
   () => ScrollStrategy
 >('oui-datepicker-scroll-strategy');
 
-/** @docs-private */
 export function OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY(
   overlay: Overlay
 ): () => ScrollStrategy {
   return () => overlay.scrollStrategies.reposition();
 }
 
-/** @docs-private */
 export const OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_DATEPICKER_SCROLL_STRATEGY,
   deps: [Overlay],
@@ -62,7 +60,6 @@ export const OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 };
 
 // Boilerplate for applying mixins to OuiDatepickerContent.
-/** @docs-private */
 export class OuiDatepickerContentBase {
   constructor(public _elementRef: ElementRef) {}
 }
@@ -74,7 +71,6 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
  * OuiCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
- * @docs-private
  */
 @Component({
   moduleId: module.id,

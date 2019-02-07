@@ -32,7 +32,6 @@ import { OuiCalendarCellCssClasses } from './calendar-body';
 
 /**
  * Possible views for the calendar.
- * @docs-private
  */
 export type OuiCalendarView = 'month' | 'year' | 'multi-year';
 
@@ -179,7 +178,6 @@ export class OuiCalendarHeader<D> {
 
 /**
  * A calendar that is used as part of the datepicker.
- * @docs-private
  */
 @Component({
   moduleId: module.id,

@@ -34,14 +34,12 @@ import { OuiDatepicker } from './datepicker';
 import { createMissingDateImplError } from './datepicker-errors';
 import { ThemePalette } from '../core/public-api';
 
-/** @docs-private */
 export const OUI_DATEPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => OuiDatepickerInput),
   multi: true
 };
 
-/** @docs-private */
 export const OUI_DATEPICKER_VALIDATORS: any = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => OuiDatepickerInput),
@@ -313,12 +311,10 @@ export class OuiDatepickerInput<D>
     this._elementRef.nativeElement.setAttribute('disabled', 'true');
   }
 
-  /** @docs-private */
   registerOnValidatorChange(fn: () => void): void {
     this._validatorOnChange = fn;
   }
 
-  /** @docs-private */
   validate(c: AbstractControl): ValidationErrors | null {
     return this._validator ? this._validator(c) : null;
   }

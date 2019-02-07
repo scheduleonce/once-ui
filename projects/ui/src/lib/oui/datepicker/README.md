@@ -5,16 +5,16 @@ the calendar. It is made up of several components and directives that work toget
 
 ## API OuiDatepicker
 
-| Input                                             | Type     | Default | Description                                                                            |
-| ------------------------------------------------- | -------- | ------- | -------------------------------------------------------------------------------------- |
-| id                                                | string   | null    | The id for the datepicker calendar.                                                    |
-| color                                             | string   | primary | Theme color palette for the component                                                  |
-| dateClass: (date: D) => OuiCalendarCellCssClasses | function | null    | Function that can be used to add custom CSS classes to dates.                          |
-| disabled                                          | boolean  | false   | Whether the datepicker pop-up should be disabled.                                      |
-| opened                                            | boolean  | false   | Whether the calendar is open.                                                          |
-| panelClass                                        | string   | null    | A unique id for the slide-toggle input. If none is supplied, it will be auto-generated |
-| startAt                                           | Date     | null    | The date to open the calendar to initially.                                            |
-| startView                                         | 'month'  | 'year'  | 'multi-year'                                                                           | 'month' | The view that the calendar should start in. |
+| Input                                             | Type                          | Default | Description                                                                            |
+| ------------------------------------------------- | ----------------------------- | ------- | -------------------------------------------------------------------------------------- |
+| id                                                | string                        | null    | The id for the datepicker calendar.                                                    |
+| color                                             | string                        | primary | Theme color palette for the component                                                  |
+| dateClass: (date: D) => OuiCalendarCellCssClasses | function                      | null    | Function that can be used to add custom CSS classes to dates.                          |
+| disabled                                          | boolean                       | false   | Whether the datepicker pop-up should be disabled.                                      |
+| opened                                            | boolean                       | false   | Whether the calendar is open.                                                          |
+| panelClass                                        | string                        | null    | A unique id for the slide-toggle input. If none is supplied, it will be auto-generated |
+| startAt                                           | Date                          | null    | The date to open the calendar to initially.                                            |
+| startView                                         | 'month', 'year', 'multi-year' | 'month' | The view that the calendar should start in.                                            |
 
 | Output        | Type               | Description                                                                              |
 | ------------- | ------------------ | ---------------------------------------------------------------------------------------- |

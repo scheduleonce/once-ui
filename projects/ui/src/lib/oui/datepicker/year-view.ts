@@ -34,7 +34,6 @@ import { createMissingDateImplError } from './datepicker-errors';
 
 /**
  * An internal component used to display a single year in the datepicker.
- * @docs-private
  */
 @Component({
   moduleId: module.id,
