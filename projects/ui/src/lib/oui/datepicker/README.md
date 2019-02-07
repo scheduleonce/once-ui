@@ -97,7 +97,7 @@ An optional datepicker toggle button is available. A toggle can be added to the 
 ```
 
 This works exactly the same with an input that is part of an `<oui-form-field>` and the toggle
-can easily be used as a prefix or suffix on the material input:
+can easily be used as a prefix or suffix on the oui-input:
 
 ```html
 <oui-form-field>
