@@ -33,10 +33,9 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   },
   display: {
     dateInput: {
-      weekday: 'short',
       year: 'numeric',
-      day: 'numeric',
-      month: 'long'
+      day: '2-digit',
+      month: '2-digit'
     },
     monthYearLabel: { year: 'numeric', month: 'short' },
     dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
