@@ -2,6 +2,8 @@ import { storiesOf } from '@storybook/angular';
 import { setOptions } from '@storybook/addon-options';
 import { action } from '@storybook/addon-actions';
 import { select, boolean, object } from '@storybook/addon-knobs';
+import { STATEGROUPS, OPTIONS } from './const';
+import { APPEARANCE } from '../const';
 import {
   OuiAutocompleteModule,
   OuiFormFieldModule,
@@ -28,26 +30,6 @@ export const _filter = (opt: string[], value: string): string[] => {
 
   return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
 };
-
-let options: string[] = ['Scheduleonce', 'Inviteonce', 'Chatonce'];
-let stateGroups = [
-  {
-    letter: 'A',
-    names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas']
-  },
-  {
-    letter: 'C',
-    names: ['California', 'Colorado', 'Connecticut']
-  },
-  {
-    letter: 'D',
-    names: ['Delaware']
-  },
-  {
-    letter: 'F',
-    names: ['Florida']
-  }
-];
 
 @Component({
   selector: 'oui-autocomplete-storybook',
@@ -188,7 +170,7 @@ storiesOf('Autocomplete', module)
       component: OuiAutocompleteStorybook,
       props: {
         appearance: select('appearance', ['standard', 'underline'], 'standard'),
-        options: object('options', options),
+        options: object('options', OPTIONS),
         autoActiveFirstOption: boolean('autoActiveFirstOption', false),
         closed: action('closed'),
         disabled: boolean('disabled', false),
@@ -215,8 +197,8 @@ storiesOf('Autocomplete', module)
       },
       component: OuiAutocompleteGroupStorybook,
       props: {
-        appearance: select('appearance', ['standard', 'underline'], 'standard'),
-        stateGroups: object('options', stateGroups),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+        stateGroups: object('options', STATEGROUPS),
         autoActiveFirstOption: boolean('autoActiveFirstOption', false),
         closed: action('closed'),
         disabled: boolean('disabled', false),

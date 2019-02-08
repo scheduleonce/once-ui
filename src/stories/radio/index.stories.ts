@@ -4,6 +4,7 @@ import { OuiRadioModule } from '../../../projects/ui/src/lib/oui';
 import markdownText from '../../../projects/ui/src/lib/oui/radio/README.md';
 
 import { select, boolean } from '@storybook/addon-knobs';
+import { LABELPOSITION } from '../const';
 storiesOf('Radio Button', module).add(
   'default',
   () => ({
@@ -18,7 +19,7 @@ storiesOf('Radio Button', module).add(
   </oui-radio-group>`,
     props: {
       changed: action('change'),
-      position: select('labelPosition', ['before', 'after'], 'after'),
+      position: select('labelPosition', LABELPOSITION, LABELPOSITION[0]),
       disabled: boolean('disabled', false)
     }
   }),
