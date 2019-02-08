@@ -16,8 +16,10 @@ import {
   OuiCheckboxModule,
   OuiTooltipModule,
   OuiRadioModule,
-  OuiProgressBarModule
+  OuiProgressBarModule,
+  OuiSelectModule
 } from 'projects/ui/src/lib/oui';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   OuiTableModule,
@@ -48,7 +50,8 @@ import {
     OuiPaginatorModule,
     OuiProgressSpinnerModule,
     OuiRadioModule,
-    OuiProgressBarModule
+    OuiProgressBarModule,
+    OuiSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

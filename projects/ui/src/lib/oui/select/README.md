@@ -4,10 +4,6 @@
 
 To add options to the select, add <oui-option> elements to the `<oui-select>`. Each `<oui-option>` has a value property that can be used to set the value that will be selected if the user chooses this option. The content of the `<oui-option>` is what will be shown to the user.
 
-Once-ui also supports use of the native `<select>` element inside of `<oui-form-field>`. The native control has several performance, accessibility, and usability advantages. See the documentation for form-field for more information.
-
-To use a native select inside`<oui-form-field>`, add the ouiNativeControl attribute to the `<select>` element.
-
 ### Basic select
 
 [Oui Basic Select](https://stackblitz.com/edit/oui-select-basic-example)
@@ -16,7 +12,7 @@ To use a native select inside`<oui-form-field>`, add the ouiNativeControl attrib
 
 The `<oui-select>` supports 2-way binding to the value property without the need for Angular forms.
 [Oui select with 2 way value binding](https://stackblitz.com/edit/oui-select-with-2-way-value-binding)
-
+  
 ## Form field features
 
 There are a number of `<oui-form-field>` features that can be used with both `<select>` and `<oui-select>`. These include error messages, hint text, prefix & suffix, and theming.
@@ -45,7 +41,6 @@ The `<oui-optgroup>` element can be used to group common options under a subhead
 
 `<oui-select>` defaults to single-selection mode, but can be configured to allow multiple selection by setting the multiple property. This will allow the user to select multiple values at once. When using the `<oui-select>` in multiple selection mode, its value will be a sorted list of all selected values rather than a single value.
 
-Using multiple selection with a native select element (`<select multiple>`) is discouraged inside `<oui-form-field>`, as the inline listbox appearance is inconsistent with other Oui Design components.
 
 [Oui select multiple selection](https://stackblitz.com/edit/oui-select-multiple-selection)
 
@@ -88,8 +83,6 @@ A global error state matcher can be specified by setting the ErrorStateMatcher p
 The `<oui-select>` component without text or label should be given a meaningful label via aria-label or aria-labelledby.
 
 The `<oui-select>` component has role="listbox" and options inside select have role="option".
-
-The native `<select>` offers the best accessibility because it is supported directly by screen-readers.
 
 ---
 

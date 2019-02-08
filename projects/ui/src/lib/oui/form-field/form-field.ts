@@ -99,7 +99,6 @@ export class OuiFormField extends _OuiFormFieldMixinBase
   _inputContainerRef: ElementRef;
   @ContentChild(OuiFormFieldControl)
   _control: OuiFormFieldControl<any>;
-
   constructor(
     public _elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
@@ -116,7 +115,6 @@ export class OuiFormField extends _OuiFormFieldMixinBase
 
   ngAfterContentInit() {
     this._validateControlChild();
-
     const control = this._control;
 
     if (control.controlType) {
