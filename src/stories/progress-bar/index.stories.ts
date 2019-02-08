@@ -4,6 +4,7 @@ import { select, number } from '@storybook/addon-knobs';
 import { OuiProgressBar } from '../../../projects/ui/src/lib/oui/progress-bar/progress-bar';
 import markdownText from '../../../projects/ui/src/lib/oui/progress-bar/README.md';
 import { withNotes } from '@storybook/addon-notes';
+import { COLORS } from '../const';
 
 addDecorator(withNotes);
 
@@ -25,7 +26,7 @@ storiesOf('Progress Bar', module)
     () => ({
       component: OuiProgressBar,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         strokeWidth: number('strokeWidth', 5, strokeWidthOptions),
         value: number('value', 60, valueOptions)
       }
@@ -38,7 +39,7 @@ storiesOf('Progress Bar', module)
       setOptions: setOptions({ downPanelInRight: true }),
       component: OuiProgressBar,
       props: {
-        color: select('color', ['primary', 'accent', 'warn'], 'primary'),
+        color: select('color', COLORS, COLORS[0]),
         strokeWidth: number('strokeWidth', 5, strokeWidthOptions)
       }
     }),

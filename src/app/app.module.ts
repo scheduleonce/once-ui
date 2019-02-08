@@ -19,6 +19,11 @@ import {
   OuiProgressBarModule
 } from 'projects/ui/src/lib/oui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  OuiTableModule,
+  OuiSortModule,
+  OuiPaginatorModule
+} from 'projects/ui/src/public_api';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +42,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     OuiCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
+    OuiTableModule,
+    OuiProgressSpinnerModule,
+    OuiSortModule,
+    OuiPaginatorModule,
     OuiProgressSpinnerModule,
     OuiRadioModule,
     OuiProgressBarModule

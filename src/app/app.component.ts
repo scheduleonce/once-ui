@@ -1,14 +1,67 @@
-import { Component, ViewChild } from '@angular/core';
-import { OuiDialog } from 'projects/ui/src/lib/oui';
-import { OuiIconRegistry } from 'projects/ui/src/lib/oui';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { OuiDialog, OuiSort } from 'projects/ui/src/lib/oui';
+import {
+  OuiIconRegistry,
+  OuiTableDataSource,
+  OuiPaginator
+} from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
+
+export interface UserData {
+  id: string;
+  name: string;
+  progress: string;
+  color: string;
+}
+
+/** Constants used to fill up our data base. */
+const COLORS: string[] = [
+  'maroon',
+  'red',
+  'orange',
+  'yellow',
+  'olive',
+  'green',
+  'purple',
+  'fuchsia',
+  'lime',
+  'teal',
+  'aqua',
+  'blue',
+  'navy',
+  'black',
+  'gray'
+];
+const NAMES: string[] = [
+  'Maia',
+  'Asher',
+  'Olivia',
+  'Atticus',
+  'Amelia',
+  'Jack',
+  'Charlotte',
+  'Theodore',
+  'Isla',
+  'Oliver',
+  'Isabella',
+  'Jasper',
+  'Cora',
+  'Levi',
+  'Violet',
+  'Arthur',
+  'Mia',
+  'Thomas',
+  'Elizabeth'
+];
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  @ViewChild(OuiSort) sort: OuiSort;
+  @ViewChild(OuiPaginator) paginator: OuiPaginator;
   options: string[] = ['One', 'Two', 'Three'];
   isDisable = false;
   stateGroups = [
@@ -40,6 +93,8 @@ export class AppComponent {
   progressLinkButton: any;
   @ViewChild('progressGhostButton')
   progressGhostButton: any;
+  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  dataSource: OuiTableDataSource<UserData>;
   constructor(
     private dialog: OuiDialog,
     private ouiIconRegistry: OuiIconRegistry,
@@ -66,11 +121,39 @@ export class AppComponent {
     this.checked = false;
     this.labelPosition = 'after';
     this.disabled = false;
+    // Create 100 users
+    const users = Array.from({ length: 100 }, (_, k) =>
+      this.createNewUser(k + 1)
+    );
+    console.log(users[0]);
+    this.dataSource = new OuiTableDataSource(users);
+  }
+
+  ngOnInit() {
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(this.dialogTemplate);
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      panelClass: 'something'
+    });
     dialogRef.afterClosed().subscribe(() => {});
+  }
+
+  createNewUser(id: number): UserData {
+    const name =
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))] +
+      ' ' +
+      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) +
+      '.';
+
+    return {
+      id: id.toString(),
+      name: name,
+      progress: Math.round(Math.random() * 100).toString(),
+      color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+    };
   }
 
   progressButtonClick() {
