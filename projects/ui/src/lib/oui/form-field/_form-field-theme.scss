@@ -5,8 +5,8 @@ $form-field-width: 100%;
 $form-field-max-width: 100%;
 $form-field-vertical-align: bottom;
 $form-field-text-align: inherit;
-$form-field-border-bottom: 1px solid #9c9c9c;
-$form-field-border: 1px solid #c8c8c8;
+$underline-form-field-border: 1px solid #9c9c9c;
+$standard-form-field-border: 1px solid #c8c8c8;
 $form-field-color: #333333;
 $form-field-color-placeholder: #666666;
 $form-field-disabled-color: #9c9c9c;
@@ -103,7 +103,7 @@ $form-field-transition-border: border 0.5s;
 @mixin oui-form-field-theme-palette($theme) {
   $primary: map-get($theme, primary);
   .oui-input {
-    border: $form-field-border;
+    border: $standard-form-field-border;
     &:focus {
       border-color: map-get($primary, lighter);
     }
@@ -121,7 +121,7 @@ $form-field-transition-border: border 0.5s;
     border: none;
     padding-left: 1px;
     padding-right: 1px;
-    border-bottom: $form-field-border-bottom;
+    border-bottom: $underline-form-field-border;
     transition: border 0.5s, padding 0.5s;
     &:disabled {
       color: #666666;
