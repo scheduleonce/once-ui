@@ -66,3 +66,27 @@
 .oui-radio-button {
   margin-right: 10px;
 }
+
+
+
+.example-option-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .example-option-img {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.example-panel-red.oui-select-panel {
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.example-panel-green.oui-select-panel {
+  background: rgba(0, 255, 0, 0.5);
+}
+
+.example-panel-blue.oui-select-panel {
+  background: rgba(0, 0, 255, 0.5);
+}

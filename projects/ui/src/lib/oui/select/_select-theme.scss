@@ -1,0 +1,10 @@
+@import '../core/theming/palette';
+@import '../core/theming/theming';
+@import '../core/style/form-common';
+
+@mixin oui-select-theme($theme) {
+  .oui-select-panel {
+    background: #fff;
+  }
+}
+

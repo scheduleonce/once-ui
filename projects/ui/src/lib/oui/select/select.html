@@ -1,0 +1,38 @@
+<div cdk-overlay-origin
+     class="oui-select-trigger"
+     aria-hidden="true"
+     (click)="toggle()"
+     #origin="cdkOverlayOrigin"
+     #trigger>
+  <div class="oui-select-value" [ngSwitch]="empty">
+    <span class="oui-select-placeholder" *ngSwitchCase="true">{{placeholder}}</span>
+    <span class="oui-select-value-text" *ngSwitchCase="false" [ngSwitch]="!!customTrigger">
+      <span *ngSwitchDefault [innerHTML]="triggerValue | noSanitize"></span>
+      <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
+    </span>
+  </div>
+
+  <div class="oui-select-arrow-wrapper"><div class="oui-select-arrow"></div></div>
+</div>
+
+<ng-template
+  cdk-connected-overlay
+  cdkConnectedOverlayLockPosition
+  cdkConnectedOverlayHasBackdrop
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  [cdkConnectedOverlayScrollStrategy]="_scrollStrategy"
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="panelOpen"
+  [cdkConnectedOverlayMinWidth]="_triggerRect?.width"
+  (backdropClick)="close()"
+  (attach)="_onAttached()"
+  (detach)="close()">
+  <div
+    #panel
+    class="oui-select-panel"
+    [ngClass]="panelClass"
+    (keydown)="_handleKeydown($event)">
+    <ng-content></ng-content>
+  </div>
+</ng-template>
+

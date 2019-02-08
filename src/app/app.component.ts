@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, ViewEncapsulation } from '@angular/core';
 import { OuiDialog, OuiSort } from 'projects/ui/src/lib/oui';
 import {
   OuiIconRegistry,
@@ -6,6 +6,33 @@ import {
   OuiPaginator
 } from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ReplaySubject, Subject } from 'rxjs';
+import {FormControl, Validators, NgForm, FormGroupDirective} from '@angular/forms';
+import {Observable} from 'rxjs';
+import {map, startWith} from 'rxjs/operators';
+
+import {takeUntil } from 'rxjs/operators';
+import {ErrorStateMatcher} from 'projects/ui/src/lib/oui/core';
+
+
+export interface State {
+  flag: string;
+  name: string;
+  population: string;
+}
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+interface Bank {
+  id: string;
+  name: string;
+}
 
 export interface UserData {
   id: string;
@@ -57,13 +84,76 @@ const NAMES: string[] = [
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class AppComponent implements OnInit {
   @ViewChild(OuiSort) sort: OuiSort;
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
   options: string[] = ['One', 'Two', 'Three'];
   isDisable = false;
+  foods = [];
+  public filteredBanks: ReplaySubject<Bank[]> = new ReplaySubject<Bank[]>(1);
+  public bankCtrl: FormControl = new FormControl();
+  stateCtrl = new FormControl();
+  filteredStates: Observable<State[]>;
+  public bankFilterCtrl: FormControl = new FormControl();
+  selected = new FormControl('valid', [
+    Validators.required,
+    Validators.pattern('valid'),
+  ]);
+  matcher = new MyErrorStateMatcher();
+  /** list of banks */
+  private banks: Bank[] = [
+    {name: 'Bank A (Switzerland)', id: 'A'},
+    {name: 'Bank B (Switzerland)', id: 'B'},
+    {name: 'Bank C (France)', id: 'C'},
+    {name: 'Bank D (France)', id: 'D'},
+    {name: 'Bank E (France)', id: 'E'},
+    {name: 'Bank F (Italy)', id: 'F'},
+    {name: 'Bank G (Italy)', id: 'G'},
+    {name: 'Bank H (Italy)', id: 'H'},
+    {name: 'Bank I (Italy)', id: 'I'},
+    {name: 'Bank J (Italy)', id: 'J'},
+    {name: 'Bank K (Italy)', id: 'K'},
+    {name: 'Bank L (Germany)', id: 'L'},
+    {name: 'Bank M (Germany)', id: 'M'},
+    {name: 'Bank N (Germany)', id: 'N'},
+    {name: 'Bank O (Germany)', id: 'O'},
+    {name: 'Bank P (Germany)', id: 'P'},
+    {name: 'Bank Q (Germany)', id: 'Q'},
+    {name: 'Bank R (Germany)', id: 'R'}
+  ];
+
+  toppings = new FormControl();
+  panelColor = new FormControl('red');
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  states: State[] = [
+    {
+      name: 'Arkansas',
+      population: '2.978M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
+    },
+    {
+      name: 'California',
+      population: '39.14M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
+    },
+    {
+      name: 'Florida',
+      population: '20.27M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
+    },
+    {
+      name: 'Texas',
+      population: '27.47M',
+      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
+      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
+    }
+  ];
   stateGroups = [
     {
       letter: 'A',
@@ -82,6 +172,47 @@ export class AppComponent implements OnInit {
       names: ['Florida']
     }
   ];
+
+  pokemonGroups = [
+    {
+      name: 'Grass',
+      pokemon: [
+        {value: 'bulbasaur-0', viewValue: 'Bulbasaur'},
+        {value: 'oddish-1', viewValue: 'Oddish'},
+        {value: 'bellsprout-2', viewValue: 'Bellsprout'}
+      ]
+    },
+    {
+      name: 'Water',
+      pokemon: [
+        {value: 'squirtle-3', viewValue: 'Squirtle'},
+        {value: 'psyduck-4', viewValue: 'Psyduck'},
+        {value: 'horsea-5', viewValue: 'Horsea'}
+      ]
+    },
+    {
+      name: 'Fire',
+      disabled: true,
+      pokemon: [
+        {value: 'charmander-6', viewValue: 'Charmander'},
+        {value: 'vulpix-7', viewValue: 'Vulpix'},
+        {value: 'flareon-8', viewValue: 'Flareon'}
+      ]
+    },
+    {
+      name: 'Psychic',
+      pokemon: [
+        {value: 'mew-9', viewValue: 'Mew'},
+        {value: 'mewtwo-10', viewValue: 'Mewtwo'},
+      ]
+    }
+  ];
+  disableSelect = new FormControl(false);
+  anotherArray = this.foods;
+  filterListCareUnit(val) {
+    this.foods = this.anotherArray.filter(it => it.viewValue && it.viewValue.toLowerCase().includes(val.toLowerCase()));
+  }
+
   checked;
   labelPosition;
   disabled;
@@ -118,6 +249,12 @@ export class AppComponent implements OnInit {
       )
     );
 
+    this.filteredStates = this.stateCtrl.valueChanges
+      .pipe(
+        startWith(''),
+        map(state => state ? this._filterStates(state) : this.states.slice())
+      );
+
     this.checked = false;
     this.labelPosition = 'after';
     this.disabled = false;
@@ -132,6 +269,19 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
+    this.filteredBanks.next(this.banks.slice());
+    // listen for search field value changes
+    this.bankFilterCtrl.valueChanges
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(() => {
+        this.filterBanks();
+      });
+  }
+  private _onDestroy = new Subject<void>();
+  private _filterStates(value: string): State[] {
+    const filterValue = value.toLowerCase();
+
+    return  this.states.filter(it => it.name && it.name.toLowerCase().includes(filterValue))
   }
 
   openDialog() {
@@ -179,5 +329,18 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.progressGhostButton.setToDone();
     }, 1000);
+  }
+
+  private filterBanks() {
+    if (!this.banks) {
+      return;
+    }
+    // get the search keyword
+    let search = this.bankFilterCtrl.value;
+      search = search.toLowerCase();
+    // filter the banks
+    this.filteredBanks.next(
+      this.banks.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
+    );
   }
 }
