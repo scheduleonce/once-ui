@@ -1,0 +1,27 @@
+<button
+  #button
+  oui-icon-button
+  type="button"
+  aria-haspopup="true"
+  [attr.aria-label]="_intl.openCalendarLabel"
+  [attr.tabindex]="disabled ? -1 : tabIndex"
+  [disabled]="disabled"
+  (click)="_open($event)"
+>
+  <svg
+    *ngIf="!_customIcon"
+    class="oui-datepicker-toggle-default-icon"
+    viewBox="0 0 24 24"
+    width="24px"
+    height="24px"
+    fill="currentColor"
+    focusable="false"
+  >
+    <path d="M3 4v13h14v-13h-14zM2 3h16v15h-16v-15z"></path>
+    <path d="M2 7v-1h16v1z"></path>
+    <path
+      d="M5 9h2v2h-2zM9 9h2v2h-2zM13 9h2v2h-2zM5 13h2v2h-2zM9 13h2v2h-2zM13 13h2v2h-2z"
+    ></path>
+  </svg>
+  <ng-content select="[ouiDatepickerToggleIcon]"></ng-content>
+</button>
