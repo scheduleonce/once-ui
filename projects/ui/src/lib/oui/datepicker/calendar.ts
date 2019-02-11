@@ -17,11 +17,6 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {
-  DateAdapter,
-  OUI_DATE_FORMATS,
-  OuiDateFormats
-} from './native-date.module';
 import { Subject, Subscription } from 'rxjs';
 import { createMissingDateImplError } from './datepicker-errors';
 import { OuiDatepickerIntl } from './datepicker-intl';
@@ -29,6 +24,8 @@ import { OuiMonthView } from './month-view';
 import { OuiMultiYearView, yearsPerPage } from './multi-year-view';
 import { OuiYearView } from './year-view';
 import { OuiCalendarCellCssClasses } from './calendar-body';
+import { DateAdapter } from './date-adapter';
+import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
 
 /**
  * Possible views for the calendar.

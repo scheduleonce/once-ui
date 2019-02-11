@@ -36,8 +36,8 @@ import { ouiDatepickerAnimations } from './datepicker-animations';
 import { createMissingDateImplError } from './datepicker-errors';
 import { OuiDatepickerInput } from './datepicker-input';
 import { OuiCalendarCellCssClasses } from './calendar-body';
-import { DateAdapter } from './native-date.module';
 import { CanColorCtor, mixinColor, CanColor, ThemePalette } from '../core';
+import { DateAdapter } from './date-adapter';
 
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;

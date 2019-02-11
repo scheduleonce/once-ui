@@ -23,11 +23,6 @@ import {
   ViewEncapsulation,
   ViewChild
 } from '@angular/core';
-import {
-  DateAdapter,
-  OUI_DATE_FORMATS,
-  OuiDateFormats
-} from './native-date.module';
 import { Directionality } from '@angular/cdk/bidi';
 import {
   OuiCalendarBody,
@@ -35,6 +30,8 @@ import {
   OuiCalendarCellCssClasses
 } from './calendar-body';
 import { createMissingDateImplError } from './datepicker-errors';
+import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
+import { DateAdapter } from './date-adapter';
 
 const DAYS_PER_WEEK = 7;
 

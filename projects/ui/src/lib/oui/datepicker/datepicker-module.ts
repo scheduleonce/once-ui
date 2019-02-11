@@ -3,7 +3,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OuiButtonModule, OuiDialogModule } from '../';
+import { OuiButtonModule } from '../button/button-module';
+import { OuiDialogModule } from '../dialog/dialog-module';
 import { OuiCalendar, OuiCalendarHeader } from './calendar';
 import { OuiCalendarBody } from './calendar-body';
 import {
