@@ -23,7 +23,7 @@ export class OverlayPanelComponent implements OnInit, AfterViewChecked {
   visible = false;
   canClose = true;
   target;
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     if (this.imageLink) {
@@ -31,8 +31,8 @@ export class OverlayPanelComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  show(event) {
-    if (!this.target) {
+  show(event?) {
+    if (event) {
       this.target = event.target;
     }
     this.visible = true;
