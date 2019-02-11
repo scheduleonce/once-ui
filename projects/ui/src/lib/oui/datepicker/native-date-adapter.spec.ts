@@ -1,9 +1,7 @@
 import { Platform } from '@angular/cdk/platform';
-import { LOCALE_ID } from '@angular/core';
 import { async, inject, TestBed } from '@angular/core/testing';
 import {
   DateAdapter,
-  OUI_DATE_LOCALE,
   NativeDateAdapter,
   NativeDateModule
 } from './native-date.module';
@@ -475,67 +473,5 @@ describe('NativeDateAdapter', () => {
 
   it('should not throw when attempting to format a date with a year greater than 9999', () => {
     expect(() => adapter.format(new Date(10000, 1, 1), {})).not.toThrow();
-  });
-});
-
-describe('NativeDateAdapter with OUI_DATE_LOCALE override', () => {
-  let adapter: NativeDateAdapter;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NativeDateModule],
-      providers: [{ provide: OUI_DATE_LOCALE, useValue: 'da-DK' }]
-    }).compileComponents();
-  }));
-
-  beforeEach(inject([DateAdapter], (d: NativeDateAdapter) => {
-    adapter = d;
-  }));
-
-  it('should take the default locale id from the OUI_DATE_LOCALE injection token', () => {
-    const expectedValue = SUPPORTS_INTL
-      ? ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag']
-      : [
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday'
-        ];
-
-    expect(adapter.getDayOfWeekNames('long')).toEqual(expectedValue);
-  });
-});
-
-describe('NativeDateAdapter with LOCALE_ID override', () => {
-  let adapter: NativeDateAdapter;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [NativeDateModule],
-      providers: [{ provide: LOCALE_ID, useValue: 'da-DK' }]
-    }).compileComponents();
-  }));
-
-  beforeEach(inject([DateAdapter], (d: NativeDateAdapter) => {
-    adapter = d;
-  }));
-
-  it('should cascade locale id from the LOCALE_ID injection token to OUI_DATE_LOCALE', () => {
-    const expectedValue = SUPPORTS_INTL
-      ? ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag']
-      : [
-          'Sunday',
-          'Monday',
-          'Tuesday',
-          'Wednesday',
-          'Thursday',
-          'Friday',
-          'Saturday'
-        ];
-
-    expect(adapter.getDayOfWeekNames('long')).toEqual(expectedValue);
   });
 });

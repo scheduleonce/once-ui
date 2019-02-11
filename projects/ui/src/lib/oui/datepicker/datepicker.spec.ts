@@ -331,8 +331,6 @@ class DelayedDatepicker {
 class DatepickerWithTabindexOnToggle {}
 
 describe('OuiDatepicker', () => {
-  const SUPPORTS_INTL = typeof Intl !== 'undefined';
-
   // Creates a test component fixture.
   function createComponent(
     component: Type<any>,
@@ -384,14 +382,6 @@ describe('OuiDatepicker', () => {
         fixture.detectChanges();
         flush();
       }));
-
-      it('should initialize with correct value shown in input', () => {
-        if (SUPPORTS_INTL) {
-          expect(fixture.nativeElement.querySelector('input').value).toBe(
-            '1/1/2020'
-          );
-        }
-      });
 
       it('open non-touch should open popup', () => {
         expect(
@@ -928,18 +918,6 @@ describe('OuiDatepicker', () => {
 
         expect(testComponent.formControl.value).toEqual(selected);
         expect(testComponent.datepickerInput.value).toEqual(selected);
-      });
-
-      it('should disable input when form control disabled', () => {
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
-
-        expect(inputEl.disabled).toBe(false);
-
-        testComponent.formControl.disable();
-        fixture.detectChanges();
-
-        expect(inputEl.disabled).toBe(true);
       });
 
       it('should disable toggle when form control disabled', () => {
@@ -1479,14 +1457,6 @@ describe('OuiDatepicker', () => {
 
         expect(overlay.getAttribute('dir')).toBe('rtl');
       });
-    });
-  });
-
-  describe('with missing DateAdapter and OUI_DATE_FORMATS', () => {
-    it('should throw when created', () => {
-      expect(() => createComponent(StandardDatepicker)).toThrowError(
-        /OuiDatepicker: No provider found for .*/
-      );
     });
   });
 
