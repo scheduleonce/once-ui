@@ -14,7 +14,7 @@ import {
   ViewEncapsulation,
   ViewChild
 } from '@angular/core';
-import { OuiButton } from '../';
+import { OuiButton } from '../button/button';
 import { merge, of as observableOf, Subscription } from 'rxjs';
 import { OuiDatepicker } from './datepicker';
 import { OuiDatepickerIntl } from './datepicker-intl';
