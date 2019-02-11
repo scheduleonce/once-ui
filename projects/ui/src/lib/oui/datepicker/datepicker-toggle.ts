@@ -26,7 +26,6 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 export class OuiDatepickerToggleIcon {}
 
 @Component({
-  moduleId: module.id,
   selector: 'oui-datepicker-toggle',
   templateUrl: 'datepicker-toggle.html',
   styleUrls: ['datepicker-toggle.scss'],

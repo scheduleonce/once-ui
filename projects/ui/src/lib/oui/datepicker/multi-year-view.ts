@@ -35,7 +35,6 @@ export const yearsPerRow = 4;
  * An internal component used to display a year selector in the datepicker.
  */
 @Component({
-  moduleId: module.id,
   selector: 'oui-multi-year-view',
   templateUrl: 'multi-year-view.html',
   exportAs: 'ouiMultiYearView',
