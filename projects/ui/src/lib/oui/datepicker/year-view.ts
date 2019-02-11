@@ -23,14 +23,11 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import {
-  DateAdapter,
-  OUI_DATE_FORMATS,
-  OuiDateFormats
-} from './native-date.module';
 import { Directionality } from '@angular/cdk/bidi';
 import { OuiCalendarBody, OuiCalendarCell } from './calendar-body';
 import { createMissingDateImplError } from './datepicker-errors';
+import { OUI_DATE_FORMATS, OuiDateFormats } from './date-formats';
+import { DateAdapter } from './date-adapter';
 
 /**
  * An internal component used to display a single year in the datepicker.

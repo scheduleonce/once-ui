@@ -22,17 +22,14 @@ import {
   ValidatorFn,
   Validators
 } from '@angular/forms';
-import {
-  DateAdapter,
-  OUI_DATE_FORMATS,
-  OuiDateFormats
-} from './native-date.module';
-import { OuiFormField } from '../';
-import { OUI_INPUT_VALUE_ACCESSOR } from '../';
+import { OuiFormField } from '../form-field/form-field';
+import { OUI_INPUT_VALUE_ACCESSOR } from '../input/input-value-accessor';
 import { Subscription } from 'rxjs';
 import { OuiDatepicker } from './datepicker';
 import { createMissingDateImplError } from './datepicker-errors';
 import { ThemePalette } from '../core/public-api';
+import { DateAdapter } from './date-adapter';
+import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
 
 export const OUI_DATEPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
