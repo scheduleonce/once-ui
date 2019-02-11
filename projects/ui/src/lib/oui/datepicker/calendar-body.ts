@@ -39,9 +39,11 @@ export class OuiCalendarCell {
  */
 @Component({
   moduleId: module.id,
+  // tslint:disable-next-line:component-selector
   selector: '[oui-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-calendar-body',
     role: 'grid',
@@ -130,7 +132,7 @@ export class OuiCalendarBody implements OnChanges {
       cellNumber -= this._firstRowOffset;
     }
 
-    return cellNumber == this.activeCell;
+    return cellNumber === this.activeCell;
   }
 
   /** Focuses the active cell after the microtask queue is empty. */

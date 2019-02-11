@@ -8,7 +8,7 @@ import {
   NativeDateModule
 } from './native-date.module';
 
-const SUPPORTS_INTL = typeof Intl != 'undefined';
+const SUPPORTS_INTL = typeof Intl !== 'undefined';
 export const JAN = 0,
   FEB = 1,
   MAR = 2,
@@ -239,18 +239,18 @@ describe('NativeDateAdapter', () => {
   });
 
   it('should parse number', () => {
-    let timestamp = new Date().getTime();
+    const timestamp = new Date().getTime();
     expect(adapter.parse(timestamp)).toEqual(new Date(timestamp));
   });
 
   it('should parse Date', () => {
-    let date = new Date(2017, JAN, 1);
+    const date = new Date(2017, JAN, 1);
     expect(adapter.parse(date)).toEqual(date);
     expect(adapter.parse(date)).not.toBe(date);
   });
 
   it('should parse invalid value as invalid', () => {
-    let d = adapter.parse('hello');
+    const d = adapter.parse('hello');
     expect(d).not.toBeNull();
     expect(adapter.isDateInstance(d)).toBe(
       true,
@@ -362,7 +362,7 @@ describe('NativeDateAdapter', () => {
   });
 
   it('should clone', () => {
-    let date = new Date(2017, JAN, 1);
+    const date = new Date(2017, JAN, 1);
     expect(adapter.clone(date)).toEqual(date);
     expect(adapter.clone(date)).not.toBe(date);
   });
@@ -434,19 +434,19 @@ describe('NativeDateAdapter', () => {
   });
 
   it('should count today as a valid date instance', () => {
-    let d = new Date();
+    const d = new Date();
     expect(adapter.isValid(d)).toBe(true);
     expect(adapter.isDateInstance(d)).toBe(true);
   });
 
   it('should count an invalid date as an invalid date instance', () => {
-    let d = new Date(NaN);
+    const d = new Date(NaN);
     expect(adapter.isValid(d)).toBe(false);
     expect(adapter.isDateInstance(d)).toBe(true);
   });
 
   it('should count a string as not a date instance', () => {
-    let d = '1/1/2017';
+    const d = '1/1/2017';
     expect(adapter.isDateInstance(d)).toBe(false);
   });
 

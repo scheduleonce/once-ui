@@ -285,7 +285,7 @@ export class OuiMonthView<D> implements AfterContentInit {
       .getMonthNames('short')
       [this._dateAdapter.getMonth(this.activeDate)].toLocaleUpperCase();
 
-    let firstOfMonth = this._dateAdapter.createDate(
+    const firstOfMonth = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       this._dateAdapter.getMonth(this.activeDate),
       1
@@ -315,7 +315,7 @@ export class OuiMonthView<D> implements AfterContentInit {
       i < daysInMonth;
       i++, cell++
     ) {
-      if (cell == DAYS_PER_WEEK) {
+      if (cell === DAYS_PER_WEEK) {
         this._weeks.push([]);
         cell = 0;
       }
@@ -369,8 +369,8 @@ export class OuiMonthView<D> implements AfterContentInit {
     return !!(
       d1 &&
       d2 &&
-      this._dateAdapter.getMonth(d1) == this._dateAdapter.getMonth(d2) &&
-      this._dateAdapter.getYear(d1) == this._dateAdapter.getYear(d2)
+      this._dateAdapter.getMonth(d1) === this._dateAdapter.getMonth(d2) &&
+      this._dateAdapter.getYear(d1) === this._dateAdapter.getYear(d2)
     );
   }
 

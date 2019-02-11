@@ -30,6 +30,7 @@ export class OuiDatepickerToggleIcon {}
   selector: 'oui-datepicker-toggle',
   templateUrl: 'datepicker-toggle.html',
   styleUrls: ['datepicker-toggle.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-datepicker-toggle',
     // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
@@ -49,6 +50,7 @@ export class OuiDatepickerToggle<D>
   private _stateChanges = Subscription.EMPTY;
 
   /** Datepicker instance that the button will toggle. */
+  // tslint:disable-next-line:no-input-rename
   @Input('for') datepicker: OuiDatepicker<D>;
 
   /** Tabindex for the toggle. */

@@ -36,12 +36,14 @@ import { ThemePalette } from '../core/public-api';
 
 export const OUI_DATEPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiDatepickerInput),
   multi: true
 };
 
 export const OUI_DATEPICKER_VALIDATORS: any = {
   provide: NG_VALIDATORS,
+  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiDatepickerInput),
   multi: true
 };
@@ -64,7 +66,7 @@ export class OuiDatepickerInputEvent<D> {
     this.value = this.target.value;
   }
 }
-const DATEPICKER_FOCUS_CLASS: string = 'oui-datepicker-focused';
+const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
 
 /** Directive used to connect an input to a OuiDatepicker. */
 @Directive({
@@ -74,6 +76,7 @@ const DATEPICKER_FOCUS_CLASS: string = 'oui-datepicker-focused';
     OUI_DATEPICKER_VALIDATORS,
     { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput }
   ],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',
@@ -90,6 +93,29 @@ const DATEPICKER_FOCUS_CLASS: string = 'oui-datepicker-focused';
 })
 export class OuiDatepickerInput<D>
   implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator {
+  private _disabled: boolean;
+  /** Emits when a `change` event is fired on this `<input>`. */
+  @Output() readonly dateChange: EventEmitter<
+    OuiDatepickerInputEvent<D>
+  > = new EventEmitter<OuiDatepickerInputEvent<D>>();
+
+  /** Emits when an `input` event is fired on this `<input>`. */
+  @Output() readonly dateInput: EventEmitter<
+    OuiDatepickerInputEvent<D>
+  > = new EventEmitter<OuiDatepickerInputEvent<D>>();
+
+  /** Emits when the value changes (either due to user input or programmatic change). */
+  _valueChange = new EventEmitter<D | null>();
+
+  /** Emits when the disabled state has changed */
+  _disabledChange = new EventEmitter<boolean>();
+
+  private _datepickerSubscription = Subscription.EMPTY;
+
+  private _localeSubscription = Subscription.EMPTY;
+
+  /** Whether the last value set on the input was valid. */
+  private _lastValueValid = false;
   /** The datepicker that this input is associated with. */
   @Input()
   set ouiDatepicker(value: OuiDatepicker<D>) {
@@ -195,33 +221,12 @@ export class OuiDatepickerInput<D>
       element.blur();
     }
   }
-  private _disabled: boolean;
-
-  /** Emits when a `change` event is fired on this `<input>`. */
-  @Output() readonly dateChange: EventEmitter<
-    OuiDatepickerInputEvent<D>
-  > = new EventEmitter<OuiDatepickerInputEvent<D>>();
-
-  /** Emits when an `input` event is fired on this `<input>`. */
-  @Output() readonly dateInput: EventEmitter<
-    OuiDatepickerInputEvent<D>
-  > = new EventEmitter<OuiDatepickerInputEvent<D>>();
-
-  /** Emits when the value changes (either due to user input or programmatic change). */
-  _valueChange = new EventEmitter<D | null>();
-
-  /** Emits when the disabled state has changed */
-  _disabledChange = new EventEmitter<boolean>();
 
   _onTouched = () => {};
 
   private _cvaOnChange: (value: any) => void = () => {};
 
   private _validatorOnChange = () => {};
-
-  private _datepickerSubscription = Subscription.EMPTY;
-
-  private _localeSubscription = Subscription.EMPTY;
 
   /** The form control validator for whether the input parses. */
   private _parseValidator: ValidatorFn = (): ValidationErrors | null => {
@@ -271,15 +276,13 @@ export class OuiDatepickerInput<D>
   };
 
   /** The combined form control validator for this input. */
+  // tslint:disable-next-line:member-ordering
   private _validator: ValidatorFn | null = Validators.compose([
     this._parseValidator,
     this._minValidator,
     this._maxValidator,
     this._filterValidator
   ]);
-
-  /** Whether the last value set on the input was valid. */
-  private _lastValueValid = false;
 
   constructor(
     private _elementRef: ElementRef<HTMLInputElement>,

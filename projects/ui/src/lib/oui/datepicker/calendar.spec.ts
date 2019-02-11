@@ -18,6 +18,83 @@ const JAN = 0,
   NOV = 10,
   DEC = 11;
 
+@Component({
+  template: `
+    <oui-calendar
+      [startAt]="startDate"
+      [(selected)]="selected"
+      (yearSelected)="selectedYear = $event"
+      (monthSelected)="selectedMonth = $event"
+    >
+    </oui-calendar>
+  `
+})
+class StandardCalendar {
+  selected: Date;
+  selectedYear: Date;
+  selectedMonth: Date;
+  startDate = new Date(2017, JAN, 31);
+}
+
+@Component({
+  template: `
+    <oui-calendar
+      [startAt]="startAt"
+      [minDate]="minDate"
+      [maxDate]="maxDate"
+    ></oui-calendar>
+  `
+})
+class CalendarWithMinMax {
+  startAt: Date;
+  minDate = new Date(2016, JAN, 1);
+  maxDate = new Date(2018, JAN, 1);
+}
+
+@Component({
+  template: `
+    <oui-calendar
+      [startAt]="startDate"
+      [(selected)]="selected"
+      [dateFilter]="dateFilter"
+    >
+    </oui-calendar>
+  `
+})
+class CalendarWithDateFilter {
+  selected: Date;
+  startDate = new Date(2017, JAN, 1);
+
+  dateFilter(date: Date) {
+    return !(date.getDate() % 2) && date.getMonth() !== NOV;
+  }
+}
+
+@Component({
+  template: `
+    <oui-calendar
+      [startAt]="startAt"
+      (selectedChange)="select($event)"
+      [selected]="selected"
+      [minDate]="selected"
+    >
+    </oui-calendar>
+  `
+})
+class CalendarWithSelectableMinDate {
+  startAt = new Date(2018, JUL, 0);
+  selected: Date;
+  minDate: Date;
+
+  constructor() {
+    this.select(new Date(2018, JUL, 10));
+  }
+
+  select(value: Date) {
+    this.minDate = this.selected = value;
+  }
+}
+
 export class MockNgZone extends NgZone {
   onStable: EventEmitter<any> = new EventEmitter(false);
 
@@ -72,7 +149,7 @@ describe('OuiCalendar', () => {
       fixture = TestBed.createComponent(StandardCalendar);
       fixture.detectChanges();
 
-      let calendarDebugElement = fixture.debugElement.query(
+      const calendarDebugElement = fixture.debugElement.query(
         By.directive(OuiCalendar)
       );
       calendarElement = calendarDebugElement.nativeElement;
@@ -116,7 +193,7 @@ describe('OuiCalendar', () => {
     });
 
     it('should select date in month view', () => {
-      let monthCells = calendarElement.querySelectorAll(
+      const monthCells = calendarElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       (monthCells[monthCells.length - 1] as HTMLElement).click();
@@ -214,7 +291,7 @@ describe('OuiCalendar', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(CalendarWithMinMax);
 
-      let calendarDebugElement = fixture.debugElement.query(
+      const calendarDebugElement = fixture.debugElement.query(
         By.directive(OuiCalendar)
       );
       calendarElement = calendarDebugElement.nativeElement;
@@ -240,7 +317,7 @@ describe('OuiCalendar', () => {
       testComponent.startAt = new Date(2016, FEB, 1);
       fixture.detectChanges();
 
-      let prevButton = calendarElement.querySelector(
+      const prevButton = calendarElement.querySelector(
         '.oui-calendar-previous-button'
       ) as HTMLButtonElement;
 
@@ -269,7 +346,7 @@ describe('OuiCalendar', () => {
       testComponent.startAt = new Date(2017, DEC, 1);
       fixture.detectChanges();
 
-      let nextButton = calendarElement.querySelector(
+      const nextButton = calendarElement.querySelector(
         '.oui-calendar-next-button'
       ) as HTMLButtonElement;
 
@@ -439,7 +516,7 @@ describe('OuiCalendar', () => {
       fixture = TestBed.createComponent(CalendarWithDateFilter);
       fixture.detectChanges();
 
-      let calendarDebugElement = fixture.debugElement.query(
+      const calendarDebugElement = fixture.debugElement.query(
         By.directive(OuiCalendar)
       );
       calendarElement = calendarDebugElement.nativeElement;
@@ -448,7 +525,7 @@ describe('OuiCalendar', () => {
     });
 
     it('should disable and prevent selection of filtered dates', () => {
-      let cells = calendarElement.querySelectorAll('.oui-calendar-body-cell');
+      const cells = calendarElement.querySelectorAll('.oui-calendar-body-cell');
       (cells[0] as HTMLElement).click();
       fixture.detectChanges();
 
@@ -461,80 +538,3 @@ describe('OuiCalendar', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <oui-calendar
-      [startAt]="startDate"
-      [(selected)]="selected"
-      (yearSelected)="selectedYear = $event"
-      (monthSelected)="selectedMonth = $event"
-    >
-    </oui-calendar>
-  `
-})
-class StandardCalendar {
-  selected: Date;
-  selectedYear: Date;
-  selectedMonth: Date;
-  startDate = new Date(2017, JAN, 31);
-}
-
-@Component({
-  template: `
-    <oui-calendar
-      [startAt]="startAt"
-      [minDate]="minDate"
-      [maxDate]="maxDate"
-    ></oui-calendar>
-  `
-})
-class CalendarWithMinMax {
-  startAt: Date;
-  minDate = new Date(2016, JAN, 1);
-  maxDate = new Date(2018, JAN, 1);
-}
-
-@Component({
-  template: `
-    <oui-calendar
-      [startAt]="startDate"
-      [(selected)]="selected"
-      [dateFilter]="dateFilter"
-    >
-    </oui-calendar>
-  `
-})
-class CalendarWithDateFilter {
-  selected: Date;
-  startDate = new Date(2017, JAN, 1);
-
-  dateFilter(date: Date) {
-    return !(date.getDate() % 2) && date.getMonth() !== NOV;
-  }
-}
-
-@Component({
-  template: `
-    <oui-calendar
-      [startAt]="startAt"
-      (selectedChange)="select($event)"
-      [selected]="selected"
-      [minDate]="selected"
-    >
-    </oui-calendar>
-  `
-})
-class CalendarWithSelectableMinDate {
-  startAt = new Date(2018, JUL, 0);
-  selected: Date;
-  minDate: Date;
-
-  constructor() {
-    this.select(new Date(2018, JUL, 10));
-  }
-
-  select(value: Date) {
-    this.minDate = this.selected = value;
-  }
-}

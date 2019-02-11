@@ -18,6 +18,44 @@ export const JAN = 0,
   NOV = 10,
   DEC = 11;
 
+@Component({
+  template: `
+    <oui-year-view
+      [(activeDate)]="date"
+      [(selected)]="selected"
+      (monthSelected)="selectedMonth = $event"
+    ></oui-year-view>
+  `
+})
+class StandardYearView {
+  date = new Date(2017, JAN, 5);
+  selected = new Date(2017, MAR, 10);
+  selectedMonth: Date;
+
+  @ViewChild(OuiYearView) yearView: OuiYearView<Date>;
+}
+
+@Component({
+  template: `
+    <oui-year-view
+      [activeDate]="activeDate"
+      [dateFilter]="dateFilter"
+    ></oui-year-view>
+  `
+})
+class YearViewWithDateFilter {
+  activeDate = new Date(2017, JAN, 1);
+  dateFilter(date: Date) {
+    if (date.getMonth() === JAN) {
+      return date.getDate() === 10;
+    }
+    if (date.getMonth() === FEB) {
+      return false;
+    }
+    return true;
+  }
+}
+
 describe('OuiYearView', () => {
   let dir: { value: Direction };
   console.log(dir);
@@ -50,7 +88,7 @@ describe('OuiYearView', () => {
       fixture = TestBed.createComponent(StandardYearView);
       fixture.detectChanges();
 
-      let yearViewDebugElement = fixture.debugElement.query(
+      const yearViewDebugElement = fixture.debugElement.query(
         By.directive(OuiYearView)
       );
       yearViewNativeElement = yearViewDebugElement.nativeElement;
@@ -58,21 +96,21 @@ describe('OuiYearView', () => {
     });
 
     it('has correct year label', () => {
-      let labelEl = yearViewNativeElement.querySelector(
+      const labelEl = yearViewNativeElement.querySelector(
         '.oui-calendar-body-label'
       )!;
       expect(labelEl.innerHTML.trim()).toBe('2017');
     });
 
     it('has 12 months', () => {
-      let cellEls = yearViewNativeElement.querySelectorAll(
+      const cellEls = yearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       )!;
       expect(cellEls.length).toBe(12);
     });
 
     it('shows selected month if in same year', () => {
-      let selectedEl = yearViewNativeElement.querySelector(
+      const selectedEl = yearViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       )!;
       expect(selectedEl.innerHTML.trim()).toBe('MAR');
@@ -82,27 +120,27 @@ describe('OuiYearView', () => {
       testComponent.selected = new Date(2016, MAR, 10);
       fixture.detectChanges();
 
-      let selectedEl = yearViewNativeElement.querySelector(
+      const selectedEl = yearViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       );
       expect(selectedEl).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
-      let cellEls = yearViewNativeElement.querySelectorAll(
+      const cellEls = yearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
-      let selectedEl = yearViewNativeElement.querySelector(
+      const selectedEl = yearViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       )!;
       expect(selectedEl.innerHTML.trim()).toBe('DEC');
     });
 
     it('should emit the selected month on cell clicked', () => {
-      let cellEls = yearViewNativeElement.querySelectorAll(
+      const cellEls = yearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
 
@@ -114,7 +152,7 @@ describe('OuiYearView', () => {
     });
 
     it('should mark active date', () => {
-      let cellEls = yearViewNativeElement.querySelectorAll(
+      const cellEls = yearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       expect((cellEls[0] as HTMLElement).innerText.trim()).toBe('JAN');
@@ -155,41 +193,3 @@ describe('OuiYearView', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <oui-year-view
-      [(activeDate)]="date"
-      [(selected)]="selected"
-      (monthSelected)="selectedMonth = $event"
-    ></oui-year-view>
-  `
-})
-class StandardYearView {
-  date = new Date(2017, JAN, 5);
-  selected = new Date(2017, MAR, 10);
-  selectedMonth: Date;
-
-  @ViewChild(OuiYearView) yearView: OuiYearView<Date>;
-}
-
-@Component({
-  template: `
-    <oui-year-view
-      [activeDate]="activeDate"
-      [dateFilter]="dateFilter"
-    ></oui-year-view>
-  `
-})
-class YearViewWithDateFilter {
-  activeDate = new Date(2017, JAN, 1);
-  dateFilter(date: Date) {
-    if (date.getMonth() == JAN) {
-      return date.getDate() == 10;
-    }
-    if (date.getMonth() == FEB) {
-      return false;
-    }
-    return true;
-  }
-}
