@@ -36,7 +36,6 @@ import { createMissingDateImplError } from './datepicker-errors';
  * An internal component used to display a single year in the datepicker.
  */
 @Component({
-  moduleId: module.id,
   selector: 'oui-year-view',
   templateUrl: 'year-view.html',
   exportAs: 'ouiYearView',
