@@ -4,7 +4,7 @@ import { DateAdapter, OUI_DATE_LOCALE } from './date-adapter';
 
 // TODO(mmalerba): Remove when we no longer support safari 9.
 /** Whether the browser supports the Intl API. */
-const SUPPORTS_INTL_API = typeof Intl != 'undefined';
+const SUPPORTS_INTL_API = typeof Intl !== 'undefined';
 
 /** The default month names to use if Intl API is not available. */
 const DEFAULT_MONTH_NAMES = {
@@ -90,7 +90,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * it here for sometime, just for precaution, in case we decide to revert some of these changes
    * though.
    */
-  useUtcForDisplay: boolean = true;
+  useUtcForDisplay = true;
 
   constructor(
     @Optional() @Inject(OUI_DATE_LOCALE) ouiDateLocale: string,
@@ -172,9 +172,9 @@ export class NativeDateAdapter extends DateAdapter<Date> {
       throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
     }
 
-    let result = this._createDateWithOverflow(year, month, date);
+    const result = this._createDateWithOverflow(year, month, date);
     // Check that the date wasn't above the upper bound for the month, causing the month to overflow
-    if (result.getMonth() != month) {
+    if (result.getMonth() !== month) {
       throw Error(`Invalid date "${date}" for month with index "${month}".`);
     }
 
@@ -188,7 +188,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
   parse(value: any): Date | null {
     // We have no way using the native JS Date to set the parse format or locale, so we ignore these
     // parameters.
-    if (typeof value == 'number') {
+    if (typeof value === 'number') {
       return new Date(value);
     }
     return value ? new Date(Date.parse(value)) : null;
@@ -234,7 +234,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
     // guarantee this.
     if (
-      this.getMonth(newDate) !=
+      this.getMonth(newDate) !==
       (((this.getMonth(date) + months) % 12) + 12) % 12
     ) {
       newDate = this._createDateWithOverflow(
@@ -276,7 +276,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
       // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
       // string is the right format first.
       if (ISO_8601_REGEX.test(value)) {
-        let date = new Date(value);
+        const date = new Date(value);
         if (this.isValid(date)) {
           return date;
         }

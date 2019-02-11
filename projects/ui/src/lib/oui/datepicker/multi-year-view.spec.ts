@@ -18,6 +18,37 @@ export const JAN = 0,
   OCT = 9,
   NOV = 10,
   DEC = 11;
+@Component({
+  template: `
+    <oui-multi-year-view
+      [(activeDate)]="date"
+      [(selected)]="selected"
+      (yearSelected)="selectedYear = $event"
+    ></oui-multi-year-view>
+  `
+})
+class StandardMultiYearView {
+  date = new Date(2017, JAN, 1);
+  selected = new Date(2020, JAN, 1);
+  selectedYear: Date;
+
+  @ViewChild(OuiMultiYearView) multiYearView: OuiMultiYearView<Date>;
+}
+
+@Component({
+  template: `
+    <oui-multi-year-view
+      [activeDate]="activeDate"
+      [dateFilter]="dateFilter"
+    ></oui-multi-year-view>
+  `
+})
+class MultiYearViewWithDateFilter {
+  activeDate = new Date(2017, JAN, 1);
+  dateFilter(date: Date) {
+    return date.getFullYear() !== 2017;
+  }
+}
 
 describe('OuiMultiYearView', () => {
   let dir: { value: Direction };
@@ -51,7 +82,7 @@ describe('OuiMultiYearView', () => {
       fixture = TestBed.createComponent(StandardMultiYearView);
       fixture.detectChanges();
 
-      let multiYearViewDebugElement = fixture.debugElement.query(
+      const multiYearViewDebugElement = fixture.debugElement.query(
         By.directive(OuiMultiYearView)
       );
       multiYearViewNativeElement = multiYearViewDebugElement.nativeElement;
@@ -59,14 +90,14 @@ describe('OuiMultiYearView', () => {
     });
 
     it('has correct number of years', () => {
-      let cellEls = multiYearViewNativeElement.querySelectorAll(
+      const cellEls = multiYearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       )!;
       expect(cellEls.length).toBe(yearsPerPage);
     });
 
     it('shows selected year if in same range', () => {
-      let selectedEl = multiYearViewNativeElement.querySelector(
+      const selectedEl = multiYearViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       )!;
       expect(selectedEl.innerHTML.trim()).toBe('2020');
@@ -76,27 +107,27 @@ describe('OuiMultiYearView', () => {
       testComponent.selected = new Date(2040, JAN, 10);
       fixture.detectChanges();
 
-      let selectedEl = multiYearViewNativeElement.querySelector(
+      const selectedEl = multiYearViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       );
       expect(selectedEl).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
-      let cellEls = multiYearViewNativeElement.querySelectorAll(
+      const cellEls = multiYearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
-      let selectedEl = multiYearViewNativeElement.querySelector(
+      const selectedEl = multiYearViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       )!;
       expect(selectedEl.innerHTML.trim()).toBe('2039');
     });
 
     it('should emit the selected year on cell clicked', () => {
-      let cellEls = multiYearViewNativeElement.querySelectorAll(
+      const cellEls = multiYearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
 
@@ -108,7 +139,7 @@ describe('OuiMultiYearView', () => {
     });
 
     it('should mark active date', () => {
-      let cellEls = multiYearViewNativeElement.querySelectorAll(
+      const cellEls = multiYearViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       expect((cellEls[1] as HTMLElement).innerText.trim()).toBe('2017');
@@ -139,35 +170,3 @@ describe('OuiMultiYearView', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <oui-multi-year-view
-      [(activeDate)]="date"
-      [(selected)]="selected"
-      (yearSelected)="selectedYear = $event"
-    ></oui-multi-year-view>
-  `
-})
-class StandardMultiYearView {
-  date = new Date(2017, JAN, 1);
-  selected = new Date(2020, JAN, 1);
-  selectedYear: Date;
-
-  @ViewChild(OuiMultiYearView) multiYearView: OuiMultiYearView<Date>;
-}
-
-@Component({
-  template: `
-    <oui-multi-year-view
-      [activeDate]="activeDate"
-      [dateFilter]="dateFilter"
-    ></oui-multi-year-view>
-  `
-})
-class MultiYearViewWithDateFilter {
-  activeDate = new Date(2017, JAN, 1);
-  dateFilter(date: Date) {
-    return date.getFullYear() !== 2017;
-  }
-}

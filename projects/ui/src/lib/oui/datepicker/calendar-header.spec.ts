@@ -12,6 +12,24 @@ const JAN = 0,
   FEB = 1,
   DEC = 11;
 
+@Component({
+  template: `
+    <oui-calendar
+      [startAt]="startDate"
+      [(selected)]="selected"
+      (yearSelected)="selectedYear = $event"
+      (monthSelected)="selectedMonth = $event"
+    >
+    </oui-calendar>
+  `
+})
+class StandardCalendar {
+  selected: Date;
+  selectedYear: Date;
+  selectedMonth: Date;
+  startDate = new Date(2017, JAN, 31);
+}
+
 describe('OuiCalendarHeader', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -42,7 +60,7 @@ describe('OuiCalendarHeader', () => {
       fixture = TestBed.createComponent(StandardCalendar);
       fixture.detectChanges();
 
-      let calendarDebugElement = fixture.debugElement.query(
+      const calendarDebugElement = fixture.debugElement.query(
         By.directive(OuiCalendar)
       );
       calendarElement = calendarDebugElement.nativeElement;
@@ -145,7 +163,7 @@ describe('OuiCalendarHeader', () => {
       expect(calendarInstance.currentView).toBe('multi-year');
       expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-      let yearCells = calendarElement.querySelectorAll(
+      const yearCells = calendarElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       (yearCells[0] as HTMLElement).click();
@@ -154,7 +172,7 @@ describe('OuiCalendarHeader', () => {
       expect(calendarInstance.currentView).toBe('year');
       expect(calendarInstance.activeDate).toEqual(new Date(2016, JAN, 31));
 
-      let monthCells = calendarElement.querySelectorAll(
+      const monthCells = calendarElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       (monthCells[monthCells.length - 1] as HTMLElement).click();
@@ -168,21 +186,3 @@ describe('OuiCalendarHeader', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <oui-calendar
-      [startAt]="startDate"
-      [(selected)]="selected"
-      (yearSelected)="selectedYear = $event"
-      (monthSelected)="selectedMonth = $event"
-    >
-    </oui-calendar>
-  `
-})
-class StandardCalendar {
-  selected: Date;
-  selectedYear: Date;
-  selectedMonth: Date;
-  startDate = new Date(2017, JAN, 31);
-}

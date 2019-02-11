@@ -7,6 +7,48 @@ import {
 } from './calendar-body';
 import { By } from '@angular/platform-browser';
 
+@Component({
+  template: `
+    <table
+      oui-calendar-body
+      [label]="label"
+      [rows]="rows"
+      [todayValue]="todayValue"
+      [selectedValue]="selectedValue"
+      [labelMinRequiredCells]="labelMinRequiredCells"
+      [numCols]="numCols"
+      [activeCell]="10"
+      (selectedValueChange)="onSelect($event)"
+    ></table>
+  `
+})
+class StandardCalendarBody {
+  label = 'Jan 2017';
+  rows = [[1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14]].map(row => {
+    return row.map(cell =>
+      createCell(cell, cell % 2 === 0 ? 'even' : undefined)
+    );
+  });
+  todayValue = 3;
+  selectedValue = 4;
+  labelMinRequiredCells = 3;
+  numCols = 7;
+
+  onSelect(value: number) {
+    this.selectedValue = value;
+  }
+}
+
+function createCell(value: number, cellClasses?: OuiCalendarCellCssClasses) {
+  return new OuiCalendarCell(
+    value,
+    `${value}`,
+    `${value}-label`,
+    true,
+    cellClasses
+  );
+}
+
 describe('OuiCalendarBody', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -134,45 +176,3 @@ describe('OuiCalendarBody', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <table
-      oui-calendar-body
-      [label]="label"
-      [rows]="rows"
-      [todayValue]="todayValue"
-      [selectedValue]="selectedValue"
-      [labelMinRequiredCells]="labelMinRequiredCells"
-      [numCols]="numCols"
-      [activeCell]="10"
-      (selectedValueChange)="onSelect($event)"
-    ></table>
-  `
-})
-class StandardCalendarBody {
-  label = 'Jan 2017';
-  rows = [[1, 2, 3, 4, 5, 6, 7], [8, 9, 10, 11, 12, 13, 14]].map(row => {
-    return row.map(cell =>
-      createCell(cell, cell % 2 === 0 ? 'even' : undefined)
-    );
-  });
-  todayValue = 3;
-  selectedValue = 4;
-  labelMinRequiredCells = 3;
-  numCols = 7;
-
-  onSelect(value: number) {
-    this.selectedValue = value;
-  }
-}
-
-function createCell(value: number, cellClasses?: OuiCalendarCellCssClasses) {
-  return new OuiCalendarCell(
-    value,
-    `${value}`,
-    `${value}-label`,
-    true,
-    cellClasses
-  );
-}

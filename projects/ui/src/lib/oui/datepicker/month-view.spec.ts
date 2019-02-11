@@ -19,6 +19,49 @@ export const JAN = 0,
   NOV = 10,
   DEC = 11;
 
+@Component({
+  template: `
+    <oui-month-view
+      [(activeDate)]="date"
+      [(selected)]="selected"
+    ></oui-month-view>
+  `
+})
+class StandardMonthView {
+  date = new Date(2017, JAN, 5);
+  selected = new Date(2017, JAN, 10);
+}
+
+@Component({
+  template: `
+    <oui-month-view
+      [activeDate]="activeDate"
+      [dateFilter]="dateFilter"
+    ></oui-month-view>
+  `
+})
+class MonthViewWithDateFilter {
+  activeDate = new Date(2017, JAN, 1);
+  dateFilter(date: Date) {
+    return date.getDate() % 2 === 0;
+  }
+}
+
+@Component({
+  template: `
+    <oui-month-view
+      [activeDate]="activeDate"
+      [dateClass]="dateClass"
+    ></oui-month-view>
+  `
+})
+class MonthViewWithDateClass {
+  activeDate = new Date(2017, JAN, 1);
+  dateClass(date: Date) {
+    return date.getDate() % 2 === 0 ? 'even' : undefined;
+  }
+}
+
 describe('OuiMonthView', () => {
   let dir: { value: Direction };
   console.log(dir);
@@ -52,7 +95,7 @@ describe('OuiMonthView', () => {
       fixture = TestBed.createComponent(StandardMonthView);
       fixture.detectChanges();
 
-      let monthViewDebugElement = fixture.debugElement.query(
+      const monthViewDebugElement = fixture.debugElement.query(
         By.directive(OuiMonthView)
       );
       monthViewNativeElement = monthViewDebugElement.nativeElement;
@@ -60,21 +103,21 @@ describe('OuiMonthView', () => {
     });
 
     it('has correct month label', () => {
-      let labelEl = monthViewNativeElement.querySelector(
+      const labelEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-label'
       )!;
       expect(labelEl.innerHTML.trim()).toBe('JAN');
     });
 
     it('has 31 days', () => {
-      let cellEls = monthViewNativeElement.querySelectorAll(
+      const cellEls = monthViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       )!;
       expect(cellEls.length).toBe(31);
     });
 
     it('shows selected date if in same month', () => {
-      let selectedEl = monthViewNativeElement.querySelector(
+      const selectedEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       )!;
       expect(selectedEl.innerHTML.trim()).toBe('10');
@@ -84,27 +127,27 @@ describe('OuiMonthView', () => {
       testComponent.selected = new Date(2017, MAR, 10);
       fixture.detectChanges();
 
-      let selectedEl = monthViewNativeElement.querySelector(
+      const selectedEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       );
       expect(selectedEl).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
-      let cellEls = monthViewNativeElement.querySelectorAll(
+      const cellEls = monthViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       (cellEls[cellEls.length - 1] as HTMLElement).click();
       fixture.detectChanges();
 
-      let selectedEl = monthViewNativeElement.querySelector(
+      const selectedEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-selected'
       )!;
       expect(selectedEl.innerHTML.trim()).toBe('31');
     });
 
     it('should mark active date', () => {
-      let cellEls = monthViewNativeElement.querySelectorAll(
+      const cellEls = monthViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       expect((cellEls[4] as HTMLElement).innerText.trim()).toBe('5');
@@ -120,14 +163,14 @@ describe('OuiMonthView', () => {
       fixture = TestBed.createComponent(MonthViewWithDateFilter);
       fixture.detectChanges();
 
-      let monthViewDebugElement = fixture.debugElement.query(
+      const monthViewDebugElement = fixture.debugElement.query(
         By.directive(OuiMonthView)
       );
       monthViewNativeElement = monthViewDebugElement.nativeElement;
     });
 
     it('should disable filtered dates', () => {
-      let cells = monthViewNativeElement.querySelectorAll(
+      const cells = monthViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       expect(cells[0].classList).toContain('oui-calendar-body-disabled');
@@ -143,14 +186,14 @@ describe('OuiMonthView', () => {
       fixture = TestBed.createComponent(MonthViewWithDateClass);
       fixture.detectChanges();
 
-      let monthViewDebugElement = fixture.debugElement.query(
+      const monthViewDebugElement = fixture.debugElement.query(
         By.directive(OuiMonthView)
       );
       monthViewNativeElement = monthViewDebugElement.nativeElement;
     });
 
     it('should be able to add a custom class to some dates', () => {
-      let cells = monthViewNativeElement.querySelectorAll(
+      const cells = monthViewNativeElement.querySelectorAll(
         '.oui-calendar-body-cell'
       );
       expect(cells[0].classList).not.toContain('even');
@@ -158,46 +201,3 @@ describe('OuiMonthView', () => {
     });
   });
 });
-
-@Component({
-  template: `
-    <oui-month-view
-      [(activeDate)]="date"
-      [(selected)]="selected"
-    ></oui-month-view>
-  `
-})
-class StandardMonthView {
-  date = new Date(2017, JAN, 5);
-  selected = new Date(2017, JAN, 10);
-}
-
-@Component({
-  template: `
-    <oui-month-view
-      [activeDate]="activeDate"
-      [dateFilter]="dateFilter"
-    ></oui-month-view>
-  `
-})
-class MonthViewWithDateFilter {
-  activeDate = new Date(2017, JAN, 1);
-  dateFilter(date: Date) {
-    return date.getDate() % 2 == 0;
-  }
-}
-
-@Component({
-  template: `
-    <oui-month-view
-      [activeDate]="activeDate"
-      [dateClass]="dateClass"
-    ></oui-month-view>
-  `
-})
-class MonthViewWithDateClass {
-  activeDate = new Date(2017, JAN, 1);
-  dateClass(date: Date) {
-    return date.getDate() % 2 == 0 ? 'even' : undefined;
-  }
-}

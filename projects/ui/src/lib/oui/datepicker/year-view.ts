@@ -50,7 +50,7 @@ export class OuiYearView<D> implements AfterContentInit {
     return this._activeDate;
   }
   set activeDate(value: D) {
-    let oldActiveDate = this._activeDate;
+    const oldActiveDate = this._activeDate;
     const validDate =
       this._getValidDateOrNull(this._dateAdapter.deserialize(value)) ||
       this._dateAdapter.today();
@@ -258,7 +258,7 @@ export class OuiYearView<D> implements AfterContentInit {
     this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
     this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
 
-    let monthNames = this._dateAdapter.getMonthNames('short');
+    const monthNames = this._dateAdapter.getMonthNames('short');
     // First row of months only contains 5 elements so we can fit the year label on the same row.
     this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(row =>
       row.map(month => this._createCellForMonth(month, monthNames[month]))
@@ -277,7 +277,7 @@ export class OuiYearView<D> implements AfterContentInit {
    */
   private _getMonthInCurrentYear(date: D | null) {
     return date &&
-      this._dateAdapter.getYear(date) ==
+      this._dateAdapter.getYear(date) ===
         this._dateAdapter.getYear(this.activeDate)
       ? this._dateAdapter.getMonth(date)
       : null;
@@ -285,7 +285,7 @@ export class OuiYearView<D> implements AfterContentInit {
 
   /** Creates an OuiCalendarCell for the given month. */
   private _createCellForMonth(month: number, monthName: string) {
-    let ariaLabel = this._dateAdapter.format(
+    const ariaLabel = this._dateAdapter.format(
       this._dateAdapter.createDate(
         this._dateAdapter.getYear(this.activeDate),
         month,
@@ -323,7 +323,7 @@ export class OuiYearView<D> implements AfterContentInit {
     // If any date in the month is enabled count the month as enabled.
     for (
       let date = firstOfMonth;
-      this._dateAdapter.getMonth(date) == month;
+      this._dateAdapter.getMonth(date) === month;
       date = this._dateAdapter.addCalendarDays(date, 1)
     ) {
       if (this.dateFilter(date)) {

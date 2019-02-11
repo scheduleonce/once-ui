@@ -47,6 +47,7 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
 export class OuiCalendarHeader<D> {
   constructor(
     private _intl: OuiDatepickerIntl,
+    // tslint:disable-next-line:no-use-before-declare
     @Inject(forwardRef(() => OuiCalendar)) public calendar: OuiCalendar<D>,
     @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
@@ -59,7 +60,7 @@ export class OuiCalendarHeader<D> {
 
   /** The label for the current calendar view. */
   get periodButtonText(): string {
-    if (this.calendar.currentView == 'month') {
+    if (this.calendar.currentView === 'month') {
       return this._dateAdapter
         .format(
           this.calendar.activeDate,
@@ -67,7 +68,7 @@ export class OuiCalendarHeader<D> {
         )
         .toLocaleUpperCase();
     }
-    if (this.calendar.currentView == 'year') {
+    if (this.calendar.currentView === 'year') {
       return this._dateAdapter.getYearName(this.calendar.activeDate);
     }
     const activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
@@ -85,7 +86,7 @@ export class OuiCalendarHeader<D> {
   }
 
   get periodButtonLabel(): string {
-    return this.calendar.currentView == 'month'
+    return this.calendar.currentView === 'month'
       ? this._intl.switchToMultiYearViewLabel
       : this._intl.switchToMonthViewLabel;
   }
@@ -111,28 +112,28 @@ export class OuiCalendarHeader<D> {
   /** Handles user clicks on the period label. */
   currentPeriodClicked(): void {
     this.calendar.currentView =
-      this.calendar.currentView == 'month' ? 'multi-year' : 'month';
+      this.calendar.currentView === 'month' ? 'multi-year' : 'month';
   }
 
   /** Handles user clicks on the previous button. */
   previousClicked(): void {
     this.calendar.activeDate =
-      this.calendar.currentView == 'month'
+      this.calendar.currentView === 'month'
         ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, -1)
         : this._dateAdapter.addCalendarYears(
             this.calendar.activeDate,
-            this.calendar.currentView == 'year' ? -1 : -yearsPerPage
+            this.calendar.currentView === 'year' ? -1 : -yearsPerPage
           );
   }
 
   /** Handles user clicks on the next button. */
   nextClicked(): void {
     this.calendar.activeDate =
-      this.calendar.currentView == 'month'
+      this.calendar.currentView === 'month'
         ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, 1)
         : this._dateAdapter.addCalendarYears(
             this.calendar.activeDate,
-            this.calendar.currentView == 'year' ? 1 : yearsPerPage
+            this.calendar.currentView === 'year' ? 1 : yearsPerPage
           );
   }
 
@@ -157,20 +158,20 @@ export class OuiCalendarHeader<D> {
 
   /** Whether the two dates represent the same view in the current view mode (month or year). */
   private _isSameView(date1: D, date2: D): boolean {
-    if (this.calendar.currentView == 'month') {
+    if (this.calendar.currentView === 'month') {
       return (
-        this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2) &&
-        this._dateAdapter.getMonth(date1) == this._dateAdapter.getMonth(date2)
+        this._dateAdapter.getYear(date1) === this._dateAdapter.getYear(date2) &&
+        this._dateAdapter.getMonth(date1) === this._dateAdapter.getMonth(date2)
       );
     }
-    if (this.calendar.currentView == 'year') {
+    if (this.calendar.currentView === 'year') {
       return (
-        this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2)
+        this._dateAdapter.getYear(date1) === this._dateAdapter.getYear(date2)
       );
     }
     // Otherwise we are in 'multi-year' view.
     return (
-      Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
+      Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ===
       Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage)
     );
   }
@@ -184,6 +185,7 @@ export class OuiCalendarHeader<D> {
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-calendar'
   },
@@ -391,10 +393,10 @@ export class OuiCalendar<D>
 
   /** Updates today's date after an update of the active date */
   updateTodaysDate() {
-    let view =
-      this.currentView == 'month'
+    const view =
+      this.currentView === 'month'
         ? this.monthView
-        : this.currentView == 'year'
+        : this.currentView === 'year'
         ? this.yearView
         : this.multiYearView;
 

@@ -77,6 +77,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-datepicker-content',
     '[@transformPanel]': '"enter"',
@@ -89,6 +90,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   exportAs: 'ouiDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['color']
 })
 export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
@@ -213,9 +215,11 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   @Input() dateClass: (date: D) => OuiCalendarCellCssClasses;
 
   /** Emits when the datepicker has been opened. */
+  // tslint:disable-next-line:no-output-rename
   @Output('opened') openedStream: EventEmitter<void> = new EventEmitter<void>();
 
   /** Emits when the datepicker has been closed. */
+  // tslint:disable-next-line:no-output-rename
   @Output('closed') closedStream: EventEmitter<void> = new EventEmitter<void>();
 
   /** Whether the calendar is open. */
@@ -229,7 +233,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _opened = false;
 
   /** The id for the datepicker calendar. */
-  id: string = `oui-datepicker-${datepickerUid++}`;
+  id = `oui-datepicker-${datepickerUid++}`;
 
   /** The currently selected date. */
   get _selected(): D | null {
@@ -311,7 +315,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
 
   /** Selects the given date */
   select(date: D): void {
-    let oldValue = this._selected;
+    const oldValue = this._selected;
     this._selected = date;
     if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
       this._selectedChanged.next(date);
