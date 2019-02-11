@@ -37,7 +37,6 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
 
 /** Default header for OuiCalendar */
 @Component({
-  moduleId: module.id,
   selector: 'oui-calendar-header',
   templateUrl: 'calendar-header.html',
   exportAs: 'ouiCalendarHeader',
@@ -181,7 +180,6 @@ export class OuiCalendarHeader<D> {
  * A calendar that is used as part of the datepicker.
  */
 @Component({
-  moduleId: module.id,
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],

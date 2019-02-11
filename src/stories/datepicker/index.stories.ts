@@ -2,14 +2,7 @@ import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { date, select, boolean } from '@storybook/addon-knobs';
 import { COLORS } from '../const';
-import {
-  Component,
-  ViewChild,
-  Output,
-  EventEmitter,
-  Input,
-  OnInit
-} from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import markdownText from '../../../projects/ui/src/lib/oui/datepicker/README.md';
 import {
   OuiDatepickerModule,

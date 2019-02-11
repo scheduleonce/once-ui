@@ -73,7 +73,6 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
  * future. (e.g. confirmation buttons).
  */
 @Component({
-  moduleId: module.id,
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
@@ -118,7 +117,6 @@ export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
-  moduleId: module.id,
   selector: 'oui-datepicker',
   template: '',
   exportAs: 'ouiDatepicker',
