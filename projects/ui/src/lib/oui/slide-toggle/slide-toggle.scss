@@ -48,6 +48,7 @@ input + .slider:before {
   text-align: center;
   height: 15px;
   line-height: 15px;
+  box-sizing: content-box;
 }
 
 input:checked + .slider:before {
