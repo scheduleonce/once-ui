@@ -2,9 +2,77 @@
 @import '../core/theming/theming';
 @import '../core/style/form-common';
 
+//@mixin oui-select-theme($theme) {
+//  .oui-select-panel {
+//    background: #fff;
+//  }
+//}
+
+//
+//@mixin oui-select-theme($theme) {
+//  $foreground: map-get($theme, foreground);
+//  $background: map-get($theme, background);
+//  $primary: map-get($theme, primary);
+//  $accent: map-get($theme, accent);
+//  $warn: map-get($theme, warn);
+//
+//  .oui-select-value {
+//    color: map-get($foreground, default);
+//  }
+//
+//  .oui-select-placeholder {
+//    color: _oui-control-placeholder-color($theme);
+//  }
+//
+
+//
+//  .oui-focused.oui-primary
+//  .oui-focused.oui-accent,
+//  .oui-focused.oui-warn {
+//
+//
+//      &.oui-accent .oui-select-arrow {
+//        color: map-get($accent, default);
+//      }
+//
+//      &.oui-warn .oui-select-arrow {
+//        color: map-get($warn, default);
+//      }
+//    }
+//
+//    .oui-select.oui-select-invalid .oui-select-arrow {
+//      color: map-get($warn, default);
+//    }
+//
+//    .oui-select.oui-select-disabled .oui-select-arrow {
+//      color: map-get($foreground, default);
+//    }
+//}
+
+.oui-select-panel {
+  background: #fff;
+}
+/*generating themes for oui-icon(Primary buttons)*/
 @mixin oui-select-theme($theme) {
-  .oui-select-panel {
-    background: #fff;
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  &.oui-focused {
+    .oui-select-arrow {
+      color: map-get($primary, default);
+    }
+    &.oui-accent .oui-input,
+    &.oui-accent .oui-select-arrow {
+      color: map-get($accent, default);
+    }
+    &.oui-warn .oui-input,
+    &.oui-warn .oui-select-arrow {
+      color: map-get($warn, default);
+    }
+
+    &.oui-warn .oui-select-arrow {
+      border-color: map-get($warn, default);
+    }
   }
 }
-

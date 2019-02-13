@@ -4,9 +4,9 @@ import {
   Input,
   ChangeDetectionStrategy,
   Inject,
-  Optional,
+  Optional
 } from '@angular/core';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /**
  * Possible states for a pseudo checkbox.
@@ -35,11 +35,11 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   styleUrls: ['pseudo-checkbox.scss'],
   template: '',
   host: {
-    'class': 'oui-pseudo-checkbox',
+    class: 'oui-pseudo-checkbox',
     '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
     '[class.oui-pseudo-checkbox-disabled]': 'disabled',
-    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
-  },
+    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"'
+  }
 })
 export class OuiPseudoCheckbox {
   /** Display state of the checkbox. */
@@ -48,5 +48,7 @@ export class OuiPseudoCheckbox {
   /** Whether the checkbox is disabled. */
   @Input() disabled: boolean = false;
 
-  constructor(@Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string) { }
+  constructor(
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
+  ) {}
 }
