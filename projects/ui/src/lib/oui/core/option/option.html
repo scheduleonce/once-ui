@@ -1,6 +1,8 @@
-<oui-pseudo-checkbox *ngIf="multiple" class="oui-option-pseudo-checkbox"
-                     [state]="selected ? 'checked' : ''" [disabled]="disabled"></oui-pseudo-checkbox>
+<oui-pseudo-checkbox
+  *ngIf="multiple"
+  class="oui-option-pseudo-checkbox"
+  [state]="selected ? 'checked' : ''"
+  [disabled]="disabled"
+></oui-pseudo-checkbox>
 
-<span class="oui-option-text">
-  <ng-content></ng-content>
-</span>
+<span class="oui-option-text"> <ng-content></ng-content> </span>

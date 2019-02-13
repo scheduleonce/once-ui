@@ -1,18 +1,31 @@
-<div cdk-overlay-origin
-     class="oui-select-trigger"
-     aria-hidden="true"
-     (click)="toggle()"
-     #origin="cdkOverlayOrigin"
-     #trigger>
+<div
+  cdk-overlay-origin
+  class="oui-select-trigger"
+  aria-hidden="true"
+  (click)="toggle($event)"
+  #origin="cdkOverlayOrigin"
+  #trigger
+>
   <div class="oui-select-value" [ngSwitch]="empty">
-    <span class="oui-select-placeholder" *ngSwitchCase="true">{{placeholder}}</span>
-    <span class="oui-select-value-text" *ngSwitchCase="false" [ngSwitch]="!!customTrigger">
-      <span *ngSwitchDefault [innerHTML]="triggerValue | noSanitize"></span>
+    <span class="oui-select-placeholder" *ngSwitchCase="true"
+      >{{placeholder}}</span
+    >
+    <span
+      class="oui-select-value-text"
+      *ngSwitchCase="false"
+      [ngSwitch]="!!customTrigger"
+    >
+      <span
+        *ngSwitchDefault
+        [innerHTML]="bypassSecurityTrustHtml(triggerValue)"
+      ></span>
       <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
     </span>
   </div>
 
-  <div class="oui-select-arrow-wrapper"><div class="oui-select-arrow"></div></div>
+  <div class="oui-select-arrow-wrapper">
+    <div class="oui-select-arrow"></div>
+  </div>
 </div>
 
 <ng-template
@@ -25,14 +38,16 @@
   [cdkConnectedOverlayOpen]="panelOpen"
   [cdkConnectedOverlayMinWidth]="_triggerRect?.width"
   (backdropClick)="close()"
-  (attach)="_onAttached()"
-  (detach)="close()">
-  <div
+  (detach)="close()"
+>
+  <perfect-scrollbar
+    [config]="config"
+    class="scrollbar-active oui-select-panel"
     #panel
-    class="oui-select-panel"
     [ngClass]="panelClass"
-    (keydown)="_handleKeydown($event)">
+    (keydown)="_handleKeydown($event)"
+    [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
+  >
     <ng-content></ng-content>
-  </div>
+  </perfect-scrollbar>
 </ng-template>
-

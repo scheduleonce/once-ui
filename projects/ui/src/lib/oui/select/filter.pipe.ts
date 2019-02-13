@@ -5,13 +5,15 @@
  */
 import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
-  name: 'filter'
+  name: 'filterOptions'
 })
 export class FilterPipe implements PipeTransform {
-  transform(items: any[], searchText: string, field: string): any[] {
+  transform(items: any[], searchText: string, field: string = 'value'): any[] {
     if (!items) {
       return [];
     }
+    const noResultObject = Object.keys(items[0]);
+
     if (!searchText) {
       return items;
     }
@@ -20,12 +22,22 @@ export class FilterPipe implements PipeTransform {
     items = items.filter(it => {
       return it[field] && it[field].toLowerCase().includes(searchText);
     });
+
     if (!items.length) {
       items = [];
-      items.push({
-        [field]: `No results match "${searchText}"`,
-        value: 'no_result'
-      });
+
+      let noResult =
+        noResultObject[0] === field
+          ? {
+              [noResultObject[0]]: `No results match "${searchText}"`,
+              [noResultObject[1]]: ''
+            }
+          : {
+              [noResultObject[1]]: `No results match "${searchText}"`,
+              [noResultObject[0]]: ''
+            };
+
+      items.push(noResult);
     }
     return items;
   }

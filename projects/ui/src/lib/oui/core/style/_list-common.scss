@@ -15,7 +15,7 @@
     box-sizing: border-box;
 
     // all lines but the top line should have smaller text
-    &:nth-child(n+2) {
+    &:nth-child(n + 2) {
       font-size: $secondary-font-size;
     }
   }
