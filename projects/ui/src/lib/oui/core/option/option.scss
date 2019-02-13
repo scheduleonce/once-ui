@@ -44,11 +44,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.oui-checkbox-inner-container {display:none;}
-
-.oui-option-multiple {
-  .oui-checkbox-inner-container {display:block;}
-}
 
 .oui-option-pseudo-checkbox {
   $margin: $oui-menu-side-padding / 2;

@@ -12,7 +12,7 @@ To add options to the select, add <oui-option> elements to the `<oui-select>`. E
 
 The `<oui-select>` supports 2-way binding to the value property without the need for Angular forms.
 [Oui select with 2 way value binding](https://stackblitz.com/edit/oui-select-with-2-way-value-binding)
-  
+
 ## Form field features
 
 There are a number of `<oui-form-field>` features that can be used with both `<select>` and `<oui-select>`. These include error messages, hint text, prefix & suffix, and theming.
@@ -40,7 +40,6 @@ The `<oui-optgroup>` element can be used to group common options under a subhead
 ## Multiple selection
 
 `<oui-select>` defaults to single-selection mode, but can be configured to allow multiple selection by setting the multiple property. This will allow the user to select multiple values at once. When using the `<oui-select>` in multiple selection mode, its value will be a sorted list of all selected values rather than a single value.
-
 
 [Oui select multiple selection](https://stackblitz.com/edit/oui-select-multiple-selection)
 
@@ -103,39 +102,63 @@ Selector: oui-select-trigger
 Selector: oui-select
 Exported as: ouiSelect
 
+## Pipes
+
+**filterOptions**
+This allows to filter the select box options
+
+Selector: filterOptions
+
+**How to use?**
+
+```
+  *ngFor="let bank of (banks | filterOptions: test:'name')"
+
+  Param 1: The keyword
+  Param 2: The field name
+```
+
+## Component
+
+**oui-select-search**
+
+This component can be used if someone want to have the search input field inside the select box.
+
+```angular2html
+  <oui-select-search [(ngModel)]="test"></oui-select-search>
+```
+
 ## Properties
 
-| Name                                                         | Description                                                                                                                                                                           |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| @Input('aria-label') ariaLabel: string                       | Aria label of the select. If not specified, the placeholder will be used as label.                                                                                                    |
-| @Input('aria-labelledby') ariaLabelledby: string             | Input that can be used to specify the aria-labelledby attribute.                                                                                                                      |
-| @Input() compareWith: (o1: any, o2: any) => boolean          | Function to compare the option values with the selected values. The first argument is a value from an option. The second is a value from the selection. A boolean should be returned. |
-| @Input() disableOptionCentering: boolean                     | Whether to center the active option over the trigger.                                                                                                                                 |
-| @Input() disabled: boolean                                   | Whether the component is disabled.                                                                                                                                                    |
-| @Input() errorStateMatcher: ErrorStateMatcher                | Object used to control when error messages are shown.                                                                                                                                 |
-| @Input() id: string                                          | Unique id of the element.                                                                                                                                                             |
-| @Input() multiple: boolean                                   | Whether the user should be allowed to select multiple options.                                                                                                                        |
-| @Input() panelClass: string                                  | Classes to be passed to the select panel. Supports the same syntax as ngClass.                                                                                                        |
-| @Input() placeholder: string                                 | Placeholder to be shown if no value has been selected.                                                                                                                                |
-| @Input() required: boolean                                   | Whether the component is required.                                                                                                                                                    |
-| @Input() value: any                                          | Value of the select control.                                                                                                                                                          |
-| @Output() openedChange: EventEmitter`<boolean>`                | Event emitted when the select panel has been toggled.                                                                                                                                 |
-| @Output() selectionChange: EventEmitter`<OuiSelectChange>`     | Event emitted when the selected value has been changed by the user.                                                                                                                   |
-| autofilled: boolean                                          | Whether the input is currently in an autofilled state. If property is not present on the control it is assumed to be false.                                                           |
-| controlType: 'oui-select'                                    | A name for this control that can be used by oui-form-field.                                                                                                                           |
-| empty: boolean                                               | Whether the select has a value.                                                                                                                                                       |
-| errorState: boolean                                          | Whether the control is in an error state.                                                                                                                                             |
-| focused: boolean                                             | Whether the select is focused.                                                                                                                                                        |
-| optionGroups: QueryList<OuiOptgroup>                         | All of the defined groups of options.                                                                                                                                                 |
-| optionSelectionChanges: Observable<OuiOptionSelectionChange> | Combined stream of all of the child options' change events.                                                                                                                           |
-| options: QueryList<OuiOption>                                | All of the defined select options.                                                                                                                                                    |
-| overlayDir: CdkConnectedOverlay                              | Overlay pane containing the options.                                                                                                                                                  |
-| panel: ElementRef                                            | Panel containing the select options.                                                                                                                                                  |
-| panelOpen: boolean                                           | Whether or not the overlay panel is open.                                                                                                                                             |
-| selected: OuiOption                                          | OuiOption[]                                                                                                                                                                           | The currently selected option. |
-| stateChanges: Observable`<void>`                               | Stream that emits whenever the state of the control changes such that the parent OuiFormField needs to run change detection.                                                          |
-| trigger: ElementRef                                          | Trigger that opens the select.                                                                                                                                                        |
-| triggerValue: string                                         | The value displayed in the trigger.                                                                                                                                                   |
+| Name                                                         | Description                                                                                                                  |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| @Input('aria-label') ariaLabel: string                       | Aria label of the select. If not specified, the placeholder will be used as label.                                           |
+| @Input('aria-labelledby') ariaLabelledby: string             | Input that can be used to specify the aria-labelledby attribute.                                                             |
+| @Input() disabled: boolean                                   | Whether the component is disabled.                                                                                           |
+| @Input() errorStateMatcher: ErrorStateMatcher                | Object used to control when error messages are shown.                                                                        |
+| @Input() id: string                                          | Unique id of the element.                                                                                                    |
+| @Input() multiple: boolean                                   | Whether the user should be allowed to select multiple options.                                                               |
+| @Input() panelClass: string                                  | Classes to be passed to the select panel. Supports the same syntax as ngClass.                                               |
+| @Input() placeholder: string                                 | Placeholder to be shown if no value has been selected.                                                                       |
+| @Input() required: boolean                                   | Whether the component is required.                                                                                           |
+| @Input() value: any                                          | Value of the select control.                                                                                                 |
+| @Output() openedChange: EventEmitter`<boolean>`              | Event emitted when the select panel has been toggled.                                                                        |
+| @Output() selectionChange: EventEmitter`<OuiSelectChange>`   | Event emitted when the selected value has been changed by the user.                                                          |
+| autofilled: boolean                                          | Whether the input is currently in an autofilled state. If property is not present on the control it is assumed to be false.  |
+| controlType: 'oui-select'                                    | A name for this control that can be used by oui-form-field.                                                                  |
+| empty: boolean                                               | Whether the select has a value.                                                                                              |
+| errorState: boolean                                          | Whether the control is in an error state.                                                                                    |
+| focused: boolean                                             | Whether the select is focused.                                                                                               |
+| optionGroups: QueryList<OuiOptgroup>                         | All of the defined groups of options.                                                                                        |
+| optionSelectionChanges: Observable<OuiOptionSelectionChange> | Combined stream of all of the child options' change events.                                                                  |
+| options: QueryList<OuiOption>                                | All of the defined select options.                                                                                           |
+| overlayDir: CdkConnectedOverlay                              | Overlay pane containing the options.                                                                                         |
+| panel: ElementRef                                            | Panel containing the select options.                                                                                         |
+| panelOpen: boolean                                           | Whether or not the overlay panel is open.                                                                                    |
+| selected: OuiOption                                          | OuiOption[]                                                                                                                  | The currently selected option. |
+| stateChanges: Observable`<void>`                             | Stream that emits whenever the state of the control changes such that the parent OuiFormField needs to run change detection. |
+| trigger: ElementRef                                          | Trigger that opens the select.                                                                                               |
+| triggerValue: string                                         | The value displayed in the trigger.                                                                                          |
 
 ## Methods
 
@@ -147,12 +170,6 @@ Exported as: ouiSelect
 
 ## Constants
 
-**SELECT_PANEL_MAX_HEIGHT**
-
-The max height of the select's overlay panel
-
-```
-const SELECT_PANEL_MAX_HEIGHT: 256;
 ```
 
 **SELECT_PANEL_PADDING_X**
@@ -160,7 +177,9 @@ const SELECT_PANEL_MAX_HEIGHT: 256;
 The panel's padding on the x-axis
 
 ```
+
 const SELECT_PANEL_PADDING_X: 16;
+
 ```
 
 **SELECT_PANEL_INDENT_PADDING_X**
@@ -168,14 +187,18 @@ const SELECT_PANEL_PADDING_X: 16;
 The panel's x axis padding if it is indented (e.g. there is an option group).
 
 ```
+
 const SELECT_PANEL_INDENT_PADDING_X: number;
+
 ```
 
 **SELECT_ITEM_HEIGHT_EM**
 The height of the select items in em units.
 
 ```
+
 const SELECT_ITEM_HEIGHT_EM: 3;
+
 ```
 
 **SELECT_MULTIPLE_PANEL_PADDING_X**
@@ -184,7 +207,9 @@ Distance between the panel edge and the option text in multi-selection mode.
 Calculated as: (SELECT_PANEL_PADDING_X \* 1.5) + 20 = 44 The padding is multiplied by 1.5 because the checkbox's margin is half the padding. The checkbox width is 16px.
 
 ```
+
 const SELECT_MULTIPLE_PANEL_PADDING_X: number;
+
 ```
 
 **SELECT_PANEL_VIEWPORT_PADDING**
@@ -192,15 +217,9 @@ const SELECT_MULTIPLE_PANEL_PADDING_X: number;
 The select panel will only "fit" inside the viewport if it is positioned at this value or more away from the viewport boundary.
 
 ```
+
 const SELECT_PANEL_VIEWPORT_PADDING: 8;
-```
 
-**OUI_SELECT_SCROLL_STRATEGY**
-
-Injection token that determines the scroll handling while a select is open.
-
-```
-const OUI_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 ```
 
 ---
@@ -216,3 +235,4 @@ const OUI_SELECT_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 - [Customizing the trigger label](https://stackblitz.com/edit/oui-select-customizing-the-trigger-label)
 - [Adding custom styles to the dropdown panel](https://stackblitz.com/edit/oui-select-with-custom-panel-styling)
 - [Changing when error messages are shown](https://stackblitz.com/edit/oui-changing-when-error-messages-are-shown)
+```

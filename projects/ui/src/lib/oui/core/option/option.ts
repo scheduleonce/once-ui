@@ -154,7 +154,6 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
     return this._getHostElement().querySelector('.oui-option-text').innerHTML;
   }
 
-
   /** Selects the option. */
   select(): void {
     if (!this._selected) {
