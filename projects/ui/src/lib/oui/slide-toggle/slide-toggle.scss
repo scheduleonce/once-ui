@@ -1,7 +1,6 @@
 $width: 46px;
 $border-radius: 13px;
 $height: 25px;
-$padding: 5px 5.5px;
 $font-size: 11px;
 $translate-px: 15px;
 $text-translate-px: 16px;
@@ -31,7 +30,6 @@ $grey: #c8c8c8;
   }
   input + .slider:before {
     content: 'OFF';
-    padding: $padding;
     position: absolute;
     color: #333333;
     font-size: $font-size;
@@ -39,16 +37,14 @@ $grey: #c8c8c8;
     left: -1px;
     background-color: $grey;
     transition: 0.4s;
-    width: 19px;
+    width: 30px;
     text-align: center;
-    height: 15px;
-    line-height: 15px;
-    box-sizing: content-box;
+    height: 25px;
+    line-height: 25px;
   }
 
   input:checked + .slider:before {
     content: 'ON';
-    padding: $padding;
     color: #ffffff;
   }
   input:checked + .slider:before {
@@ -67,5 +63,8 @@ $grey: #c8c8c8;
 .oui-slide-toggle {
   &.oui-disabled {
     opacity: 0.5;
+  }
+  &.oui-disabled .slider {
+    cursor: default;
   }
 }
