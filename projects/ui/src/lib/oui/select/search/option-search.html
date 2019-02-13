@@ -1,19 +1,11 @@
-
-<input oui-input class="oui-select-search-input oui-select-search-hidden"/>
-
 <div class="oui-select-search-inner">
-  <input oui-input
-         class="oui-select-search-input"
-         #searchSelectInput
-         (keydown)="_handleKeydown($event)"
-         (input)="onInputChange($event.target.value)"
-         (blur)="onBlur($event.target.value)"
-         [placeholder]="placeholderLabel"
+  <input
+    oui-input
+    class="oui-select-search-input"
+    #searchSelectInput
+    (input)="onInputChange($event.target.value)"
+    [placeholder]="placeholderLabel"
   />
 </div>
 
 <ng-content></ng-content>
-<div *ngIf="noEntriesFoundLabel && value && _options?.length === 0"
-     class="oui-select-search-no-entries-found">
-  {{noEntriesFoundLabel + ' ' + value}}
-</div>

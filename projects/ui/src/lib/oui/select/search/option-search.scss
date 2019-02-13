@@ -9,27 +9,33 @@ $multiple-check-width: 33px;
 .oui-select-search-inner {
   position: absolute;
   top: 0;
-  width: calc(100% + #{2 * $oui-menu-side-padding - $scrollbar-width});
-  border-bottom: 1px solid #cccccc;
+  //width: calc(100% + #{2 * $oui-menu-side-padding - $scrollbar-width});
+  //border-bottom: 1px solid #cccccc;
+  width: 100%;
   background: white;
   z-index: 100;
+  padding: 10px;
+  box-sizing: border-box;
   &.oui-select-search-inner-multiple {
-
-    width: calc(100% + #{2 * $oui-menu-side-padding - $scrollbar-width + $multiple-check-width});
+    width: calc(
+      100% + #{2 * $oui-menu-side-padding - $scrollbar-width +
+        $multiple-check-width}
+    );
   }
 }
 
 /deep/ .oui-select-search-panel {
   /* allow absolute positioning relative to outer options container */
   transform: none !important;
-  max-height: 350px;
+  max-height: 150px;
 }
 
 .oui-select-search-input {
   padding: $oui-menu-side-padding;
   padding-right: $oui-menu-side-padding + $clear-button-width;
   box-sizing: border-box;
-
+  width: 100%;
+  height: 40px;
 }
 .oui-select-search-no-entries-found {
   padding: $oui-menu-side-padding;

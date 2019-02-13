@@ -28,7 +28,7 @@
   }
 
   .oui-optgroup &:not(.oui-option-multiple) {
-    padding-left: $oui-menu-side-padding * 2;
+    //padding-left: $oui-menu-side-padding * 2;
 
     [dir='rtl'] & {
       padding-left: $oui-menu-side-padding;
@@ -43,11 +43,6 @@
   flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.oui-checkbox-inner-container {display:none;}
-
-.oui-option-multiple {
-  .oui-checkbox-inner-container {display:block;}
 }
 
 .oui-option-pseudo-checkbox {
