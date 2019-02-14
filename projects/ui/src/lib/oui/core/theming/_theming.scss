@@ -1,5 +1,5 @@
 @import 'palette';
-
+$dark-disabled-text: rgba(black, 0.38);
 $default-primary: (
   default: $oui-blue,
   lighter: lighten($oui-blue, 10%),
@@ -33,7 +33,11 @@ $default-foreground: (
   disabled-ghost-button: $oui-disabled-grey,
   disabled-button: #ffffff,
   text: #333333,
-  secondary-text: #666666
+  hint-text: rgba(black, 0.38),
+  divider: rgba(black, 0.12),
+  disabled-text: $oui-disabled-grey,
+  secondary-text: #666666,
+  hover: rgba(0, 0, 0, 0.04)
 );
 @function oui-palette(
   $base,

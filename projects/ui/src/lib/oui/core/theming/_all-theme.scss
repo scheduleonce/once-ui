@@ -8,6 +8,7 @@
 @import '../../form-field/form-field-theme';
 @import '../../icon/icon-theme';
 @import '../../select/select-theme';
+@import '../../datepicker/datepicker-theme';
 @import '../cdk/overlay/overlay-prebuilt'; // Loading overlay
 @import '../selection/pseudo-checkbox/pseudo-checkbox-theme';
 
@@ -23,4 +24,5 @@
   @include oui-progress-bar-theme($theme);
   @include oui-select-theme($theme);
   @include oui-pseudo-checkbox-theme($theme);
+  @include oui-datepicker-theme($theme);
 }

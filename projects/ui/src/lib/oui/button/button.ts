@@ -81,6 +81,11 @@ export class OuiButton extends OuiButtonMixinBase
     }
   }
 
+  /** Focuses the button. */
+  focus(): void {
+    this.getHostElement().focus();
+  }
+
   getHostElement() {
     return this.elementRef.nativeElement;
   }
