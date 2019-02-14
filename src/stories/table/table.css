@@ -103,13 +103,13 @@
 }
 
 .integrationsContainer ul {
-  margin-block-start: 0px;
-  padding-inline-start: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 
 .licensesContainer ul {
-  margin-block-start: 0px;
-  padding-inline-start: 0px;
+  margin: 0px;
+  padding: 0px;
 }
 .licensesContainer ul li {
   display: inline-block;
