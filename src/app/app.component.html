@@ -745,7 +745,7 @@
   <h4>Oui select Customizing the trigger label</h4>
   <div class="input-outer display-inline">
     <oui-form-field color="accent">
-      <oui-select placeholder="Toppings" [formControl]="toppings">
+      <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
         <oui-select-trigger>
           {{ toppings.value ? toppings.value[0] : '' }}
           <span
