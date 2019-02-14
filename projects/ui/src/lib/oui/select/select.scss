@@ -85,18 +85,16 @@ $oui-select-placeholder-arrow-space: 2 *
 }
 
 .oui-select-arrow {
-  width: 0;
-  height: 0;
-  border-left: $oui-select-arrow-size solid transparent;
-  border-right: $oui-select-arrow-size solid transparent;
-  border-top: $oui-select-arrow-size solid;
-  margin: 0 $oui-select-arrow-margin;
+  width: 12px;
+  height: 8px;
+  background: url(arrow.svg) no-repeat;
+  display: inline-block;
+
 }
 
 .oui-focused {
   .oui-select-arrow {
-    border-bottom: 8px solid;
-    border-top-width: 0;
+    transform: rotate(180deg);
   }
 }
 
@@ -105,13 +103,13 @@ $oui-select-placeholder-arrow-space: 2 *
   padding-top: 0;
   padding-bottom: 0;
   max-height: $oui-select-panel-max-height;
-  min-width: 100%; // prevents some animation twitching and test inconsistencies in IE11
   border: 1px solid #c8c8c8;
   background-color: #ffffff;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-  width: 400px;
-  max-height: 340px;
+  max-height: 392px;
   margin: 9px 0 0 -10px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 // Override optgroup and option to scale based on font-size of the trigger.
@@ -215,12 +213,18 @@ $oui-select-placeholder-arrow-space: 2 *
 .ui-select-overlay-container{
   position: absolute;
 }
-.oui-select-has-a-panel .oui-option.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled){
+.oui-select-has-a-panel 
+.oui-option.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled){
   background: rgba(0,0,0,.12);
+  color: #3f51b5;
+  font-weight: 500;
+  
 }
-.oui-select-has-a-panel .oui-option:hover:not(.oui-option-disabled){
+.oui-select-has-a-panel 
+.oui-option:hover:not(.oui-option-disabled){
   background: rgba(0,0,0,.04);
 }
+
 /*-- search ddropdown --*/
 
 /*-- search dropdown underline --*/
@@ -231,7 +235,6 @@ $oui-select-placeholder-arrow-space: 2 *
       overflow: visible;
       .oui-select-placeholder{
         margin-left: -9px;
-        display: inline-block;
         width: 100%;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -239,6 +242,14 @@ $oui-select-placeholder-arrow-space: 2 *
       }
     }
   }
-
+}
+.oui-form-field .oui-input {
+  &.oui-select-disabled{
+    border: 1px solid #E4E4E4;
+    background-color: #F9F9F9;
+    .oui-select-placeholder{
+      color: #9B9B9B;
+    }
+  }
 }
 /*-- search dropdown underline --*/
