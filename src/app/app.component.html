@@ -625,6 +625,27 @@
   <br />
   <oui-progress-bar color="warn"></oui-progress-bar>
 </div>
+<br /><br />
+
+<h1>Datepicker</h1>
+<div style="max-width: 170px;">
+  <oui-form-field>
+    <input
+      oui-input
+      [ouiDatepicker]="picker"
+      [min]="minDate"
+      placeholder="Choose a date"
+    />
+    <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
+    <oui-datepicker #picker></oui-datepicker>
+  </oui-form-field>
+</div>
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
 
 <hr />
 <h1>Oui select box</h1>

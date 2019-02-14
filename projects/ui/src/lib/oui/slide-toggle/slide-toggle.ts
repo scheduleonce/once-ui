@@ -6,11 +6,13 @@ import {
   Output,
   EventEmitter,
   ChangeDetectorRef,
-  ViewEncapsulation
+  ViewEncapsulation,
+  AfterContentInit
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ControlValueAccessor } from '@angular/forms';
 let nextUniqueId = 0;
 /**
  * Boilerplate for applying mixins to OuiSlideToggle.
@@ -40,7 +42,8 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
-export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
+export class OuiSlideToggle extends _OuiSlideToggleMixinBase
+  implements AfterContentInit, ControlValueAccessor {
   private _checked = false;
   /** Whether the slide-toggle element is checked or not. */
   @Input()
@@ -72,6 +75,9 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
 
   wrapper: ElementRef;
 
+  private onChange = (_: any) => {};
+  private onTouched = () => {};
+
   constructor(
     protected elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
@@ -80,9 +86,20 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
     super(elementRef);
   }
 
+  ngAfterContentInit() {
+    this._focusMonitor
+      .monitor(this._elementRef, true)
+      .subscribe(focusOrigin => {
+        if (!focusOrigin) {
+          Promise.resolve().then(() => this.onTouched());
+        }
+      });
+  }
+
   emitChange() {
     if (!this.disabled) {
       this.toggle();
+      this.onChange(this.checked);
       this.change.emit(this.checked);
     }
   }
@@ -90,6 +107,27 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase {
   /** Toggles the checked state of the slide-toggle. */
   toggle() {
     this.checked = !this.checked;
+  }
+
+  /** Implemented as part of ControlValueAccessor. */
+  writeValue(value: any): void {
+    this.checked = !!value;
+  }
+
+  /** Implemented as part of ControlValueAccessor. */
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+
+  /** Implemented as part of ControlValueAccessor. */
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+
+  /** Implemented as a part of ControlValueAccessor. */
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Focuses the slide-toggle. */
