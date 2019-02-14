@@ -27,6 +27,7 @@ import {
   OuiSortModule,
   OuiPaginatorModule
 } from 'projects/ui/src/public_api';
+import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,7 +53,9 @@ import {
     OuiProgressSpinnerModule,
     OuiRadioModule,
     OuiProgressBarModule,
-    OuiSelectModule
+    OuiSelectModule,
+    OuiProgressBarModule,
+    OuiDatepickerModule
   ],
   exports: [],
   providers: [],

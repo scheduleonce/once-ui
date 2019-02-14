@@ -2,7 +2,9 @@
 .cdk-overlay-backdrop {
   background: rgba(255, 255, 255, 0.8);
 }
-
+.cdk-overlay-pane {
+  display: block;
+}
 * {
   outline: 0 none !important;
 }
@@ -14,9 +16,8 @@
   max-height: inherit;
   z-index: 29991;
   border-radius: 0;
-  left: 0;
   margin: 0 auto;
-  right: 0;
+  display: block;
   -webkit-box-shadow: 0 1px 3px 2px rgba(167, 167, 167, 0.5);
   -moz-box-shadow: 0 1px 3px 2px rgba(167, 167, 167, 0.5);
   box-shadow: 0 1px 3px 2px rgba(167, 167, 167, 0.5);
@@ -26,36 +27,33 @@
   color: #333;
   padding: 0px;
   background: #fff;
-}
-
-.oui-dialog-header {
-  font-size: 22px;
-  line-height: 30px;
-  padding: 13px 22px 20px;
-  position: relative;
-  color: #333;
-  min-height: 29px;
-}
-
-.oui-dialog-header-title {
-  width: calc(100% - 118px);
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  display: block;
-}
-
-.oui-dialog-header-image {
-  position: absolute;
-  width: 20px;
-  margin-right: 10px;
-  text-align: center;
-  height: 20px;
-  top: 18px;
-}
-.oui-dialog-header-image img {
-  vertical-align: super;
-  margin-top: 3.5px;
+  .oui-dialog-header {
+    font-size: 22px;
+    line-height: 30px;
+    padding: 13px 22px 20px;
+    position: relative;
+    color: #333;
+    min-height: 29px;
+    .oui-dialog-header-title {
+      width: calc(100% - 118px);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      display: block;
+    }
+    .oui-dialog-header-image {
+      position: absolute;
+      width: 20px;
+      margin-right: 10px;
+      text-align: center;
+      height: 20px;
+      top: 18px;
+      img {
+        vertical-align: super;
+        margin-top: 3.5px;
+      }
+    }
+  }
 }
 
 .oui-dialog-header-image + .oui-dialog-header-title {
@@ -146,35 +144,29 @@
   width: 100%;
   border-top: 1px solid #c8c8c8;
   box-sizing: border-box;
+  .oui-dialog-footer-action-left {
+    float: left;
+    button {
+      margin-right: 36px;
+      &:nth-last-child(1) {
+        margin-right: 0px;
+      }
+    }
+  }
+  .oui-dialog-footer-action-right {
+    float: right;
+    button {
+      margin-left: 12px;
+      &:nth-child(1) {
+        margin-left: 0px;
+      }
+    }
+  }
 }
 .oui-dialog-footer::after {
   clear: both;
   content: '';
   display: block;
-}
-.oui-dialog-footer-action-left {
-  float: left;
-}
-
-.oui-dialog-footer-action-right {
-  float: right;
-}
-/*
-.oui-dialog-footer-action-right input{
-  margin-top: 0.5px;
-  margin-bottom: 3px;
-} */
-.oui-dialog-footer-action-left button {
-  margin-right: 36px;
-}
-.oui-dialog-footer-action-left button:nth-last-child(1) {
-  margin-right: 0px;
-}
-.oui-dialog-footer-action-right button {
-  margin-left: 12px;
-}
-.oui-dialog-footer-action-right button:nth-child(1) {
-  margin-left: 0px;
 }
 .cross-disabled {
   pointer-events: none;

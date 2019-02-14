@@ -102,6 +102,7 @@ export class AppComponent implements OnInit {
   @ViewChild(OuiSort) sort: OuiSort;
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
   options: string[] = ['One', 'Two', 'Three'];
+  minDate = new Date();
   isDisable = false;
   public filteredBanks: ReplaySubject<Bank[]> = new ReplaySubject<Bank[]>(1);
   stateCtrl = new FormControl();
