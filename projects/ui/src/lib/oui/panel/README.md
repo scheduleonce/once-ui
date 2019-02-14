@@ -1,6 +1,6 @@
 ## Overlay Panel
 
-`oui-panel` is a floating panel which can contains other elements.
+`oui-panel` is a floating panel which can contain other elements.
 
 The `<oui-panel>` doesn't render anything by itself. The panel is attached to and opened via application of the `ouiPanelTriggerFor` directive.
 
