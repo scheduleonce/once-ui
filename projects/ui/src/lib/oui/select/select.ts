@@ -929,7 +929,6 @@ export class OuiSelect extends _OuiSelectMixinBase
         ? (this.selected as OuiOption).value
         : fallbackValue;
     }
-
     this._value = valueToEmit;
     this.valueChange.emit(valueToEmit);
     this._onChange(valueToEmit);

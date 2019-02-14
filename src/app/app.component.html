@@ -501,7 +501,7 @@
     </oui-checkbox>
   </section>
 </section>
-<br /><br />
+<br />
 <h1>Progress Spinner</h1>
 
 <h3>Indeterminate</h3>
@@ -640,14 +640,7 @@
     <oui-datepicker #picker></oui-datepicker>
   </oui-form-field>
 </div>
-<br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-
-<hr />
+<br/>
 <h1>Oui select box</h1>
 <div class="fit">
   <h4>Oui Basic Select</h4>
@@ -717,6 +710,7 @@
     <p>
       <oui-checkbox [formControl]="disableSelect">Disable select</oui-checkbox>
     </p>
+
     <h4>oui-select</h4>
     <oui-form-field>
       <oui-select
@@ -744,8 +738,8 @@
   <br />
   <h4>Oui select Customizing the trigger label</h4>
   <div class="input-outer display-inline">
-    <oui-form-field color="accent">
-      <oui-select placeholder="Toppings" [formControl]="toppings">
+    <oui-form-field color="warn">
+      <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
         <oui-select-trigger>
           {{ toppings.value ? toppings.value[0] : '' }}
           <span
@@ -780,7 +774,7 @@
   <br />
   <h4>Oui select Changing when error messages are shown</h4>
   <div class="input-outer display-inline">
-    <oui-form-field color="accent">
+    <oui-form-field>
       <oui-select
         placeholder="Choose one"
         [formControl]="selected"
@@ -803,7 +797,7 @@
   <br />
   <h4>Oui select with search</h4>
   <div class="input-outer display-inline">
-    <oui-form-field [appearance]="'underline'" color="accent">
+    <oui-form-field [appearance]="'underline'" color="warn">
       <oui-select placeholder="Favorite Bank">
         <oui-select-search [(ngModel)]="keyword"></oui-select-search>
         <oui-option
@@ -818,7 +812,7 @@
   <br />
   <h4>Oui Select with 2-way value binding</h4>
   <div class="input-outer display-inline">
-    <oui-form-field>
+    <oui-form-field color="accent">
       <oui-select [(value)]="selectedOption">
         <oui-option>None</oui-option>
         <oui-option value="option1">Option 1</oui-option>
