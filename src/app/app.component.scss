@@ -1,6 +1,5 @@
 .fit {
   div {
-    margin: 10px;
     button,
     a {
       margin-right: 10px;
@@ -18,6 +17,7 @@
     width: 100%;
   }
   .display-inline {
+    margin: 10px;
     display: inline-block;
   }
   textarea {
@@ -28,7 +28,6 @@
   .trigger {
     width: 200px;
     height: 50px;
-    margin-top: 100px;
     margin-left: 100px;
     background-color: rgb(240, 234, 234);
     display: inline-block;
