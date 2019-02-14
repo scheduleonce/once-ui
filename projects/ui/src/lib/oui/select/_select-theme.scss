@@ -4,16 +4,15 @@
   $primary: map-get($theme, primary);
   .oui-focused {
     .oui-input {
-      border-color: map-get($primary, default);
+      border-width: 2px;
     }
-
-    .oui-accent {
+    &.oui-accent {
       .oui-input {
         border-color: map-get($accent, default);
       }
     }
 
-    .oui-warn {
+    &.oui-warn {
       .oui-input {
         border-color: map-get($warn, default);
       }
