@@ -4,7 +4,12 @@
 // Unlike using a border, a gradient allows us to adjust the spacing of the dotted line
 // to match the Material Design spec.
 @mixin oui-control-disabled-underline($color) {
-  background-image: linear-gradient(to right, $color 0%, $color 33%, transparent 0%);
+  background-image: linear-gradient(
+    to right,
+    $color 0%,
+    $color 33%,
+    transparent 0%
+  );
   background-size: 4px 100%;
   background-repeat: repeat-x;
 }

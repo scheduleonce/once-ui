@@ -14,22 +14,23 @@ $multiple-check-width: 33px;
   background: white;
   z-index: 100;
   &.oui-select-search-inner-multiple {
-
-    width: calc(100% + #{2 * $oui-menu-side-padding - $scrollbar-width + $multiple-check-width});
+    width: calc(
+      100% + #{2 * $oui-menu-side-padding - $scrollbar-width +
+        $multiple-check-width}
+    );
   }
 }
 
 /deep/ .oui-select-search-panel {
   /* allow absolute positioning relative to outer options container */
   transform: none !important;
-  max-height: 350px;
+  max-height: 150px;
 }
 
 .oui-select-search-input {
   padding: $oui-menu-side-padding;
   padding-right: $oui-menu-side-padding + $clear-button-width;
   box-sizing: border-box;
-
 }
 .oui-select-search-no-entries-found {
   padding: $oui-menu-side-padding;
