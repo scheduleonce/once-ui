@@ -917,7 +917,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     let valueToEmit: any = null;
 
     if (this.multiple) {
-      valueToEmit = (this.selected as OuiOption[]).map(option => option.value);
+      valueToEmit = (this.selected as OuiOption[]).map(
+        option => option.value
+      );
     } else {
       valueToEmit = this.selected
         ? (this.selected as OuiOption).value
