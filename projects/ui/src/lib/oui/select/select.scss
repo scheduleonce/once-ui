@@ -210,3 +210,15 @@ $oui-select-placeholder-arrow-space: 2 *
 }
 
 /*-- search dropdown --*/
+
+/*-- search ddropdown --*/
+.ui-select-overlay-container{
+  position: absolute;
+}
+.oui-select-has-a-panel .oui-option.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled){
+  background: rgba(0,0,0,.12);
+}
+.oui-select-has-a-panel .oui-option:hover:not(.oui-option-disabled){
+  background: rgba(0,0,0,.04);
+}
+/*-- search ddropdown --*/
