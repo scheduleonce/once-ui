@@ -4,7 +4,7 @@
 $oui-checkbox-size: 16px !default;
 
 // The width of the checkbox border shown when the checkbox is unchecked.
-$oui-checkbox-border-width: 2px;
+$oui-checkbox-border-width: 1px;
 
 // The base duration used for the majority of transitions for the checkbox.
 $oui-checkbox-transition-duration: 90ms;
@@ -20,7 +20,7 @@ $_oui-pseudo-checkmark-size: $oui-checkbox-size -
   width: $oui-checkbox-size;
   height: $oui-checkbox-size;
   border: $oui-checkbox-border-width solid;
-  border-radius: 2px;
+  border-radius: 3px;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;

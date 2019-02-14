@@ -4,18 +4,22 @@
   $primary: map-get($theme, primary);
   .oui-focused {
     .oui-input {
-      border-color: map-get($primary, default);
+      border-width: 1px;
     }
-
-    .oui-accent {
+    &.oui-accent {
       .oui-input {
         border-color: map-get($accent, default);
       }
     }
 
-    .oui-warn {
+    &.oui-warn {
       .oui-input {
         border-color: map-get($warn, default);
+      }
+    }
+    &.oui-form-field-appearance-underline{
+      .oui-input {
+        border-width: 2px;
       }
     }
   }

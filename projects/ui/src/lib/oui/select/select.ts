@@ -1032,6 +1032,10 @@ export class OuiSelect extends _OuiSelectMixinBase
     const cdkOverLayContainer = this._document.querySelector(
       '.cdk-overlay-container'
     );
+    const ouiSelectPanel = this._document.querySelector('.oui-select-panel')
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
+    const containerWidth = this._elementRef.nativeElement.offsetWidth;
+    ouiSelectPanel.style.width = `${containerWidth}px`;
+
   }
 }
