@@ -657,7 +657,7 @@
   <br />
   <h4>Oui select multiple selection</h4>
   <div class="input-outer display-inline">
-    <oui-form-field>
+    <oui-form-field [appearance]="'underline'">
       <oui-select placeholder="Favorite food" multiple>
         <oui-option *ngFor="let bank of banks" [value]="bank.id">
           {{ bank.name }}

@@ -2,8 +2,6 @@
   $accent: map-get($theme, accent);
   $warn: map-get($theme, warn);
   $primary: map-get($theme, primary);
-
-
   .oui-focused {
     .oui-input {
       border-width: 2px;
