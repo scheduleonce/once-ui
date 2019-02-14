@@ -28,7 +28,7 @@
   }
 
   .oui-optgroup &:not(.oui-option-multiple) {
-    padding-left: $oui-menu-side-padding * 2;
+    //padding-left: $oui-menu-side-padding * 2;
 
     [dir='rtl'] & {
       padding-left: $oui-menu-side-padding;
