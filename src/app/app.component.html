@@ -664,7 +664,7 @@
   <br />
   <h4>Oui select multiple selection</h4>
   <div class="input-outer display-inline">
-    <oui-form-field>
+    <oui-form-field [appearance]="'underline'">
       <oui-select placeholder="Favorite food" multiple>
         <oui-option *ngFor="let bank of banks" [value]="bank.id">
           {{ bank.name }}
@@ -818,7 +818,7 @@
   <br />
   <h4>Oui Select with 2-way value binding</h4>
   <div class="input-outer display-inline">
-    <oui-form-field>
+    <oui-form-field color="warn">
       <oui-select [(value)]="selectedOption">
         <oui-option>None</oui-option>
         <oui-option value="option1">Option 1</oui-option>
