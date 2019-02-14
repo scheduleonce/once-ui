@@ -64,7 +64,6 @@ $default-foreground: (
   );
 }
 
-
 // Gets a color from a theme palette (the output of mat-palette).
 // The hue can be one of the standard values (500, A400, etc.), one of the three preconfigured
 // hues (default, lighter, darker), or any of the aforementioned prefixed with "-contrast".
@@ -85,4 +84,3 @@ $default-foreground: (
 
   @return rgba($color, $opacity);
 }
-

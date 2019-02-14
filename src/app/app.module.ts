@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OuiSlideToggleModule } from 'projects/ui/src/lib/oui/slide-toggle/public-api';
+
 import {
   OuiButtonModule,
   OuiProgressSpinnerModule,
@@ -53,6 +54,7 @@ import {
     OuiProgressBarModule,
     OuiSelectModule
   ],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })

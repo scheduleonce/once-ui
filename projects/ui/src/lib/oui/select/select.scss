@@ -8,7 +8,8 @@ $oui-select-arrow-margin: 4px !default;
 $oui-select-panel-max-height: 256px !default;
 $oui-select-item-height: 3em !default;
 
-$oui-select-placeholder-arrow-space: 2 * ($oui-select-arrow-size + $oui-select-arrow-margin);
+$oui-select-placeholder-arrow-space: 2 *
+  ($oui-select-arrow-size + $oui-select-arrow-margin);
 
 .oui-select {
   display: inline-block;
@@ -64,10 +65,13 @@ $oui-select-placeholder-arrow-space: 2 * ($oui-select-arrow-size + $oui-select-a
   // Animate the arrow position, but only when the transitioning to empty (animate the arrow down)
   // This is in line with the oui-form-field label animation
   .oui-form-field-appearance-standard .oui-select.oui-select-empty & {
-    transition: transform $swift-ease-out-duration $swift-ease-out-timing-function;
+    transition: transform $swift-ease-out-duration
+      $swift-ease-out-timing-function;
   }
 
-  ._oui-animation-noopable.oui-form-field-appearance-standard .oui-select.oui-select-empty & {
+  ._oui-animation-noopable.oui-form-field-appearance-standard
+    .oui-select.oui-select-empty
+    & {
     transition: none;
   }
 }
@@ -83,7 +87,7 @@ $oui-select-placeholder-arrow-space: 2 * ($oui-select-arrow-size + $oui-select-a
 
 .oui-focused {
   .oui-select-arrow {
-    border-bottom: 8px solid #000;
+    border-bottom: 8px solid;
     border-top-width: 0;
   }
 }
@@ -99,7 +103,8 @@ $oui-select-placeholder-arrow-space: 2 * ($oui-select-arrow-size + $oui-select-a
 
 // Override optgroup and option to scale based on font-size of the trigger.
 .oui-select-panel {
-  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14), 0 1px 10px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
+    0 1px 10px 0 rgba(0, 0, 0, 0.12);
   .oui-optgroup-label,
   .oui-option {
     font-size: inherit;
@@ -122,7 +127,7 @@ $oui-select-placeholder-arrow-space: 2 * ($oui-select-arrow-size + $oui-select-a
   // Delay the transition until the label has animated about a third of the way through, in
   // order to prevent the placeholder from overlapping for a split second.
   transition: color $swift-ease-out-duration $swift-ease-out-duration / 3
-  $swift-ease-out-timing-function;
+    $swift-ease-out-timing-function;
 
   ._oui-animation-noopable & {
     transition: none;
