@@ -111,7 +111,7 @@ $oui-select-placeholder-arrow-space: 2 *
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
   width: 400px;
   max-height: 340px;
-  margin: 10px 0 0 -10px;
+  margin: 9px 0 0 -10px;
 }
 
 // Override optgroup and option to scale based on font-size of the trigger.
@@ -222,3 +222,23 @@ $oui-select-placeholder-arrow-space: 2 *
   background: rgba(0,0,0,.04);
 }
 /*-- search ddropdown --*/
+
+/*-- search dropdown underline --*/
+.oui-form-field-appearance-underline{
+  .oui-select-trigger{
+    margin-left: 9px;
+    .oui-select-value{
+      overflow: visible;
+      .oui-select-placeholder{
+        margin-left: -9px;
+        display: inline-block;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+}
+/*-- search dropdown underline --*/
