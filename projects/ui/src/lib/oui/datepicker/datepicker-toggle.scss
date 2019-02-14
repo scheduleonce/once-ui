@@ -1,0 +1,42 @@
+.oui-form-field-appearance-legacy {
+  .oui-form-field-prefix,
+  .oui-form-field-suffix {
+    .oui-datepicker-toggle-default-icon {
+      width: 1em;
+    }
+  }
+}
+
+.oui-form-field:not(.oui-form-field-appearance-legacy) {
+  .oui-form-field-prefix,
+  .oui-form-field-suffix {
+    .oui-datepicker-toggle-default-icon {
+      display: block;
+      width: 1.5em;
+      height: 1.5em;
+    }
+
+    .oui-icon-button .oui-datepicker-toggle-default-icon {
+      margin: auto;
+    }
+  }
+}
+.oui-datepicker-toggle .oui-icon-button {
+  position: absolute;
+  top: 10px;
+  right: 7px;
+  padding: 0px;
+  &:hover {
+    background: none;
+  }
+}
+
+.oui-datepicker-toggle .oui-icon-button {
+  &:hover {
+    background: none !important;
+  }
+}
+
+.oui-calendar-next-button {
+  margin-right: 5px;
+}

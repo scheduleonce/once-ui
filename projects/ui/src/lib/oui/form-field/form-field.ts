@@ -15,7 +15,7 @@ import {
   OnDestroy,
   Input
 } from '@angular/core';
-import { mixinColor } from '../core';
+import { mixinColor, ThemePalette } from '../core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OuiFormFieldControl } from './form-field-control';
@@ -73,15 +73,13 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
     '[class.oui-form-field-appearance-standard]': 'appearance == "standard"',
     '[class.oui-form-field-appearance-underline]': 'appearance == "underline"'
   },
-  // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiFormField extends _OuiFormFieldMixinBase
   implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
   private _destroyed = new Subject<void>();
-
+  @Input() color: ThemePalette;
   /** The form-field appearance style. */
   @Input()
   get appearance(): OuiFormFieldAppearance {
@@ -129,6 +127,10 @@ export class OuiFormField extends _OuiFormFieldMixinBase
         .pipe(takeUntil(this._destroyed))
         .subscribe(() => this._changeDetectorRef.markForCheck());
     }
+  }
+
+  getConnectedOverlayOrigin(): ElementRef {
+    return this._connectionContainerRef || this._elementRef;
   }
 
   ngAfterContentChecked() {

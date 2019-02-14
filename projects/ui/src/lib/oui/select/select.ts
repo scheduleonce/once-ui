@@ -2,6 +2,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
+import { DOCUMENT } from '@angular/common';
 import {
   A,
   DOWN_ARROW,
@@ -39,7 +40,8 @@ import {
   Self,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
+  Inject
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -241,6 +243,9 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Panel containing the select options. */
   @ViewChild('panel') panel: ElementRef;
 
+  /** Adds class to overlay panel **/
+  @ViewChild('overlayPanel') overlayPanel: ElementRef;
+
   /** Overlay pane containing the options. */
   @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
 
@@ -411,7 +416,8 @@ export class OuiSelect extends _OuiSelectMixinBase
     @Optional() _parentFormGroup: FormGroupDirective,
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     super(
       elementRef,
@@ -917,15 +923,12 @@ export class OuiSelect extends _OuiSelectMixinBase
     let valueToEmit: any = null;
 
     if (this.multiple) {
-      valueToEmit = (this.selected as OuiOption[]).map(
-        option => option.value
-      );
+      valueToEmit = (this.selected as OuiOption[]).map(option => option.value);
     } else {
       valueToEmit = this.selected
         ? (this.selected as OuiOption).value
         : fallbackValue;
     }
-
     this._value = valueToEmit;
     this.valueChange.emit(valueToEmit);
     this._onChange(valueToEmit);
@@ -1020,5 +1023,15 @@ export class OuiSelect extends _OuiSelectMixinBase
    */
   ouiSelectInputOuter() {
     this.ouiSelectInputOuterClassName = 'oui-select-input-outer';
+  }
+
+  /**
+   * Custom overlay class for cdk overlay container
+   */
+  openCdk() {
+    const cdkOverLayContainer = this._document.querySelector(
+      '.cdk-overlay-container'
+    );
+    cdkOverLayContainer.classList.add('oui-select-overlay-container');
   }
 }

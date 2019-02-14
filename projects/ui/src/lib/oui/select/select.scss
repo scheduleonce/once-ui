@@ -15,10 +15,10 @@ $oui-select-placeholder-arrow-space: 2 *
   display: inline-block;
   width: 100%;
   outline: none;
-  div{
+  div {
     margin: 0;
   }
-  .oui-select-value{
+  .oui-select-value {
     font-size: 14px;
     line-height: 19px;
     padding: 2px 0;
@@ -95,7 +95,7 @@ $oui-select-placeholder-arrow-space: 2 *
 
 .oui-focused {
   .oui-select-arrow {
-    border-bottom: 5px solid;
+    border-bottom: 8px solid;
     border-top-width: 0;
   }
 }
@@ -106,9 +106,9 @@ $oui-select-placeholder-arrow-space: 2 *
   padding-bottom: 0;
   max-height: $oui-select-panel-max-height;
   min-width: 100%; // prevents some animation twitching and test inconsistencies in IE11
-  border: 1px solid #C8C8C8;
-  background-color: #FFFFFF;
-  box-shadow: 0 1px 3px 0 rgba(0,0,0,0.5);
+  border: 1px solid #c8c8c8;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
   width: 400px;
   max-height: 340px;
   margin: 10px 0 0 -10px;
@@ -126,10 +126,10 @@ $oui-select-placeholder-arrow-space: 2 *
     padding: 0 10px;
     font-size: 14px;
   }
-  .oui-optgroup-label{
+  .oui-optgroup-label {
     font-weight: 700;
   }
-  .ps-content{
+  .ps-content {
     margin: 10px 0;
   }
   .ps__rail-y {
@@ -199,12 +199,12 @@ $oui-select-placeholder-arrow-space: 2 *
 }
 /*-- search dropdown --*/
 
-.oui-select-input-outer{
-  .ps{
+.oui-select-input-outer {
+  .ps {
     padding-top: 50px;
     box-sizing: border-box;
   }
-  .ps--active-y > .ps__rail-y{
+  .ps--active-y > .ps__rail-y {
     margin: 62px 0 7px;
   }
 }

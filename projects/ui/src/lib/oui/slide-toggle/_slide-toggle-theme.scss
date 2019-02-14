@@ -4,22 +4,22 @@
   $warn: map-get($theme, warn);
   $background: map-get($theme, background);
   $foreground: map-get($theme, foreground);
-  .oui-primary input:checked + .slider:before {
-    background-color: map-get($primary, darker) !important;
+  .oui-primary input:checked + .oui-slider:before {
+    background-color: map-get($primary, default);
   }
-  .oui-primary input:checked + .slider.round {
-    border: 1px solid map-get($primary, darker) !important;
+  .oui-primary input:checked + .oui-slider.round {
+    border: 1px solid map-get($primary, default);
   }
-  .oui-accent input:checked + .slider:before {
-    background-color: map-get($accent, darker) !important;
+  .oui-accent input:checked + .oui-slider:before {
+    background-color: map-get($accent, default);
   }
-  .oui-accent input:checked + .slider.round {
-    border: 1px solid map-get($accent, darker) !important;
+  .oui-accent input:checked + .oui-slider.round {
+    border: 1px solid map-get($accent, default);
   }
-  .oui-warn input:checked + .slider:before {
-    background-color: map-get($warn, darker) !important;
+  .oui-warn input:checked + .oui-slider:before {
+    background-color: map-get($warn, default);
   }
-  .oui-warn input:checked + .slider.round {
-    border: 1px solid map-get($warn, darker) !important;
+  .oui-warn input:checked + .oui-slider.round {
+    border: 1px solid map-get($warn, default);
   }
 }
