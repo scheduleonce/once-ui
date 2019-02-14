@@ -6,7 +6,7 @@
 $oui-select-arrow-size: 5px !default;
 $oui-select-arrow-margin: 4px !default;
 $oui-select-panel-max-height: 256px !default;
-$oui-select-item-height: 3em !default;
+$oui-select-item-height: 40px !default;
 
 $oui-select-placeholder-arrow-space: 2 *
   ($oui-select-arrow-size + $oui-select-arrow-margin);
@@ -15,6 +15,14 @@ $oui-select-placeholder-arrow-space: 2 *
   display: inline-block;
   width: 100%;
   outline: none;
+  div {
+    margin: 0;
+  }
+  .oui-select-value {
+    font-size: 14px;
+    line-height: 19px;
+    padding: 2px 0;
+  }
 }
 
 .oui-select-trigger {
@@ -43,7 +51,7 @@ $oui-select-placeholder-arrow-space: 2 *
 }
 
 .oui-select-arrow-wrapper {
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
 
   // When used in a box appearance form-field the arrow should be shifted up 50%.
@@ -98,7 +106,12 @@ $oui-select-placeholder-arrow-space: 2 *
   padding-bottom: 0;
   max-height: $oui-select-panel-max-height;
   min-width: 100%; // prevents some animation twitching and test inconsistencies in IE11
-  border-radius: 4px;
+  border: 1px solid #c8c8c8;
+  background-color: #ffffff;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
+  width: 400px;
+  max-height: 340px;
+  margin: 10px 0 0 -10px;
 }
 
 // Override optgroup and option to scale based on font-size of the trigger.
@@ -110,6 +123,43 @@ $oui-select-placeholder-arrow-space: 2 *
     font-size: inherit;
     line-height: $oui-select-item-height;
     height: $oui-select-item-height;
+    padding: 0 10px;
+    font-size: 14px;
+  }
+  .oui-optgroup-label {
+    font-weight: 700;
+  }
+  .ps-content {
+    margin: 10px 0;
+  }
+  .ps__rail-y {
+    background-color: #eee;
+    width: 6px;
+  }
+  .ps__thumb-y {
+    background-color: #999;
+    width: 6px;
+    right: 6px;
+  }
+  perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
+    right: 2px !important;
+    opacity: 0.6 !important;
+    .ps__thumb-y {
+      right: 1px !important;
+    }
+    &:hover {
+      width: 6.4px !important;
+    }
+  }
+  .ps__rail-y:focus > .ps__thumb-y,
+  .ps__rail-y:hover > .ps__thumb-y {
+    width: 6px !important;
+    background-color: #999 !important;
+  }
+  .ps--active-y > .ps__rail-y {
+    display: block;
+    background-color: transparent !important;
+    margin: 7px 0;
   }
 }
 
@@ -147,3 +197,16 @@ $oui-select-placeholder-arrow-space: 2 *
     display: block;
   }
 }
+/*-- search dropdown --*/
+
+.oui-select-input-outer {
+  .ps {
+    padding-top: 50px;
+    box-sizing: border-box;
+  }
+  .ps--active-y > .ps__rail-y {
+    margin: 62px 0 7px;
+  }
+}
+
+/*-- search dropdown --*/
