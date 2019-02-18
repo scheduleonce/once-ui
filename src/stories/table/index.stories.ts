@@ -144,7 +144,11 @@ export class OuiTableStorybook implements OnInit {
             <div class="licensesContainer">
               <ul>
                 <li *ngFor="let license of user.licence">
-                  <img [ouiTooltip]="license" ouiTooltipPosition="above" [src]="LICENCES[license]" />
+                  <img
+                    [ouiTooltip]="license"
+                    ouiTooltipPosition="above"
+                    [src]="LICENCES[license]"
+                  />
                 </li>
               </ul>
             </div>
