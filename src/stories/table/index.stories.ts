@@ -127,6 +127,7 @@ export class OuiTableStorybook implements OnInit {
                 <li *ngFor="let integration of user.integration">
                   <img
                     [ouiTooltip]="integration"
+                    ouiTooltipPosition="above"
                     [src]="INTEGRATIONS[integration]"
                   />
                 </li>
@@ -143,7 +144,7 @@ export class OuiTableStorybook implements OnInit {
             <div class="licensesContainer">
               <ul>
                 <li *ngFor="let license of user.licence">
-                  <img [ouiTooltip]="license" [src]="LICENCES[license]" />
+                  <img [ouiTooltip]="license" ouiTooltipPosition="above" [src]="LICENCES[license]" />
                 </li>
               </ul>
             </div>
