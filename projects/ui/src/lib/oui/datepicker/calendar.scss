@@ -1,0 +1,107 @@
+// @import '../core/style/layout-common';
+
+$oui-calendar-padding: 8px !default;
+$oui-calendar-header-divider-width: 1px !default;
+$oui-calendar-controls-vertical-padding: 5%;
+// We use the same padding as the month / year label, but subtract 16px since there is padding
+// between the edge of the button and the text. This ensures that the button text lines up with
+// the month / year label text.
+$oui-calendar-controls-side-margin: calc(33% / 7 - 16px);
+
+$oui-calendar-arrow-size: 5px !default;
+$oui-calendar-arrow-disabled-opacity: 0.5 !default;
+
+// Values chosen to approximate https://material.io/icons/#ic_navigate_before and
+// https://material.io/icons/#ic_navigate_next as closely as possible.
+$oui-calendar-prev-next-icon-border-width: 2px;
+$oui-calendar-prev-next-icon-margin: 15.5px;
+$oui-calendar-prev-icon-transform: translateX(2px) rotate(-45deg);
+$oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
+
+.oui-calendar {
+  display: block;
+}
+
+.oui-calendar-header {
+  padding: $oui-calendar-padding $oui-calendar-padding 0 $oui-calendar-padding;
+}
+
+.oui-calendar-content {
+  padding: 0 $oui-calendar-padding $oui-calendar-padding $oui-calendar-padding;
+  outline: none;
+}
+
+.oui-calendar-controls {
+  display: flex;
+  margin: $oui-calendar-controls-vertical-padding
+    $oui-calendar-controls-side-margin;
+}
+
+.oui-calendar-controls svg {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+
+.oui-calendar-spacer {
+  flex: 1 1 auto;
+}
+
+.oui-calendar-period-button {
+  min-width: 0;
+  background: none !important;
+  color: inherit !important;
+  padding-left: 15px;
+}
+
+.oui-calendar-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-left: $oui-calendar-arrow-size solid transparent;
+  border-right: $oui-calendar-arrow-size solid transparent;
+  border-top-width: $oui-calendar-arrow-size;
+  border-top-style: solid;
+  margin: 0 0 0 $oui-calendar-arrow-size;
+  vertical-align: middle;
+
+  &.oui-calendar-invert {
+    transform: rotate(180deg);
+  }
+
+  [dir='rtl'] & {
+    margin: 0 $oui-calendar-arrow-size 0 0;
+  }
+}
+.oui-calendar-previous-button,
+.oui-calendar-next-button {
+  padding: 0px;
+  width: 36px;
+  height: 36px;
+}
+.oui-calendar-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.oui-calendar-table-header th {
+  text-align: center;
+  padding: 0 0 $oui-calendar-padding 0;
+}
+
+.oui-calendar-table-header-divider {
+  position: relative;
+  height: $oui-calendar-header-divider-width;
+
+  // We use an absolutely positioned pseudo-element as the divider line for the table header so we
+  // can extend it all the way to the edge of the calendar.
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -$oui-calendar-padding;
+    right: -$oui-calendar-padding;
+    height: $oui-calendar-header-divider-width;
+  }
+}

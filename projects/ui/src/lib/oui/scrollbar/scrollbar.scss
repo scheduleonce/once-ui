@@ -1,23 +1,16 @@
-.scrollbar-container::-webkit-scrollbar-track {
+.oui-scrollbar-container::-webkit-scrollbar {
+  width: 12px;
+}
+.oui-scrollbar-container::-webkit-scrollbar-track {
   display: none;
 }
-
-.scrollbar-container::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scrollbar-container::-webkit-scrollbar-thumb {
+.oui-scrollbar-container::-webkit-scrollbar-thumb {
   background-color: #ccc !important;
-  border-radius: 6px;
+  border: 4px #fff solid;
+  border-radius: 15px;
 }
 
-.overflow-y-scroll {
-  overflow-y: scroll;
-}
-.overflow-x-scroll {
-  overflow-x: scroll;
+.oui-scrollbar-container{
+  overflow-y: scroll; 
 }
 
-.scrollbar-wrapper {
-  padding-right: 4px;
-}

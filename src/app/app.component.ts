@@ -63,6 +63,7 @@ export class AppComponent implements OnInit {
   @ViewChild(OuiSort) sort: OuiSort;
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
   options: string[] = ['One', 'Two', 'Three'];
+  minDate = new Date();
   isDisable = false;
   stateGroups = [
     {
@@ -135,7 +136,9 @@ export class AppComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(this.dialogTemplate);
+    const dialogRef = this.dialog.open(this.dialogTemplate, {
+      panelClass: 'something'
+    });
     dialogRef.afterClosed().subscribe(() => {});
   }
 

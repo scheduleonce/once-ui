@@ -13,12 +13,17 @@ import {
   Optional,
   Self
 } from '@angular/core';
-import { NgControl } from '@angular/forms';
+import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
 import { OuiFormFieldControl } from '../form-field/form-field-control';
 import { Subject } from 'rxjs';
 import { getOuiInputUnsupportedTypeError } from './input-errors';
+import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
 import { OUI_INPUT_VALUE_ACCESSOR } from './input-value-accessor';
+import {
+  CanUpdateErrorStateCtor,
+  mixinErrorState
+} from '../core/common-behaviors/error-state';
 
 // Invalid input type. Using one of these will throw an OuiInputUnsupportedTypeError.
 const OUI_INPUT_INVALID_TYPES = [
@@ -46,9 +51,32 @@ let nextUniqueId = 0;
 
 // Boilerplate for applying mixins to OuiInput.
 /** @docs-private */
-export class OuiInputBase {
-  constructor(public _elementRef: ElementRef) {}
+
+export class OuiInputErrorBase {
+  constructor(
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective,
+    /** @docs-private */
+    public ngControl: NgControl
+  ) {}
 }
+export const _OuiInputErrorMixinBase: CanUpdateErrorStateCtor &
+  typeof OuiInputErrorBase = mixinErrorState(OuiInputErrorBase);
+
+export class OuiInputBase extends _OuiInputErrorMixinBase {
+  constructor(
+    public _elementRef: ElementRef,
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective,
+    /** @docs-private */
+    public ngControl: NgControl
+  ) {
+    super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
+  }
+}
+
 export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 
 /** Directive that allows a native input to work inside a `OuiFormField`. */
@@ -73,7 +101,11 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     '(focus)': '_focusChanged(true)',
     '(input)': '_onInput()'
   },
-  providers: [{ provide: OuiFormFieldControl, useExisting: OuiInput }]
+  providers: [
+    { provide: OuiFormFieldControl, useExisting: OuiInput },
+    NgForm,
+    FormGroupDirective
+  ]
 })
 export class OuiInput extends _OuiInputMixinBase
   implements
@@ -208,6 +240,9 @@ export class OuiInput extends _OuiInputMixinBase
   }
   protected _type = 'text';
 
+  /** An object used to control when error messages are shown. */
+  @Input() errorStateMatcher: ErrorStateMatcher;
+
   /**
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
@@ -255,9 +290,18 @@ export class OuiInput extends _OuiInputMixinBase
     @Self()
     @Inject(OUI_INPUT_VALUE_ACCESSOR)
     inputValueAccessor: any,
-    private _autofillMonitor: AutofillMonitor
+    _defaultErrorStateMatcher: ErrorStateMatcher,
+    private _autofillMonitor: AutofillMonitor,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective /** @docs-private */
   ) {
-    super(_elementRef);
+    super(
+      _elementRef,
+      _defaultErrorStateMatcher,
+      _parentForm,
+      _parentFormGroup,
+      ngControl
+    );
 
     const element = this._elementRef.nativeElement;
 

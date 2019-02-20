@@ -7,6 +7,7 @@
 @import '../../input/input-theme';
 @import '../../form-field/form-field-theme';
 @import '../../icon/icon-theme';
+@import '../../datepicker/datepicker-theme';
 @import '../cdk/overlay/overlay-prebuilt'; // Loading overlay
 
 // Create a theme.
@@ -19,4 +20,5 @@
   @include oui-slide-toggle-theme($theme);
   @include oui-progress-spinner-theme($theme);
   @include oui-progress-bar-theme($theme);
+  @include oui-datepicker-theme($theme);
 }

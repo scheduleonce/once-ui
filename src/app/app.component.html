@@ -430,14 +430,17 @@
         ></a>
       </div>
     </div>
-    <div oui-dialog-content><div class="simple"></div></div>
+    <div oui-dialog-content>
+      <div style="background-color: grey; height: 400px; width: 100%"></div>
+      <div style="background-color: blue; height: 400px; width: 100%"></div>
+    </div>
     <div oui-dialog-footer>
       <div oui-dialog-footer-action-left>
         <button oui-link-button>Left</button>
         <button oui-link-button>Left</button>
       </div>
       <div oui-dialog-footer-action-right>
-        <button oui-ghost-button>Open</button>
+        <button oui-ghost-button (click)="openDialog()">Open</button>
         <button oui-button ouiDialogClose>Close</button>
       </div>
     </div>
@@ -626,3 +629,24 @@
   <br />
   <oui-progress-bar color="warn"></oui-progress-bar>
 </div>
+<br /><br />
+
+<h1>Datepicker</h1>
+<div style="max-width: 170px;">
+  <oui-form-field>
+    <input
+      oui-input
+      [ouiDatepicker]="picker"
+      [min]="minDate"
+      placeholder="Choose a date"
+    />
+    <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
+    <oui-datepicker #picker></oui-datepicker>
+  </oui-form-field>
+</div>
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />
+<br /><br />

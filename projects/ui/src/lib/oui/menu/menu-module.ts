@@ -8,10 +8,9 @@ import {
   OuiMenuTrigger,
   OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER
 } from './menu-trigger';
-import { OuiScrollbarModule } from '../scrollbar/public-api';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, OuiScrollbarModule],
+  imports: [CommonModule, OverlayModule],
   exports: [OuiMenu, OuiMenuItem, OuiMenuTrigger, OuiMenuContent],
   declarations: [OuiMenu, OuiMenuItem, OuiMenuTrigger, OuiMenuContent],
   providers: [OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]

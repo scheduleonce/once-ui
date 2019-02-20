@@ -1,3 +1,4 @@
+export * from './datepicker/public-api';
 export * from './button/public-api';
 export * from './dialog/public-api';
 export * from './icon/public-api';
@@ -15,3 +16,4 @@ export * from './tooltip/public-api';
 export * from './radio/public-api';
 export * from './progress-bar/public-api';
 export * from './scrollbar/public-api';
+export * from './slide-toggle/public-api';
