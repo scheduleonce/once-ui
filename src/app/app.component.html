@@ -104,6 +104,32 @@
     </oui-menu>
   </div>
 
+  <br />
+  <br />
+  <h1>Panel Overlay</h1>
+  <div>
+    <button
+      oui-icon-button
+      style="margin-left: 400px"
+      [ouiPanelTriggerFor]="afterAbovePanel"
+    >
+      <oui-icon svgIcon="horizontal"></oui-icon>
+    </button>
+    <oui-panel #afterAbovePanel xPosition="before" yPosition="below">
+      <h6>Lorem ipsum dolor sit amet.</h6>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus
+        voluptates impedit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus
+        voluptates impedit.
+      </p>
+    </oui-panel>
+  </div>
+
   <h1>Form field</h1>
   <div class="input-outer">
     <oui-form-field> <input oui-input placeholder="Any" /> </oui-form-field>

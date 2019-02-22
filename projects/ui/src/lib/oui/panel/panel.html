@@ -1,0 +1,10 @@
+<ng-template>
+  <div
+    class="oui-panel"
+    [ngClass]="_classList"
+    (mouseleave)="_handleMouseLeave($event)"
+    (mouseenter)="_handleMouseEnter($event)"
+  >
+    <div class="oui-panel-content"><ng-content></ng-content></div>
+  </div>
+</ng-template>

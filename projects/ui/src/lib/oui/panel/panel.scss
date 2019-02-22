@@ -1,0 +1,31 @@
+.cdk-overlay-backdrop {
+  z-index: 100;
+}
+
+.oui-panel-content {
+  width: 270px;
+  background: #fff;
+  padding: 10px 17px 12px 17px;
+  box-shadow: 0 1px 2px 0 #4a4a4a;
+  border: 1px solid #c8c8c8;
+  font-size: 13px;
+}
+
+.oui-panel-content-large {
+  width: 548px;
+}
+
+.oui-panel-content h6 {
+  font-size: 13px;
+  line-height: 19px;
+  font-weight: bold;
+  margin: 0px;
+}
+
+.oui-panel-content img {
+  width: 100%;
+}
+
+.oui-panel-content p {
+  margin: 3px 0px;
+}
