@@ -142,3 +142,13 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
     this._mouseEnter.next(event);
   }
 }
+
+@Component({
+  selector: 'oui-panel-icon',
+  template: '<div class="oui-panel-icon"></div>',
+  styleUrls: ['panel.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'ouiPanelIcon'
+})
+export class OuiPanelIcon {}

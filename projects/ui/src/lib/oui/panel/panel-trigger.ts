@@ -292,7 +292,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       this.panel.mouseLeave,
       this.panel.mouseEnter
     ).pipe(
-      debounceTime(1000),
+      debounceTime(200),
       filter(event => event.type === 'mouseleave')
     );
     return merge(detachments, mouseLeave);

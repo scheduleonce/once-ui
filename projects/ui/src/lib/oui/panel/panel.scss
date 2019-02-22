@@ -1,3 +1,5 @@
+$info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAxKSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIHN0cm9rZT0iIzRBNEE0QSIgZmlsbD0iI0ZGRiIgY3g9IjEyIiBjeT0iMTIiIHI9IjEyIi8+PGcgZmlsbD0iIzRBNEE0QSI+PHBhdGggZD0iTTkgMTYuNWg2VjE4SDl6TTkgOWg0LjV2MS41SDl6Ii8+PHBhdGggZD0iTTEwLjUgOWgzdjcuNWgtM3ptMC00LjVoM3YzaC0zeiIvPjwvZz48L2c+PC9zdmc+);
+
 .cdk-overlay-backdrop {
   z-index: 100;
 }
@@ -28,4 +30,13 @@
 
 .oui-panel-content p {
   margin: 3px 0px;
+}
+
+.oui-panel-icon {
+  background: $info-icon 0 0/18px 18px no-repeat;
+  width: 18px;
+  height: 18px;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
 }
