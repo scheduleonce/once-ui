@@ -41,3 +41,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# exclude codeowners file so it will only be in master
+/docs/CODEOWNERS
