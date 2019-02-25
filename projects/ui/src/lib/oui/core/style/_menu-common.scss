@@ -1,0 +1,58 @@
+@import './variables';
+@import './list-common';
+@import './vendor-prefixes';
+
+/** The mixins below are shared between oui-menu and oui-select */
+
+// menu width must be a multiple of 56px
+$oui-menu-overlay-min-width: 112px !default; // 56 * 2
+$oui-menu-overlay-max-width: 280px !default; // 56 * 5
+
+$oui-menu-item-height: 48px !default;
+$oui-menu-side-padding: 16px !default;
+$oui-menu-icon-margin: 16px !default;
+
+@mixin oui-menu-base() {
+  min-width: $oui-menu-overlay-min-width;
+  max-width: $oui-menu-overlay-max-width;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
+}
+
+@mixin oui-menu-item-base() {
+  @include oui-truncate-line();
+
+  // Needs to be a block for the ellipsis to work.
+  display: block;
+  line-height: $oui-menu-item-height;
+  height: $oui-menu-item-height;
+  padding: 0 $oui-menu-side-padding;
+
+  text-align: left;
+  text-decoration: none; // necessary to reset anchor tags
+
+  // Required for Edge not to show scrollbars when setting the width manually. See #12112.
+  max-width: 100%;
+
+  &[disabled] {
+    cursor: default;
+  }
+
+  [dir='rtl'] & {
+    text-align: right;
+  }
+
+  .oui-icon {
+    margin-right: $oui-menu-icon-margin;
+    vertical-align: middle;
+
+    svg {
+      vertical-align: top;
+    }
+
+    [dir='rtl'] & {
+      margin-left: $oui-menu-icon-margin;
+      margin-right: 0;
+    }
+  }
+}
