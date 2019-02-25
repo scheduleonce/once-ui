@@ -24,15 +24,11 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
   /** Label of the search placeholder */
-  @Input() placeholderLabel = 'Search';
+  @Input() placeholderLabel = '';
 
   /** Reference to the search input field */
   @ViewChild('searchSelectInput', { read: ElementRef })
   searchSelectInput: ElementRef;
-  /** Current search value */
-  @Input()
-  key: string;
-
   private _value: string;
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};

@@ -8,37 +8,24 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'filterOptions'
 })
 export class FilterPipe implements PipeTransform {
-  transform(items: any[], searchText: string, field: string = 'value'): any[] {
+  transform(items: any[], searchText: string, field: string): any[] {
     if (!items) {
       return [];
     }
-    const noResultObject = Object.keys(items[0]);
 
     if (!searchText) {
       return items;
     }
-    searchText = searchText.toLowerCase();
-    items = items.filter(i => i.value !== '-1');
-    items = items.filter(it => {
-      return it[field] && it[field].toLowerCase().includes(searchText);
+
+    return items.filter(it => {
+      let results;
+      // Support both array and the json object
+      if (it[field]) {
+        results = it[field].toLowerCase().includes(searchText.toLowerCase());
+      } else {
+        results = it.toLowerCase().includes(searchText.toLowerCase());
+      }
+      return results;
     });
-
-    if (!items.length) {
-      items = [];
-
-      let noResult =
-        noResultObject[0] === field
-          ? {
-              [noResultObject[0]]: `No results match "${searchText}"`,
-              [noResultObject[1]]: ''
-            }
-          : {
-              [noResultObject[1]]: `No results match "${searchText}"`,
-              [noResultObject[0]]: ''
-            };
-
-      items.push(noResult);
-    }
-    return items;
   }
 }

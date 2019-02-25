@@ -3,26 +3,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { OuiOptionModule } from '../core';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
+import { OuiInputModule } from '../input/input-module';
 import { FilterPipe } from './filter.pipe';
 import { OuiSelect, OuiSelectTrigger } from './select';
 import { OuiSelectSearchComponent } from './search';
-import {
-  PerfectScrollbarConfigInterface,
-  PERFECT_SCROLLBAR_CONFIG,
-  PerfectScrollbarModule
-} from 'ngx-perfect-scrollbar';
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  suppressScrollX: true,
-  wheelPropagation: true
-};
-
 @NgModule({
-  imports: [
-    CommonModule,
-    OverlayModule,
-    OuiOptionModule,
-    PerfectScrollbarModule
-  ],
+  imports: [CommonModule, OverlayModule, OuiOptionModule, OuiInputModule],
   exports: [
     OuiFormFieldModule,
     OuiSelect,
@@ -36,12 +22,6 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OuiSelectTrigger,
     OuiSelectSearchComponent,
     FilterPipe
-  ],
-  providers: [
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }
   ]
 })
 export class OuiSelectModule {}

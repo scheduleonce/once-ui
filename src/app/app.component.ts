@@ -6,17 +6,12 @@ import {
   OuiPaginator
 } from 'projects/ui/src/lib/oui';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ReplaySubject, Subject } from 'rxjs';
 import {
   FormControl,
   Validators,
   NgForm,
   FormGroupDirective
 } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-
-import { takeUntil } from 'rxjs/operators';
 import { ErrorStateMatcher } from 'projects/ui/src/lib/oui/core';
 
 export interface State {
@@ -104,10 +99,6 @@ export class AppComponent implements OnInit {
   options: string[] = ['One', 'Two', 'Three'];
   minDate = new Date();
   isDisable = false;
-  public filteredBanks: ReplaySubject<Bank[]> = new ReplaySubject<Bank[]>(1);
-  stateCtrl = new FormControl();
-  filteredStates: Observable<State[]>;
-  public bankFilterCtrl: FormControl = new FormControl();
   selected = new FormControl('valid', [
     Validators.required,
     Validators.pattern('valid')
@@ -115,7 +106,7 @@ export class AppComponent implements OnInit {
   selectedOption = 'option2';
   matcher = new MyErrorStateMatcher();
   /** list of banks */
-  private banks: Bank[] = [
+  banks: Bank[] = [
     { name: 'Bank A (Switzerland)', id: 'A' },
     { name: 'Bank B (Switzerland)', id: 'B' },
     { name: 'Bank C (France)', id: 'C' },
@@ -267,11 +258,6 @@ export class AppComponent implements OnInit {
       )
     );
 
-    this.filteredStates = this.stateCtrl.valueChanges.pipe(
-      startWith(''),
-      map(state => (state ? this._filterStates(state) : this.states.slice()))
-    );
-
     this.checked = false;
     this.labelPosition = 'after';
     this.disabled = false;
@@ -285,21 +271,6 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.filteredBanks.next(this.banks.slice());
-    // listen for search field value changes
-    this.bankFilterCtrl.valueChanges
-      .pipe(takeUntil(this._onDestroy))
-      .subscribe(() => {
-        this.filterBanks();
-      });
-  }
-  private _onDestroy = new Subject<void>();
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter(
-      it => it.name && it.name.toLowerCase().includes(filterValue)
-    );
   }
 
   openDialog() {
@@ -347,33 +318,5 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.progressGhostButton.setToDone();
     }, 1000);
-  }
-
-  private filterBanks() {
-    if (!this.banks) {
-      return;
-    }
-    // get the search keyword
-    let search = this.bankFilterCtrl.value;
-    search = search.toLowerCase();
-    // filter the banks
-    this.filteredBanks.next(
-      this.banks.filter(bank => bank.name.toLowerCase().indexOf(search) > -1)
-    );
-  }
-
-  mainBanks = this.banks;
-  filterData(key) {
-    this.banks = this.mainBanks.filter(
-      it => it.name && it.name.toLowerCase().includes(key.toLowerCase())
-    );
-    if (!this.banks.length) {
-      this.banks = [];
-      this.banks.push({
-        name: `No results match "${key}"`,
-        id: 'no_result'
-      });
-    }
-    return this.banks;
   }
 }

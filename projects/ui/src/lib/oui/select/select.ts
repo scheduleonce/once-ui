@@ -63,9 +63,10 @@ import {
   OuiOptionSelectionChange,
   mixinDisabled,
   mixinErrorState,
-  mixinTabIndex
+  mixinTabIndex,
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition
 } from '../core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { defer, merge, Observable, Subject } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -86,8 +87,11 @@ import { OuiFormFieldControl } from '../form-field/public-api';
 
 let nextUniqueId = 0;
 
-/** The height of the select items in `em` units. */
-export const SELECT_ITEM_HEIGHT_EM = 3;
+/** The total height of the select panel. */
+export const SELECT_PANEL_HEIGHT = 200;
+
+/** The height of each select option. */
+export const SELECT_OPTION_HEIGHT = 40;
 
 /** Change event object that is emitted when the select value has changed. */
 export class OuiSelectChange {
@@ -176,6 +180,9 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
+  /** Adding top class to overlay panel */
+  cdkConnectionOverlayPanel = '';
+
   /** Whether filling out the select is required in the form. */
   private _required: boolean = false;
 
@@ -253,6 +260,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   @ContentChildren(OuiOption, { descendants: true }) options: QueryList<
     OuiOption
   >;
+  initialValue = '';
 
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
@@ -270,6 +278,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
   set placeholder(value: string) {
     this._placeholder = value;
+    this.initialValue = value;
     this.stateChanges.next();
   }
 
@@ -399,6 +408,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     OuiSelectChange
   > = new EventEmitter<OuiSelectChange>();
 
+  @Output() readonly change: EventEmitter<OuiSelectChange> = new EventEmitter<
+    OuiSelectChange
+  >();
   /**
    * Event that emits whenever the raw value of the select changes. This is here primarily
    * to facilitate the two-way binding for the `value` input.
@@ -416,7 +428,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     @Optional() _parentFormGroup: FormGroupDirective,
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
-    private sanitizer: DomSanitizer,
     @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     super(
@@ -525,6 +536,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     this._highlightCorrectOption();
     this._changeDetectorRef.markForCheck();
     this.openedChange.emit(true);
+    this._elementRef.nativeElement.classList.add(
+      'oui-select-list-options-opened'
+    );
   }
 
   /** Closes the overlay panel and focuses the host element. */
@@ -535,6 +549,10 @@ export class OuiSelect extends _OuiSelectMixinBase
       this._changeDetectorRef.markForCheck();
       this._onTouched();
       this.openedChange.emit(false);
+      this._elementRef.nativeElement.classList.remove(
+        'oui-select-list-options-opened'
+      );
+      setTimeout(_ => this._document.activeElement.blur());
     }
   }
 
@@ -601,7 +619,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     if (this.empty) {
       return '';
     }
-
     if (this._multiple) {
       const selectedOptions = this._selectionModel.selected.map(
         option => option.viewValueForSelect
@@ -611,7 +628,6 @@ export class OuiSelect extends _OuiSelectMixinBase
         selectedOptions.reverse();
       }
 
-      // TODO(crisbeto): delimiter should be configurable for proper localization.
       return selectedOptions.join(', ');
     }
     return this._selectionModel.selected[0].viewValueForSelect;
@@ -717,7 +733,62 @@ export class OuiSelect extends _OuiSelectMixinBase
       ) {
         manager.activeItem._selectViaInteraction();
       }
+      if (isArrowKey && manager.activeItemIndex !== previouslyFocusedIndex) {
+        this._scrollToOption();
+      } else {
+        // First or last
+        if (keyCode === DOWN_ARROW) {
+          manager.setFirstItemActive();
+          this._setScrollTop(0);
+        }
+        if (keyCode === UP_ARROW) {
+          manager.setLastItemActive();
+          this._scrollToOption();
+        }
+      }
     }
+  }
+
+  /**
+   * Given that we are not actually focusing active options, we must manually adjust scroll
+   * to reveal options below the fold. First, we find the offset of the option from the top
+   * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+   * the panel height + the option height, so the active option will be just visible at the
+   * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+   * will become the offset. If that offset is visible within the panel already, the scrollTop is
+   * not adjusted.
+   */
+  private _scrollToOption(): void {
+    const manager = this._keyManager;
+    const index = manager.activeItemIndex || 0;
+    const labelCount = _countGroupLabelsBeforeOption(
+      index,
+      this.options,
+      this.optionGroups
+    );
+    const scrollTop = this._getScrollTop();
+    const newScrollPosition = _getOptionScrollPosition(
+      index + labelCount,
+      SELECT_OPTION_HEIGHT,
+      scrollTop,
+      SELECT_PANEL_HEIGHT
+    );
+    this._setScrollTop(newScrollPosition);
+  }
+
+  /**
+   * Sets the panel scrollTop. This allows us to manually scroll to display options
+   * above or below the fold, as they are not actually being focused when active.
+   */
+  _setScrollTop(scrollTop: number): void {
+    if (this.panel) {
+      this.panel.nativeElement.scrollTop = scrollTop;
+    }
+  }
+
+  /** Returns the panel's scrollTop. */
+  _getScrollTop(): number {
+    return this.panel ? this.panel.nativeElement.scrollTop : 0;
   }
 
   _onFocus() {
@@ -921,7 +992,6 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Emits change event to set the model value. */
   private _propagateChanges(fallbackValue?: any): void {
     let valueToEmit: any = null;
-
     if (this.multiple) {
       valueToEmit = (this.selected as OuiOption[]).map(option => option.value);
     } else {
@@ -933,7 +1003,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     this.valueChange.emit(valueToEmit);
     this._onChange(valueToEmit);
     this.selectionChange.emit(new OuiSelectChange(this, valueToEmit));
+    this.change.emit(new OuiSelectChange(this, valueToEmit));
     this._changeDetectorRef.markForCheck();
+    this.initialValue = this.triggerValue;
   }
 
   /** Records option IDs to pass to the aria-owns property. */
@@ -1009,15 +1081,6 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
 
   /**
-   * By pass html
-   * @param data
-   * @returns {SafeHtml}
-   */
-  bypassSecurityTrustHtml(data) {
-    return this.sanitizer.bypassSecurityTrustHtml(data);
-  }
-
-  /**
    * Add outer class to perfect scrollbar
    * This is added only when there is a search field
    */
@@ -1029,9 +1092,21 @@ export class OuiSelect extends _OuiSelectMixinBase
    * Custom overlay class for cdk overlay container
    */
   openCdk() {
+    this.overlayDir.positionChange.pipe(take(1)).subscribe(e => {
+      this.cdkConnectionOverlayPanel = '';
+      if (e.connectionPair.originY === 'top') {
+        this.cdkConnectionOverlayPanel = 'select-overlay-top';
+      }
+      this._changeDetectorRef.detectChanges();
+      setTimeout(_ => this._scrollToOption());
+    });
+
     const cdkOverLayContainer = this._document.querySelector(
       '.cdk-overlay-container'
     );
+    const ouiSelectPanel = this._document.querySelector('.oui-select-panel');
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
+    const containerWidth = this._elementRef.nativeElement.offsetWidth;
+    ouiSelectPanel.style.width = `${containerWidth}px`;
   }
 }
