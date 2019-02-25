@@ -28,7 +28,6 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
  * @docs-private
  */
 @Component({
-  moduleId: module.id,
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'oui-pseudo-checkbox',
