@@ -82,6 +82,24 @@ storiesOf('Button', module)
     { notes: { markdown: markdownText } }
   )
   .add(
+    'ghost-button',
+    () => ({
+      moduleMetadata: {
+        imports: [OuiButtonModule],
+        schemas: [],
+        declarations: []
+      },
+      template: `<button oui-ghost-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        disabled: boolean('disabled', false),
+        text: text('text', 'This is a button'),
+        clicked: action('click')
+      }
+    }),
+    { notes: { markdown: markdownText } }
+  )
+  .add(
     'Progress',
     () => ({
       moduleMetadata: {
@@ -93,6 +111,7 @@ storiesOf('Button', module)
                   #progressButton
                   oui-button
                   progress
+                  [color]="color"
                   [disabled]="isDisable"
                   (click)="clicked();progressButtonClick(progressButton)">
                   button
