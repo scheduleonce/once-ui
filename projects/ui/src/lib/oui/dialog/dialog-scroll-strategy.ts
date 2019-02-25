@@ -38,7 +38,5 @@ export class DialogScrollStrategy implements ScrollStrategy {
     this._overlayRef.hostElement.style.pointerEvents = 'auto';
     this._overlayRef.hostElement.style.position = 'fixed';
     this._overlayRef.hostElement.style.overflow = 'auto';
-    this._overlayRef.overlayElement.style.paddingTop = '40px';
-    this._overlayRef.overlayElement.style.marginBottom = '40px';
   }
 }

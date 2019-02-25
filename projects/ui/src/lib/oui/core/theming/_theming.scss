@@ -1,5 +1,5 @@
 @import 'palette';
-
+$dark-disabled-text: rgba(black, 0.38);
 $default-primary: (
   default: $oui-blue,
   lighter: lighten($oui-blue, 10%),
@@ -33,7 +33,11 @@ $default-foreground: (
   disabled-ghost-button: $oui-disabled-grey,
   disabled-button: #ffffff,
   text: #333333,
-  secondary-text: #666666
+  hint-text: rgba(black, 0.38),
+  divider: rgba(black, 0.12),
+  disabled-text: $oui-disabled-grey,
+  secondary-text: #666666,
+  hover: rgba(0, 0, 0, 0.04)
 );
 @function oui-palette(
   $base,
@@ -62,4 +66,21 @@ $default-foreground: (
     foreground: map-merge($default-foreground, $foreground),
     background: map-merge($default-background, $background)
   );
+}
+// Gets a color from a theme palette (the output of mat-palette).
+// The hue can be one of the standard values (500, A400, etc.), one of the three preconfigured
+// hues (default, lighter, darker), or any of the aforementioned prefixed with "-contrast".
+
+// @param $color-map The theme palette (output of mat-palette).
+// @param $hue The hue from the palette to use. If this is a value between 0 and 1, it will
+// be treated as opacity.
+// @param $opacity The alpha channel value for the color.
+@function oui-color($palette, $hue: default, $opacity: null) {
+  // If hueKey is a number between zero and one, then it actually contains an // opacity value, so recall this function with the default hue and that given opacity.
+  @if type-of($hue) == number and $hue >= 0 and $hue <= 1 {
+    @return mat-color($palette, default, $hue);
+  }
+  $color: map-get($palette, $hue);
+  $opacity: if($opacity == null, opacity($color), $opacity);
+  @return rgba($color, $opacity);
 }

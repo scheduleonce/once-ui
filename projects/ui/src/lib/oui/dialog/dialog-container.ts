@@ -4,7 +4,9 @@ import {
   EmbeddedViewRef,
   ViewChild,
   ViewEncapsulation,
-  ChangeDetectionStrategy
+  ChangeDetectionStrategy,
+  ElementRef,
+  OnInit
 } from '@angular/core';
 import {
   BasePortalOutlet,
@@ -49,7 +51,7 @@ export function throwOuiDialogContentAlreadyAttachedError() {
     '[attr.aria-describedby]': '_config.ariaDescribedBy || null'
   }
 })
-export class OuiDialogContainer extends BasePortalOutlet {
+export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   @ViewChild(CdkPortalOutlet)
   _portalOutlet: CdkPortalOutlet;
@@ -60,8 +62,22 @@ export class OuiDialogContainer extends BasePortalOutlet {
   /** ID for the container DOM element. */
   _id: string;
 
-  constructor(public _config: OuiDialogConfig) {
+  constructor(
+    public _config: OuiDialogConfig,
+    public elementRef: ElementRef<HTMLElement>
+  ) {
     super();
+  }
+
+  ngOnInit() {
+    this._addMarginForDefaultScroll();
+  }
+
+  private _addMarginForDefaultScroll() {
+    if (!this._config.scrollStrategy) {
+      this.elementRef.nativeElement.style.marginTop = '40px';
+      this.elementRef.nativeElement.style.marginBottom = '40px';
+    }
   }
 
   /**
