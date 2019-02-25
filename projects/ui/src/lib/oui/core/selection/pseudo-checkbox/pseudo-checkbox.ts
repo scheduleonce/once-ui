@@ -37,8 +37,7 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   host: {
     class: 'oui-pseudo-checkbox',
     '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
-    '[class.oui-pseudo-checkbox-disabled]': 'disabled',
-    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"'
+    '[class.oui-pseudo-checkbox-disabled]': 'disabled'
   }
 })
 export class OuiPseudoCheckbox {

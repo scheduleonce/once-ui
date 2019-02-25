@@ -28,13 +28,26 @@
   }
 
   .oui-optgroup &:not(.oui-option-multiple) {
-    //padding-left: $oui-menu-side-padding * 2;
-
     [dir='rtl'] & {
       padding-left: $oui-menu-side-padding;
       padding-right: $oui-menu-side-padding * 2;
     }
   }
+}
+
+.single-type-checkbox {
+  .oui-checkbox-inner-container {
+    display: none;
+  }
+}
+
+// Collapses unwanted whitespace created by newlines in code like the following:
+.oui-option-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
 }
 
 // Collapses unwanted whitespace created by newlines in code like the following:
@@ -43,6 +56,12 @@
   flex-grow: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.oui-option-multiple {
+  .oui-checkbox-inner-container {
+    display: block;
+  }
 }
 
 .oui-option-pseudo-checkbox {

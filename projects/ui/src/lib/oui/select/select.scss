@@ -7,21 +7,29 @@ $oui-select-arrow-size: 5px !default;
 $oui-select-arrow-margin: 4px !default;
 $oui-select-panel-max-height: 256px !default;
 $oui-select-item-height: 40px !default;
-
 $oui-select-placeholder-arrow-space: 2 *
   ($oui-select-arrow-size + $oui-select-arrow-margin);
+$gray-color: #eee;
 
+%placeholder {
+  font-size: 14px;
+}
+
+.oui-error {
+  @extend %placeholder;
+}
 .oui-select {
   display: inline-block;
   width: 100%;
   outline: none;
   div {
     margin: 0;
+    vertical-align: middle;
   }
   .oui-select-value {
-    font-size: 14px;
+    @extend %placeholder;
     line-height: 19px;
-    padding: 2px 0;
+    padding: 2px 8px 2px 0;
   }
 }
 
@@ -48,6 +56,10 @@ $oui-select-placeholder-arrow-space: 2 *
 
 .oui-select-value-text {
   @include oui-truncate-line();
+  span img {
+    max-width: 20px;
+    max-height: 20px;
+  }
 }
 
 .oui-select-arrow-wrapper {
@@ -62,12 +74,6 @@ $oui-select-placeholder-arrow-space: 2 *
   // When used in a outline form-field the arrow should be shifted up 25%.
   .oui-form-field-appearance-outline & {
     transform: translateY(-25%);
-  }
-
-  // When used in a standard appearance form-field the arrow should be shifted up 50%,
-  // but only if it's not empty
-  .oui-form-field-appearance-standard .oui-select:not(.oui-select-empty) & {
-    transform: translateY(-50%);
   }
 
   // Animate the arrow position, but only when the transitioning to empty (animate the arrow down)
@@ -85,81 +91,74 @@ $oui-select-placeholder-arrow-space: 2 *
 }
 
 .oui-select-arrow {
-  width: 0;
-  height: 0;
-  border-left: $oui-select-arrow-size solid transparent;
-  border-right: $oui-select-arrow-size solid transparent;
-  border-top: $oui-select-arrow-size solid;
-  margin: 0 $oui-select-arrow-margin;
+  width: 12px;
+  height: 8px;
+  margin-top: 3px !important;
+  background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTJweCIgaGVpZ2h0PSI4cHgiIHZpZXdCb3g9IjAgMCAxMiA4IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IHNrZXRjaHRvb2wgNTMgKDcyNTIwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT40RDEyNEU0My0xRkNBLTRGOTEtOTVFRS1DRUQwQ0MzQTE1MjI8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIHNrZXRjaHRvb2wuPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkRyb3BEb3duIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTI3LjAwMDAwMCwgLTE3OS4wMDAwMDApIiBmaWxsPSIjNEE0QTRBIj4KICAgICAgICAgICAgPHBhdGggZD0iTTUzMC42ODQyMTEsMTgzLjMxNTc4OSBMNTM3LDE4My4zMTU3ODkgTDUzNywxODUgTDUzMC42ODQyMTEsMTg1IEw1MjksMTg1IEw1MjksMTc3IEw1MzAuNjg0MjExLDE3NyBMNTMwLjY4NDIxMSwxODMuMzE1Nzg5IFoiIGlkPSJDb21iaW5lZC1TaGFwZS1Db3B5LTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUzMy4wMDAwMDAsIDE4MS4wMDAwMDApIHNjYWxlKC0xLCAtMSkgcm90YXRlKC0yMjUuMDAwMDAwKSB0cmFuc2xhdGUoLTUzMy4wMDAwMDAsIC0xODEuMDAwMDAwKSAiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPg==')
+    no-repeat;
 }
 
 .oui-focused {
   .oui-select-arrow {
-    border-bottom: 8px solid;
-    border-top-width: 0;
+    transform: rotate(180deg);
   }
-}
-
-.oui-select-panel {
-  @include oui-menu-base();
-  padding-top: 0;
-  padding-bottom: 0;
-  max-height: $oui-select-panel-max-height;
-  min-width: 100%; // prevents some animation twitching and test inconsistencies in IE11
-  border: 1px solid #c8c8c8;
-  background-color: #ffffff;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-  width: 400px;
-  max-height: 340px;
-  margin: 10px 0 0 -10px;
+  .oui-input:not(.oui-select-list-options-opened) {
+    .oui-select-arrow {
+      transform: rotate(0deg);
+    }
+  }
 }
 
 // Override optgroup and option to scale based on font-size of the trigger.
 .oui-select-panel {
+  color: #333;
+  @include oui-menu-base();
+  overflow-x: hidden;
+  padding-bottom: 0;
+  border: 1px solid #c8c8c8;
+  background-color: #ffffff;
+  max-height: 392px;
+  margin: 9px 0 0 -10px;
+  box-sizing: border-box;
+  min-width: 100px;
+  font-family: 'Open Sans', sans-serif;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  padding-top: 10px;
+  border-top: 0;
+  &.oui-select-input-outer {
+    padding-top: 0;
+  }
   .oui-optgroup-label,
   .oui-option {
-    font-size: inherit;
     line-height: $oui-select-item-height;
     height: $oui-select-item-height;
     padding: 0 10px;
     font-size: 14px;
+    &.oui-active {
+      background: $gray-color;
+      color: #333;
+    }
+    &.oui-option-disabled {
+      color: rgba(0, 0, 0, 0.38);
+    }
+    &:last-child {
+      margin-bottom: 10px;
+    }
+    oui-checkbox {
+      width: 100%;
+      label {
+        width: 100%;
+        display: block;
+      }
+    }
+  }
+  .oui-option-multiple.oui-selected,
+  .oui-option-multiple.oui-active {
+    background: none;
   }
   .oui-optgroup-label {
     font-weight: 700;
-  }
-  .ps-content {
-    margin: 10px 0;
-  }
-  .ps__rail-y {
-    background-color: #eee;
-    width: 6px;
-  }
-  .ps__thumb-y {
-    background-color: #999;
-    width: 6px;
-    right: 6px;
-  }
-  perfect-scrollbar > .ps.ps--active-y > .ps__rail-y {
-    right: 2px !important;
-    opacity: 0.6 !important;
-    .ps__thumb-y {
-      right: 1px !important;
-    }
-    &:hover {
-      width: 6.4px !important;
-    }
-  }
-  .ps__rail-y:focus > .ps__thumb-y,
-  .ps__rail-y:hover > .ps__thumb-y {
-    width: 6px !important;
-    background-color: #999 !important;
-  }
-  .ps--active-y > .ps__rail-y {
-    display: block;
-    background-color: transparent !important;
-    margin: 7px 0;
   }
 }
 
@@ -178,7 +177,6 @@ $oui-select-placeholder-arrow-space: 2 *
   // order to prevent the placeholder from overlapping for a split second.
   transition: color $swift-ease-out-duration $swift-ease-out-duration / 3
     $swift-ease-out-timing-function;
-
   ._oui-animation-noopable & {
     transition: none;
   }
@@ -200,25 +198,104 @@ $oui-select-placeholder-arrow-space: 2 *
 /*-- search dropdown --*/
 
 .oui-select-input-outer {
-  .ps {
-    padding-top: 50px;
-    box-sizing: border-box;
-  }
-  .ps--active-y > .ps__rail-y {
-    margin: 62px 0 7px;
-  }
+  box-sizing: border-box;
+  position: relative;
 }
 
 /*-- search dropdown --*/
 
 /*-- search ddropdown --*/
-.ui-select-overlay-container{
+.ui-select-overlay-container {
   position: absolute;
 }
-.oui-select-has-a-panel .oui-option.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled){
-  background: rgba(0,0,0,.12);
+.oui-select-has-a-panel
+  .oui-option.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled) {
+  background: rgba(0, 0, 0, 0.12);
+  color: #3f51b5;
+  font-weight: 500;
 }
-.oui-select-has-a-panel .oui-option:hover:not(.oui-option-disabled){
-  background: rgba(0,0,0,.04);
+.oui-select-has-a-panel .oui-option:hover:not(.oui-option-disabled) {
+  background: rgba(0, 0, 0, 0.04);
 }
+
 /*-- search ddropdown --*/
+
+/*-- search dropdown underline --*/
+.oui-form-field-appearance-underline {
+  .oui-select-trigger {
+    margin-left: 9px;
+    .oui-select-value {
+      overflow: visible;
+      .oui-select-placeholder,
+      .oui-select-value-text {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        margin-left: -9px;
+        display: block;
+        height: 19px;
+      }
+    }
+  }
+  .oui-input {
+    border: 1px solid transparent;
+    padding-left: 0;
+    padding-right: 0;
+    border-bottom: 1px solid #c8c8c8;
+    > div {
+      padding-right: 9px;
+    }
+    &:after {
+      content: '';
+      height: 1px;
+      width: 100%;
+      background: #c8c8c8;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+    }
+  }
+}
+
+.oui-form-field.oui-form-field-appearance-underline .oui-input {
+  &.oui-select-disabled {
+    border: 1px solid transparent;
+    border-bottom: 1px solid #e4e4e4;
+    background: transparent;
+    &:after {
+      background: #e4e4e4;
+    }
+  }
+}
+.oui-form-field .oui-input {
+  &.oui-select-disabled {
+    border: 1px solid #e4e4e4;
+    background-color: #f9f9f9;
+    color: #9b9b9b;
+    cursor: default;
+    .oui-select-arrow {
+      width: 12px;
+      height: 8px;
+      background: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTJweCIgaGVpZ2h0PSI4cHgiIHZpZXdCb3g9IjAgMCAxMiA4IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPCEtLSBHZW5lcmF0b3I6IHNrZXRjaHRvb2wgNTMgKDcyNTIwKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT40RDEyNEU0My0xRkNBLTRGOTEtOTVFRS1DRUQwQ0MzQTE1MjI8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIHNrZXRjaHRvb2wuPC9kZXNjPgogICAgPGcgaWQ9IlBhZ2UtMSIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPGcgaWQ9IkRyb3BEb3duIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNTI3LjAwMDAwMCwgLTE3OS4wMDAwMDApIiBmaWxsPSIjQzhDOEM4Ij4KICAgICAgICAgICAgPHBhdGggZD0iTTUzMC42ODQyMTEsMTgzLjMxNTc4OSBMNTM3LDE4My4zMTU3ODkgTDUzNywxODUgTDUzMC42ODQyMTEsMTg1IEw1MjksMTg1IEw1MjksMTc3IEw1MzAuNjg0MjExLDE3NyBMNTMwLjY4NDIxMSwxODMuMzE1Nzg5IFoiIGlkPSJDb21iaW5lZC1TaGFwZS1Db3B5LTMiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUzMy4wMDAwMDAsIDE4MS4wMDAwMDApIHNjYWxlKC0xLCAtMSkgcm90YXRlKC0yMjUuMDAwMDAwKSB0cmFuc2xhdGUoLTUzMy4wMDAwMDAsIC0xODEuMDAwMDAwKSAiPjwvcGF0aD4KICAgICAgICA8L2c+CiAgICA8L2c+Cjwvc3ZnPgo=')
+        no-repeat;
+    }
+  }
+  &.oui-form-field-appearance-underline {
+    .oui-input {
+      transition: border 0.5s, padding 0.5s;
+    }
+  }
+}
+/*-- search dropdown underline --*/
+
+.oui-option:focus:not(.oui-option-disabled),
+.oui-option:hover:not(.oui-option-disabled),
+.oui-option.oui-selected:not(.oui-option-multiple):not(.oui-option-disabled) {
+  background: $gray-color;
+}
+
+.select-overlay-top.oui-select-panel {
+  margin-bottom: 7px;
+  border-top: 1px solid #c8c8c8;
+}

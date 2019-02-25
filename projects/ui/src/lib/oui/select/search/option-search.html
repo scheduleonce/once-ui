@@ -1,11 +1,11 @@
 <div class="oui-select-search-inner">
-  <input
-    oui-input
-    class="oui-select-search-input"
-    #searchSelectInput
-    (input)="onInputChange($event.target.value)"
-    [placeholder]="placeholderLabel"
-  />
+  <oui-form-field>
+    <input
+      oui-input
+      class="oui-select-search-input"
+      #searchSelectInput
+      (input)="onInputChange($event.target.value)"
+      [placeholder]="placeholderLabel"
+    />
+  </oui-form-field>
 </div>
-
-<ng-content></ng-content>

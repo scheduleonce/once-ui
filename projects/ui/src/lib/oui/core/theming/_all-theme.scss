@@ -10,8 +10,6 @@
 @import '../../select/select-theme';
 @import '../../datepicker/datepicker-theme';
 @import '../cdk/overlay/overlay-prebuilt'; // Loading overlay
-@import '../selection/pseudo-checkbox/pseudo-checkbox-theme';
-
 // Create a theme.
 @mixin once-ui-theme($theme) {
   @include oui-button-theme($theme);
@@ -23,6 +21,5 @@
   @include oui-progress-spinner-theme($theme);
   @include oui-progress-bar-theme($theme);
   @include oui-select-theme($theme);
-  @include oui-pseudo-checkbox-theme($theme);
   @include oui-datepicker-theme($theme);
 }

@@ -6,60 +6,193 @@ To add options to the select, add <oui-option> elements to the `<oui-select>`. E
 
 ### Basic select
 
-[Oui Basic Select](https://stackblitz.com/edit/oui-select-basic-example)
+```angular2html
+      <oui-form-field>
+        <oui-select placeholder="Favorite Bank">
+          <oui-option *ngFor="let bank of banks" [value]="bank.id">
+            {{ bank.name }}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+```
 
 ## Getting and setting the select value
 
 The `<oui-select>` supports 2-way binding to the value property without the need for Angular forms.
-[Oui select with 2 way value binding](https://stackblitz.com/edit/oui-select-with-2-way-value-binding)
+
+```angular2html
+      <oui-form-field color="accent">
+        <oui-select [(value)]="selectedOption">
+          <oui-option>None</oui-option>
+          <oui-option value="option1">Option 1</oui-option>
+          <oui-option value="option2">Option 2</oui-option>
+          <oui-option value="option3">Option 3</oui-option>
+        </oui-select>
+      </oui-form-field>
+      <p>You selected: {{ selectedOption }}</p>
+```
 
 ## Form field features
 
 There are a number of `<oui-form-field>` features that can be used with both `<select>` and `<oui-select>`. These include error messages, hint text, prefix & suffix, and theming.
 
-[Form field features](https://stackblitz.com/edit/oui-form-field-features)
+```angular2html
+    <oui-form-field color="accent">
+      <oui-select [(value)]="selectedOption" placeholder="Option">
+        <oui-option>None</oui-option>
+        <oui-option value="option1">Option 1</oui-option>
+        <oui-option value="option2">Option 2 with long text</oui-option>
+        <oui-option value="option3">Option 3</oui-option>
+      </oui-select>
+    </oui-form-field>
+```
 
 ## Disabling the select or individual options
 
 It is possible to disable the entire select or individual options in the select by using the disabled property on the `<select>` or `<oui-select>` and the `<option>` or elements respectively.
 
-[Oui select Disabling the select or individual options](https://stackblitz.com/edit/oui-select-disabling-the-select-or-individual)
+```angular2html
+    <oui-checkbox [formControl]="disableSelect">Disable select</oui-checkbox>
+
+    <oui-form-field>
+      <oui-select
+        placeholder="Choose an option"
+        [disabled]="disableSelect.value"
+      >
+        <oui-option value="option1">Option 1</oui-option>
+        <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>
+        <oui-option value="option3">Option 3</oui-option>
+      </oui-select>
+    </oui-form-field>
+```
 
 ## Resetting the select value
 
 If you want one of your options to reset the select's value, you can omit specifying its value.
 
-[Oui select Disabling resetting the select value](https://stackblitz.com/edit/oui-select-disabling-resetting-the-select-value)
+```angular2html
+  <oui-form-field color="accent">
+      <oui-select [(value)]="selectedOption">
+        <oui-option>None</oui-option>
+        <oui-option value="option1">Option 1</oui-option>
+        <oui-option value="option2">Option 2 with long text</oui-option>
+        <oui-option value="option3">Option 3</oui-option>
+      </oui-select>
+    </oui-form-field>
+```
 
 ## Creating groups of options
 
 The `<oui-optgroup>` element can be used to group common options under a subheading. The name of the group can be set using the label property of `<oui-optgroup>`. Like individual `<oui-option>` elements, an entire `<oui-optgroup>` can be disabled or enabled by setting the disabled property on the group.
 
-[Oui select creating groups of options](https://stackblitz.com/edit/oui-select-creating-groups-of-options)
+```angular2html
+      <oui-form-field>
+        <oui-select placeholder="Pokemon">
+          <oui-option>-- None --</oui-option>
+          <oui-optgroup
+            *ngFor="let group of pokemonGroups"
+            [label]="group.name"
+            [disabled]="group.disabled"
+          >
+            <oui-option
+              *ngFor="let pokemon of group.pokemon"
+              [value]="pokemon.value"
+            >
+              {{ pokemon.viewValue }}
+            </oui-option>
+          </oui-optgroup>
+        </oui-select>
+      </oui-form-field>
+```
 
 ## Multiple selection
 
 `<oui-select>` defaults to single-selection mode, but can be configured to allow multiple selection by setting the multiple property. This will allow the user to select multiple values at once. When using the `<oui-select>` in multiple selection mode, its value will be a sorted list of all selected values rather than a single value.
 
-[Oui select multiple selection](https://stackblitz.com/edit/oui-select-multiple-selection)
+```angular2html
+      <oui-form-field [appearance]="'underline'">
+        <oui-select placeholder="Favorite food" multiple>
+          <oui-option *ngFor="let bank of banks" [value]="bank.id">
+            {{ bank.name }}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+```
 
 ## Customizing the trigger label
 
 If you want to display a custom trigger label inside a `<oui-select>`, you can use the <oui-select-trigger> element.
 
-[Customizing the trigger label](https://stackblitz.com/edit/oui-select-customizing-the-trigger-label)
+```angular2html
+    <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
+        <oui-select-trigger>
+          {{ toppings.value ? toppings.value[0] : '' }}
+          <span
+            *ngIf="toppings.value?.length > 1"
+            class="example-additional-selection"
+          >
+            (+{{ toppings.value.length - 1 }}
+            {{ toppings.value?.length === 2 ? 'other' : 'others' }})
+          </span>
+        </oui-select-trigger>
+        <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+        <oui-option
+          *ngFor="let topping of (toppingList | filterOptions: keyword)"
+          [value]="topping"
+          >{{ topping }}
+        </oui-option>
+        <div
+          *ngIf="!(toppingList | filterOptions: keyword).length"
+          class="noResults"
+        >
+          No results match "{{ keyword }}"
+        </div>
+    </oui-select>
+```
 
 ## Adding custom styles to the dropdown panel
 
 In order to facilitate easily styling the dropdown panel, `<oui-select>` has a panelClass property which can be used to apply additional CSS classes to the dropdown panel.
 
-[Adding custom styles to the dropdown panel](https://stackblitz.com/edit/oui-select-with-custom-panel-styling)
+```angular2html
+    <oui-form-field>
+      <oui-select
+        placeholder="Panel color"
+        [formControl]="panelColor"
+        panelClass="example-panel-{{ panelColor.value }}"
+      >
+        <oui-option value="red">Red</oui-option>
+        <oui-option value="green">Green</oui-option>
+        <oui-option value="blue">Blue</oui-option>
+      </oui-select>
+    </oui-form-field>
+```
 
 ## Changing when error messages are shown
 
 The `<oui-form-field>` allows you to associate error messages with your `<select>` or `<oui-select>`. By default, these error messages are shown when the control is invalid and either the user has interacted with (touched) the element or the parent form has been submitted. If you wish to override this behavior (e.g. to show the error as soon as the invalid control is dirty or when a parent form group is invalid), you can use the errorStateMatcher property of the `<oui-select>`. The property takes an instance of an ErrorStateMatcher object. An ErrorStateMatcher must implement a single method isErrorState which takes the FormControl for this `<oui-select>` as well as the parent form and returns a boolean indicating whether errors should be shown. (true indicating that they should be shown, and false indicating that they should not.)
 
-[Changing when error messages are shown](https://stackblitz.com/edit/oui-changing-when-error-messages-are-shown)
+```angular2html
+    <oui-form-field>
+        <oui-select
+          placeholder="Choose one"
+          [formControl]="selected"
+          [errorStateMatcher]="matcher"
+        >
+          <oui-option>Clear</oui-option>
+          <oui-option value="valid">Valid option</oui-option>
+          <oui-option value="invalid">Invalid option</oui-option>
+        </oui-select>
+        <oui-error *ngIf="selected.hasError('required')"
+          >You must make a selection
+        </oui-error>
+        <oui-error
+          *ngIf="selected.hasError('pattern') && !selected.hasError('required')"
+        >
+          Your selection is invalid
+        </oui-error>
+      </oui-form-field>
+```
 
 A global error state matcher can be specified by setting the ErrorStateMatcher provider. This applies to all inputs. For convenience, ShowOnDirtyErrorStateMatcher is available in order to globally cause input errors to show when the input is dirty and invalid.
 
@@ -222,17 +355,7 @@ const SELECT_PANEL_VIEWPORT_PADDING: 8;
 
 ```
 
----
+## Stackblitz demo link
 
-# Examples
-
-- [Oui Basic Select](https://stackblitz.com/edit/oui-select-basic-example)
-- [Form field features](https://stackblitz.com/edit/oui-form-field-features)
-- [Oui select Disabling the select or individual options](https://stackblitz.com/edit/oui-select-disabling-the-select-or-individual)
-- [Oui select Disabling resetting the select value](https://stackblitz.com/edit/oui-select-disabling-resetting-the-select-value)
-- [Oui select creating groups of options](https://stackblitz.com/edit/oui-select-creating-groups-of-options)
-- [Oui select multiple selection](https://stackblitz.com/edit/oui-select-multiple-selection)
-- [Customizing the trigger label](https://stackblitz.com/edit/oui-select-customizing-the-trigger-label)
-- [Adding custom styles to the dropdown panel](https://stackblitz.com/edit/oui-select-with-custom-panel-styling)
-- [Changing when error messages are shown](https://stackblitz.com/edit/oui-changing-when-error-messages-are-shown)
+You can see the [https://stackblitz.com/edit/oui-select-box](https://stackblitz.com/edit/oui-select-box) demo for more details.
 ```

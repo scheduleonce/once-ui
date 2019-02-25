@@ -6,7 +6,7 @@
   #origin="cdkOverlayOrigin"
   #trigger
 >
-  <div class="oui-select-value" [ngSwitch]="empty">
+  <div class="oui-select-value" [ngSwitch]="initialValue===placeholder">
     <span class="oui-select-placeholder" *ngSwitchCase="true"
       >{{placeholder}}</span
     >
@@ -15,10 +15,7 @@
       *ngSwitchCase="false"
       [ngSwitch]="!!customTrigger"
     >
-      <span
-        *ngSwitchDefault
-        [innerHTML]="bypassSecurityTrustHtml(triggerValue)"
-      ></span>
+      <span *ngSwitchDefault [innerHTML]="initialValue || placeholder"></span>
       <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
     </span>
   </div>
@@ -40,15 +37,14 @@
   (detach)="close()"
   (attach)="openCdk()"
 >
-  <perfect-scrollbar
-    [config]="config"
-    class="scrollbar-active oui-select-panel"
+  <div
     #panel
+    class="scrollbar-active oui-select-panel {{cdkConnectionOverlayPanel}}"
     [ngClass]="panelClass"
     (keydown)="_handleKeydown($event)"
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
     [class.oui-select-has-a-panel]="panelClass"
   >
     <ng-content></ng-content>
-  </perfect-scrollbar>
+  </div>
 </ng-template>
