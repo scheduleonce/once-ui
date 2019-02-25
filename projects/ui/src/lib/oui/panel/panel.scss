@@ -11,6 +11,7 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
   box-shadow: 0 1px 2px 0 #4a4a4a;
   border: 1px solid #c8c8c8;
   font-size: 13px;
+  line-height: 19px;
 }
 
 .oui-panel-content-large {
@@ -21,15 +22,21 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
   font-size: 13px;
   line-height: 19px;
   font-weight: bold;
-  margin: 0px;
+  margin: 0px 0px 6px;
 }
 
 .oui-panel-content img {
   width: 100%;
+  margin: 0px 0px 6px;
 }
 
 .oui-panel-content p {
-  margin: 3px 0px;
+  margin: 0px 0px 6px;
+  font-size: 13px;
+  line-height: 19px;
+}
+.oui-panel-content p:nth-last-child(1) {
+  margin: 0px;
 }
 
 .oui-panel-icon {
