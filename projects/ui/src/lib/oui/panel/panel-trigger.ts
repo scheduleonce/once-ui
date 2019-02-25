@@ -20,7 +20,6 @@ import {
 import { Subscription, Observable, Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OuiPanelOverlay } from './panel-overlay';
-import { _MatChipListMixinBase } from '@angular/material';
 import {
   PanelPositionY,
   PanelPositionX,
