@@ -143,8 +143,15 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
    * select's trigger.
    */
   get viewValue(): string {
-    // TODO(kara): Add input property alternative for node envs.
     return (this._getHostElement().textContent || '').trim();
+  }
+
+  /**
+   * The displayed value of the option. It is necessary to show the selected option in the
+   * select's trigger.
+   */
+  get viewValueForSelect(): string {
+    return this._getHostElement().querySelector('.oui-option-text').innerHTML;
   }
 
   /** Selects the option. */

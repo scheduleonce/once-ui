@@ -106,13 +106,15 @@
 
   <h1>Form field</h1>
   <div class="input-outer">
-    <oui-form-field> <input oui-input placeholder="Any" /> </oui-form-field>
+    <oui-form-field color="accent"
+      ><input oui-input placeholder="Any"
+    /></oui-form-field>
   </div>
   <h1>Input</h1>
   <h3>Bordered</h3>
   <div>
     <div class="input-outer display-inline">
-      <oui-form-field> <input oui-input placeholder="Any" /> </oui-form-field>
+      <oui-form-field><input oui-input placeholder="Any"/></oui-form-field>
     </div>
     <div class="input-outer display-inline">
       <oui-form-field>
@@ -124,7 +126,7 @@
   <h3>Underline</h3>
   <div>
     <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'">
+      <oui-form-field [appearance]="'underline'" color="accent">
         <input oui-input placeholder="Any" />
       </oui-form-field>
     </div>
@@ -138,7 +140,7 @@
   <h1>Textarea</h1>
   <div>
     <div class="textarea-outer display-inline">
-      <oui-form-field> <textarea oui-input></textarea> </oui-form-field>
+      <oui-form-field><textarea oui-input></textarea></oui-form-field>
     </div>
     <div class="textarea-outer display-inline">
       <oui-form-field>
@@ -156,7 +158,6 @@
     </button>
 
     <!-- <button oui-button color="accent">this is super button</button>
-
         <button oui-button color="warn">this is super button</button> -->
 
     <button oui-button color="primary" disabled>this is super button</button>
@@ -167,7 +168,6 @@
     <button oui-link-button color="primary">this is super button</button>
 
     <!-- <button oui-link-button color="accent">this is super button</button>
-
         <button oui-link-button color="warn">this is super button</button> -->
 
     <button oui-link-button color="primary" disabled>
@@ -180,7 +180,6 @@
     <button oui-ghost-button color="primary">this is super button</button>
 
     <!-- <button oui-ghost-button color="accent">this is super button</button>
-
         <button oui-ghost-button color="warn">this is super button</button> -->
 
     <button oui-ghost-button color="primary" disabled>
@@ -224,7 +223,6 @@
     <a oui-button color="primary">this is super button</a>
 
     <!-- <a oui-button color="accent">this is super button</a>
-
         <a oui-button color="warn">this is super button</a> -->
 
     <a oui-button color="primary" disabled>this is super button</a>
@@ -235,7 +233,6 @@
     <a oui-link-button color="primary">this is super button</a>
 
     <!-- <a oui-link-button color="accent">this is super button</a>
-
         <a oui-link-button color="warn">this is super button</a> -->
 
     <a oui-link-button color="primary" disabled>this is super button</a>
@@ -246,7 +243,6 @@
     <a oui-ghost-button color="primary">this is super button</a>
 
     <!-- <a oui-ghost-button color="accent">this is super button</a>
-
         <a oui-ghost-button color="warn">this is super button</a> -->
 
     <a oui-ghost-button color="primary" disabled>this is super button</a>
@@ -505,7 +501,7 @@
     </oui-checkbox>
   </section>
 </section>
-<br /><br />
+<br />
 <h1>Progress Spinner</h1>
 
 <h3>Indeterminate</h3>
@@ -606,19 +602,19 @@
 <h4>Enabled</h4>
 <h5>Label After</h5>
 <oui-radio-group name="enabled1" value="Winter">
-  <oui-radio-button #s value="Winter"> Winter </oui-radio-button>
-  <oui-radio-button value="Summer"> Summer </oui-radio-button>
+  <oui-radio-button #s value="Winter"> Winter</oui-radio-button>
+  <oui-radio-button value="Summer"> Summer</oui-radio-button>
 </oui-radio-group>
 <h5>Label Before</h5>
 <oui-radio-group labelPosition="before" name="enabled2">
-  <oui-radio-button value="Winter"> Winter </oui-radio-button>
-  <oui-radio-button checked value="Summer"> Summer </oui-radio-button>
+  <oui-radio-button value="Winter"> Winter</oui-radio-button>
+  <oui-radio-button checked value="Summer"> Summer</oui-radio-button>
 </oui-radio-group>
 <br /><br />
 <h4>Disabled</h4>
 <oui-radio-group disabled name="disabled1">
-  <oui-radio-button checked value="Winter"> Winter </oui-radio-button>
-  <oui-radio-button value="Summer"> Summer </oui-radio-button>
+  <oui-radio-button checked value="Winter"> Winter</oui-radio-button>
+  <oui-radio-button value="Summer"> Summer</oui-radio-button>
 </oui-radio-group>
 <br /><br />
 <h1>Progress Bar</h1>
@@ -644,9 +640,201 @@
     <oui-datepicker #picker></oui-datepicker>
   </oui-form-field>
 </div>
-<br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
-<br /><br />
+<br />
+
+<div class="fit">
+  <h1>Oui select box</h1>
+  <div class="fit">
+    <h4>Oui Basic Select</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field>
+        <oui-select placeholder="Favorite Bank">
+          <oui-option *ngFor="let bank of banks" [value]="bank.id">
+            {{ bank.name }}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+
+    <br />
+    <h4>Oui select multiple selection</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field [appearance]="'underline'">
+        <oui-select placeholder="Favorite food" multiple>
+          <oui-option *ngFor="let bank of banks" [value]="bank.id">
+            {{ bank.name }}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    <oui-checkbox class="example-margin" [(ngModel)]="disabled">
+      Disabled
+    </oui-checkbox>
+    <br />
+    <h4>Oui select with image</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field>
+        <oui-select placeholder="What is your country">
+          <oui-option *ngFor="let state of states" [value]="state.name">
+            <img
+              class="example-option-img"
+              [src]="state.flag"
+              height="26"
+              width="26"
+            />
+            <span>{{ state.name }}</span> |
+            <small>Population: {{ state.population }}</small>
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+
+    <h4>Oui select creating groups of options</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field>
+        <oui-select placeholder="Pokemon">
+          <oui-option>-- None --</oui-option>
+          <oui-optgroup
+            *ngFor="let group of pokemonGroups"
+            [label]="group.name"
+            [disabled]="group.disabled"
+          >
+            <oui-option
+              *ngFor="let pokemon of group.pokemon"
+              [value]="pokemon.value"
+            >
+              {{ pokemon.viewValue }}
+            </oui-option>
+          </oui-optgroup>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    <br />
+    <h4>Oui select disabled</h4>
+    <div class="input-outer display-inline">
+      <oui-checkbox [formControl]="disableSelect">Disable select</oui-checkbox>
+
+      <h4>oui-select</h4>
+      <oui-form-field>
+        <oui-select
+          placeholder="Choose an option"
+          [disabled]="disableSelect.value"
+        >
+          <oui-option value="option1">Option 1</oui-option>
+          <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>
+          <oui-option value="option3">Option 3</oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    <br />
+    <h4>Oui select Disabling resetting the select value</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field [appearance]="'underline'" color="accent">
+        <oui-select placeholder="State">
+          <oui-option>None</oui-option>
+          <oui-option *ngFor="let state of states" [value]="state.name"
+            >{{ state.name }}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    <br />
+    <h4>Oui select Customizing the trigger label</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field [appearance]="'underline'" color="accent">
+        <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
+          <oui-select-trigger>
+            {{ toppings.value ? toppings.value[0] : '' }}
+            <span
+              *ngIf="toppings.value?.length > 1"
+              class="example-additional-selection"
+            >
+              (+{{ toppings.value.length - 1 }}
+              {{ toppings.value?.length === 2 ? 'other' : 'others' }})
+            </span>
+          </oui-select-trigger>
+          <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+          <oui-option
+            *ngFor="let topping of (toppingList | filterOptions: keyword)"
+            [value]="topping"
+            >{{ topping }}
+          </oui-option>
+          <div
+            *ngIf="!(toppingList | filterOptions: keyword).length"
+            class="noResults"
+          >
+            No results match "{{ keyword }}"
+          </div>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    <br />
+    <h4>Oui select Changing when error messages are shown</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field>
+        <oui-select
+          placeholder="Choose one"
+          [formControl]="selected"
+          [errorStateMatcher]="matcher"
+        >
+          <oui-option>Clear</oui-option>
+          <oui-option value="valid">Valid option</oui-option>
+          <oui-option value="invalid">Invalid option</oui-option>
+        </oui-select>
+        <oui-error *ngIf="selected.hasError('required')"
+          >You must make a selection
+        </oui-error>
+        <oui-error
+          *ngIf="selected.hasError('pattern') && !selected.hasError('required')"
+        >
+          Your selection is invalid
+        </oui-error>
+      </oui-form-field>
+    </div>
+    <br />
+    <h4>Oui select with search</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field [appearance]="'underline'" color="accent">
+        <oui-select placeholder="Favorite Bank">
+          <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+          <oui-option
+            *ngFor="let bank of (banks | filterOptions: keyword:'name')"
+            [value]="bank.id"
+          >
+            {{ bank.name }}
+          </oui-option>
+          <div
+            *ngIf="!(banks | filterOptions: keyword:'name').length"
+            class="noResults"
+          >
+            No results match "{{ keyword }}"
+          </div>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    <br />
+    <h4>Oui Select with 2-way value binding</h4>
+    <div class="input-outer display-inline">
+      <oui-form-field>
+        <oui-select [(value)]="selectedOption" placeholder="select option">
+          <oui-option>None</oui-option>
+          <oui-option value="option1">Option 1</oui-option>
+          <oui-option value="option2">Option 2</oui-option>
+          <oui-option value="option3">Option 3</oui-option>
+        </oui-select>
+      </oui-form-field>
+      <p>You selected: {{ selectedOption }}</p>
+    </div>
+    <h4>Oui Select with min width</h4>
+    <div class="input-outer display-inline outer-min-width">
+      <oui-form-field>
+        <oui-select [(value)]="selectedOption" placeholder="Option">
+          <oui-option>None</oui-option>
+          <oui-option value="option1">Option 1</oui-option>
+          <oui-option value="option2">Option 2 with long text</oui-option>
+          <oui-option value="option3">Option 3</oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+  </div>
+</div>
