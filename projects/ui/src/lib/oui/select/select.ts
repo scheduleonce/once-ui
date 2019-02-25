@@ -130,7 +130,6 @@ export const _OuiSelectMixinBase: CanDisableCtor &
 export class OuiSelectTrigger {}
 
 @Component({
-  moduleId: module.id,
   selector: 'oui-select',
   exportAs: 'OuiSelect',
   templateUrl: 'select.html',
