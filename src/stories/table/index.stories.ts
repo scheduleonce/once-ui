@@ -7,7 +7,8 @@ import {
   OuiTableDataSource,
   OuiSort,
   OuiPaginator,
-  OuiInputModule
+  OuiInputModule,
+  OuiTooltipModule
 } from '../../../projects/ui/src/lib/oui';
 import { object, number } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -124,7 +125,11 @@ export class OuiTableStorybook implements OnInit {
             <div class="integrationsContainer">
               <ul>
                 <li *ngFor="let integration of user.integration">
-                  <img [src]="INTEGRATIONS[integration]" />
+                  <img
+                    [ouiTooltip]="integration"
+                    ouiTooltipPosition="above"
+                    [src]="INTEGRATIONS[integration]"
+                  />
                 </li>
               </ul>
             </div>
@@ -139,7 +144,11 @@ export class OuiTableStorybook implements OnInit {
             <div class="licensesContainer">
               <ul>
                 <li *ngFor="let license of user.licence">
-                  <img [src]="LICENCES[license]" />
+                  <img
+                    [ouiTooltip]="license"
+                    ouiTooltipPosition="above"
+                    [src]="LICENCES[license]"
+                  />
                 </li>
               </ul>
             </div>
@@ -221,6 +230,7 @@ storiesOf('Table', module)
           OuiSortModule,
           OuiIconModule,
           OuiInputModule,
+          OuiTooltipModule,
           BrowserAnimationsModule
         ],
         schemas: [],

@@ -7,7 +7,7 @@ import { COLORS } from '../const';
 
 const diameterOptions = {
   range: true,
-  min: 100,
+  min: 15,
   max: 200,
   step: 1
 };
@@ -31,8 +31,8 @@ storiesOf('Progress Spinner', module)
       component: OuiProgressSpinner,
       props: {
         color: select('color', COLORS, COLORS[0]),
-        diameter: number('diameter', 100, diameterOptions),
-        strokeWidth: number('strokeWidth', 5, strokeWidthOptions),
+        diameter: number('diameter', 15, diameterOptions),
+        strokeWidth: number('strokeWidth', 2, strokeWidthOptions),
         value: number('value', 60, valueOptions)
       }
     }),
@@ -45,8 +45,8 @@ storiesOf('Progress Spinner', module)
       component: OuiProgressSpinner,
       props: {
         color: select('color', COLORS, COLORS[0]),
-        diameter: number('diameter', 100, diameterOptions),
-        strokeWidth: number('strokeWidth', 5, strokeWidthOptions)
+        diameter: number('diameter', 15, diameterOptions),
+        strokeWidth: number('strokeWidth', 2, strokeWidthOptions)
       }
     }),
     { notes: { markdown: markdownText } }

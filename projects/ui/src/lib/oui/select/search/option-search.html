@@ -1,0 +1,11 @@
+<div class="oui-select-search-inner">
+  <oui-form-field>
+    <input
+      oui-input
+      class="oui-select-search-input"
+      #searchSelectInput
+      (input)="onInputChange($event.target.value)"
+      [placeholder]="placeholderLabel"
+    />
+  </oui-form-field>
+</div>

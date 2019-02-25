@@ -31,8 +31,8 @@ export class OverlayPanelComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  show(event) {
-    if (!this.target) {
+  show(event?) {
+    if (event) {
       this.target = event.target;
     }
     this.visible = true;
