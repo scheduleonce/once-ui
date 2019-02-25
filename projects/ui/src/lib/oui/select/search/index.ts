@@ -69,7 +69,6 @@ export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Focuses the search input field
-   * @private
    */
   public _focus() {
     if (!this.searchSelectInput) {
@@ -82,8 +81,7 @@ export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
 
   /**
    * Resets the current search value
-   * @param {boolean} focus whether to focus after resetting
-   * @private
+   * focus whether to focus after resetting
    */
   public _reset(focus?: boolean) {
     if (!this.searchSelectInput) {

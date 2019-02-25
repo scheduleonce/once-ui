@@ -667,9 +667,6 @@
         </oui-select>
       </oui-form-field>
     </div>
-    <oui-checkbox class="example-margin" [(ngModel)]="disabled">
-      Disabled
-    </oui-checkbox>
     <br />
     <h4>Oui select with image</h4>
     <div class="input-outer display-inline">
@@ -713,9 +710,19 @@
     <h4>Oui select disabled</h4>
     <div class="input-outer display-inline">
       <oui-checkbox [formControl]="disableSelect">Disable select</oui-checkbox>
-
-      <h4>oui-select</h4>
+      <br /><br />
       <oui-form-field>
+        <oui-select
+          placeholder="Choose an option"
+          [disabled]="disableSelect.value"
+        >
+          <oui-option value="option1">Option 1</oui-option>
+          <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>
+          <oui-option value="option3">Option 3</oui-option>
+        </oui-select>
+      </oui-form-field>
+      <br />
+      <oui-form-field [appearance]="'underline'" color="accent">
         <oui-select
           placeholder="Choose an option"
           [disabled]="disableSelect.value"
@@ -741,7 +748,11 @@
     <br />
     <h4>Oui select Customizing the trigger label</h4>
     <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'" color="accent">
+      <oui-form-field
+        [appearance]="'underline'"
+        color="accent"
+        placeholder="Select topping"
+      >
         <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
           <oui-select-trigger>
             {{ toppings.value ? toppings.value[0] : '' }}
