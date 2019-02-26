@@ -22,6 +22,20 @@ node {
                 sh "npm run test"
                 testReports = true
         }
+        stage('Docker Image Build') {
+          println environment
+          def registry_url = "http://dockeronce.azurecr.io/" // Docker Hub
+          def docker_creds_id = "b7a7c427-8138-44ca-ad6a-aaeac3059151" // name of the Jenkins Credentials ID
+        //   if( environment!= null ) {
+            docker.withRegistry("${registry_url}", "${docker_creds_id}") {
+              echo "Building docker image with docker.build(once-ui:qa)"
+              image = docker.build("once-ui:qa")
+              stage("Docker Image Push") {
+                image.push()
+              }
+            }
+        //   }
+        }
     } catch (e) {
         currentBuild.result = "FAILED"
         throw e
