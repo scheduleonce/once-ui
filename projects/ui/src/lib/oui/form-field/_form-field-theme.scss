@@ -19,6 +19,7 @@ $form-field-textarea-height: 58px;
 $form-field-line-height: 19px;
 $form-field-default-background: #fff;
 $form-field-transition-border: border 0.5s;
+$oui-error: #ff001f;
 @mixin oui-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -102,11 +103,20 @@ $form-field-transition-border: border 0.5s;
 /* Generating themes for oui-form-field(Standard form fields) */
 @mixin oui-form-field-theme-palette($theme) {
   $primary: map-get($theme, primary);
+
   .oui-input {
     border: $standard-form-field-border;
     &:focus {
       border-color: map-get($primary, lighter);
     }
+  }
+  .oui-error {
+    color: $oui-error;
+    display: block;
+    padding-top: 8px;
+    font-size: 14px;
+    line-height: 22px;
+    font-family: Open Sans, serif;
   }
 }
 

@@ -1,1 +1,75 @@
-/* Implement css of option*/
+@import '../style/menu-common';
+@import '../style/vendor-prefixes';
+
+// This mixin ensures an element spans to fill the nearest ancestor with defined positioning.
+@mixin oui-fill {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.oui-option {
+  @include oui-menu-item-base();
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: row;
+  max-width: 100%;
+  box-sizing: border-box;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+
+  &[aria-disabled='true'] {
+    @include user-select(none);
+    cursor: default;
+  }
+
+  .oui-optgroup &:not(.oui-option-multiple) {
+    [dir='rtl'] & {
+      padding-left: $oui-menu-side-padding;
+      padding-right: $oui-menu-side-padding * 2;
+    }
+  }
+}
+
+.single-type-checkbox {
+  .oui-checkbox-inner-container {
+    display: none;
+  }
+}
+
+// Collapses unwanted whitespace created by newlines in code like the following:
+.oui-option-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+
+// Collapses unwanted whitespace created by newlines in code like the following:
+.oui-option-text {
+  display: inline-block;
+  flex-grow: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.oui-option-multiple {
+  .oui-checkbox-inner-container {
+    display: block;
+  }
+}
+
+.oui-option-pseudo-checkbox {
+  $margin: $oui-menu-side-padding / 2;
+  margin-right: $margin;
+
+  [dir='rtl'] & {
+    margin-left: $margin;
+    margin-right: 0;
+  }
+}

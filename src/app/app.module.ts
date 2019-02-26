@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { OuiSlideToggleModule } from 'projects/ui/src/lib/oui/slide-toggle/public-api';
+
 import {
   OuiButtonModule,
   OuiProgressSpinnerModule,
@@ -16,8 +17,10 @@ import {
   OuiCheckboxModule,
   OuiTooltipModule,
   OuiRadioModule,
-  OuiProgressBarModule
+  OuiProgressBarModule,
+  OuiSelectModule
 } from 'projects/ui/src/lib/oui';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   OuiTableModule,
@@ -50,8 +53,11 @@ import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
     OuiProgressSpinnerModule,
     OuiRadioModule,
     OuiProgressBarModule,
+    OuiSelectModule,
+    OuiProgressBarModule,
     OuiDatepickerModule
   ],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent]
 })
