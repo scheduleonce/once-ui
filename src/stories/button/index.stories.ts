@@ -47,7 +47,7 @@ export class OuiIconButtonStorybook {
 
 storiesOf('Button', module)
   .add(
-    'Default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
