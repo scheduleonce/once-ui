@@ -1,6 +1,5 @@
 .fit {
   div {
-    margin: 10px;
     button,
     a {
       margin-right: 10px;
@@ -13,12 +12,17 @@
   .input-outer {
     max-width: 237px;
   }
+  .input-outer.outer-min-width {
+    width: 100px;
+  }
   .textarea-outer {
     max-width: 326px;
     width: 100%;
   }
   .display-inline {
+    margin: 10px;
     display: inline-block;
+    width: 237px;
   }
   textarea {
     line-height: 19px;
@@ -28,7 +32,6 @@
   .trigger {
     width: 200px;
     height: 50px;
-    margin-top: 100px;
     margin-left: 100px;
     background-color: rgb(240, 234, 234);
     display: inline-block;
@@ -65,4 +68,34 @@
 }
 .oui-radio-button {
   margin-right: 10px;
+}
+
+.example-option-img {
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+[dir='rtl'] .example-option-img {
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.example-panel-red.oui-select-panel {
+  background: rgba(255, 0, 0, 0.5);
+}
+
+.example-panel-green.oui-select-panel {
+  background: rgba(0, 255, 0, 0.5);
+}
+
+.example-panel-blue.oui-select-panel {
+  background: rgba(0, 0, 255, 0.5);
+}
+.noResults {
+  color: #333333;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 0 10px;
+  margin: 17px 0 21px;
+  word-break: break-all;
 }
