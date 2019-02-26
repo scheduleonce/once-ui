@@ -100,6 +100,6 @@ If any image tag is used inside the `oui-panel` then it will automatically provi
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
     dolorum! Reprehenderit reiciendis hic magnam esse odio asperiores qui
     tempora beatae.
-  </p></oui-panel
->
+  </p>
+</oui-panel>
 ```
