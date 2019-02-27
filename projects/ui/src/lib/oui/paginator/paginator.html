@@ -6,9 +6,7 @@
         class="oui-paginator-navigation-first"
         (click)="firstPage()"
         [attr.aria-label]="_intl.firstPageLabel"
-        [ouiTooltip]="_intl.firstPageLabel"
-        [ouiTooltipDisabled]="_previousButtonsDisabled()"
-        [ouiTooltipPosition]="'above'"
+        [title]="_intl.firstPageLabel"
         [disabled]="_previousButtonsDisabled()"
       ></button>
       <button
@@ -16,20 +14,16 @@
         class="oui-paginator-navigation-previous"
         (click)="previousPage()"
         [attr.aria-label]="_intl.previousPageLabel"
-        [ouiTooltip]="_intl.previousPageLabel"
-        [ouiTooltipDisabled]="_previousButtonsDisabled()"
-        [ouiTooltipPosition]="'above'"
+        [title]="_intl.previousPageLabel"
         [disabled]="_previousButtonsDisabled()"
       ></button>
-      <div class="oui-paginator-current-page">{{ getCurrentPage() }}</div>
+      <div class="oui-paginator-current-page">{{ pageIndex + 1 }}</div>
       <button
         type="button"
         class="oui-paginator-navigation-next"
         (click)="nextPage()"
         [attr.aria-label]="_intl.nextPageLabel"
-        [ouiTooltip]="_intl.nextPageLabel"
-        [ouiTooltipDisabled]="_nextButtonsDisabled()"
-        [ouiTooltipPosition]="'above'"
+        [title]="_intl.nextPageLabel"
         [disabled]="_nextButtonsDisabled()"
       ></button>
       <button
@@ -37,9 +31,7 @@
         class="oui-paginator-navigation-last"
         (click)="lastPage()"
         [attr.aria-label]="_intl.lastPageLabel"
-        [ouiTooltip]="_intl.lastPageLabel"
-        [ouiTooltipDisabled]="_nextButtonsDisabled()"
-        [ouiTooltipPosition]="'above'"
+        [title]="_intl.lastPageLabel"
         [disabled]="_nextButtonsDisabled()"
       ></button>
     </div>
