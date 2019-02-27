@@ -4,7 +4,7 @@ export type PanelPositionX = 'before' | 'after';
 
 export type PanelPositionY = 'above' | 'below';
 
-const PANEL_OFFSET_X = 30;
+const PANEL_OFFSET_X = 28;
 const PANEL_OFFSET_Y = 34;
 
 export class PanelFlexiblePosition {
