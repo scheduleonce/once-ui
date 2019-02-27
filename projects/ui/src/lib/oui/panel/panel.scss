@@ -5,7 +5,8 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
 }
 
 .oui-panel-content {
-  width: 270px;
+  color: #333;
+  width: 234px;
   background: #fff;
   padding: 10px 17px 12px 17px;
   box-shadow: 0 1px 2px 0 #4a4a4a;
@@ -15,13 +16,14 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
 }
 
 .oui-panel-content-large {
-  width: 548px;
+  width: 512px;
 }
 
 .oui-panel-content h6 {
   font-size: 13px;
   line-height: 19px;
   font-weight: bold;
+  color: #333;
   margin: 0px 0px 6px;
 }
 
@@ -34,6 +36,7 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
   margin: 0px 0px 6px;
   font-size: 13px;
   line-height: 19px;
+  color: #333;
 }
 .oui-panel-content p:nth-last-child(1) {
   margin: 0px;
