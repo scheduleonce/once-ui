@@ -70,7 +70,6 @@ $default-foreground: (
 // Gets a color from a theme palette (the output of mat-palette).
 // The hue can be one of the standard values (500, A400, etc.), one of the three preconfigured
 // hues (default, lighter, darker), or any of the aforementioned prefixed with "-contrast".
-
 // @param $color-map The theme palette (output of mat-palette).
 // @param $hue The hue from the palette to use. If this is a value between 0 and 1, it will
 // be treated as opacity.
