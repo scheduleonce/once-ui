@@ -38,6 +38,15 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
   line-height: 19px;
   color: #333;
 }
+.oui-panel-content a {
+  font-size: 13px;
+  line-height: 19px;
+  color: #006bb1;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
 .oui-panel-content p:nth-last-child(1) {
   margin: 0px;
 }
