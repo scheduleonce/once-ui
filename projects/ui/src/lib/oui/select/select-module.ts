@@ -1,27 +1,26 @@
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OuiOptionModule } from '../core';
-import { OuiFormFieldModule } from '../form-field/form-field-module';
+import { CommonModule } from '@angular/common';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { OuiOptionModule } from '../core/option/index';
 import { OuiInputModule } from '../input/input-module';
 import { FilterPipe } from './filter.pipe';
-import { OuiSelect, OuiSelectTrigger } from './select';
-import { OuiSelectSearchComponent } from './search';
+import { OuiSelectTrigger, OuiSelect } from './select.component';
+import { OuiSelectSearchComponent } from './search/index';
+
 @NgModule({
-  imports: [CommonModule, OverlayModule, OuiOptionModule, OuiInputModule],
+  imports: [OuiOptionModule, OverlayModule, OuiInputModule, CommonModule],
   exports: [
-    OuiFormFieldModule,
-    OuiSelect,
-    OuiSelectTrigger,
     OuiOptionModule,
+    OuiSelectTrigger,
     OuiSelectSearchComponent,
-    FilterPipe
+    FilterPipe,
+    OuiSelect
   ],
   declarations: [
-    OuiSelect,
     OuiSelectTrigger,
     OuiSelectSearchComponent,
-    FilterPipe
+    FilterPipe,
+    OuiSelect
   ]
 })
 export class OuiSelectModule {}
