@@ -7,7 +7,7 @@ import {
   ViewChild,
   forwardRef
 } from '@angular/core';
-import { OuiSelect } from '../select';
+import { OuiSelect } from '../select.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
