@@ -18,6 +18,7 @@ import {
   OuiTooltipModule,
   OuiRadioModule,
   OuiProgressBarModule,
+  OuiPanelModule,
   OuiSelectModule
 } from 'projects/ui/src/lib/oui';
 
@@ -53,6 +54,7 @@ import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
     OuiProgressSpinnerModule,
     OuiRadioModule,
     OuiProgressBarModule,
+    OuiPanelModule,
     OuiSelectModule,
     OuiProgressBarModule,
     OuiDatepickerModule
