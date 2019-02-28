@@ -199,7 +199,7 @@ const valueOptions = {
 };
 storiesOf('Table', module)
   .add(
-    'default',
+    'regular',
     () => ({
       moduleMetadata: {
         imports: [
