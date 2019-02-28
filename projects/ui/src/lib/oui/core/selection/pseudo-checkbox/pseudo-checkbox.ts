@@ -33,6 +33,7 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   selector: 'oui-pseudo-checkbox',
   styleUrls: ['pseudo-checkbox.scss'],
   template: '',
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-pseudo-checkbox',
     '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
@@ -44,7 +45,7 @@ export class OuiPseudoCheckbox {
   @Input() state: OuiPseudoCheckboxState = 'unchecked';
 
   /** Whether the checkbox is disabled. */
-  @Input() disabled: boolean = false;
+  @Input() disabled = false;
 
   constructor(
     @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
