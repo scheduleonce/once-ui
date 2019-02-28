@@ -193,3 +193,7 @@ table {
 .oui-col-six-width {
   flex-basis: 15%;
 }
+.input-filter {
+  max-width: 300px !important;
+  margin-bottom: 16px !important;
+}
