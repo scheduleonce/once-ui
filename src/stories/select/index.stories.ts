@@ -64,9 +64,9 @@ export class OuiSelectCustomizeTriggerStorybook {
   ];
 }
 
-storiesOf('Select', module)
+storiesOf('Form Field/Select', module)
   .add(
-    'default',
+    'regular',
     () => ({
       template: `
     <div style="width: 213px;">
@@ -86,7 +86,12 @@ storiesOf('Select', module)
         onChange: action('change')
       },
       moduleMetadata: {
-        imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+        imports: [
+          OuiSelectModule,
+          BrowserAnimationsModule,
+          OuiFormFieldModule,
+          OuiSelectModule
+        ]
       }
     }),
     { notes: { markdown: markdownText } }
@@ -112,7 +117,12 @@ storiesOf('Select', module)
         onChange: action('change')
       },
       moduleMetadata: {
-        imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+        imports: [
+          OuiSelectModule,
+          OuiFormFieldModule,
+          BrowserAnimationsModule,
+          OuiSelectModule
+        ]
       }
     }),
     { notes: { markdown: markdownText } }
@@ -162,7 +172,12 @@ storiesOf('Select', module)
         onChange: action('change')
       },
       moduleMetadata: {
-        imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+        imports: [
+          OuiSelectModule,
+          BrowserAnimationsModule,
+          OuiFormFieldModule,
+          OuiSelectModule
+        ]
       }
     }),
     { notes: { markdown: markdownText } }
@@ -193,7 +208,12 @@ storiesOf('Select', module)
       onChange: action('change')
     },
     moduleMetadata: {
-      imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+      imports: [
+        OuiSelectModule,
+        BrowserAnimationsModule,
+        OuiFormFieldModule,
+        OuiSelectModule
+      ]
     }
   }))
   .add(
