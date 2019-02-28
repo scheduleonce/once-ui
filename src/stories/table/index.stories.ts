@@ -54,7 +54,7 @@ const TABLEDATASOURCE = Array.from({ length: 5000 }, (_, k) =>
       />
     </oui-form-field>
     <div class="table-container">
-      <table oui-table #ta ble [dataSource]="dataSource" ouiSort>
+      <table oui-table #table [dataSource]="dataSource" ouiSort>
         <ng-container
           *ngFor="let column of displayedColumns"
           ouiColumnDef="{{ column }}"
