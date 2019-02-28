@@ -1,5 +1,4 @@
 import { storiesOf } from '@storybook/angular';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   OuiSelectModule,
   OuiFormFieldModule,
@@ -86,7 +85,13 @@ storiesOf('Select', module)
         onChange: action('change')
       },
       moduleMetadata: {
-        imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule
+        ]
       }
     }),
     { notes: { markdown: markdownText } }
@@ -112,7 +117,13 @@ storiesOf('Select', module)
         onChange: action('change')
       },
       moduleMetadata: {
-        imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule
+        ]
       }
     }),
     { notes: { markdown: markdownText } }
@@ -162,7 +173,13 @@ storiesOf('Select', module)
         onChange: action('change')
       },
       moduleMetadata: {
-        imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule
+        ]
       }
     }),
     { notes: { markdown: markdownText } }
@@ -193,7 +210,13 @@ storiesOf('Select', module)
       onChange: action('change')
     },
     moduleMetadata: {
-      imports: [OuiSelectModule, BrowserAnimationsModule, OuiSelectModule]
+      imports: [
+        OuiFormFieldModule,
+        OuiInputModule,
+        OuiSelectModule,
+        FormsModule,
+        ReactiveFormsModule
+      ]
     }
   }))
   .add(
