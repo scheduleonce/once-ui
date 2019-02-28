@@ -742,7 +742,12 @@ export class OuiSelect extends _OuiSelectMixinBase
    * @param isArrowKey
    * @param keyCode
    */
-  private handleScrolling(manager: ActiveDescendantKeyManager<OuiOption>, event: KeyboardEvent, isArrowKey: boolean, keyCode: number) {
+  private handleScrolling(
+    manager: ActiveDescendantKeyManager<OuiOption>,
+    event: KeyboardEvent,
+    isArrowKey: boolean,
+    keyCode: number
+  ) {
     const previouslyFocusedIndex = manager.activeItemIndex;
 
     manager.onKeydown(event);

@@ -2,6 +2,7 @@ $oui-menu-side-padding: 16px !default;
 $scrollbar-width: 17px;
 $clear-button-width: 20px;
 $multiple-check-width: 33px;
+$defaul-color: #c8c8c8;
 
 .oui-select-search-hidden {
   visibility: hidden;
@@ -24,6 +25,11 @@ $multiple-check-width: 33px;
       100% + #{2 * $oui-menu-side-padding - $scrollbar-width +
         $multiple-check-width}
     );
+  }
+  .oui-select-search-input {
+    &:focus {
+      border-color: $defaul-color;
+    }
   }
 }
 .oui-select-search-panel {
