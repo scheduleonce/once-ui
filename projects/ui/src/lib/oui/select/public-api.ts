@@ -1,3 +1,3 @@
+export * from './select.component';
 export * from './select-module';
-export * from './select';
-export * from './search';
+export * from './search/index';
