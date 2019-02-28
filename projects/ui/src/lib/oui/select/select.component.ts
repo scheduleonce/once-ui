@@ -138,7 +138,7 @@ export class OuiSelectTrigger {}
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['disabled', 'disableRipple', 'tabIndex'],
+  inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   // tslint:disable-next-line:use-host-property-decorator
@@ -480,7 +480,7 @@ export class OuiSelect extends _OuiSelectMixinBase
 
   ngAfterContentInit() {
     this._initKeyManager();
-    this._selectionModel.onChange
+    this._selectionModel.changed
       .pipe(takeUntil(this._destroy))
       .subscribe(event => {
         event.added.forEach(option => option.select());
@@ -683,7 +683,6 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
 
   /** Handles keyboard events when the selected is open. */
-  // tslint:disable-next-line:cyclomatic-complexity
   private _handleOpenKeydown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
@@ -716,41 +715,58 @@ export class OuiSelect extends _OuiSelectMixinBase
       manager.activeItem._selectViaInteraction();
     } else if (this._multiple && keyCode === A && event.ctrlKey) {
       event.preventDefault();
-      const hasDeselectedOptions = this.options.some(
-        opt => !opt.disabled && !opt.selected
-      );
-
-      this.options.forEach(option => {
-        if (!option.disabled) {
-          hasDeselectedOptions ? option.select() : option.deselect();
-        }
-      });
+      this.handleCtrlKey();
     } else {
-      const previouslyFocusedIndex = manager.activeItemIndex;
+      this.handleScrolling(manager, event, isArrowKey, keyCode);
+    }
+  }
 
-      manager.onKeydown(event);
+  /**
+   * Handle ctrl key
+   */
+  private handleCtrlKey() {
+    const hasDeselectedOptions = this.options.some(
+      opt => !opt.disabled && !opt.selected
+    );
 
-      if (
-        this._multiple &&
-        isArrowKey &&
-        event.shiftKey &&
-        manager.activeItem &&
-        manager.activeItemIndex !== previouslyFocusedIndex
-      ) {
-        manager.activeItem._selectViaInteraction();
+    this.options.forEach(option => {
+      if (!option.disabled) {
+        hasDeselectedOptions ? option.select() : option.deselect();
       }
-      if (isArrowKey && manager.activeItemIndex !== previouslyFocusedIndex) {
+    });
+  }
+
+  /**
+   * @param manager
+   * @param event
+   * @param isArrowKey
+   * @param keyCode
+   */
+  private handleScrolling(manager: ActiveDescendantKeyManager<OuiOption>, event: KeyboardEvent, isArrowKey: boolean, keyCode: number) {
+    const previouslyFocusedIndex = manager.activeItemIndex;
+
+    manager.onKeydown(event);
+
+    if (
+      this._multiple &&
+      isArrowKey &&
+      event.shiftKey &&
+      manager.activeItem &&
+      manager.activeItemIndex !== previouslyFocusedIndex
+    ) {
+      manager.activeItem._selectViaInteraction();
+    }
+    if (isArrowKey && manager.activeItemIndex !== previouslyFocusedIndex) {
+      this._scrollToOption();
+    } else {
+      // First or last
+      if (keyCode === DOWN_ARROW) {
+        manager.setFirstItemActive();
+        this._setScrollTop(0);
+      }
+      if (keyCode === UP_ARROW) {
+        manager.setLastItemActive();
         this._scrollToOption();
-      } else {
-        // First or last
-        if (keyCode === DOWN_ARROW) {
-          manager.setFirstItemActive();
-          this._setScrollTop(0);
-        }
-        if (keyCode === UP_ARROW) {
-          manager.setLastItemActive();
-          this._scrollToOption();
-        }
       }
     }
   }
