@@ -54,12 +54,8 @@ import {
   CanDisableCtor,
   CanUpdateErrorState,
   CanUpdateErrorStateCtor,
-  ErrorStateMatcher,
   HasTabIndex,
   HasTabIndexCtor,
-  OUI_OPTION_PARENT_COMPONENT,
-  OuiOptgroup,
-  OuiOption,
   OuiOptionSelectionChange,
   mixinDisabled,
   mixinErrorState,
@@ -67,6 +63,11 @@ import {
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition
 } from '../core';
+
+import { OUI_OPTION_PARENT_COMPONENT, OuiOption } from '../core/option/option';
+import { OuiOptgroup } from '../core/option/optgroup';
+import { ErrorStateMatcher } from '../core/error/error-options';
+
 import { defer, merge, Observable, Subject } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -443,7 +444,7 @@ export class OuiSelect extends _OuiSelectMixinBase
       this.ngControl.valueAccessor = this;
     }
 
-    this.tabIndex = parseInt(tabIndex) || 0;
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
 
     // Force setter to be called in case id was not specified.
     this.id = this.id;
