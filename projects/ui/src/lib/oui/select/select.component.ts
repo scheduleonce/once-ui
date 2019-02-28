@@ -41,7 +41,8 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  Inject
+  Inject,
+  AfterViewInit
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -126,6 +127,7 @@ export const _OuiSelectMixinBase: CanDisableCtor &
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: 'oui-select-trigger'
 })
 export class OuiSelectTrigger {}
@@ -135,9 +137,11 @@ export class OuiSelectTrigger {}
   exportAs: 'OuiSelect',
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
+  // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'disableRipple', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  // tslint:disable-next-line:use-host-property-decorator
   host: {
     role: 'listbox',
     '[attr.id]': 'id',
@@ -171,6 +175,7 @@ export class OuiSelect extends _OuiSelectMixinBase
     OnChanges,
     OnDestroy,
     OnInit,
+    AfterViewInit,
     DoCheck,
     ControlValueAccessor,
     CanDisable,
@@ -184,16 +189,13 @@ export class OuiSelect extends _OuiSelectMixinBase
   cdkConnectionOverlayPanel = '';
 
   /** Whether filling out the select is required in the form. */
-  private _required: boolean = false;
+  private _required = false;
 
   /** The placeholder displayed in the trigger of the select. */
   private _placeholder: string;
 
   /** Whether the component is in multiple selection mode. */
-  private _multiple: boolean = false;
-
-  /** Comparison function to specify which option is displayed. Defaults to object equality. */
-  private _compareWith = (o1: any, o2: any) => o1 === o2;
+  private _multiple = false;
 
   /** Unique id for this input. */
   private _uid = `oui-select-${nextUniqueId++}`;
@@ -213,20 +215,24 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Manages keyboard events for options in the panel. */
   _keyManager: ActiveDescendantKeyManager<OuiOption>;
 
-  /** `View -> model callback called when value changes` */
-  _onChange: (value: any) => void = () => {};
-
-  /** `View -> model callback called when select has been touched` */
-  _onTouched = () => {};
-
   /** The IDs of child options to be passed to the aria-owns attribute. */
-  _optionIds: string = '';
+  _optionIds = '';
 
   /** Emits when the panel element is finished transforming in. */
   _panelDoneAnimatingStream = new Subject<string>();
 
   /** If there is search input field a class is added dynamically to the perfect scrollbar **/
   ouiSelectInputOuterClassName: string;
+  private _value: any;
+
+  /** Aria label of the select. If not specified, the placeholder will be used as label. */
+  @Input('aria-label') ariaLabel = '';
+
+  /** Input that can be used to specify the `aria-labelledby` attribute. */
+  @Input('aria-labelledby') ariaLabelledby: string;
+
+  /** Object used to control when error messages are shown. */
+  @Input() errorStateMatcher: ErrorStateMatcher;
 
   /** Whether the select is focused. */
   get focused(): boolean {
@@ -250,11 +256,73 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Panel containing the select options. */
   @ViewChild('panel') panel: ElementRef;
 
+  /**
+   * Function used to sort the values in a select in multiple mode.
+   * Follows the same logic as `Array.prototype.sort`.
+   */
+  @Input() sortComparator: (
+    a: OuiOption,
+    b: OuiOption,
+    options: OuiOption[]
+  ) => number;
+
   /** Adds class to overlay panel **/
   @ViewChild('overlayPanel') overlayPanel: ElementRef;
 
   /** Overlay pane containing the options. */
   @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
+  private _id: string;
+  /** Combined stream of all of the child options' change events. */
+  readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
+    () => {
+      if (this.options) {
+        return merge(...this.options.map(option => option.onSelectionChange));
+      }
+
+      return this._ngZone.onStable.asObservable().pipe(
+        take(1),
+        switchMap(() => this.optionSelectionChanges)
+      );
+    }
+  );
+
+  /** Event emitted when the select panel has been toggled. */
+  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
+
+  /** Event emitted when the select has been opened. */
+  // tslint:disable-next-line:no-output-rename
+  @Output('opened') readonly _openedStream: Observable<
+    void
+  > = this.openedChange.pipe(
+    filter(o => o),
+    map(() => {})
+  );
+
+  /** Event emitted when the select has been closed. */
+  // tslint:disable-next-line:no-output-rename
+  @Output('closed') readonly _closedStream: Observable<
+    void
+  > = this.openedChange.pipe(
+    filter(o => !o),
+    map(() => {})
+  );
+
+  /** Event emitted when the selected value has been changed by the user. */
+  @Output() readonly selectionChange: EventEmitter<
+    OuiSelectChange
+  > = new EventEmitter<OuiSelectChange>();
+
+  @Output() readonly change: EventEmitter<OuiSelectChange> = new EventEmitter<
+    OuiSelectChange
+  >();
+  /**
+   * Event that emits whenever the raw value of the select changes. This is here primarily
+   * to facilitate the two-way binding for the `value` input.
+   * @docs-private
+   */
+  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   /** All of the defined select options. */
   @ContentChildren(OuiOption, { descendants: true }) options: QueryList<
@@ -271,6 +339,11 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** User-supplied override of the trigger element. */
   @ContentChild(OuiSelectTrigger) customTrigger: OuiSelectTrigger;
 
+  /** `View -> model callback called when value changes` */
+  _onChange: (value: any) => void = () => {};
+
+  /** `View -> model callback called when select has been touched` */
+  _onTouched = () => {};
   /** Placeholder to be shown if no value has been selected. */
   @Input()
   get placeholder(): string {
@@ -305,6 +378,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     this._multiple = coerceBooleanProperty(value);
   }
 
+  /** Comparison function to specify which option is displayed. Defaults to object equality. */
+  private _compareWith = (o1: any, o2: any) => o1 === o2;
+
   /**
    * Function to compare the option values with the selected values. The first argument
    * is a value from an option. The second is a value from the selection. A boolean
@@ -336,26 +412,6 @@ export class OuiSelect extends _OuiSelectMixinBase
       this._value = newValue;
     }
   }
-  private _value: any;
-
-  /** Aria label of the select. If not specified, the placeholder will be used as label. */
-  @Input('aria-label') ariaLabel: string = '';
-
-  /** Input that can be used to specify the `aria-labelledby` attribute. */
-  @Input('aria-labelledby') ariaLabelledby: string;
-
-  /** Object used to control when error messages are shown. */
-  @Input() errorStateMatcher: ErrorStateMatcher;
-
-  /**
-   * Function used to sort the values in a select in multiple mode.
-   * Follows the same logic as `Array.prototype.sort`.
-   */
-  @Input() sortComparator: (
-    a: OuiOption,
-    b: OuiOption,
-    options: OuiOption[]
-  ) => number;
 
   /** Unique id of the element. */
   @Input()
@@ -366,57 +422,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     this._id = value || this._uid;
     this.stateChanges.next();
   }
-  private _id: string;
-
-  /** Combined stream of all of the child options' change events. */
-  readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
-    () => {
-      if (this.options) {
-        return merge(...this.options.map(option => option.onSelectionChange));
-      }
-
-      return this._ngZone.onStable.asObservable().pipe(
-        take(1),
-        switchMap(() => this.optionSelectionChanges)
-      );
-    }
-  );
-
-  /** Event emitted when the select panel has been toggled. */
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
-
-  /** Event emitted when the select has been opened. */
-  @Output('opened') readonly _openedStream: Observable<
-    void
-  > = this.openedChange.pipe(
-    filter(o => o),
-    map(() => {})
-  );
-
-  /** Event emitted when the select has been closed. */
-  @Output('closed') readonly _closedStream: Observable<
-    void
-  > = this.openedChange.pipe(
-    filter(o => !o),
-    map(() => {})
-  );
-
-  /** Event emitted when the selected value has been changed by the user. */
-  @Output() readonly selectionChange: EventEmitter<
-    OuiSelectChange
-  > = new EventEmitter<OuiSelectChange>();
-
-  @Output() readonly change: EventEmitter<OuiSelectChange> = new EventEmitter<
-    OuiSelectChange
-  >();
-  /**
-   * Event that emits whenever the raw value of the select changes. This is here primarily
-   * to facilitate the two-way binding for the `value` input.
-   * @docs-private
-   */
-  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
@@ -678,6 +683,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
 
   /** Handles keyboard events when the selected is open. */
+  // tslint:disable-next-line:cyclomatic-complexity
   private _handleOpenKeydown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
