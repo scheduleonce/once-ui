@@ -47,7 +47,7 @@ export class OuiIconButtonStorybook {
 
 storiesOf('Button', module)
   .add(
-    'Default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
@@ -82,6 +82,24 @@ storiesOf('Button', module)
     { notes: { markdown: markdownText } }
   )
   .add(
+    'Ghost',
+    () => ({
+      moduleMetadata: {
+        imports: [OuiButtonModule],
+        schemas: [],
+        declarations: []
+      },
+      template: `<button oui-ghost-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        disabled: boolean('disabled', false),
+        text: text('text', 'This is a button'),
+        clicked: action('click')
+      }
+    }),
+    { notes: { markdown: markdownText } }
+  )
+  .add(
     'Progress',
     () => ({
       moduleMetadata: {
@@ -93,6 +111,7 @@ storiesOf('Button', module)
                   #progressButton
                   oui-button
                   progress
+                  [color]="color"
                   [disabled]="isDisable"
                   (click)="clicked();progressButtonClick(progressButton)">
                   button
@@ -115,7 +134,7 @@ storiesOf('Button', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'icon-button',
+    'Icon',
     () => ({
       moduleMetadata: {
         imports: [OuiButtonModule, OuiIconModule],
