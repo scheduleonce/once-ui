@@ -154,7 +154,7 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
 
 storiesOf('Form Field/Autocomplete', module)
   .add(
-    'regular',
+    'Regular',
     () => ({
       setOptions: setOptions({ downPanelInRight: true }),
       moduleMetadata: {
@@ -182,7 +182,7 @@ storiesOf('Form Field/Autocomplete', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'with groups',
+    'With groups',
     () => ({
       setOptions: setOptions({ downPanelInRight: true }),
       moduleMetadata: {

@@ -76,7 +76,7 @@ export class OuiDialogStorybook {
   }
 }
 storiesOf('Dialog', module).add(
-  'regular',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiButtonModule, OuiDialogModule],
