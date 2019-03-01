@@ -105,7 +105,7 @@ export class OuiNestedMenuStorybook {
 
 storiesOf('Menu', module)
   .add(
-    'regular',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
@@ -124,7 +124,7 @@ storiesOf('Menu', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'nested Menu',
+    'Nested menu',
     () => ({
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],

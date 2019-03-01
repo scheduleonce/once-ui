@@ -49,7 +49,7 @@ export class OuiTooltipStorybook {
 }
 
 storiesOf('Tooltip', module).add(
-  'regular',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],
