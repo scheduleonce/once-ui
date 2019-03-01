@@ -74,7 +74,7 @@ export class OuiPanelWithImageStorybook {
 
 storiesOf('Panel', module)
   .add(
-    'regular',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [
@@ -98,7 +98,7 @@ storiesOf('Panel', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'with image',
+    'With image',
     () => ({
       moduleMetadata: {
         imports: [

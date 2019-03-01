@@ -4,11 +4,11 @@ import {
   OuiFormFieldModule,
   OuiInputModule
 } from '../../../projects/ui/src/lib/oui';
-import markdownText from '../../../projects/ui/src/lib/oui/form-field/README.md';
+import markdownText from '../../../projects/ui/src/lib/oui/input/README.md';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { APPEARANCE } from '../const';
 storiesOf('Form Field/Input', module).add(
-  'regular',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiFormFieldModule, OuiInputModule],

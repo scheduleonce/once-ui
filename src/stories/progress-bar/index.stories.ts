@@ -22,7 +22,7 @@ const valueOptions = {
 };
 storiesOf('Progress Bar', module)
   .add(
-    'determinate',
+    'Determinate',
     () => ({
       component: OuiProgressBar,
       props: {
@@ -34,7 +34,7 @@ storiesOf('Progress Bar', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'indeterminate',
+    'Indeterminate',
     () => ({
       setOptions: setOptions({ downPanelInRight: true }),
       component: OuiProgressBar,
