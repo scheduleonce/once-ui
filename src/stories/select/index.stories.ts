@@ -4,11 +4,18 @@ import {
   OuiFormFieldModule,
   OuiInputModule
 } from '../../../projects/ui/src/lib/oui';
-import { array, boolean, text, object } from '@storybook/addon-knobs/angular';
+import {
+  array,
+  boolean,
+  text,
+  object,
+  select
+} from '@storybook/addon-knobs/angular';
 import { action } from '@storybook/addon-actions';
 import markdownText from '../../../projects/ui/src/lib/oui/select/README.md';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Component, Input } from '@angular/core';
+import { APPEARANCE } from '../const';
 
 /**
  * Select Customizing the trigger label
@@ -17,7 +24,7 @@ import { Component, Input } from '@angular/core';
   selector: 'oui-select-storybook',
   template: `
     <div style="max-width: 270px;">
-      <oui-form-field [appearance]="'underline'" color="accent">
+      <oui-form-field [appearance]="appearance" color="accent">
         <oui-select
           [placeholder]="placeholder"
           [formControl]="toppings"
@@ -52,6 +59,7 @@ import { Component, Input } from '@angular/core';
 })
 export class OuiSelectCustomizeTriggerStorybook {
   @Input() placeholder: string = '';
+  @Input() appearance: string = '';
   toppings = new FormControl();
   toppingList = [
     'Extra cheese',
@@ -65,7 +73,7 @@ export class OuiSelectCustomizeTriggerStorybook {
 
 storiesOf('Form Field/Select', module)
   .add(
-    'regular',
+    'Regular',
     () => ({
       template: `
     <div style="width: 213px;">
@@ -97,7 +105,7 @@ storiesOf('Form Field/Select', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'multi Select',
+    'Multi select',
     () => ({
       template: `
     <div style="width: 213px;">
@@ -129,7 +137,7 @@ storiesOf('Form Field/Select', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'groups',
+    'Groups',
     () => ({
       template: `
     <div style="width: 213px;">
@@ -184,7 +192,7 @@ storiesOf('Form Field/Select', module)
     }),
     { notes: { markdown: markdownText } }
   )
-  .add('search options', () => ({
+  .add('Search options', () => ({
     template: `
     <div style="width: 213px;">
       <oui-form-field>
@@ -220,7 +228,7 @@ storiesOf('Form Field/Select', module)
     }
   }))
   .add(
-    'customize trigger',
+    'Customize trigger',
     () => ({
       moduleMetadata: {
         imports: [
@@ -233,9 +241,10 @@ storiesOf('Form Field/Select', module)
         schemas: [],
         declarations: [OuiSelectCustomizeTriggerStorybook]
       },
-      template: `<oui-select-storybook [placeholder]="placeholder"></oui-select-storybook>`,
+      template: `<oui-select-storybook [placeholder]="placeholder" [appearance]="appearance"></oui-select-storybook>`,
       props: {
         placeholder: text('placeholder', 'Favourite topping'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
         onChange: action('change')
       }
     }),
