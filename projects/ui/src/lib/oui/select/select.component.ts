@@ -863,12 +863,12 @@ export class OuiSelect extends _OuiSelectMixinBase
       if (!Array.isArray(value)) {
         throw getOuiSelectNonArrayValueError();
       }
-
+      this._selectionModel.clear();
       value.forEach((currentValue: any) => this._selectValue(currentValue));
       this._sortValues();
     } else {
       const correspondingOption = this._selectValue(value);
-
+      this._selectionModel.clear();
       // Shift focus to the active item. Note that we shouldn't do this in multiple
       // mode, because we don't know what option the user interacted with last.
       if (correspondingOption) {

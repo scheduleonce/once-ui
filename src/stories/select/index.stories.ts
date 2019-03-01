@@ -17,22 +17,8 @@ import { Component, Input } from '@angular/core';
   selector: 'oui-select-storybook',
   template: `
     <div style="max-width: 270px;">
-      <oui-form-field [appearance]="'underline'" color="accent">
-        <oui-select
-          [placeholder]="placeholder"
-          [formControl]="toppings"
-          multiple
-        >
-          <oui-select-trigger>
-            {{ toppings.value ? toppings.value[0] : '' }}
-            <span
-              *ngIf="toppings.value?.length > 1"
-              class="example-additional-selection"
-            >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? 'other' : 'others' }})
-            </span>
-          </oui-select-trigger>
+      <oui-form-field [appearance]="'underline'" [color]="color">
+        <oui-select [placeholder]="placeholder" [formControl]="toppings">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option
             *ngFor="let topping of (toppingList | filterOptions: keyword)"
@@ -184,8 +170,10 @@ storiesOf('Form Field/Select', module)
     }),
     { notes: { markdown: markdownText } }
   )
-  .add('search options', () => ({
-    template: `
+  .add(
+    'search options',
+    () => ({
+      template: `
     <div style="width: 213px;">
       <oui-form-field>
         <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
@@ -203,22 +191,24 @@ storiesOf('Form Field/Select', module)
       </oui-form-field>
     </div>
     `,
-    props: {
-      foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
-      placeholder: text('placeholder', 'Favorite food'),
-      disabled: boolean('disabled', false),
-      onChange: action('change')
-    },
-    moduleMetadata: {
-      imports: [
-        OuiFormFieldModule,
-        OuiInputModule,
-        OuiSelectModule,
-        FormsModule,
-        ReactiveFormsModule
-      ]
-    }
-  }))
+      props: {
+        foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
+        placeholder: text('placeholder', 'Favorite food'),
+        disabled: boolean('disabled', false),
+        onChange: action('change')
+      },
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule
+        ]
+      }
+    }),
+    { notes: { markdown: markdownText } }
+  )
   .add(
     'customize trigger',
     () => ({
