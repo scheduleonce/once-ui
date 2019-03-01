@@ -6,7 +6,7 @@ import markdownText from '../../../projects/ui/src/lib/oui/radio/README.md';
 import { select, boolean } from '@storybook/addon-knobs';
 import { LABELPOSITION } from '../const';
 storiesOf('Radio Button', module).add(
-  'regular',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiRadioModule],

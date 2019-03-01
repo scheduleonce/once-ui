@@ -205,7 +205,7 @@ const valueOptions = {
 };
 storiesOf('Table', module)
   .add(
-    'regular',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [
@@ -228,7 +228,7 @@ storiesOf('Table', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'custom',
+    'Custom',
     () => ({
       moduleMetadata: {
         imports: [

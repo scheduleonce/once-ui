@@ -25,7 +25,7 @@ const valueOptions = {
 };
 storiesOf('Progress Spinner', module)
   .add(
-    'determinate',
+    'Determinate',
     () => ({
       setOptions: setOptions({ downPanelInRight: true }),
       component: OuiProgressSpinner,
@@ -39,7 +39,7 @@ storiesOf('Progress Spinner', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'indeterminate',
+    'Indeterminate',
     () => ({
       setOptions: setOptions({ downPanelInRight: true }),
       component: OuiProgressSpinner,

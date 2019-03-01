@@ -6,7 +6,7 @@ import markdownText from '../../../projects/ui/src/lib/oui/checkbox/README.md';
 import { LABELPOSITION } from '../const';
 
 storiesOf('Checkbox', module).add(
-  'regular',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiCheckboxModule],

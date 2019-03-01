@@ -44,7 +44,7 @@ const sizeOptions = {
   step: 1
 };
 storiesOf('Icon', module).add(
-  'regular',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiIconModule],
