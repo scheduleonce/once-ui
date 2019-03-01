@@ -7,38 +7,41 @@
 </style>
 <link rel="stylesheet" id="theme-css" href="/readme.css" />
 <script>
+  const THEMES = ['Oncehub', 'Chatonce', 'Inviteonce', 'Scheduleonce'];
+  const TAGID = 'theme-css';
+  const IFRAMEID = 'storybook-preview-iframe';
   function onLoad() {
-    // if (document.querySelector('div.css-5xz1i6.ez1mtsr0 > button'))
-    //   document.querySelector('div.css-5xz1i6.ez1mtsr0 > button').outerHTML = '';
-    setTheme('oncehub');
-    addThemeSelect();
+    setTheme(THEMES[0]);
+    addThemeSelectElement();
   }
 
   function setTheme(theme) {
-    let tagId = 'theme-css';
-    let iframeId = 'storybook-preview-iframe';
-    if (window.frames[iframeId].contentDocument.getElementById(tagId)) {
-      window.frames[iframeId].contentDocument.getElementById(tagId).outerHTML =
+    if (window.frames[IFRAMEID].contentDocument.getElementById(TAGID)) {
+      window.frames[IFRAMEID].contentDocument.getElementById(TAGID).outerHTML =
         '';
     }
     let css = document.createElement('link');
     css.rel = 'stylesheet';
-    css.id = tagId;
-    css.href = '/themes/' + theme.toLowerCase() + '.css';
-    window.frames[iframeId].contentDocument
+    css.id = TAGID;
+    css.href = getThemePath(theme);
+    window.frames[IFRAMEID].contentDocument
       .getElementsByTagName('head')[0]
       .appendChild(css);
   }
 
-  function addThemeSelect() {
+  function getThemePath(theme) {
+    return '/themes/' + theme.toLowerCase() + '.css';
+  }
+
+  function addThemeSelectElement() {
+    const themesOptionHTML = THEMES.reduce((acc, curr) => {
+      return `${acc}<option value='${curr}'>${curr}</option>`;
+    }, '');
     document.getElementsByClassName(
       'css-5xz1i6 ez1mtsr0'
     )[0].outerHTML += `<div style="padding: 8px 0px 15px 0px;">
                             <select id="themeSelect" style="padding: 5px 0px 4px 4px;width: 100%;" onchange="themeChange()">
-                                <option value="oncehub">Oncehub</option>
-                                <option value="inviteonce">Inviteonce</option>
-                                <option value="chatonce">Chatonce</option>
-                                <option value="scheduleonce">Scheduleonce</option>
+                                ${themesOptionHTML}
                             </select>
                       </div>`;
   }

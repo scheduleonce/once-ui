@@ -280,7 +280,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
 
 storiesOf('Form Field/Datepicker', module)
   .add(
-    'default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [
@@ -328,7 +328,7 @@ storiesOf('Form Field/Datepicker', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'customFormat',
+    'Custom format',
     () => ({
       moduleMetadata: {
         imports: [
@@ -376,7 +376,7 @@ storiesOf('Form Field/Datepicker', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'dateRangePicker',
+    'Daterange picker',
     () => ({
       moduleMetadata: {
         imports: [
