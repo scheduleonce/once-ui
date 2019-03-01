@@ -794,22 +794,8 @@
     <br />
     <h4>Oui select Customizing the trigger label</h4>
     <div class="input-outer display-inline">
-      <oui-form-field
-        [appearance]="'underline'"
-        color="accent"
-        placeholder="Select topping"
-      >
-        <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
-          <oui-select-trigger>
-            {{ toppings.value ? toppings.value[0] : '' }}
-            <span
-              *ngIf="toppings.value?.length > 1"
-              class="example-additional-selection"
-            >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? 'other' : 'others' }})
-            </span>
-          </oui-select-trigger>
+      <oui-form-field [appearance]="'underline'" placeholder="Select topping">
+        <oui-select placeholder="Toppings" [formControl]="toppings">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option
             *ngFor="let topping of (toppingList | filterOptions: keyword)"
