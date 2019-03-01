@@ -24,7 +24,7 @@
     let css = document.createElement('link');
     css.rel = 'stylesheet';
     css.id = tagId;
-    css.href = '/themes/' + theme + '.css';
+    css.href = '/themes/' + theme.toLowerCase() + '.css';
     window.frames[iframeId].contentDocument
       .getElementsByTagName('head')[0]
       .appendChild(css);
@@ -35,10 +35,10 @@
       'css-5xz1i6 ez1mtsr0'
     )[0].outerHTML += `<div style="padding: 8px 0px 15px 0px;">
                             <select id="themeSelect" style="padding: 5px 0px 4px 4px;width: 100%;" onchange="themeChange()">
-                                <option value="Oncehub">Oncehub</option>
-                                <option value="Inviteonce">Inviteonce</option>
-                                <option value="Chatonce">Chatonce</option>
-                                <option value="Scheduleonce">Scheduleonce</option>
+                                <option value="oncehub">Oncehub</option>
+                                <option value="inviteonce">Inviteonce</option>
+                                <option value="chatonce">Chatonce</option>
+                                <option value="scheduleonce">Scheduleonce</option>
                             </select>
                       </div>`;
   }
