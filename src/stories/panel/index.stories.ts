@@ -74,7 +74,7 @@ export class OuiPanelWithImageStorybook {
 
 storiesOf('Panel', module)
   .add(
-    'default',
+    'regular',
     () => ({
       moduleMetadata: {
         imports: [

@@ -7,8 +7,8 @@ import {
 import markdownText from '../../../projects/ui/src/lib/oui/form-field/README.md';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { APPEARANCE } from '../const';
-storiesOf('Form Field', module).add(
-  'input',
+storiesOf('Form Field/Input', module).add(
+  'regular',
   () => ({
     moduleMetadata: {
       imports: [OuiFormFieldModule, OuiInputModule],
