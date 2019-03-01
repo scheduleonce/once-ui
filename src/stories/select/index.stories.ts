@@ -63,9 +63,9 @@ export class OuiSelectCustomizeTriggerStorybook {
   ];
 }
 
-storiesOf('Select', module)
+storiesOf('Form Field/Select', module)
   .add(
-    'default',
+    'regular',
     () => ({
       template: `
     <div style="width: 213px;">

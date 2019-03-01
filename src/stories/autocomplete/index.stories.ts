@@ -102,6 +102,7 @@ export class OuiAutocompleteStorybook implements OnInit {
         (optionSelected)="optionSelected($event)"
         #autoGroup="ouiAutocomplete"
         class="autocomplete-group"
+        [autoActiveFirstOption]="autoActiveFirstOption"
       >
         <oui-optgroup
           *ngFor="let group of (stateGroupOptions | async)"
@@ -151,9 +152,9 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
   }
 }
 
-storiesOf('Autocomplete', module)
+storiesOf('Form Field/Autocomplete', module)
   .add(
-    'default',
+    'regular',
     () => ({
       setOptions: setOptions({ downPanelInRight: true }),
       moduleMetadata: {
