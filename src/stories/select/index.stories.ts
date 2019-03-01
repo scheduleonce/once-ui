@@ -13,49 +13,7 @@ import {
 } from '@storybook/addon-knobs/angular';
 import { action } from '@storybook/addon-actions';
 import markdownText from '../../../projects/ui/src/lib/oui/select/README.md';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Component, Input } from '@angular/core';
-import { APPEARANCE } from '../const';
-
-/**
- * Select Customizing the trigger label
- */
-@Component({
-  selector: 'oui-select-storybook',
-  template: `
-    <div style="max-width: 270px;">
-      <oui-form-field [appearance]="'underline'" [color]="color">
-        <oui-select [placeholder]="placeholder" [formControl]="toppings">
-          <oui-select-search [(ngModel)]="keyword"></oui-select-search>
-          <oui-option
-            *ngFor="let topping of (toppingList | filterOptions: keyword)"
-            [value]="topping"
-            >{{ topping }}
-          </oui-option>
-          <div
-            *ngIf="!(toppingList | filterOptions: keyword).length"
-            class="noResults"
-          >
-            No results match "{{ keyword }}"
-          </div>
-        </oui-select>
-      </oui-form-field>
-    </div>
-  `
-})
-export class OuiSelectCustomizeTriggerStorybook {
-  @Input() placeholder: string = '';
-  @Input() appearance: string = '';
-  toppings = new FormControl();
-  toppingList = [
-    'Extra cheese',
-    'Mushroom',
-    'Onion',
-    'Pepperoni',
-    'Sausage',
-    'Tomato'
-  ];
-}
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 storiesOf('Form Field/Select', module)
   .add(
@@ -179,7 +137,7 @@ storiesOf('Form Field/Select', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'search options',
+    'Search options',
     () => ({
       template: `
     <div style="width: 213px;">
@@ -213,29 +171,6 @@ storiesOf('Form Field/Select', module)
           FormsModule,
           ReactiveFormsModule
         ]
-      }
-    }),
-    { notes: { markdown: markdownText } }
-  )
-  .add(
-    'Customize trigger',
-    () => ({
-      moduleMetadata: {
-        imports: [
-          OuiFormFieldModule,
-          OuiInputModule,
-          OuiSelectModule,
-          FormsModule,
-          ReactiveFormsModule
-        ],
-        schemas: [],
-        declarations: [OuiSelectCustomizeTriggerStorybook]
-      },
-      template: `<oui-select-storybook [placeholder]="placeholder" [appearance]="appearance"></oui-select-storybook>`,
-      props: {
-        placeholder: text('placeholder', 'Favourite topping'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
-        onChange: action('change')
       }
     }),
     { notes: { markdown: markdownText } }
