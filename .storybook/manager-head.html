@@ -10,23 +10,32 @@
   const THEMES = ['Oncehub', 'Chatonce', 'Inviteonce', 'Scheduleonce'];
   const TAGID = 'theme-css';
   const IFRAMEID = 'storybook-preview-iframe';
+  let switchCount = 0;
   function onLoad() {
     setTheme(THEMES[0]);
     addThemeSelectElement();
   }
 
   function setTheme(theme) {
-    if (window.frames[IFRAMEID].contentDocument.getElementById(TAGID)) {
-      window.frames[IFRAMEID].contentDocument.getElementById(TAGID).outerHTML =
-        '';
-    }
+    switchCount++;
     let css = document.createElement('link');
     css.rel = 'stylesheet';
-    css.id = TAGID;
+    css.id = TAGID + switchCount;
     css.href = getThemePath(theme);
     window.frames[IFRAMEID].contentDocument
       .getElementsByTagName('head')[0]
       .appendChild(css);
+    setTimeout(() => {
+      if (
+        window.frames[IFRAMEID].contentDocument.getElementById(
+          TAGID + (switchCount - 1)
+        )
+      ) {
+        window.frames[IFRAMEID].contentDocument.getElementById(
+          TAGID + (switchCount - 1)
+        ).outerHTML = '';
+      }
+    });
   }
 
   function getThemePath(theme) {

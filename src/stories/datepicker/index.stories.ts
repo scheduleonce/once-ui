@@ -19,6 +19,15 @@ import {
 } from '../../../projects/ui/src/lib/oui/datepicker/native-date.module';
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
+const CURRENT_DATE = new Date();
+
+function getDate(day: number, month: number, year: number) {
+  let date = new Date();
+  date.setFullYear(date.getFullYear() + year);
+  date.setMonth(date.getMonth() + month);
+  date.setDate(date.getDate() + day);
+  return date;
+}
 
 export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   parse: {
@@ -48,7 +57,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
           [max]="maxDate"
           [value]="_value"
           (dateChange)="dateChange($event)"
-          placeholder="Choose a date"
+          placeholder="Please select"
         />
         <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
         <oui-datepicker
@@ -122,7 +131,7 @@ export class OuiDatepickerStorybook implements OnInit {
           [max]="maxDate"
           [value]="_value"
           (dateChange)="dateChange($event)"
-          placeholder="Choose a date"
+          placeholder="Please select"
         />
         <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
         <oui-datepicker
@@ -197,7 +206,7 @@ export class OuiDatepickerCustomStorybook implements OnInit {
             [min]="minRangeDate"
             [max]="maxDate"
             (dateChange)="mindateChange($event)"
-            placeholder="Choose a date"
+            placeholder="Please select"
           />
           <oui-datepicker-toggle
             ouiSuffix
@@ -219,7 +228,7 @@ export class OuiDatepickerCustomStorybook implements OnInit {
             [min]="minDate"
             [max]="maxRangeDate"
             (dateChange)="maxdateChange($event)"
-            placeholder="Choose a date"
+            placeholder="Please select"
           />
           <oui-datepicker-toggle
             ouiSuffix
@@ -241,12 +250,12 @@ export class OuiDaterangepickerStorybook implements OnInit {
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
   @Input() disabled: boolean = false;
-  @Input() mindate: Date = new Date();
-  minDate: Date = new Date();
-  minRangeDate: Date = new Date();
-  @Input() maxdate: Date = new Date();
-  maxRangeDate: Date = new Date();
-  maxDate: Date = new Date();
+  @Input() mindate: Date;
+  minDate: Date;
+  minRangeDate: Date;
+  @Input() maxdate: Date;
+  maxRangeDate: Date;
+  maxDate: Date;
   @Output()
   readonly _dateChange: EventEmitter<{}> = new EventEmitter<{}>();
   constructor() {}
@@ -320,9 +329,9 @@ storiesOf('Form Field/Datepicker', module)
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', new Date('Feb 6 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Feb 12 2019'), 'OuiDatepickerInput'),
-        value: date('value', new Date('Feb 9 2019'), 'OuiDatepickerInput')
+        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput')
       }
     }),
     { notes: { markdown: markdownText } }
@@ -368,9 +377,9 @@ storiesOf('Form Field/Datepicker', module)
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', new Date('Feb 6 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Feb 12 2019'), 'OuiDatepickerInput'),
-        value: date('value', new Date('Feb 9 2019'), 'OuiDatepickerInput')
+        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput')
       }
     }),
     { notes: { markdown: markdownText } }
@@ -414,8 +423,8 @@ storiesOf('Form Field/Datepicker', module)
           'OuiDatepicker'
         ),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', new Date('Jan 1 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Dec 31 2020'), 'OuiDatepickerInput')
+        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput')
       }
     }),
     { notes: { markdown: markdownText } }
