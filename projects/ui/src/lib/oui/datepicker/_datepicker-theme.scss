@@ -11,14 +11,16 @@ $oui-calendar-weekday-table-font-size: 11px !default;
 $oui-datepicker-input-padding: 7px 9px !important;
 
 @mixin _oui-datepicker-color($palette) {
+  $foreground: map-get($theme, foreground);
   .oui-calendar-body-selected {
     background-color: map-get($palette, default);
     color: map-get($palette, default-contrast);
   }
 
   .oui-calendar-body-today.oui-calendar-body-selected {
-    box-shadow: inset 0 0 0 $oui-datepicker-selected-today-box-shadow-width
-      map-get($palette, default-contrast);
+    box-shadow: 0 0 0 $oui-datepicker-selected-today-box-shadow-width
+      map-get($foreground, hint-text);
+    border: 1px solid #ffffff;
   }
 }
 
@@ -44,6 +46,17 @@ $oui-datepicker-input-padding: 7px 9px !important;
       background-color: map-get($foreground, hover);
       border-radius: 50%;
     }
+    &:disabled {
+      &:hover {
+        background-color: transparent;
+      }
+      svg {
+        color: #c8c8c8;
+      }
+    }
+    svg {
+      color: #4a4a4a;
+    }
   }
 
   .oui-calendar-table-header {
@@ -64,7 +77,7 @@ $oui-datepicker-input-padding: 7px 9px !important;
   }
 
   .oui-datepicker-focused {
-    border-color: map-get($primary, lighter) !important;
+    border-color: map-get($primary, default) !important;
   }
   .oui-calendar-body-disabled
     > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
@@ -117,6 +130,7 @@ $oui-datepicker-input-padding: 7px 9px !important;
   .oui-form-field-infix .oui-datepicker-input:disabled {
     border-color: $form-field-border-color;
     background-color: transparent !important;
+    cursor: pointer;
     &::placeholder {
       color: $form-field-placeholder-color;
       opacity: 1; /* Firefox */
@@ -131,6 +145,14 @@ $oui-datepicker-input-padding: 7px 9px !important;
       /* Microsoft Edge */
       color: $form-field-placeholder-color;
     }
+  }
+  input.oui-datepicker-disabled {
+    opacity: 0.3;
+    cursor: default !important;
+  }
+  .oui-datepicker-disabled svg {
+    color: #9b9b9b;
+    cursor: default !important;
   }
 }
 

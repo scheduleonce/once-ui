@@ -107,7 +107,7 @@ $oui-error: #ff001f;
   .oui-input {
     border: $standard-form-field-border;
     &:focus {
-      border-color: map-get($primary, lighter);
+      border-color: map-get($primary, default);
     }
   }
   .oui-error {
