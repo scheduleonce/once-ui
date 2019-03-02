@@ -919,15 +919,6 @@ describe('OuiDatepicker', () => {
         expect(testComponent.formControl.value).toEqual(selected);
         expect(testComponent.datepickerInput.value).toEqual(selected);
       });
-
-      it('should disable toggle when form control disabled', () => {
-        expect(testComponent.datepickerToggle.disabled).toBe(false);
-
-        testComponent.formControl.disable();
-        fixture.detectChanges();
-
-        expect(testComponent.datepickerToggle.disabled).toBe(true);
-      });
     });
 
     describe('datepicker with oui-datepicker-toggle', () => {
