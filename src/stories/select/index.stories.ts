@@ -4,13 +4,7 @@ import {
   OuiFormFieldModule,
   OuiInputModule
 } from '../../../projects/ui/src/lib/oui';
-import {
-  array,
-  boolean,
-  text,
-  object,
-  select
-} from '@storybook/addon-knobs/angular';
+import { array, boolean, text, object } from '@storybook/addon-knobs/angular';
 import { action } from '@storybook/addon-actions';
 import markdownText from '../../../projects/ui/src/lib/oui/select/README.md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

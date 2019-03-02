@@ -121,7 +121,11 @@ export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
   template: '',
   exportAs: 'ouiDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  // tslint:disable-next-line:use-host-property-decorator
+  host: {
+    '[class.oui-datepicker-disabled]': 'disabled'
+  }
 })
 export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _scrollStrategy: () => ScrollStrategy;
@@ -190,9 +194,10 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
     if (newValue !== this._disabled) {
       this._disabled = newValue;
       this._disabledChange.next(newValue);
+      this._datepickerInput._datepickerDisabled = newValue;
     }
   }
-  private _disabled: boolean;
+  private _disabled = false;
 
   /**
    * Emits selected year in multiyear view.

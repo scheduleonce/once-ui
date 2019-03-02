@@ -84,7 +84,8 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     '(input)': '_onInput($event.target.value)',
     '(change)': '_onChange()',
     '(blur)': '_onBlur()',
-    '(keydown)': '_onKeydown($event)'
+    '(keydown)': '_onKeydown($event)',
+    '[class.oui-datepicker-disabled]': '_datepickerDisabled'
   },
   exportAs: 'ouiDatepickerInput'
 })
@@ -113,6 +114,8 @@ export class OuiDatepickerInput<D>
 
   /** Whether the last value set on the input was valid. */
   private _lastValueValid = false;
+
+  _datepickerDisabled = false;
   /** The datepicker that this input is associated with. */
   @Input()
   set ouiDatepicker(value: OuiDatepicker<D>) {
@@ -309,6 +312,14 @@ export class OuiDatepickerInput<D>
 
   ngAfterViewInit() {
     this._elementRef.nativeElement.setAttribute('disabled', 'true');
+    this._elementRef.nativeElement.parentNode.addEventListener(
+      'click',
+      this._click.bind(this)
+    );
+  }
+
+  _click() {
+    this._datepicker.open();
   }
 
   registerOnValidatorChange(fn: () => void): void {
