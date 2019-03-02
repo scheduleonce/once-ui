@@ -24,7 +24,7 @@ import {
 } from '@angular/forms';
 import { OuiFormField } from '../form-field/form-field';
 import { OUI_INPUT_VALUE_ACCESSOR } from '../input/input-value-accessor';
-import { Subscription } from 'rxjs';
+import { Subscription, fromEvent } from 'rxjs';
 import { OuiDatepicker } from './datepicker';
 import { createMissingDateImplError } from './datepicker-errors';
 import { ThemePalette } from '../core/public-api';
@@ -114,6 +114,8 @@ export class OuiDatepickerInput<D>
 
   /** Whether the last value set on the input was valid. */
   private _lastValueValid = false;
+
+  private _parentNodeClickSubscription: Subscription = Subscription.EMPTY;
 
   _datepickerDisabled = false;
   /** The datepicker that this input is associated with. */
@@ -306,20 +308,19 @@ export class OuiDatepickerInput<D>
   ngOnDestroy() {
     this._datepickerSubscription.unsubscribe();
     this._localeSubscription.unsubscribe();
+    this._parentNodeClickSubscription.unsubscribe();
     this._valueChange.complete();
     this._disabledChange.complete();
   }
 
   ngAfterViewInit() {
     this._elementRef.nativeElement.setAttribute('disabled', 'true');
-    this._elementRef.nativeElement.parentNode.addEventListener(
-      'click',
-      this._click.bind(this)
-    );
-  }
-
-  _click() {
-    this._datepicker.open();
+    this._parentNodeClickSubscription = fromEvent(
+      this._elementRef.nativeElement.parentNode,
+      'click'
+    ).subscribe(() => {
+      this._datepicker.open();
+    });
   }
 
   registerOnValidatorChange(fn: () => void): void {
