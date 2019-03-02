@@ -19,6 +19,15 @@ import {
 } from '../../../projects/ui/src/lib/oui/datepicker/native-date.module';
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
+const CURRENT_DATE = new Date();
+
+function getDate(day: number, month: number, year: number) {
+  let date = new Date();
+  date.setFullYear(date.getFullYear() + year);
+  date.setMonth(date.getMonth() + month);
+  date.setDate(date.getDate() + day);
+  return date;
+}
 
 export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   parse: {
@@ -320,9 +329,9 @@ storiesOf('Form Field/Datepicker', module)
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', new Date('Jan 1 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Dec 31 2025'), 'OuiDatepickerInput'),
-        value: date('value', new Date(), 'OuiDatepickerInput')
+        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput')
       }
     }),
     { notes: { markdown: markdownText } }
@@ -368,9 +377,9 @@ storiesOf('Form Field/Datepicker', module)
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', new Date('Jan 1 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Dec 31 2025'), 'OuiDatepickerInput'),
-        value: date('value', new Date(), 'OuiDatepickerInput')
+        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput')
       }
     }),
     { notes: { markdown: markdownText } }
@@ -414,8 +423,8 @@ storiesOf('Form Field/Datepicker', module)
           'OuiDatepicker'
         ),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', new Date('Jan 1 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Dec 31 2020'), 'OuiDatepickerInput')
+        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput')
       }
     }),
     { notes: { markdown: markdownText } }
