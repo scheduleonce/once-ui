@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { date, select, boolean } from '@storybook/addon-knobs';
-import { COLORS } from '../const';
+import { COLORS, APPEARANCE } from '../const';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import markdownText from '../../../projects/ui/src/lib/oui/datepicker/README.md';
 import {
@@ -49,7 +49,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   selector: 'oui-datepicker-storybook',
   template: `
     <div style="max-width: 170px;">
-      <oui-form-field>
+      <oui-form-field [appearance]="appearance">
         <input
           oui-input
           [ouiDatepicker]="picker"
@@ -76,6 +76,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   `
 })
 export class OuiDatepickerStorybook implements OnInit {
+  @Input() appearance: string = 'standard';
   @Input() color: string = 'primary';
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
@@ -123,7 +124,7 @@ export class OuiDatepickerStorybook implements OnInit {
   selector: 'oui-datepicker-custom-storybook',
   template: `
     <div style="max-width: 170px;">
-      <oui-form-field>
+      <oui-form-field [appearance]="appearance">
         <input
           oui-input
           [ouiDatepicker]="picker"
@@ -151,6 +152,7 @@ export class OuiDatepickerStorybook implements OnInit {
   providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }]
 })
 export class OuiDatepickerCustomStorybook implements OnInit {
+  @Input() appearance: string = 'standard';
   @Input() color: string = 'primary';
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
@@ -198,8 +200,8 @@ export class OuiDatepickerCustomStorybook implements OnInit {
   selector: 'oui-daterangepicker-storybook',
   template: `
     <div style="display: inline-flex;">
-      <div style="max-width: 170px;">
-        <oui-form-field>
+      <oui-form-field [appearance]="appearance">
+        <div style="max-width: 170px;">
           <input
             oui-input
             [ouiDatepicker]="minpicker"
@@ -218,10 +220,8 @@ export class OuiDatepickerCustomStorybook implements OnInit {
             [color]="color"
             #minpicker
           ></oui-datepicker>
-        </oui-form-field>
-      </div>
-      <div style="max-width: 170px;margin-left: 20px;">
-        <oui-form-field>
+        </div>
+        <div style="max-width: 170px;margin-left: 20px;">
           <input
             oui-input
             [ouiDatepicker]="maxpicker"
@@ -240,12 +240,13 @@ export class OuiDatepickerCustomStorybook implements OnInit {
             [color]="color"
             #maxpicker
           ></oui-datepicker>
-        </oui-form-field>
-      </div>
+        </div>
+      </oui-form-field>
     </div>
   `
 })
 export class OuiDaterangepickerStorybook implements OnInit {
+  @Input() appearance: string = 'standard';
   @Input() color: string = 'primary';
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
@@ -305,6 +306,7 @@ storiesOf('Form Field/Datepicker', module)
     [value]="value" 
     [disabled]="disabled" 
     [startView]="startView" 
+    [appearance]="appearance"
     [color]="color" 
     [opened]="opened" 
     [mindate]="minDate" 
@@ -331,7 +333,13 @@ storiesOf('Form Field/Datepicker', module)
         disabled: boolean('disabled', false, 'OuiDatepicker'),
         minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
         maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
-        value: date('value', CURRENT_DATE, 'OuiDatepickerInput')
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[0],
+          'OuiDatepickerInput'
+        )
       }
     }),
     { notes: { markdown: markdownText } }
@@ -352,6 +360,7 @@ storiesOf('Form Field/Datepicker', module)
       template: `<oui-datepicker-custom-storybook 
     [value]="value" 
     [disabled]="disabled" 
+    [appearance]="appearance"
     [startView]="startView" 
     [color]="color" 
     [opened]="opened" 
@@ -379,7 +388,13 @@ storiesOf('Form Field/Datepicker', module)
         disabled: boolean('disabled', false, 'OuiDatepicker'),
         minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
         maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
-        value: date('value', CURRENT_DATE, 'OuiDatepickerInput')
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[1],
+          'OuiDatepickerInput'
+        )
       }
     }),
     { notes: { markdown: markdownText } }
@@ -400,6 +415,7 @@ storiesOf('Form Field/Datepicker', module)
       template: `<oui-daterangepicker-storybook
     [disabled]="disabled" 
     [startView]="startView" 
+    [appearance]="appearance"
     [color]="color" 
     [opened]="opened" 
     [mindate]="minDate" 
@@ -424,7 +440,13 @@ storiesOf('Form Field/Datepicker', module)
         ),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
         minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput')
+        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[0],
+          'OuiDatepickerInput'
+        )
       }
     }),
     { notes: { markdown: markdownText } }
