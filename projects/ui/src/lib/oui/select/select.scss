@@ -112,7 +112,7 @@ $gray-color: #eee;
 // Override optgroup and option to scale based on font-size of the trigger.
 .oui-select-panel {
   color: #333;
-  @include oui-menu-base();
+  -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
   overflow-x: hidden;
   padding-bottom: 0;
   border: 1px solid #c8c8c8;
