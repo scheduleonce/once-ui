@@ -140,7 +140,7 @@ $oui-error: #ff001f;
     }
     &:focus {
       border-width: 2px;
-      border-color: map-get($primary, lighter);
+      border-color: map-get($primary, default);
       padding-bottom: 6px;
     }
   }
