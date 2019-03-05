@@ -78,6 +78,7 @@ $oui-datepicker-input-padding: 7px 9px !important;
 
   .oui-datepicker-focused {
     border-color: map-get($primary, default) !important;
+    border-width: 2px !important;
   }
   .oui-calendar-body-disabled
     > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
