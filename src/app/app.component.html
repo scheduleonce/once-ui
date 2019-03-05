@@ -3,7 +3,7 @@
   <div class="trigger">
     <span>x-axis:after y-axis:"above"</span>
     <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
+      <oui-icon svgIcon="vertical"></oui-icon>
     </button>
     <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
       <button oui-menu-item>
@@ -102,6 +102,17 @@
       <button oui-menu-item>Restart</button>
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
+  </div>
+
+  <div>
+    <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu"></oui-menu-icon>
+  </div>
+
+  <div>
+    <oui-menu-icon
+      [ouiMenuTriggerFor]="afterBelowMenu"
+      vertical="true"
+    ></oui-menu-icon>
   </div>
 
   <br />
