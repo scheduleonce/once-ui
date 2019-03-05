@@ -4,10 +4,17 @@ import {
   OuiFormFieldModule,
   OuiInputModule
 } from '../../../projects/ui/src/lib/oui';
-import { array, boolean, text, object } from '@storybook/addon-knobs/angular';
+import {
+  array,
+  boolean,
+  text,
+  object,
+  select
+} from '@storybook/addon-knobs/angular';
 import { action } from '@storybook/addon-actions';
 import markdownText from '../../../projects/ui/src/lib/oui/select/README.md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { APPEARANCE } from '../const';
 
 storiesOf('Form Field/Select', module)
   .add(
@@ -15,7 +22,7 @@ storiesOf('Form Field/Select', module)
     () => ({
       template: `
     <div style="width: 213px;">
-      <oui-form-field>
+    <oui-form-field [appearance]="appearance">
         <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
           <oui-option *ngFor="let food of foods" [value]="food">
             {{food}}
@@ -28,7 +35,8 @@ storiesOf('Form Field/Select', module)
         foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
         placeholder: text('placeholder', 'Favorite food'),
         disabled: boolean('disabled', false),
-        onChange: action('change')
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
       },
       moduleMetadata: {
         imports: [
@@ -47,7 +55,7 @@ storiesOf('Form Field/Select', module)
     () => ({
       template: `
     <div style="width: 213px;">
-      <oui-form-field>
+    <oui-form-field [appearance]="appearance">
         <oui-select (change)="onChange($event)" [placeholder]="placeholder" multiple [disabled]="disabled">
           <oui-option *ngFor="let food of foods" [value]="food">
             {{food}}
@@ -60,7 +68,8 @@ storiesOf('Form Field/Select', module)
         foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
         placeholder: text('placeholder', 'Favorite food'),
         disabled: boolean('disabled', false),
-        onChange: action('change')
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
       },
       moduleMetadata: {
         imports: [
@@ -79,7 +88,7 @@ storiesOf('Form Field/Select', module)
     () => ({
       template: `
     <div style="width: 213px;">
-      <oui-form-field>
+    <oui-form-field [appearance]="appearance">
         <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
           <oui-option>-- None --</oui-option>
           <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
@@ -116,7 +125,8 @@ storiesOf('Form Field/Select', module)
         ]),
         disabled: boolean('disabled', false),
         placeholder: text('placeholder', 'Foods'),
-        onChange: action('change')
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
       },
       moduleMetadata: {
         imports: [
@@ -135,7 +145,7 @@ storiesOf('Form Field/Select', module)
     () => ({
       template: `
     <div style="width: 213px;">
-      <oui-form-field>
+      <oui-form-field [appearance]="appearance">
         <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
@@ -155,7 +165,8 @@ storiesOf('Form Field/Select', module)
         foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
         placeholder: text('placeholder', 'Favorite food'),
         disabled: boolean('disabled', false),
-        onChange: action('change')
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
       },
       moduleMetadata: {
         imports: [
