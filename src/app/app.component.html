@@ -3,7 +3,7 @@
   <div class="trigger">
     <span>x-axis:after y-axis:"above"</span>
     <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
+      <oui-icon svgIcon="vertical"></oui-icon>
     </button>
     <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
       <button oui-menu-item>
@@ -102,6 +102,17 @@
       <button oui-menu-item>Restart</button>
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
+  </div>
+
+  <div>
+    <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu"></oui-menu-icon>
+  </div>
+
+  <div>
+    <oui-menu-icon
+      [ouiMenuTriggerFor]="afterBelowMenu"
+      vertical="true"
+    ></oui-menu-icon>
   </div>
 
   <br />
@@ -794,22 +805,8 @@
     <br />
     <h4>Oui select Customizing the trigger label</h4>
     <div class="input-outer display-inline">
-      <oui-form-field
-        [appearance]="'underline'"
-        color="accent"
-        placeholder="Select topping"
-      >
-        <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
-          <oui-select-trigger>
-            {{ toppings.value ? toppings.value[0] : '' }}
-            <span
-              *ngIf="toppings.value?.length > 1"
-              class="example-additional-selection"
-            >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? 'other' : 'others' }})
-            </span>
-          </oui-select-trigger>
+      <oui-form-field [appearance]="'underline'" placeholder="Select topping">
+        <oui-select placeholder="Toppings" [formControl]="toppings">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option
             *ngFor="let topping of (toppingList | filterOptions: keyword)"
