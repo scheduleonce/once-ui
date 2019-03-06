@@ -20,6 +20,7 @@ import {
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
 const CURRENT_DATE = new Date();
+const MAX_DATE = getDate(0, 0, 1);
 
 function getDate(day: number, month: number, year: number) {
   let date = new Date();
@@ -200,8 +201,8 @@ export class OuiDatepickerCustomStorybook implements OnInit {
   selector: 'oui-daterangepicker-storybook',
   template: `
     <div style="display: inline-flex;">
-      <oui-form-field [appearance]="appearance">
-        <div style="max-width: 170px;">
+      <div style="max-width: 170px;">
+        <oui-form-field [appearance]="appearance">
           <input
             oui-input
             [ouiDatepicker]="minpicker"
@@ -220,8 +221,10 @@ export class OuiDatepickerCustomStorybook implements OnInit {
             [color]="color"
             #minpicker
           ></oui-datepicker>
-        </div>
-        <div style="max-width: 170px;margin-left: 20px;">
+        </oui-form-field>
+      </div>
+      <div style="max-width: 170px;margin-left: 20px;">
+        <oui-form-field [appearance]="appearance">
           <input
             oui-input
             [ouiDatepicker]="maxpicker"
@@ -240,8 +243,8 @@ export class OuiDatepickerCustomStorybook implements OnInit {
             [color]="color"
             #maxpicker
           ></oui-datepicker>
-        </div>
-      </oui-form-field>
+        </oui-form-field>
+      </div>
     </div>
   `
 })
@@ -252,7 +255,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
   @Input() opened: boolean = false;
   @Input() disabled: boolean = false;
   @Input() mindate: Date;
-  minDate: Date;
+  minDate: Date = new Date();
   minRangeDate: Date;
   @Input() maxdate: Date;
   maxRangeDate: Date;
@@ -331,8 +334,8 @@ storiesOf('Form Field/Datepicker', module)
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
+        maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
         value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
         appearance: select(
           'appearance',
@@ -386,8 +389,8 @@ storiesOf('Form Field/Datepicker', module)
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
+        maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
         value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
         appearance: select(
           'appearance',
@@ -439,8 +442,8 @@ storiesOf('Form Field/Datepicker', module)
           'OuiDatepicker'
         ),
         disabled: boolean('disabled', false, 'OuiDatepicker'),
-        minDate: date('minDate', getDate(0, 0, -1), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', getDate(0, 0, 1), 'OuiDatepickerInput'),
+        minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
+        maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
         appearance: select(
           'appearance',
           APPEARANCE,
