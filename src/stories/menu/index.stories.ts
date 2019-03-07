@@ -5,7 +5,7 @@ import {
   OuiIconRegistry,
   OuiButtonModule
 } from '../../../projects/ui/src/lib/oui';
-import { select } from '@storybook/addon-knobs';
+import { select, boolean } from '@storybook/addon-knobs';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -17,7 +17,8 @@ import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
   selector: 'oui-menu-storybook',
   template: `
     <div style="display:inline-block">
-      <oui-menu-icon [ouiMenuTriggerFor]="afterAboveMenu"> </oui-menu-icon>
+      <oui-menu-icon [ouiMenuTriggerFor]="afterAboveMenu" [vertical]="vertical">
+      </oui-menu-icon>
     </div>
     <oui-menu #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
       <button oui-menu-item>
@@ -38,6 +39,7 @@ import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
 export class OuiMenuStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
+  @Input() vertical: boolean = false;
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
@@ -61,7 +63,7 @@ export class OuiMenuStorybook {
   selector: 'oui-nested-menu-storybook',
   template: `
     <div style="display:inline-block">
-      <oui-menu-icon [ouiMenuTriggerFor]="rootMenu" vertical="true">
+      <oui-menu-icon [ouiMenuTriggerFor]="rootMenu" [vertical]="vertical">
       </oui-menu-icon>
     </div>
     <oui-menu
@@ -85,6 +87,7 @@ export class OuiMenuStorybook {
 export class OuiNestedMenuStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
+  @Input() vertical: boolean = false;
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
@@ -114,12 +117,15 @@ storiesOf('Menu', module)
         declarations: [OuiMenuStorybook]
       },
       template: `<oui-menu-storybook
-  [xPosition]="xPosition"
-  [yPosition]="yPosition">
-            </oui-menu-storybook>`,
+          [xPosition]="xPosition"
+          [yPosition]="yPosition"
+          [vertical]="vertical"
+          >
+          </oui-menu-storybook>`,
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosotion', ['above', 'below'], 'above')
+        yPosition: select('yPosition', ['above', 'below'], 'above'),
+        vertical: boolean('vertical', false)
       }
     }),
     { notes: { markdown: markdownText } }
@@ -134,11 +140,13 @@ storiesOf('Menu', module)
       },
       template: `<oui-nested-menu-storybook
   [xPosition]="xPosition"
-  [yPosition]="yPosition">
+  [yPosition]="yPosition"
+  [vertical]="vertical">
             </oui-nested-menu-storybook>`,
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosotion', ['above', 'below'], 'above')
+        yPosition: select('yPosition', ['above', 'below'], 'above'),
+        vertical: boolean('vertical', false)
       }
     }),
     { notes: { markdown: markdownText } }

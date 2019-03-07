@@ -4,7 +4,8 @@ import {
   ViewEncapsulation,
   ElementRef,
   AfterContentInit,
-  Input
+  Input,
+  OnChanges
 } from '@angular/core';
 
 @Component({
@@ -22,7 +23,7 @@ import {
     '(menuClosed)': 'menuClosed()'
   }
 })
-export class OuiMenuIcon implements AfterContentInit {
+export class OuiMenuIcon implements AfterContentInit, OnChanges {
   private _iconDiv: HTMLDivElement;
   @Input() vertical = false;
   constructor(private _elementRef: ElementRef) {}
@@ -34,11 +35,18 @@ export class OuiMenuIcon implements AfterContentInit {
     this._transformIcon();
   }
 
+  ngOnChanges() {
+    this._transformIcon();
+  }
+
   private _transformIcon() {
+    if (!this._iconDiv) {
+      return;
+    }
     if (this.vertical) {
-      this._iconDiv.classList.add('oui-menu-icon-vertical');
+      this._iconDiv.parentElement.classList.add('oui-menu-icon-vertical');
     } else {
-      this._iconDiv.classList.remove('oui-menu-icon-vertical');
+      this._iconDiv.parentElement.classList.remove('oui-menu-icon-vertical');
     }
   }
 
