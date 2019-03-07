@@ -47,7 +47,7 @@ export class OuiIconButtonStorybook {
 
 storiesOf('Button', module)
   .add(
-    'Default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
@@ -82,7 +82,7 @@ storiesOf('Button', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'ghost-button',
+    'Ghost',
     () => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
@@ -134,7 +134,7 @@ storiesOf('Button', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'icon-button',
+    'Icon',
     () => ({
       moduleMetadata: {
         imports: [OuiButtonModule, OuiIconModule],

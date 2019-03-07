@@ -8,11 +8,18 @@ import {
   OuiMenuTrigger,
   OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER
 } from './menu-trigger';
+import { OuiMenuIcon } from './menu-icon';
 
 @NgModule({
   imports: [CommonModule, OverlayModule],
-  exports: [OuiMenu, OuiMenuItem, OuiMenuTrigger, OuiMenuContent],
-  declarations: [OuiMenu, OuiMenuItem, OuiMenuTrigger, OuiMenuContent],
+  exports: [OuiMenu, OuiMenuItem, OuiMenuTrigger, OuiMenuContent, OuiMenuIcon],
+  declarations: [
+    OuiMenu,
+    OuiMenuItem,
+    OuiMenuTrigger,
+    OuiMenuContent,
+    OuiMenuIcon
+  ],
   providers: [OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
 })
 export class OuiMenuModule {}
