@@ -3,7 +3,7 @@
   <div class="trigger">
     <span>x-axis:after y-axis:"above"</span>
     <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
+      <oui-icon svgIcon="vertical"></oui-icon>
     </button>
     <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
       <button oui-menu-item>
@@ -104,6 +104,63 @@
     </oui-menu>
   </div>
 
+  <div>
+    <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu"></oui-menu-icon>
+  </div>
+
+  <div>
+    <oui-menu-icon
+      [ouiMenuTriggerFor]="afterBelowMenu"
+      vertical="true"
+    ></oui-menu-icon>
+  </div>
+
+  <br />
+  <br />
+  <h1>Panel Overlay</h1>
+  <div>
+    <oui-panel-icon [ouiPanelTriggerFor]="afterAbovePanel"></oui-panel-icon>
+    <button
+      oui-icon-button
+      style="margin-left: 400px"
+      [ouiPanelTriggerFor]="afterAbovePanel"
+    >
+      <oui-icon svgIcon="horizontal"></oui-icon>
+    </button>
+    <oui-panel #afterAbovePanel xPosition="before" yPosition="below">
+      <h6>Lorem ipsum dolor sit amet.</h6>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus
+        voluptates impedit.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
+        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus
+        voluptates impedit. <a href="#">Learn More</a>
+      </p>
+    </oui-panel>
+  </div>
+  <div class="trigger">
+    <span>panel with image inside</span>
+    <oui-panel-icon [ouiPanelTriggerFor]="afterBelowImage"> </oui-panel-icon>
+    <oui-panel #afterBelowImage xPosition="after" yPosition="below">
+      <h6>Lorem ipsum, dolor sit amet consectetur</h6>
+      <img
+        src="https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+      />
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate
+        harum quod a incidunt? Obcaecati dolores omnis odio repudiandae quo
+        quidem?
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
+        dolorum! Reprehenderit reiciendis hic magnam esse odio asperiores qui
+        tempora beatae.
+      </p></oui-panel
+    >
+  </div>
   <h1>Form field</h1>
   <div class="input-outer">
     <oui-form-field color="accent"
@@ -748,22 +805,8 @@
     <br />
     <h4>Oui select Customizing the trigger label</h4>
     <div class="input-outer display-inline">
-      <oui-form-field
-        [appearance]="'underline'"
-        color="accent"
-        placeholder="Select topping"
-      >
-        <oui-select placeholder="Toppings" [formControl]="toppings" multiple>
-          <oui-select-trigger>
-            {{ toppings.value ? toppings.value[0] : '' }}
-            <span
-              *ngIf="toppings.value?.length > 1"
-              class="example-additional-selection"
-            >
-              (+{{ toppings.value.length - 1 }}
-              {{ toppings.value?.length === 2 ? 'other' : 'others' }})
-            </span>
-          </oui-select-trigger>
+      <oui-form-field [appearance]="'underline'" placeholder="Select topping">
+        <oui-select placeholder="Toppings" [formControl]="toppings">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option
             *ngFor="let topping of (toppingList | filterOptions: keyword)"

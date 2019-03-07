@@ -16,9 +16,9 @@ import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
 @Component({
   selector: 'oui-menu-storybook',
   template: `
-    <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
-      <oui-icon [svgIcon]="'dots-horizontal'"></oui-icon>
-    </button>
+    <div style="display:inline-block">
+      <oui-menu-icon [ouiMenuTriggerFor]="afterAboveMenu"> </oui-menu-icon>
+    </div>
     <oui-menu #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
       <button oui-menu-item>
         <oui-icon svgIcon="edit"></oui-icon>
@@ -60,9 +60,10 @@ export class OuiMenuStorybook {
 @Component({
   selector: 'oui-nested-menu-storybook',
   template: `
-    <button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
-      <oui-icon [svgIcon]="'dots-vertical'"></oui-icon>
-    </button>
+    <div style="display:inline-block">
+      <oui-menu-icon [ouiMenuTriggerFor]="rootMenu" vertical="true">
+      </oui-menu-icon>
+    </div>
     <oui-menu
       [xPosition]="xPosition"
       [yPosition]="yPosition"
@@ -105,7 +106,7 @@ export class OuiNestedMenuStorybook {
 
 storiesOf('Menu', module)
   .add(
-    'default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
@@ -124,7 +125,7 @@ storiesOf('Menu', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'nested Menu',
+    'Nested menu',
     () => ({
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],

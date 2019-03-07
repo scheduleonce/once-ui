@@ -107,13 +107,13 @@ $oui-error: #ff001f;
   .oui-input {
     border: $standard-form-field-border;
     &:focus {
-      border-color: map-get($primary, lighter);
+      border-color: map-get($primary, default);
     }
   }
   .oui-error {
     color: $oui-error;
     display: block;
-    padding-top: 8px;
+    padding-top: 6px;
     font-size: 14px;
     line-height: 22px;
     font-family: Open Sans, serif;
@@ -140,7 +140,7 @@ $oui-error: #ff001f;
     }
     &:focus {
       border-width: 2px;
-      border-color: map-get($primary, lighter);
+      border-color: map-get($primary, default);
       padding-bottom: 6px;
     }
   }

@@ -10,6 +10,9 @@
 # dependencies
 /node_modules
 
+# storybook dynamic files
+/src/stories/styles/themes
+
 # IDEs and editors
 /.idea
 .project
