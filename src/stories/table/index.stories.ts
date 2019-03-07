@@ -38,18 +38,21 @@ function createNewUser(id: number) {
   };
 }
 
-const TABLEDATASOURCE = Array.from({ length: 100 }, (_, k) =>
+const TABLEDATASOURCE = Array.from({ length: 5000 }, (_, k) =>
   createNewUser(k + 1)
 );
 
 @Component({
   selector: 'oui-table-storybook',
   template: `
-    <input
-      (keyup)="applyFilter($event.target.value)"
-      oui-input
-      placeholder="Filter"
-    />
+    <oui-form-field>
+      <input
+        (keyup)="applyFilter($event.target.value)"
+        oui-input
+        class="input-filter"
+        placeholder="Filter"
+      />
+    </oui-form-field>
     <div class="table-container">
       <table oui-table #table [dataSource]="dataSource" ouiSort>
         <ng-container
@@ -57,7 +60,7 @@ const TABLEDATASOURCE = Array.from({ length: 100 }, (_, k) =>
           ouiColumnDef="{{ column }}"
         >
           <th oui-header-cell *ouiHeaderCellDef oui-sort-header>
-            {{ column.toUpperCase() }}
+            {{ column }}
           </th>
           <td oui-cell *ouiCellDef="let element">{{ element[column] }}</td>
         </ng-container>
@@ -79,7 +82,10 @@ export class OuiTableStorybook implements OnInit {
   dataSource = new OuiTableDataSource(this.users);
   constructor() {}
   ngOnInit() {
-    for (let key in this.users[0]) this.displayedColumns.push(key);
+    // tslint:disable-next-line:forin
+    for (let key in this.users[0]) {
+      this.displayedColumns.push(key);
+    }
     this.dataSource = new OuiTableDataSource(this.users);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -199,7 +205,7 @@ const valueOptions = {
 };
 storiesOf('Table', module)
   .add(
-    'default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [
@@ -222,7 +228,7 @@ storiesOf('Table', module)
     { notes: { markdown: markdownText } }
   )
   .add(
-    'custom',
+    'Custom',
     () => ({
       moduleMetadata: {
         imports: [

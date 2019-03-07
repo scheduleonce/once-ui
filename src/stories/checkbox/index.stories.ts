@@ -6,7 +6,7 @@ import markdownText from '../../../projects/ui/src/lib/oui/checkbox/README.md';
 import { LABELPOSITION } from '../const';
 
 storiesOf('Checkbox', module).add(
-  'default',
+  'Regular',
   () => ({
     moduleMetadata: {
       imports: [OuiCheckboxModule],
@@ -23,7 +23,7 @@ storiesOf('Checkbox', module).add(
               </oui-checkbox>`,
     props: {
       changed: action('change'),
-      position: select('labelPosition', LABELPOSITION, LABELPOSITION[0]),
+      position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
       disabled: boolean('disabled', false),
       checked: boolean('checked', false)
     }

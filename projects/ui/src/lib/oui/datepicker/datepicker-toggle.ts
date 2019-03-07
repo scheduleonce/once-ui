@@ -38,7 +38,8 @@ export class OuiDatepickerToggleIcon {}
     '[class.oui-datepicker-toggle-active]': 'datepicker && datepicker.opened',
     '[class.oui-accent]': 'datepicker && datepicker.color === "accent"',
     '[class.oui-warn]': 'datepicker && datepicker.color === "warn"',
-    '(focus)': '_button.focus()'
+    '(focus)': '_button.focus()',
+    '[class.oui-datepicker-disabled]': 'disabled'
   },
   exportAs: 'ouiDatepickerToggle',
   encapsulation: ViewEncapsulation.None,

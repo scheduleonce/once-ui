@@ -3,11 +3,11 @@
  */
 
 @mixin oui-select-border-theme($color) {
-  .oui-input {
+  .oui-select.oui-input {
     border-color: $color;
   }
   &.oui-form-field-appearance-underline {
-    .oui-input {
+    .oui-select.oui-input {
       border: 1px solid transparent;
       border-top-color: transparent !important;
       border-left-color: transparent !important;
@@ -36,12 +36,12 @@
   $warn: map-get($theme, warn);
   $primary: map-get($theme, primary);
   .oui-focused {
-    .oui-input {
+    .oui-select.oui-input {
       border-width: 1px;
     }
     @include oui-select-border-theme(map-get($primary, default));
 
-    .oui-input:not(.oui-select-list-options-opened) {
+    .oui-select.oui-input:not(.oui-select-list-options-opened) {
       border-color: #c8c8c8;
     }
 
