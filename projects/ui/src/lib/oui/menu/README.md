@@ -20,8 +20,10 @@ The `<oui-menu>` doesn't render anything by itself. The menu is attached to and 
 `oui-menu-icon` is a default three dot icon which will be used as triggering element. By default it provides horizontal three dot icon and can be changed to vertical by providing `vertical` input property set to true.
 
 ```html
-<oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu" vertical="true">
-</oui-menu-icon>
+<div style="display:inline-block">
+  <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu" vertical="true">
+  </oui-menu-icon>
+</div>
 ```
 
 ## Toggling the menu programmatically
