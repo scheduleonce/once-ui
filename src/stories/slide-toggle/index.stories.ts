@@ -6,7 +6,7 @@ import { select, boolean } from '@storybook/addon-knobs';
 import { COLORS } from '../const';
 
 storiesOf('Slide Toggle', module).add(
-  'default',
+  'Regular',
   () => ({
     component: OuiSlideToggle,
     props: {

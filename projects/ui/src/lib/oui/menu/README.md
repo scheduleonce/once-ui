@@ -15,6 +15,17 @@ The `<oui-menu>` doesn't render anything by itself. The menu is attached to and 
 </button>
 ```
 
+## Action Menu Icon
+
+`oui-menu-icon` is a default three dot icon which will be used as triggering element. By default it provides horizontal three dot icon and can be changed to vertical by providing `vertical` input property set to true.
+
+```html
+<div style="display:inline-block">
+  <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu" vertical="true">
+  </oui-menu-icon>
+</div>
+```
+
 ## Toggling the menu programmatically
 
 The menu exposes an API to open/close programmatically. Please note that in this case, an ouiMenuTriggerFor directive is still necessary to attach the menu to a trigger element in the DOM.
