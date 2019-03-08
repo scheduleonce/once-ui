@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { date, select, boolean } from '@storybook/addon-knobs';
-import { COLORS } from '../const';
+import { COLORS, APPEARANCE } from '../const';
 import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import markdownText from '../../../projects/ui/src/lib/oui/datepicker/README.md';
 import {
@@ -19,6 +19,16 @@ import {
 } from '../../../projects/ui/src/lib/oui/datepicker/native-date.module';
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
+const CURRENT_DATE = new Date();
+const MAX_DATE = getDate(0, 0, 1);
+
+function getDate(day: number, month: number, year: number) {
+  let date = new Date();
+  date.setFullYear(date.getFullYear() + year);
+  date.setMonth(date.getMonth() + month);
+  date.setDate(date.getDate() + day);
+  return date;
+}
 
 export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   parse: {
@@ -40,7 +50,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   selector: 'oui-datepicker-storybook',
   template: `
     <div style="max-width: 170px;">
-      <oui-form-field>
+      <oui-form-field [appearance]="appearance">
         <input
           oui-input
           [ouiDatepicker]="picker"
@@ -48,7 +58,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
           [max]="maxDate"
           [value]="_value"
           (dateChange)="dateChange($event)"
-          placeholder="Choose a date"
+          placeholder="Please select"
         />
         <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
         <oui-datepicker
@@ -67,6 +77,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   `
 })
 export class OuiDatepickerStorybook implements OnInit {
+  @Input() appearance: string = 'standard';
   @Input() color: string = 'primary';
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
@@ -114,7 +125,7 @@ export class OuiDatepickerStorybook implements OnInit {
   selector: 'oui-datepicker-custom-storybook',
   template: `
     <div style="max-width: 170px;">
-      <oui-form-field>
+      <oui-form-field [appearance]="appearance">
         <input
           oui-input
           [ouiDatepicker]="picker"
@@ -122,7 +133,7 @@ export class OuiDatepickerStorybook implements OnInit {
           [max]="maxDate"
           [value]="_value"
           (dateChange)="dateChange($event)"
-          placeholder="Choose a date"
+          placeholder="Please select"
         />
         <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
         <oui-datepicker
@@ -142,6 +153,7 @@ export class OuiDatepickerStorybook implements OnInit {
   providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }]
 })
 export class OuiDatepickerCustomStorybook implements OnInit {
+  @Input() appearance: string = 'standard';
   @Input() color: string = 'primary';
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
@@ -190,14 +202,14 @@ export class OuiDatepickerCustomStorybook implements OnInit {
   template: `
     <div style="display: inline-flex;">
       <div style="max-width: 170px;">
-        <oui-form-field>
+        <oui-form-field [appearance]="appearance">
           <input
             oui-input
             [ouiDatepicker]="minpicker"
             [min]="minRangeDate"
             [max]="maxDate"
             (dateChange)="mindateChange($event)"
-            placeholder="Choose a date"
+            placeholder="Please select"
           />
           <oui-datepicker-toggle
             ouiSuffix
@@ -212,14 +224,14 @@ export class OuiDatepickerCustomStorybook implements OnInit {
         </oui-form-field>
       </div>
       <div style="max-width: 170px;margin-left: 20px;">
-        <oui-form-field>
+        <oui-form-field [appearance]="appearance">
           <input
             oui-input
             [ouiDatepicker]="maxpicker"
             [min]="minDate"
             [max]="maxRangeDate"
             (dateChange)="maxdateChange($event)"
-            placeholder="Choose a date"
+            placeholder="Please select"
           />
           <oui-datepicker-toggle
             ouiSuffix
@@ -237,16 +249,17 @@ export class OuiDatepickerCustomStorybook implements OnInit {
   `
 })
 export class OuiDaterangepickerStorybook implements OnInit {
+  @Input() appearance: string = 'standard';
   @Input() color: string = 'primary';
   @Input() startView: string = 'primary';
   @Input() opened: boolean = false;
   @Input() disabled: boolean = false;
-  @Input() mindate: Date = new Date();
+  @Input() mindate: Date;
   minDate: Date = new Date();
-  minRangeDate: Date = new Date();
-  @Input() maxdate: Date = new Date();
-  maxRangeDate: Date = new Date();
-  maxDate: Date = new Date();
+  minRangeDate: Date;
+  @Input() maxdate: Date;
+  maxRangeDate: Date;
+  maxDate: Date;
   @Output()
   readonly _dateChange: EventEmitter<{}> = new EventEmitter<{}>();
   constructor() {}
@@ -278,9 +291,9 @@ export class OuiDaterangepickerStorybook implements OnInit {
   }
 }
 
-storiesOf('Datepicker', module)
+storiesOf('Form Field/Datepicker', module)
   .add(
-    'default',
+    'Regular',
     () => ({
       moduleMetadata: {
         imports: [
@@ -296,6 +309,7 @@ storiesOf('Datepicker', module)
     [value]="value" 
     [disabled]="disabled" 
     [startView]="startView" 
+    [appearance]="appearance"
     [color]="color" 
     [opened]="opened" 
     [mindate]="minDate" 
@@ -311,9 +325,6 @@ storiesOf('Datepicker', module)
         datepickeropened: action('opened'),
         yearSelected: action('yearSelected'),
         dateChange: action('dateChange'),
-        minDate: date('minDate', new Date('Feb 6 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Feb 12 2019'), 'OuiDatepickerInput'),
-        value: date('value', new Date('Feb 9 2019'), 'OuiDatepickerInput'),
         color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
         startView: select(
           'start-view',
@@ -322,13 +333,22 @@ storiesOf('Datepicker', module)
           'OuiDatepicker'
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
-        disabled: boolean('disabled', false, 'OuiDatepicker')
+        disabled: boolean('disabled', false, 'OuiDatepicker'),
+        minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
+        maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[0],
+          'OuiDatepickerInput'
+        )
       }
     }),
     { notes: { markdown: markdownText } }
   )
   .add(
-    'customFormat',
+    'Custom format',
     () => ({
       moduleMetadata: {
         imports: [
@@ -343,6 +363,7 @@ storiesOf('Datepicker', module)
       template: `<oui-datepicker-custom-storybook 
     [value]="value" 
     [disabled]="disabled" 
+    [appearance]="appearance"
     [startView]="startView" 
     [color]="color" 
     [opened]="opened" 
@@ -359,9 +380,6 @@ storiesOf('Datepicker', module)
         datepickeropened: action('opened'),
         yearSelected: action('yearSelected'),
         dateChange: action('dateChange'),
-        minDate: date('minDate', new Date('Feb 6 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Feb 12 2019'), 'OuiDatepickerInput'),
-        value: date('value', new Date('Feb 9 2019'), 'OuiDatepickerInput'),
         color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
         startView: select(
           'start-view',
@@ -370,61 +388,22 @@ storiesOf('Datepicker', module)
           'OuiDatepicker'
         ),
         opened: boolean('opened', false, 'OuiDatepicker'),
-        disabled: boolean('disabled', false, 'OuiDatepicker')
+        disabled: boolean('disabled', false, 'OuiDatepicker'),
+        minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
+        maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
+        value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[1],
+          'OuiDatepickerInput'
+        )
       }
     }),
     { notes: { markdown: markdownText } }
   )
   .add(
-    'customFormat',
-    () => ({
-      moduleMetadata: {
-        imports: [
-          OuiDatepickerModule,
-          OuiFormFieldModule,
-          OuiInputModule,
-          BrowserAnimationsModule
-        ],
-        schemas: [],
-        declarations: [OuiDatepickerCustomStorybook]
-      },
-      template: `<oui-datepicker-custom-storybook 
-    [value]="value" 
-    [disabled]="disabled" 
-    [startView]="startView" 
-    [color]="color" 
-    [opened]="opened" 
-    [mindate]="minDate" 
-    [maxdate]="maxDate"
-    (_closed)="closed($event)"
-    (_monthSelected)="monthSelected($event)"
-    (_opened)="datepickeropened($event)"
-    (_yearSelected)="yearSelected($event)"
-    (_dateChange)="dateChange($event)"></oui-datepicker-custom-storybook>`,
-      props: {
-        closed: action('closed'),
-        monthSelected: action('monthSelected'),
-        datepickeropened: action('opened'),
-        yearSelected: action('yearSelected'),
-        dateChange: action('dateChange'),
-        minDate: date('minDate', new Date('Feb 6 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Feb 12 2019'), 'OuiDatepickerInput'),
-        value: date('value', new Date('Feb 9 2019'), 'OuiDatepickerInput'),
-        color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
-        startView: select(
-          'start-view',
-          START_VIEWS,
-          START_VIEWS[0],
-          'OuiDatepicker'
-        ),
-        opened: boolean('opened', false, 'OuiDatepicker'),
-        disabled: boolean('disabled', false, 'OuiDatepicker')
-      }
-    }),
-    { notes: { markdown: markdownText } }
-  )
-  .add(
-    'dateRangePicker',
+    'Daterange picker',
     () => ({
       moduleMetadata: {
         imports: [
@@ -439,6 +418,7 @@ storiesOf('Datepicker', module)
       template: `<oui-daterangepicker-storybook
     [disabled]="disabled" 
     [startView]="startView" 
+    [appearance]="appearance"
     [color]="color" 
     [opened]="opened" 
     [mindate]="minDate" 
@@ -454,8 +434,6 @@ storiesOf('Datepicker', module)
         datepickeropened: action('opened'),
         yearSelected: action('yearSelected'),
         dateChange: action('dateChange'),
-        minDate: date('minDate', new Date('Feb 6 2019'), 'OuiDatepickerInput'),
-        maxDate: date('maxDate', new Date('Feb 12 2019'), 'OuiDatepickerInput'),
         color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
         startView: select(
           'start-view',
@@ -463,7 +441,15 @@ storiesOf('Datepicker', module)
           START_VIEWS[0],
           'OuiDatepicker'
         ),
-        disabled: boolean('disabled', false, 'OuiDatepicker')
+        disabled: boolean('disabled', false, 'OuiDatepicker'),
+        minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
+        maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[0],
+          'OuiDatepickerInput'
+        )
       }
     }),
     { notes: { markdown: markdownText } }

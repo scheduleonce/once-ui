@@ -2,7 +2,6 @@
 
 1.  Import `OuiDialogModule` in your module.
 
-        ```typescript
 
           import { OuiDialogModule } from '@once/ui';
 
@@ -13,97 +12,92 @@
             bootstrap: [AppComponent]
           })
 
-        ```
-
     Now we are ready to use all utilities of dialog in our components under that module.
 
 2.  Import and Inject `OuiDialog` service in your component. This service will open the dialog with configuration and returns
     dialog reference object.;
 
-```typescript
-import { OuiDialog } from '@once/ui';
 
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-  constructor(private dialog: OuiDialog) {}
-}
-```
+          import { OuiDialog } from '@once/ui';
 
-3. In your component html code add the required button to open the dialog and add your dialog html in the <ng-template> tag with template-ref id.
-   You can use helper directives to design your dialogs. Please see the docs related to helper directives for more information.
+          @Component({
+            selector: 'app-root',
+            templateUrl: './app.component.html',
+            styleUrls: ['./app.component.scss']
+          })
+          export class AppComponent {
+            constructor(private dialog: OuiDialog) {}
+          }
 
-   ```html
-   <ng-template #dialogTemplate>
-     <div oui-dialog-header>
-       <div oui-dialog-header-image>
-         <img src="/assets/images/v-green.svg" />
-       </div>
-       <label oui-dialog-header-title>this is the title</label>
-       <div oui-dialog-header-action>
-         <div title="Close" oui-dialog-header-close oui-dialog-close></div>
-         <a
-           title="Article"
-           oui-dialog-header-article
-           href="https://youtube.com"
-           target="blank"
-         ></a>
-         <a
-           title="Video"
-           href="https://youtube.com"
-           target="blank"
-           oui-dialog-header-video
-           oui-dialog-header-separator
-         ></a>
-       </div>
-     </div>
-     <div oui-dialog-content><div class="simple"></div></div>
-     <div oui-dialog-footer>
-       <div oui-dialog-footer-action-left>
-         <button oui-link-button>Left</button>
-         <button oui-link-button>Left</button>
-       </div>
-       <div oui-dialog-footer-action-right>
-         <button oui-ghost-button>Open</button>
-         <button oui-button ouiDialogClose>Close</button>
-       </div>
-     </div>
-   </ng-template>
+3.  In your component html code add the required button to open the dialog and add your dialog html in the <ng-template> tag with template-ref id.
+    You can use helper directives to design your dialogs. Please see the docs related to helper directives for more information.
 
-   <button oui-button (click)="openDialog()">Open</button>
-   ```
+    ```html
+    <ng-template #dialogTemplate>
+      <div oui-dialog-header>
+        <div oui-dialog-header-image>
+          <img src="/assets/images/v-green.svg" />
+        </div>
+        <label oui-dialog-header-title>this is the title</label>
+        <div oui-dialog-header-action>
+          <div title="Close" oui-dialog-header-close oui-dialog-close></div>
+          <a
+            title="Article"
+            oui-dialog-header-article
+            href="https://youtube.com"
+            target="blank"
+          ></a>
+          <a
+            title="Video"
+            href="https://youtube.com"
+            target="blank"
+            oui-dialog-header-video
+            oui-dialog-header-separator
+          ></a>
+        </div>
+      </div>
+      <div oui-dialog-content><div class="simple"></div></div>
+      <div oui-dialog-footer>
+        <div oui-dialog-footer-action-left>
+          <button oui-link-button>Left</button>
+          <button oui-link-button>Left</button>
+        </div>
+        <div oui-dialog-footer-action-right>
+          <button oui-ghost-button>Open</button>
+          <button oui-button ouiDialogClose>Close</button>
+        </div>
+      </div>
+    </ng-template>
 
-4. Open dialog in your component.
+    <button oui-button (click)="openDialog()">Open</button>
+    ```
 
-```typescript
-@Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
-export class AppComponent {
-  @ViewChild('dialogTemplate')
-  dialogTemplate;
-  dialogRef: any = null;
-  constructor(private dialog: OuiDialog) {}
+4.  Open dialog in your component.
 
-  openDialog() {
-    this.dialogRef = this.dialog.open(this.dialogTemplate);
-    this.dialogRef.afterClosed().subscribe(() => {
-      // do something after dialog popup closed
-    });
-  }
+        @Component({
+          selector: 'app-root',
+          templateUrl: './app.component.html',
+          styleUrls: ['./app.component.scss']
+        })
+        export class AppComponent {
+          @ViewChild('dialogTemplate')
+          dialogTemplate;
+          dialogRef: any = null;
+          constructor(private dialog: OuiDialog) {}
 
-  closeDialog() {
-    if (this.dialogRef) {
-      this.dialogRef.close();
-    }
-  }
-}
-```
+          openDialog() {
+            this.dialogRef = this.dialog.open(this.dialogTemplate);
+            this.dialogRef.afterClosed().subscribe(() => {
+              // do something after dialog popup closed
+            });
+          }
+
+          closeDialog() {
+            if (this.dialogRef) {
+              this.dialogRef.close();
+            }
+          }
+        }
 
 ## Steps for making dialog using component method.
 

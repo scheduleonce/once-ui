@@ -102,7 +102,7 @@ $gray-color: #eee;
   .oui-select-arrow {
     transform: rotate(180deg);
   }
-  .oui-input:not(.oui-select-list-options-opened) {
+  .oui-select.oui-input:not(.oui-select-list-options-opened) {
     .oui-select-arrow {
       transform: rotate(0deg);
     }
@@ -112,7 +112,7 @@ $gray-color: #eee;
 // Override optgroup and option to scale based on font-size of the trigger.
 .oui-select-panel {
   color: #333;
-  @include oui-menu-base();
+  -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
   overflow-x: hidden;
   padding-bottom: 0;
   border: 1px solid #c8c8c8;
@@ -238,7 +238,7 @@ $gray-color: #eee;
       }
     }
   }
-  .oui-input {
+  .oui-select.oui-input {
     border: 1px solid transparent;
     padding-left: 0;
     padding-right: 0;
@@ -258,7 +258,7 @@ $gray-color: #eee;
   }
 }
 
-.oui-form-field.oui-form-field-appearance-underline .oui-input {
+.oui-form-field.oui-form-field-appearance-underline .oui-select.oui-input {
   &.oui-select-disabled {
     border: 1px solid transparent;
     border-bottom: 1px solid #e4e4e4;
@@ -268,7 +268,7 @@ $gray-color: #eee;
     }
   }
 }
-.oui-form-field .oui-input {
+.oui-form-field .oui-select.oui-input {
   &.oui-select-disabled {
     border: 1px solid #e4e4e4;
     background-color: #f9f9f9;
@@ -282,7 +282,7 @@ $gray-color: #eee;
     }
   }
   &.oui-form-field-appearance-underline {
-    .oui-input {
+    .oui-select.oui-input {
       transition: border 0.5s, padding 0.5s;
     }
   }
