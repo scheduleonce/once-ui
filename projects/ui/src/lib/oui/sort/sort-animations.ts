@@ -9,10 +9,8 @@ import {
   query,
   animateChild
 } from '@angular/animations';
-import { AnimationCurves, AnimationDurations } from '../core';
 
-const SORT_ANIMATION_TRANSITION =
-  AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
+const SORT_ANIMATION_TRANSITION = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 
 /**
  * Animations used by OuiSort.
