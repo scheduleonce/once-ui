@@ -230,6 +230,7 @@ export class OuiDialogContent implements OnInit {
   private _setContentHeight() {
     if (!this.dialogRef.dialogConfig.scrollStrategy) {
       this._elementRef.nativeElement.style.maxHeight = 'none';
+      this._elementRef.nativeElement.style.overflow = 'visible';
     }
   }
 }
