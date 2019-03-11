@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { OUI_DIALOG_SCROLL_STRATEGY_PROVIDER, OuiDialog } from './dialog';
 import { OuiDialogContainer } from './dialog-container';
+import { DialogScrollStrategy } from './dialog-scroll-strategy';
 import {
   OuiDialogHeader,
   OuiDialogContent,
@@ -54,7 +55,11 @@ import {
     OuiDialogFooterActionLeft,
     OuiDialogFooterActionRight
   ],
-  providers: [OuiDialog, OUI_DIALOG_SCROLL_STRATEGY_PROVIDER],
+  providers: [
+    OuiDialog,
+    DialogScrollStrategy,
+    OUI_DIALOG_SCROLL_STRATEGY_PROVIDER
+  ],
   entryComponents: [OuiDialogContainer]
 })
 export class OuiDialogModule {}

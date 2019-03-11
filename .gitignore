@@ -4,9 +4,14 @@
 /dist
 /tmp
 /out-tsc
+/out
+/src/stories/themes
 
 # dependencies
 /node_modules
+
+# storybook dynamic files
+/src/stories/styles/themes
 
 # IDEs and editors
 /.idea
@@ -39,3 +44,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# exclude codeowners file so it will only be in master
+/docs/CODEOWNERS

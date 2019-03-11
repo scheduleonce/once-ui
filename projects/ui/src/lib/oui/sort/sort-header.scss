@@ -1,0 +1,39 @@
+$arrow-selected: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='12px' height='12px' viewBox='0 0 12 12' version='1.1'%3E%3C!-- Generator: Sketch 53.1 (72631) - https://sketchapp.com --%3E%3Ctitle%3EArtboard Copy 4%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cg id='Artboard-Copy-4' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cpath d='M3.68421053,6.31578947 L10,6.31578947 L10,8 L3.68421053,8 L2,8 L2,-1.42108547e-12 L3.68421053,-1.42108547e-12 L3.68421053,6.31578947 Z' id='Combined-Shape-Copy-8' fill='%234A4A4A' transform='translate(6.000000, 4.000000) scale(-1, 1) rotate(-45.000000) translate(-6.000000, -4.000000) '/%3E%3C/g%3E%3C/svg%3E");
+$arrow-faded: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMTJweCIgaGVpZ2h0PSIxMnB4IiB2aWV3Qm94PSIwIDAgMTIgMTIiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDUzLjEgKDcyNjMxKSAtIGh0dHBzOi8vc2tldGNoYXBwLmNvbSAtLT4KICAgIDx0aXRsZT5BcnRib2FyZCBDb3B5IDU8L3RpdGxlPgogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+CiAgICA8ZyBpZD0iQXJ0Ym9hcmQtQ29weS01IiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNMy42ODQyMTA1Myw2LjMxNTc4OTQ3IEwxMCw2LjMxNTc4OTQ3IEwxMCw4IEwzLjY4NDIxMDUzLDggTDIsOCBMMiwtMS40MjEwODU0N2UtMTIgTDMuNjg0MjEwNTMsLTEuNDIxMDg1NDdlLTEyIEwzLjY4NDIxMDUzLDYuMzE1Nzg5NDcgWiIgaWQ9IkNvbWJpbmVkLVNoYXBlLUNvcHktOCIgZmlsbD0iIzhDOEM4QyIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNi4wMDAwMDAsIDQuMDAwMDAwKSBzY2FsZSgtMSwgMSkgcm90YXRlKC00NS4wMDAwMDApIHRyYW5zbGF0ZSgtNi4wMDAwMDAsIC00LjAwMDAwMCkgIj48L3BhdGg+CiAgICA8L2c+Cjwvc3ZnPg==');
+$arrow-margin: 2px 0px 0px 6px;
+
+.oui-sort-header-button {
+  border: none;
+  background: 0 0;
+  display: inline-block;
+  align-items: center;
+  padding: 0;
+  cursor: inherit;
+  outline: 0;
+  font: inherit;
+  color: currentColor;
+  text-transform: capitalize;
+}
+.oui-sort-header-arrow {
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.oui-sort-header-arrow-selected {
+  height: 12px;
+  width: 12px;
+  background: $arrow-selected center center no-repeat;
+  display: inline-block;
+  margin: $arrow-margin;
+}
+.oui-sort-header-arrow-faded {
+  opacity: 0;
+  height: 12px;
+  width: 12px;
+  background: $arrow-faded center center no-repeat;
+  display: inline-block;
+  margin: $arrow-margin;
+}
+.oui-header-cell:hover .oui-sort-header-arrow-faded {
+  opacity: 1;
+}

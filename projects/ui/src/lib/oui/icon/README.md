@@ -24,7 +24,7 @@ By default, icons will use the current font color (`currentColor`). This color c
 
 You need to inject `OuiIconRegistry` service in your component like as follows-
 
-```
+```angular2html
 import { OuiIconRegistry } from '@once/ui';
 export class AppComponent {
    constructor(
@@ -62,7 +62,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 
 **addSvgIcon:**
 
-```
+```angular2html
     this.matIconRegistry.addSvgIcon(
       `icon-dummy-name`,
       domSanitizer.bypassSecurityTrustResourceUrl(`/assets/anysvg.svg`)
@@ -73,7 +73,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 
 **addSvgIconSet:**
 
-```
+```angular2html
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(`https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg`)
     )
@@ -101,6 +101,7 @@ Component to display an icon. It can be used in the following ways:
 | @Input() <br/>`inline: boolean`         | Whether the icon should be inlined, automatically sizing the icon to match the font size of the element the icon is contained in. |
 | @Input() <br/>`aria-label:String`       | Used to set the aria-label attribute on the underlying element.                                                                   |
 | @Input() <br/>`aria-labelledby: String` | Used to set the aria-labelledby attribute on the underlying element.                                                              |
+| @Input() <br/>`size: Number`            | User will be able to supply a size property for overriding the size.                                                              |
 
 ## Accessibility
 
@@ -108,7 +109,7 @@ OuiIcon should be given a meaningful label via `aria-label` or `aria-labelledby`
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1)
+[https://stackblitz.com/edit/oui-icon-component](https://stackblitz.com/edit/oui-icon-component)
 
 You can click here and can change code to try and test different scenarios.
 
@@ -122,11 +123,22 @@ By default the svg images in the icon sets has not prefilled colors. All the ui 
 
 If you need to theme the icons with a different color you can do this in the host application. The colors can be overridden globally i.e., in the whole host application or in a component only.
 
+## Size of SVG
+
+- Icon size will be taken from the svg in Icomoon dynamically
+- User will be able to supply a size property for overriding the size
+
+**Example:**
+
+```angular2html
+    <oui-icon svgIcon="icon-dummy-name" size="500"></oui-icon>
+```
+
 ## Global (Reflected in the whole application)
 
 You can implement `#4B4B4B` color on the below icons, by overridding styles in `app.component.scss` like as follow-
 
-```
+```angular2html
 <oui-icon svgIcon="notification-editor"></oui-icon>
 <oui-icon svgIcon="resourcepool"></oui-icon>
 <oui-icon svgIcon="calendar"></oui-icon>
@@ -162,4 +174,30 @@ oui-icon {
 }
 ```
 
+## Stackblitz demo link
+
 You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.
+
+## How to use oui-icons in any project?
+
+Using `oui-icon` includes two steps-
+
+**1- Registration**
+
+Simply inject `IconRegistry` shared service from `shared-layout` in the root component of your project. Ex.-
+
+```
+import { IconRegistry } from 'shared-layout';
+
+constructor(private ir: IconRegistry) {
+    this.ir.init();
+}
+```
+
+**2- Usage**
+
+```
+<oui-icon svgIcon="edit"></oui-icon>
+```
+
+_Note: Apart from the regular size icons we have two special icons- horizontal 3 dots icon and vertical 3 dots icon, special because there sizes are different. There names are fixed and you need to supply these names whenever you need to use them. There names are- `3-dots-horizontal` and `3-dots-vertical`._

@@ -1,0 +1,56 @@
+/**
+  Border styling
+ */
+
+@mixin oui-select-border-theme($color) {
+  .oui-select.oui-input {
+    border-color: $color;
+  }
+  &.oui-form-field-appearance-underline {
+    .oui-select.oui-input {
+      border: 1px solid transparent;
+      border-top-color: transparent !important;
+      border-left-color: transparent !important;
+      border-right-color: transparent !important;
+      border-bottom: 1px solid;
+      border-bottom-color: $color;
+      &:after {
+        content: '';
+        width: calc(100%);
+        height: 2px;
+        background: $color;
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+      }
+    }
+  }
+}
+
+/**
+  Component theming
+ */
+@mixin oui-select-theme($theme) {
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $primary: map-get($theme, primary);
+  .oui-focused {
+    .oui-select.oui-input {
+      border-width: 1px;
+    }
+    @include oui-select-border-theme(map-get($primary, default));
+
+    .oui-select.oui-input:not(.oui-select-list-options-opened) {
+      border-color: #c8c8c8;
+    }
+
+    &.oui-accent {
+      @include oui-select-border-theme(map-get($accent, default));
+    }
+
+    &.oui-warn {
+      @include oui-select-border-theme(map-get($warn, default));
+    }
+  }
+}

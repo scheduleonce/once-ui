@@ -1,0 +1,108 @@
+// @import '../core/style/layout-common';
+
+$oui-calendar-padding: 8px !default;
+$oui-calendar-header-divider-width: 1px !default;
+$oui-calendar-controls-vertical-padding: 5%;
+// We use the same padding as the month / year label, but subtract 16px since there is padding
+// between the edge of the button and the text. This ensures that the button text lines up with
+// the month / year label text.
+$oui-calendar-controls-side-margin: calc(33% / 7 - 16px);
+
+$oui-calendar-arrow-size: 5px !default;
+$oui-calendar-arrow-disabled-opacity: 0.5 !default;
+
+// Values chosen to approximate https://material.io/icons/#ic_navigate_before and
+// https://material.io/icons/#ic_navigate_next as closely as possible.
+$oui-calendar-prev-next-icon-border-width: 2px;
+$oui-calendar-prev-next-icon-margin: 15.5px;
+$oui-calendar-prev-icon-transform: translateX(2px) rotate(-45deg);
+$oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
+
+.oui-calendar {
+  display: block;
+}
+
+.oui-calendar-header {
+  padding: $oui-calendar-padding $oui-calendar-padding 0 $oui-calendar-padding;
+}
+
+.oui-calendar-content {
+  padding: 0 $oui-calendar-padding $oui-calendar-padding $oui-calendar-padding;
+  outline: none;
+}
+
+.oui-calendar-controls {
+  display: flex;
+  margin: $oui-calendar-controls-vertical-padding
+    $oui-calendar-controls-side-margin;
+}
+
+.oui-calendar-controls svg {
+  height: 20px;
+  width: 20px;
+  margin: auto;
+}
+
+.oui-calendar-spacer {
+  flex: 1 1 auto;
+}
+
+.oui-calendar-period-button {
+  min-width: 0;
+  background: none !important;
+  color: inherit !important;
+  padding-left: 15px;
+}
+
+.oui-calendar-arrow {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  background-image: url("data:image/svg+xml,%3Csvg aria-hidden='true' class='svg-inline--fa fa-angle-right fa-w-6 fa-fw fa-2x' data-icon='angle-right' data-prefix='fal' focusable='false' role='img' viewBox='0 0 192 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath class='' d='M166.9 264.5l-117.8 116c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.7-4.7-12.3 0-17L127.3 256 25.1 155.6c-4.7-4.7-4.7-12.3 0-17l7.1-7.1c4.7-4.7 12.3-4.7 17 0l117.8 116c4.6 4.7 4.6 12.3-.1 17z' fill='%234a4a4a'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+
+  &.oui-calendar-invert {
+    transform: rotate(270deg);
+  }
+
+  [dir='rtl'] & {
+    margin: 0 $oui-calendar-arrow-size 0 0;
+  }
+}
+
+.oui-calendar-previous-button,
+.oui-calendar-next-button {
+  padding: 0px;
+  width: 36px;
+  height: 36px;
+}
+.oui-calendar-table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.oui-calendar-table-header th {
+  text-align: center;
+  padding: 0 0 $oui-calendar-padding 0;
+}
+
+.oui-calendar-table-header-divider {
+  position: relative;
+  height: $oui-calendar-header-divider-width;
+
+  // We use an absolutely positioned pseudo-element as the divider line for the table header so we
+  // can extend it all the way to the edge of the calendar.
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -$oui-calendar-padding;
+    right: -$oui-calendar-padding;
+    height: $oui-calendar-header-divider-width;
+  }
+}

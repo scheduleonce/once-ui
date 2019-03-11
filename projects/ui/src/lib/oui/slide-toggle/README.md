@@ -43,9 +43,9 @@ import { OuiSlideToggleModule } from '@once/ui';
 | aria-labelledby | string  | null    | Used to set the aria-labelledby attribute on the underlying input element.             |
 | id              | string  | random  | A unique id for the slide-toggle input. If none is supplied, it will be auto-generated |
 
-| Output | Type          | Description                                                              |
-| ------ | ------------- | ------------------------------------------------------------------------ |
-| change | Event Emitter | An event will be dispatched each time the slide-toggle changes its value |
+| Output       | Type          | Description                                                              |
+| ------------ | ------------- | ------------------------------------------------------------------------ |
+| state-change | Event Emitter | An event will be dispatched each time the slide-toggle changes its value |
 
 | Method | Description                       |
 | ------ | --------------------------------- |

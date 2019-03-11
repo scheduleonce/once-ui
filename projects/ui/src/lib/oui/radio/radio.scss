@@ -1,6 +1,7 @@
 $width: 16px;
 $height: 16px;
-$circle-color: #000;
+$circle-color: #333;
+$disable-circle-color: #9b9b9b;
 
 .oui-radio-label {
   cursor: pointer;
@@ -8,6 +9,7 @@ $circle-color: #000;
   align-items: center;
   white-space: nowrap;
   vertical-align: middle;
+  font-size: 14px;
 }
 .oui-radio-container {
   box-sizing: border-box;
@@ -74,8 +76,17 @@ $circle-color: #000;
   padding-left: 8px;
   padding-right: 0;
 }
-.oui-radio-disabled .oui-radio-container {
-  opacity: 0.5;
+.oui-radio-disabled {
+  .oui-radio-label {
+    cursor: default;
+  }
+  .oui-radio-outer-circle {
+    background-color: #f9f9f9;
+    border-color: #e4e4e4;
+  }
+  .oui-radio-inner-circle {
+    background-color: $disable-circle-color;
+  }
 }
 
 .oui-radio-label-before {

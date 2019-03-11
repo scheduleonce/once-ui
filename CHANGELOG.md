@@ -5,6 +5,264 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.10.7] - 2019-02-25
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Made the list and select box place holder of equal size
+
+## [1.10.6] - 2019-02-25
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Change imports in select box
+
+## [1.10.5] - 2019-02-25
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Making select box available for everyone
+
+## [1.10.4] - 2019-02-25
+
+### Added
+
+- [`oui-select`](projects/ui/src/lib/oui/select/README.md) (@dinesh-rawat)
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- NA
+
+## [1.10.3] - 2019-02-14
+
+### Added
+
+NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed slide toggle color issue
+- Added FormsModule support in slide toggle
+- Dialog UI issue fixes [oncehub-5234](https://scheduleonce.atlassian.net/browse/ONCEHUB-5234)
+
+## [1.10.2] - 2019-02-12
+
+### Added
+
+NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed slide toggle issue
+
+## [1.10.1] - 2019-02-08
+
+### Added
+
+NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed overlay panel issue [oncehub-5476](https://scheduleonce.atlassian.net/browse/ONCEHUB-5476)
+
+## [1.10.0] - 2019-02-11
+
+### Added
+
+- [`oui-datepicker`](projects/ui/src/lib/oui/datepicker/README.md) (@garvit-rajput)
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- NA
+
+## [1.9.1] - 2019-02-08
+
+### Added
+
+NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed input field border color issue [oncehub-4400](https://scheduleonce.atlassian.net/browse/ONCEHUB-4400)
+
+## [1.9.0] - 2019-02-06
+
+### Added
+
+Table, Paginator, Sort directives and components
+
+### Changed
+
+- default dialog-scroll strategy
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed dialog scroll [ONCEHUB-5234](https://scheduleonce.atlassian.net/browse/ONCEHUB-5234)
+
+## [1.8.6] - 2019-01-30
+
+### Added
+
+NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed button ui [ONCEHUB-4770](https://scheduleonce.atlassian.net/browse/ONCEHUB-4770)
+
+## [1.8.5] - 2019-01-25
+
+### Added
+
+NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Hover state for `oui-icon-button`
+- Storybook updated for icon-button
+
+## [1.8.4] - 2019-01-23
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Fixed radio button ui [oncehub-4412](https://scheduleonce.atlassian.net/browse/ONCEHUB-4412)
+- Fixed progress button disabled state issue after `setToDone` event call
+
+## [1.8.3] - 2019-01-22
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Icon size will be taken from the svg in Icomoon dynamically
+- User will be able to supply a size property for overriding the size
+- Allow passing size input along with the icon moon directive [oncehub-4394](https://scheduleonce.atlassian.net/browse/ONCEHUB-4394)
+
 ## [1.8.2] - 2019-01-17
 
 ### Added

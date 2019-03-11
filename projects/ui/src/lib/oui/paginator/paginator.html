@@ -1,0 +1,40 @@
+<div class="oui-paginator-outer-container">
+  <div class="oui-paginator-container">
+    <div class="oui-paginator-range-actions">
+      <button
+        type="button"
+        class="oui-paginator-navigation-first"
+        (click)="firstPage()"
+        [attr.aria-label]="_intl.firstPageLabel"
+        [title]="_intl.firstPageLabel"
+        [disabled]="_previousButtonsDisabled()"
+      ></button>
+      <button
+        type="button"
+        class="oui-paginator-navigation-previous"
+        (click)="previousPage()"
+        [attr.aria-label]="_intl.previousPageLabel"
+        [title]="_intl.previousPageLabel"
+        [disabled]="_previousButtonsDisabled()"
+      ></button>
+      <div class="oui-paginator-current-page">{{ getCurrentPage() }}</div>
+      <button
+        type="button"
+        class="oui-paginator-navigation-next"
+        (click)="nextPage()"
+        [attr.aria-label]="_intl.nextPageLabel"
+        [title]="_intl.nextPageLabel"
+        [disabled]="_nextButtonsDisabled()"
+      ></button>
+      <button
+        type="button"
+        class="oui-paginator-navigation-last"
+        (click)="lastPage()"
+        [attr.aria-label]="_intl.lastPageLabel"
+        [title]="_intl.lastPageLabel"
+        [disabled]="_nextButtonsDisabled()"
+      ></button>
+    </div>
+    <div class="oui-paginator-total-count">of {{ getNumberOfPages() }}</div>
+  </div>
+</div>

@@ -33,7 +33,6 @@ Example of simple usage:
       }
     )
   }
-
 ```
 
 ## API
