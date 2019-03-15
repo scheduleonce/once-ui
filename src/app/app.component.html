@@ -717,7 +717,14 @@
     <h4>Oui select multiple selection</h4>
     <div class="input-outer display-inline">
       <oui-form-field [appearance]="'underline'">
-        <oui-select placeholder="Favorite food" multiple>
+        <oui-select
+          placeholder="Favorite food"
+          multiple
+          [(value)]="bankIds"
+          placeholder="select option"
+          (selectionChange)="selectChangeOption($event)"
+          [compareWith]="equals"
+        >
           <oui-option *ngFor="let bank of banks" [value]="bank.id">
             {{ bank.name }}
           </oui-option>
@@ -803,26 +810,6 @@
       </oui-form-field>
     </div>
     <br />
-    <h4>Oui select Customizing the trigger label</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'" placeholder="Select topping">
-        <oui-select placeholder="Toppings" [formControl]="toppings">
-          <oui-select-search [(ngModel)]="keyword"></oui-select-search>
-          <oui-option
-            *ngFor="let topping of (toppingList | filterOptions: keyword)"
-            [value]="topping"
-            >{{ topping }}
-          </oui-option>
-          <div
-            *ngIf="!(toppingList | filterOptions: keyword).length"
-            class="noResults"
-          >
-            No results match "{{ keyword }}"
-          </div>
-        </oui-select>
-      </oui-form-field>
-    </div>
-    <br />
     <h4>Oui select Changing when error messages are shown</h4>
     <div class="input-outer display-inline">
       <oui-form-field>
@@ -849,7 +836,12 @@
     <h4>Oui select with search</h4>
     <div class="input-outer display-inline">
       <oui-form-field [appearance]="'underline'" color="accent">
-        <oui-select placeholder="Favorite Bank">
+        <oui-select
+          placeholder="Favorite Bank"
+          [(value)]="bankid1"
+          [compareWith]="equals"
+          (selectionChange)="selectChangeOption($event)"
+        >
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option
             *ngFor="let bank of (banks | filterOptions: keyword:'name')"
@@ -865,27 +857,41 @@
           </div>
         </oui-select>
       </oui-form-field>
+      <br />
+      You selected: {{ bankid1 }} <br />
+      <br />
+      <a oui-button color="primary" (click)="reset3()"
+        >Reset to: Bank P Germany</a
+      >
     </div>
     <br />
     <h4>Oui Select with 2-way value binding</h4>
     <div class="input-outer display-inline">
       <oui-form-field>
-        <oui-select [(value)]="selectedOption" placeholder="select option">
+        <oui-select
+          [(value)]="selectedOption"
+          (selectionChange)="selectChangeOption($event)"
+        >
           <oui-option>None</oui-option>
           <oui-option value="option1">Option 1</oui-option>
           <oui-option value="option2">Option 2</oui-option>
           <oui-option value="option3">Option 3</oui-option>
         </oui-select>
       </oui-form-field>
-      <p>You selected: {{ selectedOption }}</p>
+      <br />
+      You selected: {{ selectedOption }} <br /><br />
+      <a oui-button color="primary" (click)="reset()">Reset to: option3</a>
     </div>
     <h4>Oui Select with min width</h4>
     <div class="input-outer display-inline outer-min-width">
       <oui-form-field>
-        <oui-select [(value)]="selectedOption" placeholder="Option">
+        <oui-select
+          placeholder="select option"
+          (selectionChange)="selectChangeOption($event)"
+        >
           <oui-option>None</oui-option>
           <oui-option value="option1">Option 1</oui-option>
-          <oui-option value="option2">Option 2 with long text</oui-option>
+          <oui-option value="option2">Option 2</oui-option>
           <oui-option value="option3">Option 3</oui-option>
         </oui-select>
       </oui-form-field>

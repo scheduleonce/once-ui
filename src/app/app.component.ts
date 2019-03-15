@@ -104,6 +104,7 @@ export class AppComponent implements OnInit {
     Validators.pattern('valid')
   ]);
   selectedOption = 'option2';
+  selectedOption1 = 'option3';
   matcher = new MyErrorStateMatcher();
   /** list of banks */
   banks: Bank[] = [
@@ -126,7 +127,10 @@ export class AppComponent implements OnInit {
     { name: 'Bank Q (Germany)', id: 'Q' },
     { name: 'Bank R (Germany)', id: 'R' }
   ];
-
+  bankid = 'O';
+  bankid1 = 'N';
+  bankIds = ['P', 'Q', 'R'];
+  opt = 'option2';
   toppings = new FormControl();
   panelColor = new FormControl('red');
   toppingList: string[] = [
@@ -135,8 +139,15 @@ export class AppComponent implements OnInit {
     'Onion',
     'Pepperoni',
     'Sausage',
-    'Tomato'
+    'Tomato',
+    'Extra cheese2',
+    'Mushroom2',
+    'Onion2',
+    'Pepperoni3',
+    'Sausage2',
+    'Tomato1'
   ];
+  test = 'Pepperoni3';
   states: State[] = [
     {
       name: 'Arkansas',
@@ -318,5 +329,23 @@ export class AppComponent implements OnInit {
     setTimeout(() => {
       this.progressGhostButton.setToDone();
     }, 1000);
+  }
+
+  selectChangeOption($event) {
+    console.log('You have selected ', $event);
+  }
+
+  equals(objOne, objTwo) {
+    if (typeof objOne !== 'undefined' && typeof objTwo !== 'undefined') {
+      return objOne === objTwo;
+    }
+  }
+
+  reset() {
+    this.selectedOption = 'option3';
+  }
+
+  reset3() {
+    this.bankid1 = 'P';
   }
 }
