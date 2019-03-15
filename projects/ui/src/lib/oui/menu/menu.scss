@@ -27,7 +27,7 @@ $oui-menu-line-height: 22px;
 @mixin oui-button-reset {
   border: 0 none;
   background: none;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   &:focus {
     outline: 0 none;
   }
@@ -66,7 +66,7 @@ $oui-menu-line-height: 22px;
 @mixin oui-menu-item-base() {
   //white-space: nowrap;
   font-size: 13px;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   overflow: hidden;
   text-overflow: ellipsis;
   // Needs to be a block for the ellipsis to work.
