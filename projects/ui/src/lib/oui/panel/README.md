@@ -6,7 +6,7 @@ It also provide default information icon that can be used as component `oui-pane
 The `<oui-panel>` doesn't render anything by itself. The panel is attached to and opened via application of the `ouiPanelTriggerFor` directive.
 
 ```html
-<oui-panel #appPanel="mypanel">
+<oui-panel #mypanel>
   <h6>Lorem ipsum, dolor sit amet consectetur</h6>
   <p>
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate harum
@@ -44,7 +44,7 @@ class MyComponent {
 By default, the Panel will display below (y-axis), after (x-axis). The position can be changed using the `xPosition (before | after)` and `yPosition (above | below)` attributes.
 
 ```html
-<oui-panel #appPanel="ouiPanel" yPosition="above">
+<oui-panel #ouiPanel yPosition="above">
   <h6>Lorem ipsum, dolor sit amet consectetur</h6>
   <p>
     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate harum
@@ -103,3 +103,7 @@ If any image tag is used inside the `oui-panel` then it will automatically provi
   </p>
 </oui-panel>
 ```
+
+## Stackblitz Link
+
+[https://stackblitz.com/edit/angular-oui-panel-version1](https://stackblitz.com/edit/angular-oui-panel-version1)

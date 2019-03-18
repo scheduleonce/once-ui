@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2019-03-11
+
+### Added
+
+- [`oui-panel`](projects/ui/src/lib/oui/panel/README.md)
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-7624`](https://scheduleonce.atlassian.net/browse/ONCEHUB-7624) sort directive breaks on aot build fixed
+- [`ONCEHUB-6809`](https://scheduleonce.atlassian.net/browse/ONCEHUB-6809) dialog content scrolling bug fixed
+
 ## [1.10.7] - 2019-02-25
 
 ### Added
