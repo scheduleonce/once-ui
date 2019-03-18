@@ -2,7 +2,6 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DOCUMENT } from '@angular/common';
 import {
   A,
   DOWN_ARROW,
@@ -41,8 +40,7 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  Inject,
-  AfterViewInit
+  Inject
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -51,6 +49,8 @@ import {
   NgForm
 } from '@angular/forms';
 import {
+  _countGroupLabelsBeforeOption,
+  _getOptionScrollPosition,
   CanDisable,
   CanDisableCtor,
   CanUpdateErrorState,
@@ -58,17 +58,15 @@ import {
   HasTabIndex,
   HasTabIndexCtor,
   OuiOptionSelectionChange,
-  mixinDisabled,
   mixinErrorState,
   mixinTabIndex,
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition
+  mixinDisabled
 } from '../core';
-
+import { OuiFormField, OuiFormFieldControl } from '../form-field/public-api';
+import { DOCUMENT } from '@angular/common';
 import { OUI_OPTION_PARENT_COMPONENT, OuiOption } from '../core/option/option';
 import { OuiOptgroup } from '../core/option/optgroup';
 import { ErrorStateMatcher } from '../core/error/error-options';
-
 import { defer, merge, Observable, Subject } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -79,21 +77,52 @@ import {
   take,
   takeUntil
 } from 'rxjs/operators';
-
 import {
   getOuiSelectDynamicMultipleError,
   getOuiSelectNonArrayValueError,
   getOuiSelectNonFunctionValueError
 } from './select-errors';
-import { OuiFormFieldControl } from '../form-field/public-api';
 
 let nextUniqueId = 0;
+
+/**
+ * The following style constants are necessary to save here in order
+ * to properly calculate the alignment of the selected option over
+ * the trigger element.
+ */
+
+/** The height of each select option. */
+export const SELECT_OPTION_HEIGHT = 40;
+
+/** The panel's padding on the x-axis */
+export const SELECT_PANEL_PADDING_X = 16;
+
+/** The panel's x axis padding if it is indented (e.g. there is an option group). */
+export const SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
+
+/** The height of the select items in `em` units. */
+export const SELECT_ITEM_HEIGHT_EM = 3;
 
 /** The total height of the select panel. */
 export const SELECT_PANEL_HEIGHT = 200;
 
-/** The height of each select option. */
-export const SELECT_OPTION_HEIGHT = 40;
+// TODO(josephperrott): Revert to a constant after 2018 spec updates are fully merged.
+/**
+ * Distance between the panel edge and the option text in
+ * multi-selection mode.
+ *
+ * Calculated as:
+ * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
+ * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
+ * The checkbox width is 16px.
+ */
+export let SELECT_MULTIPLE_PANEL_PADDING_X = 0;
+
+/**
+ * The select panel will only "fit" inside the viewport if it is positioned at
+ * this value or more away from the viewport boundary.
+ */
+export const SELECT_PANEL_VIEWPORT_PADDING = 8;
 
 /** Change event object that is emitted when the select value has changed. */
 export class OuiSelectChange {
@@ -116,6 +145,7 @@ export class OuiSelectBase {
     public ngControl: NgControl
   ) {}
 }
+
 export const _OuiSelectMixinBase: CanDisableCtor &
   HasTabIndexCtor &
   CanUpdateErrorStateCtor &
@@ -134,7 +164,7 @@ export class OuiSelectTrigger {}
 
 @Component({
   selector: 'oui-select',
-  exportAs: 'OuiSelect',
+  exportAs: 'ouiSelect',
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
   // tslint:disable-next-line:use-input-property-decorator
@@ -175,7 +205,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     OnChanges,
     OnDestroy,
     OnInit,
-    AfterViewInit,
     DoCheck,
     ControlValueAccessor,
     CanDisable,
@@ -185,11 +214,11 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
-  /** Adding top class to overlay panel */
-  cdkConnectionOverlayPanel = '';
-
   /** Whether filling out the select is required in the form. */
   private _required = false;
+
+  /** The scroll position of the overlay panel, calculated to center the selected option. */
+  private _scrollTop = 0;
 
   /** The placeholder displayed in the trigger of the select. */
   private _placeholder: string;
@@ -197,17 +226,20 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Whether the component is in multiple selection mode. */
   private _multiple = false;
 
+  /** Search input field **/
+  isSearchFieldPresent: boolean;
+
   /** Unique id for this input. */
   private _uid = `oui-select-${nextUniqueId++}`;
-
-  /** Emits whenever the component is destroyed. */
-  private readonly _destroy = new Subject<void>();
 
   /** The last measured value for the trigger's client bounding rect. */
   _triggerRect: ClientRect;
 
   /** The aria-describedby attribute on the select for improved a11y. */
   _ariaDescribedby: string;
+
+  /** The cached font-size of the trigger element. */
+  _triggerFontSize = 0;
 
   /** Deals with the selection logic. */
   _selectionModel: SelectionModel<OuiOption>;
@@ -218,33 +250,48 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** The IDs of child options to be passed to the aria-owns attribute. */
   _optionIds = '';
 
-  /** Emits when the panel element is finished transforming in. */
-  _panelDoneAnimatingStream = new Subject<string>();
+  /** The value of the select panel's transform-origin property. */
+  _transformOrigin = 'top';
 
   /** If there is search input field a class is added dynamically to the perfect scrollbar **/
   ouiSelectInputOuterClassName: string;
-  private _value: any;
 
-  /** Aria label of the select. If not specified, the placeholder will be used as label. */
-  @Input('aria-label') ariaLabel = '';
+  /** Adding top class to overlay panel */
+  cdkConnectionOverlayPanel = '';
 
-  /** Input that can be used to specify the `aria-labelledby` attribute. */
-  @Input('aria-labelledby') ariaLabelledby: string;
-
-  /** Object used to control when error messages are shown. */
-  @Input() errorStateMatcher: ErrorStateMatcher;
-
-  /** Whether the select is focused. */
-  get focused(): boolean {
-    return this._focused || this._panelOpen;
-  }
   /**
-   * @deprecated Setter to be removed as this property is intended to be readonly.
-   * @breaking-change 8.0.0
+   * The y-offset of the overlay panel in relation to the trigger's top start corner.
+   * This must be adjusted to align the selected option text over the trigger text.
+   * when the panel opens. Will change based on the y-position of the selected option.
    */
-  set focused(value: boolean) {
-    this._focused = value;
-  }
+  _offsetY = 0;
+
+  /**
+   * This position config ensures that the top "start" corner of the overlay
+   * is aligned with with the top "start" of the origin by default (overlapping
+   * the trigger completely). If the panel cannot fit below the trigger, it
+   * will fall back to a position above the trigger.
+   */
+  _positions = [
+    {
+      originX: 'start',
+      originY: 'top',
+      overlayX: 'start',
+      overlayY: 'top'
+    },
+    {
+      originX: 'start',
+      originY: 'bottom',
+      overlayX: 'start',
+      overlayY: 'bottom'
+    }
+  ];
+  /** Emits whenever the component is destroyed. */
+  private readonly _destroy = new Subject<void>();
+
+  /** Whether the component is disabling centering of the active option over the trigger. */
+  private _disableOptionCentering = false;
+
   private _focused = false;
 
   /** A name for this control that can be used by `oui-form-field`. */
@@ -256,6 +303,10 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Panel containing the select options. */
   @ViewChild('panel') panel: ElementRef;
 
+  initialValue = '';
+
+  private _value: any;
+
   /**
    * Function used to sort the values in a select in multiple mode.
    * Follows the same logic as `Array.prototype.sort`.
@@ -266,12 +317,19 @@ export class OuiSelect extends _OuiSelectMixinBase
     options: OuiOption[]
   ) => number;
 
-  /** Adds class to overlay panel **/
-  @ViewChild('overlayPanel') overlayPanel: ElementRef;
+  /** Aria label of the select. If not specified, the placeholder will be used as label. */
+  @Input('aria-label') ariaLabel = '';
 
-  /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
+  /** Input that can be used to specify the `aria-labelledby` attribute. */
+  @Input('aria-labelledby') ariaLabelledby: string;
+
   private _id: string;
+
+  /** Event emitted when the select panel has been toggled. */
+  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
+    boolean
+  >();
+
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
     () => {
@@ -286,10 +344,20 @@ export class OuiSelect extends _OuiSelectMixinBase
     }
   );
 
-  /** Event emitted when the select panel has been toggled. */
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
+  /**
+   * Event that emits whenever the raw value of the select changes. This is here primarily
+   * to facilitate the two-way binding for the `value` input.
+   * @docs-private
+   */
+  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
+
+  /** Object used to control when error messages are shown. */
+  @Input() errorStateMatcher: ErrorStateMatcher;
+
+  /** All of the defined select options. */
+  @ContentChildren(OuiOption, { descendants: true }) options: QueryList<
+    OuiOption
+  >;
 
   /** Event emitted when the select has been opened. */
   // tslint:disable-next-line:no-output-rename
@@ -314,36 +382,41 @@ export class OuiSelect extends _OuiSelectMixinBase
     OuiSelectChange
   > = new EventEmitter<OuiSelectChange>();
 
-  @Output() readonly change: EventEmitter<OuiSelectChange> = new EventEmitter<
-    OuiSelectChange
-  >();
-  /**
-   * Event that emits whenever the raw value of the select changes. This is here primarily
-   * to facilitate the two-way binding for the `value` input.
-   * @docs-private
-   */
-  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
-
-  /** All of the defined select options. */
-  @ContentChildren(OuiOption, { descendants: true }) options: QueryList<
-    OuiOption
-  >;
-  initialValue = '';
-
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
-
-  /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
-  @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** User-supplied override of the trigger element. */
   @ContentChild(OuiSelectTrigger) customTrigger: OuiSelectTrigger;
 
+  /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
+  @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
+
+  /** Overlay pane containing the options. */
+  @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
+
+  /** Emits when the panel element is finished transforming in. */
+  _panelDoneAnimatingStream = new Subject<string>();
+
+  /** Comparison function to specify which option is displayed. Defaults to object equality. */
+  private _compareWith = (o1: any, o2: any) => o1 === o2;
+
+  /** Whether the select is focused. */
+  get focused(): boolean {
+    return this._focused || this._panelOpen;
+  }
   /** `View -> model callback called when value changes` */
   _onChange: (value: any) => void = () => {};
 
   /** `View -> model callback called when select has been touched` */
   _onTouched = () => {};
+
+  /**
+   * @deprecated Setter to be removed as this property is intended to be readonly.
+   */
+  set focused(value: boolean) {
+    this._focused = value;
+  }
+
   /** Placeholder to be shown if no value has been selected. */
   @Input()
   get placeholder(): string {
@@ -351,7 +424,6 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
   set placeholder(value: string) {
     this._placeholder = value;
-    this.initialValue = value;
     this.stateChanges.next();
   }
 
@@ -378,8 +450,14 @@ export class OuiSelect extends _OuiSelectMixinBase
     this._multiple = coerceBooleanProperty(value);
   }
 
-  /** Comparison function to specify which option is displayed. Defaults to object equality. */
-  private _compareWith = (o1: any, o2: any) => o1 === o2;
+  /** Whether to center the active option over the trigger. */
+  @Input()
+  get disableOptionCentering(): boolean {
+    return this._disableOptionCentering;
+  }
+  set disableOptionCentering(value: boolean) {
+    this._disableOptionCentering = coerceBooleanProperty(value);
+  }
 
   /**
    * Function to compare the option values with the selected values. The first argument
@@ -431,9 +509,11 @@ export class OuiSelect extends _OuiSelectMixinBase
     @Optional() private _dir: Directionality,
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
+    @Optional() private _parentFormField: OuiFormField,
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
-    @Optional() @Inject(DOCUMENT) private _document: any
+    @Optional() @Inject(DOCUMENT) private _document: any,
+    public _elementRef: ElementRef
   ) {
     super(
       elementRef,
@@ -469,6 +549,7 @@ export class OuiSelect extends _OuiSelectMixinBase
       )
       .subscribe(() => {
         if (this.panelOpen) {
+          this._scrollTop = 0;
           this.openedChange.emit(true);
         } else {
           this.openedChange.emit(false);
@@ -480,12 +561,14 @@ export class OuiSelect extends _OuiSelectMixinBase
 
   ngAfterContentInit() {
     this._initKeyManager();
+
     this._selectionModel.changed
       .pipe(takeUntil(this._destroy))
       .subscribe(event => {
         event.added.forEach(option => option.select());
         event.removed.forEach(option => option.deselect());
       });
+
     this.options.changes
       .pipe(
         startWith(null),
@@ -632,9 +715,10 @@ export class OuiSelect extends _OuiSelectMixinBase
       if (this._isRtl()) {
         selectedOptions.reverse();
       }
-
+      this.initialValue = selectedOptions.join(', ');
       return selectedOptions.join(', ');
     }
+    this.initialValue = this._selectionModel.selected[0].viewValueForSelect;
     return this._selectionModel.selected[0].viewValueForSelect;
   }
 
@@ -690,11 +774,16 @@ export class OuiSelect extends _OuiSelectMixinBase
 
     // Check if search input field is present in select box
     const searchField = <HTMLInputElement>event.target;
+    /** There is search field inside the list **/
     if (
       searchField &&
-      (searchField.tagName.toLowerCase() === 'input' && keyCode === SPACE)
+      searchField.tagName &&
+      searchField.tagName.toLowerCase() === 'input'
     ) {
-      return;
+      this.isSearchFieldPresent = true;
+      if (keyCode === SPACE) {
+        return;
+      }
     }
 
     if (keyCode === HOME || keyCode === END) {
@@ -776,48 +865,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     }
   }
 
-  /**
-   * Given that we are not actually focusing active options, we must manually adjust scroll
-   * to reveal options below the fold. First, we find the offset of the option from the top
-   * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
-   * the panel height + the option height, so the active option will be just visible at the
-   * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
-   * will become the offset. If that offset is visible within the panel already, the scrollTop is
-   * not adjusted.
-   */
-  private _scrollToOption(): void {
-    const manager = this._keyManager;
-    const index = manager.activeItemIndex || 0;
-    const labelCount = _countGroupLabelsBeforeOption(
-      index,
-      this.options,
-      this.optionGroups
-    );
-    const scrollTop = this._getScrollTop();
-    const newScrollPosition = _getOptionScrollPosition(
-      index + labelCount,
-      SELECT_OPTION_HEIGHT,
-      scrollTop,
-      SELECT_PANEL_HEIGHT
-    );
-    this._setScrollTop(newScrollPosition);
-  }
-
-  /**
-   * Sets the panel scrollTop. This allows us to manually scroll to display options
-   * above or below the fold, as they are not actually being focused when active.
-   */
-  _setScrollTop(scrollTop: number): void {
-    if (this.panel) {
-      this.panel.nativeElement.scrollTop = scrollTop;
-    }
-  }
-
-  /** Returns the panel's scrollTop. */
-  _getScrollTop(): number {
-    return this.panel ? this.panel.nativeElement.scrollTop : 0;
-  }
-
   _onFocus() {
     if (!this.disabled) {
       this._focused = true;
@@ -836,6 +883,36 @@ export class OuiSelect extends _OuiSelectMixinBase
       this._onTouched();
       this._changeDetectorRef.markForCheck();
       this.stateChanges.next();
+    }
+  }
+
+  /**
+   * Callback that is invoked when the overlay panel has been attached.
+   */
+  _onAttached(): void {
+    this.overlayDir.positionChange.pipe(take(1)).subscribe(() => {
+      this._setPseudoCheckboxPaddingSize();
+      this._changeDetectorRef.detectChanges();
+      this.panel.nativeElement.scrollTop = this._scrollTop;
+    });
+  }
+
+  /** Returns the theme to be used on the panel. */
+  _getPanelTheme(): string {
+    return this._parentFormField ? `oui-${this._parentFormField.color}` : '';
+  }
+
+  // TODO(josephperrott): Remove after 2018 spec updates are fully merged.
+  /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */
+  private _setPseudoCheckboxPaddingSize() {
+    if (!SELECT_MULTIPLE_PANEL_PADDING_X && this.multiple) {
+      const pseudoCheckbox = this.panel.nativeElement.querySelector(
+        '.oui-pseudo-checkbox'
+      );
+      if (pseudoCheckbox) {
+        SELECT_MULTIPLE_PANEL_PADDING_X =
+          SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
+      }
     }
   }
 
@@ -863,19 +940,19 @@ export class OuiSelect extends _OuiSelectMixinBase
       if (!Array.isArray(value)) {
         throw getOuiSelectNonArrayValueError();
       }
+
       this._selectionModel.clear();
       value.forEach((currentValue: any) => this._selectValue(currentValue));
       this._sortValues();
     } else {
-      const correspondingOption = this._selectValue(value);
       this._selectionModel.clear();
+      const correspondingOption = this._selectValue(value);
       // Shift focus to the active item. Note that we shouldn't do this in multiple
       // mode, because we don't know what option the user interacted with last.
       if (correspondingOption) {
         this._keyManager.setActiveItem(correspondingOption);
       }
     }
-
     this._changeDetectorRef.markForCheck();
   }
 
@@ -920,7 +997,14 @@ export class OuiSelect extends _OuiSelectMixinBase
     });
 
     this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {
-      if (!this._panelOpen && !this.multiple && this._keyManager.activeItem) {
+      if (this._panelOpen && this.panel) {
+        // Panel is opened
+        // Need not to scroll
+      } else if (
+        !this._panelOpen &&
+        !this.multiple &&
+        this._keyManager.activeItem
+      ) {
         this._keyManager.activeItem._selectViaInteraction();
       }
     });
@@ -929,10 +1013,12 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Drops current option subscriptions and IDs and resets from scratch. */
   private _resetOptions(): void {
     const changedOrDestroyed = merge(this.options.changes, this._destroy);
+
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
       .subscribe(event => {
         this._onSelect(event.source, event.isUserInput);
+
         if (event.isUserInput && !this.multiple && this._panelOpen) {
           this.close();
           this.focus();
@@ -988,18 +1074,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     this.stateChanges.next();
   }
 
-  ngAfterViewInit() {
-    this.options.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy)
-      )
-      .subscribe(_ => {
-        this._resetOptions();
-        this._initializeSelection();
-      });
-  }
-
   /** Sorts the selected values in the selected based on their order in the panel. */
   private _sortValues() {
     if (this.multiple) {
@@ -1017,6 +1091,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Emits change event to set the model value. */
   private _propagateChanges(fallbackValue?: any): void {
     let valueToEmit: any = null;
+
     if (this.multiple) {
       valueToEmit = (this.selected as OuiOption[]).map(option => option.value);
     } else {
@@ -1024,13 +1099,13 @@ export class OuiSelect extends _OuiSelectMixinBase
         ? (this.selected as OuiOption).value
         : fallbackValue;
     }
+
     this._value = valueToEmit;
     this.valueChange.emit(valueToEmit);
     this._onChange(valueToEmit);
     this.selectionChange.emit(new OuiSelectChange(this, valueToEmit));
-    this.change.emit(new OuiSelectChange(this, valueToEmit));
+    // this.initialValue = this.triggerValue;
     this._changeDetectorRef.markForCheck();
-    this.initialValue = this.triggerValue;
   }
 
   /** Records option IDs to pass to the aria-owns property. */
@@ -1069,6 +1144,8 @@ export class OuiSelect extends _OuiSelectMixinBase
     if (this.ariaLabelledby) {
       return this.ariaLabelledby;
     }
+
+    return null;
   }
 
   /** Determines the `aria-activedescendant` to be set on the host. */
@@ -1133,5 +1210,47 @@ export class OuiSelect extends _OuiSelectMixinBase
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
     const containerWidth = this._elementRef.nativeElement.offsetWidth;
     ouiSelectPanel.style.width = `${containerWidth}px`;
+  }
+
+  /**
+   * Given that we are not actually focusing active options, we must manually adjust scroll
+   * to reveal options below the fold. First, we find the offset of the option from the top
+   * of the panel. If that offset is below the fold, the new scrollTop will be the offset -
+   * the panel height + the option height, so the active option will be just visible at the
+   * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop
+   * will become the offset. If that offset is visible within the panel already, the scrollTop is
+   * not adjusted.
+   */
+  private _scrollToOption(): void {
+    const manager = this._keyManager;
+    const index = manager.activeItemIndex || 0;
+    const labelCount = _countGroupLabelsBeforeOption(
+      index,
+      this.options,
+      this.optionGroups
+    );
+    const scrollTop = this._getScrollTop();
+    const newScrollPosition = _getOptionScrollPosition(
+      index + labelCount,
+      SELECT_OPTION_HEIGHT,
+      scrollTop,
+      SELECT_PANEL_HEIGHT
+    );
+    this._setScrollTop(newScrollPosition);
+  }
+
+  /**
+   * Sets the panel scrollTop. This allows us to manually scroll to display options
+   * above or below the fold, as they are not actually being focused when active.
+   */
+  _setScrollTop(scrollTop: number): void {
+    if (this.panel) {
+      this.panel.nativeElement.scrollTop = scrollTop;
+    }
+  }
+
+  /** Returns the panel's scrollTop. */
+  _getScrollTop(): number {
+    return this.panel ? this.panel.nativeElement.scrollTop : 0;
   }
 }

@@ -18,7 +18,7 @@
 }
 .panel h6 {
   color: #333;
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: bold;
   line-height: 19px;
@@ -32,7 +32,7 @@
 }
 :host ::ng-deep .panel-content p {
   color: #333;
-  font-family: 'Open Sans';
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   font-size: 13px;
   letter-spacing: -0.2px;
   line-height: 19px;

@@ -41,7 +41,7 @@ $oui-error: #ff001f;
 /* Common properties in all form field*/
 @mixin oui-form-field-base() {
   .oui-input {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
     outline: $form-field-outline;
     padding: $form-field-padding;
     margin: $form-field-margin;
@@ -116,7 +116,7 @@ $oui-error: #ff001f;
     padding-top: 6px;
     font-size: 14px;
     line-height: 22px;
-    font-family: Open Sans, serif;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   }
 }
 
