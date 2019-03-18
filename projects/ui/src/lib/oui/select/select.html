@@ -6,16 +6,17 @@
   #origin="cdkOverlayOrigin"
   #trigger
 >
-  <div class="oui-select-value" [ngSwitch]="initialValue===placeholder">
-    <span class="oui-select-placeholder" *ngSwitchCase="true"
-      >{{placeholder}}</span
-    >
+  <div class="oui-select-value" [ngSwitch]="empty">
+    <span class="oui-select-placeholder" *ngSwitchCase="true">
+      <span *ngIf="!isSearchFieldPresent">{{placeholder}}</span>
+      <span *ngIf="isSearchFieldPresent">{{initialValue || placeholder}}</span>
+    </span>
     <span
       class="oui-select-value-text"
       *ngSwitchCase="false"
       [ngSwitch]="!!customTrigger"
     >
-      <span *ngSwitchDefault [innerHTML]="initialValue || placeholder"></span>
+      <span *ngSwitchDefault [innerHTML]="triggerValue || placeholder"></span>
       <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
     </span>
   </div>
