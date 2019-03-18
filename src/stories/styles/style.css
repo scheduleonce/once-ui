@@ -106,7 +106,8 @@ oui-radio-button {
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 @font-face {
   font-family: octicons-link;
