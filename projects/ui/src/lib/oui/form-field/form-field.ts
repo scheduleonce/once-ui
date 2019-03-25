@@ -70,6 +70,7 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
     class: 'oui-form-field',
     '[class.oui-focused]': '_control.focused',
     '[class.oui-disabled]': '_control.disabled',
+    '[class.oui-form-field-invalid]': '_control.errorState',
     '[class.oui-form-field-appearance-standard]': 'appearance == "standard"',
     '[class.oui-form-field-appearance-underline]': 'appearance == "underline"'
   },

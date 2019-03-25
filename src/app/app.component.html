@@ -178,6 +178,27 @@
         <input oui-input disabled placeholder="Any" />
       </oui-form-field>
     </div>
+    <div class="input-outer display-inline">
+      <oui-form-field class="example-full-width">
+        <input
+          oui-input
+          placeholder="Email"
+          [formControl]="emailFormControl"
+          [errorStateMatcher]="matcher"
+        />
+        <oui-error
+          *ngIf="
+            emailFormControl.hasError('email') &&
+            !emailFormControl.hasError('required')
+          "
+        >
+          Please enter a valid email address
+        </oui-error>
+        <oui-error *ngIf="emailFormControl.hasError('required')">
+          Email is required
+        </oui-error>
+      </oui-form-field>
+    </div>
   </div>
 
   <h3>Underline</h3>
@@ -190,6 +211,27 @@
     <div class="input-outer display-inline">
       <oui-form-field [appearance]="'underline'">
         <input oui-input disabled placeholder="Any" />
+      </oui-form-field>
+    </div>
+    <div class="input-outer display-inline">
+      <oui-form-field class="example-full-width" [appearance]="'underline'">
+        <input
+          oui-input
+          placeholder="Email"
+          [formControl]="emailFormControl2"
+          [errorStateMatcher]="matcher"
+        />
+        <oui-error
+          *ngIf="
+            emailFormControl2.hasError('email') &&
+            !emailFormControl2.hasError('required')
+          "
+        >
+          Please enter a valid email address
+        </oui-error>
+        <oui-error *ngIf="emailFormControl2.hasError('required')">
+          Email is required
+        </oui-error>
       </oui-form-field>
     </div>
   </div>

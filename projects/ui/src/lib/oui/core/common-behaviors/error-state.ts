@@ -5,7 +5,7 @@ import {
   NgForm
 } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { ErrorStateMatcher } from './error-options';
+import { ErrorStateMatcher } from '../error/error-options';
 import { Constructor } from './constructor';
 
 /** @docs-private */

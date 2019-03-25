@@ -18,9 +18,10 @@ import { CanColor, mixinColor } from '../core';
 import { OuiFormFieldControl } from '../form-field/form-field-control';
 import { Subject } from 'rxjs';
 import { getOuiInputUnsupportedTypeError } from './input-errors';
-import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
+import { ErrorStateMatcher } from '../core/error/error-options';
 import { OUI_INPUT_VALUE_ACCESSOR } from './input-value-accessor';
 import {
+  CanUpdateErrorState,
   CanUpdateErrorStateCtor,
   mixinErrorState
 } from '../core/common-behaviors/error-state';
@@ -114,7 +115,8 @@ export class OuiInput extends _OuiInputMixinBase
     OnDestroy,
     OnInit,
     DoCheck,
-    CanColor {
+    CanColor,
+    CanUpdateErrorState {
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
   private _inputValueAccessor: { value: any };
@@ -128,8 +130,6 @@ export class OuiInput extends _OuiInputMixinBase
    * Implemented as part of CanUpdateErrorState.
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
-  errorState: boolean = false;
 
   /** The aria-describedby attribute on the input for improved a11y. */
   _ariaDescribedby: string;
@@ -348,7 +348,19 @@ export class OuiInput extends _OuiInputMixinBase
     }
   }
 
-  ngDoCheck() {}
+  ngDoCheck() {
+    if (this.ngControl) {
+      // We need to re-evaluate this on every change detection cycle, because there are some
+      // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+      // that whatever logic is in here has to be super lean or we risk destroying the performance.
+      this.updateErrorState();
+    }
+
+    // We need to dirty-check the native element's value, because there are some cases where
+    // we won't be notified when it changes (e.g. the consumer isn't using forms or they're
+    // updating the value using `emitEvent: false`).
+    this._dirtyCheckNativeValue();
+  }
 
   /** Focuses the input. */
   focus(): void {
@@ -377,6 +389,15 @@ export class OuiInput extends _OuiInputMixinBase
     // Listening to the input event wouldn't be necessary when the input is using the
     // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
   }
+  /** Does some manual dirty checking on the native input `value` property. */
+  protected _dirtyCheckNativeValue() {
+    const newValue = this._elementRef.nativeElement.value;
+
+    if (this._previousNativeValue !== newValue) {
+      this._previousNativeValue = newValue;
+      this.stateChanges.next();
+    }
+  }
 
   /** Getting native host element */
   getHostElement() {
@@ -390,8 +411,6 @@ export class OuiInput extends _OuiInputMixinBase
     );
   }
 
-  updateErrorState() {}
-
   /** Adding class dynamically based of type */
   protected addClass() {
     for (const attr of INPUT_HOST_ATTRIBUTES) {
@@ -401,16 +420,6 @@ export class OuiInput extends _OuiInputMixinBase
     }
     if (!this.color) {
       this.color = DEFAULT_COLOR;
-    }
-  }
-
-  /** Does some manual dirty checking on the native input `value` property. */
-  protected _dirtyCheckNativeValue() {
-    const newValue = this._elementRef.nativeElement.value;
-
-    if (this._previousNativeValue !== newValue) {
-      this._previousNativeValue = newValue;
-      this.stateChanges.next();
     }
   }
 

@@ -1,7 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
+import { ErrorStateMatcher } from '../core/error/error-options';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiInput } from './input';
 import { ReactiveFormsModule } from '@angular/forms';

@@ -2,3 +2,13 @@
 .oui-form-field-infix {
   position: relative;
 }
+.oui-form-field-invalid {
+  .oui-input {
+    border-color: $oui-error;
+  }
+  &.oui-focused {
+    .oui-input {
+      border-color: $oui-error;
+    }
+  }
+}

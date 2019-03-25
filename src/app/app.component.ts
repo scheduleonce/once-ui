@@ -105,6 +105,14 @@ export class AppComponent implements OnInit {
   ]);
   selectedOption = 'option2';
   selectedOption1 = 'option3';
+  emailFormControl = new FormControl('', [
+    Validators.required,
+    Validators.email
+  ]);
+  emailFormControl2 = new FormControl('', [
+    Validators.required,
+    Validators.email
+  ]);
   matcher = new MyErrorStateMatcher();
   /** list of banks */
   banks: Bank[] = [

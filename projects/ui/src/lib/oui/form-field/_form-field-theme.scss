@@ -113,9 +113,10 @@ $oui-error: #ff001f;
   .oui-error {
     color: $oui-error;
     display: block;
-    padding-top: 6px;
+    margin-top: 6px;
     font-size: 14px;
     line-height: 22px;
+    font-weight: 400;
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   }
 }
