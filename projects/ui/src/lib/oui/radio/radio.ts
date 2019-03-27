@@ -502,7 +502,9 @@ export class OuiRadioButton extends OuiRadioButtonBase
 
   _fireInputChange(): void {
     if (!this.disabled) {
-      this._inputElement.nativeElement.dispatchEvent(new Event('change'));
+      const event = document.createEvent('Event');
+      event.initEvent('change', false, true);
+      this._inputElement.nativeElement.dispatchEvent(event);
     }
   }
 
