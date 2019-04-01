@@ -93,6 +93,10 @@ $oui-error: #ff001f;
     &:disabled:-ms-input-placeholder {
       color: $form-field-disabled-color;
     }
+    &::-ms-clear,
+    &::-ms-reveal {
+      display: none;
+    }
   }
   textarea.oui-input {
     min-height: $form-field-textarea-height;
