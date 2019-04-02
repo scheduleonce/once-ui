@@ -129,10 +129,6 @@ $oui-menu-line-height: 22px;
   }
 }
 
-.cdk-overlay-backdrop {
-  z-index: 100;
-}
-
 @mixin oui-menu-icon-hover {
   background: $oui-three-dot-icon no-repeat rgba(200, 200, 200, 0.4) center
     center;
