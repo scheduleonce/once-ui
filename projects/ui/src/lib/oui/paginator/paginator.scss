@@ -17,10 +17,15 @@ $double-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
 
 .oui-paginator-container {
   text-align: center;
+  * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+  }
   .oui-paginator-range-actions {
     text-align: center;
     border: 1px solid #c8c8c8;
-    height: 33px;
+    height: 35px;
     border-radius: 20px;
     background: #fff;
     display: inline-block;
@@ -36,6 +41,7 @@ $double-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
       font: inherit;
       color: currentColor;
       cursor: pointer;
+      vertical-align: top;
     }
     .oui-paginator-navigation-first {
       background: $double-arrow center center no-repeat;
