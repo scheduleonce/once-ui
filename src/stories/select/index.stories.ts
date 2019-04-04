@@ -23,7 +23,7 @@ storiesOf('Form Field/Select', module)
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
           <oui-option *ngFor="let food of foods" [value]="food">
             {{food}}
           </oui-option>
@@ -56,7 +56,7 @@ storiesOf('Form Field/Select', module)
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (change)="onChange($event)" [placeholder]="placeholder" multiple [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" [placeholder]="placeholder" multiple [disabled]="disabled">
           <oui-option *ngFor="let food of foods" [value]="food">
             {{food}}
           </oui-option>
@@ -89,7 +89,7 @@ storiesOf('Form Field/Select', module)
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
           <oui-option>-- None --</oui-option>
           <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
             <oui-option *ngFor="let food of group.foods" [value]="food">
@@ -146,7 +146,7 @@ storiesOf('Form Field/Select', module)
       template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">
-        <oui-select (change)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" [placeholder]="placeholder" [disabled]="disabled">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
             {{food}}
