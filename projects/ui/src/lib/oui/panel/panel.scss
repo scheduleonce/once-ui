@@ -2,13 +2,16 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
 
 .oui-panel-content {
   color: #333;
-  width: 234px;
+  width: 270px;
   background: #fff;
   padding: 11px 17px 12px 17px;
   box-shadow: 0 1px 2px 0 #4a4a4a;
   border: 1px solid #c8c8c8;
   font-size: 13px;
   line-height: 19px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .oui-panel-content-large {
