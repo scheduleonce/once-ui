@@ -6,7 +6,8 @@ import {
   OuiButtonModule
 } from '../../../projects/ui/src/lib/oui';
 import { select, boolean } from '@storybook/addon-knobs';
-import { Component, Input } from '@angular/core';
+import { action } from '@storybook/addon-actions';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -17,10 +18,20 @@ import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
   selector: 'oui-menu-storybook',
   template: `
     <div style="display:inline-block">
-      <oui-menu-icon [ouiMenuTriggerFor]="afterAboveMenu" [vertical]="vertical">
+      <oui-menu-icon
+        [ouiMenuTriggerFor]="afterAboveMenu"
+        (menuOpened)="opened()"
+        (menuClosed)="closed($event)"
+        [vertical]="vertical"
+      >
       </oui-menu-icon>
     </div>
-    <oui-menu #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
+    <oui-menu
+      #afterAboveMenu
+      [xPosition]="xPosition"
+      (closed)="closed($event)"
+      [yPosition]="yPosition"
+    >
       <button oui-menu-item>
         <oui-icon svgIcon="edit"></oui-icon>
         <span>Edit</span>
@@ -40,6 +51,11 @@ export class OuiMenuStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
   @Input() vertical: boolean = false;
+
+  @Output()
+  readonly _closed: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  readonly _opened: EventEmitter<void> = new EventEmitter<void>();
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
@@ -57,18 +73,31 @@ export class OuiMenuStorybook {
       )
     );
   }
+  opened() {
+    this._opened.emit();
+  }
+  closed(e) {
+    this._closed.emit(e);
+  }
 }
 
 @Component({
   selector: 'oui-nested-menu-storybook',
   template: `
     <div style="display:inline-block">
-      <oui-menu-icon [ouiMenuTriggerFor]="rootMenu" [vertical]="vertical">
+      <oui-menu-icon
+        [ouiMenuTriggerFor]="rootMenu"
+        (click)="triggerClick()"
+        (menuOpened)="opened()"
+        (menuClosed)="closed()"
+        [vertical]="vertical"
+      >
       </oui-menu-icon>
     </div>
     <oui-menu
       [xPosition]="xPosition"
       [yPosition]="yPosition"
+      (closed)="closed($event)"
       #rootMenu="ouiMenu"
     >
       <button oui-menu-item [ouiMenuTriggerFor]="subMenu">Power</button>
@@ -77,7 +106,7 @@ export class OuiMenuStorybook {
       </button>
     </oui-menu>
 
-    <oui-menu #subMenu="ouiMenu">
+    <oui-menu (closed)="closed($event)" #subMenu="ouiMenu">
       <button oui-menu-item>Shut down</button>
       <button oui-menu-item>Restart</button>
       <button oui-menu-item>Hibernate</button>
@@ -88,6 +117,10 @@ export class OuiNestedMenuStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
   @Input() vertical: boolean = false;
+  @Output()
+  readonly _closed: EventEmitter<string> = new EventEmitter<string>();
+  @Output()
+  readonly _opened: EventEmitter<void> = new EventEmitter<void>();
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
@@ -104,6 +137,12 @@ export class OuiNestedMenuStorybook {
         'https://s3.amazonaws.com/icomoon.io/135790/oncehub-20/symbol-defs.svg?nhbz3f'
       )
     );
+  }
+  opened() {
+    this._opened.emit();
+  }
+  closed(e) {
+    this._closed.emit(e);
   }
 }
 
@@ -120,12 +159,16 @@ storiesOf('Menu', module)
           [xPosition]="xPosition"
           [yPosition]="yPosition"
           [vertical]="vertical"
+          (_opened)="menuOpened($event)"
+          (_closed)="menuClosed($event)"
           >
           </oui-menu-storybook>`,
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
         yPosition: select('yPosition', ['above', 'below'], 'above'),
-        vertical: boolean('vertical', false)
+        vertical: boolean('vertical', false),
+        menuOpened: action('menuOpened'),
+        menuClosed: action('menuClosed')
       }
     }),
     { notes: { markdown: markdownText } }
@@ -141,12 +184,16 @@ storiesOf('Menu', module)
       template: `<oui-nested-menu-storybook
   [xPosition]="xPosition"
   [yPosition]="yPosition"
+  (_opened)="menuOpened($event)"
+  (_closed)="menuClosed($event)"
   [vertical]="vertical">
             </oui-nested-menu-storybook>`,
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
         yPosition: select('yPosition', ['above', 'below'], 'above'),
-        vertical: boolean('vertical', false)
+        vertical: boolean('vertical', false),
+        menuOpened: action('menuOpened'),
+        menuClosed: action('menuClosed')
       }
     }),
     { notes: { markdown: markdownText } }
