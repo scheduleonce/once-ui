@@ -5,15 +5,23 @@
       format('woff');
   }
 </style>
-<link rel="stylesheet" id="theme-css" href="/readme.css" />
 <script>
   const THEMES = ['Oncehub', 'Chatonce', 'Inviteonce', 'Scheduleonce'];
   const TAGID = 'theme-css';
   const IFRAMEID = 'storybook-preview-iframe';
   let switchCount = 0;
+  let directory = window.location.host.indexOf('github') > 0 ? '/once-ui' : '';
   function onLoad() {
+    addReadmeStyling();
     setTheme(THEMES[0]);
     addThemeSelectElement();
+  }
+
+  function addReadmeStyling() {
+    let css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = directory + '/readme.css';
+    document.getElementsByTagName('head')[0].appendChild(css);
   }
 
   function setTheme(theme) {
@@ -39,7 +47,7 @@
   }
 
   function getThemePath(theme) {
-    return '/themes/' + theme.toLowerCase() + '.css';
+    return directory + '/themes/' + theme.toLowerCase() + '.css';
   }
 
   function addThemeSelectElement() {
