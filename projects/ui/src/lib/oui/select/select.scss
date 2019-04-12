@@ -177,6 +177,7 @@ $gray-color: #eee;
   // order to prevent the placeholder from overlapping for a split second.
   transition: color $swift-ease-out-duration $swift-ease-out-duration / 3
     $swift-ease-out-timing-function;
+  color: #666666;
   ._oui-animation-noopable & {
     transition: none;
   }
