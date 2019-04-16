@@ -698,6 +698,14 @@ describe('Checkbox', () => {
     });
 
     it('should toggle the disabled state', () => {
+      expect(checkboxInstance.disabled).toBe(false);
+
+      testComponent.formControl.disable();
+      fixture.detectChanges();
+
+      expect(checkboxInstance.disabled).toBe(true);
+      expect(inputElement.disabled).toBe(true);
+
       testComponent.formControl.enable();
       fixture.detectChanges();
 
