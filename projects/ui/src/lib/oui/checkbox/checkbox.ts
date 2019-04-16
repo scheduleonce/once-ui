@@ -243,6 +243,11 @@ export class Checkbox implements ControlValueAccessor, HasTabIndex {
     }
   }
 
+  // Implemented as part of ControlValueAccessor.
+  setDisabledState(isDisabled: boolean) {
+    this.disabled = isDisabled;
+  }
+
   private _emitChangeEvent() {
     const event: any = new OuiCheckboxChange();
     event.source = this;
