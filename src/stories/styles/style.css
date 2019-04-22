@@ -115,7 +115,8 @@ body {
     format('woff');
 }
 oui-menu-storybook,
-oui-nested-menu-storybook {
+oui-nested-menu-storybook,
+oui-tooltip-storybook {
   display: flex;
   align-items: center;
   justify-content: center;
