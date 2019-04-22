@@ -14,10 +14,8 @@ import markdownText from '../../../projects/ui/src/lib/oui/panel/README.md';
 @Component({
   selector: 'oui-panel-storybook',
   template: `
-    <div style="margin-left: 350px; margin-top:300px;">
-      <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
-      </oui-panel-icon>
-    </div>
+    <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
+    </oui-panel-icon>
     <oui-panel #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <p>
