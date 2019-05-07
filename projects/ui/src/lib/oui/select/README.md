@@ -275,6 +275,7 @@ This component can be used if someone want to have the search input field inside
 | @Input() placeholder: string                                 | Placeholder to be shown if no value has been selected.                                                                       |
 | @Input() required: boolean                                   | Whether the component is required.                                                                                           |
 | @Input() value: any                                          | Value of the select control.                                                                                                 |
+| @Input() large: boolean                                      | Set max height of oui-select to 392px. Default is 272px.                                                                     |
 | @Output() openedChange: EventEmitter`<boolean>`              | Event emitted when the select panel has been toggled.                                                                        |
 | @Output() selectionChange: EventEmitter`<OuiSelectChange>`   | Event emitted when the selected value has been changed by the user.                                                          |
 | autofilled: boolean                                          | Whether the input is currently in an autofilled state. If property is not present on the control it is assumed to be false.  |
