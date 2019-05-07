@@ -21,7 +21,6 @@ import { TOOLTIPPOSITION } from '../const';
       [ouiTooltipPosition]="_ouiTooltipPosition"
       [color]="'primary'"
       [ouiTooltipDisabled]="disabled"
-      style="margin-top:250px;margin-left:200px;"
     ></oui-icon>
   `
 })
