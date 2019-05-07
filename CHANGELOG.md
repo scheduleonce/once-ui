@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.5] - 2019-04-04
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-10155`](https://scheduleonce.atlassian.net/browse/ONCEHUB-10155) checkbox reactive forms issue
+- [`ONCEHUB-9308`](https://scheduleonce.atlassian.net/browse/ONCEHUB-9308) select placeholder color issue
+
 ## [1.11.4] - 2019-04-04
 
 ### Added
