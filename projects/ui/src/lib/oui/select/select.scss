@@ -109,6 +109,10 @@ $gray-color: #eee;
   }
 }
 
+.oui-select-large {
+  max-height: 392px !important;
+}
+
 // Override optgroup and option to scale based on font-size of the trigger.
 .oui-select-panel {
   color: #333;
@@ -117,7 +121,7 @@ $gray-color: #eee;
   padding-bottom: 0;
   border: 1px solid #c8c8c8;
   background-color: #ffffff;
-  max-height: 392px;
+  max-height: 272px;
   margin: 9px 0 0 -10px;
   box-sizing: border-box;
   min-width: 100px;

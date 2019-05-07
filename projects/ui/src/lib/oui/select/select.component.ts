@@ -322,6 +322,17 @@ export class OuiSelect extends _OuiSelectMixinBase
 
   /** Input that can be used to specify the `aria-labelledby` attribute. */
   @Input('aria-labelledby') ariaLabelledby: string;
+  private _large = false;
+
+  /** Whether the oui-select is of large size. */
+  @Input()
+  get large(): boolean {
+    return this._large;
+  }
+  set large(value) {
+    this._large = coerceBooleanProperty(value);
+    this._changeDetectorRef.markForCheck();
+  }
 
   private _id: string;
 
