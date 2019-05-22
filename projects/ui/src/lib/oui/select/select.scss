@@ -117,7 +117,6 @@ $gray-color: #eee;
 .oui-select-panel {
   color: #333;
   -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
-  overflow-x: hidden;
   padding-bottom: 0;
   border: 1px solid #c8c8c8;
   background-color: #ffffff;
@@ -303,4 +302,12 @@ $gray-color: #eee;
 .select-overlay-top.oui-select-panel {
   margin-bottom: 7px;
   border-top: 1px solid #c8c8c8;
+}
+.option-list {
+  padding-top: 60px;
+  overflow-x: hidden;
+  max-height: 211px;
+}
+.oui-select-large .option-list {
+  max-height: 331px;
 }

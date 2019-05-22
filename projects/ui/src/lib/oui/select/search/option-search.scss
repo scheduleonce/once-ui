@@ -8,18 +8,14 @@ $defaul-color: #c8c8c8;
   visibility: hidden;
 }
 .oui-select-search-inner {
-  position: -webkit-sticky;
-  position: -moz-sticky;
-  position: -ms-sticky;
-  position: -o-sticky;
-  position: sticky;
   background: #fff;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 9999;
   padding: 10px;
   box-sizing: border-box;
+  position: absolute;
   &.oui-select-search-inner-multiple {
     width: calc(
       100% + #{2 * $oui-menu-side-padding - $scrollbar-width +

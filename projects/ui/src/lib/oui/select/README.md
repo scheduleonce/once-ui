@@ -136,11 +136,13 @@ If you want to display a custom trigger label inside a `<oui-select>`, you can u
           </span>
         </oui-select-trigger>
         <oui-select-search [(ngModel)]="keyword"></oui-select-search>
-        <oui-option
-          *ngFor="let topping of (toppingList | filterOptions: keyword)"
-          [value]="topping"
-          >{{ topping }}
-        </oui-option>
+        <div class="option-list">
+          <oui-option
+            *ngFor="let topping of (toppingList | filterOptions: keyword)"
+            [value]="topping"
+            >{{ topping }}
+          </oui-option>
+        </div>
         <div
           *ngIf="!(toppingList | filterOptions: keyword).length"
           class="noResults"

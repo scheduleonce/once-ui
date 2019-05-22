@@ -843,12 +843,14 @@
           (selectionChange)="selectChangeOption($event)"
         >
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
-          <oui-option
-            *ngFor="let bank of (banks | filterOptions: keyword:'name')"
-            [value]="bank.id"
-          >
-            {{ bank.name }}
-          </oui-option>
+          <div class="option-list">
+            <oui-option
+              *ngFor="let bank of (banks | filterOptions: keyword:'name')"
+              [value]="bank.id"
+            >
+              {{ bank.name }}
+            </oui-option>
+          </div>
           <div
             *ngIf="!(banks | filterOptions: keyword:'name').length"
             class="noResults"

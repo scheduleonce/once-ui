@@ -1221,6 +1221,21 @@ export class OuiSelect extends _OuiSelectMixinBase
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
     const containerWidth = this._elementRef.nativeElement.offsetWidth;
     ouiSelectPanel.style.width = `${containerWidth}px`;
+    this.scrollCalc();
+  }
+
+  scrollCalc() {
+    const searchInput = this._document.querySelector(
+      '.oui-select-search-inner'
+    );
+    let outter = this._document.querySelector('.option-list');
+    let inner = this._document.querySelector('.oui-option');
+    const scrollbarWidth = outter.offsetWidth - inner.offsetWidth;
+    if (scrollbarWidth > 0) {
+      searchInput.style.width = `calc(100% - ${scrollbarWidth}px)`;
+    } else {
+      searchInput.style.width = `100%`;
+    }
   }
 
   /**
