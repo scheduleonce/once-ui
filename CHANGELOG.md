@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.7] - 2019-05-23
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-8814`](https://scheduleonce.atlassian.net/browse/ONCEHUB-8814) Date picker popup issue
+- [`ONCEHUB-9835`](https://scheduleonce.atlassian.net/browse/ONCEHUB-9835) 3 dot menu unwanted scroll
+- [`ONCEHUB-11266`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11266) Overlay panel shadow and space issue
+
 ## [1.11.6] - 2019-08-05
 
 ### Added
