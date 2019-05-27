@@ -104,6 +104,26 @@ If any image tag is used inside the `oui-panel` then it will automatically provi
 </oui-panel>
 ```
 
+## Add custom width in panel
+
+By default, the Panel width will be 270px. The width can be changed using the `width` attributes.
+
+```html
+<oui-panel-icon [ouiPanelTriggerFor]="afterBelowImage"> </oui-panel-icon>
+<oui-panel #afterBelowImage [width]="280">
+  <h6>Lorem ipsum, dolor sit amet consectetur</h6>
+  <p>
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate harum
+    quod a incidunt? Obcaecati dolores omnis odio repudiandae quo quidem?
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
+    dolorum! Reprehenderit reiciendis hic magnam esse odio asperiores qui
+    tempora beatae.
+  </p>
+</oui-panel>
+```
+
 ## Stackblitz Link
 
 [https://stackblitz.com/edit/angular-oui-panel-version1](https://stackblitz.com/edit/angular-oui-panel-version1)
