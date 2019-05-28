@@ -1230,7 +1230,7 @@ export class OuiSelect extends _OuiSelectMixinBase
     const searchInput = this._document.querySelector(
       '.oui-select-search-inner'
     );
-    let outter = this._document.querySelector('.oui-select-panel');
+    const outter = this._document.querySelector('.oui-select-panel');
     let inner = this._document.querySelector('.oui-option');
     if (inner === null) {
       inner = 0;

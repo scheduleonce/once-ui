@@ -6,6 +6,7 @@ import {
   OnInit,
   ViewChild,
   Optional,
+  AfterViewChecked,
   forwardRef
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
@@ -24,7 +25,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
+export class OuiSelectSearchComponent
+  implements OnInit, AfterViewChecked, ControlValueAccessor {
   /** Label of the search placeholder */
   @Input() placeholderLabel = '';
 
@@ -81,7 +83,7 @@ export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
     const searchInput = this._document.querySelector(
       '.oui-select-search-inner'
     );
-    let outter = this._document.querySelector('.oui-select-panel');
+    const outter = this._document.querySelector('.oui-select-panel');
     let inner = this._document.querySelector('.oui-option');
     if (inner === null) {
       inner = 0;
