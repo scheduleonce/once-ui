@@ -4,7 +4,7 @@ import {
   OuiPanelModule,
   OuiButtonModule
 } from '../../../projects/ui/src/lib/oui';
-import { select } from '@storybook/addon-knobs';
+import { select, number } from '@storybook/addon-knobs';
 import { Component, Input } from '@angular/core';
 import { OverlayModule } from '@angular/cdk/overlay';
 
@@ -16,7 +16,7 @@ import markdownText from '../../../projects/ui/src/lib/oui/panel/README.md';
   template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
-    <oui-panel #afterAboveMenu [width]="280" [xPosition]="xPosition" [yPosition]="yPosition">
+    <oui-panel #afterAboveMenu [width]="width" [xPosition]="xPosition" [yPosition]="yPosition">
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <p>
         Loremipsumdolorsit,ametconsecteturadipisicingelit. Cupiditate
@@ -36,9 +36,15 @@ import markdownText from '../../../projects/ui/src/lib/oui/panel/README.md';
 export class OuiPanelStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
+  @Input() width: number = 270;
   constructor() {}
 }
-
+const widthOptions = {
+  range: true,
+  min: 270,
+  max: 512,
+  step: 1
+};
 @Component({
   selector: 'oui-panel-with-image-storybook',
   template: `
@@ -86,11 +92,13 @@ storiesOf('Panel', module)
       },
       template: `<oui-panel-storybook
   [xPosition]="xPosition"
-  [yPosition]="yPosition">
+  [yPosition]="yPosition"
+  [width]="width">
             </oui-panel-storybook>`,
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosotion', ['above', 'below'], 'above')
+        yPosition: select('yPosotion', ['above', 'below'], 'above'),
+        width: number('width', 270, widthOptions)
       }
     }),
     { notes: { markdown: markdownText } }
