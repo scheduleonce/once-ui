@@ -38,6 +38,14 @@ class MyComponent {
   }
 }
 ```
+## API OuiTooltip
+
+| Input              | Type    | Default | Description                                            |
+| ------------------ | ------- | ------- | -------------------------------------------------------|
+| xPosition          | string  | empty   | 'after','before'                                       |
+| yPosition          | string  | empty   | 'above' , 'below'                                      |
+| width              | number  | empty   | Assigned custom width in pixels like [width]="300"     |
+
 
 ## Customizing Panel positions
 
@@ -106,7 +114,7 @@ If any image tag is used inside the `oui-panel` then it will automatically provi
 
 ## Add custom width in panel
 
-By default, the Panel width will be 270px. The width can be changed using the `width` attributes.
+By default, the Panel width will be 270px. The width can be changed using the `width` attributes upto 512px. Width value should always be in pixels.
 
 ```html
 <oui-panel-icon [ouiPanelTriggerFor]="afterBelowImage"> </oui-panel-icon>
@@ -126,4 +134,4 @@ By default, the Panel width will be 270px. The width can be changed using the `w
 
 ## Stackblitz Link
 
-[https://stackblitz.com/edit/angular-oui-panel-version1](https://stackblitz.com/edit/angular-oui-panel-version1)
+[https://stackblitz.com/edit/angular-oui-panel-version1-sby1m3](https://stackblitz.com/edit/angular-oui-panel-version1-sby1m3)

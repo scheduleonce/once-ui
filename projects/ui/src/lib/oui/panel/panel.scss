@@ -11,7 +11,9 @@ $info-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjYiIGhlaWdodD0iMjYiIH
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  word-break: break-all;
+  word-break: break-word;
+  width: 270px;
+  max-width: 512px;
 }
 
 .oui-panel-content-large {
