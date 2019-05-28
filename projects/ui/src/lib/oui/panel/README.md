@@ -41,19 +41,17 @@ class MyComponent {
 
 ## API OuiPanelIcon
 
-| Input              | Type           | Default | Description                                                      |
-| ------------------ | -------------- | ------- | -----------------------------------------------------------------|
-| ouiPanelTriggerFor | elementref     | empty   | It is used to attach the panel to a trigger element in the DOM   |
-
+| Input              | Type       | Default | Description                                                    |
+| ------------------ | ---------- | ------- | -------------------------------------------------------------- |
+| ouiPanelTriggerFor | elementref | empty   | It is used to attach the panel to a trigger element in the DOM |
 
 ## API OuiPanel
 
-| Input              | Type    | Default | Description                                                      |
-| ------------------ | ------- | ------- | -----------------------------------------------------------------|
-| xPosition          | string  | empty   | 'after','before'                                                 |
-| yPosition          | string  | empty   | 'above' , 'below'                                                |
-| width              | number  | empty   | Assigned custom width in pixels like [width]="300"               |
-
+| Input     | Type   | Default | Description                                        |
+| --------- | ------ | ------- | -------------------------------------------------- |
+| xPosition | string | empty   | 'after','before'                                   |
+| yPosition | string | empty   | 'above' , 'below'                                  |
+| width     | number | empty   | Assigned custom width in pixels like [width]="300" |
 
 ## Customizing Panel positions
 
