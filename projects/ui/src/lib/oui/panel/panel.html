@@ -6,6 +6,8 @@
     (mouseenter)="_handleMouseEnter($event)"
     role="dialog"
   >
-    <div class="oui-panel-content" [ngStyle]="{'width': width + 'px'}"><ng-content></ng-content></div>
+    <div class="oui-panel-content" [ngStyle]="{'width': width + 'px'}">
+      <ng-content></ng-content>
+    </div>
   </div>
 </ng-template>

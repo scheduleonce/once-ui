@@ -16,12 +16,16 @@ import markdownText from '../../../projects/ui/src/lib/oui/panel/README.md';
   template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
-    <oui-panel #afterAboveMenu [width]="width" [xPosition]="xPosition" [yPosition]="yPosition">
+    <oui-panel
+      #afterAboveMenu
+      [width]="width"
+      [xPosition]="xPosition"
+      [yPosition]="yPosition"
+    >
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <p>
-        Loremipsumdolorsit,ametconsecteturadipisicingelit. Cupiditate
-        harum quod a incidunt? Obcaecati dolores omnis odio repudiandae quo
-        quidem?
+        Loremipsumdolorsit,ametconsecteturadipisicingelit. Cupiditate harum quod
+        a incidunt? Obcaecati dolores omnis odio repudiandae quo quidem?
         <a href="https://www.scheduleonce.com/" target="blank">Learn more</a>
       </p>
       <p>

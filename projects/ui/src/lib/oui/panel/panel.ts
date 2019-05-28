@@ -64,7 +64,6 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
   @Input() width?: number;
 
-
   /** Config object to be passed into the menu's ngClass */
   _classList: { [key: string]: boolean } = {};
 
