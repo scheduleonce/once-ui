@@ -38,13 +38,22 @@ class MyComponent {
   }
 }
 ```
-## API OuiTooltip
 
-| Input              | Type    | Default | Description                                            |
-| ------------------ | ------- | ------- | -------------------------------------------------------|
-| xPosition          | string  | empty   | 'after','before'                                       |
-| yPosition          | string  | empty   | 'above' , 'below'                                      |
-| width              | number  | empty   | Assigned custom width in pixels like [width]="300"     |
+## API OuiPanelIcon
+
+| Input              | Type    | Default | Description                                                      |
+| ------------------ | ------- | ------- | -----------------------------------------------------------------|
+| ouiPanelTriggerFor | any     | empty   | It is used to attach the panel to a trigger element in the DOM   |
+
+
+## API OuiPanel
+
+| Input              | Type    | Default | Description                                                      |
+| ------------------ | ------- | ------- | -----------------------------------------------------------------|
+| ouiPanelTriggerFor | any     | empty   | It is used to attach the panel to a trigger element in the DOM   |
+| xPosition          | string  | empty   | 'after','before'                                                 |
+| yPosition          | string  | empty   | 'above' , 'below'                                                |
+| width              | number  | empty   | Assigned custom width in pixels like [width]="300"               |
 
 
 ## Customizing Panel positions
@@ -134,4 +143,4 @@ By default, the Panel width will be 270px. The width can be changed using the `w
 
 ## Stackblitz Link
 
-[https://stackblitz.com/edit/angular-oui-panel-version1-sby1m3](https://stackblitz.com/edit/angular-oui-panel-version1-sby1m3)
+[https://stackblitz.com/edit/angular-oui-panel-latest](https://stackblitz.com/edit/angular-oui-panel-latest)
