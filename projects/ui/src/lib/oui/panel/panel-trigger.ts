@@ -279,6 +279,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   public _handelMouseLeave(event: MouseEvent): void {
     this._mouseLeave.next(event);
+    this.closePanel();
     event.stopImmediatePropagation();
   }
 
