@@ -62,6 +62,8 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   private readonly _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
   public mouseEnter: Observable<MouseEvent>;
 
+  @Input() width?: number;
+
   /** Config object to be passed into the menu's ngClass */
   _classList: { [key: string]: boolean } = {};
 
