@@ -204,7 +204,6 @@ $gray-color: #eee;
 
 .oui-select-input-outer {
   box-sizing: border-box;
-  position: relative;
 }
 
 /*-- search dropdown --*/
@@ -303,4 +302,18 @@ $gray-color: #eee;
 .select-overlay-top.oui-select-panel {
   margin-bottom: 7px;
   border-top: 1px solid #c8c8c8;
+}
+
+.noResults {
+  color: #333333;
+  font-size: 14px;
+  line-height: 22px;
+  padding: 0 10px;
+  margin: 17px 0 21px;
+  word-break: break-all;
+}
+
+oui-select-search {
+  height: 60px;
+  display: block;
 }
