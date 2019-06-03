@@ -39,6 +39,20 @@ class MyComponent {
 }
 ```
 
+## API OuiPanelIcon
+
+| Input              | Type       | Default | Description                                                    |
+| ------------------ | ---------- | ------- | -------------------------------------------------------------- |
+| ouiPanelTriggerFor | elementref | empty   | It is used to attach the panel to a trigger element in the DOM |
+
+## API OuiPanel
+
+| Input     | Type   | Default | Description                                        |
+| --------- | ------ | ------- | -------------------------------------------------- |
+| xPosition | string | empty   | 'after','before'                                   |
+| yPosition | string | empty   | 'above' , 'below'                                  |
+| width     | number | empty   | Assigned custom width in pixels like [width]="300" |
+
 ## Customizing Panel positions
 
 By default, the Panel will display below (y-axis), after (x-axis). The position can be changed using the `xPosition (before | after)` and `yPosition (above | below)` attributes.
@@ -104,6 +118,26 @@ If any image tag is used inside the `oui-panel` then it will automatically provi
 </oui-panel>
 ```
 
+## Add custom width in panel
+
+By default, the Panel width will be 270px. The width can be changed using the `width` attributes upto 512px. Width value should always be in pixels.
+
+```html
+<oui-panel-icon [ouiPanelTriggerFor]="afterBelowImage"> </oui-panel-icon>
+<oui-panel #afterBelowImage [width]="280">
+  <h6>Lorem ipsum, dolor sit amet consectetur</h6>
+  <p>
+    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate harum
+    quod a incidunt? Obcaecati dolores omnis odio repudiandae quo quidem?
+  </p>
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
+    dolorum! Reprehenderit reiciendis hic magnam esse odio asperiores qui
+    tempora beatae.
+  </p>
+</oui-panel>
+```
+
 ## Stackblitz Link
 
-[https://stackblitz.com/edit/angular-oui-panel-version1](https://stackblitz.com/edit/angular-oui-panel-version1)
+[https://stackblitz.com/edit/angular-oui-panel-latest](https://stackblitz.com/edit/angular-oui-panel-latest)
