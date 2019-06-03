@@ -5,7 +5,14 @@ import {
   OuiInputModule
 } from '../../../projects/ui/src/lib/oui';
 import markdownText from '../../../projects/ui/src/lib/oui/input/README.md';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, number } from '@storybook/addon-knobs';
+
+const rowsOptions = {
+  range: true,
+  min: 2,
+  max: 50,
+  step: 1
+};
 
 storiesOf('Form Field/Textarea', module).add(
   'Regular',
@@ -15,10 +22,11 @@ storiesOf('Form Field/Textarea', module).add(
       schemas: [],
       declarations: []
     },
-    template: `<oui-form-field> <textarea [disabled]="disabled" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder"></textarea> </oui-form-field>`,
+    template: `<oui-form-field> <textarea [disabled]="disabled" [rows]="rows" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder"></textarea> </oui-form-field>`,
     props: {
       disabled: boolean('disabled', false),
       placeholder: text('placeholder', 'Type Here'),
+      rows: number('rows', 2, rowsOptions),
       focused: action('focus'),
       blured: action('blur')
     }
