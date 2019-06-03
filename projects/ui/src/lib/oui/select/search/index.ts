@@ -5,8 +5,11 @@ import {
   Input,
   OnInit,
   ViewChild,
+  Optional,
+  AfterViewChecked,
   forwardRef
 } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -22,7 +25,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     }
   ]
 })
-export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
+export class OuiSelectSearchComponent
+  implements OnInit, AfterViewChecked, ControlValueAccessor {
   /** Label of the search placeholder */
   @Input() placeholderLabel = '';
 
@@ -33,7 +37,10 @@ export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
 
-  constructor(@Inject(OuiSelect) public ouiSelect: OuiSelect) {}
+  constructor(
+    @Inject(OuiSelect) public ouiSelect: OuiSelect,
+    @Optional() @Inject(DOCUMENT) private _document: any
+  ) {}
   registerOnChange(fn: (value: any) => void) {
     this.onChange = fn;
   }
@@ -64,6 +71,28 @@ export class OuiSelectSearchComponent implements OnInit, ControlValueAccessor {
     if (valueChanged) {
       this._value = value;
       this.onChange(value);
+    }
+  }
+
+  ngAfterViewChecked() {
+    if (this._document.querySelector('.oui-select-search-inner')) {
+      this.scrollCalc();
+    }
+  }
+  scrollCalc() {
+    const searchInput = this._document.querySelector(
+      '.oui-select-search-inner'
+    );
+    const outter = this._document.querySelector('.oui-select-panel');
+    let inner = this._document.querySelector('.oui-option');
+    if (inner === null) {
+      inner = 0;
+    }
+    const scrollbarWidth = outter.offsetWidth - inner.offsetWidth;
+    if (scrollbarWidth > 5) {
+      searchInput.style.width = `${inner.offsetWidth}px`;
+    } else {
+      searchInput.style.width = `calc(100% + 8px)`;
     }
   }
 
