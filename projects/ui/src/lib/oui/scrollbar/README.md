@@ -15,7 +15,7 @@ import { OuiScrollbarModule } from '@once/ui';
 ## Usage Example
 
 ```html
-<div oui-scrollbar large [style.height.px]="200">
+<div oui-scrollbar oui-scrollbar-large [style.height.px]="200">
   Lorem Ipsum is simply dummy text of the printing and typesetting industry.
   Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
   when an unknown printer took a galley of type and scrambled it to make a type
@@ -29,9 +29,9 @@ import { OuiScrollbarModule } from '@once/ui';
 
 ## API OuiScrollbar
 
-| Input | Type    | Default | Description                                                                                                                             |
-| ----- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| large | boolean | false   | Whether oui-scrollbar is used in large content for showing large scrollbar. Default width of scrollbar is 6px and for large it is 8px. |
+| Input               | Type    | Default | Description                                                                                                                            |
+| ------------------- | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| oui-scrollbar-large | boolean | false   | Whether oui-scrollbar is used in large content for showing large scrollbar. Default width of scrollbar is 6px and for large it is 8px. |
 
 ## Stackblitz demo link
 
