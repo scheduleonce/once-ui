@@ -1,5 +1,4 @@
-The `oui-scrollbar` provides a text label that is displayed when the user hovers
-over an element.
+The `oui-scrollbar` provides a custom scrollbar to the inner content of element it has been applied on.
 
 ### Usage
 
