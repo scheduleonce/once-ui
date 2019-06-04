@@ -9,8 +9,11 @@
   border: 3px #fff solid;
   border-radius: 15px;
 }
+.oui-scrollbar-container-large::-webkit-scrollbar {
+  width: 16px;
+}
 .oui-scrollbar-container-large::-webkit-scrollbar-thumb {
-  border: 2px #fff solid !important;
+  border: 4px #fff solid !important;
 }
 
 .oui-scrollbar-container {
