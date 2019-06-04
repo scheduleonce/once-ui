@@ -19,7 +19,8 @@ import {
   OuiRadioModule,
   OuiProgressBarModule,
   OuiPanelModule,
-  OuiSelectModule
+  OuiSelectModule,
+  OuiScrollbarModule
 } from 'projects/ui/src/lib/oui';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -57,7 +58,8 @@ import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
     OuiPanelModule,
     OuiSelectModule,
     OuiProgressBarModule,
-    OuiDatepickerModule
+    OuiDatepickerModule,
+    OuiScrollbarModule
   ],
   exports: [],
   providers: [],
