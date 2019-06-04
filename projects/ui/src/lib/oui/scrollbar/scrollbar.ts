@@ -26,7 +26,7 @@ export class OuiScrollbar {
   private _large = false;
 
   /** Whether the oui-select is of large size. */
-  @Input()
+  @Input('oui-scrollbar-large')
   get large(): boolean {
     return this._large;
   }

@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/angular';
 import { OuiScrollbarModule } from '../../../projects/ui/src/lib/oui';
 import { text, boolean, number, array } from '@storybook/addon-knobs';
 import { Input, Component } from '@angular/core';
-import markdownText from '../../../projects/ui/src/lib/oui/tooltip/README.md';
+import markdownText from '../../../projects/ui/src/lib/oui/scrollbar/README.md';
 import { DUMMY_TEXT, COUNTRY_LIST } from '../const';
 const valueOptions = {
   range: true,
@@ -16,7 +16,7 @@ const valueOptions = {
   template: `
     <div
       oui-scrollbar
-      [large]="large"
+      [oui-scrollbar-large]="large"
       [style.height.px]="height"
       class="content"
     >
@@ -37,7 +37,7 @@ export class OuiScrollbarTextStorybook {
   template: `
     <div
       oui-scrollbar
-      [large]="large"
+      [oui-scrollbar-large]="large"
       [style.height.px]="height"
       class="content"
     >
