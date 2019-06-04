@@ -31,7 +31,7 @@ import { OuiScrollbarModule } from '@once/ui';
 
 | Input | Type    | Default | Description                                                                                                                             |
 | ----- | ------- | ------- | --------------------------------------------------------------------------------------------------------------------------------------- |
-| large | boolean | false   | Wether oui-scrollbar is used in large content for showing large scrollbar. Default width of scrollbar is 6px and sale for large is 8px. |
+| large | boolean | false   | Whether oui-scrollbar is used in large content for showing large scrollbar. Default width of scrollbar is 6px and for large it is 8px. |
 
 ## Stackblitz demo link
 
