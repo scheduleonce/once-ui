@@ -40,7 +40,8 @@
 >
   <div
     #panel
-    class="scrollbar-active oui-select-panel {{cdkConnectionOverlayPanel}}"
+    class="oui-select-panel {{cdkConnectionOverlayPanel}}"
+    oui-scrollbar
     [ngClass]="panelClass"
     (keydown)="_handleKeydown($event)"
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
