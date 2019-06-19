@@ -155,6 +155,9 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
    * OverlayRef so that it can be attached to the DOM when openPanel is called.
    */
   private _createOverlay(): OverlayRef {
+    if (document.querySelector('.oui-panel')) {
+      document.querySelector('.oui-panel').remove();
+    }
     if (!this._overlayRef) {
       const config = this._getOverlayConfig();
       this._subscribeToPositions(
