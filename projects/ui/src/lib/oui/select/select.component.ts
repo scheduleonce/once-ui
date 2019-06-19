@@ -301,7 +301,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   @ViewChild('trigger') trigger: ElementRef;
 
   /** Panel containing the select options. */
-  @ViewChild('panel') panel: ElementRef;
+  @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
   initialValue = '';
 
