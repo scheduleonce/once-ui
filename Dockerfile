@@ -1,22 +1,10 @@
-# dockeronce.azurecr.io/once-ui:qa
-FROM node:10.15.3-alpine
+FROM node:8.11.4 AS build
+WORKDIR /app/website
+COPY . /app/website
+RUN npm install
+RUN npm run build
 
-RUN mkdir -p /once-ui
-WORKDIR /once-ui
-
-# Install app dependencies
-COPY package*.json /once-ui/
-
-# Install the build dependencies and remove after npm install to save 
-RUN apk --no-cache --virtual build-dependencies add \
-    python \
-    make \
-    g++ \
-    && npm install \
-    && apk del build-dependencies
-
-COPY . /once-ui
-
-EXPOSE 9000
-
-CMD npm run storybook
+FROM nginx:alpine
+COPY --from=build /app/website/storybook-static /var/www
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+CMD ["nginx", "-g", "daemon off;"]

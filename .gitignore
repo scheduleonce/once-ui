@@ -6,6 +6,7 @@
 /out-tsc
 /out
 /src/stories/themes
+/storybook-static
 
 # dependencies
 /node_modules
