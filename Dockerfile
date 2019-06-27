@@ -3,6 +3,8 @@ WORKDIR /app/website
 COPY . /app/website
 RUN npm install
 RUN npm run build-storybook
+RUN ls -ltra /app/website/storybook-static
+RUN ls -ltra /app/website/storybook-static/themes
 
 FROM nginx:alpine
 COPY --from=build /app/website/storybook-static/ /var/www
