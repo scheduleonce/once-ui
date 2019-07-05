@@ -10,7 +10,8 @@ import {
   forwardRef,
   ElementRef,
   Attribute,
-  ViewChild
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -83,7 +84,7 @@ export enum TransitionCheckState {
   ]
 })
 export class Checkbox extends OuiCheckboxMixinBase
-  implements ControlValueAccessor, HasTabIndex {
+  implements ControlValueAccessor, HasTabIndex, OnDestroy {
   /**
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
    * take precedence so this may be omitted.
@@ -219,11 +220,9 @@ export class Checkbox extends OuiCheckboxMixinBase
   focus(): void {
     this._focusMonitor.focusVia(this._inputElement, 'keyboard');
   }
-
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this._elementRef);
   }
-
   /**
    * Event handler for checkbox input element.
    * Toggles checked state if element is not disabled.
