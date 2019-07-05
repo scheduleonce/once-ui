@@ -196,3 +196,8 @@ $oui-checkbox-transition-duration: 90ms;
   bottom: 0;
   left: 50%;
 }
+.cdk-keyboard-focused {
+  .oui-checkbox-frame {
+    border-width: 2px;
+  }
+}
