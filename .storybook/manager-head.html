@@ -12,16 +12,8 @@
   let switchCount = 0;
   let directory = window.location.host.indexOf('github') > 0 ? '/once-ui' : '';
   function onLoad() {
-    addReadmeStyling();
     setTheme(THEMES[0]);
     addThemeSelectElement();
-  }
-
-  function addReadmeStyling() {
-    let css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = directory + '/readme.css';
-    document.getElementsByTagName('head')[0].appendChild(css);
   }
 
   function setTheme(theme) {
@@ -55,10 +47,17 @@
       return `${acc}<option value='${curr}'>${curr}</option>`;
     }, '');
     document.getElementsByClassName(
-      'css-5xz1i6 ez1mtsr0'
-    )[0].outerHTML += `<div style="padding: 8px 0px 15px 0px;">
-                            <select id="themeSelect" style="padding: 5px 0px 4px 4px;width: 100%;" onchange="themeChange()">
-                                ${themesOptionHTML}
+      'css-1tgscux'
+    )[0].outerHTML += `<span class="css-1wvalln"></span>
+    <div style="padding: 8px 0px 0px 0px;">
+                            <select id="themeSelect" style="    padding: 2px 0px 2px 0px;
+                            width: 100%;
+                            color: rgb(153, 153, 153);
+                            line-height: 12px;
+                            font-size: 13px;
+                            font-weight: bold;" 
+                            onchange="themeChange()">
+                            ${themesOptionHTML}  
                             </select>
                       </div>`;
   }
@@ -67,11 +66,9 @@
     var theme = document.getElementById('themeSelect').value;
     setTheme(theme);
   }
-
-  document.onreadystatechange = function() {
-    var state = document.readyState;
-    if (state == 'complete') {
+  window.onload = function() {
+    setTimeout(() => {
       onLoad();
-    }
+    }, 500);
   };
 </script>
