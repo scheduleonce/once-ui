@@ -1,4 +1,5 @@
-import { configure, addDecorator } from '@storybook/angular';
+import { configure, addDecorator, addParameters } from '@storybook/angular';
+import theme from './theme';
 import {
   boolean,
   number,
@@ -27,5 +28,12 @@ const req = require.context('../src/stories', true, /.stories.ts$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
+
+addParameters({
+  options: {
+    theme: theme,
+    addonPanelInRight: true
+  }
+});
 
 configure(loadStories, module);
