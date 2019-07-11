@@ -70,6 +70,11 @@ Exported as: `ouiCheckbox`
 </oui-checkbox>
 ```
 
+### Theming
+
+The focus color of a checkbox can be changed by using the `color` property. By default,
+checkbox use the theme's `'primary'` color. This can be changed to `'accent'` or `'warn'`.
+
 ## Stackblitz demo link
 
 [https://stackblitz.com/edit/oui-checkbox-component](https://stackblitz.com/edit/oui-checkbox-component)

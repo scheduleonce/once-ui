@@ -9,11 +9,15 @@ import {
   ChangeDetectorRef,
   forwardRef,
   ElementRef,
-  Attribute
+  Attribute,
+  ViewChild,
+  OnDestroy
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HasTabIndex } from '../core';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { mixinColor } from '../core';
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
 
@@ -24,6 +28,14 @@ export class OuiCheckboxChange {
   /** The new `checked` value of the checkbox. */
   checked: boolean;
 }
+
+export class OuiCheckboxBase {
+  constructor(public _elementRef: ElementRef) {}
+}
+
+export const OuiCheckboxMixinBase: typeof OuiCheckboxBase = mixinColor(
+  OuiCheckboxBase
+);
 
 /**
  * Represents the different states that require custom transitions between them.
@@ -60,7 +72,7 @@ export enum TransitionCheckState {
     '[class.oui-checkbox-label-before]': 'labelPosition == "before"'
   },
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['tabIndex'],
+  inputs: ['tabIndex', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -71,11 +83,18 @@ export enum TransitionCheckState {
     }
   ]
 })
-export class Checkbox implements ControlValueAccessor, HasTabIndex {
+export class Checkbox extends OuiCheckboxMixinBase
+  implements ControlValueAccessor, HasTabIndex, OnDestroy {
   /**
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
    * take precedence so this may be omitted.
    */
+
+  /**
+   * Implemented as part of CanColor.
+   */
+  color = 'primary';
+
   @Input('aria-label')
   ariaLabel: any = '';
 
@@ -119,6 +138,9 @@ export class Checkbox implements ControlValueAccessor, HasTabIndex {
   /** Event emitted when the checkbox's `checked` value changes. */
   @Output()
   readonly change: EventEmitter<string> = new EventEmitter<string>();
+
+  /** The native `<input type="checkbox">` element */
+  @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;
 
   /** The value attribute of the native input element */
   @Input()
@@ -170,13 +192,37 @@ export class Checkbox implements ControlValueAccessor, HasTabIndex {
     private _changeDetectorRef: ChangeDetectorRef,
     public _elementRef: ElementRef,
     private _ngZone: NgZone,
+    private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string
   ) {
+    super(_elementRef);
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+    this._focusMonitor.monitor(_elementRef, true).subscribe(focusOrigin => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+
+        Promise.resolve().then(() => {
+          this._onTouched();
+          _changeDetectorRef.markForCheck();
+        });
+      }
+    });
   }
 
   _getAriaChecked(): 'true' | 'false' {
     return this.checked ? 'true' : 'false';
+  }
+
+  /** Focuses the checkbox. */
+  focus(): void {
+    this._focusMonitor.focusVia(this._inputElement, 'keyboard');
+  }
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._elementRef);
   }
 
   /**
