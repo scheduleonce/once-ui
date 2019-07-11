@@ -1,0 +1,24 @@
+@mixin oui-checkbox-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  .oui-checkbox.cdk-keyboard-focused {
+    &.oui-primary {
+      .oui-checkbox-frame {
+        border-color: map-get($primary, default);
+      }
+    }
+
+    &.oui-accent {
+      .oui-checkbox-frame {
+        border-color: map-get($accent, default);
+      }
+    }
+
+    &.oui-warn {
+      .oui-checkbox-frame {
+        border-color: map-get($warn, default);
+      }
+    }
+  }
+}
