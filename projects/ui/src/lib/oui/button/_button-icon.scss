@@ -53,7 +53,7 @@ $oui-icon-spacing: 2px !default;
   label {
     cursor: $cursor;
   }
-  &:hover {
+  &:hover, &.cdk-keyboard-focused {
     background: $background-hover !important;
     text-decoration: underline !important;
   }

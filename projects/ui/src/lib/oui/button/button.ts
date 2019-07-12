@@ -3,7 +3,7 @@ import {
   Component,
   ElementRef,
   ViewEncapsulation,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import {
   CanDisable,
@@ -15,7 +15,7 @@ import {
 } from '../core';
 
 import { CanProgress, CanProgressCtor, mixinProgress } from './progress';
-
+import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * List of classes to add to Button instances based on host attributes to
  * style as different variants.
@@ -59,15 +59,27 @@ export const OuiButtonMixinBase: CanDisableCtor &
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['disabled', 'color', 'progress'],
+  inputs: ['disabled', 'color', 'progress', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
+
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor, CanProgress {
-  constructor(protected elementRef: ElementRef) {
+  constructor(protected elementRef: ElementRef, private focusMonitor: FocusMonitor,) {
     super(elementRef);
     this.addClass();
+    this.focusMonitor.monitor(elementRef, true).subscribe(focusOrigin => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+
+      }
+    });
   }
 
   protected addClass() {
@@ -121,8 +133,8 @@ export class OuiButton extends OuiButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
+  constructor(elementRef: ElementRef,focusMonitor: FocusMonitor) {
+    super(elementRef, focusMonitor);
   }
 
   _haltDisabledEvents(event: Event) {
