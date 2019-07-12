@@ -8,7 +8,7 @@ import {
   ChangeDetectorRef,
   ViewEncapsulation,
   AfterContentInit,
-  Attribute,
+  Attribute
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';

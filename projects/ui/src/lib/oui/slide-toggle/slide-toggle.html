@@ -3,7 +3,7 @@
     [id]="id"
     (click)="emitChange()"
     type="checkbox"
-    [attr.aria-label]="ariaLabel || null"
+    [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
     [attr.aria-checked]="_getAriaChecked()"
     [disabled]="disabled"
