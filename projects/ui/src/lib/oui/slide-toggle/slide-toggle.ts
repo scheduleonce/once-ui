@@ -36,7 +36,7 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   host: {
     class: 'oui-slide-toggle',
     '[class.oui-disabled]': 'disabled',
-    '[attr.tabindex]': 'null',
+    '[attr.tabindex]': 'null'
   },
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'tabIndex'],
@@ -88,19 +88,21 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   ) {
     super(elementRef);
     this.tabIndex = parseInt(tabIndex, 10) || 0;
-    this._focusMonitor.monitor(elementRef.nativeElement, true).subscribe(focusOrigin => {
-      if (!focusOrigin) {
-        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
-        // Angular does not expect events to be raised during change detection, so any state change
-        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
-        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
-        // telling the form control it has been touched until the next tick.
-        Promise.resolve().then(() => {
-          this._onTouched();
-          _changeDetectorRef.markForCheck();
-        });
-      }
-    });
+    this._focusMonitor
+      .monitor(elementRef.nativeElement, true)
+      .subscribe(focusOrigin => {
+        if (!focusOrigin) {
+          // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+          // Angular does not expect events to be raised during change detection, so any state change
+          // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+          // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+          // telling the form control it has been touched until the next tick.
+          Promise.resolve().then(() => {
+            this._onTouched();
+            _changeDetectorRef.markForCheck();
+          });
+        }
+      });
   }
 
   _onTouched: () => any = () => {};
