@@ -7,7 +7,8 @@ import {
   EventEmitter,
   ChangeDetectorRef,
   ViewEncapsulation,
-  AfterContentInit
+  AfterContentInit,
+  Attribute,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
@@ -34,10 +35,11 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-slide-toggle',
-    '[class.oui-disabled]': 'disabled'
+    '[class.oui-disabled]': 'disabled',
+    '[attr.tabindex]': 'null',
   },
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['disabled'],
+  inputs: ['disabled', 'tabIndex'],
   styleUrls: ['./slide-toggle.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
@@ -77,14 +79,32 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
 
   private onChange = (_: any) => {};
   private onTouched = () => {};
-
+  tabIndex: any;
   constructor(
     protected elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
+    @Attribute('tabindex') tabIndex: string
   ) {
     super(elementRef);
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
+    this._focusMonitor.monitor(elementRef.nativeElement, true).subscribe(focusOrigin => {
+      if (!focusOrigin) {
+        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+        // Angular does not expect events to be raised during change detection, so any state change
+        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+        // telling the form control it has been touched until the next tick.
+
+        Promise.resolve().then(() => {
+          this._onTouched();
+          _changeDetectorRef.markForCheck();
+        });
+      }
+    });
   }
+
+  _onTouched: () => any = () => {};
 
   ngAfterContentInit() {
     this._focusMonitor
@@ -130,8 +150,15 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
     this._changeDetectorRef.markForCheck();
   }
 
+  _getAriaChecked(): 'true' | 'false' {
+    return this.checked ? 'true' : 'false';
+  }
+
   /** Focuses the slide-toggle. */
   focus() {
     this._focusMonitor.focusVia(this.wrapper.nativeElement, 'program');
+  }
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this.wrapper.nativeElement);
   }
 }
