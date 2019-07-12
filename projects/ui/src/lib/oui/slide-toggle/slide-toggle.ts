@@ -8,12 +8,14 @@ import {
   ChangeDetectorRef,
   ViewEncapsulation,
   AfterContentInit,
-  Attribute
+  Attribute,
+  OnDestroy
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor } from '@angular/forms';
+import { Subscription } from 'rxjs';
 let nextUniqueId = 0;
 /**
  * Boilerplate for applying mixins to OuiSlideToggle.
@@ -22,7 +24,6 @@ let nextUniqueId = 0;
 export class OuiSlideToggleBase {
   constructor(public _elementRef: ElementRef) {}
 }
-
 export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   OuiSlideToggleBase
 );
@@ -36,7 +37,7 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   host: {
     class: 'oui-slide-toggle',
     '[class.oui-disabled]': 'disabled',
-    '[attr.tabindex]': 'null'
+    '[attr.tabindex]': 'disabled ? null : -1'
   },
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'tabIndex'],
@@ -45,8 +46,11 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   encapsulation: ViewEncapsulation.None
 })
 export class OuiSlideToggle extends _OuiSlideToggleMixinBase
-  implements AfterContentInit, ControlValueAccessor {
+  implements AfterContentInit, ControlValueAccessor, OnDestroy {
   private _checked = false;
+  tabIndex: any;
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  private subscribFocusMonitor: Subscription = Subscription.EMPTY;
   /** Whether the slide-toggle element is checked or not. */
   @Input()
   get checked(): boolean {
@@ -79,7 +83,6 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
 
   private onChange = (_: any) => {};
   private onTouched = () => {};
-  tabIndex: any;
   constructor(
     protected elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
@@ -88,7 +91,7 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   ) {
     super(elementRef);
     this.tabIndex = parseInt(tabIndex, 10) || 0;
-    this._focusMonitor
+    this._monitorSubscription = this._focusMonitor
       .monitor(elementRef.nativeElement, true)
       .subscribe(focusOrigin => {
         if (!focusOrigin) {
@@ -98,17 +101,13 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
           // See https://github.com/angular/angular/issues/17793. To work around this, we defer
           // telling the form control it has been touched until the next tick.
           Promise.resolve().then(() => {
-            this._onTouched();
             _changeDetectorRef.markForCheck();
           });
         }
       });
   }
-
-  _onTouched: () => any = () => {};
-
   ngAfterContentInit() {
-    this._focusMonitor
+    this.subscribFocusMonitor = this._focusMonitor
       .monitor(this._elementRef, true)
       .subscribe(focusOrigin => {
         if (!focusOrigin) {
@@ -150,15 +149,13 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
     this.disabled = isDisabled;
     this._changeDetectorRef.markForCheck();
   }
-  // set aria checked value
-  _getAriaChecked(): 'true' | 'false' {
-    return this.checked ? 'true' : 'false';
-  }
   /** Focuses the slide-toggle. */
   focus() {
     this._focusMonitor.focusVia(this.wrapper.nativeElement, 'keyboard');
   }
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this.wrapper.nativeElement);
+    this._monitorSubscription.unsubscribe();
+    this.subscribFocusMonitor.unsubscribe();
   }
 }
