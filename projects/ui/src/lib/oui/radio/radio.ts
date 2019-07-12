@@ -307,9 +307,7 @@ export class OuiRadioButtonBase {
 export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
   OuiRadioButtonBase
 );
-/**
- * A Material design radio-button. Typically placed inside of `<oui-radio-group>` elements.
- */
+
 @Component({
   selector: 'oui-radio-button',
   templateUrl: 'radio.html',
