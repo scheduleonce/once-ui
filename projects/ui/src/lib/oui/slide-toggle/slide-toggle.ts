@@ -95,7 +95,6 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
         // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
         // See https://github.com/angular/angular/issues/17793. To work around this, we defer
         // telling the form control it has been touched until the next tick.
-
         Promise.resolve().then(() => {
           this._onTouched();
           _changeDetectorRef.markForCheck();
@@ -149,14 +148,13 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
     this.disabled = isDisabled;
     this._changeDetectorRef.markForCheck();
   }
-
+  // set aria checked value
   _getAriaChecked(): 'true' | 'false' {
     return this.checked ? 'true' : 'false';
   }
-
   /** Focuses the slide-toggle. */
   focus() {
-    this._focusMonitor.focusVia(this.wrapper.nativeElement, 'program');
+    this._focusMonitor.focusVia(this.wrapper.nativeElement, 'keyboard');
   }
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this.wrapper.nativeElement);
