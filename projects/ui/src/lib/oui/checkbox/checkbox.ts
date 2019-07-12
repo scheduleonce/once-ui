@@ -18,6 +18,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { HasTabIndex } from '../core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
+import { Subscription } from 'rxjs';
 // Increasing integer for generating unique ids for checkbox components.
 let nextUniqueId = 0;
 
@@ -106,6 +107,9 @@ export class Checkbox extends OuiCheckboxMixinBase
   private _uniqueId: any = `oui-checkbox-${++nextUniqueId}`;
 
   /** A unique id for the checkbox input. If none is supplied, it will be auto-generated. */
+
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+
   @Input()
   id: string = this._uniqueId;
 
@@ -183,6 +187,7 @@ export class Checkbox extends OuiCheckboxMixinBase
   private _disabled: any = false;
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
   private _currentAnimationClass: any = '';
+
   /**
    * Implemented as part of HasTabIndex.
    */
@@ -196,20 +201,22 @@ export class Checkbox extends OuiCheckboxMixinBase
   ) {
     super(_elementRef);
     this.tabIndex = parseInt(tabIndex, 10) || 0;
-    this._focusMonitor.monitor(_elementRef, true).subscribe(focusOrigin => {
-      if (!focusOrigin) {
-        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
-        // Angular does not expect events to be raised during change detection, so any state change
-        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
-        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
-        // telling the form control it has been touched until the next tick.
+    this._monitorSubscription = this._focusMonitor
+      .monitor(_elementRef, true)
+      .subscribe(focusOrigin => {
+        if (!focusOrigin) {
+          // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+          // Angular does not expect events to be raised during change detection, so any state change
+          // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+          // See https://github.com/angular/angular/issues/17793. To work around this, we defer
+          // telling the form control it has been touched until the next tick.
 
-        Promise.resolve().then(() => {
-          this._onTouched();
-          _changeDetectorRef.markForCheck();
-        });
-      }
-    });
+          Promise.resolve().then(() => {
+            this._onTouched();
+            _changeDetectorRef.markForCheck();
+          });
+        }
+      });
   }
 
   _getAriaChecked(): 'true' | 'false' {
@@ -222,6 +229,7 @@ export class Checkbox extends OuiCheckboxMixinBase
   }
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this._elementRef);
+    this._monitorSubscription.unsubscribe();
   }
   /**
    * Event handler for checkbox input element.
