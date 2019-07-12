@@ -3,10 +3,12 @@
     [id]="id"
     (click)="emitChange()"
     type="checkbox"
-    [attr.aria-label]="ariaLabel"
+    [attr.aria-label]="ariaLabel || null"
     [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-checked]="_getAriaChecked()"
     [disabled]="disabled"
     [checked]="checked"
+    [tabIndex]="tabIndex"
   />
   <span class="oui-slider round"></span>
 </label>
