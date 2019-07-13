@@ -4,7 +4,7 @@ import { OuiRadioModule } from '../../../projects/ui/src/lib/oui';
 import markdownText from '../../../projects/ui/src/lib/oui/radio/README.md';
 
 import { select, boolean } from '@storybook/addon-knobs';
-import { LABELPOSITION } from '../const';
+import { LABELPOSITION, COLORS } from '../const';
 storiesOf('Radio Button', module).add(
   'Regular',
   () => ({
@@ -14,10 +14,11 @@ storiesOf('Radio Button', module).add(
       declarations: []
     },
     template: `<oui-radio-group (change)="changed($event)" [disabled]="disabled" [labelPosition]="position">
-    <oui-radio-button checked value="Winter"> Winter </oui-radio-button>
-    <oui-radio-button value="Summer"> Summer </oui-radio-button>
+    <oui-radio-button checked value="Winter" [color]="color"> Winter </oui-radio-button>
+    <oui-radio-button value="Summer" [color]="color"> Summer </oui-radio-button>
   </oui-radio-group>`,
     props: {
+      color: select('color', COLORS, COLORS[0]),
       changed: action('change'),
       position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
       disabled: boolean('disabled', false)
