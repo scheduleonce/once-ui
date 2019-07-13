@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import { OuiCheckboxModule } from '../../../projects/ui/src/lib/oui';
 import { select, boolean } from '@storybook/addon-knobs';
 import markdownText from '../../../projects/ui/src/lib/oui/checkbox/README.md';
-import { LABELPOSITION } from '../const';
+import { LABELPOSITION, COLORS } from '../const';
 
 storiesOf('Checkbox', module).add(
   'Regular',
@@ -18,10 +18,12 @@ storiesOf('Checkbox', module).add(
                 [(ngModel)]="checked"
                 [labelPosition]="position"
                 (change)="changed($event)"
-                [disabled]="disabled">
+                [disabled]="disabled"
+                [color]="color">
                 I'm a checkbox
               </oui-checkbox>`,
     props: {
+      color: select('color', COLORS, COLORS[0]),
       changed: action('change'),
       position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
       disabled: boolean('disabled', false),
