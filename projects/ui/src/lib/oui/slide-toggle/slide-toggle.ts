@@ -50,7 +50,7 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   private _checked = false;
   tabIndex: any;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  private subscribFocusMonitor: Subscription = Subscription.EMPTY;
+  private _focusMonitorSubscription: Subscription = Subscription.EMPTY;
   /** Whether the slide-toggle element is checked or not. */
   @Input()
   get checked(): boolean {
@@ -107,7 +107,7 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
       });
   }
   ngAfterContentInit() {
-    this.subscribFocusMonitor = this._focusMonitor
+    this._focusMonitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
       .subscribe(focusOrigin => {
         if (!focusOrigin) {
@@ -151,11 +151,11 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   }
   /** Focuses the slide-toggle. */
   focus() {
-    this._focusMonitor.focusVia(this.wrapper.nativeElement, 'keyboard');
+    this._focusMonitor.focusVia(this.wrapper.nativeElement, 'program');
   }
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this.wrapper.nativeElement);
     this._monitorSubscription.unsubscribe();
-    this.subscribFocusMonitor.unsubscribe();
+    this._focusMonitorSubscription.unsubscribe();
   }
 }
