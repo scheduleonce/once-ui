@@ -151,7 +151,7 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   }
   /** Focuses the slide-toggle. */
   focus() {
-    this._focusMonitor.focusVia(this.wrapper.nativeElement, 'program');
+    this._focusMonitor.focusVia(this.wrapper.nativeElement, 'keyboard');
   }
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this.wrapper.nativeElement);
