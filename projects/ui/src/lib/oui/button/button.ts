@@ -4,6 +4,7 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
+  Input
 } from '@angular/core';
 import {
   CanDisable,
@@ -63,23 +64,15 @@ export const OuiButtonMixinBase: CanDisableCtor &
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-
-
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor, CanProgress {
-  constructor(protected elementRef: ElementRef, private focusMonitor: FocusMonitor,) {
+  constructor(
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor
+  ) {
     super(elementRef);
     this.addClass();
-    this.focusMonitor.monitor(elementRef, true).subscribe(focusOrigin => {
-      if (!focusOrigin) {
-        // When a focused element becomes disabled, the browser *immediately* fires a blur event.
-        // Angular does not expect events to be raised during change detection, so any state change
-        // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
-        // See https://github.com/angular/angular/issues/17793. To work around this, we defer
-        // telling the form control it has been touched until the next tick.
-
-      }
-    });
+    this._focusMonitor.monitor(this._elementRef, true);
   }
 
   protected addClass() {
@@ -93,13 +86,17 @@ export class OuiButton extends OuiButtonMixinBase
     }
   }
 
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._elementRef);
+  }
+
   /** Focuses the button. */
   focus(): void {
     this.getHostElement().focus();
   }
 
   getHostElement() {
-    return this.elementRef.nativeElement;
+    return this._elementRef.nativeElement;
   }
   /** Gets whether the button has one of the given attributes. */
   hasHostAttributes(...attributes: string[]) {
@@ -107,8 +104,6 @@ export class OuiButton extends OuiButtonMixinBase
       this.getHostElement().hasAttribute(attribute)
     );
   }
-
-  ngOnDestroy() {}
 }
 
 /**
@@ -121,6 +116,7 @@ export class OuiButton extends OuiButtonMixinBase
   exportAs: 'ouiButton, ouiAnchor',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
+    '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
     '(click)': '_haltDisabledEvents($event)'
@@ -133,7 +129,9 @@ export class OuiButton extends OuiButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
-  constructor(elementRef: ElementRef,focusMonitor: FocusMonitor) {
+  @Input() tabIndex: number;
+
+  constructor(elementRef: ElementRef, focusMonitor: FocusMonitor) {
     super(elementRef, focusMonitor);
   }
 
