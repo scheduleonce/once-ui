@@ -102,9 +102,14 @@ and `ReactiveFormsModule`.
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-radio-button](https://stackblitz.com/edit/oui-radio-button)
+[https://stackblitz.com/edit/oui-radio-button-component](https://stackblitz.com/edit/oui-radio-button-component)
 
 You can click here and can change code to try and test different scenarios.
+
+### Theming
+
+The focus color of a radio button can be changed by using the `color` property. By default,
+radio button use the theme's `'primary'` color. This can be changed to `'accent'` or `'warn'`.
 
 ### Accessibility
 
