@@ -96,3 +96,9 @@ _Note-`oui-icon-button` has a hover effect. It is basically box surrounding the 
 </button>
 ...menu code
 ```
+
+## Accessibility
+
+We use native `<button>` and `<a>` elements to ensure an accessible experience by default. The `<button>` element should be used for any interaction that performs an action on the current page. The `<a>` element should be used for any interaction that navigates to another view.
+
+Buttons or links containing only icons (such as `oui-icon-button`) should be given a meaningful label via `aria-label` or `aria-labelledby`.
