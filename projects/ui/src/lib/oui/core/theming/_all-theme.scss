@@ -10,6 +10,7 @@
 @import '../../select/select-theme';
 @import '../../datepicker/datepicker-theme';
 @import '../../checkbox/checkbox-theme';
+@import '../../radio/radio-theme';
 @import '../cdk/overlay/overlay-prebuilt'; // Loading overlay
 // Create a theme.
 @mixin once-ui-theme($theme) {
@@ -23,5 +24,6 @@
   @include oui-progress-bar-theme($theme);
   @include oui-select-theme($theme);
   @include oui-checkbox-theme($theme);
+  @include oui-radio-theme($theme);
   @include oui-datepicker-theme($theme);
 }
