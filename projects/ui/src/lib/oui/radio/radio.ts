@@ -21,9 +21,11 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-
+import { mixinColor } from '../core';
+import { Subscription } from 'rxjs';
 // Increasing integer for generating unique ids for radio components.
 let nextUniqueId = 0;
 
@@ -301,9 +303,11 @@ export class OuiRadioButtonBase {
 
   constructor(public _elementRef: ElementRef) {}
 }
-/**
- * A Material design radio-button. Typically placed inside of `<oui-radio-group>` elements.
- */
+
+export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
+  OuiRadioButtonBase
+);
+
 @Component({
   selector: 'oui-radio-button',
   templateUrl: 'radio.html',
@@ -326,9 +330,14 @@ export class OuiRadioButtonBase {
   },
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OuiRadioButton extends OuiRadioButtonBase
+export class OuiRadioButton extends OuiRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy {
   private _uniqueId = `oui-radio-${++nextUniqueId}`;
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  /**
+   * Implemented as part of CanColor.
+   */
+  @Input() color = 'primary';
 
   /** The unique ID for the radio button. */
   @Input() id: string = this._uniqueId;
@@ -529,7 +538,7 @@ export class OuiRadioButton extends OuiRadioButtonBase
   }
 
   ngAfterViewInit() {
-    this._focusMonitor
+    this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
       .subscribe(focusOrigin => {
         if (!focusOrigin && this.radioGroup) {
@@ -541,6 +550,7 @@ export class OuiRadioButton extends OuiRadioButtonBase
   ngOnDestroy() {
     this._focusMonitor.stopMonitoring(this._elementRef);
     this._removeUniqueSelectionListener();
+    this._monitorSubscription.unsubscribe();
   }
 
   /** Dispatch change event with current value. */

@@ -5,8 +5,10 @@
     type="checkbox"
     [attr.aria-label]="ariaLabel"
     [attr.aria-labelledby]="ariaLabelledby"
+    [attr.aria-checked]="checked.toString()"
     [disabled]="disabled"
     [checked]="checked"
+    [tabIndex]="tabIndex"
   />
   <span class="oui-slider round"></span>
 </label>
