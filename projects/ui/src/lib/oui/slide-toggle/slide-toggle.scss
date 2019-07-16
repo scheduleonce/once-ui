@@ -11,7 +11,7 @@ $grey: #c8c8c8;
   display: inline-block;
   width: $width;
   height: $height;
-  &:focus { 
+  &:focus {
     outline: none;
   }
   input {
@@ -30,7 +30,7 @@ $grey: #c8c8c8;
     right: 0;
     bottom: 0;
     transition: 0.4s;
-    &:focus { 
+    &:focus {
       outline: none;
     }
   }
@@ -73,7 +73,7 @@ $grey: #c8c8c8;
   &.oui-disabled .oui-slider {
     cursor: default;
   }
-  &:focus { 
+  &:focus {
     outline: none;
   }
 }
