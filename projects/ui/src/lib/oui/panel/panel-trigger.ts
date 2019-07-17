@@ -58,7 +58,8 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'panelOpen || null',
     '(mouseenter)': '_handleMouseEnter($event)',
-    '(mouseleave)': '_handelMouseLeave($event)'
+    '(mouseleave)': '_handelMouseLeave($event)',
+    '(document:keypress)': 'handleKeyboardEvent($event)'
   },
   exportAs: 'ouiPanelTrigger'
 })
@@ -72,6 +73,13 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _mouseLeave: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _scrollStrategy: () => ScrollStrategy;
+
+
+  handleKeyboardEvent(event: KeyboardEvent): void {
+    if (event.keyCode === 32) {
+      this.openPanel()
+    }
+}
 
   /** References the panel instance that the trigger is associated with. */
   @Input('ouiPanelTriggerFor')

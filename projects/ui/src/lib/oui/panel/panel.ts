@@ -10,7 +10,11 @@ import {
   OnInit,
   ContentChild,
   Output,
-  EventEmitter
+  EventEmitter,
+  ElementRef,
+  NgZone,
+  ChangeDetectorRef,
+  Attribute
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
@@ -20,6 +24,9 @@ import {
 import { OuiPanelOverlay } from './panel-overlay';
 import { OuiPanelContent } from './panel-content';
 import { Subject, Observable } from 'rxjs';
+
+import { Subscription } from 'rxjs';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Default `oui-panel` options that can be overridden. */
 export interface OuiPanelDefaultOptions {
@@ -147,10 +154,37 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
 @Component({
   selector: 'oui-panel-icon',
-  template: '<div class="oui-panel-icon"></div>',
+  template: '<div class="oui-panel-icon" [tabIndex]="tabIndex"></div>',
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiPanelIcon'
 })
-export class OuiPanelIcon {}
+export class OuiPanelIcon {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  tabIndex: any;
+  constructor(
+    private _elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _ngZone: NgZone,
+    @Attribute('tabindex') tabIndex: string
+  ) {
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
+    this._monitorSubscription = this._focusMonitor
+    .monitor(this._elementRef, true)
+      .subscribe(() =>
+        this._ngZone.run(() => {
+          this._changeDetectorRef.markForCheck();
+        })
+      ); 
+  }
+
+  focus() {
+    this._focusMonitor.focusVia(this._elementRef.nativeElement, 'keyboard');
+  }
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+    this._monitorSubscription.unsubscribe();
+  }
+}
