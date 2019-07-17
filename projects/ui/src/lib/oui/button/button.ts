@@ -4,7 +4,9 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
-  Input
+  Input,
+  ChangeDetectorRef,
+  NgZone
 } from '@angular/core';
 import {
   CanDisable,
@@ -16,7 +18,8 @@ import {
 } from '../core';
 
 import { CanProgress, CanProgressCtor, mixinProgress } from './progress';
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import { Subscription } from 'rxjs';
 /**
  * List of classes to add to Button instances based on host attributes to
  * style as different variants.
@@ -66,13 +69,28 @@ export const OuiButtonMixinBase: CanDisableCtor &
 })
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor, CanProgress {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  elementOrigin = this.formatOrigin(null);
   constructor(
     protected elementRef: ElementRef,
-    private _focusMonitor: FocusMonitor
+    private _focusMonitor: FocusMonitor,
+    private _cdr: ChangeDetectorRef,
+    private _ngZone: NgZone
   ) {
     super(elementRef);
     this.addClass();
-    this._focusMonitor.monitor(this._elementRef, true);
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(origin =>
+        this._ngZone.run(() => {
+          this.elementOrigin = this.formatOrigin(origin);
+          this._cdr.markForCheck();
+        })
+      );
+  }
+
+  formatOrigin(origin: FocusOrigin): string {
+    return origin ? origin + ' focused' : 'blurred';
   }
 
   protected addClass() {
@@ -87,7 +105,8 @@ export class OuiButton extends OuiButtonMixinBase
   }
 
   ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._elementRef);
+    this._focusMonitor.stopMonitoring(this.elementRef);
+    this._monitorSubscription.unsubscribe();
   }
 
   /** Focuses the button. */
@@ -131,8 +150,13 @@ export class OuiButton extends OuiButtonMixinBase
 export class OuiAnchor extends OuiButton {
   @Input() tabIndex: number;
 
-  constructor(elementRef: ElementRef, focusMonitor: FocusMonitor) {
-    super(elementRef, focusMonitor);
+  constructor(
+    elementRef: ElementRef,
+    focusMonitor: FocusMonitor,
+    _cdr: ChangeDetectorRef,
+    _ngZone: NgZone
+  ) {
+    super(elementRef, focusMonitor, _cdr, _ngZone);
   }
 
   _haltDisabledEvents(event: Event) {
