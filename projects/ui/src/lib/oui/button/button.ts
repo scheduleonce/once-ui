@@ -4,7 +4,6 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
-  Input,
   ChangeDetectorRef,
   NgZone
 } from '@angular/core';
@@ -109,7 +108,7 @@ export class OuiButton extends OuiButtonMixinBase
   }
 
   getHostElement() {
-    return this._elementRef.nativeElement;
+    return this.elementRef.nativeElement;
   }
   /** Gets whether the button has one of the given attributes. */
   hasHostAttributes(...attributes: string[]) {
@@ -142,8 +141,6 @@ export class OuiButton extends OuiButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
-  @Input() tabIndex: number;
-
   constructor(
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
