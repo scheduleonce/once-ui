@@ -109,7 +109,7 @@ export class OuiButton extends OuiButtonMixinBase
   }
 
   getHostElement() {
-    return this._elementRef.nativeElement;
+    return this.elementRef.nativeElement;
   }
   /** Gets whether the button has one of the given attributes. */
   hasHostAttributes(...attributes: string[]) {
