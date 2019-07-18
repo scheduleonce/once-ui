@@ -4,7 +4,6 @@ import {
   ElementRef,
   ViewEncapsulation,
   OnDestroy,
-  Input,
   ChangeDetectorRef,
   NgZone
 } from '@angular/core';
@@ -142,8 +141,6 @@ export class OuiButton extends OuiButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
-  @Input() tabIndex: number;
-
   constructor(
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
