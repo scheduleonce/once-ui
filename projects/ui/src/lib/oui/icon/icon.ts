@@ -11,6 +11,7 @@ import { CanColor, CanColorCtor, mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OuiIconRegistry } from './icon-registery';
 import { take } from 'rxjs/operators';
+import { TitleCasePipe } from '@angular/common';
 
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
@@ -44,7 +45,8 @@ export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
   host: {
     role: 'img',
     class: 'oui-icon',
-    '[class.oui-icon-inline]': 'inline'
+    '[class.oui-icon-inline]': 'inline',
+    '[attr.aria-label]': 'transformName()'
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -79,6 +81,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   constructor(
     private _iconRegistry: OuiIconRegistry,
     public _elementRef: ElementRef,
+    private titlecasePipe: TitleCasePipe,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
     super(_elementRef);
@@ -89,6 +92,9 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
     }
   }
 
+  transformName() {
+    return (this.svgIcon = this.titlecasePipe.transform(this.svgIcon));
+  }
   ngOnInit() {
     if (this.svgIcon) {
       this._iconRegistry
