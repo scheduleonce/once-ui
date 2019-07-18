@@ -11,6 +11,9 @@ $grey: #c8c8c8;
   display: inline-block;
   width: $width;
   height: $height;
+  &:focus {
+    outline: none;
+  }
   input {
     opacity: 0;
     width: 0;
@@ -27,6 +30,9 @@ $grey: #c8c8c8;
     right: 0;
     bottom: 0;
     transition: 0.4s;
+    &:focus {
+      outline: none;
+    }
   }
   input + .oui-slider:before {
     content: 'OFF';
@@ -42,7 +48,6 @@ $grey: #c8c8c8;
     height: 25px;
     line-height: 25px;
   }
-
   input:checked + .oui-slider:before {
     content: 'ON';
     color: #ffffff;
@@ -66,5 +71,8 @@ $grey: #c8c8c8;
   }
   &.oui-disabled .oui-slider {
     cursor: default;
+  }
+  &:focus {
+    outline: none;
   }
 }
