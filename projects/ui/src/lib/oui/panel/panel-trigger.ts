@@ -77,7 +77,12 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.keyCode === 32) {
-      this.openPanel()
+      console.log(document.activeElement.parentElement.classList.contains('cdk-keyboard-focused'));
+      console.log(document.activeElement.parentElement.classList);
+      let checkclass = document.activeElement.parentElement.classList.contains('cdk-keyboard-focused')
+      if(checkclass){
+        this.togglePanel();
+      }
     }
 }
 

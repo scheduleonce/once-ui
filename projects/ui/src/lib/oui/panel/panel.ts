@@ -150,6 +150,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   public _handleMouseEnter(event: MouseEvent) {
     this._mouseEnter.next(event);
   }
+  
 }
 
 @Component({
@@ -172,10 +173,11 @@ export class OuiPanelIcon {
   ) {
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
-    .monitor(this._elementRef, true)
+    .monitor(this._elementRef.nativeElement, true)
       .subscribe(() =>
         this._ngZone.run(() => {
           this._changeDetectorRef.markForCheck();
+          this.focus();
         })
       ); 
   }
