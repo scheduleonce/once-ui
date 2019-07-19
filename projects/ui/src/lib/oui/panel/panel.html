@@ -5,12 +5,10 @@
     (mouseleave)="_handleMouseLeave($event)"
     (mouseenter)="_handleMouseEnter($event)"
     role="dialog"
-    cdkTrapFocus
-    tabindex="-1"
   >
     <div class="oui-panel-content" [ngStyle]="{'width': width + 'px'}">
-      <div class="close-panel"></div>
       <ng-content></ng-content>
+      <button class="close-panel" aria-label="close panel"></button>
     </div>
   </div>
 </ng-template>

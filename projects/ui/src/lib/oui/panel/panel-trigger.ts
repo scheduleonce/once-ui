@@ -8,7 +8,7 @@ import {
   EventEmitter,
   ElementRef,
   ViewContainerRef,
-  Inject
+  Inject,
 } from '@angular/core';
 import {
   ScrollStrategy,
@@ -77,11 +77,16 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   handleKeyboardEvent(event: KeyboardEvent): void {
     if (event.keyCode === 32) {
-      console.log(document.activeElement.parentElement.classList.contains('cdk-keyboard-focused'));
-      console.log(document.activeElement.parentElement.classList);
-      let checkclass = document.activeElement.parentElement.classList.contains('cdk-keyboard-focused')
+      //console.log(this.ouiIcon.nativeElement.classList);
+      // console.log(document.activeElement.parentElement.classList.contains('cdk-keyboard-focused'));
+      // console.log(document.activeElement.parentElement.classList);
+      let checkclass = document.activeElement.parentElement.classList.contains('cdk-keyboard-focused');
+      let checkCloseFocus = document.activeElement.classList.contains('close-panel');
       if(checkclass){
         this.togglePanel();
+      }
+      else if(checkCloseFocus){
+        this.closePanel();
       }
     }
 }
@@ -124,7 +129,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   ) {
     this._scrollStrategy = scrollStrategy;
   }
-
   ngAfterContentInit() {}
 
   /** Whether the panel is open. */

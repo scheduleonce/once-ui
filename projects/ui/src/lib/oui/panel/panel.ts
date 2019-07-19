@@ -155,7 +155,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
 @Component({
   selector: 'oui-panel-icon',
-  template: '<div class="oui-panel-icon" [tabIndex]="tabIndex"></div>',
+  template: '<div class="oui-panel-icon" [tabIndex]="tabIndex" #ouiIcon id="ouiIcon"></div>',
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
