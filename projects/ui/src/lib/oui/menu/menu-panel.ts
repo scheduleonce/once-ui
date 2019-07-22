@@ -18,6 +18,7 @@ export const OUI_MENU_PANEL = new InjectionToken<OuiMenuPanel>(
 export interface OuiMenuPanel<T = any> {
   xPosition: MenuPositionX;
   yPosition: MenuPositionY;
+  overlapTrigger: boolean;
   templateRef: TemplateRef<any>;
   close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
   parentMenu?: OuiMenuPanel | undefined;
@@ -26,5 +27,7 @@ export interface OuiMenuPanel<T = any> {
   setPositionClasses?: (x: MenuPositionX, y: MenuPositionY) => void;
   lazyContent?: OuiMenuContent;
   addItem?: (item: T) => void;
+  hasBackdrop?: boolean;
+  backdropClass?: string;
   removeItem?: (item: T) => void;
 }
