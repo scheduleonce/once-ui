@@ -1,0 +1,24 @@
+@mixin oui-radio-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  .oui-radio-button.cdk-keyboard-focused {
+    &.oui-primary {
+      .oui-radio-outer-circle {
+        border-color: map-get($primary, default);
+      }
+    }
+
+    &.oui-accent {
+      .oui-radio-outer-circle {
+        border-color: map-get($accent, default);
+      }
+    }
+
+    &.oui-warn {
+      .oui-radio-outer-circle {
+        border-color: map-get($warn, default);
+      }
+    }
+  }
+}
