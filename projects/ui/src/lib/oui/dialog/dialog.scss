@@ -1,6 +1,6 @@
 @import 'dialog-theme';
 .cdk-overlay-backdrop {
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.8) !important;
 }
 .cdk-overlay-pane {
   display: block;
