@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, TitleCasePipe } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Icon } from './icon';
 import { OuiIconRegistry } from './icon-registery';
@@ -8,7 +8,7 @@ import { OuiIconRegistry } from './icon-registery';
   imports: [CommonModule, HttpClientModule],
   exports: [Icon],
   declarations: [Icon],
-  providers: [OuiIconRegistry],
+  providers: [OuiIconRegistry, TitleCasePipe],
   entryComponents: [Icon]
 })
 export class OuiIconModule {}
