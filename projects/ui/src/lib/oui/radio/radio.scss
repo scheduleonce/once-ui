@@ -34,9 +34,6 @@ $disable-circle-color: #9b9b9b;
 .oui-radio-outer-circle {
   border-color: #9c9c9c;
 }
-.oui-radio-button.oui-accent.oui-radio-checked .oui-radio-outer-circle {
-  border-color: $circle-color;
-}
 .oui-radio-inner-circle {
   border-radius: 50%;
   box-sizing: border-box;
@@ -93,4 +90,9 @@ $disable-circle-color: #9b9b9b;
   order: -1;
   padding-left: 0;
   padding-right: 8px;
+}
+.cdk-keyboard-focused {
+  .oui-radio-outer-circle {
+    border-width: 2px;
+  }
 }
