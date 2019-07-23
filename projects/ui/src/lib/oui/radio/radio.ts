@@ -21,6 +21,7 @@ import {
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
+
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { mixinColor } from '../core';
@@ -307,9 +308,6 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
   OuiRadioButtonBase
 );
 
-/**
- * A Material design radio-button. Typically placed inside of `<oui-radio-group>` elements.
- */
 @Component({
   selector: 'oui-radio-button',
   templateUrl: 'radio.html',

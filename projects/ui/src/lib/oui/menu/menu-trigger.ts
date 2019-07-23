@@ -219,7 +219,10 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     this._setPosition(
       overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy
     );
-    overlayConfig.hasBackdrop = !this.triggersSubmenu();
+    overlayConfig.hasBackdrop =
+      this.menu.hasBackdrop == null
+        ? !this.triggersSubmenu()
+        : this.menu.hasBackdrop;
     overlayRef.attach(this._getPortal());
 
     if (this.menu.lazyContent) {
@@ -356,7 +359,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         .flexibleConnectedTo(this._element)
         .withLockedPosition()
         .withTransformOriginOn('.oui-menu-panel'),
-      backdropClass: 'cdk-overlay-transparent-backdrop',
+      backdropClass:
+        this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this._scrollStrategy(),
       direction: 'ltr'
     });
@@ -398,7 +402,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     let [overlayX, overlayFallbackX] = [originX, originFallbackX];
     let offsetY = 0;
     let offsetX = 0;
-    const overlapTrigger = false;
 
     if (this.triggersSubmenu()) {
       // When the menu is a sub-menu, it should always align itself
@@ -415,7 +418,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayX === 'start'
           ? MENU_PANEL_LEFT_PADDING
           : -MENU_PANEL_LEFT_PADDING;
-    } else if (!overlapTrigger) {
+    } else if (!this.menu.overlapTrigger) {
       originY = overlayY === 'top' ? 'bottom' : 'top';
       originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
     }
