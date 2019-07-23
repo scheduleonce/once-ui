@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.12] - 2019-07-23
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-11569`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11569) Accessibility for button
+- [`ONCEHUB-11575`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11575) Accessibility for slide toggle
+- [`ONCEHUB-11570`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11570) Accessibility for checkbox
+- [`ONCEHUB-14454`](https://scheduleonce.atlassian.net/browse/ONCEHUB-14454) Changes not saved pop-up issue fixes
+- [`ONCEHUB-15829`](https://scheduleonce.atlassian.net/browse/ONCEHUB-15829) Oui Menu provide input support of hasBackdrop
+
+## [1.11.11] - 2019-07-10
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-13971`](https://scheduleonce.atlassian.net/browse/ONCEHUB-13971) Radio button issue fixes
+
 ## [1.11.10] - 2019-06-24
 
 ### Added
