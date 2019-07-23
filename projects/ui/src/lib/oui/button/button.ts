@@ -3,7 +3,9 @@ import {
   Component,
   ElementRef,
   ViewEncapsulation,
-  OnDestroy
+  OnDestroy,
+  ChangeDetectorRef,
+  NgZone
 } from '@angular/core';
 import {
   CanDisable,
@@ -15,7 +17,8 @@ import {
 } from '../core';
 
 import { CanProgress, CanProgressCtor, mixinProgress } from './progress';
-
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Subscription } from 'rxjs';
 /**
  * List of classes to add to Button instances based on host attributes to
  * style as different variants.
@@ -59,15 +62,28 @@ export const OuiButtonMixinBase: CanDisableCtor &
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
   // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['disabled', 'color', 'progress'],
+  inputs: ['disabled', 'color', 'progress', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor, CanProgress {
-  constructor(protected elementRef: ElementRef) {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  constructor(
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _cdr: ChangeDetectorRef,
+    private _ngZone: NgZone
+  ) {
     super(elementRef);
     this.addClass();
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() =>
+        this._ngZone.run(() => {
+          this._cdr.markForCheck();
+        })
+      );
   }
 
   protected addClass() {
@@ -79,6 +95,11 @@ export class OuiButton extends OuiButtonMixinBase
     if (!this.color) {
       this.color = DEFAULT_COLOR;
     }
+  }
+
+  ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this.elementRef);
+    this._monitorSubscription.unsubscribe();
   }
 
   /** Focuses the button. */
@@ -95,8 +116,6 @@ export class OuiButton extends OuiButtonMixinBase
       this.getHostElement().hasAttribute(attribute)
     );
   }
-
-  ngOnDestroy() {}
 }
 
 /**
@@ -109,6 +128,7 @@ export class OuiButton extends OuiButtonMixinBase
   exportAs: 'ouiButton, ouiAnchor',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
+    '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
     '(click)': '_haltDisabledEvents($event)'
@@ -121,8 +141,13 @@ export class OuiButton extends OuiButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
-  constructor(elementRef: ElementRef) {
-    super(elementRef);
+  constructor(
+    elementRef: ElementRef,
+    focusMonitor: FocusMonitor,
+    _cdr: ChangeDetectorRef,
+    _ngZone: NgZone
+  ) {
+    super(elementRef, focusMonitor, _cdr, _ngZone);
   }
 
   _haltDisabledEvents(event: Event) {

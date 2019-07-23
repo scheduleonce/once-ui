@@ -166,7 +166,7 @@ storiesOf('Form Field/Autocomplete', module)
           ReactiveFormsModule
         ],
         schemas: [],
-        declarations: []
+        declarations: [OuiAutocompleteStorybook]
       },
       component: OuiAutocompleteStorybook,
       props: {
@@ -184,7 +184,6 @@ storiesOf('Form Field/Autocomplete', module)
   .add(
     'With groups',
     () => ({
-      setOptions: setOptions({ downPanelInRight: true }),
       moduleMetadata: {
         imports: [
           OuiFormFieldModule,
@@ -194,7 +193,7 @@ storiesOf('Form Field/Autocomplete', module)
           ReactiveFormsModule
         ],
         schemas: [],
-        declarations: []
+        declarations: [OuiAutocompleteGroupStorybook]
       },
       component: OuiAutocompleteGroupStorybook,
       props: {

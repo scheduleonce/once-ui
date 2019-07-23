@@ -12,16 +12,8 @@
   let switchCount = 0;
   let directory = window.location.host.indexOf('github') > 0 ? '/once-ui' : '';
   function onLoad() {
-    addReadmeStyling();
     setTheme(THEMES[0]);
     addThemeSelectElement();
-  }
-
-  function addReadmeStyling() {
-    let css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = directory + '/readme.css';
-    document.getElementsByTagName('head')[0].appendChild(css);
   }
 
   function setTheme(theme) {
@@ -55,10 +47,12 @@
       return `${acc}<option value='${curr}'>${curr}</option>`;
     }, '');
     document.getElementsByClassName(
-      'css-5xz1i6 ez1mtsr0'
-    )[0].outerHTML += `<div style="padding: 8px 0px 15px 0px;">
-                            <select id="themeSelect" style="padding: 5px 0px 4px 4px;width: 100%;" onchange="themeChange()">
-                                ${themesOptionHTML}
+      'css-1tgscux'
+    )[0].outerHTML += `<span class="css-1wvalln"></span>
+    <div style="padding: 4px 0px 0px 0px;">
+                            <select id="themeSelect" style="-webkit-appearance:none;-moz-appearance:none;appearance:none;border:0;box-sizing:inherit;display:block;margin:0;background:white;padding:.42em 1em;font-size:13px;position:relative;-webkit-transition:all 200ms ease-out;transition:all 200ms ease-out;color:#333333;box-shadow:rgba(0,0,0,.1) 0 0 0 1px inset;border-radius:4px;line-height:20px;-webkit-flex:1;-ms-flex:1;flex:1;height:32px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding-right:20px;-webkit-appearance:menulist;-moz-appearance:menulist;appearance:menulist;"
+                            onchange="themeChange()">
+                            ${themesOptionHTML}  
                             </select>
                       </div>`;
   }
@@ -67,11 +61,9 @@
     var theme = document.getElementById('themeSelect').value;
     setTheme(theme);
   }
-
-  document.onreadystatechange = function() {
-    var state = document.readyState;
-    if (state == 'complete') {
+  window.onload = function() {
+    setTimeout(() => {
       onLoad();
-    }
+    }, 500);
   };
 </script>
