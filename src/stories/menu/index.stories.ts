@@ -28,6 +28,7 @@ import markdownText from '../../../projects/ui/src/lib/oui/menu/README.md';
     </div>
     <oui-menu
       #afterAboveMenu
+      [hasBackdrop]="hasBackdrop"
       [xPosition]="xPosition"
       (closed)="closed($event)"
       [yPosition]="yPosition"
@@ -51,6 +52,7 @@ export class OuiMenuStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
   @Input() vertical: boolean = false;
+  @Input() hasBackdrop: boolean = true;
 
   @Output()
   readonly _closed: EventEmitter<string> = new EventEmitter<string>();
@@ -96,6 +98,7 @@ export class OuiMenuStorybook {
     </div>
     <oui-menu
       [xPosition]="xPosition"
+      [hasBackdrop]="hasBackdrop"
       [yPosition]="yPosition"
       (closed)="closed($event)"
       #rootMenu="ouiMenu"
@@ -117,6 +120,7 @@ export class OuiNestedMenuStorybook {
   @Input() xPosition: string = 'before';
   @Input() yPosition: string = 'above';
   @Input() vertical: boolean = false;
+  @Input() hasBackdrop: boolean = true;
   @Output()
   readonly _closed: EventEmitter<string> = new EventEmitter<string>();
   @Output()
@@ -159,6 +163,7 @@ storiesOf('Menu', module)
           [xPosition]="xPosition"
           [yPosition]="yPosition"
           [vertical]="vertical"
+          [hasBackdrop]="hasBackdrop"
           (_opened)="menuOpened($event)"
           (_closed)="menuClosed($event)"
           >
@@ -168,6 +173,7 @@ storiesOf('Menu', module)
         yPosition: select('yPosition', ['above', 'below'], 'above'),
         vertical: boolean('vertical', false),
         menuOpened: action('menuOpened'),
+        hasBackdrop: boolean('hasBackdrop', true),
         menuClosed: action('menuClosed')
       }
     }),
@@ -184,6 +190,7 @@ storiesOf('Menu', module)
       template: `<oui-nested-menu-storybook
   [xPosition]="xPosition"
   [yPosition]="yPosition"
+  [hasBackdrop]="hasBackdrop"
   (_opened)="menuOpened($event)"
   (_closed)="menuClosed($event)"
   [vertical]="vertical">
@@ -192,6 +199,7 @@ storiesOf('Menu', module)
         xPosition: select('xPosition', ['before', 'after'], 'before'),
         yPosition: select('yPosition', ['above', 'below'], 'above'),
         vertical: boolean('vertical', false),
+        hasBackdrop: boolean('hasBackdrop', true),
         menuOpened: action('menuOpened'),
         menuClosed: action('menuClosed')
       }
