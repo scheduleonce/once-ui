@@ -46,7 +46,7 @@ export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
     role: 'img',
     class: 'oui-icon',
     '[class.oui-icon-inline]': 'inline',
-    '[attr.aria-label]': 'this.titlecasePipe.transform(this.svgIcon)'
+    '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)'
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -81,7 +81,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   constructor(
     private _iconRegistry: OuiIconRegistry,
     public _elementRef: ElementRef,
-    public titlecasePipe: TitleCasePipe,
+    public titleCasePipe: TitleCasePipe,
     @Attribute('aria-hidden') ariaHidden: string
   ) {
     super(_elementRef);
