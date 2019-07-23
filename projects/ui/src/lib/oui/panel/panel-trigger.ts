@@ -59,7 +59,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     '[attr.aria-expanded]': 'panelOpen || null',
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handelMouseLeave($event)',
-    '(document:keypress)': 'handleKeyboardEvent($event)'
+    '(document:keydown)': 'handleKeyboardEvent($event)'
   },
   exportAs: 'ouiPanelTrigger'
 })
@@ -76,18 +76,20 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
 
   handleKeyboardEvent(event: KeyboardEvent): void {
-    if (event.keyCode === 32) {
-      //console.log(this.ouiIcon.nativeElement.classList);
-      // console.log(document.activeElement.parentElement.classList.contains('cdk-keyboard-focused'));
-      // console.log(document.activeElement.parentElement.classList);
-      let checkclass = document.activeElement.parentElement.classList.contains('cdk-keyboard-focused');
-      let checkCloseFocus = document.activeElement.classList.contains('close-panel');
+    const SPACE_KEYCODE = 32;
+    const ESCAPE_KEYCODE = 27;
+    let checkclass = document.activeElement.parentElement.classList.contains('cdk-keyboard-focused');
+    let checkCloseFocus = document.activeElement.classList.contains('close-panel');
+    if (event.keyCode === SPACE_KEYCODE) {
       if(checkclass){
         this.togglePanel();
       }
       else if(checkCloseFocus){
         this.closePanel();
       }
+    }
+    if(event.keyCode === ESCAPE_KEYCODE && this._panelOpen){
+      this.closePanel();
     }
 }
 
