@@ -84,7 +84,7 @@ Buttons can be colored in terms of the current theme using the color property to
 
 This demo link shows how you can work with `oui-icon-button` component:
 
-You can see the [https://stackblitz.com/edit/oui-button-component](https://stackblitz.com/edit/oui-button-component) demo for more details.
+You can see the [https://stackblitz.com/edit/oui-buttons](https://stackblitz.com/edit/oui-buttons) demo for more details.
 
 _Note-`oui-icon-button` has a hover effect. It is basically box surrounding the `icon`. the general rule for the hover size is +4px from the icon size. `oui-icon-button` is enriched with a `shared-layout` directive called `focusOnIconButton`. `focusOnIconButton` works as a glue for `oui-icon-button` and `oui-menu`. `focusOnIconButton` will keep the border box opened as long as `oui-menu` is opened._
 
@@ -96,3 +96,9 @@ _Note-`oui-icon-button` has a hover effect. It is basically box surrounding the 
 </button>
 ...menu code
 ```
+
+## Accessibility
+
+We use native `<button>` and `<a>` elements to ensure an accessible experience by default. The `<button>` element should be used for any interaction that performs an action on the current page. The `<a>` element should be used for any interaction that navigates to another view.
+
+Buttons or links containing only icons (such as `oui-icon-button`) should be given a meaningful label via `aria-label` or `aria-labelledby`.

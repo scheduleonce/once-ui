@@ -165,12 +165,15 @@ Exported as : `ouiMenu`
 
 **properties**
 
-| Name                                                             | Description                            |
-| ---------------------------------------------------------------- | -------------------------------------- |
-| @Input() <br> xPosition: MenuPositionX                           | Position of the menu in the X axis     |
-| @Input() <br> yPosition: MenuPositionY                           | Position of the menu in the Y axis     |
-| @Output()<br> closed: EventEmitter<void 'click' 'keydown' 'tab'> | Event emitted when the menu is closed  |
-| parentMenu: OuiMenuPanel undefined                               | Parent menu of the current menu panel. |
+| Name                                                             | Description                                       |
+| ---------------------------------------------------------------- | ------------------------------------------------- |
+| @Input() <br> xPosition: MenuPositionX                           | Position of the menu in the X axis                |
+| @Input() <br> yPosition: MenuPositionY                           | Position of the menu in the Y axis                |
+| @Output()<br> closed: EventEmitter<void 'click' 'keydown' 'tab'> | Event emitted when the menu is closed             |
+| parentMenu: OuiMenuPanel undefined                               | Parent menu of the current menu panel.            |
+| overlapTrigger: boolean false                                    | Whether the menu should overlap the menu trigger. |
+| hasBackdrop: boolean false                                       | Whether the menu has a backdrop.                  |
+| backdropClass: string                                            | Class to be applied to the menu's backdrop.       |
 
 **methods**
 

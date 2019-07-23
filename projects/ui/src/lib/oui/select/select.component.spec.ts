@@ -49,6 +49,11 @@ import {
 } from './select-errors';
 
 import { OuiOptionSelectionChange } from '../core';
+import {
+  wrappedErrorMessage,
+  dispatchFakeEvent,
+  dispatchEvent
+} from '../core/test/utils';
 
 @Component({
   selector: 'oui-basic-select',
@@ -706,28 +711,6 @@ function createKeyboardEvent(keyCode: any, target?: Element, key?: any) {
   return event;
 }
 
-/** Utility to dispatch any event on a Node. */
-function dispatchEvent(node: Node | Window, event: Event): Event {
-  node.dispatchEvent(event);
-  return event;
-}
-
-/** Creates a fake event object with any desired event type. */
-function createFakeEvent(type: string, canBubble = false, cancelable = true) {
-  const event = document.createEvent('Event');
-  event.initEvent(type, canBubble, cancelable);
-  return event;
-}
-
-/** Shorthand to dispatch a fake event on a specified node. */
-function dispatchFakeEvent(
-  node: Node | Window,
-  type: any,
-  canBubble?: boolean
-): Event {
-  return dispatchEvent(node, createFakeEvent(type, canBubble));
-}
-
 /** Shorthand to dispatch a keyboard event with a specified key code. */
 function dispatchKeyboardEvent(
   node: Node,
@@ -739,14 +722,6 @@ function dispatchKeyboardEvent(
     node,
     createKeyboardEvent(type, keyCode, target)
   ) as KeyboardEvent;
-}
-
-/**
- * Gets a RegExp used to detect an angular wrapped error message.
- */
-export function wrappedErrorMessage(e: Error) {
-  const escapedMessage = e.message.replace(/[|\\{}()[\]^$+*?.]/g, '\\$&');
-  return new RegExp(escapedMessage);
 }
 
 describe('OuiSelect', () => {

@@ -90,7 +90,6 @@ export class Checkbox extends OuiCheckboxMixinBase
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
    * take precedence so this may be omitted.
    */
-
   /**
    * Implemented as part of CanColor.
    */
@@ -188,6 +187,7 @@ export class Checkbox extends OuiCheckboxMixinBase
   private _disabled: any = false;
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
   private _currentAnimationClass: any = '';
+
   /**
    * Implemented as part of HasTabIndex.
    */
@@ -222,7 +222,6 @@ export class Checkbox extends OuiCheckboxMixinBase
     this._focusMonitor.stopMonitoring(this._elementRef);
     this._monitorSubscription.unsubscribe();
   }
-
   /**
    * Event handler for checkbox input element.
    * Toggles checked state if element is not disabled.

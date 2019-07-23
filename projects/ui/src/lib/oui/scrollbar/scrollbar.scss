@@ -1,0 +1,23 @@
+.oui-scrollbar-container::-webkit-scrollbar {
+  width: 12px;
+}
+.oui-scrollbar-container::-webkit-scrollbar-track {
+  display: none;
+}
+.oui-scrollbar-container::-webkit-scrollbar-thumb {
+  background-color: #ccc !important;
+  border: 3px #fff solid;
+  border-radius: 15px;
+}
+.oui-scrollbar-container-large::-webkit-scrollbar {
+  width: 16px;
+}
+.oui-scrollbar-container-large::-webkit-scrollbar-thumb {
+  border: 4px #fff solid !important;
+}
+
+.oui-scrollbar-container {
+  overflow-y: scroll;
+  scrollbar-color: #ccc transparent;
+  scrollbar-width: thin;
+}
