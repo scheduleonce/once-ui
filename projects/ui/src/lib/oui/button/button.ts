@@ -5,7 +5,8 @@ import {
   ViewEncapsulation,
   OnDestroy,
   ChangeDetectorRef,
-  NgZone
+  NgZone,
+  Input
 } from '@angular/core';
 import {
   CanDisable,
@@ -141,6 +142,8 @@ export class OuiButton extends OuiButtonMixinBase
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
+  /** Tabindex of the button. */
+  @Input() tabIndex: number;
   constructor(
     elementRef: ElementRef,
     focusMonitor: FocusMonitor,
