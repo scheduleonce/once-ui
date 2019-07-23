@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/angular';
-import { OuiScrollbarModule } from '../../../projects/ui/src/lib/oui';
+import { OuiScrollbarModule } from '../../../projects/ui/src/lib/oui/scrollbar/scrollbar-module';
 import { text, boolean, number, array } from '@storybook/addon-knobs';
 import { Input, Component } from '@angular/core';
 import markdownText from '../../../projects/ui/src/lib/oui/scrollbar/README.md';

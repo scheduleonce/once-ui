@@ -19,8 +19,7 @@ import {
   OuiRadioModule,
   OuiProgressBarModule,
   OuiPanelModule,
-  OuiSelectModule,
-  OuiScrollbarModule
+  OuiSelectModule
 } from 'projects/ui/src/lib/oui';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +29,7 @@ import {
   OuiPaginatorModule
 } from 'projects/ui/src/public_api';
 import { OuiDatepickerModule } from 'projects/ui/src/lib/oui/datepicker';
+import { OuiScrollbarModule } from 'projects/ui/src/lib/oui/scrollbar/scrollbar-module';
 
 @NgModule({
   declarations: [AppComponent],

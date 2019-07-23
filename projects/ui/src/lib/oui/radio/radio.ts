@@ -338,7 +338,6 @@ export class OuiRadioButton extends OuiRadioButtonMixinBase
    * Implemented as part of CanColor.
    */
   @Input() color = 'primary';
-
   /** The unique ID for the radio button. */
   @Input() id: string = this._uniqueId;
 
