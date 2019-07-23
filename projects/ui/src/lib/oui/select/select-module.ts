@@ -6,16 +6,9 @@ import { OuiInputModule } from '../input/input-module';
 import { FilterPipe } from './filter.pipe';
 import { OuiSelectTrigger, OuiSelect } from './select.component';
 import { OuiSelectSearchComponent } from './search/index';
-import { OuiScrollbarModule } from '../scrollbar/public-api';
 
 @NgModule({
-  imports: [
-    OuiOptionModule,
-    OverlayModule,
-    OuiInputModule,
-    CommonModule,
-    OuiScrollbarModule
-  ],
+  imports: [OuiOptionModule, OverlayModule, OuiInputModule, CommonModule],
   exports: [
     OuiOptionModule,
     OuiSelectTrigger,
