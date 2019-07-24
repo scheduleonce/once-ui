@@ -8,7 +8,7 @@ import {
   EventEmitter,
   ElementRef,
   ViewContainerRef,
-  Inject,
+  Inject
 } from '@angular/core';
 import {
   ScrollStrategy,
@@ -74,24 +74,26 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _scrollStrategy: () => ScrollStrategy;
 
-
   handleKeyboardEvent(event: KeyboardEvent): void {
     const SPACE_KEYCODE = 32;
     const ESCAPE_KEYCODE = 27;
-    let checkclass = document.activeElement.parentElement.classList.contains('cdk-keyboard-focused');
-    let checkCloseFocus = document.activeElement.classList.contains('close-panel');
+    const checkclass = document.activeElement.parentElement.classList.contains(
+      'cdk-keyboard-focused'
+    );
+    const checkCloseFocus = document.activeElement.classList.contains(
+      'close-panel'
+    );
     if (event.keyCode === SPACE_KEYCODE) {
-      if(checkclass){
+      if (checkclass) {
         this.togglePanel();
-      }
-      else if(checkCloseFocus){
+      } else if (checkCloseFocus) {
         this.closePanel();
       }
     }
-    if(event.keyCode === ESCAPE_KEYCODE && this._panelOpen){
+    if (event.keyCode === ESCAPE_KEYCODE && this._panelOpen) {
       this.closePanel();
     }
-}
+  }
 
   /** References the panel instance that the trigger is associated with. */
   @Input('ouiPanelTriggerFor')

@@ -58,22 +58,22 @@ $close-icon: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZ
   display: inline-block;
   margin: 0;
   padding: 2px;
-  &:focus{
+  &:focus {
     outline: none;
   }
 }
-.radius{
+.radius {
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
 }
-oui-panel-icon.cdk-keyboard-focused .oui-panel-icon{
+oui-panel-icon.cdk-keyboard-focused .oui-panel-icon {
   @extend .radius;
   background-color: #e8e8e8;
 }
-.close-panel{
+.close-panel {
   @extend .radius;
   cursor: pointer;
   outline: none;
@@ -81,11 +81,11 @@ oui-panel-icon.cdk-keyboard-focused .oui-panel-icon{
   height: 16px;
   background: #e9e9e9 $close-icon center center/8px 8px no-repeat;
   position: absolute;
-  top:2px;
-  right:2px;
+  top: 2px;
+  right: 2px;
   opacity: 0;
   border: 0;
-  &:focus{
+  &:focus {
     outline: none;
     opacity: 1;
   }

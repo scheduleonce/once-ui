@@ -150,12 +150,11 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   public _handleMouseEnter(event: MouseEvent) {
     this._mouseEnter.next(event);
   }
-  
 }
 
 @Component({
   selector: 'oui-panel-icon',
-  template: '<div class="oui-panel-icon" [tabIndex]="tabIndex" #ouiIcon id="ouiIcon"></div>',
+  template: '<div class="oui-panel-icon" [tabIndex]="tabIndex"></div>',
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -173,13 +172,13 @@ export class OuiPanelIcon {
   ) {
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
-    .monitor(this._elementRef.nativeElement, true)
+      .monitor(this._elementRef.nativeElement, true)
       .subscribe(() =>
         this._ngZone.run(() => {
           this._changeDetectorRef.markForCheck();
           this.focus();
         })
-      ); 
+      );
   }
 
   focus() {
