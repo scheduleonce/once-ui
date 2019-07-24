@@ -27,6 +27,7 @@ import {
 } from './panel-positions';
 import { merge } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
+import { ESCAPE, SPACE } from '@angular/cdk/keycodes';
 
 /** Injection token that determines the scroll handling while the panel-overlay is open. */
 export const OUI_PANEL_SCROLL_STRATEGY = new InjectionToken<
@@ -59,7 +60,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     '[attr.aria-expanded]': 'panelOpen || null',
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handelMouseLeave($event)',
-    '(document:keydown)': 'handleKeyboardEvent($event)'
+    '(document:keydown)': '_handleKeyboardEvent($event)'
   },
   exportAs: 'ouiPanelTrigger'
 })
@@ -74,26 +75,15 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _scrollStrategy: () => ScrollStrategy;
 
-  handleKeyboardEvent(event: KeyboardEvent): void {
-    const SPACE_KEYCODE = 32;
-    const ESCAPE_KEYCODE = 27;
-    const checkclass = document.activeElement.parentElement.classList.contains(
-      'cdk-keyboard-focused'
-    );
-    const checkCloseFocus = document.activeElement.classList.contains(
-      'close-panel'
-    );
-    if (event.keyCode === SPACE_KEYCODE) {
-      if (checkclass) {
-        this.togglePanel();
-      } else if (checkCloseFocus) {
-        this.closePanel();
-      }
-    }
-    if (event.keyCode === ESCAPE_KEYCODE && this._panelOpen) {
-      this.closePanel();
-    }
-  }
+  private _panel: OuiPanelOverlay;
+
+  /** Event emitted when the associated panel is opened. */
+  @Output()
+  readonly panelOpened: EventEmitter<void> = new EventEmitter<void>();
+
+  /** Event emitted when the associated panel is closed. */
+  @Output()
+  readonly panelClosed: EventEmitter<void> = new EventEmitter<void>();
 
   /** References the panel instance that the trigger is associated with. */
   @Input('ouiPanelTriggerFor')
@@ -115,15 +105,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
         });
     }
   }
-  private _panel: OuiPanelOverlay;
-
-  /** Event emitted when the associated panel is opened. */
-  @Output()
-  readonly panelOpened: EventEmitter<void> = new EventEmitter<void>();
-
-  /** Event emitted when the associated panel is closed. */
-  @Output()
-  readonly panelClosed: EventEmitter<void> = new EventEmitter<void>();
 
   constructor(
     private _overlay: Overlay,
@@ -132,6 +113,25 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     @Inject(OUI_PANEL_SCROLL_STRATEGY) scrollStrategy: any
   ) {
     this._scrollStrategy = scrollStrategy;
+  }
+
+  _handleKeyboardEvent(event: KeyboardEvent): void {
+    const checkclass = document.activeElement.parentElement.classList.contains(
+      'cdk-keyboard-focused'
+    );
+    const checkCloseFocus = document.activeElement.classList.contains(
+      'close-panel'
+    );
+    if (event.keyCode === SPACE) {
+      if (checkclass) {
+        this.togglePanel();
+      } else if (checkCloseFocus) {
+        this.closePanel();
+      }
+    }
+    if (event.keyCode === ESCAPE && this._panelOpen) {
+      this.closePanel();
+    }
   }
   ngAfterContentInit() {}
 

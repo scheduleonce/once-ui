@@ -14,7 +14,8 @@ import {
   ElementRef,
   NgZone,
   ChangeDetectorRef,
-  Attribute
+  Attribute,
+  OnDestroy
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
@@ -160,7 +161,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiPanelIcon'
 })
-export class OuiPanelIcon {
+export class OuiPanelIcon implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   tabIndex: any;
   constructor(
