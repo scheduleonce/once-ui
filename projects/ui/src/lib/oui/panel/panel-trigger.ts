@@ -116,16 +116,10 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   }
 
   _handleKeyboardEvent(event: KeyboardEvent): void {
-    const checkclass = document.activeElement.parentElement.classList.contains(
-      'cdk-keyboard-focused'
-    );
-    const checkCloseFocus = document.activeElement.classList.contains(
-      'close-panel'
-    );
     if (event.keyCode === SPACE) {
-      if (checkclass) {
+      if (document.activeElement.parentElement.classList.contains('cdk-keyboard-focused')) {
         this.togglePanel();
-      } else if (checkCloseFocus) {
+      } else if (document.activeElement.classList.contains('close-panel')) {
         this.closePanel();
       }
     }
@@ -133,6 +127,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       this.closePanel();
     }
   }
+  
   ngAfterContentInit() {}
 
   /** Whether the panel is open. */
