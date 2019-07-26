@@ -27,15 +27,14 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   .oui-button,
   .oui-ghost-button,
   .oui-icon-text-button,
+  .oui-link-button,
   .oui-progress-button,
   .oui-progress-ghost-button,
   .oui-progress-link-button {
     @include oui-button-reset();
     @include oui-button-base();
   }
-  .oui-link-button {
-    @include oui-link-button-reset();
-  }
+
   .oui-button {
     @include oui-progress-button-stages();
   }
@@ -85,12 +84,6 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   }
 }
 
-@mixin oui-link-button-reset {
-  border: 0 none;
-  background: none;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-}
-
 .oui-link-button {
   padding: 6px 0px 6px 0px !important;
   min-width: auto !important;
@@ -100,6 +93,10 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   }
   &[disabled]:hover {
     text-decoration: none;
+  }
+  &.cdk-keyboard-focused {
+    outline: -webkit-focus-ring-color auto 1px !important;
+    text-decoration: underline;
   }
 }
 
