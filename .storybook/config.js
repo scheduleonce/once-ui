@@ -25,8 +25,12 @@ withOptions({
   url: '//github.com/ScheduleOnce/once-ui/'
 });
 const req = require.context('../src/stories', true, /.stories.ts$/);
+const skippedStories = ['./scrollbar/index.stories.ts'];
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach(filename => {
+    if (skippedStories.includes(filename)) return;
+    return req(filename);
+  });
 }
 
 addParameters({
