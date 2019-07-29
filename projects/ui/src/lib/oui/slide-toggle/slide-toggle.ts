@@ -10,18 +10,27 @@ import {
   AfterContentInit,
   Attribute,
   OnDestroy,
-  NgZone
+  NgZone,
+  forwardRef
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 let nextUniqueId = 0;
 /**
  * Boilerplate for applying mixins to OuiSlideToggle.
  * @docs-private
  */
+/** @docs-private */
+export const OUI_SLIDE_TOGGLE_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  // tslint:disable-next-line:no-use-before-declare
+  useExisting: forwardRef(() => OuiSlideToggle),
+  multi: true
+};
+
 export class OuiSlideToggleBase {
   constructor(public _elementRef: ElementRef) {}
 }
@@ -43,6 +52,7 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   // tslint:disable-next-line:use-input-property-decorator
   inputs: ['disabled', 'tabIndex'],
   styleUrls: ['./slide-toggle.scss'],
+  providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None
 })
