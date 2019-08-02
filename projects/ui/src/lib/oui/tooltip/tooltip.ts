@@ -254,7 +254,8 @@ export class TooltipComponent {
   host: {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',
-    '(touchend)': '_handleTouchend()'
+    '(touchend)': '_handleTouchend()',
+    '[attr.tabindex]': '_disabled ? -1 : (tabIndex || 0)'
   }
 })
 export class OuiTooltip implements OnDestroy {
