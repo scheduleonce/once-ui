@@ -221,9 +221,7 @@ export class TooltipComponent {
   }
 
   /**
-   * Interactions on the HTML body should close the tooltip immediately as defined in the
-   * material design spec.
-   * https://material.io/design/components/tooltips.html#behavior
+   * Interactions on the HTML body should close the tooltip immediately
    */
   _handleBodyInteraction(): void {
     if (this._closeOnInteraction) {
@@ -242,10 +240,8 @@ export class TooltipComponent {
 }
 
 /**
- * Directive that attaches a material design tooltip to the host element. Animates the showing and
+ * Directive that attaches a tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
- *
- * https://material.io/design/components/tooltips.html
  */
 @Directive({
   selector: '[ouiTooltip]',
@@ -254,7 +250,8 @@ export class TooltipComponent {
   host: {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',
-    '(touchend)': '_handleTouchend()'
+    '(touchend)': '_handleTouchend()',
+    '[attr.tabindex]': '_disabled ? -1 : (tabIndex || 0)'
   }
 })
 export class OuiTooltip implements OnDestroy {
