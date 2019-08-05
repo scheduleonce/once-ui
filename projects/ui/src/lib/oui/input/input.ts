@@ -11,7 +11,8 @@ import {
   OnDestroy,
   OnInit,
   Optional,
-  Self
+  Self,
+  AfterViewInit
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
@@ -114,6 +115,7 @@ export class OuiInput extends _OuiInputMixinBase
     OnDestroy,
     OnInit,
     DoCheck,
+    AfterViewInit,
     CanColor {
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
@@ -345,6 +347,36 @@ export class OuiInput extends _OuiInputMixinBase
 
     if (this._platform.isBrowser) {
       this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this._elementRef.nativeElement.type === 'number') {
+      console.log(this._elementRef);
+      const newEl = document.createElement('div');
+      newEl.className = 'quantity-nav';
+      newEl.innerHTML = `<div 
+      onclick="(this.parentElement.previousSibling.value=parseInt(this.parentElement.previousSibling.value?this.parentElement.previousSibling.value:0)+1); this.parentElement.previousSibling.dispatchEvent(new Event('change'))" 
+      class="quantity-button quantity-up"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="8px" viewBox="0 0 12 8" version="1.1">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DropDown" transform="translate(-527.000000, -179.000000)" fill="#4A4A4A">
+            <path d="M530.684211,183.315789 L537,183.315789 L537,185 L530.684211,185 L529,185 L529,177 L530.684211,177 L530.684211,183.315789 Z" id="Combined-Shape-Copy-3" transform="translate(533.000000, 181.000000) scale(-1, -1) rotate(-225.000000) translate(-533.000000, -181.000000) "/>
+        </g>
+    </g>
+</svg></div>
+   <div
+      onclick="(this.parentElement.previousSibling.value=parseInt(this.parentElement.previousSibling.value?this.parentElement.previousSibling.value:0)-1);  this.parentElement.previousSibling.dispatchEvent(new Event('change'))"
+      class="quantity-button quantity-down"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12px" height="8px" viewBox="0 0 12 8" version="1.1">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DropDown" transform="translate(-527.000000, -179.000000)" fill="#4A4A4A">
+            <path d="M530.684211,183.315789 L537,183.315789 L537,185 L530.684211,185 L529,185 L529,177 L530.684211,177 L530.684211,183.315789 Z" id="Combined-Shape-Copy-3" transform="translate(533.000000, 181.000000) scale(-1, -1) rotate(-225.000000) translate(-533.000000, -181.000000) "/>
+        </g>
+    </g>
+</svg></div>`;
+      this._elementRef.nativeElement.parentNode.insertBefore(
+        newEl,
+        this._elementRef.nativeElement.nextSibling
+      );
     }
   }
 
