@@ -251,7 +251,8 @@ export class TooltipComponent {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',
     '(touchend)': '_handleTouchend()',
-    '[attr.tabindex]': '_disabled ? -1 : (tabIndex || 0)'
+    '[attr.tabindex]': '_disabled ? -1 : (tabIndex || 0)',
+    '[attr.aria-hidden]': 'false'
   }
 })
 export class OuiTooltip implements OnDestroy {
