@@ -362,12 +362,16 @@ export class OuiInput extends _OuiInputMixinBase
     if (this._elementRef.nativeElement.type === 'number') {
       const newEl = document.createElement('div');
       newEl.className = 'quantity-nav';
-      newEl.innerHTML = `<div 
-      onclick="(this.parentElement.previousSibling.value=parseInt(this.parentElement.previousSibling.value?this.parentElement.previousSibling.value:0)+1); this.parentElement.previousSibling.dispatchEvent(new Event('change'))" 
-      class="quantity-button quantity-up">${OUI_NUMBER_ARROW}</div>
-   <div
-      onclick="(this.parentElement.previousSibling.value=parseInt(this.parentElement.previousSibling.value?this.parentElement.previousSibling.value:0)-1);  this.parentElement.previousSibling.dispatchEvent(new Event('change'))"
-      class="quantity-button quantity-down">${OUI_NUMBER_ARROW}</div>`;
+      newEl.innerHTML = ['+', '-'].reduce((acc, curr) => {
+        return (
+          acc +
+          `<div
+              onclick="(this.parentElement.previousSibling.value=parseInt(this.parentElement.previousSibling.value?this.parentElement.previousSibling.value:0)${curr}1); this.parentElement.previousSibling.dispatchEvent(new Event('change'))"
+              class="quantity-button quantity-${
+                curr === '-' ? 'down' : 'up'
+              }">${OUI_NUMBER_ARROW}</div>`
+        );
+      }, '');
       this._elementRef.nativeElement.parentNode.insertBefore(
         newEl,
         this._elementRef.nativeElement.nextSibling
