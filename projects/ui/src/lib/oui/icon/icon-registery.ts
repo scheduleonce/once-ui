@@ -1,7 +1,11 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable, Optional, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {
+  DomSanitizer,
+  SafeResourceUrl,
+  SafeHtml
+} from '@angular/platform-browser';
 import {
   forkJoin,
   Observable,
@@ -47,6 +51,20 @@ export function getOuiIconFailedToSanitizeUrlError(
 }
 
 /**
+ * Returns an exception to be thrown when a HTML string couldn't be sanitized.
+ * @param literal HTML that was attempted to be sanitized.
+ * @docs-private
+ */
+export function getOuiIconFailedToSanitizeLiteralError(
+  literal: SafeHtml
+): Error {
+  return Error(
+    `The literal provided to OuiIconRegistry was not trusted as safe HTML by ` +
+      `Angular's DomSanitizer. Attempted literal was "${literal}".`
+  );
+}
+
+/**
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  */
 class SvgIconConfig {
@@ -54,7 +72,13 @@ class SvgIconConfig {
   svgElement: SVGElement | null;
   constructor(url: SafeResourceUrl);
   constructor(data: SafeResourceUrl | SVGElement) {
-    this.url = data as SafeResourceUrl;
+    // Note that we can't use `instanceof SVGElement` here,
+
+    if (!!(data as any).nodeName) {
+      this.svgElement = data as SVGElement;
+    } else {
+      this.url = data as SafeResourceUrl;
+    }
   }
 }
 
@@ -99,6 +123,30 @@ export class OuiIconRegistry {
    */
   addSvgIcon(iconName: string, url: SafeResourceUrl): this {
     this._svgIconConfigs.set(iconKey('', iconName), new SvgIconConfig(url));
+    return this;
+  }
+
+  /**
+   * Registers an icon using an HTML string in the default namespace.
+   * @param iconName Name under which the icon should be registered.
+   * @param literal SVG source of the icon.
+   */
+  addSvgIconLiteral(iconName: string, literal: SafeHtml): this {
+    const sanitizedLiteral = this._sanitizer.sanitize(
+      SecurityContext.HTML,
+      literal
+    );
+
+    if (!sanitizedLiteral) {
+      throw getOuiIconFailedToSanitizeLiteralError(literal);
+    }
+
+    const svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral);
+
+    this._svgIconConfigs.set(
+      iconKey('', iconName),
+      new SvgIconConfig(svgElement)
+    );
     return this;
   }
 
