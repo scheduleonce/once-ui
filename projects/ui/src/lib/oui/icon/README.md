@@ -63,7 +63,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 
 **addSvgIcon:**
 
-```angular2html
+```angularhtml
     this.matIconRegistry.addSvgIcon(
       `icon-dummy-name`,
       domSanitizer.bypassSecurityTrustResourceUrl(`/assets/anysvg.svg`)
@@ -74,7 +74,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 
 **addSvgIconLiteral:**
 
-```angular2html
+```angularhtml
     this.matIconRegistry.addSvgIconLiteral(
       `icon-dummy-name`,
       domSanitizer.bypassSecurityTrustHtml(`ICON_NAME`)
@@ -85,7 +85,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 
 **addSvgIconSet:**
 
-```angular2html
+```angularhtml
     this.matIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(`https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg`)
     )
