@@ -11,7 +11,8 @@ import {
   OnDestroy,
   OnInit,
   Optional,
-  Self
+  Self,
+  AfterViewInit
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
@@ -24,6 +25,7 @@ import {
   CanUpdateErrorStateCtor,
   mixinErrorState
 } from '../core/common-behaviors/error-state';
+import { ICONS } from '../core/shared/icons';
 
 // Invalid input type. Using one of these will throw an OuiInputUnsupportedTypeError.
 const OUI_INPUT_INVALID_TYPES = [
@@ -114,6 +116,7 @@ export class OuiInput extends _OuiInputMixinBase
     OnDestroy,
     OnInit,
     DoCheck,
+    AfterViewInit,
     CanColor {
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
@@ -345,6 +348,27 @@ export class OuiInput extends _OuiInputMixinBase
 
     if (this._platform.isBrowser) {
       this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this._elementRef.nativeElement.type === 'number') {
+      const newEl = document.createElement('div');
+      newEl.className = 'quantity-nav';
+      newEl.innerHTML = ['+', '-'].reduce((acc, curr) => {
+        return (
+          acc +
+          `<div
+              onclick="(this.parentElement.previousSibling.value=parseInt(this.parentElement.previousSibling.value?this.parentElement.previousSibling.value:0)${curr}1); this.parentElement.previousSibling.dispatchEvent(new Event('change'))"
+              class="quantity-button quantity-${
+                curr === '-' ? 'down' : 'up'
+              }">${ICONS.DOWN_ARROW_8x8}</div>`
+        );
+      }, '');
+      this._elementRef.nativeElement.parentNode.insertBefore(
+        newEl,
+        this._elementRef.nativeElement.nextSibling
+      );
     }
   }
 
