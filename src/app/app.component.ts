@@ -13,6 +13,7 @@ import {
   FormGroupDirective
 } from '@angular/forms';
 import { ErrorStateMatcher } from 'projects/ui/src/lib/oui/core';
+import { ICONS } from 'projects/ui/src/lib/oui/core/shared/icons';
 
 export interface State {
   flag: string;
@@ -257,6 +258,11 @@ export class AppComponent implements OnInit {
         `/assets/images/3-dots-horizontal-20x8.svg`
       )
     );
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `down-arrow`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.DOWN_ARROW)
+    );
+
     this.ouiIconRegistry.addSvgIcon(
       `vertical`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
