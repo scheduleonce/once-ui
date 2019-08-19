@@ -81,7 +81,8 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     '[attr.aria-expanded]': 'menuOpen || null',
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
-    '(click)': '_handleClick($event)'
+    '(click)': '_handleClick($event)',
+    '(focus)': '_handleFocus($event)'
   },
   exportAs: 'ouiMenuTrigger'
 })
@@ -93,6 +94,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _hoverSubscription = Subscription.EMPTY;
   private _menuCloseSubscription = Subscription.EMPTY;
   private _scrollStrategy: () => ScrollStrategy;
+  private _openViaFocus = false;
 
   // Tracking input type is necessary so it's possible to only auto-focus
   // the first item of the list when the menu is opened via the keyboard
@@ -493,22 +495,45 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Handles key presses on the trigger. */
   _handleKeydown(event: KeyboardEvent): void {
+    console.log('keydown............')
     // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
 
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
+      console.log('handle key down.......');
       this.openMenu();
     }
   }
 
+
+
+
+
+
+
+  
+
   /** Handles click events on the trigger. */
   _handleClick(event: MouseEvent): void {
+    console.log('handle key down.......');
     if (this.triggersSubmenu()) {
+      console.log('open menu')
       // Stop event propagation to avoid closing the parent menu.
       event.stopPropagation();
       this.openMenu();
     } else {
+      console.log('close menu')
       this.toggleMenu();
+    }
+  }
+
+  _handleFocus( ): void {
+    console.log('handle focus..rtrttytyt.....');
+    if(!this._openViaFocus) {
+      this._openViaFocus = true;
+      this.toggleMenu();
+    }else {
+      this._openViaFocus = false;
     }
   }
 
