@@ -131,8 +131,8 @@ $oui-menu-line-height: 22px;
 }
 
 @mixin oui-menu-icon-hover {
-  background: $oui-three-dot-icon no-repeat rgba(200, 200, 200, 0.4) center
-    center;
+  background: $oui-three-dot-icon  rgba(200, 200, 200, 0.4) center
+    center no-repeat;
   border-radius: 2px;
   transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
     background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
@@ -150,12 +150,12 @@ $oui-menu-line-height: 22px;
   margin: 0;
   padding: 2px;
   vertical-align: middle;
-  &:hover {
+  &:hover{
     @include oui-menu-icon-hover();
   }
 }
 
-.oui-menu-icon-hover {
+.oui-menu-icon-hover ,.cdk-program-focused {
   @include oui-menu-icon-hover();
 }
 
