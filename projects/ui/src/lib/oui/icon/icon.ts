@@ -5,13 +5,15 @@ import {
   OnInit,
   ElementRef,
   Attribute,
-  ChangeDetectionStrategy
+  InjectionToken,
+  inject
 } from '@angular/core';
 import { CanColor, CanColorCtor, mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OuiIconRegistry } from './icon-registery';
 import { take } from 'rxjs/operators';
 import { TitleCasePipe } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
@@ -22,6 +24,39 @@ export class OuiIconBase {
 export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
   OuiIconBase
 );
+
+/**
+ * Injection token used to provide the current location to `MatIcon`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * @docs-private
+ */
+export const OUI_ICON_LOCATION = new InjectionToken<OuiIconLocation>(
+  'oui-icon-location',
+  {
+    providedIn: 'root',
+    factory: OUI_ICON_LOCATION_FACTORY
+  }
+);
+
+/**
+ * Stubbed out location for `MatIcon`.
+ * @docs-private
+ */
+export interface OuiIconLocation {
+  getPathname: () => string;
+}
+
+/** @docs-private */
+export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
+  const _document = inject(DOCUMENT);
+  const _location = _document ? _document.location : null;
+
+  return {
+    // Note that this needs to be a function, rather than a property, because Angular
+    // will only resolve it once, but we want the current path on each call.
+    getPathname: () => (_location ? _location.pathname + _location.search : '')
+  };
+}
 
 /**
  * oui-icon makes it easier to use vector-based icons in your app. This directive supports only SVG icons.
@@ -48,8 +83,7 @@ export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
     '[class.oui-icon-inline]': 'inline',
     '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)'
   },
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  encapsulation: ViewEncapsulation.None
 })
 export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   /**

@@ -1,6 +1,12 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Inject, Injectable, Optional, SecurityContext } from '@angular/core';
+import {
+  Inject,
+  Injectable,
+  Optional,
+  SecurityContext,
+  OnDestroy
+} from '@angular/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
@@ -89,7 +95,7 @@ class SvgIconConfig {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 @Injectable({ providedIn: 'root' })
-export class OuiIconRegistry {
+export class OuiIconRegistry implements OnDestroy {
   private _document: Document;
 
   /**
@@ -102,6 +108,9 @@ export class OuiIconRegistry {
    * Multiple icon sets can be registered under the same namespace.
    */
   private _iconSetConfigs = new Map<string, SvgIconConfig[]>();
+
+  /** Cache for icons loaded by direct URLs. */
+  private _cachedIconsByUrl = new Map<string, SVGElement>();
 
   /** In-progress icon fetches. Used to coalesce multiple requests to the same URL. */
   private _inProgressUrlFetches = new Map<string, Observable<string>>();
@@ -165,6 +174,32 @@ export class OuiIconRegistry {
     }
 
     return this;
+  }
+  /**
+   * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
+   * The response from the URL may be cached so this will not always cause an HTTP request, but
+   * the produced element will always be a new copy of the originally fetched icon. (That is,
+   * it will not contain any modifications made to elements previously returned).
+   *
+   * @param safeUrl URL from which to fetch the SVG icon.
+   */
+  getSvgIconFromUrl(safeUrl: SafeResourceUrl): Observable<SVGElement> {
+    const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
+
+    if (!url) {
+      throw getOuiIconFailedToSanitizeUrlError(safeUrl);
+    }
+
+    const cachedIcon = this._cachedIconsByUrl.get(url);
+
+    if (cachedIcon) {
+      return observableOf(cloneSvg(cachedIcon));
+    }
+
+    return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(
+      tap(svg => this._cachedIconsByUrl.set(url!, svg)),
+      map(svg => cloneSvg(svg))
+    );
   }
 
   /**
@@ -402,6 +437,10 @@ export class OuiIconRegistry {
     }
 
     return svg;
+  }
+
+  ngOnDestroy() {
+    this._cachedIconsByUrl.clear();
   }
 
   /**
