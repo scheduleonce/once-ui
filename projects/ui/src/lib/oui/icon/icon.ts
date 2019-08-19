@@ -26,7 +26,7 @@ export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
 );
 
 /**
- * Injection token used to provide the current location to `MatIcon`.
+ * Injection token used to provide the current location to `OuiIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * @docs-private
  */
@@ -39,7 +39,7 @@ export const OUI_ICON_LOCATION = new InjectionToken<OuiIconLocation>(
 );
 
 /**
- * Stubbed out location for `MatIcon`.
+ * Stubbed out location for `OuiIcon`.
  * @docs-private
  */
 export interface OuiIconLocation {

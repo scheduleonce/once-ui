@@ -227,7 +227,7 @@ fdescribe('OuiIcon', () => {
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       const testComponent = fixture.componentInstance;
-      const matIconElement = fixture.debugElement.nativeElement.querySelector(
+      const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
         'oui-icon'
       );
       let svgElement: any;
@@ -238,7 +238,7 @@ fdescribe('OuiIcon', () => {
 
       // arrow-set.svg stores its icons as nested <svg> elements, so they should be used
       // directly and not wrapped in an outer <svg> tag like the <g> elements in other sets.
-      svgElement = verifyAndGetSingleSvgChild(matIconElement);
+      svgElement = verifyAndGetSingleSvgChild(ouiIconElement);
       verifyPathChildElement(svgElement, 'left');
     });
 
