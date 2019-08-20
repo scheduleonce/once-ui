@@ -28,10 +28,10 @@ You need to inject `OuiIconRegistry` service in your component like as follows-
 import { OuiIconRegistry } from '@once/ui';
 export class AppComponent {
    constructor(
-       private matIconRegistry: OuiIconRegistry,
+       private ouiIconRegistry: OuiIconRegistry,
        private domSanitizer: DomSanitizer
      ) {
-         this.matIconRegistry.addSvgIcon(
+         this.ouiIconRegistry.addSvgIcon(
            `local`,
            this.domSanitizer.bypassSecurityTrustResourceUrl(
              `/assets/images/v-green.svg`
@@ -64,7 +64,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 **addSvgIcon:**
 
 ```angularhtml
-    this.matIconRegistry.addSvgIcon(
+    this.ouiIconRegistry.addSvgIcon(
       `icon-dummy-name`,
       domSanitizer.bypassSecurityTrustResourceUrl(`/assets/anysvg.svg`)
     );
@@ -75,7 +75,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 **addSvgIconLiteral:**
 
 ```angularhtml
-    this.matIconRegistry.addSvgIconLiteral(
+    this.ouiIconRegistry.addSvgIconLiteral(
       `icon-dummy-name`,
       domSanitizer.bypassSecurityTrustHtml(`ICON_NAME`)
     );
@@ -86,7 +86,7 @@ Service to register and display icons used by the `<oui-icon>` component.
 **addSvgIconSet:**
 
 ```angularhtml
-    this.matIconRegistry.addSvgIconSet(
+    this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(`https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg`)
     )
     <oui-icon svgIcon="icon-bullhorn" inline="true" color="primary"></oui-icon>
