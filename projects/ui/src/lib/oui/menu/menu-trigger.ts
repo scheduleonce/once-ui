@@ -82,7 +82,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
     '(click)': '_handleClick($event)',
-    '(focus)': '_handleFocus($event)'
+    '(focus)': '_handleFocus($event)',
   },
   exportAs: 'ouiMenuTrigger'
 })
@@ -495,44 +495,30 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Handles key presses on the trigger. */
   _handleKeydown(event: KeyboardEvent): void {
-    console.log('keydown............')
     // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
 
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
-      console.log('handle key down.......');
       this.openMenu();
     }
   }
 
-
-
-
-
-
-
-  
-
   /** Handles click events on the trigger. */
   _handleClick(event: MouseEvent): void {
-    console.log('handle key down.......');
     if (this.triggersSubmenu()) {
-      console.log('open menu')
       // Stop event propagation to avoid closing the parent menu.
       event.stopPropagation();
       this.openMenu();
     } else {
-      console.log('close menu')
       this.toggleMenu();
     }
   }
 
-  _handleFocus( ): void {
-    console.log('handle focus..rtrttytyt.....');
-    if(!this._openViaFocus) {
+  _handleFocus(): void {
+    if (!this._openViaFocus) {
       this._openViaFocus = true;
       this.toggleMenu();
-    }else {
+    } else {
       this._openViaFocus = false;
     }
   }
