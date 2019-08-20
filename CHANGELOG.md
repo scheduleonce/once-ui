@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.14] - 2019-08-20
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-11568`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11568) Accessibility for tooltip
+- [`ONCEHUB-6679`](https://scheduleonce.atlassian.net/browse/ONCEHUB-6679) Input number increase/decrease buttons
+- [`ONCEHUB-16734`](https://scheduleonce.atlassian.net/browse/ONCEHUB-16734) Create a icon registry for the icons used in the once-ui library
+
 ## [1.11.13] - 2019-07-29
 
 ### Added
