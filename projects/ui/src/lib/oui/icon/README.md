@@ -8,7 +8,7 @@
 
 ## Named icons
 
-To associate a name with an icon URL, use the `addSvgIcon`. The methods of `OuiIconRegistry`. After registering an icon, it can be displayed by setting the `svgIcon` input with the icon name.
+To associate a name with an icon URL, use the `addSvgIcon` and `addSvgIconLiteral`. The methods of `OuiIconRegistry`. After registering an icon, it can be displayed by setting the `svgIcon` input with the icon name.
 
 ## Theming
 
@@ -28,10 +28,10 @@ You need to inject `OuiIconRegistry` service in your component like as follows-
 import { OuiIconRegistry } from '@once/ui';
 export class AppComponent {
    constructor(
-       private matIconRegistry: OuiIconRegistry,
+       private ouiIconRegistry: OuiIconRegistry,
        private domSanitizer: DomSanitizer
      ) {
-         this.matIconRegistry.addSvgIcon(
+         this.ouiIconRegistry.addSvgIcon(
            `local`,
            this.domSanitizer.bypassSecurityTrustResourceUrl(
              `/assets/images/v-green.svg`
@@ -53,17 +53,18 @@ Service to register and display icons used by the `<oui-icon>` component.
 
 ## Methods
 
-| Name            | Description                                            | Parameters                                                                                            | Returns |
-| --------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------------------------- | ------- |
-| `addSvgIcon`    | Registers an icon by URL in the default namespace.     | **iconName[String]:** Name under which the icon should be registered. <br/>**url:** `SafeResourceUrl` | `this`  |
-| `addSvgIconSet` | Registers an icon set by URL in the default namespace. | **url:** `SafeResourceUrl`                                                                            | `this`  |
+| Name                | Description                                                      | Parameters                                                                                            | Returns |
+| ------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------- |
+| `addSvgIcon`        | Registers an icon by URL in the default namespace.               | **iconName[String]:** Name under which the icon should be registered. <br/>**url:** `SafeResourceUrl` | `this`  |
+| `addSvgIconLiteral` | Registers an icon using an HTML string in the default namespace. | **literal:** `SafeHtml`                                                                               | `this`  |
+| `addSvgIconSet`     | Registers an icon set by URL in the default namespace.           | **url:** `SafeResourceUrl`                                                                            | `this`  |
 
 #### Usage
 
 **addSvgIcon:**
 
-```angular2html
-    this.matIconRegistry.addSvgIcon(
+```angularhtml
+    this.ouiIconRegistry.addSvgIcon(
       `icon-dummy-name`,
       domSanitizer.bypassSecurityTrustResourceUrl(`/assets/anysvg.svg`)
     );
@@ -71,10 +72,21 @@ Service to register and display icons used by the `<oui-icon>` component.
     <oui-icon svgIcon="icon-dummy-name"></oui-icon>
 ```
 
+**addSvgIconLiteral:**
+
+```angularhtml
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `icon-dummy-name`,
+      domSanitizer.bypassSecurityTrustHtml(`ICON_NAME`)
+    );
+
+    <oui-icon svgIcon="icon-dummy-name"></oui-icon>
+```
+
 **addSvgIconSet:**
 
-```angular2html
-    this.matIconRegistry.addSvgIconSet(
+```angularhtml
+    this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(`https://soqacdnstorage.blob.core.windows.net/cdnapp2/fonts/symbol-defs.svg`)
     )
     <oui-icon svgIcon="icon-bullhorn" inline="true" color="primary"></oui-icon>
