@@ -35,7 +35,7 @@ export const FAKE_SVGS = {
  */
 @Component({
   template: `
-    <oui-icon>{{ iconName }}</oui-icon>
+    <oui-icon></oui-icon>
   `
 })
 class IconWithLigature {
@@ -44,7 +44,7 @@ class IconWithLigature {
 
 @Component({
   template: `
-    <oui-icon [color]="iconColor">{{ iconName }}</oui-icon>
+    <oui-icon [color]="iconColor"></oui-icon>
   `
 })
 class IconWithColor {
@@ -63,7 +63,7 @@ class IconFromSvgName {
 
 @Component({
   template: `
-    <oui-icon [svgIcon]="iconName" *ngIf="showIcon">{{ iconName }}</oui-icon>
+    <oui-icon [svgIcon]="iconName" *ngIf="showIcon"></oui-icon>
   `
 })
 class IconWithBindingAndNgIf {
@@ -73,7 +73,7 @@ class IconWithBindingAndNgIf {
 
 @Component({
   template: `
-    <oui-icon [inline]="inline">{{ iconName }}</oui-icon>
+    <oui-icon [inline]="inline"></oui-icon>
   `
 })
 class InlineIcon {
