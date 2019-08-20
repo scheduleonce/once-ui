@@ -1,9 +1,5 @@
 import { inject, async, fakeAsync, tick, TestBed } from '@angular/core/testing';
-import {
-  SafeResourceUrl,
-  DomSanitizer,
-  SafeHtml
-} from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   HttpClientTestingModule,
   HttpTestingController
@@ -202,7 +198,9 @@ describe('OuiIcon', () => {
 
   describe('Icons from URLs', () => {
     it('should not wrap <svg> elements in icon sets in another svg tag', () => {
-      iconRegistry.addSvgIconSet(trustUrl('arrow-set.svg'));
+      iconRegistry.addSvgIconSet(
+        sanitizer.bypassSecurityTrustResourceUrl('arrow-set.svg')
+      );
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       const testComponent = fixture.componentInstance;
@@ -222,7 +220,10 @@ describe('OuiIcon', () => {
     });
 
     it('should not throw when toggling an icon that has a binding in IE11', () => {
-      iconRegistry.addSvgIcon('fluffy', trustUrl('cat.svg'));
+      iconRegistry.addSvgIcon(
+        'fluffy',
+        sanitizer.bypassSecurityTrustResourceUrl('cat.svg')
+      );
 
       const fixture = TestBed.createComponent(IconWithBindingAndNgIf);
 
@@ -239,7 +240,10 @@ describe('OuiIcon', () => {
     });
 
     it('should keep non-SVG user content inside the icon element', fakeAsync(() => {
-      iconRegistry.addSvgIcon('fido', trustUrl('dog.svg'));
+      iconRegistry.addSvgIcon(
+        'fido',
+        sanitizer.bypassSecurityTrustResourceUrl('dog.svg')
+      );
 
       const fixture = TestBed.createComponent(SvgIconWithUserContent);
       const testComponent = fixture.componentInstance;
@@ -262,8 +266,14 @@ describe('OuiIcon', () => {
 
   describe('Icons from HTML string', () => {
     it('should register icon HTML strings by name', fakeAsync(() => {
-      iconRegistry.addSvgIconLiteral(`fluffy`, trustHtml(FAKE_SVGS.cat));
-      iconRegistry.addSvgIconLiteral(`fido`, trustHtml(FAKE_SVGS.dog));
+      iconRegistry.addSvgIconLiteral(
+        `fluffy`,
+        sanitizer.bypassSecurityTrustHtml(FAKE_SVGS.cat)
+      );
+      iconRegistry.addSvgIconLiteral(
+        `fido`,
+        sanitizer.bypassSecurityTrustHtml(FAKE_SVGS.dog)
+      );
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       let svgElement: SVGElement;
@@ -288,7 +298,7 @@ describe('OuiIcon', () => {
     it('should prepend the current path to attributes with `url()` references', fakeAsync(() => {
       iconRegistry.addSvgIconLiteral(
         'fido',
-        trustHtml(`
+        sanitizer.bypassSecurityTrustHtml(`
         <svg>
           <filter id="blur">
             <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
@@ -316,7 +326,7 @@ describe('OuiIcon', () => {
     it('should use latest path when prefixing the `url()` references', fakeAsync(() => {
       iconRegistry.addSvgIconLiteral(
         'fido',
-        trustHtml(`
+        sanitizer.bypassSecurityTrustHtml(`
         <svg>
           <filter id="blur">
             <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
@@ -353,7 +363,7 @@ describe('OuiIcon', () => {
     it('should update the `url()` references when the path changes', fakeAsync(() => {
       iconRegistry.addSvgIconLiteral(
         'fido',
-        trustHtml(`
+        sanitizer.bypassSecurityTrustHtml(`
         <svg>
           <filter id="blur">
             <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
@@ -384,14 +394,4 @@ describe('OuiIcon', () => {
       );
     }));
   });
-
-  /** Marks an SVG icon url as explicitly trusted. */
-  function trustUrl(iconUrl: string): SafeResourceUrl {
-    return sanitizer.bypassSecurityTrustResourceUrl(iconUrl);
-  }
-
-  /** Marks an SVG icon string as explicitly trusted. */
-  function trustHtml(iconHtml: string): SafeHtml {
-    return sanitizer.bypassSecurityTrustHtml(iconHtml);
-  }
 });
