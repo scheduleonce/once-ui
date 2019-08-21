@@ -16,8 +16,6 @@ import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
 
 // Boilerplate for applying mixins to OuiMenuItem.
 
-
- 
 export class OuiMenuItemBase {}
 export const _OuiMenuItemMixinBase: CanDisableCtor &
   typeof OuiMenuItemBase = mixinDisabled(OuiMenuItemBase);
