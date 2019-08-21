@@ -82,7 +82,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
     '(click)': '_handleClick($event)',
-    '(focus)': '_handleFocus($event)',
+    '(focus)': '_handleFocus($event)'
   },
   exportAs: 'ouiMenuTrigger'
 })
