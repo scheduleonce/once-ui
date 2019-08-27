@@ -155,9 +155,12 @@ export class OuiDialog implements OnDestroy {
     }
 
     this.openDialogs.push(dialogRef);
-    dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
+    dialogRef.afterClosed().subscribe(() => {
+      this._removeOpenDialog(dialogRef);
+      dialogRef._containerInstance._restoreFocus();
+    });
     this.afterOpened.next(dialogRef);
-
+    dialogRef._containerInstance._trapFocus();
     return dialogRef;
   }
 
