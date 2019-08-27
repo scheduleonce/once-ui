@@ -28,7 +28,8 @@
     background: map-get($primary, default);
     color: map-get($primary, default-contrast);
     &:hover,
-    &.cdk-keyboard-focused {
+    &[class^='cdk'],
+    &[class$='focused'] {
       background: map-get($primary, darker);
       color: map-get($primary, default-contrast);
     }
@@ -37,7 +38,8 @@
     background: map-get($accent, default);
     color: map-get($accent, default-contrast);
     &:hover,
-    &.cdk-keyboard-focused {
+    &[class^='cdk'],
+    &[class$='focused'] {
       background: map-get($accent, darker);
       color: map-get($accent, default-contrast);
     }
@@ -46,7 +48,8 @@
     background: map-get($warn, default);
     color: map-get($warn, default-contrast);
     &:hover,
-    &.cdk-keyboard-focused {
+    &[class^='cdk'],
+    &[class$='focused'] {
       background: map-get($warn, darker);
       color: map-get($warn, default-contrast);
     }
@@ -92,7 +95,8 @@
     color: map-get($primary, default);
     border-color: map-get($primary, default);
     &:hover,
-    &.cdk-keyboard-focused {
+    &[class^='cdk'],
+    &[class$='focused'] {
       background: map-get($primary, darker);
       color: map-get($primary, default-contrast);
     }
@@ -101,7 +105,8 @@
     color: map-get($accent, default);
     border-color: map-get($accent, default);
     &:hover,
-    &.cdk-keyboard-focused {
+    &[class^='cdk'],
+    &[class$='focused'] {
       background: map-get($accent, darker);
       color: map-get($accent, default-contrast);
     }
@@ -110,7 +115,8 @@
     color: map-get($warn, default);
     border-color: map-get($warn, default);
     &:hover,
-    &.cdk-keyboard-focused {
+    &[class^='cdk'],
+    &[class$='focused'] {
       background: map-get($warn, darker);
       color: map-get($warn, default-contrast);
     }
