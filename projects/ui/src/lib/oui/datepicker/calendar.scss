@@ -6,7 +6,7 @@ $oui-calendar-controls-vertical-padding: 5%;
 // We use the same padding as the month / year label, but subtract 16px since there is padding
 // between the edge of the button and the text. This ensures that the button text lines up with
 // the month / year label text.
-$oui-calendar-controls-side-margin: calc(33% / 7 - 16px);
+$oui-calendar-controls-side-margin: calc(33% / 7 - 13px);
 
 $oui-calendar-arrow-size: 5px !default;
 $oui-calendar-arrow-disabled-opacity: 0.5 !default;
@@ -35,8 +35,36 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
   display: flex;
   margin: $oui-calendar-controls-vertical-padding
     $oui-calendar-controls-side-margin;
+    .oui-icon-button{
+      border-radius: 50%;
+      &.cdk-keyboard-focused{
+        background: #e8e8e8;
+      }
+    }
+}
+.oui-calendar-body-active.oui-calendar-body-cell-content{
+  border-radius: 2px;
 }
 
+// .cdk-keyboard-focused .oui-calendar-body-active > .oui-calendar-body-cell-content {
+//   border-radius: 2px;
+// }
+.cdk-keyboard-focused .oui-calendar-body-active > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
+  background-color: #e8e8e8;
+}
+.selectedFocus{
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  background: #e8e8e8;
+  left: 5%;
+  top: 5%;
+  border-radius: 2px;
+  display: none;
+}
+.cdk-keyboard-focused .oui-calendar-body-active > .selectedFocus {
+  display: block;
+}
 .oui-calendar-controls svg {
   height: 20px;
   width: 20px;
@@ -49,9 +77,17 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
 
 .oui-calendar-period-button {
   min-width: 0;
-  background: none !important;
+  // background: none !important;
   color: inherit !important;
   padding-left: 15px;
+}
+.oui-button.oui-primary.oui-calendar-period-button{
+  background: none;
+  border-radius: 2px;
+  padding: 6px 8px 6px 13px;
+}
+.oui-button.oui-primary.oui-calendar-period-button.cdk-keyboard-focused{
+  background: #e8e8e8;
 }
 
 .oui-calendar-arrow {
