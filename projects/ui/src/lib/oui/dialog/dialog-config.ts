@@ -45,7 +45,7 @@ export class OuiDialogConfig<D = any> {
   backdropClass? = '';
 
   /** Whether the user can use escape or clicking on the backdrop to close the modal. */
-  disableClose? = true;
+  disableClose? = false;
 
   /** Width of the dialog. */
   width? = '607px';
@@ -81,13 +81,13 @@ export class OuiDialogConfig<D = any> {
   ariaLabel?: string | null = null;
 
   /** Whether the dialog should focus the first focusable element on open. */
-  autoFocus? = false;
+  autoFocus?: boolean = true;
 
   /**
    * Whether the dialog should restore focus to the
    * previously-focused element, after it's closed.
    */
-  restoreFocus? = false;
+  restoreFocus?: boolean = true;
 
   /** Scroll strategy to be used for the dialog. */
   scrollStrategy?: ScrollStrategy;
