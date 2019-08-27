@@ -22,7 +22,13 @@ import {
   SkipSelf,
   TemplateRef
 } from '@angular/core';
-import { defer, Observable, of as observableOf, Subject } from 'rxjs';
+import {
+  defer,
+  Observable,
+  of as observableOf,
+  Subject,
+  Subscription
+} from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { OuiDialogConfig } from './dialog-config';
 import { OuiDialogContainer } from './dialog-container';
@@ -74,6 +80,7 @@ export class OuiDialog implements OnDestroy {
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
   private readonly _afterOpenedAtThisLevel = new Subject<OuiDialogRef<any>>();
   private _ariaHiddenElements = new Map<Element, string | null>();
+  private _dialogCloseSubscription: Subscription = Subscription.EMPTY;
 
   /** Keeps track of the currently-open dialogs. */
   get openDialogs(): OuiDialogRef<any>[] {
@@ -155,7 +162,7 @@ export class OuiDialog implements OnDestroy {
     }
 
     this.openDialogs.push(dialogRef);
-    dialogRef.afterClosed().subscribe(() => {
+    this._dialogCloseSubscription = dialogRef.afterClosed().subscribe(() => {
       this._removeOpenDialog(dialogRef);
       dialogRef._containerInstance._restoreFocus();
     });
@@ -183,6 +190,9 @@ export class OuiDialog implements OnDestroy {
     // Only close the dialogs at this level on destroy
     // since the parent service may still be active.
     this._closeDialogs(this._openDialogsAtThisLevel);
+    if (this._dialogCloseSubscription) {
+      this._dialogCloseSubscription.unsubscribe();
+    }
   }
 
   /**
