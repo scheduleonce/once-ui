@@ -632,12 +632,26 @@
         The actual rendered columns are set as a property on the row definition" -->
 
     <ng-container ouiColumnDef="name">
-      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Name</th>
+      <th
+        oui-header-cell
+        *ouiHeaderCellDef
+        oui-sort-header
+        [ouiSortTitle]="'Sort By Name'"
+      >
+        Name
+      </th>
       <td oui-cell *ouiCellDef="let row">{{ row.name }}</td>
     </ng-container>
 
     <ng-container ouiColumnDef="id">
-      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>ID</th>
+      <th
+        oui-header-cell
+        *ouiHeaderCellDef
+        oui-sort-header
+        [ouiSortTitle]="'Sort By ID'"
+      >
+        ID
+      </th>
       <td oui-cell *ouiCellDef="let row">{{ row.id }}</td>
     </ng-container>
 

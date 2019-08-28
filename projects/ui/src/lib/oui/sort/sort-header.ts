@@ -124,6 +124,9 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   /** Overrides the sort start value of the containing OuiSort for this OuiSortable. */
   @Input() start: 'asc' | 'desc';
 
+  //To set browser tooltip
+  @Input('ouiSortTitle') title: string = 'Sort';
+
   /** Overrides the disable clear value of the containing OuiSort for this OuiSortable. */
   @Input()
   get disableClear(): boolean {
