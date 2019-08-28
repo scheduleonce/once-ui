@@ -259,6 +259,20 @@ For example you can override default strategy by block strategy provided by angu
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/angular-buz89v](https://stackblitz.com/edit/angular-buz89v)
+[https://stackblitz.com/edit/angular-dialog-component](https://angular-dialog-component.stackblitz.io)
 
 You can click here and can change code to try and test different scenarios.
+
+### Accessibility
+
+When a dialog is opened, it will move focus to the first focusable element that it can find. In order to prevent users from tabbing into elements in the background, the OnceUi dialog uses a [focus trap] to contain focus within itself. Once a dialog is closed, it will return focus to the element that was focused before the dialog was opened.
+
+#### Focus management
+
+By default, the first tabbable element within the dialog will receive focus upon open. This can be configured by setting the `cdkFocusInitial` attribute on another focusable element.
+
+Tabbing through the elements of the dialog will keep focus inside of the dialog element, wrapping back to the first tabbable element when reaching the end of the tab sequence.
+
+#### Keyboard interaction
+
+By default pressing the escape key will close the dialog. While this behavior can be turned off via the `disableClose` option, users should generally avoid doing so as it breaks the expected interaction pattern for screen-reader users.

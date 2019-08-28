@@ -94,7 +94,8 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   &[disabled]:hover {
     text-decoration: none;
   }
-  &.cdk-keyboard-focused {
+  &[class^='cdk'],
+  &[class$='focused'] {
     outline: -webkit-focus-ring-color auto 1px !important;
     text-decoration: underline;
   }
