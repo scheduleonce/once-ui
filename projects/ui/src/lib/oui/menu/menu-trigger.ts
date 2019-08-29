@@ -3,7 +3,7 @@ import {
   FocusOrigin,
   isFakeMousedownFromScreenReader
 } from '@angular/cdk/a11y';
-import { RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
   HorizontalConnectionPos,
@@ -81,8 +81,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     '[attr.aria-expanded]': 'menuOpen || null',
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
-    '(click)': '_handleClick($event)',
-    '(focus)': '_handleFocus($event)'
+    '(click)': '_handleClick($event)'
   },
   exportAs: 'ouiMenuTrigger'
 })
@@ -497,8 +496,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   _handleKeydown(event: KeyboardEvent): void {
     // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
-
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
+      this.openMenu();
+    }else if(keyCode === SPACE) {
       this.openMenu();
     }
   }
