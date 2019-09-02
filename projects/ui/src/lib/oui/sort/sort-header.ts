@@ -125,8 +125,8 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   /** Overrides the sort start value of the containing OuiSort for this OuiSortable. */
   @Input() start: 'asc' | 'desc';
 
-  //To set browser tooltip
-  title: string = '';
+  // To set browser tooltip
+  title: string;
 
   /** Overrides the disable clear value of the containing OuiSort for this OuiSortable. */
   @Input()
@@ -184,7 +184,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   }
 
   ngOnInit() {
-    let columnHeading: string = this._elementRef.nativeElement.innerText;
+    const columnHeading: string = this._elementRef.nativeElement.innerText;
     this.title = 'Sort by ' + columnHeading;
     if (!this.id && this._columnDef) {
       this.id = this._columnDef.name;
