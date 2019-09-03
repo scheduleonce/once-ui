@@ -49,12 +49,12 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     @include oui-button-reset();
   }
 }
-.oui-icon-button{
+.oui-icon-button {
   &.cdk-keyboard-focused {
     background: rgba(200, 200, 200, 0.4);
     border-radius: $oui-icon-spacing;
     transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
-    background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
+      background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
   }
 }
 /*common properties in all buttons*/

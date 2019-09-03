@@ -307,10 +307,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
     this._scrollStrategy = scrollStrategy;
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() =>
-        this._ngZone.run(() => {
-        })
-      );
+      .subscribe(() => this._ngZone.run(() => {}));
   }
 
   ngOnDestroy() {
