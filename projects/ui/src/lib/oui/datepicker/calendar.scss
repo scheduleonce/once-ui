@@ -55,7 +55,7 @@ $oui-focused-background: #e8e8e8;
   > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
   background-color: $oui-focused-background;
 }
-.oui-selectedFocus {
+.oui-selected-focus {
   position: absolute;
   width: 90%;
   height: 90%;
@@ -65,7 +65,7 @@ $oui-focused-background: #e8e8e8;
   border-radius: 2px;
   display: none;
 }
-.cdk-keyboard-focused .oui-calendar-body-active > .oui-selectedFocus {
+.cdk-keyboard-focused .oui-calendar-body-active > .oui-selected-focus {
   display: block;
 }
 .oui-calendar-controls svg {
