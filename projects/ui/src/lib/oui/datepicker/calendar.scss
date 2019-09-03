@@ -17,6 +17,7 @@ $oui-calendar-prev-next-icon-border-width: 2px;
 $oui-calendar-prev-next-icon-margin: 15.5px;
 $oui-calendar-prev-icon-transform: translateX(2px) rotate(-45deg);
 $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
+$oui-focused-background: #e8e8e8;
 
 .oui-calendar {
   display: block;
@@ -38,7 +39,7 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
   .oui-icon-button {
     border-radius: 50%;
     &.cdk-keyboard-focused {
-      background: #e8e8e8;
+      background: $oui-focused-background;
     }
   }
 }
@@ -52,19 +53,19 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
 .cdk-keyboard-focused
   .oui-calendar-body-active
   > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
-  background-color: #e8e8e8;
+  background-color: $oui-focused-background;
 }
-.selectedFocus {
+.oui-selectedFocus {
   position: absolute;
   width: 90%;
   height: 90%;
-  background: #e8e8e8;
+  background: $oui-focused-background;
   left: 5%;
   top: 5%;
   border-radius: 2px;
   display: none;
 }
-.cdk-keyboard-focused .oui-calendar-body-active > .selectedFocus {
+.cdk-keyboard-focused .oui-calendar-body-active > .oui-selectedFocus {
   display: block;
 }
 .oui-calendar-controls svg {
@@ -79,7 +80,6 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
 
 .oui-calendar-period-button {
   min-width: 0;
-  // background: none !important;
   color: inherit !important;
   padding-left: 15px;
 }
@@ -89,7 +89,7 @@ $oui-calendar-next-icon-transform: translateX(-2px) rotate(45deg);
   padding: 6px 8px 6px 13px;
 }
 .oui-button.oui-primary.oui-calendar-period-button.cdk-keyboard-focused {
-  background: #e8e8e8;
+  background: $oui-focused-background;
 }
 
 .oui-calendar-arrow {
