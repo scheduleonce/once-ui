@@ -66,6 +66,11 @@ oui-row {
     background: #f6f6f6;
     cursor: pointer;
   }
+  &.cdk-keyboard-focused,
+  &.cdk-program-focused {
+    background: #e8e8e8;
+    outline: none;
+  }
 }
 
 oui-cell,
@@ -95,13 +100,6 @@ tr.oui-header-row {
   border-top: 1px solid #dfdfdf;
 }
 
-tr.oui-row,
-tr.oui-footer-row {
-}
-
-th.oui-header-cell {
-}
-
 th.oui-header-cell {
   padding: 16px 12.5px;
   font-size: 14px;
@@ -123,5 +121,9 @@ tr.oui-row {
   &:hover {
     background: #f6f6f6;
     cursor: pointer;
+  }
+  &.cdk-keyboard-focused {
+    background: #e8e8e8;
+    outline: none;
   }
 }
