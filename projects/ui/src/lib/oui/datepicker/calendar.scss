@@ -46,10 +46,6 @@ $oui-focused-background: #e8e8e8;
 .oui-calendar-body-active.oui-calendar-body-cell-content {
   border-radius: 2px;
 }
-
-// .cdk-keyboard-focused .oui-calendar-body-active > .oui-calendar-body-cell-content {
-//   border-radius: 2px;
-// }
 .cdk-keyboard-focused
   .oui-calendar-body-active
   > .oui-calendar-body-cell-content:not(.oui-calendar-body-selected) {
@@ -83,13 +79,13 @@ $oui-focused-background: #e8e8e8;
   color: inherit !important;
   padding-left: 15px;
 }
-.oui-button.oui-primary.oui-calendar-period-button {
-  background: none;
-  border-radius: 2px;
-  padding: 6px 8px 6px 13px;
+.oui-calendar-period-button {
+  background: none !important;
+  border-radius: 2px !important;
+  padding: 6px 8px 6px 13px !important;
 }
-.oui-button.oui-primary.oui-calendar-period-button.cdk-keyboard-focused {
-  background: $oui-focused-background;
+.oui-calendar-period-button.cdk-keyboard-focused {
+  background: $oui-focused-background !important;
 }
 
 .oui-calendar-arrow {
