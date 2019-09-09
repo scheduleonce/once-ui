@@ -14,7 +14,7 @@
     <ng-content></ng-content>
   </button>
 
-  <div class="oui-sort-header-arrow">
+  <div class="oui-sort-header-arrow" [title]="title">
     <div class="oui-sort-arrow-outer"></div>
     <div
       [class.oui-sort-header-arrow-selected]="_isSorted()"

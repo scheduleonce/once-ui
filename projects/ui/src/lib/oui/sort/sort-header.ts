@@ -128,6 +128,9 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   /** Overrides the sort start value of the containing OuiSort for this OuiSortable. */
   @Input() start: 'asc' | 'desc';
 
+  // To set browser tooltip
+  title: string;
+
   /** Overrides the disable clear value of the containing OuiSort for this OuiSortable. */
   @Input()
   get disableClear(): boolean {
@@ -148,7 +151,8 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
     @Optional() public _sort: OuiSort,
     @Inject('OUI_SORT_HEADER_COLUMN_DEF')
     @Optional()
-    public _columnDef: OuiSortHeaderColumnDef
+    public _columnDef: OuiSortHeaderColumnDef,
+    private _elementRef: ElementRef
   ) {
     // Note that we use a string token for the `_columnDef`, because the value is provided both by
     // `once-ui/table` and `cdk/table` and we can't have the CDK depending on once-ui,
@@ -190,6 +194,8 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   }
 
   ngOnInit() {
+    const columnHeading: string = this._elementRef.nativeElement.innerText;
+    this.title = 'Sort by ' + columnHeading;
     if (!this.id && this._columnDef) {
       this.id = this._columnDef.name;
     }
