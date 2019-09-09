@@ -122,7 +122,8 @@ tr.oui-row {
     background: #f6f6f6;
     cursor: pointer;
   }
-  &.cdk-keyboard-focused {
+  &.cdk-keyboard-focused,
+  &.cdk-program-focused {
     background: #e8e8e8;
     outline: none;
   }
