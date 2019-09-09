@@ -1,6 +1,7 @@
 $oui-header-row-height: 56px;
 $oui-row-height: 48px;
 $oui-row-horizontal-padding: 24px;
+$oui-focus-color: #e8e8e8;
 
 /**
  * Flex-based table structure
@@ -68,7 +69,7 @@ oui-row {
   }
   &.cdk-keyboard-focused,
   &.cdk-program-focused {
-    background: #e8e8e8;
+    background: $oui-focus-color;
     outline: none;
   }
 }
@@ -124,7 +125,7 @@ tr.oui-row {
   }
   &.cdk-keyboard-focused,
   &.cdk-program-focused {
-    background: #e8e8e8;
+    background: $oui-focus-color;
     outline: none;
   }
 }
