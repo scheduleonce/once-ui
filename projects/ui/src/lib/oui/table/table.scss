@@ -67,8 +67,8 @@ oui-row {
     background: #f6f6f6;
     cursor: pointer;
   }
-  &.cdk-keyboard-focused,
-  &.cdk-program-focused {
+  &[class^='cdk'],
+  &[class$='focused'] {
     background: $oui-focus-color;
     outline: none;
   }
@@ -123,8 +123,8 @@ tr.oui-row {
     background: #f6f6f6;
     cursor: pointer;
   }
-  &.cdk-keyboard-focused,
-  &.cdk-program-focused {
+  &[class^='cdk'],
+  &[class$='focused'] {
     background: $oui-focus-color;
     outline: none;
   }
