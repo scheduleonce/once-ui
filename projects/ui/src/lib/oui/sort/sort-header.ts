@@ -9,7 +9,9 @@ import {
   Optional,
   ViewEncapsulation,
   Inject,
-  ElementRef
+  ElementRef,
+  IterableDiffers,
+  NgZone
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
 import { merge, Subscription } from 'rxjs';
@@ -18,6 +20,7 @@ import { ouiSortAnimations } from './sort-animations';
 import { SortDirection } from './sort-direction';
 import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
 import { OuiSortHeaderIntl } from './sort-header-intl';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 // Boilerplate for applying mixins to the sort header.
 /** @docs-private */
@@ -137,10 +140,14 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
     this._disableClear = coerceBooleanProperty(v);
   }
   private _disableClear: boolean;
-
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
   constructor(
     public _intl: OuiSortHeaderIntl,
     changeDetectorRef: ChangeDetectorRef,
+    protected elementRef: ElementRef,
+    protected _differs: IterableDiffers,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone,
     @Optional() public _sort: OuiSort,
     @Inject('OUI_SORT_HEADER_COLUMN_DEF')
     @Optional()
@@ -152,6 +159,9 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
     // and we want to avoid having the sort header depending on the CDK table because
     // of this single reference.
     super();
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
 
     if (!_sort) {
       throw getSortHeaderNotContainedWithinSortError();
@@ -202,6 +212,8 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   ngOnDestroy() {
     this._sort.deregister(this);
     this._rerenderSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this.elementRef);
+    this._monitorSubscription.unsubscribe();
   }
 
   /**
