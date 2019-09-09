@@ -55,8 +55,8 @@ $arrow-margin: 1px 0px 0px 7px;
   opacity: 1;
 }
 .oui-header-cell {
-  &.cdk-keyboard-focused,
-  &.cdk-program-focused {
+  &[class^='cdk'],
+  &[class$='focused'] {
     .oui-sort-header-arrow-faded {
       opacity: 1;
     }
