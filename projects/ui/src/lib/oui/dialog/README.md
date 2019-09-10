@@ -259,7 +259,7 @@ For example you can override default strategy by block strategy provided by angu
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/angular-dialog-component](https://angular-dialog-component.stackblitz.io)
+[https://stackblitz.com/edit/angular-dialog-component](https://stackblitz.com/edit/angular-dialog-component)
 
 You can click here and can change code to try and test different scenarios.
 
