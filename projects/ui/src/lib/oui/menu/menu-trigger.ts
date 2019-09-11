@@ -498,7 +498,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     const keyCode = event.keyCode;
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
       this.openMenu();
-    }else if(keyCode === SPACE) {
+    } else if (keyCode === SPACE) {
       this.openMenu();
     }
   }
