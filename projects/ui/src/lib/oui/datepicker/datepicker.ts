@@ -28,6 +28,7 @@ import {
   ViewContainerRef,
   ViewEncapsulation
 } from '@angular/core';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { OuiDialog, OuiDialogRef } from '../dialog/public-api';
 import { merge, Subject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -287,11 +288,13 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
 
   /** Emits new selected date when selected date changes. */
   readonly _selectedChanged = new Subject<D>();
-
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
   constructor(
     private _dialog: OuiDialog,
     private _overlay: Overlay,
     private _ngZone: NgZone,
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
     private _viewContainerRef: ViewContainerRef,
     @Inject(OUI_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional() private _dateAdapter: DateAdapter<D>,
@@ -301,14 +304,17 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }
-
     this._scrollStrategy = scrollStrategy;
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
   }
 
   ngOnDestroy() {
     this.close();
     this._inputSubscription.unsubscribe();
     this._disabledChange.complete();
+    this._monitorSubscription.unsubscribe();
 
     if (this._popupRef) {
       this._popupRef.dispose();
