@@ -2,7 +2,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   Directive,
-  ViewEncapsulation
+  ViewEncapsulation,
+  OnDestroy,
+  ElementRef,
+  NgZone,
+  IterableDiffers
 } from '@angular/core';
 import {
   CDK_ROW_TEMPLATE,
@@ -13,6 +17,8 @@ import {
   CdkRow,
   CdkRowDef
 } from '@angular/cdk/table';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Subscription } from 'rxjs';
 
 /**
  * Header row definition for the oui-table.
@@ -90,11 +96,29 @@ export class OuiFooterRow extends CdkFooterRow {}
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-row',
-    role: 'row'
+    role: 'row',
+    tabindex: '0'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRow',
   providers: [{ provide: CdkRow, useExisting: OuiRow }]
 })
-export class OuiRow extends CdkRow {}
+export class OuiRow extends CdkRow implements OnDestroy {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  constructor(
+    protected elementRef: ElementRef,
+    protected _differs: IterableDiffers,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone
+  ) {
+    super();
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+  }
+  ngOnDestroy(): void {
+    this._focusMonitor.stopMonitoring(this.elementRef);
+    this._monitorSubscription.unsubscribe();
+  }
+}
