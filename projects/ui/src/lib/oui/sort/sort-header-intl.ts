@@ -15,7 +15,7 @@ export class OuiSortHeaderIntl {
 
   /** ARIA label for the sorting button. */
   sortButtonLabel = (id: string) => {
-    return `Change sorting for ${id}`;
+    return `${id}`;
   };
 }
 /** @docs-private */
