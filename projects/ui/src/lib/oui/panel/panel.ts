@@ -20,6 +20,9 @@ import {
 import { OuiPanelOverlay } from './panel-overlay';
 import { OuiPanelContent } from './panel-content';
 import { Subject, Observable } from 'rxjs';
+import { OuiIconRegistry } from '../icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICONS } from '../core/shared/icons';
 
 /** Default `oui-panel` options that can be overridden. */
 export interface OuiPanelDefaultOptions {
@@ -147,10 +150,20 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
 @Component({
   selector: 'oui-panel-icon',
-  template: '<div class="oui-panel-icon"></div>',
+  template: '<oui-icon svgIcon="panel-icon" class="oui-panel-icon"></oui-icon>',
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiPanelIcon'
 })
-export class OuiPanelIcon {}
+export class OuiPanelIcon {
+  constructor(
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `panel-icon`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.PANEL_ICON)
+    );
+  }
+}

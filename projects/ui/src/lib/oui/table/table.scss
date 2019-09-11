@@ -1,6 +1,7 @@
 $oui-header-row-height: 56px;
 $oui-row-height: 48px;
 $oui-row-horizontal-padding: 24px;
+$oui-focus-color: #e8e8e8;
 
 /**
  * Flex-based table structure
@@ -66,6 +67,11 @@ oui-row {
     background: #f6f6f6;
     cursor: pointer;
   }
+  &[class^='cdk'],
+  &[class$='focused'] {
+    background: $oui-focus-color;
+    outline: none;
+  }
 }
 
 oui-cell,
@@ -95,13 +101,6 @@ tr.oui-header-row {
   border-top: 1px solid #dfdfdf;
 }
 
-tr.oui-row,
-tr.oui-footer-row {
-}
-
-th.oui-header-cell {
-}
-
 th.oui-header-cell {
   padding: 16px 12.5px;
   font-size: 14px;
@@ -123,5 +122,10 @@ tr.oui-row {
   &:hover {
     background: #f6f6f6;
     cursor: pointer;
+  }
+  &[class^='cdk'],
+  &[class$='focused'] {
+    background: $oui-focus-color;
+    outline: none;
   }
 }
