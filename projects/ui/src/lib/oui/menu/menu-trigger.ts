@@ -516,11 +516,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   _handleFocus(): void {
     if (!this._openViaFocus) {
-      this._openViaFocus = true;
       this.toggleMenu();
-    } else {
-      this._openViaFocus = false;
     }
+    this._openViaFocus = !this._openViaFocus;
   }
 
   /** Handles the cases where the user hovers over the trigger. */
