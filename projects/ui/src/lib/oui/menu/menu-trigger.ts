@@ -3,7 +3,7 @@ import {
   FocusOrigin,
   isFakeMousedownFromScreenReader
 } from '@angular/cdk/a11y';
-import { RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
   HorizontalConnectionPos,
@@ -93,6 +93,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _hoverSubscription = Subscription.EMPTY;
   private _menuCloseSubscription = Subscription.EMPTY;
   private _scrollStrategy: () => ScrollStrategy;
+  private _openViaFocus = false;
 
   // Tracking input type is necessary so it's possible to only auto-focus
   // the first item of the list when the menu is opened via the keyboard
@@ -495,8 +496,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   _handleKeydown(event: KeyboardEvent): void {
     // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
-
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
+      this.openMenu();
+    } else if (keyCode === SPACE) {
       this.openMenu();
     }
   }
@@ -510,6 +512,13 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     } else {
       this.toggleMenu();
     }
+  }
+
+  _handleFocus(): void {
+    if (!this._openViaFocus) {
+      this.toggleMenu();
+    }
+    this._openViaFocus = !this._openViaFocus;
   }
 
   /** Handles the cases where the user hovers over the trigger. */

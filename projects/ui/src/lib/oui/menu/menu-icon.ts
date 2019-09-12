@@ -43,6 +43,8 @@ export class OuiMenuIcon implements AfterContentInit, OnChanges {
     if (!this._iconDiv) {
       return;
     }
+    // Added tabindex to make menu icon keyboard accessible.
+    this._iconDiv.parentElement.parentElement.setAttribute('tabindex', '0');
     if (this.vertical) {
       this._iconDiv.parentElement.classList.add('oui-menu-icon-vertical');
     } else {
