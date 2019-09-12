@@ -142,7 +142,8 @@ $oui-menu-line-height: 22px;
 .oui-menu-icon-container {
   height: 20px;
 }
-.oui-menu-icon {
+.oui-menu-icon,
+.oui-menu-icon-hover {
   background: $oui-three-dot-icon no-repeat center center;
   height: 8px;
   width: 20px;
@@ -154,11 +155,6 @@ $oui-menu-line-height: 22px;
     @include oui-menu-icon-hover();
   }
 }
-
-.oui-menu-icon-hover {
-  @include oui-menu-icon-hover();
-}
-
 .oui-menu-icon-container.oui-menu-icon-vertical {
   display: block;
   height: 24px;
