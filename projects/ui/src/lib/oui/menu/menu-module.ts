@@ -9,9 +9,10 @@ import {
   OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER
 } from './menu-trigger';
 import { OuiMenuIcon } from './menu-icon';
+import { OuiIconModule } from '../icon/icon.module';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule],
+  imports: [CommonModule, OverlayModule, OuiIconModule],
   exports: [OuiMenu, OuiMenuItem, OuiMenuTrigger, OuiMenuContent, OuiMenuIcon],
   declarations: [
     OuiMenu,
