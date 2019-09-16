@@ -15,5 +15,6 @@ export const ICONS = {
 </g>
 </svg>`,
   PANEL_ICON: `<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" fill-rule="evenodd"><circle fill="#FFF" cx="9" cy="9" r="8"/><path d="M1.639 13.25a8.5 8.5 0 1 1 14.722-8.5 8.5 8.5 0 0 1-14.722 8.5zM16.5 9a7.5 7.5 0 1 0-15 0 7.5 7.5 0 0 0 15 0z" fill="#000"/><path d="M7 12h4v1H7v-1zm0-5h3v1H7V7z" fill="#000"/><path d="M8 7h2v5H8V7zm0-3h2v2H8V4z" fill="#000"/></g></svg>`
+  <g fill="none" fill-rule="evenodd"><circle fill="#FFF" cx="9" cy="9" r="8"/><path d="M1.639 13.25a8.5 8.5 0 1 1 14.722-8.5 8.5 8.5 0 0 1-14.722 8.5zM16.5 9a7.5 7.5 0 1 0-15 0 7.5 7.5 0 0 0 15 0z" fill="#000"/><path d="M7 12h4v1H7v-1zm0-5h3v1H7V7z" fill="#000"/><path d="M8 7h2v5H8V7zm0-3h2v2H8V4z" fill="#000"/></g></svg>`,
+  THREE_DOT_MENU_ICON: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="8" fit="" preserveAspectRatio="xMidYMid meet" focusable="false"><g transform="translate(1 2)" fill="#000" fill-rule="evenodd"><circle cx="2" cy="2" r="2"/><circle cx="9" cy="2" r="2"/><circle cx="16" cy="2" r="2"/></g></svg>`
 };
