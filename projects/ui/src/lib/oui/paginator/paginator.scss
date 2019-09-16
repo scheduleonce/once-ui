@@ -42,6 +42,13 @@ $double-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'
       color: currentColor;
       cursor: pointer;
       vertical-align: top;
+      border-radius: 0px;
+      min-height: 33px;
+      min-width: 10px;
+      &[class^='cdk'],
+      &[class$='focused'] {
+        background-color: rgba(200, 200, 200, 0.4) !important;
+      }
     }
     .oui-paginator-navigation-first {
       background: $double-arrow center center no-repeat;
