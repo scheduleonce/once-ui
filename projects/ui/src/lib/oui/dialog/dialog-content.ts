@@ -5,10 +5,18 @@ import {
   OnInit,
   Optional,
   SimpleChanges,
-  ElementRef
+  ElementRef,
+  Component,
+  NgZone,
+  OnDestroy
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
+import { OuiIconRegistry } from '../icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICONS } from '../core/shared/icons';
+import { Subscription } from 'rxjs';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Counter used to generate unique IDs for dialog elements. */
 let dialogElementUid = 0;
@@ -76,46 +84,108 @@ export class OuiDialogHeaderAction {
 /**
  * header action article.
  */
-@Directive({
+@Component({
+  // tslint:disable-next-line:component-selector
   selector: '[oui-dialog-header-article], [ouiDialogHeaderArticle]',
+  template: '<oui-icon svgIcon="article-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderArticle',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-dialog-header-article'
   }
 })
-export class OuiDialogHeaderArticle {
-  constructor() {}
+export class OuiDialogHeaderArticle implements OnDestroy {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  constructor(
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer,
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone
+  ) {
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `article-icon`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.ARTICLE_ICON)
+    );
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+  }
+  ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
+  }
 }
 
 /**
  * header action article.
  */
-@Directive({
+@Component({
+  // tslint:disable-next-line:component-selector
   selector: '[oui-dialog-header-video], [ouiDialogHeaderVideo]',
+  template: '<oui-icon svgIcon="video-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderVideo',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
     class: 'oui-dialog-header-video'
   }
 })
-export class OuiDialogHeaderVideo {
-  constructor() {}
+export class OuiDialogHeaderVideo implements OnDestroy {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+
+  constructor(
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer,
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone
+  ) {
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `video-icon`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.VIDEO_ICON)
+    );
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+  }
+  ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
+  }
 }
 
 /**
  * header action close
  */
-@Directive({
+@Component({
+  // tslint:disable-next-line:component-selector
   selector: '[oui-dialog-header-close], [ouiDialogHeaderClose]',
+  template: '<oui-icon svgIcon="close-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderClose',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
-    class: 'oui-dialog-header-close'
+    class: 'oui-dialog-header-close',
+    '[attr.tabindex]': '0'
   }
 })
-export class OuiDialogHeaderClose {
-  constructor() {}
+export class OuiDialogHeaderClose implements OnDestroy {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  constructor(
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer,
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone
+  ) {
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `close-icon`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.CLOSE_ICON)
+    );
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+  }
+  ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
+  }
 }
 
 /**
