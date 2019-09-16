@@ -8,7 +8,10 @@ import {
   OnInit,
   Optional,
   ViewEncapsulation,
-  Inject
+  Inject,
+  ElementRef,
+  IterableDiffers,
+  NgZone
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
 import { merge, Subscription } from 'rxjs';
@@ -17,6 +20,7 @@ import { ouiSortAnimations } from './sort-animations';
 import { SortDirection } from './sort-direction';
 import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
 import { OuiSortHeaderIntl } from './sort-header-intl';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 // Boilerplate for applying mixins to the sort header.
 /** @docs-private */
@@ -124,6 +128,9 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   /** Overrides the sort start value of the containing OuiSort for this OuiSortable. */
   @Input() start: 'asc' | 'desc';
 
+  // To set browser tooltip
+  title: string;
+
   /** Overrides the disable clear value of the containing OuiSort for this OuiSortable. */
   @Input()
   get disableClear(): boolean {
@@ -133,20 +140,28 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
     this._disableClear = coerceBooleanProperty(v);
   }
   private _disableClear: boolean;
-
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
   constructor(
     public _intl: OuiSortHeaderIntl,
     changeDetectorRef: ChangeDetectorRef,
+    protected elementRef: ElementRef,
+    protected _differs: IterableDiffers,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone,
     @Optional() public _sort: OuiSort,
     @Inject('OUI_SORT_HEADER_COLUMN_DEF')
     @Optional()
-    public _columnDef: OuiSortHeaderColumnDef
+    public _columnDef: OuiSortHeaderColumnDef,
+    private _elementRef: ElementRef
   ) {
     // Note that we use a string token for the `_columnDef`, because the value is provided both by
     // `once-ui/table` and `cdk/table` and we can't have the CDK depending on once-ui,
     // and we want to avoid having the sort header depending on the CDK table because
     // of this single reference.
     super();
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
 
     if (!_sort) {
       throw getSortHeaderNotContainedWithinSortError();
@@ -179,6 +194,8 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   }
 
   ngOnInit() {
+    const columnHeading: string = this._elementRef.nativeElement.innerText;
+    this.title = 'Sort by ' + columnHeading;
     if (!this.id && this._columnDef) {
       this.id = this._columnDef.name;
     }
@@ -195,6 +212,8 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
   ngOnDestroy() {
     this._sort.deregister(this);
     this._rerenderSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this.elementRef);
+    this._monitorSubscription.unsubscribe();
   }
 
   /**

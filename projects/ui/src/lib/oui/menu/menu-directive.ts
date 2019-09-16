@@ -243,7 +243,6 @@ export class OuiMenu
   _handleKeydown(event: KeyboardEvent) {
     // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
-
     switch (keyCode) {
       case ESCAPE:
         this.closed.emit('keydown');
