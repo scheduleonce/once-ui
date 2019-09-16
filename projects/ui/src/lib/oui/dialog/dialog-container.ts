@@ -6,7 +6,9 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   ElementRef,
-  OnInit
+  OnInit,
+  Inject,
+  Optional
 } from '@angular/core';
 import {
   BasePortalOutlet,
@@ -14,7 +16,9 @@ import {
   CdkPortalOutlet,
   TemplatePortal
 } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
 import { OuiDialogConfig } from './dialog-config';
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
 
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -56,6 +60,12 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   @ViewChild(CdkPortalOutlet)
   _portalOutlet: CdkPortalOutlet;
 
+  /** The class that traps and manages focus within the dialog. */
+  private _focusTrap: FocusTrap;
+
+  /** Element that was focused before the dialog was opened. Save this to restore upon close. */
+  private _elementFocusedBeforeDialogWasOpened: HTMLElement = null;
+
   /** ID of the element that should be considered as the dialog's label. */
   _ariaLabelledBy: string | null = null;
 
@@ -63,8 +73,10 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   _id: string;
 
   constructor(
+    private _focusTrapFactory: FocusTrapFactory,
     public _config: OuiDialogConfig,
-    public elementRef: ElementRef<HTMLElement>
+    public elementRef: ElementRef<HTMLElement>,
+    @Optional() @Inject(DOCUMENT) private _document: any
   ) {
     super();
   }
@@ -72,14 +84,12 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   ngOnInit() {
     this._addMarginForDefaultScroll();
   }
-
   private _addMarginForDefaultScroll() {
     if (!this._config.scrollStrategy) {
       this.elementRef.nativeElement.style.marginTop = '40px';
       this.elementRef.nativeElement.style.marginBottom = '40px';
     }
   }
-
   /**
    * Attach a ComponentPortal as content to this dialog container.
    * @param portal Portal to be attached as the dialog content.
@@ -88,6 +98,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     if (this._portalOutlet.hasAttached()) {
       throwOuiDialogContentAlreadyAttachedError();
     }
+    this._savePreviouslyFocusedElement();
     return this._portalOutlet.attachComponentPortal(portal);
   }
 
@@ -99,6 +110,67 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     if (this._portalOutlet.hasAttached()) {
       throwOuiDialogContentAlreadyAttachedError();
     }
+    this._savePreviouslyFocusedElement();
     return this._portalOutlet.attachTemplatePortal(portal);
+  }
+
+  /** Moves the focus inside the focus trap. */
+  public _trapFocus() {
+    const element = this.elementRef.nativeElement;
+
+    if (!this._focusTrap) {
+      this._focusTrap = this._focusTrapFactory.create(element);
+    }
+
+    // If we were to attempt to focus immediately, then the content of the dialog would not yet be
+    // ready in instances where change detection has to run first. To deal with this, we simply
+    // wait for the microtask queue to be empty.
+    if (this._config.autoFocus) {
+      this._focusTrap.focusInitialElementWhenReady();
+    } else {
+      const activeElement = this._document.activeElement;
+
+      // Otherwise ensure that focus is on the dialog container. It's possible that a different
+      // component tried to move focus while the open animation was running. Note that we only want to do this
+      // if the focus isn't inside the dialog already, because it's possible that the consumer
+      // turned off `autoFocus` in order to move focus themselves.
+      if (activeElement !== element && !element.contains(activeElement)) {
+        element.focus();
+      }
+    }
+  }
+
+  /** Restores focus to the element that was focused before the dialog opened. */
+  public _restoreFocus() {
+    const toFocus = this._elementFocusedBeforeDialogWasOpened;
+
+    // We need the extra check, because IE can set the `activeElement` to null in some cases.
+    if (
+      this._config.restoreFocus &&
+      toFocus &&
+      typeof toFocus.focus === 'function'
+    ) {
+      toFocus.focus();
+    }
+
+    if (this._focusTrap) {
+      this._focusTrap.destroy();
+    }
+  }
+
+  /** Saves a reference to the element that was focused before the dialog was opened. */
+  private _savePreviouslyFocusedElement() {
+    if (this._document) {
+      this._elementFocusedBeforeDialogWasOpened = this._document
+        .activeElement as HTMLElement;
+
+      // Note that there is no focus method when rendering on the server.
+      if (this.elementRef.nativeElement.focus) {
+        // Move focus onto the dialog immediately in order to prevent the user from accidentally
+        // opening multiple dialogs at the same time. Needs to be async, because the element
+        // may not be focusable immediately.
+        Promise.resolve().then(() => this.elementRef.nativeElement.focus());
+      }
+    }
   }
 }

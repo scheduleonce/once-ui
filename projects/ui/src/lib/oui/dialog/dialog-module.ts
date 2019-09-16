@@ -20,9 +20,10 @@ import {
   OuiDialogFooterActionRight,
   OuiDialogHeaderImage
 } from './dialog-content';
+import { OuiIconModule } from '../icon/icon.module';
 
 @NgModule({
-  imports: [CommonModule, OverlayModule, PortalModule],
+  imports: [CommonModule, OverlayModule, PortalModule, OuiIconModule],
   exports: [
     OuiDialogContainer,
     OuiDialogHeader,
