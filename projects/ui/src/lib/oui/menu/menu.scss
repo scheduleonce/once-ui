@@ -1,6 +1,5 @@
 @import './menu-theme';
 
-$oui-three-dot-icon: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaXQ9IiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgZm9jdXNhYmxlPSJmYWxzZSI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMSAyKSIgZmlsbD0iIzAwMCIgZmlsbC1ydWxlPSJldmVub2RkIj48Y2lyY2xlIGN4PSIyIiBjeT0iMiIgcj0iMiI+PC9jaXJjbGU+PGNpcmNsZSBjeD0iOSIgY3k9IjIiIHI9IjIiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjE2IiBjeT0iMiIgcj0iMiI+PC9jaXJjbGU+PC9nPjwvc3ZnPg==);
 // menu width must be a multiple of 56px
 $oui-menu-overlay-min-width: 205px !default; // 56 * 2
 $oui-menu-overlay-max-width: 244px !default; // 56 * 5
@@ -131,29 +130,33 @@ $oui-menu-line-height: 22px;
 }
 
 @mixin oui-menu-icon-hover {
-  background: $oui-three-dot-icon no-repeat rgba(200, 200, 200, 0.4) center
-    center;
+  background-color: rgba(200, 200, 200, 0.4);
   border-radius: 2px;
   transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
     background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
   cursor: pointer;
+  padding: 2px;
 }
 
 .oui-menu-icon-container {
   height: 20px;
 }
+.oui-menu-icon {
+  svg {
+    padding: 2px;
+    pointer-events: auto !important;
+  }
+}
 .oui-menu-icon,
 .oui-menu-icon-hover {
-  background: $oui-three-dot-icon no-repeat center center;
-  height: 8px;
-  width: 20px;
   display: inline-block;
   margin: 0;
-  padding: 2px;
-  vertical-align: middle;
-  &:hover {
+  &:hover svg {
     @include oui-menu-icon-hover();
   }
+}
+.oui-menu-icon-hover {
+  @include oui-menu-icon-hover();
 }
 .oui-menu-icon-container.oui-menu-icon-vertical {
   display: block;
