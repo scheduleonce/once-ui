@@ -22,6 +22,7 @@ import { OuiMonthView } from './month-view';
 import { OuiMultiYearView } from './multi-year-view';
 import { OuiYearView } from './year-view';
 import { OuiNativeDateModule } from './native-date.module';
+import { OuiIconModule } from '../icon/icon.module';
 
 @NgModule({
   imports: [
@@ -31,7 +32,8 @@ import { OuiNativeDateModule } from './native-date.module';
     OverlayModule,
     A11yModule,
     PortalModule,
-    OuiNativeDateModule
+    OuiNativeDateModule,
+    OuiIconModule
   ],
   exports: [
     OuiCalendar,
