@@ -25,6 +25,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`ONCEHUB-11581`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11581) Accessibility for dialog
 - [`ONCEHUB-17861`](https://scheduleonce.atlassian.net/browse/ONCEHUB-17861) Add browser tooltip to once-ui table component with sort
 - [`ONCEHUB-17899`](https://scheduleonce.atlassian.net/browse/ONCEHUB-17899) Spacing in datepicker component
+- [`ONCEHUB-11571`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11571) Accessibility for table
+- [`ONCEHUB-11577`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11577) Accessibility for datepicker
 
 ## [1.11.15] - 2019-08-22
 
