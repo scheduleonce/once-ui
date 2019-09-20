@@ -528,8 +528,8 @@ export class OuiSelect extends _OuiSelectMixinBase
     @Attribute('tabindex') tabIndex: string,
     @Optional() @Inject(DOCUMENT) private _document: any,
     public _elementRef: ElementRef,
-    public ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
+    public _ouiIconRegistry: OuiIconRegistry,
+    private _domSanitizer: DomSanitizer
   ) {
     super(
       elementRef,
@@ -538,9 +538,9 @@ export class OuiSelect extends _OuiSelectMixinBase
       _parentFormGroup,
       ngControl
     );
-    this.ouiIconRegistry.addSvgIconLiteral(
+    this._ouiIconRegistry.addSvgIconLiteral(
       `select-arrow-icon`,
-      this.domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
+      this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
     );
 
     if (this.ngControl) {
