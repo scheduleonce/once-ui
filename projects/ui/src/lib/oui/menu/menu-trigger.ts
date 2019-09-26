@@ -114,11 +114,11 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     if (menu) {
       this._menuCloseSubscription = menu.close
         .asObservable()
-        .subscribe(reason => {
-          this._destroyMenu();
+        .subscribe(event => {
+          this._destroyMenu(event);
           // If a click closed the menu, we should close the entire chain of nested menus.
-          if ((reason === 'click' || reason === 'tab') && this._parentMenu) {
-            this._parentMenu.closed.emit(reason);
+          if ((event === 'click' || event === 'tab') && this._parentMenu) {
+            this._parentMenu.closed.emit(event);
           }
         });
     }
@@ -237,8 +237,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   }
 
   /** Closes the menu. */
-  closeMenu(): void {
-    this.menu.close.emit();
+  closeMenu(event?): void {
+    this.menu.close.emit(event);
   }
 
   /**
@@ -254,7 +254,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   }
 
   /** Closes the menu and does the necessary cleanup. */
-  private _destroyMenu() {
+  private _destroyMenu(event) {
     // (TODO)
     if (!this._overlayRef || !this.menuOpen) {
       return;
@@ -264,14 +264,10 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
     this._closeSubscription.unsubscribe();
     this._overlayRef.detach();
+    this._resetMenu(event);
 
-    if (menu instanceof OuiMenu) {
-      this._resetMenu();
-    } else {
-      this._resetMenu();
-      if (menu.lazyContent) {
-        menu.lazyContent.detach();
-      }
+    if (!(menu instanceof OuiMenu) && menu.lazyContent) {
+      menu.lazyContent.detach();
     }
   }
 
@@ -291,20 +287,22 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * This method resets the menu when it's closed, most importantly restoring
    * focus to the menu trigger if the menu was opened via the keyboard.
    */
-  private _resetMenu(): void {
+  private _resetMenu(event): void {
     this._setIsMenuOpen(false);
 
     // We should reset focus if the user is navigating using a keyboard or
     // if we have a top-level trigger which might cause focus to be lost
     // when clicking on the backdrop.
-    if (!this._openedBy) {
-      // Note that the focus style will show up both for `program` and
-      // `keyboard` so we don't have to specify which one it is.
-      this.focus();
-    } else if (!this.triggersSubmenu()) {
-      this.focus(this._openedBy);
+    // Focus back to menu only when clicking outside of menu on window or ESC key pressed.
+    if ((!event && !this.triggersSubmenu()) || event === 'keydown') {
+      if (!this._openedBy) {
+        // Note that the focus style will show up both for `program` and
+        // `keyboard` so we don't have to specify which one it is.
+        this.focus();
+      } else if (!this.triggersSubmenu()) {
+        this.focus(this._openedBy);
+      }
     }
-
     this._openedBy = null;
   }
 
