@@ -10,13 +10,11 @@ import {
 } from '../../../projects/ui/src/lib/oui/datepicker';
 import {
   OuiFormFieldModule,
-  OuiInputModule
-} from '../../../projects/ui/src/lib/oui';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
+  OuiInputModule,
   OuiDateFormats,
   OUI_DATE_FORMATS
-} from '../../../projects/ui/src/lib/oui/datepicker/native-date.module';
+} from '../../../projects/ui/src/lib/oui';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
 const CURRENT_DATE = new Date();
