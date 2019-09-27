@@ -5,6 +5,68 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.17-0] - 2019-09-27
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-19132`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19132) When a popup opens, no element should have focus
+- [`ONCEHUB-18616`](https://scheduleonce.atlassian.net/browse/ONCEHUB-18616) Panel icon changes
+- [`ONCEHUB-18869`](https://scheduleonce.atlassian.net/browse/ONCEHUB-18869) Focus break issue in menu component
+
+## [1.11.16] - 2019-09-17
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-11579`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11579) Accessibility for menu
+- [`ONCEHUB-11581`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11581) Accessibility for dialog
+- [`ONCEHUB-17861`](https://scheduleonce.atlassian.net/browse/ONCEHUB-17861) Add browser tooltip to once-ui table component with sort
+- [`ONCEHUB-17899`](https://scheduleonce.atlassian.net/browse/ONCEHUB-17899) Spacing in datepicker component
+- [`ONCEHUB-11571`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11571) Accessibility for table
+- [`ONCEHUB-11577`](https://scheduleonce.atlassian.net/browse/ONCEHUB-11577) Accessibility for datepicker
+
+## [1.11.15] - 2019-08-22
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-6679`](https://scheduleonce.atlassian.net/browse/ONCEHUB-6679) Buttons issue
+- [`ONCEHUB-16734`](https://scheduleonce.atlassian.net/browse/ONCEHUB-16734) Panel icon replaced with the oui-icon
+
 ## [1.11.14] - 2019-08-20
 
 ### Added
