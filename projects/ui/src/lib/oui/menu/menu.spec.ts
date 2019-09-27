@@ -1529,7 +1529,7 @@ describe('OuiMenu', () => {
             .contains(document.activeElement)
         ).toBe(true, 'Expected focus to be inside the second nested menu');
 
-        instance.levelTwoTrigger.closeMenu();
+        instance.levelTwoTrigger.closeMenu('keydown');
         fixture.detectChanges();
 
         expect(
@@ -1538,7 +1538,7 @@ describe('OuiMenu', () => {
             .contains(document.activeElement)
         ).toBe(true, 'Expected focus to be back inside the first nested menu');
 
-        instance.levelOneTrigger.closeMenu();
+        instance.levelOneTrigger.closeMenu('keydown');
         fixture.detectChanges();
 
         expect(
