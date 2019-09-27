@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.17-0] - 2019-09-27
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-19132`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19132) When a popup opens, no element should have focus
+- [`ONCEHUB-18616`](https://scheduleonce.atlassian.net/browse/ONCEHUB-18616) Panel icon changes
+- [`ONCEHUB-18869`](https://scheduleonce.atlassian.net/browse/ONCEHUB-18869) Focus break issue in menu component
+
 ## [1.11.16] - 2019-09-17
 
 ### Added
