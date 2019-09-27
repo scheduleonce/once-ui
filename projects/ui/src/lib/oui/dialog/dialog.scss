@@ -2,8 +2,8 @@
 $icon-focus-background: rgba(200, 200, 200, 0.4);
 $icon-focus-transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
   background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
-$icon-header-width: 24px;
-$icon-header-height: 24px;
+$header-icon-width: 24px;
+$header-icon-height: 24px;
 
 .cdk-overlay-backdrop {
   background: rgba(255, 255, 255, 0.8) !important;
@@ -98,8 +98,8 @@ $icon-header-height: 24px;
 
 .oui-dialog-header-close {
   cursor: pointer;
-  width: $icon-header-width;
-  height: $icon-header-height;
+  width: $header-icon-width;
+  height: $header-icon-height;
   line-height: 1;
   padding: 2px;
   text-align: center;
@@ -119,8 +119,8 @@ $icon-header-height: 24px;
   }
 }
 .oui-dialog-header-article {
-  width: $icon-header-width;
-  height: $icon-header-height;
+  width: $header-icon-width;
+  height: $header-icon-height;
   float: right;
   margin-left: 4px;
   line-height: 1;
@@ -142,8 +142,8 @@ $icon-header-height: 24px;
   }
 }
 .oui-dialog-header-video {
-  width: $icon-header-width;
-  height: $icon-header-height;
+  width: $header-icon-width;
+  height: $header-icon-height;
   position: relative;
   float: right;
   margin-left: 4px;
