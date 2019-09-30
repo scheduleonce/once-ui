@@ -184,7 +184,6 @@ export class OuiSelectTrigger {}
     '[attr.aria-owns]': 'panelOpen ? _optionIds : null',
     '[attr.aria-multiselectable]': 'multiple',
     '[attr.aria-describedby]': '_ariaDescribedby || null',
-    // '[attr.aria-describedby]': '_getSelectedValues()',
     '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
     '[class.oui-select-disabled]': 'disabled',
     '[class.oui-select-invalid]': 'errorState',
@@ -1088,6 +1087,12 @@ export class OuiSelect extends _OuiSelectMixinBase
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
+    
+    let selectedOptions = this.selected
+    if (!Array.isArray(selectedOptions)) {
+      selectedOptions = [selectedOptions];
+    }
+    this.setDescribedByIds((selectedOptions as OuiOption[]).map(option => option.id));
 
     this.stateChanges.next();
   }
