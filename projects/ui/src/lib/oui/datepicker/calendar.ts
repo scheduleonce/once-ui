@@ -26,6 +26,9 @@ import { OuiYearView } from './year-view';
 import { OuiCalendarCellCssClasses } from './calendar-body';
 import { DateAdapter } from './date-adapter';
 import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
+import { OuiIconRegistry } from '../icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICONS } from '../core/shared/icons';
 
 /**
  * Possible views for the calendar.
@@ -47,10 +50,16 @@ export class OuiCalendarHeader<D> {
     @Inject(forwardRef(() => OuiCalendar)) public calendar: OuiCalendar<D>,
     @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
-    changeDetectorRef: ChangeDetectorRef
+    changeDetectorRef: ChangeDetectorRef,
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer
   ) {
     this.calendar.stateChanges.subscribe(() =>
       changeDetectorRef.markForCheck()
+    );
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `arrow-icon`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.ARROW_ICON)
     );
   }
 
