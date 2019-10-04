@@ -1087,12 +1087,6 @@ export class OuiSelect extends _OuiSelectMixinBase
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-    
-    let selectedOptions = this.selected
-    if (!Array.isArray(selectedOptions)) {
-      selectedOptions = [selectedOptions];
-    }
-    this.setDescribedByIds((selectedOptions as OuiOption[]).map(option => option.id));
 
     this.stateChanges.next();
   }
