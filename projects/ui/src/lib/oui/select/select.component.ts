@@ -82,6 +82,9 @@ import {
   getOuiSelectNonArrayValueError,
   getOuiSelectNonFunctionValueError
 } from './select-errors';
+import { OuiIconRegistry } from '../icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICONS } from '../core/shared/icons';
 
 let nextUniqueId = 0;
 
@@ -526,7 +529,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
     @Optional() @Inject(DOCUMENT) private _document: any,
-    public _elementRef: ElementRef
+    public _elementRef: ElementRef,
+    public _ouiIconRegistry: OuiIconRegistry,
+    private _domSanitizer: DomSanitizer
   ) {
     super(
       elementRef,
@@ -535,9 +540,16 @@ export class OuiSelect extends _OuiSelectMixinBase
       _parentFormGroup,
       ngControl
     );
+<<<<<<< HEAD
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
       .subscribe(() => this._ngZone.run(() => {}));
+=======
+    this._ouiIconRegistry.addSvgIconLiteral(
+      `select-arrow-icon`,
+      this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
+    );
+>>>>>>> qa
 
     if (this.ngControl) {
       // Note: we provide the value accessor through here, instead of

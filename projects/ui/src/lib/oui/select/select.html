@@ -8,8 +8,10 @@
 >
   <div class="oui-select-value" [ngSwitch]="empty">
     <span class="oui-select-placeholder" *ngSwitchCase="true">
-      <span *ngIf="!isSearchFieldPresent">{{placeholder}}</span>
-      <span *ngIf="isSearchFieldPresent">{{initialValue || placeholder}}</span>
+      <span *ngIf="!isSearchFieldPresent">{{ placeholder }}</span>
+      <span *ngIf="isSearchFieldPresent"
+        >{{ initialValue || placeholder }}</span
+      >
     </span>
     <span
       class="oui-select-value-text"
@@ -26,7 +28,7 @@
   </div>
 
   <div class="oui-select-arrow-wrapper">
-    <div class="oui-select-arrow"></div>
+    <oui-icon svgIcon="select-arrow-icon" class="oui-select-arrow"></oui-icon>
   </div>
 </div>
 
@@ -44,7 +46,7 @@
 >
   <div
     #panel
-    class="oui-select-panel {{cdkConnectionOverlayPanel}}"
+    class="oui-select-panel {{ cdkConnectionOverlayPanel }}"
     [ngClass]="panelClass"
     (keydown)="_handleKeydown($event)"
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
