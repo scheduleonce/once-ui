@@ -146,9 +146,8 @@ year, emitted by `yearSelected` output, will not cause any change in the value o
 associated `<input>`.
 
 The following example uses `yearSelected` and `monthSelected` outputs to emulate a month and year
-picker (if you're not familiar with the usage of `MomentDateAdapter` and `OUI_DATE_FORMATS`
-you can [read more about them](#choosing-a-date-implementation-and-date-foroui-settings) below in
-this document to fully understand the example).
+picker (if you're not familiar with the usage of `OUI_DATE_FORMATS` you can [read more about them](#choosing-a-date-implementation-and-date-foroui-settings) below in this document to fully understand
+the example).
 
 <!-- example(datepicker-views-selection) -->
 
@@ -156,14 +155,13 @@ this document to fully understand the example).
 
 The type of values that the datepicker expects depends on the type of `DateAdapter` provided in your
 application. The `NativeDateAdapter`, for example, works directly with plain JavaScript `Date`
-objects. When using the `MomentDateAdapter`, however, the values will all be Moment.js instances.
-This use of the adapter pattern allows the datepicker component to work with any arbitrary date
+objects. This use of the adapter pattern allows the datepicker component to work with any arbitrary date
 representation with a custom `DateAdapter`.
 See [_Choosing a date implementation_](#choosing-a-date-implementation-and-date-foroui-settings)
 for more information.
 
 Depending on the `DateAdapter` being used, the datepicker may automatically deserialize certain date
-formats for you as well. For example, both the `NativeDateAdapter` and `MomentDateAdapter` allow
+formats for you as well. For example, both the `NativeDateAdapter` allow
 [ISO 8601](https://tools.ietf.org/html/rfc3339) strings to be passed to the datepicker and
 automatically converted to the proper object type. This can be convenient when binding data directly
 from your backend to the datepicker. However, the datepicker will not accept date strings formatted
@@ -354,9 +352,8 @@ In multi-year view:
 #### Error: OuiDatepicker: No provider found for DateAdapter/OUI_DATE_FORMATS
 
 This error is thrown if you have not provided all of the injectables the datepicker needs to work.
-The easiest way to resolve this is to import the `OuiNativeDateModule` or `MatMomentDateModule` in
-your application's root module. See
-[_Choosing a date implementation_](#choosing-a-date-implementation-and-date-foroui-settings)) for
+The easiest way to resolve this is to import the `OuiNativeDateModule` in your application's root module.
+See [_Choosing a date implementation_](#choosing-a-date-implementation-and-date-foroui-settings)) for
 more information.
 
 #### Error: A OuiDatepicker can only be associated with a single input
