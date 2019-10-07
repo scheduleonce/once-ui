@@ -620,7 +620,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
 
   ngOnDestroy() {
-    this._focusMonitor.stopMonitoring(this._elementRef);
+    this._monitorSubscription.unsubscribe();
     this._destroy.next();
     this._destroy.complete();
     this.stateChanges.complete();
