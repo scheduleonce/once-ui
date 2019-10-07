@@ -540,16 +540,13 @@ export class OuiSelect extends _OuiSelectMixinBase
       _parentFormGroup,
       ngControl
     );
-<<<<<<< HEAD
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
       .subscribe(() => this._ngZone.run(() => {}));
-=======
     this._ouiIconRegistry.addSvgIconLiteral(
       `select-arrow-icon`,
       this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
     );
->>>>>>> qa
 
     if (this.ngControl) {
       // Note: we provide the value accessor through here, instead of
