@@ -6,8 +6,13 @@
     (mouseenter)="_handleMouseEnter($event)"
     role="dialog"
   >
-    <div class="oui-panel-content" [ngStyle]="{'width': width + 'px'}">
+    <div class="oui-panel-content" [ngStyle]="{ width: width + 'px' }">
       <ng-content></ng-content>
+      <button
+        (click)="_handleCloseIcon()"
+        class="close-panel"
+        aria-label="Close"
+      ></button>
     </div>
   </div>
 </ng-template>

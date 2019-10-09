@@ -1,3 +1,5 @@
+$close-icon: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4NCjxzdmcgd2lkdGg9IjEycHgiIGhlaWdodD0iMTJweCIgdmlld0JveD0iMCAwIDEyIDEyIiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPg0KICAgIDwhLS0gR2VuZXJhdG9yOiBTa2V0Y2ggNDkuMSAoNTExNDcpIC0gaHR0cDovL3d3dy5ib2hlbWlhbmNvZGluZy5jb20vc2tldGNoIC0tPg0KICAgIDx0aXRsZT5pY29uIC8gWCBjbG9zZSBzbWFsbDwvdGl0bGU+DQogICAgPGRlc2M+Q3JlYXRlZCB3aXRoIFNrZXRjaC48L2Rlc2M+DQogICAgPGRlZnM+PC9kZWZzPg0KICAgIDxnIGlkPSJpY29uLS8tWC1jbG9zZS1zbWFsbCIgc3Ryb2tlPSJub25lIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+DQogICAgICAgIDxnIGlkPSJYLWNsb3NlIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1LjUwMDAwMCwgNS43OTI4OTMpIHJvdGF0ZSg0NS4wMDAwMDApIHRyYW5zbGF0ZSgtNS41MDAwMDAsIC01Ljc5Mjg5MykgdHJhbnNsYXRlKC0yLjUwMDAwMCwgLTIuMjA3MTA3KSIgZmlsbD0iIzRBNEE0QSI+DQogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlLTUiIHg9IjcuMjMzNjMxOTQiIHk9IjAuNTczOTc5OTA5IiB3aWR0aD0iMS45MjUwNDM1NSIgaGVpZ2h0PSIxNC40Mzc4MjY2Ij48L3JlY3Q+DQogICAgICAgICAgICA8cmVjdCBpZD0iUmVjdGFuZ2xlLTUtQ29weSIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoOC4xOTYxNTQsIDcuNzkyODkzKSByb3RhdGUoOTAuMDAwMDAwKSB0cmFuc2xhdGUoLTguMTk2MTU0LCAtNy43OTI4OTMpICIgeD0iNy4yMzM2MzE5NCIgeT0iMC41NzM5Nzk5MDkiIHdpZHRoPSIxLjkyNTA0MzU1IiBoZWlnaHQ9IjE0LjQzNzgyNjYiPjwvcmVjdD4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg==');
+
 .oui-panel-content {
   color: #333;
   background: #fff;
@@ -54,8 +56,46 @@
   height: 18px !important;
   display: inline-block;
   margin: 0;
-  padding: 0;
+  padding: 2px;
+  &:focus {
+    outline: none;
+  }
   svg {
     color: #4a4a4a;
+  }
+}
+.radius {
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+
+oui-panel-icon {
+  &[class^='cdk'],
+  &[class$='focused'] {
+    .oui-panel-icon {
+      @extend .radius;
+      background-color: #e8e8e8;
+    }
+  }
+}
+
+.close-panel {
+  @extend .radius;
+  cursor: pointer;
+  outline: none;
+  width: 16px;
+  height: 16px;
+  background: #e9e9e9 $close-icon center center/8px 8px no-repeat;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  opacity: 0;
+  border: 0;
+  &:focus {
+    outline: none;
+    opacity: 1;
   }
 }

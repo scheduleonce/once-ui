@@ -8,7 +8,8 @@ import {
   EventEmitter,
   ElementRef,
   ViewContainerRef,
-  Inject
+  Inject,
+  Optional
 } from '@angular/core';
 import {
   ScrollStrategy,
@@ -27,6 +28,9 @@ import {
 } from './panel-positions';
 import { merge } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
+import { SPACE } from '@angular/cdk/keycodes';
+import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { DOCUMENT } from '@angular/platform-browser';
 
 /** Injection token that determines the scroll handling while the panel-overlay is open. */
 export const OUI_PANEL_SCROLL_STRATEGY = new InjectionToken<
@@ -58,7 +62,8 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'panelOpen || null',
     '(mouseenter)': '_handleMouseEnter($event)',
-    '(mouseleave)': '_handelMouseLeave($event)'
+    '(mouseleave)': '_handelMouseLeave($event)',
+    '(keydown)': '_handleKeydown($event)'
   },
   exportAs: 'ouiPanelTrigger'
 })
@@ -72,6 +77,12 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _mouseLeave: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _scrollStrategy: () => ScrollStrategy;
+
+  /** The class that traps and manages focus within the panel. */
+  private _focusTrap: FocusTrap;
+
+  /** Element that was focused before the panel was opened. Save this to restore upon close. */
+  private _elementFocusedBeforeDialogWasOpened: HTMLElement = null;
 
   /** References the panel instance that the trigger is associated with. */
   @Input('ouiPanelTriggerFor')
@@ -91,6 +102,9 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
         .subscribe(() => {
           this._destroyPanel();
         });
+      this.panel.escapeEvent.subscribe(() => {
+        this.closePanel();
+      });
     }
   }
   private _panel: OuiPanelOverlay;
@@ -107,6 +121,8 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     private _overlay: Overlay,
     private _element: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
+    private _focusTrapFactory: FocusTrapFactory,
+    @Optional() @Inject(DOCUMENT) private _document: any,
     @Inject(OUI_PANEL_SCROLL_STRATEGY) scrollStrategy: any
   ) {
     this._scrollStrategy = scrollStrategy;
@@ -122,6 +138,16 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   /** Toggles the panel between the open and closed states. */
   togglePanel(): void {
     return this._panelOpen ? this.closePanel() : this.openPanel();
+  }
+
+  /** Ensures the option is selected when activated from the keyboard. */
+  _handleKeydown(event: KeyboardEvent): void {
+    // tslint:disable-next-line:deprecation
+    const keyCode = event.keyCode;
+    if (keyCode === SPACE) {
+      this.openPanel();
+      event.preventDefault();
+    }
   }
 
   /** Opens The Panel */
@@ -141,6 +167,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     this._closeSubscription = this._panelClosingActions().subscribe(() => {
       this.closePanel();
     });
+    this._trapFocus();
     this._setIsPanelOpen(true);
   }
 
@@ -168,7 +195,10 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       // Consume the `keydownEvents` in order to prevent them from going to another overlay.
       // Ideally we'd also have our keyboard event logic in here, however doing so will
       // break anybody that may have implemented the `OuiPanelOverlay` themselves.
-      this._overlayRef.keydownEvents().subscribe();
+      this._overlayRef
+        .keydownEvents()
+        .pipe(filter(event => event.key === 'Escape'))
+        .subscribe(() => this.closePanel());
     }
     return this._overlayRef;
   }
@@ -258,6 +288,53 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   /** Closes The Panel */
   closePanel() {
     this.panel.closed.emit();
+    this._restoreFocus();
+  }
+
+  /** Moves the focus inside the focus trap. */
+  public _trapFocus() {
+    const element: HTMLDivElement = this._overlayRef.overlayElement.querySelector(
+      '.oui-panel-content'
+    );
+
+    if (!this._focusTrap) {
+      this._focusTrap = this._focusTrapFactory.create(element);
+    }
+
+    // If we were to attempt to focus immediately, then the content of the panel would not yet be
+    // ready in instances where change detection has to run first. To deal with this, we simply
+    // wait for the microtask queue to be empty.
+    this._focusTrap.focusInitialElement();
+  }
+
+  /** Restores focus to the element that was focused before the panel opened. */
+  public _restoreFocus() {
+    const toFocus = this._elementFocusedBeforeDialogWasOpened;
+
+    // We need the extra check, because IE can set the `activeElement` to null in some cases.
+    if (toFocus && typeof toFocus.focus === 'function') {
+      toFocus.focus();
+    }
+
+    if (this._focusTrap) {
+      this._focusTrap = null;
+    }
+  }
+
+  /** Saves a reference to the element that was focused before the panel was opened. */
+  private _savePreviouslyFocusedElement() {
+    if (this._document) {
+      this._elementFocusedBeforeDialogWasOpened = this._document
+        .activeElement as HTMLElement;
+
+      // Note that there is no focus method when rendering on the server.
+      if (this._element.nativeElement.focus) {
+        // Move focus onto the panel immediately in order to prevent the user from accidentally
+        // opening multiple panels at the same time. Needs to be async, because the element
+        // may not be focusable immediately.
+        Promise.resolve().then(() => this._element.nativeElement.focus());
+      }
+    }
   }
 
   /** Gets the portal that should be attached to the overlay. */
@@ -271,6 +348,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
         this._viewContainerRef
       );
     }
+    this._savePreviouslyFocusedElement();
     return this._portal;
   }
 
