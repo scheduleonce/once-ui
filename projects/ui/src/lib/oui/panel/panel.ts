@@ -10,7 +10,11 @@ import {
   OnInit,
   ContentChild,
   Output,
-  EventEmitter
+  EventEmitter,
+  Attribute,
+  NgZone,
+  ElementRef,
+  OnDestroy
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
@@ -19,10 +23,11 @@ import {
 } from './panel-errors';
 import { OuiPanelOverlay } from './panel-overlay';
 import { OuiPanelContent } from './panel-content';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { OuiIconRegistry } from '../icon/icon-registery';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ICONS } from '../core/shared/icons';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 /** Default `oui-panel` options that can be overridden. */
 export interface OuiPanelDefaultOptions {
@@ -64,6 +69,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   public mouseLeave: Observable<MouseEvent>;
   private readonly _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
   public mouseEnter: Observable<MouseEvent>;
+  public escapeEvent: Subject<void> = new Subject<void>();
 
   @Input() width?: number;
 
@@ -146,24 +152,44 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   public _handleMouseEnter(event: MouseEvent) {
     this._mouseEnter.next(event);
   }
+
+  public _handleCloseIcon() {
+    this.escapeEvent.next();
+  }
 }
 
 @Component({
   selector: 'oui-panel-icon',
-  template: '<oui-icon svgIcon="panel-icon" class="oui-panel-icon"></oui-icon>',
+  template:
+    '<oui-icon svgIcon="panel-icon" class="oui-panel-icon" [tabIndex]="tabIndex"></oui-icon>',
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiPanelIcon'
 })
-export class OuiPanelIcon {
+export class OuiPanelIcon implements OnDestroy {
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
+  tabIndex: any;
   constructor(
+    private _elementRef: ElementRef,
     private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
+    private domSanitizer: DomSanitizer,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone,
+    @Attribute('tabindex') tabIndex: string
   ) {
+    this.tabIndex = parseInt(tabIndex, 10) || 0;
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this._elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+
     this.ouiIconRegistry.addSvgIconLiteral(
       `panel-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.PANEL_ICON)
     );
+  }
+
+  ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
   }
 }
