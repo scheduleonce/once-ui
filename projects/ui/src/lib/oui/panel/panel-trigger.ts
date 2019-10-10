@@ -75,7 +75,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _hoverSubscription = Subscription.EMPTY;
   private _keyboardEventSubscription: Subscription = Subscription.EMPTY;
   private _escapeEventSubscription: Subscription = Subscription.EMPTY;
-
   private _panelCloseSubscription = Subscription.EMPTY;
   private _mouseLeave: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
@@ -270,6 +269,8 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _cleanUpSubscriptions(): void {
     this._closeSubscription.unsubscribe();
     this._hoverSubscription.unsubscribe();
+    this._escapeEventSubscription.unsubscribe();
+    this._keyboardEventSubscription.unsubscribe();
   }
 
   /** Closes the menu and does the necessary cleanup. */
@@ -387,7 +388,5 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       this._overlayRef = null;
     }
     this._cleanUpSubscriptions();
-    this._escapeEventSubscription.unsubscribe();
-    this._keyboardEventSubscription.unsubscribe();
   }
 }
