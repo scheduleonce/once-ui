@@ -187,6 +187,10 @@ export class OuiPanelIcon implements OnDestroy {
       `panel-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.PANEL_ICON)
     );
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `close-icon_8X8`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.CLOSE_ICON_8X8)
+    );
   }
 
   ngOnDestroy() {
