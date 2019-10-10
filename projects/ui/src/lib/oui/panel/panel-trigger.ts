@@ -384,5 +384,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       this._overlayRef = null;
     }
     this._cleanUpSubscriptions();
+    this.panel.escapeEvent.unsubscribe();
   }
 }

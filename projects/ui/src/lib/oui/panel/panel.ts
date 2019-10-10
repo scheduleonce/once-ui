@@ -194,6 +194,7 @@ export class OuiPanelIcon implements OnDestroy {
   }
 
   ngOnDestroy() {
+    this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     this._monitorSubscription.unsubscribe();
   }
 }
