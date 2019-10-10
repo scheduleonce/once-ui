@@ -73,6 +73,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _panelOpen = false;
   private _closeSubscription = Subscription.EMPTY;
   private _hoverSubscription = Subscription.EMPTY;
+  private _keyboardEventSubscription: Subscription = Subscription.EMPTY;
   private _panelCloseSubscription = Subscription.EMPTY;
   private _mouseLeave: Subject<MouseEvent> = new Subject<MouseEvent>();
   private _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
@@ -195,7 +196,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       // Consume the `keydownEvents` in order to prevent them from going to another overlay.
       // Ideally we'd also have our keyboard event logic in here, however doing so will
       // break anybody that may have implemented the `OuiPanelOverlay` themselves.
-      this._overlayRef
+      this._keyboardEventSubscription = this._overlayRef
         .keydownEvents()
         .pipe(filter(event => event.key === 'Escape'))
         .subscribe(() => this.closePanel());
@@ -385,5 +386,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     }
     this._cleanUpSubscriptions();
     this.panel.escapeEvent.unsubscribe();
+    this._keyboardEventSubscription.unsubscribe();
   }
 }
