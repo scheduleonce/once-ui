@@ -54,8 +54,53 @@
   height: 18px !important;
   display: inline-block;
   margin: 0;
-  padding: 0;
+  padding: 2px;
+  &:focus {
+    outline: none;
+  }
   svg {
     color: #4a4a4a;
+  }
+}
+.radius {
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+}
+
+oui-panel-icon {
+  &[class^='cdk'],
+  &[class$='focused'] {
+    .oui-panel-icon {
+      @extend .radius;
+      background-color: #e8e8e8;
+    }
+  }
+}
+
+.close-panel {
+  @extend .radius;
+  cursor: pointer;
+  outline: none;
+  width: 16px;
+  height: 16px;
+  background: #e9e9e9;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  opacity: 0;
+  padding: 0;
+  border: 0;
+  text-align: center;
+  line-height: 1;
+  padding-bottom: 2px;
+  &:focus {
+    outline: none;
+    opacity: 1;
+  }
+  svg {
+    fill: #666;
   }
 }

@@ -1,7 +1,7 @@
 import { EventEmitter, TemplateRef, InjectionToken } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import { OuiPanelContent } from './panel-content';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 /**
  * Injection token used to provide the parent menu to menu-specific components.
@@ -24,4 +24,5 @@ export interface OuiPanelOverlay {
   lazyContent?: OuiPanelContent;
   mouseLeave: Observable<MouseEvent>;
   mouseEnter: Observable<MouseEvent>;
+  escapeEvent: Subject<void>;
 }
