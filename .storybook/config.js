@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs/angular';
 import { withNotes } from '@storybook/addon-notes';
 import { withOptions } from '@storybook/addon-options';
-import '../src/stories/styles/style.css';
+import '!style-loader!css-loader!../src/stories/styles/style.css';
 
 addDecorator(withKnobs);
 addDecorator(withNotes);
