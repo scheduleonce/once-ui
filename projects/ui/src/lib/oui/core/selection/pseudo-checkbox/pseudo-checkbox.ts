@@ -65,5 +65,6 @@ export class OuiPseudoCheckbox implements OnDestroy {
   }
   ngOnDestroy() {
     this._monitorSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this.elementRef);
   }
 }
