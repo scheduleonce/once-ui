@@ -272,6 +272,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   ngOnDestroy() {
     this._stateChanges.complete();
     this._monitorSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this.elementRef);
   }
 
   /** Emits the selection change event. */
