@@ -304,11 +304,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     if (!this._focusTrap) {
       this._focusTrap = this._focusTrapFactory.create(element);
     }
-
-    // If we were to attempt to focus immediately, then the content of the panel would not yet be
-    // ready in instances where change detection has to run first. To deal with this, we simply
-    // wait for the microtask queue to be empty.
-    this._focusTrap.focusInitialElement();
+    element.focus();
   }
 
   /** Restores focus to the element that was focused before the panel opened. */
