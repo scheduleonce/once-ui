@@ -126,7 +126,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     // ready in instances where change detection has to run first. To deal with this, we simply
     // wait for the microtask queue to be empty.
     if (this._config.autoFocus) {
-      this._focusTrap.focusInitialElementWhenReady();
+      this._focusTrap.focusInitialElement();
     } else {
       const activeElement = this._document.activeElement;
 

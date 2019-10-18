@@ -33,6 +33,9 @@
       padding-right: $oui-menu-side-padding * 2;
     }
   }
+  &.oui-active {
+    background: #eee !important;
+  }
 }
 
 .single-type-checkbox {

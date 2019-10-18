@@ -1,6 +1,7 @@
 export * from './calendar';
 export * from './calendar-body';
 export * from './datepicker';
+export * from './date-formats';
 export * from './datepicker-animations';
 export * from './datepicker-input';
 export * from './datepicker-intl';

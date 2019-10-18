@@ -6,9 +6,16 @@ import { OuiInputModule } from '../input/input-module';
 import { FilterPipe } from './filter.pipe';
 import { OuiSelectTrigger, OuiSelect } from './select.component';
 import { OuiSelectSearchComponent } from './search/index';
+import { OuiIconModule } from '../icon/icon.module';
 
 @NgModule({
-  imports: [OuiOptionModule, OverlayModule, OuiInputModule, CommonModule],
+  imports: [
+    OuiOptionModule,
+    OverlayModule,
+    OuiInputModule,
+    CommonModule,
+    OuiIconModule
+  ],
   exports: [
     OuiOptionModule,
     OuiSelectTrigger,

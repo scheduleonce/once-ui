@@ -5,6 +5,10 @@
 @mixin oui-select-border-theme($color) {
   .oui-select.oui-input {
     border-color: $color;
+    &[class^='cdk'],
+    &[class$='focused'] {
+      border-color: $color !important;
+    }
   }
   &.oui-form-field-appearance-underline {
     .oui-select.oui-input {
