@@ -1,4 +1,4 @@
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -82,6 +82,9 @@ import {
   getOuiSelectNonArrayValueError,
   getOuiSelectNonFunctionValueError
 } from './select-errors';
+import { OuiIconRegistry } from '../icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICONS } from '../core/shared/icons';
 
 let nextUniqueId = 0;
 
@@ -323,6 +326,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Input that can be used to specify the `aria-labelledby` attribute. */
   @Input('aria-labelledby') ariaLabelledby: string;
   private _large = false;
+  _monitorSubscription: any;
 
   /** Whether the oui-select is of large size. */
   @Input()
@@ -517,6 +521,7 @@ export class OuiSelect extends _OuiSelectMixinBase
     private _ngZone: NgZone,
     _defaultErrorStateMatcher: ErrorStateMatcher,
     elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
     @Optional() private _dir: Directionality,
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
@@ -524,7 +529,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
     @Optional() @Inject(DOCUMENT) private _document: any,
-    public _elementRef: ElementRef
+    public _elementRef: ElementRef,
+    public _ouiIconRegistry: OuiIconRegistry,
+    private _domSanitizer: DomSanitizer
   ) {
     super(
       elementRef,
@@ -532,6 +539,13 @@ export class OuiSelect extends _OuiSelectMixinBase
       _parentForm,
       _parentFormGroup,
       ngControl
+    );
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this._elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+    this._ouiIconRegistry.addSvgIconLiteral(
+      `select-arrow-icon`,
+      this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
     );
 
     if (this.ngControl) {
@@ -606,6 +620,8 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
 
   ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this._elementRef);
     this._destroy.next();
     this._destroy.complete();
     this.stateChanges.complete();

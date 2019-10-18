@@ -972,8 +972,6 @@ describe('OuiSelect', () => {
         }));
 
         it('should do nothing when typing on a closed multi-select', fakeAsync(() => {
-          fixture.destroy();
-
           const multiFixture = TestBed.createComponent(MultiSelect);
           const instance = multiFixture.componentInstance;
 
@@ -998,6 +996,8 @@ describe('OuiSelect', () => {
             initialValue,
             'Expected value to stay the same.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should do nothing if the key manager did not change the active item', fakeAsync(() => {
@@ -1020,6 +1020,8 @@ describe('OuiSelect', () => {
             true,
             'Expected form control to stay clean.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should continue from the selected option when the value is set programmatically', fakeAsync(() => {
@@ -1034,6 +1036,8 @@ describe('OuiSelect', () => {
           expect(fixture.componentInstance.options.toArray()[5].selected).toBe(
             true
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should not cycle through the options if the control is disabled', fakeAsync(() => {
@@ -1048,6 +1052,8 @@ describe('OuiSelect', () => {
             'eggs-5',
             'Expected value to remain unchaged.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should not open a multiple select when tabbing through', fakeAsync(() => {
@@ -1070,6 +1076,8 @@ describe('OuiSelect', () => {
             false,
             'Expected panel to stay closed.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should not prevent the default actions on selection keys when pressing a modifier', fakeAsync(() => {
@@ -1184,7 +1192,6 @@ describe('OuiSelect', () => {
           const options = overlayContainerElement.querySelectorAll(
             'oui-option'
           );
-
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
           );
@@ -1197,6 +1204,8 @@ describe('OuiSelect', () => {
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should restore focus to the trigger after selecting an option in multi-select mode', fakeAsync(() => {
