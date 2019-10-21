@@ -96,7 +96,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
 export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
   implements AfterViewInit, CanColor {
   /** Reference to the internal calendar component. */
-  @ViewChild(OuiCalendar) _calendar: OuiCalendar<D>;
+  @ViewChild(OuiCalendar, { static: true }) _calendar: OuiCalendar<D>;
 
   /** Reference to the datepicker that created the overlay. */
   datepicker: OuiDatepicker<D>;

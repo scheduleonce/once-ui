@@ -32,7 +32,7 @@ class StandardMultiYearView {
   selected = new Date(2020, JAN, 1);
   selectedYear: Date;
 
-  @ViewChild(OuiMultiYearView) multiYearView: OuiMultiYearView<Date>;
+  @ViewChild(OuiMultiYearView, {static:false}) multiYearView: OuiMultiYearView<Date>;
 }
 
 @Component({

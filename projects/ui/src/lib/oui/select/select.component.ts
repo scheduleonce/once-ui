@@ -301,10 +301,10 @@ export class OuiSelect extends _OuiSelectMixinBase
   controlType = 'oui-select';
 
   /** Trigger that opens the select. */
-  @ViewChild('trigger') trigger: ElementRef;
+  @ViewChild('trigger', { static: true }) trigger: ElementRef;
 
   /** Panel containing the select options. */
-  @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
+  @ViewChild('panel', { read: ElementRef, static: false }) panel: ElementRef;
 
   initialValue = '';
 
@@ -347,7 +347,7 @@ export class OuiSelect extends _OuiSelectMixinBase
 
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
-    () => {
+    (): Observable<OuiOptionSelectionChange> => {
       if (this.options) {
         return merge(...this.options.map(option => option.onSelectionChange));
       }
@@ -401,13 +401,13 @@ export class OuiSelect extends _OuiSelectMixinBase
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
   /** User-supplied override of the trigger element. */
-  @ContentChild(OuiSelectTrigger) customTrigger: OuiSelectTrigger;
+  @ContentChild(OuiSelectTrigger, {static:false}) customTrigger: OuiSelectTrigger;
 
   /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: true }) overlayDir: CdkConnectedOverlay;
 
   /** Emits when the panel element is finished transforming in. */
   _panelDoneAnimatingStream = new Subject<string>();
