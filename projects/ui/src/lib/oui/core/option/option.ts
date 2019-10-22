@@ -14,10 +14,12 @@ import {
   Optional,
   Output,
   QueryList,
-  ViewEncapsulation
+  ViewEncapsulation,
+  NgZone
 } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { OuiOptgroup } from './optgroup';
+import { FocusMonitor } from '@angular/cdk/a11y';
 
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -82,6 +84,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   private _active = false;
   private _disabled = false;
   private _mostRecentViewValue = '';
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
 
   /** Whether the wrapping component is in multiple selection mode. */
   get multiple() {
@@ -122,11 +125,18 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   constructor(
     private _element: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone,
     @Optional()
     @Inject(OUI_OPTION_PARENT_COMPONENT)
     private _parent: OuiOptionParentComponent,
     @Optional() readonly group: OuiOptgroup
-  ) {}
+  ) {
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+  }
 
   /**
    * Whether or not the option is currently active and ready to be selected.
@@ -261,6 +271,8 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
   ngOnDestroy() {
     this._stateChanges.complete();
+    this._monitorSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this.elementRef);
   }
 
   /** Emits the selection change event. */
