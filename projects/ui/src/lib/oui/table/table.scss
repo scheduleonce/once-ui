@@ -69,7 +69,7 @@ oui-row {
   }
   &[class^='cdk'],
   &[class$='focused'] {
-    background: $oui-focus-color;
+    background: #f6f6f6;
     outline: none;
   }
 }
@@ -125,7 +125,7 @@ tr.oui-row {
   }
   &[class^='cdk'],
   &[class$='focused'] {
-    background: $oui-focus-color;
+    background: #f6f6f6;
     outline: none;
   }
 }
