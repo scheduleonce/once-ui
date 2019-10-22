@@ -18,7 +18,11 @@
       *ngSwitchCase="false"
       [ngSwitch]="!!customTrigger"
     >
-      <span *ngSwitchDefault [innerHTML]="triggerValue || placeholder"></span>
+      <span
+        id="selected-values"
+        *ngSwitchDefault
+        [innerHTML]="triggerValue || placeholder"
+      ></span>
       <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
     </span>
   </div>
