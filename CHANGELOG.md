@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.0-beta.2] - 2019-10-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-19450`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19450) Table row 3-dot icon focus
+- [`ONCEHUB-20060`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20060) Popup should be closed on space and enter key
+
 ## [1.12.0-beta.1] - 2019-10-18
 
 ### Added
