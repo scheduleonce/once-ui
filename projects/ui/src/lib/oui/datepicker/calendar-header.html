@@ -8,11 +8,13 @@
       [attr.aria-label]="periodButtonLabel"
       cdkAriaLive="polite"
     >
-      {{periodButtonText}}
-      <div
+      {{ periodButtonText }}
+
+      <oui-icon
+        svgIcon="arrow-icon"
         class="oui-calendar-arrow"
         [class.oui-calendar-invert]="calendar.currentView != 'month'"
-      ></div>
+      ></oui-icon>
     </button>
 
     <div class="oui-calendar-spacer"></div>
