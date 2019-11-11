@@ -12,7 +12,8 @@ We have to provide the accessibility feature in the application. Right now most 
 
 ## Decision
 
-We are adding the cdk focus monitor in all the components to enhances the accessibility which it self managing all the focus states. In beta versioning mechanism we publish the prerelease version only for the team environment for testing purpose that would be from the once-ui QA branch and all the release version will be updated in the Master branch of once-ui library.
+- We are adding the cdk focus monitor in all the components to enhances the accessibility which it self managing all the focus states.
+- In beta versioning mechanism we publish the prerelease version only for the team environment for testing purpose that would be from the once-ui QA branch and all the release version will be updated in the Master branch of once-ui library.
 
 ## Consequences
 
