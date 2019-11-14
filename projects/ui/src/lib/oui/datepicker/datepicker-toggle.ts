@@ -72,7 +72,7 @@ export class OuiDatepickerToggle<D>
   @ContentChild(OuiDatepickerToggleIcon, {static:false}) _customIcon: OuiDatepickerToggleIcon;
 
   /** Underlying button element. */
-  @ViewChild('button', { static: true }) _button: OuiButton;
+  @ViewChild('button', { static: false }) _button: OuiButton;
 
   constructor(
     public _intl: OuiDatepickerIntl,

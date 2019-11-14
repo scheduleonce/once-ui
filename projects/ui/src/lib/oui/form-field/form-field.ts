@@ -91,9 +91,9 @@ export class OuiFormField extends _OuiFormFieldMixinBase
   }
   _appearance: OuiFormFieldAppearance;
 
-  @ViewChild('connectionContainer', { static: true })
+  @ViewChild('connectionContainer', { static: false })
   _connectionContainerRef: ElementRef;
-  @ViewChild('inputContainer', { static: true })
+  @ViewChild('inputContainer', { static: false })
   _inputContainerRef: ElementRef;
   @ContentChild(OuiFormFieldControl, {static:false})
   _control: OuiFormFieldControl<any>;
