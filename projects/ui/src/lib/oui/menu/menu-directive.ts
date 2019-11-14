@@ -144,7 +144,7 @@ export class OuiMenu
   }
 
   /** @docs-private */
-  @ViewChild(TemplateRef, { static: true })
+  @ViewChild(TemplateRef, { static: false })
   templateRef: TemplateRef<any>;
 
   /**

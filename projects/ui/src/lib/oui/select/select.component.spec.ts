@@ -1256,6 +1256,7 @@ describe('OuiSelect', () => {
       it('should not throw when attempting to open too early', () => {
         // Create component and then immediately open without running change detection
         fixture = TestBed.createComponent(BasicSelect);
+        fixture.detectChanges();
         expect(() => fixture.componentInstance.select.open()).not.toThrow();
       });
 
@@ -1753,7 +1754,6 @@ describe('OuiSelect', () => {
       it('should handle accessing `optionSelectionChanges` before the options are initialized', fakeAsync(() => {
         fixture.destroy();
         fixture = TestBed.createComponent(BasicSelect);
-
         const spy = jasmine.createSpy('option selection spy');
         let subscription: Subscription;
 

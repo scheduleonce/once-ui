@@ -18,7 +18,7 @@ export class ActionMenuComponent implements OnInit, OnDestroy {
   isVertical = false;
   @Input()
   defaultPosition: string;
-  @ViewChild(ActionMenuDropdownDirective, { static: true })
+  @ViewChild(ActionMenuDropdownDirective, { static: false })
   onceActionMenuDropdown: ActionMenuDropdownDirective;
 
   constructor() {}

@@ -824,6 +824,7 @@ describe('OuiMenu', () => {
       ],
       [FakeIcon]
     );
+    fixture.detectChanges();
     const trigger = fixture.componentInstance.trigger;
 
     fixture.detectChanges();

@@ -95,8 +95,8 @@ const NAMES: string[] = [
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  @ViewChild(OuiSort, { static: true }) sort: OuiSort;
-  @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
+  @ViewChild(OuiSort, { static: false }) sort: OuiSort;
+  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
   options: string[] = ['One', 'Two', 'Three'];
   minDate = new Date();
   isDisable = false;
@@ -237,13 +237,13 @@ export class AppComponent implements OnInit {
   checked;
   labelPosition;
   disabled;
-  @ViewChild('dialogTemplate', { static: true })
+  @ViewChild('dialogTemplate', { static: false })
   dialogTemplate;
-  @ViewChild('progressButton', { static: true })
+  @ViewChild('progressButton', { static: false })
   progressButton: any;
-  @ViewChild('progressLinkButton', { static: true })
+  @ViewChild('progressLinkButton', { static: false })
   progressLinkButton: any;
-  @ViewChild('progressGhostButton', { static: true })
+  @ViewChild('progressGhostButton', { static: false })
   progressGhostButton: any;
   displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
   dataSource: OuiTableDataSource<UserData>;

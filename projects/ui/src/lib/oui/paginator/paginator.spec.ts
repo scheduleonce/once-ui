@@ -109,6 +109,7 @@ describe('OuiPaginator', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiPaginatorApp);
+    fixture.detectChanges();
     component = fixture.componentInstance;
     paginator = component.paginator;
 
@@ -376,6 +377,7 @@ describe('OuiPaginator', () => {
     const withStringFixture = TestBed.createComponent(
       OuiPaginatorWithStringValues
     );
+    withStringFixture.detectChanges();
     const withStringPaginator = withStringFixture.componentInstance.paginator;
 
     withStringFixture.detectChanges();

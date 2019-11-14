@@ -76,7 +76,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   /** Config object to be passed into the menu's ngClass */
   _classList: { [key: string]: boolean } = {};
 
-  @ViewChild(TemplateRef, { static: true })
+  @ViewChild(TemplateRef, { static: false })
   templateRef: TemplateRef<any>;
 
   /**

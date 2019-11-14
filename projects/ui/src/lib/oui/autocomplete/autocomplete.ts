@@ -87,7 +87,7 @@ export class OuiAutocomplete implements AfterContentInit {
   _isOpen: boolean = false;
 
   /** @docs-private */
-  @ViewChild(TemplateRef, { static: true })
+  @ViewChild(TemplateRef, { static: false })
   template: TemplateRef<any>;
 
   /** Element for the panel containing the autocomplete options. */

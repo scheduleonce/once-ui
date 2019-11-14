@@ -301,7 +301,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   controlType = 'oui-select';
 
   /** Trigger that opens the select. */
-  @ViewChild('trigger', { static: true }) trigger: ElementRef;
+  @ViewChild('trigger', { static: false }) trigger: ElementRef;
 
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef, static: false }) panel: ElementRef;
@@ -407,7 +407,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay, { static: true }) overlayDir: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: false }) overlayDir: CdkConnectedOverlay;
 
   /** Emits when the panel element is finished transforming in. */
   _panelDoneAnimatingStream = new Subject<string>();

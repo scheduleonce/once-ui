@@ -2070,7 +2070,6 @@ describe('OuiAutocomplete', () => {
       overlayContainer.ngOnDestroy();
       fixture.destroy();
       fixture = TestBed.createComponent(SimpleAutocomplete);
-
       const spy = jasmine.createSpy('option selection spy');
       let subscription: Subscription;
 

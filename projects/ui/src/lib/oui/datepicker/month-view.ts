@@ -125,7 +125,7 @@ export class OuiMonthView<D> implements AfterContentInit {
   @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
   /** The body of calendar table */
-  @ViewChild(OuiCalendarBody, { static: true }) _ouiCalendarBody: OuiCalendarBody;
+  @ViewChild(OuiCalendarBody, { static: false }) _ouiCalendarBody: OuiCalendarBody;
 
   /** The label for this month (e.g. "January 2017"). */
   _monthLabel: string;
