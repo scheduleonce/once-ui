@@ -83,7 +83,7 @@ class SimpleAutocomplete implements OnDestroy {
   openedSpy = jasmine.createSpy('autocomplete opened spy');
   closedSpy = jasmine.createSpy('autocomplete closed spy');
 
-  @ViewChild(OuiAutocompleteTrigger, /* TODO: add static flag */ {static:false}) trigger: OuiAutocompleteTrigger;
+  @ViewChild(OuiAutocompleteTrigger, /* TODO: add static flag */ {static:true}) trigger: OuiAutocompleteTrigger;
   @ViewChild(OuiAutocomplete, {static:false}) panel: OuiAutocomplete;
   @ViewChild(OuiFormField, {static:false}) formField: OuiFormField;
   @ViewChildren(OuiOption) ouiOptions: QueryList<OuiOption>;

@@ -101,7 +101,7 @@ class BasicSelect {
   ariaLabelledby: string;
   panelClass = ['custom-one', 'custom-two'];
 
-  @ViewChild(OuiSelect, {static:false}) select: OuiSelect;
+  @ViewChild(OuiSelect, {static:true}) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -1756,7 +1756,7 @@ describe('OuiSelect', () => {
         fixture = TestBed.createComponent(BasicSelect);
         const spy = jasmine.createSpy('option selection spy');
         let subscription: Subscription;
-
+        
         expect(fixture.componentInstance.select.options).toBeFalsy();
         expect(() => {
           subscription = fixture.componentInstance.select.optionSelectionChanges.subscribe(
