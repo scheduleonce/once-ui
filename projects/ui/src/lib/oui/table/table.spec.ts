@@ -93,7 +93,7 @@ class FakeDataSource extends DataSource<TestData> {
   `
 })
 class OuiTableApp {
-  @ViewChild(OuiTable, { static: false }) table: OuiTable<TestData>;
+  @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
   dataSource: FakeDataSource | null = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
@@ -123,7 +123,7 @@ class OuiTableApp {
   `
 })
 class NativeHtmlTableApp {
-  @ViewChild(OuiTable, { static: false }) table: OuiTable<TestData>;
+  @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
   dataSource: FakeDataSource | null = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 }
@@ -154,7 +154,7 @@ class NativeHtmlTableApp {
   `
 })
 class OuiTableWithWhenRowApp {
-  @ViewChild(OuiTable, { static: false }) table: OuiTable<TestData>;
+  @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
   multiTemplateDataRows = false;
   dataSource: FakeDataSource | null = new FakeDataSource();
   isFourthRow = (i: number, _rowData: TestData) => i === 3;
@@ -196,9 +196,9 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
   dataSource = new OuiTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(OuiTable, { static: false }) table: OuiTable<TestData>;
-  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
-  @ViewChild(OuiSort, { static: false }) sort: OuiSort;
+  @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
+  @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
+  @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   @ViewChild(OuiSortHeader, { static: false }) sortHeader: OuiSortHeader;
 
   constructor() {
@@ -301,8 +301,8 @@ class OuiTableWithPaginatorApp implements OnInit {
   dataSource = new OuiTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
 
-  @ViewChild(OuiTable, { static: false }) table: OuiTable<TestData>;
-  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
+  @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
+  @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
 
   constructor() {
     this.underlyingDataSource.data = [];
