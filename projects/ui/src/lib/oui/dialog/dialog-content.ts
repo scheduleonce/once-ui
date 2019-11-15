@@ -17,6 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ICONS } from '../core/shared/icons';
 import { Subscription } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { SPACE, ENTER } from '@angular/cdk/keycodes';
 
 /** Counter used to generate unique IDs for dialog elements. */
 let dialogElementUid = 0;
@@ -213,8 +214,8 @@ export class OuiDialogHeaderSeparator {
   host: {
     '[class.cross-disabled]': 'dialogResult===false',
     '(click)': 'closeDialog()',
-    '[attr.aria-label]': 'ariaLabel'
-    // 'type': 'button', // Prevents accidental form submits.
+    '[attr.aria-label]': 'ariaLabel',
+    '(keydown)': 'handleKeydown($event)'
   }
 })
 export class OuiDialogClose implements OnInit, OnChanges {
@@ -234,6 +235,15 @@ export class OuiDialogClose implements OnInit, OnChanges {
     private _elementRef: ElementRef<HTMLElement>,
     private _dialog: OuiDialog
   ) {}
+
+  /** Ensures the option is selected when activated from the keyboard. */
+  handleKeydown(event: KeyboardEvent): void {
+    // tslint:disable-next-line:deprecation
+    if (event.keyCode === SPACE || event.keyCode === ENTER) {
+      this.closeDialog();
+      event.preventDefault();
+    }
+  }
 
   closeDialog() {
     if (this.dialogResult !== false) {

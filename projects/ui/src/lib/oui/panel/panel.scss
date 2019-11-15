@@ -9,7 +9,7 @@
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  word-break: break-word;
+  word-wrap: break-word;
   width: 270px;
   max-width: 512px;
   outline: none;
@@ -97,6 +97,7 @@ oui-panel-icon {
   text-align: center;
   line-height: 1;
   padding-bottom: 2px;
+  cursor: default;
   &:focus {
     outline: none;
     opacity: 1;
