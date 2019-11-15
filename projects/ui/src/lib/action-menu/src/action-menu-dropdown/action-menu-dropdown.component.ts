@@ -17,7 +17,7 @@ import { DefaultPositionConfig } from '../action-menu-config';
 export class ActionMenuDropdownComponent implements AfterViewInit, OnDestroy {
   constructor(private cdr: ChangeDetectorRef) {}
 
-  @ViewChild('container')
+  @ViewChild('container', { static: false })
   container;
   @Input()
   hostElement: HTMLElement;

@@ -114,7 +114,8 @@ export class OuiYearView<D> implements AfterContentInit {
   @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
 
   /** The body of calendar table */
-  @ViewChild(OuiCalendarBody) _ouiCalendarBody: OuiCalendarBody;
+  @ViewChild(OuiCalendarBody, { static: false })
+  _ouiCalendarBody: OuiCalendarBody;
 
   /** Grid of calendar cells representing the months of the year. */
   _months: OuiCalendarCell[][];
