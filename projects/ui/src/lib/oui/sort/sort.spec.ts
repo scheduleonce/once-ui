@@ -75,11 +75,12 @@ class SimpleOuiSortApp {
   disabledColumnSort = false;
   disableAllSort = false;
 
-  @ViewChild(OuiSort) ouiSort: OuiSort;
-  @ViewChild('defaultA') defaultA: OuiSortHeader;
-  @ViewChild('defaultB') defaultB: OuiSortHeader;
-  @ViewChild('overrideStart') overrideStart: OuiSortHeader;
-  @ViewChild('overrideDisableClear') overrideDisableClear: OuiSortHeader;
+  @ViewChild(OuiSort, { static: false }) ouiSort: OuiSort;
+  @ViewChild('defaultA', { static: false }) defaultA: OuiSortHeader;
+  @ViewChild('defaultB', { static: false }) defaultB: OuiSortHeader;
+  @ViewChild('overrideStart', { static: false }) overrideStart: OuiSortHeader;
+  @ViewChild('overrideDisableClear', { static: false })
+  overrideDisableClear: OuiSortHeader;
 
   constructor(public elementRef: ElementRef<HTMLElement>) {}
 
@@ -161,7 +162,7 @@ class FakeDataSource extends DataSource<any> {
   `
 })
 class CdkTableOuiSortApp {
-  @ViewChild(OuiSort) ouiSort: OuiSort;
+  @ViewChild(OuiSort, { static: false }) ouiSort: OuiSort;
 
   dataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -197,7 +198,7 @@ class CdkTableOuiSortApp {
   `
 })
 class OuiTableOuiSortApp {
-  @ViewChild(OuiSort) ouiSort: OuiSort;
+  @ViewChild(OuiSort, { static: false }) ouiSort: OuiSort;
 
   dataSource = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
