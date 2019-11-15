@@ -1,5 +1,5 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   async,
   ComponentFixture,
@@ -96,7 +96,7 @@ class OuiTableApp {
   @ViewChild(OuiTable, {static:false}) table: OuiTable<TestData>;
   dataSource: FakeDataSource | null = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
-  isFourthRow = (i: number, _rowData: TestData) => i === 3;
+  isFourthRow = (i: number, _rowData: TestData) => i === 3; 
 }
 
 @Component({
@@ -191,7 +191,7 @@ class OuiTableWithWhenRowApp {
     <oui-paginator [pageSize]="5"></oui-paginator>
   `
 })
-class ArrayDataSourceOuiTableApp implements AfterViewInit {
+class ArrayDataSourceOuiTableApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
   dataSource = new OuiTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -214,7 +214,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.dataSource!.sort = this.sort;
     this.dataSource!.paginator = this.paginator;
   }
@@ -245,7 +245,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
     </oui-table>
   `
 })
-class OuiTableWithSortApp implements AfterViewInit {
+class OuiTableWithSortApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
   dataSource = new OuiTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -266,7 +266,7 @@ class OuiTableWithSortApp implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.dataSource!.sort = this.sort;
   }
 }
@@ -296,7 +296,7 @@ class OuiTableWithSortApp implements AfterViewInit {
     <oui-paginator [pageSize]="5"></oui-paginator>
   `
 })
-class OuiTableWithPaginatorApp implements AfterViewInit {
+class OuiTableWithPaginatorApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
   dataSource = new OuiTableDataSource<TestData>();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
@@ -317,7 +317,7 @@ class OuiTableWithPaginatorApp implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.dataSource!.paginator = this.paginator;
   }
 }
