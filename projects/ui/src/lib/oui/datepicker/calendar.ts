@@ -298,7 +298,8 @@ export class OuiCalendar<D>
   @ViewChild(OuiYearView, { static: false }) yearView: OuiYearView<D>;
 
   /** Reference to the current multi-year view component. */
-  @ViewChild(OuiMultiYearView, { static: false }) multiYearView: OuiMultiYearView<D>;
+  @ViewChild(OuiMultiYearView, { static: false })
+  multiYearView: OuiMultiYearView<D>;
 
   /**
    * The current active date. This determines which time period is shown and which date is

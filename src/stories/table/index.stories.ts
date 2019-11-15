@@ -185,7 +185,7 @@ export class OuiTableCustomStorybook implements OnInit {
     scheduleonce: scheduleonce,
     inviteonce: inviteonce
   };
-  @ViewChild(OuiSort,{static:false}) sort: OuiSort;
+  @ViewChild(OuiSort, { static: false }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;
   @Input() users: any[] = [];
   @Input() pageSize: any[] = [];

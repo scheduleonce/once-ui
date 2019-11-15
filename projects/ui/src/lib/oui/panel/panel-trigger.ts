@@ -30,7 +30,7 @@ import { merge } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { SPACE } from '@angular/cdk/keycodes';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { DOCUMENT } from "@angular/common";
+import { DOCUMENT } from '@angular/common';
 
 /** Injection token that determines the scroll handling while the panel-overlay is open. */
 export const OUI_PANEL_SCROLL_STRATEGY = new InjectionToken<

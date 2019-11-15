@@ -401,13 +401,15 @@ export class OuiSelect extends _OuiSelectMixinBase
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
   /** User-supplied override of the trigger element. */
-  @ContentChild(OuiSelectTrigger, {static:false}) customTrigger: OuiSelectTrigger;
+  @ContentChild(OuiSelectTrigger, { static: false })
+  customTrigger: OuiSelectTrigger;
 
   /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay, { static: false }) overlayDir: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: false })
+  overlayDir: CdkConnectedOverlay;
 
   /** Emits when the panel element is finished transforming in. */
   _panelDoneAnimatingStream = new Subject<string>();
