@@ -1,4 +1,4 @@
-# 10. keyboard accessibility
+# 10. add keyboard accessibility
 
 Date: 2019-11-11
 
