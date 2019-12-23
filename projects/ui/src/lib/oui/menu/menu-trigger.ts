@@ -57,7 +57,7 @@ export const OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 };
 
 /** Default top padding of the menu panel. */
-export const MENU_PANEL_TOP_PADDING = 10;
+export const MENU_PANEL_TOP_PADDING = 11;
 
 /** Default left padding of the menu panel */
 export const MENU_PANEL_LEFT_PADDING = 2;
