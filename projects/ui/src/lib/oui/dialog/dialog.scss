@@ -73,6 +73,9 @@ $header-icon-height: 24px;
   left: auto;
   right: 16px;
   bottom: auto;
+  svg {
+    fill: #4a4a4a;
+  }
 }
 .oui-dialog-header-action::after {
   clear: both;
@@ -108,9 +111,6 @@ $header-icon-height: 24px;
     background: $icon-focus-background;
     border-radius: 2px;
     transition: $icon-focus-transition;
-  }
-  svg {
-    fill: #4a4a4a;
   }
 }
 .oui-dialog-header-article {
