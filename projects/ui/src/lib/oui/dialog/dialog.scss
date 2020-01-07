@@ -73,6 +73,9 @@ $header-icon-height: 24px;
   left: auto;
   right: 16px;
   bottom: auto;
+  svg {
+    fill: #4a4a4a;
+  }
 }
 .oui-dialog-header-action::after {
   clear: both;
@@ -103,19 +106,14 @@ $header-icon-height: 24px;
   line-height: 1;
   padding: 2px;
   text-align: center;
-  .oui-icon {
-    width: 16px;
-    height: 20px;
-    padding-top: 4px;
-    svg {
-      vertical-align: top;
-    }
-  }
   &[class^='cdk'],
   &[class$='focused'] {
     background: $icon-focus-background;
     border-radius: 2px;
     transition: $icon-focus-transition;
+  }
+  svg {
+    fill: #4a4a4a;
   }
 }
 .oui-dialog-header-article {
@@ -126,14 +124,6 @@ $header-icon-height: 24px;
   line-height: 1;
   padding: 2px;
   text-align: center;
-  .oui-icon {
-    width: 16px;
-    height: 20px;
-    padding-top: 3px;
-    svg {
-      vertical-align: top;
-    }
-  }
   &[class^='cdk'],
   &[class$='focused'] {
     background: $icon-focus-background;
@@ -149,10 +139,6 @@ $header-icon-height: 24px;
   margin-left: 4px;
   line-height: 1;
   padding: 2px;
-  .oui-icon {
-    width: 20px;
-    height: 20px;
-  }
   &[class^='cdk'],
   &[class$='focused'] {
     background: $icon-focus-background;
