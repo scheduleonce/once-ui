@@ -130,6 +130,9 @@ $header-icon-height: 24px;
     border-radius: 2px;
     transition: $icon-focus-transition;
   }
+  svg{
+    fill: #006BB1;
+  }
 }
 .oui-dialog-header-video {
   width: $header-icon-width;
@@ -144,6 +147,9 @@ $header-icon-height: 24px;
     background: $icon-focus-background;
     border-radius: 2px;
     transition: $icon-focus-transition;
+  }
+  svg{
+    fill: #006BB1;
   }
 }
 .oui-dialog-header-separator {
