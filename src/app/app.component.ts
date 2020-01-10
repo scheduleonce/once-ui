@@ -97,6 +97,11 @@ const NAMES: string[] = [
 export class AppComponent implements OnInit {
   @ViewChild(OuiSort, { static: false }) sort: OuiSort;
   @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
+  @ViewChild('quantitySelectBox', { static: false }) quantitySelectBox: any;
+  @ViewChild('quantityInput', { static: false }) quantityInput: any;
+  defaultQuantity = 100;
+  selectedOptionNew = 100;
+  smsEditableMinQuantity = 100;
   options: string[] = ['One', 'Two', 'Three'];
   minDate = new Date();
   isDisable = false;
@@ -353,5 +358,10 @@ export class AppComponent implements OnInit {
 
   reset3() {
     this.bankid1 = 'P';
+  }
+
+  clear() {
+    this.selectedOptionNew = this.defaultQuantity;
+    this.quantitySelectBox.open();
   }
 }

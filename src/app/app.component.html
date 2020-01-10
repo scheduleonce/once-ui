@@ -1,943 +1,978 @@
 <div class="fit">
-  <h1>Menu</h1>
-  <div class="trigger">
-    <span>x-axis:after y-axis:"above"</span>
-    <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
-      <oui-icon svgIcon="vertical"></oui-icon>
-    </button>
-    <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
-      <button oui-menu-item>
-        <oui-icon svgIcon="edit"></oui-icon>
-        <span>Edit</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="calendar"></oui-icon>
-        <span>Schedule</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="configuration"></oui-icon>
-        <span>Configuration</span>
-      </button>
-    </oui-menu>
+<!--  <h1>Menu</h1>-->
+<!--  <div class="trigger">-->
+<!--    <span>x-axis:after y-axis:"above"</span>-->
+<!--    <button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">-->
+<!--      <oui-icon svgIcon="vertical"></oui-icon>-->
+<!--    </button>-->
+<!--    <oui-menu #afterAboveMenu xPosition="after" yPosition="above">-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="edit"></oui-icon>-->
+<!--        <span>Edit</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="calendar"></oui-icon>-->
+<!--        <span>Schedule</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="configuration"></oui-icon>-->
+<!--        <span>Configuration</span>-->
+<!--      </button>-->
+<!--    </oui-menu>-->
+<!--  </div>-->
+
+<!--  <div class="trigger">-->
+<!--    <span>x-axis:before y-axis:"above"</span>-->
+<!--    <button oui-icon-button [ouiMenuTriggerFor]="beforeAboveMenu">-->
+<!--      <oui-icon svgIcon="horizontal"></oui-icon>-->
+<!--    </button>-->
+<!--    <oui-menu #beforeAboveMenu xPosition="before" yPosition="above">-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="edit"></oui-icon>-->
+<!--        <span>Edit</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="calendar"></oui-icon>-->
+<!--        <span>Schedule</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="configuration"></oui-icon>-->
+<!--        <span>Configuration</span>-->
+<!--      </button>-->
+<!--    </oui-menu>-->
+<!--  </div>-->
+
+<!--  <div class="trigger">-->
+<!--    <span>x-axis:before y-axis:"below"</span>-->
+<!--    <button oui-icon-button [ouiMenuTriggerFor]="beforeBelowMenu">-->
+<!--      <oui-icon svgIcon="horizontal"></oui-icon>-->
+<!--    </button>-->
+<!--    <oui-menu #beforeBelowMenu xPosition="before" yPosition="below">-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="edit"></oui-icon>-->
+<!--        <span>Edit</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="calendar"></oui-icon>-->
+<!--        <span>Schedule</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="configuration"></oui-icon>-->
+<!--        <span>Configuration</span>-->
+<!--      </button>-->
+<!--    </oui-menu>-->
+<!--  </div>-->
+
+<!--  <div class="trigger">-->
+<!--    <span>x-axis:after y-axis:"below"</span>-->
+<!--    <button oui-icon-button [ouiMenuTriggerFor]="afterBelowMenu">-->
+<!--      <oui-icon svgIcon="horizontal"></oui-icon>-->
+<!--    </button>-->
+<!--    <oui-menu #afterBelowMenu xPosition="after" yPosition="below">-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="edit"></oui-icon>-->
+<!--        <span>Edit</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="calendar"></oui-icon>-->
+<!--        <span>Schedule</span>-->
+<!--      </button>-->
+<!--      <button oui-menu-item>-->
+<!--        <oui-icon svgIcon="configuration"></oui-icon>-->
+<!--        <span>Configuration</span>-->
+<!--      </button>-->
+<!--    </oui-menu>-->
+<!--  </div>-->
+
+<!--  <div class="trigger">-->
+<!--    <span> nested menu </span>-->
+<!--    <button oui-icon-button [ouiMenuTriggerFor]="rootMenu">-->
+<!--      <oui-icon svgIcon="horizontal"></oui-icon>-->
+<!--    </button>-->
+
+<!--    <oui-menu #rootMenu="ouiMenu">-->
+<!--      <button oui-menu-item [ouiMenuTriggerFor]="subMenu">Power</button>-->
+<!--      <button oui-menu-item [ouiMenuTriggerFor]="subMenu">-->
+<!--        System settings-->
+<!--      </button>-->
+<!--    </oui-menu>-->
+
+<!--    <oui-menu #subMenu="ouiMenu">-->
+<!--      <button oui-menu-item>Shut down</button>-->
+<!--      <button oui-menu-item>Restart</button>-->
+<!--      <button oui-menu-item>Hibernate</button>-->
+<!--    </oui-menu>-->
+<!--  </div>-->
+
+<!--  <span>-->
+<!--    <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu"></oui-menu-icon>-->
+<!--  </span>-->
+
+<!--  <span>-->
+<!--    <oui-menu-icon-->
+<!--      [ouiMenuTriggerFor]="afterBelowMenu"-->
+<!--      vertical="true"-->
+<!--    ></oui-menu-icon>-->
+<!--  </span>-->
+
+<!--  <br />-->
+<!--  <br />-->
+<!--  <h1>Panel Overlay</h1>-->
+<!--  <div>-->
+<!--    <oui-panel-icon [ouiPanelTriggerFor]="afterAbovePanel"></oui-panel-icon>-->
+<!--    <button-->
+<!--      oui-icon-button-->
+<!--      style="margin-left: 400px"-->
+<!--      [ouiPanelTriggerFor]="afterAbovePanel"-->
+<!--    >-->
+<!--      <oui-icon svgIcon="horizontal"></oui-icon>-->
+<!--    </button>-->
+<!--    <oui-panel #afterAbovePanel xPosition="before" yPosition="below">-->
+<!--      <h6>Lorem ipsum dolor sit amet.</h6>-->
+<!--      <p>-->
+<!--        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,-->
+<!--        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus-->
+<!--        voluptates impedit.-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,-->
+<!--        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus-->
+<!--        voluptates impedit. <a href="#">Learn More</a>-->
+<!--      </p>-->
+<!--    </oui-panel>-->
+<!--  </div>-->
+<!--  <div class="trigger">-->
+<!--    <span>panel with image inside</span>-->
+<!--    <oui-panel-icon [ouiPanelTriggerFor]="afterBelowImage"> </oui-panel-icon>-->
+<!--    <oui-panel #afterBelowImage xPosition="after" yPosition="below">-->
+<!--      <h6>Lorem ipsum, dolor sit amet consectetur</h6>-->
+<!--      <img-->
+<!--        src="https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"-->
+<!--      />-->
+<!--      <p>-->
+<!--        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate-->
+<!--        harum quod a incidunt? Obcaecati dolores omnis odio repudiandae quo-->
+<!--        quidem?-->
+<!--      </p>-->
+<!--      <p>-->
+<!--        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,-->
+<!--        dolorum! Reprehenderit reiciendis hic magnam esse odio asperiores qui-->
+<!--        tempora beatae.-->
+<!--      </p></oui-panel-->
+<!--    >-->
+<!--  </div>-->
+<!--  <h1>Form field</h1>-->
+<!--  <div class="input-outer">-->
+<!--    <oui-form-field color="accent"-->
+<!--      ><input oui-input placeholder="Any"-->
+<!--    /></oui-form-field>-->
+<!--  </div>-->
+<!--  <h1>Input</h1>-->
+<!--  <h3>Bordered</h3>-->
+<!--  <div>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field><input oui-input placeholder="Any"/></oui-form-field>-->
+<!--    </div>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <input oui-input disabled placeholder="Any" />-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <h3>Underline</h3>-->
+<!--  <div>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field [appearance]="'underline'" color="accent">-->
+<!--        <input oui-input placeholder="Any" />-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field [appearance]="'underline'">-->
+<!--        <input oui-input disabled placeholder="Any" />-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <h1>Textarea</h1>-->
+<!--  <div>-->
+<!--    <div class="textarea-outer display-inline">-->
+<!--      <oui-form-field><textarea oui-input></textarea></oui-form-field>-->
+<!--    </div>-->
+<!--    <div class="textarea-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <textarea oui-input disabled></textarea>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  <h1>Buttons</h1>-->
+<!--  &lt;!&ndash;primary buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <button oui-button color="primary">-->
+<!--      <oui-icon svgIcon="hourglass" color="primary"></oui-icon>-->
+<!--      this is super button-->
+<!--    </button>-->
+
+<!--    &lt;!&ndash; <button oui-button color="accent">this is super button</button>-->
+<!--        <button oui-button color="warn">this is super button</button> &ndash;&gt;-->
+
+<!--    <button oui-button color="primary" disabled>this is super button</button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;link buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <button oui-link-button color="primary">this is super button</button>-->
+
+<!--    &lt;!&ndash; <button oui-link-button color="accent">this is super button</button>-->
+<!--        <button oui-link-button color="warn">this is super button</button> &ndash;&gt;-->
+
+<!--    <button oui-link-button color="primary" disabled>-->
+<!--      this is super button-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;ghost buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <button oui-ghost-button color="primary">this is super button</button>-->
+
+<!--    &lt;!&ndash; <button oui-ghost-button color="accent">this is super button</button>-->
+<!--        <button oui-ghost-button color="warn">this is super button</button> &ndash;&gt;-->
+
+<!--    <button oui-ghost-button color="primary" disabled>-->
+<!--      this is super button-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;icon-text buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <button oui-icon-text-button color="primary">-->
+<!--      <img src="../assets/images/excel.png" /><label-->
+<!--        >this is super button</label-->
+<!--      >-->
+<!--    </button>-->
+
+<!--    <button oui-icon-text-button color="accent">-->
+<!--      <img src="../assets/images/csv.png" /><label>this is super button</label>-->
+<!--    </button>-->
+
+<!--    <button oui-icon-text-button color="warn">-->
+<!--      <img src="../assets/images/pdf.png" /><label>this is super button</label>-->
+<!--    </button>-->
+
+<!--    <button oui-icon-text-button color="warn" disabled>-->
+<!--      <img src="../assets/images/pdf.png" /><label>this is super button</label>-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;icon buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <button oui-icon-button><oui-icon svgIcon="calendar"></oui-icon></button>-->
+<!--    <button oui-icon-button><oui-icon svgIcon="edit"></oui-icon></button>-->
+<!--    <button oui-icon-button>-->
+<!--      <oui-icon svgIcon="configuration"></oui-icon>-->
+<!--    </button>-->
+<!--  </div>-->
+
+<!--  <h1>A tags</h1>-->
+<!--  &lt;!&ndash;primary buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <a oui-button color="primary">this is super button</a>-->
+
+<!--    &lt;!&ndash; <a oui-button color="accent">this is super button</a>-->
+<!--        <a oui-button color="warn">this is super button</a> &ndash;&gt;-->
+
+<!--    <a oui-button color="primary" disabled>this is super button</a>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;link buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <a oui-link-button color="primary">this is super button</a>-->
+
+<!--    &lt;!&ndash; <a oui-link-button color="accent">this is super button</a>-->
+<!--        <a oui-link-button color="warn">this is super button</a> &ndash;&gt;-->
+
+<!--    <a oui-link-button color="primary" disabled>this is super button</a>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash;ghost buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <a oui-ghost-button color="primary">this is super button</a>-->
+
+<!--    &lt;!&ndash; <a oui-ghost-button color="accent">this is super button</a>-->
+<!--        <a oui-ghost-button color="warn">this is super button</a> &ndash;&gt;-->
+
+<!--    <a oui-ghost-button color="primary" disabled>this is super button</a>-->
+<!--  </div>-->
+<!--  &lt;!&ndash;icon buttons&ndash;&gt;-->
+<!--  <div>-->
+<!--    <a oui-icon-button color="primary"-->
+<!--      ><img src="../assets/images/excel.png" /><label-->
+<!--        >this is super button</label-->
+<!--      ></a-->
+<!--    >-->
+
+<!--    <a oui-icon-button color="accent"-->
+<!--      ><img src="../assets/images/csv.png" /><label-->
+<!--        >this is super button</label-->
+<!--      ></a-->
+<!--    >-->
+
+<!--    <a oui-icon-button color="warn"-->
+<!--      ><img src="../assets/images/pdf.png" /><label-->
+<!--        >this is super button</label-->
+<!--      ></a-->
+<!--    >-->
+
+<!--    <a oui-icon-button color="warn" disabled-->
+<!--      ><img src="../assets/images/pdf.png" /><label-->
+<!--        >this is super button</label-->
+<!--      ></a-->
+<!--    >-->
+<!--  </div>-->
+
+<!--  <h1>Progress Button</h1>-->
+
+<!--  <div>-->
+<!--    <button-->
+<!--      #progressButton-->
+<!--      oui-button-->
+<!--      progress-->
+<!--      [disabled]="isDisable"-->
+<!--      (click)="progressButtonClick()"-->
+<!--    >-->
+<!--      button-->
+<!--    </button>-->
+
+<!--    <button-->
+<!--      #progressLinkButton-->
+<!--      oui-link-button-->
+<!--      progress-->
+<!--      (click)="progressButtonLinkClick()"-->
+<!--    ></button>-->
+
+<!--    <button-->
+<!--      #progressGhostButton-->
+<!--      oui-ghost-button-->
+<!--      progress-->
+<!--      (click)="progressButtonGhostClick()"-->
+<!--    ></button>-->
+<!--  </div>-->
+
+<!--  <h1>Dialog</h1>-->
+
+<!--  <div><button oui-button (click)="openDialog()">Open</button></div>-->
+
+<!--  <h1>Autocomplete</h1>-->
+<!--  <div class="input-outer">-->
+<!--    <oui-form-field>-->
+<!--      <input oui-input [ouiAutocomplete]="auto" />-->
+<!--    </oui-form-field>-->
+<!--    <oui-autocomplete #auto="ouiAutocomplete">-->
+<!--      <oui-option *ngFor="let option of options" [value]="option">-->
+<!--        {{ option }}-->
+<!--      </oui-option>-->
+<!--    </oui-autocomplete>-->
+<!--  </div>-->
+
+<!--  <h1>Autocomplete with underline Input</h1>-->
+<!--  <div class="input-outer">-->
+<!--    <oui-form-field [appearance]="'underline'">-->
+<!--      <input oui-input [ouiAutocomplete]="auto" />-->
+<!--    </oui-form-field>-->
+<!--    <oui-autocomplete #auto="ouiAutocomplete">-->
+<!--      <oui-option *ngFor="let option of options" [value]="option">-->
+<!--        {{ option }}-->
+<!--      </oui-option>-->
+<!--    </oui-autocomplete>-->
+<!--  </div>-->
+
+<!--  <h1>Autocomplete with group</h1>-->
+<!--  <div class="input-outer">-->
+<!--    <oui-form-field>-->
+<!--      <input type="text" oui-input [ouiAutocomplete]="autoGroup" />-->
+<!--      <oui-autocomplete #autoGroup="ouiAutocomplete" class="autocomplete-group">-->
+<!--        <oui-optgroup *ngFor="let group of stateGroups" [label]="group.letter">-->
+<!--          <oui-option *ngFor="let name of group.names" [value]="name">-->
+<!--            {{ name }}-->
+<!--          </oui-option>-->
+<!--        </oui-optgroup>-->
+<!--      </oui-autocomplete>-->
+<!--    </oui-form-field>-->
+<!--  </div>-->
+<!--  <h1>Slide toggle</h1>-->
+
+<!--  <h3>Enabled</h3>-->
+
+<!--  <h4>Primary</h4>-->
+
+<!--  <oui-slide-toggle [checked]="true"></oui-slide-toggle>-->
+<!--  <oui-slide-toggle [checked]="false"></oui-slide-toggle>-->
+
+<!--  <h4>Accent</h4>-->
+
+<!--  <oui-slide-toggle color="accent" [checked]="true"></oui-slide-toggle>-->
+<!--  <oui-slide-toggle color="accent" [checked]="false"></oui-slide-toggle>-->
+
+<!--  <h4>Warn</h4>-->
+
+<!--  <oui-slide-toggle color="warn" [checked]="true"></oui-slide-toggle>-->
+<!--  <oui-slide-toggle color="warn" [checked]="false"></oui-slide-toggle>-->
+
+<!--  <h3>Disabled</h3>-->
+
+<!--  <h4>Primary</h4>-->
+
+<!--  <oui-slide-toggle [checked]="true" [disabled]="true"></oui-slide-toggle>-->
+<!--  <oui-slide-toggle [checked]="false" [disabled]="true"></oui-slide-toggle>-->
+
+<!--  <h4>Accent</h4>-->
+
+<!--  <oui-slide-toggle-->
+<!--    color="accent"-->
+<!--    [checked]="true"-->
+<!--    [disabled]="true"-->
+<!--  ></oui-slide-toggle>-->
+<!--  <oui-slide-toggle-->
+<!--    color="accent"-->
+<!--    [checked]="false"-->
+<!--    [disabled]="true"-->
+<!--  ></oui-slide-toggle>-->
+
+<!--  <h4>Warn</h4>-->
+
+<!--  <oui-slide-toggle-->
+<!--    color="warn"-->
+<!--    [checked]="true"-->
+<!--    [disabled]="true"-->
+<!--  ></oui-slide-toggle>-->
+<!--  <oui-slide-toggle-->
+<!--    color="warn"-->
+<!--    [checked]="false"-->
+<!--    [disabled]="true"-->
+<!--  ></oui-slide-toggle>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--  <ng-template #dialogTemplate>-->
+<!--    <div oui-dialog-header>-->
+<!--      <div oui-dialog-header-image>-->
+<!--        <img src="/assets/images/v-green.svg" />-->
+<!--      </div>-->
+<!--      <label oui-dialog-header-title>this is the title</label>-->
+<!--      <div oui-dialog-header-action>-->
+<!--        <div title="Close" oui-dialog-header-close oui-dialog-close></div>-->
+<!--        <a-->
+<!--          title="Article"-->
+<!--          oui-dialog-header-article-->
+<!--          href="https://youtube.com"-->
+<!--          target="blank"-->
+<!--        ></a>-->
+<!--        <a-->
+<!--          title="Video"-->
+<!--          href="https://youtube.com"-->
+<!--          target="blank"-->
+<!--          oui-dialog-header-video-->
+<!--          oui-dialog-header-separator-->
+<!--        ></a>-->
+<!--        <a-->
+<!--          title="Video"-->
+<!--          href="https://youtube.com"-->
+<!--          target="blank"-->
+<!--          oui-dialog-header-video-->
+<!--        ></a>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div oui-dialog-content>-->
+<!--      <div style="background-color: grey; height: 400px; width: 100%"></div>-->
+<!--      <div style="background-color: blue; height: 400px; width: 100%"></div>-->
+<!--    </div>-->
+<!--    <div oui-dialog-footer>-->
+<!--      <div oui-dialog-footer-action-left>-->
+<!--        <button oui-link-button>Left</button>-->
+<!--        <button oui-link-button>Left</button>-->
+<!--      </div>-->
+<!--      <div oui-dialog-footer-action-right>-->
+<!--        <button oui-ghost-button (click)="openDialog()">Open</button>-->
+<!--        <button oui-button ouiDialogClose>Close</button>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </ng-template>-->
+<!--</div>-->
+
+<!--<h1>Icons</h1>-->
+<!--<h3>Relative to project:</h3>-->
+<!--<oui-icon svgIcon="dots-horizontal" color="primary"></oui-icon>-->
+<!--<br />-->
+<!--<h3>IcoMoon:</h3>-->
+<!--<oui-icon svgIcon="hourglass" color="primary"></oui-icon>-->
+<!--<oui-icon svgIcon="conversation" color="accent"></oui-icon>-->
+<!--<oui-icon svgIcon="home" color="warn" size="60"></oui-icon>-->
+
+<!--<h3>Custom Icons:</h3>-->
+<!--<oui-icon svgIcon="down-arrow" color="primary"></oui-icon>-->
+<!--<br />-->
+<!--<br />-->
+<!--<br />-->
+
+<!--<button oui-icon-button><oui-icon svgIcon="vertical"></oui-icon></button>-->
+<!--<button oui-icon-button><oui-icon svgIcon="horizontal"></oui-icon></button>-->
+
+<!--<br />-->
+<!--<h2 class="example-h2">Checkbox configuration</h2>-->
+<!--<section class="example-section">-->
+<!--  <oui-checkbox class="example-margin" [(ngModel)]="checked">-->
+<!--    Checked-->
+<!--  </oui-checkbox>-->
+<!--</section>-->
+<!--<section class="example-section">-->
+<!--  <label class="example-margin">Align:</label>-->
+<!--  <input-->
+<!--    [(ngModel)]="labelPosition"-->
+<!--    type="radio"-->
+<!--    id="after"-->
+<!--    name="align"-->
+<!--    class="example-margin"-->
+<!--    value="after"-->
+<!--  />-->
+<!--  <label for="after">After </label>-->
+<!--  <input-->
+<!--    type="radio"-->
+<!--    [(ngModel)]="labelPosition"-->
+<!--    id="before"-->
+<!--    name="align"-->
+<!--    class="example-margin"-->
+<!--    value="before"-->
+<!--  />-->
+<!--  <label for="before">Before </label>-->
+<!--</section>-->
+<!--<section class="example-section">-->
+<!--  <oui-checkbox class="example-margin" [(ngModel)]="disabled">-->
+<!--    Disabled-->
+<!--  </oui-checkbox>-->
+<!--</section>-->
+<!--<section class="result">-->
+<!--  <h2 class="example-h2">Result</h2>-->
+<!--  <section class="example-section">-->
+<!--    <oui-checkbox-->
+<!--      class="example-margin"-->
+<!--      [(ngModel)]="checked"-->
+<!--      [labelPosition]="labelPosition"-->
+<!--      [disabled]="disabled"-->
+<!--    >-->
+<!--      I'm a checkbox-->
+<!--    </oui-checkbox>-->
+<!--  </section>-->
+<!--</section>-->
+<!--<br />-->
+<!--<h1>Progress Spinner</h1>-->
+
+<!--<h3>Indeterminate</h3>-->
+<!--<oui-progress-spinner></oui-progress-spinner>-->
+<!--<br />-->
+<!--<oui-progress-spinner diameter="30" color="accent"></oui-progress-spinner>-->
+<!--<br />-->
+<!--<oui-progress-spinner diameter="40" color="warn"></oui-progress-spinner>-->
+
+<!--<h3>Determinate Spinner</h3>-->
+<!--<oui-progress-spinner-->
+<!--  diameter="50"-->
+<!--  [value]="50"-->
+<!--  [strokeWidth]="5"-->
+<!--&gt;</oui-progress-spinner>-->
+<!--<br />-->
+<!--<oui-progress-spinner-->
+<!--  diameter="70"-->
+<!--  [value]="70"-->
+<!--  [strokeWidth]="8"-->
+<!--  color="accent"-->
+<!--&gt;</oui-progress-spinner>-->
+<!--<br />-->
+<!--<oui-progress-spinner-->
+<!--  diameter="80"-->
+<!--  [value]="80"-->
+<!--  [strokeWidth]="10"-->
+<!--  color="warn"-->
+<!--&gt;</oui-progress-spinner>-->
+<!--<br />-->
+<!--<button-->
+<!--  oui-button-->
+<!--  ouiTooltip="this is a tooltip"-->
+<!--  ouiTooltipPosition="above"-->
+<!--  color="primary"-->
+<!--&gt;-->
+<!--  this is super button-->
+<!--</button>-->
+<!--<button oui-button ouiTooltip="this is a tooltip" color="primary">-->
+<!--  this is super button-->
+<!--</button>-->
+<!--<button-->
+<!--  oui-button-->
+<!--  ouiTooltip="this is a tooltip"-->
+<!--  ouiTooltipPosition="left"-->
+<!--  color="primary"-->
+<!--&gt;-->
+<!--  this is super button-->
+<!--</button>-->
+<!--<button-->
+<!--  oui-button-->
+<!--  ouiTooltip="this is a tooltip"-->
+<!--  ouiTooltipClass="test"-->
+<!--  ouiTooltipPosition="right"-->
+<!--  color="primary"-->
+<!--&gt;-->
+<!--  this is super button-->
+<!--</button>-->
+<!--<br /><br />-->
+
+<!--<h1>table</h1>-->
+<!--<div class="width80">-->
+<!--  <table oui-table [dataSource]="dataSource" ouiSort>-->
+<!--    &lt;!&ndash;- Note that these columns can be defined in any order.-->
+<!--        The actual rendered columns are set as a property on the row definition" &ndash;&gt;-->
+
+<!--    <ng-container ouiColumnDef="name">-->
+<!--      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Name</th>-->
+<!--      <td oui-cell *ouiCellDef="let row">{{ row.name }}</td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container ouiColumnDef="id">-->
+<!--      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>ID</th>-->
+<!--      <td oui-cell *ouiCellDef="let row">{{ row.id }}</td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container ouiColumnDef="progress">-->
+<!--      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Progress</th>-->
+<!--      <td oui-cell *ouiCellDef="let row">{{ row.progress }}</td>-->
+<!--    </ng-container>-->
+
+<!--    <ng-container ouiColumnDef="color">-->
+<!--      <th oui-header-cell *ouiHeaderCellDef>Color</th>-->
+<!--      <td oui-cell *ouiCellDef="let row" [style.color]="row.color">-->
+<!--        {{ row.color }}-->
+<!--      </td>-->
+<!--    </ng-container>-->
+
+<!--    <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>-->
+<!--    <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>-->
+<!--  </table>-->
+
+<!--  <oui-paginator pageSize="10"></oui-paginator>-->
+<!--  <br /><br />-->
+<!--</div>-->
+
+<!--<h3>OuiRadioButton</h3>-->
+<!--<h4>Enabled</h4>-->
+<!--<h5>Label After</h5>-->
+<!--<oui-radio-group name="enabled1" value="Winter">-->
+<!--  <oui-radio-button #s value="Winter"> Winter</oui-radio-button>-->
+<!--  <oui-radio-button value="Summer"> Summer</oui-radio-button>-->
+<!--</oui-radio-group>-->
+<!--<h5>Label Before</h5>-->
+<!--<oui-radio-group labelPosition="before" name="enabled2">-->
+<!--  <oui-radio-button value="Winter"> Winter</oui-radio-button>-->
+<!--  <oui-radio-button checked value="Summer"> Summer</oui-radio-button>-->
+<!--</oui-radio-group>-->
+<!--<br /><br />-->
+<!--<h4>Disabled</h4>-->
+<!--<oui-radio-group disabled name="disabled1">-->
+<!--  <oui-radio-button checked value="Winter"> Winter</oui-radio-button>-->
+<!--  <oui-radio-button value="Summer"> Summer</oui-radio-button>-->
+<!--</oui-radio-group>-->
+<!--<br /><br />-->
+<!--<h1>Progress Bar</h1>-->
+<!--<div style="max-width: 300px;">-->
+<!--  <oui-progress-bar></oui-progress-bar>-->
+<!--  <br />-->
+<!--  <oui-progress-bar color="accent"></oui-progress-bar>-->
+<!--  <br />-->
+<!--  <oui-progress-bar color="warn"></oui-progress-bar>-->
+<!--</div>-->
+<!--<br /><br />-->
+
+<!--<h1>Datepicker</h1>-->
+<!--<div style="max-width: 170px;">-->
+<!--  <oui-form-field>-->
+<!--    <input-->
+<!--      oui-input-->
+<!--      [ouiDatepicker]="picker"-->
+<!--      [min]="minDate"-->
+<!--      placeholder="Choose a date"-->
+<!--    />-->
+<!--    <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>-->
+<!--    <oui-datepicker #picker></oui-datepicker>-->
+<!--  </oui-form-field>-->
+<!--</div>-->
+<!--<br />-->
+
+  <div [hidden]="selectedOptionNew >= smsEditableMinQuantity">
+    <oui-form-field>
+      <oui-select
+        [(value)]="selectedOptionNew"
+        #quantitySelectBox
+        [placeholder]="selectedOptionNew"
+      >
+        <oui-option [value]="100">100</oui-option>
+        <oui-option [value]="200">200</oui-option>
+        <oui-option [value]="500">500</oui-option>
+        <oui-option [value]="1000">1,000</oui-option>
+        <oui-option [value]="2000">2,000+</oui-option>
+      </oui-select>
+    </oui-form-field>
   </div>
-
-  <div class="trigger">
-    <span>x-axis:before y-axis:"above"</span>
-    <button oui-icon-button [ouiMenuTriggerFor]="beforeAboveMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
-    </button>
-    <oui-menu #beforeAboveMenu xPosition="before" yPosition="above">
-      <button oui-menu-item>
-        <oui-icon svgIcon="edit"></oui-icon>
-        <span>Edit</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="calendar"></oui-icon>
-        <span>Schedule</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="configuration"></oui-icon>
-        <span>Configuration</span>
-      </button>
-    </oui-menu>
-  </div>
-
-  <div class="trigger">
-    <span>x-axis:before y-axis:"below"</span>
-    <button oui-icon-button [ouiMenuTriggerFor]="beforeBelowMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
-    </button>
-    <oui-menu #beforeBelowMenu xPosition="before" yPosition="below">
-      <button oui-menu-item>
-        <oui-icon svgIcon="edit"></oui-icon>
-        <span>Edit</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="calendar"></oui-icon>
-        <span>Schedule</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="configuration"></oui-icon>
-        <span>Configuration</span>
-      </button>
-    </oui-menu>
-  </div>
-
-  <div class="trigger">
-    <span>x-axis:after y-axis:"below"</span>
-    <button oui-icon-button [ouiMenuTriggerFor]="afterBelowMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
-    </button>
-    <oui-menu #afterBelowMenu xPosition="after" yPosition="below">
-      <button oui-menu-item>
-        <oui-icon svgIcon="edit"></oui-icon>
-        <span>Edit</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="calendar"></oui-icon>
-        <span>Schedule</span>
-      </button>
-      <button oui-menu-item>
-        <oui-icon svgIcon="configuration"></oui-icon>
-        <span>Configuration</span>
-      </button>
-    </oui-menu>
-  </div>
-
-  <div class="trigger">
-    <span> nested menu </span>
-    <button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
-      <oui-icon svgIcon="horizontal"></oui-icon>
-    </button>
-
-    <oui-menu #rootMenu="ouiMenu">
-      <button oui-menu-item [ouiMenuTriggerFor]="subMenu">Power</button>
-      <button oui-menu-item [ouiMenuTriggerFor]="subMenu">
-        System settings
-      </button>
-    </oui-menu>
-
-    <oui-menu #subMenu="ouiMenu">
-      <button oui-menu-item>Shut down</button>
-      <button oui-menu-item>Restart</button>
-      <button oui-menu-item>Hibernate</button>
-    </oui-menu>
-  </div>
-
-  <span>
-    <oui-menu-icon [ouiMenuTriggerFor]="afterBelowMenu"></oui-menu-icon>
-  </span>
-
-  <span>
-    <oui-menu-icon
-      [ouiMenuTriggerFor]="afterBelowMenu"
-      vertical="true"
-    ></oui-menu-icon>
-  </span>
-
-  <br />
-  <br />
-  <h1>Panel Overlay</h1>
-  <div>
-    <oui-panel-icon [ouiPanelTriggerFor]="afterAbovePanel"></oui-panel-icon>
-    <button
-      oui-icon-button
-      style="margin-left: 400px"
-      [ouiPanelTriggerFor]="afterAbovePanel"
-    >
-      <oui-icon svgIcon="horizontal"></oui-icon>
-    </button>
-    <oui-panel #afterAbovePanel xPosition="before" yPosition="below">
-      <h6>Lorem ipsum dolor sit amet.</h6>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
-        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus
-        voluptates impedit.
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis,
-        praesentium animi eius consectetur vero velit? Fugiat iste voluptatibus
-        voluptates impedit. <a href="#">Learn More</a>
-      </p>
-    </oui-panel>
-  </div>
-  <div class="trigger">
-    <span>panel with image inside</span>
-    <oui-panel-icon [ouiPanelTriggerFor]="afterBelowImage"> </oui-panel-icon>
-    <oui-panel #afterBelowImage xPosition="after" yPosition="below">
-      <h6>Lorem ipsum, dolor sit amet consectetur</h6>
-      <img
-        src="https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+  <div [hidden]="selectedOptionNew < smsEditableMinQuantity">
+    <oui-form-field>
+      <input
+        oui-input
+        class="search-input"
+        [value]="selectedOptionNew"
+        maxlength="6"
+        #quantityInput
+        onPaste="return false"
       />
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate
-        harum quod a incidunt? Obcaecati dolores omnis odio repudiandae quo
-        quidem?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate,
-        dolorum! Reprehenderit reiciendis hic magnam esse odio asperiores qui
-        tempora beatae.
-      </p></oui-panel
-    >
-  </div>
-  <h1>Form field</h1>
-  <div class="input-outer">
-    <oui-form-field color="accent"
-      ><input oui-input placeholder="Any"
-    /></oui-form-field>
-  </div>
-  <h1>Input</h1>
-  <h3>Bordered</h3>
-  <div>
-    <div class="input-outer display-inline">
-      <oui-form-field><input oui-input placeholder="Any"/></oui-form-field>
-    </div>
-    <div class="input-outer display-inline">
-      <oui-form-field>
-        <input oui-input disabled placeholder="Any" />
-      </oui-form-field>
-    </div>
-  </div>
-
-  <h3>Underline</h3>
-  <div>
-    <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'" color="accent">
-        <input oui-input placeholder="Any" />
-      </oui-form-field>
-    </div>
-    <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'">
-        <input oui-input disabled placeholder="Any" />
-      </oui-form-field>
-    </div>
-  </div>
-
-  <h1>Textarea</h1>
-  <div>
-    <div class="textarea-outer display-inline">
-      <oui-form-field><textarea oui-input></textarea></oui-form-field>
-    </div>
-    <div class="textarea-outer display-inline">
-      <oui-form-field>
-        <textarea oui-input disabled></textarea>
-      </oui-form-field>
-    </div>
-  </div>
-
-  <h1>Buttons</h1>
-  <!--primary buttons-->
-  <div>
-    <button oui-button color="primary">
-      <oui-icon svgIcon="hourglass" color="primary"></oui-icon>
-      this is super button
-    </button>
-
-    <!-- <button oui-button color="accent">this is super button</button>
-        <button oui-button color="warn">this is super button</button> -->
-
-    <button oui-button color="primary" disabled>this is super button</button>
-  </div>
-
-  <!--link buttons-->
-  <div>
-    <button oui-link-button color="primary">this is super button</button>
-
-    <!-- <button oui-link-button color="accent">this is super button</button>
-        <button oui-link-button color="warn">this is super button</button> -->
-
-    <button oui-link-button color="primary" disabled>
-      this is super button
-    </button>
-  </div>
-
-  <!--ghost buttons-->
-  <div>
-    <button oui-ghost-button color="primary">this is super button</button>
-
-    <!-- <button oui-ghost-button color="accent">this is super button</button>
-        <button oui-ghost-button color="warn">this is super button</button> -->
-
-    <button oui-ghost-button color="primary" disabled>
-      this is super button
-    </button>
-  </div>
-
-  <!--icon-text buttons-->
-  <div>
-    <button oui-icon-text-button color="primary">
-      <img src="../assets/images/excel.png" /><label
-        >this is super button</label
-      >
-    </button>
-
-    <button oui-icon-text-button color="accent">
-      <img src="../assets/images/csv.png" /><label>this is super button</label>
-    </button>
-
-    <button oui-icon-text-button color="warn">
-      <img src="../assets/images/pdf.png" /><label>this is super button</label>
-    </button>
-
-    <button oui-icon-text-button color="warn" disabled>
-      <img src="../assets/images/pdf.png" /><label>this is super button</label>
-    </button>
-  </div>
-
-  <!--icon buttons-->
-  <div>
-    <button oui-icon-button><oui-icon svgIcon="calendar"></oui-icon></button>
-    <button oui-icon-button><oui-icon svgIcon="edit"></oui-icon></button>
-    <button oui-icon-button>
-      <oui-icon svgIcon="configuration"></oui-icon>
-    </button>
-  </div>
-
-  <h1>A tags</h1>
-  <!--primary buttons-->
-  <div>
-    <a oui-button color="primary">this is super button</a>
-
-    <!-- <a oui-button color="accent">this is super button</a>
-        <a oui-button color="warn">this is super button</a> -->
-
-    <a oui-button color="primary" disabled>this is super button</a>
-  </div>
-
-  <!--link buttons-->
-  <div>
-    <a oui-link-button color="primary">this is super button</a>
-
-    <!-- <a oui-link-button color="accent">this is super button</a>
-        <a oui-link-button color="warn">this is super button</a> -->
-
-    <a oui-link-button color="primary" disabled>this is super button</a>
-  </div>
-
-  <!--ghost buttons-->
-  <div>
-    <a oui-ghost-button color="primary">this is super button</a>
-
-    <!-- <a oui-ghost-button color="accent">this is super button</a>
-        <a oui-ghost-button color="warn">this is super button</a> -->
-
-    <a oui-ghost-button color="primary" disabled>this is super button</a>
-  </div>
-  <!--icon buttons-->
-  <div>
-    <a oui-icon-button color="primary"
-      ><img src="../assets/images/excel.png" /><label
-        >this is super button</label
-      ></a
-    >
-
-    <a oui-icon-button color="accent"
-      ><img src="../assets/images/csv.png" /><label
-        >this is super button</label
-      ></a
-    >
-
-    <a oui-icon-button color="warn"
-      ><img src="../assets/images/pdf.png" /><label
-        >this is super button</label
-      ></a
-    >
-
-    <a oui-icon-button color="warn" disabled
-      ><img src="../assets/images/pdf.png" /><label
-        >this is super button</label
-      ></a
-    >
-  </div>
-
-  <h1>Progress Button</h1>
-
-  <div>
-    <button
-      #progressButton
-      oui-button
-      progress
-      [disabled]="isDisable"
-      (click)="progressButtonClick()"
-    >
-      button
-    </button>
-
-    <button
-      #progressLinkButton
-      oui-link-button
-      progress
-      (click)="progressButtonLinkClick()"
-    ></button>
-
-    <button
-      #progressGhostButton
-      oui-ghost-button
-      progress
-      (click)="progressButtonGhostClick()"
-    ></button>
-  </div>
-
-  <h1>Dialog</h1>
-
-  <div><button oui-button (click)="openDialog()">Open</button></div>
-
-  <h1>Autocomplete</h1>
-  <div class="input-outer">
-    <oui-form-field>
-      <input oui-input [ouiAutocomplete]="auto" />
-    </oui-form-field>
-    <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let option of options" [value]="option">
-        {{ option }}
-      </oui-option>
-    </oui-autocomplete>
-  </div>
-
-  <h1>Autocomplete with underline Input</h1>
-  <div class="input-outer">
-    <oui-form-field [appearance]="'underline'">
-      <input oui-input [ouiAutocomplete]="auto" />
-    </oui-form-field>
-    <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let option of options" [value]="option">
-        {{ option }}
-      </oui-option>
-    </oui-autocomplete>
-  </div>
-
-  <h1>Autocomplete with group</h1>
-  <div class="input-outer">
-    <oui-form-field>
-      <input type="text" oui-input [ouiAutocomplete]="autoGroup" />
-      <oui-autocomplete #autoGroup="ouiAutocomplete" class="autocomplete-group">
-        <oui-optgroup *ngFor="let group of stateGroups" [label]="group.letter">
-          <oui-option *ngFor="let name of group.names" [value]="name">
-            {{ name }}
-          </oui-option>
-        </oui-optgroup>
-      </oui-autocomplete>
+      <label (click)="clear()">close</label>
     </oui-form-field>
   </div>
-  <h1>Slide toggle</h1>
 
-  <h3>Enabled</h3>
 
-  <h4>Primary</h4>
 
-  <oui-slide-toggle [checked]="true"></oui-slide-toggle>
-  <oui-slide-toggle [checked]="false"></oui-slide-toggle>
 
-  <h4>Accent</h4>
 
-  <oui-slide-toggle color="accent" [checked]="true"></oui-slide-toggle>
-  <oui-slide-toggle color="accent" [checked]="false"></oui-slide-toggle>
 
-  <h4>Warn</h4>
 
-  <oui-slide-toggle color="warn" [checked]="true"></oui-slide-toggle>
-  <oui-slide-toggle color="warn" [checked]="false"></oui-slide-toggle>
+<!--<div class="fit">-->
+<!--  <h1>Oui select box</h1>-->
+<!--  <div class="fit">-->
+<!--    <h4>Oui Basic Select</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <oui-select large placeholder="Favorite Bank">-->
+<!--          <oui-option *ngFor="let bank of banks" [value]="bank.id">-->
+<!--            {{ bank.name }}-->
+<!--          </oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
 
-  <h3>Disabled</h3>
+<!--    <br />-->
+<!--    <h4>Oui select multiple selection</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field [appearance]="'underline'">-->
+<!--        <oui-select-->
+<!--          placeholder="Favorite food"-->
+<!--          multiple-->
+<!--          [(value)]="bankIds"-->
+<!--          placeholder="select option"-->
+<!--          (selectionChange)="selectChangeOption($event)"-->
+<!--          [compareWith]="equals"-->
+<!--        >-->
+<!--          <oui-option *ngFor="let bank of banks" [value]="bank.id">-->
+<!--            {{ bank.name }}-->
+<!--          </oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <h4>Oui select with image</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <oui-select placeholder="What is your country">-->
+<!--          <oui-option *ngFor="let state of states" [value]="state.name">-->
+<!--            <img-->
+<!--              class="example-option-img"-->
+<!--              [src]="state.flag"-->
+<!--              height="26"-->
+<!--              width="26"-->
+<!--            />-->
+<!--            <span>{{ state.name }}</span> |-->
+<!--            <small>Population: {{ state.population }}</small>-->
+<!--          </oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
 
-  <h4>Primary</h4>
-
-  <oui-slide-toggle [checked]="true" [disabled]="true"></oui-slide-toggle>
-  <oui-slide-toggle [checked]="false" [disabled]="true"></oui-slide-toggle>
-
-  <h4>Accent</h4>
-
-  <oui-slide-toggle
-    color="accent"
-    [checked]="true"
-    [disabled]="true"
-  ></oui-slide-toggle>
-  <oui-slide-toggle
-    color="accent"
-    [checked]="false"
-    [disabled]="true"
-  ></oui-slide-toggle>
-
-  <h4>Warn</h4>
-
-  <oui-slide-toggle
-    color="warn"
-    [checked]="true"
-    [disabled]="true"
-  ></oui-slide-toggle>
-  <oui-slide-toggle
-    color="warn"
-    [checked]="false"
-    [disabled]="true"
-  ></oui-slide-toggle>
-</div>
-
-<div>
-  <ng-template #dialogTemplate>
-    <div oui-dialog-header>
-      <div oui-dialog-header-image>
-        <img src="/assets/images/v-green.svg" />
-      </div>
-      <label oui-dialog-header-title>this is the title</label>
-      <div oui-dialog-header-action>
-        <div title="Close" oui-dialog-header-close oui-dialog-close></div>
-        <a
-          title="Article"
-          oui-dialog-header-article
-          href="https://youtube.com"
-          target="blank"
-        ></a>
-        <a
-          title="Video"
-          href="https://youtube.com"
-          target="blank"
-          oui-dialog-header-video
-          oui-dialog-header-separator
-        ></a>
-        <a
-          title="Video"
-          href="https://youtube.com"
-          target="blank"
-          oui-dialog-header-video
-        ></a>
-      </div>
-    </div>
-    <div oui-dialog-content>
-      <div style="background-color: grey; height: 400px; width: 100%"></div>
-      <div style="background-color: blue; height: 400px; width: 100%"></div>
-    </div>
-    <div oui-dialog-footer>
-      <div oui-dialog-footer-action-left>
-        <button oui-link-button>Left</button>
-        <button oui-link-button>Left</button>
-      </div>
-      <div oui-dialog-footer-action-right>
-        <button oui-ghost-button (click)="openDialog()">Open</button>
-        <button oui-button ouiDialogClose>Close</button>
-      </div>
-    </div>
-  </ng-template>
-</div>
-
-<h1>Icons</h1>
-<h3>Relative to project:</h3>
-<oui-icon svgIcon="dots-horizontal" color="primary"></oui-icon>
-<br />
-<h3>IcoMoon:</h3>
-<oui-icon svgIcon="hourglass" color="primary"></oui-icon>
-<oui-icon svgIcon="conversation" color="accent"></oui-icon>
-<oui-icon svgIcon="home" color="warn" size="60"></oui-icon>
-
-<h3>Custom Icons:</h3>
-<oui-icon svgIcon="down-arrow" color="primary"></oui-icon>
-<br />
-<br />
-<br />
-
-<button oui-icon-button><oui-icon svgIcon="vertical"></oui-icon></button>
-<button oui-icon-button><oui-icon svgIcon="horizontal"></oui-icon></button>
-
-<br />
-<h2 class="example-h2">Checkbox configuration</h2>
-<section class="example-section">
-  <oui-checkbox class="example-margin" [(ngModel)]="checked">
-    Checked
-  </oui-checkbox>
-</section>
-<section class="example-section">
-  <label class="example-margin">Align:</label>
-  <input
-    [(ngModel)]="labelPosition"
-    type="radio"
-    id="after"
-    name="align"
-    class="example-margin"
-    value="after"
-  />
-  <label for="after">After </label>
-  <input
-    type="radio"
-    [(ngModel)]="labelPosition"
-    id="before"
-    name="align"
-    class="example-margin"
-    value="before"
-  />
-  <label for="before">Before </label>
-</section>
-<section class="example-section">
-  <oui-checkbox class="example-margin" [(ngModel)]="disabled">
-    Disabled
-  </oui-checkbox>
-</section>
-<section class="result">
-  <h2 class="example-h2">Result</h2>
-  <section class="example-section">
-    <oui-checkbox
-      class="example-margin"
-      [(ngModel)]="checked"
-      [labelPosition]="labelPosition"
-      [disabled]="disabled"
-    >
-      I'm a checkbox
-    </oui-checkbox>
-  </section>
-</section>
-<br />
-<h1>Progress Spinner</h1>
-
-<h3>Indeterminate</h3>
-<oui-progress-spinner></oui-progress-spinner>
-<br />
-<oui-progress-spinner diameter="30" color="accent"></oui-progress-spinner>
-<br />
-<oui-progress-spinner diameter="40" color="warn"></oui-progress-spinner>
-
-<h3>Determinate Spinner</h3>
-<oui-progress-spinner
-  diameter="50"
-  [value]="50"
-  [strokeWidth]="5"
-></oui-progress-spinner>
-<br />
-<oui-progress-spinner
-  diameter="70"
-  [value]="70"
-  [strokeWidth]="8"
-  color="accent"
-></oui-progress-spinner>
-<br />
-<oui-progress-spinner
-  diameter="80"
-  [value]="80"
-  [strokeWidth]="10"
-  color="warn"
-></oui-progress-spinner>
-<br />
-<button
-  oui-button
-  ouiTooltip="this is a tooltip"
-  ouiTooltipPosition="above"
-  color="primary"
->
-  this is super button
-</button>
-<button oui-button ouiTooltip="this is a tooltip" color="primary">
-  this is super button
-</button>
-<button
-  oui-button
-  ouiTooltip="this is a tooltip"
-  ouiTooltipPosition="left"
-  color="primary"
->
-  this is super button
-</button>
-<button
-  oui-button
-  ouiTooltip="this is a tooltip"
-  ouiTooltipClass="test"
-  ouiTooltipPosition="right"
-  color="primary"
->
-  this is super button
-</button>
-<br /><br />
-
-<h1>table</h1>
-<div class="width80">
-  <table oui-table [dataSource]="dataSource" ouiSort>
-    <!--- Note that these columns can be defined in any order.
-        The actual rendered columns are set as a property on the row definition" -->
-
-    <ng-container ouiColumnDef="name">
-      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Name</th>
-      <td oui-cell *ouiCellDef="let row">{{ row.name }}</td>
-    </ng-container>
-
-    <ng-container ouiColumnDef="id">
-      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>ID</th>
-      <td oui-cell *ouiCellDef="let row">{{ row.id }}</td>
-    </ng-container>
-
-    <ng-container ouiColumnDef="progress">
-      <th oui-header-cell *ouiHeaderCellDef oui-sort-header>Progress</th>
-      <td oui-cell *ouiCellDef="let row">{{ row.progress }}</td>
-    </ng-container>
-
-    <ng-container ouiColumnDef="color">
-      <th oui-header-cell *ouiHeaderCellDef>Color</th>
-      <td oui-cell *ouiCellDef="let row" [style.color]="row.color">
-        {{ row.color }}
-      </td>
-    </ng-container>
-
-    <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
-    <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <oui-paginator pageSize="10"></oui-paginator>
-  <br /><br />
-</div>
-
-<h3>OuiRadioButton</h3>
-<h4>Enabled</h4>
-<h5>Label After</h5>
-<oui-radio-group name="enabled1" value="Winter">
-  <oui-radio-button #s value="Winter"> Winter</oui-radio-button>
-  <oui-radio-button value="Summer"> Summer</oui-radio-button>
-</oui-radio-group>
-<h5>Label Before</h5>
-<oui-radio-group labelPosition="before" name="enabled2">
-  <oui-radio-button value="Winter"> Winter</oui-radio-button>
-  <oui-radio-button checked value="Summer"> Summer</oui-radio-button>
-</oui-radio-group>
-<br /><br />
-<h4>Disabled</h4>
-<oui-radio-group disabled name="disabled1">
-  <oui-radio-button checked value="Winter"> Winter</oui-radio-button>
-  <oui-radio-button value="Summer"> Summer</oui-radio-button>
-</oui-radio-group>
-<br /><br />
-<h1>Progress Bar</h1>
-<div style="max-width: 300px;">
-  <oui-progress-bar></oui-progress-bar>
-  <br />
-  <oui-progress-bar color="accent"></oui-progress-bar>
-  <br />
-  <oui-progress-bar color="warn"></oui-progress-bar>
-</div>
-<br /><br />
-
-<h1>Datepicker</h1>
-<div style="max-width: 170px;">
-  <oui-form-field>
-    <input
-      oui-input
-      [ouiDatepicker]="picker"
-      [min]="minDate"
-      placeholder="Choose a date"
-    />
-    <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
-    <oui-datepicker #picker></oui-datepicker>
-  </oui-form-field>
-</div>
-<br />
-
-<div class="fit">
-  <h1>Oui select box</h1>
-  <div class="fit">
-    <h4>Oui Basic Select</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field>
-        <oui-select large placeholder="Favorite Bank">
-          <oui-option *ngFor="let bank of banks" [value]="bank.id">
-            {{ bank.name }}
-          </oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-
-    <br />
-    <h4>Oui select multiple selection</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'">
-        <oui-select
-          placeholder="Favorite food"
-          multiple
-          [(value)]="bankIds"
-          placeholder="select option"
-          (selectionChange)="selectChangeOption($event)"
-          [compareWith]="equals"
-        >
-          <oui-option *ngFor="let bank of banks" [value]="bank.id">
-            {{ bank.name }}
-          </oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-    <br />
-    <h4>Oui select with image</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field>
-        <oui-select placeholder="What is your country">
-          <oui-option *ngFor="let state of states" [value]="state.name">
-            <img
-              class="example-option-img"
-              [src]="state.flag"
-              height="26"
-              width="26"
-            />
-            <span>{{ state.name }}</span> |
-            <small>Population: {{ state.population }}</small>
-          </oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-
-    <h4>Oui select creating groups of options</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field>
-        <oui-select placeholder="Pokemon">
-          <oui-option>-- None --</oui-option>
-          <oui-optgroup
-            *ngFor="let group of pokemonGroups"
-            [label]="group.name"
-            [disabled]="group.disabled"
-          >
-            <oui-option
-              *ngFor="let pokemon of group.pokemon"
-              [value]="pokemon.value"
-            >
-              {{ pokemon.viewValue }}
-            </oui-option>
-          </oui-optgroup>
-        </oui-select>
-      </oui-form-field>
-    </div>
-    <br />
-    <h4>Oui select disabled</h4>
-    <div class="input-outer display-inline">
-      <oui-checkbox [formControl]="disableSelect">Disable select</oui-checkbox>
-      <br /><br />
-      <oui-form-field>
-        <oui-select
-          placeholder="Choose an option"
-          [disabled]="disableSelect.value"
-        >
-          <oui-option value="option1">Option 1</oui-option>
-          <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>
-          <oui-option value="option3">Option 3</oui-option>
-        </oui-select>
-      </oui-form-field>
-      <br />
-      <oui-form-field [appearance]="'underline'" color="accent">
-        <oui-select
-          placeholder="Choose an option"
-          [disabled]="disableSelect.value"
-        >
-          <oui-option value="option1">Option 1</oui-option>
-          <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>
-          <oui-option value="option3">Option 3</oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-    <br />
-    <h4>Oui select Disabling resetting the select value</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'" color="accent">
-        <oui-select placeholder="State">
-          <oui-option>None</oui-option>
-          <oui-option *ngFor="let state of states" [value]="state.name"
-            >{{ state.name }}
-          </oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-    <br />
-    <h4>Oui select Changing when error messages are shown</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field>
-        <oui-select
-          placeholder="Choose one"
-          [formControl]="selected"
-          [errorStateMatcher]="matcher"
-        >
-          <oui-option>Clear</oui-option>
-          <oui-option value="valid">Valid option</oui-option>
-          <oui-option value="invalid">Invalid option</oui-option>
-        </oui-select>
-        <oui-error *ngIf="selected.hasError('required')"
-          >You must make a selection
-        </oui-error>
-        <oui-error
-          *ngIf="selected.hasError('pattern') && !selected.hasError('required')"
-        >
-          Your selection is invalid
-        </oui-error>
-      </oui-form-field>
-    </div>
-    <br />
-    <h4>Oui select with search</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field [appearance]="'underline'" color="accent">
-        <oui-select
-          placeholder="Favorite Bank"
-          [(value)]="bankid1"
-          [compareWith]="equals"
-          (selectionChange)="selectChangeOption($event)"
-        >
-          <oui-select-search [(ngModel)]="keyword"></oui-select-search>
-          <oui-option
-            *ngFor="let bank of (banks | filterOptions: keyword:'name')"
-            [value]="bank.id"
-          >
-            {{ bank.name }}
-          </oui-option>
-          <div
-            *ngIf="!(banks | filterOptions: keyword:'name').length"
-            class="noResults"
-          >
-            No results match "{{ keyword }}"
-          </div>
-        </oui-select>
-      </oui-form-field>
-      <br />
-      You selected: {{ bankid1 }} <br />
-      <br />
-      <a oui-button color="primary" (click)="reset3()"
-        >Reset to: Bank P Germany</a
-      >
-    </div>
-    <br />
-    <h4>Oui Select with 2-way value binding</h4>
-    <div class="input-outer display-inline">
-      <oui-form-field>
-        <oui-select
-          [(value)]="selectedOption"
-          (selectionChange)="selectChangeOption($event)"
-        >
-          <oui-option>None</oui-option>
-          <oui-option value="option1">Option 1</oui-option>
-          <oui-option value="option2">Option 2</oui-option>
-          <oui-option value="option3">Option 3</oui-option>
-        </oui-select>
-      </oui-form-field>
-      <br />
-      You selected: {{ selectedOption }} <br /><br />
-      <a oui-button color="primary" (click)="reset()">Reset to: option3</a>
-    </div>
-    <h4>Oui Select with min width</h4>
-    <div class="input-outer display-inline outer-min-width">
-      <oui-form-field>
-        <oui-select
-          placeholder="select option"
-          (selectionChange)="selectChangeOption($event)"
-        >
-          <oui-option>None</oui-option>
-          <oui-option value="option1">Option 1</oui-option>
-          <oui-option value="option2">Option 2</oui-option>
-          <oui-option value="option3">Option 3</oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-  </div>
-</div>
-<h2>Scrollbar view with list:</h2>
-<div class="scrollbar-container">
-  <div oui-scrollbar class="scrollbar-content">
-    <ul>
-      <li>Shut down</li>
-      <li>Restart</li>
-      <li>Hibernate</li>
-      <li>Shut down</li>
-      <li>Restart</li>
-      <li>Hibernate</li>
-      <li>Shut down</li>
-      <li>Restart</li>
-      <li>Hibernate</li>
-      <li>Shut down</li>
-      <li>Restart</li>
-      <li>Hibernate</li>
-    </ul>
-  </div>
-</div>
-<h2>Large Scrollbar view with simple text:</h2>
-<div class="scrollbar-container">
-  <div
-    oui-scrollbar
-    oui-scrollbar-large
-    class="scrollbar-content"
-    [style.height.px]="200"
-  >
-    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-    Lorem Ipsum has been the industry's standard dummy text ever since the
-    1500s, when an unknown printer took a galley of type and scrambled it to
-    make a type specimen book. It has survived not only five centuries, but also
-    the leap into electronic typesetting, remaining essentially unchanged. It
-    was popularised in the 1960s with the release of Letraset sheets containing
-    Lorem Ipsum passages, and more recently with desktop publishing software
-    like Aldus PageMaker including versions of Lorem Ipsum.
-  </div>
-</div>
+<!--    <h4>Oui select creating groups of options</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <oui-select placeholder="Pokemon">-->
+<!--          <oui-option>&#45;&#45; None &#45;&#45;</oui-option>-->
+<!--          <oui-optgroup-->
+<!--            *ngFor="let group of pokemonGroups"-->
+<!--            [label]="group.name"-->
+<!--            [disabled]="group.disabled"-->
+<!--          >-->
+<!--            <oui-option-->
+<!--              *ngFor="let pokemon of group.pokemon"-->
+<!--              [value]="pokemon.value"-->
+<!--            >-->
+<!--              {{ pokemon.viewValue }}-->
+<!--            </oui-option>-->
+<!--          </oui-optgroup>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <h4>Oui select disabled</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-checkbox [formControl]="disableSelect">Disable select</oui-checkbox>-->
+<!--      <br /><br />-->
+<!--      <oui-form-field>-->
+<!--        <oui-select-->
+<!--          placeholder="Choose an option"-->
+<!--          [disabled]="disableSelect.value"-->
+<!--        >-->
+<!--          <oui-option value="option1">Option 1</oui-option>-->
+<!--          <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>-->
+<!--          <oui-option value="option3">Option 3</oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--      <br />-->
+<!--      <oui-form-field [appearance]="'underline'" color="accent">-->
+<!--        <oui-select-->
+<!--          placeholder="Choose an option"-->
+<!--          [disabled]="disableSelect.value"-->
+<!--        >-->
+<!--          <oui-option value="option1">Option 1</oui-option>-->
+<!--          <oui-option value="option2" disabled>Option 2 (disabled)</oui-option>-->
+<!--          <oui-option value="option3">Option 3</oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <h4>Oui select Disabling resetting the select value</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field [appearance]="'underline'" color="accent">-->
+<!--        <oui-select placeholder="State">-->
+<!--          <oui-option>None</oui-option>-->
+<!--          <oui-option *ngFor="let state of states" [value]="state.name"-->
+<!--            >{{ state.name }}-->
+<!--          </oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <h4>Oui select Changing when error messages are shown</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <oui-select-->
+<!--          placeholder="Choose one"-->
+<!--          [formControl]="selected"-->
+<!--          [errorStateMatcher]="matcher"-->
+<!--        >-->
+<!--          <oui-option>Clear</oui-option>-->
+<!--          <oui-option value="valid">Valid option</oui-option>-->
+<!--          <oui-option value="invalid">Invalid option</oui-option>-->
+<!--        </oui-select>-->
+<!--        <oui-error *ngIf="selected.hasError('required')"-->
+<!--          >You must make a selection-->
+<!--        </oui-error>-->
+<!--        <oui-error-->
+<!--          *ngIf="selected.hasError('pattern') && !selected.hasError('required')"-->
+<!--        >-->
+<!--          Your selection is invalid-->
+<!--        </oui-error>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <h4>Oui select with search</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field [appearance]="'underline'" color="accent">-->
+<!--        <oui-select-->
+<!--          placeholder="Favorite Bank"-->
+<!--          [(value)]="bankid1"-->
+<!--          [compareWith]="equals"-->
+<!--          (selectionChange)="selectChangeOption($event)"-->
+<!--        >-->
+<!--          <oui-select-search [(ngModel)]="keyword"></oui-select-search>-->
+<!--          <oui-option-->
+<!--            *ngFor="let bank of (banks | filterOptions: keyword:'name')"-->
+<!--            [value]="bank.id"-->
+<!--          >-->
+<!--            {{ bank.name }}-->
+<!--          </oui-option>-->
+<!--          <div-->
+<!--            *ngIf="!(banks | filterOptions: keyword:'name').length"-->
+<!--            class="noResults"-->
+<!--          >-->
+<!--            No results match "{{ keyword }}"-->
+<!--          </div>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--      <br />-->
+<!--      You selected: {{ bankid1 }} <br />-->
+<!--      <br />-->
+<!--      <a oui-button color="primary" (click)="reset3()"-->
+<!--        >Reset to: Bank P Germany</a-->
+<!--      >-->
+<!--    </div>-->
+<!--    <br />-->
+<!--    <h4>Oui Select with 2-way value binding</h4>-->
+<!--    <div class="input-outer display-inline">-->
+<!--      <oui-form-field>-->
+<!--        <oui-select-->
+<!--          [(value)]="selectedOption"-->
+<!--          (selectionChange)="selectChangeOption($event)"-->
+<!--        >-->
+<!--          <oui-option>None</oui-option>-->
+<!--          <oui-option value="option1">Option 1</oui-option>-->
+<!--          <oui-option value="option2">Option 2</oui-option>-->
+<!--          <oui-option value="option3">Option 3</oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--      <br />-->
+<!--      You selected: {{ selectedOption }} <br /><br />-->
+<!--      <a oui-button color="primary" (click)="reset()">Reset to: option3</a>-->
+<!--    </div>-->
+<!--    <h4>Oui Select with min width</h4>-->
+<!--    <div class="input-outer display-inline outer-min-width">-->
+<!--      <oui-form-field>-->
+<!--        <oui-select-->
+<!--          placeholder="select option"-->
+<!--          (selectionChange)="selectChangeOption($event)"-->
+<!--        >-->
+<!--          <oui-option>None</oui-option>-->
+<!--          <oui-option value="option1">Option 1</oui-option>-->
+<!--          <oui-option value="option2">Option 2</oui-option>-->
+<!--          <oui-option value="option3">Option 3</oui-option>-->
+<!--        </oui-select>-->
+<!--      </oui-form-field>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<h2>Scrollbar view with list:</h2>-->
+<!--<div class="scrollbar-container">-->
+<!--  <div oui-scrollbar class="scrollbar-content">-->
+<!--    <ul>-->
+<!--      <li>Shut down</li>-->
+<!--      <li>Restart</li>-->
+<!--      <li>Hibernate</li>-->
+<!--      <li>Shut down</li>-->
+<!--      <li>Restart</li>-->
+<!--      <li>Hibernate</li>-->
+<!--      <li>Shut down</li>-->
+<!--      <li>Restart</li>-->
+<!--      <li>Hibernate</li>-->
+<!--      <li>Shut down</li>-->
+<!--      <li>Restart</li>-->
+<!--      <li>Hibernate</li>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<h2>Large Scrollbar view with simple text:</h2>-->
+<!--<div class="scrollbar-container">-->
+<!--  <div-->
+<!--    oui-scrollbar-->
+<!--    oui-scrollbar-large-->
+<!--    class="scrollbar-content"-->
+<!--    [style.height.px]="200"-->
+<!--  >-->
+<!--    Lorem Ipsum is simply dummy text of the printing and typesetting industry.-->
+<!--    Lorem Ipsum has been the industry's standard dummy text ever since the-->
+<!--    1500s, when an unknown printer took a galley of type and scrambled it to-->
+<!--    make a type specimen book. It has survived not only five centuries, but also-->
+<!--    the leap into electronic typesetting, remaining essentially unchanged. It-->
+<!--    was popularised in the 1960s with the release of Letraset sheets containing-->
+<!--    Lorem Ipsum passages, and more recently with desktop publishing software-->
+<!--    like Aldus PageMaker including versions of Lorem Ipsum.-->
+<!--  </div>-->
+<!--</div>-->
