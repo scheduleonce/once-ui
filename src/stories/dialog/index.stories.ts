@@ -3,8 +3,7 @@ import { action } from '@storybook/addon-actions';
 import {
   OuiButtonModule,
   OuiDialogModule,
-  OuiDialog,
-  OuiIconRegistry
+  OuiDialog
 } from '../../../projects/ui/src/lib/oui';
 import { boolean } from '@storybook/addon-knobs';
 import {
@@ -15,7 +14,6 @@ import {
   Input
 } from '@angular/core';
 import markdownText from '../../../projects/ui/src/lib/oui/dialog/README.md';
-import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'oui-dialog-storybook',
@@ -69,17 +67,7 @@ export class OuiDialogStorybook {
   @Input() disabled: boolean = false;
   @ViewChild('dialogTemplate', { static: false })
   dialogTemplate;
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private dialog: OuiDialog
-  ) {
-    this.ouiIconRegistry.addSvgIconSet(
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://s3.amazonaws.com/icomoon.io/135790/oncehub-20/symbol-defs.svg?nhbz3f'
-      )
-    );
-  }
+  constructor(private dialog: OuiDialog) {}
   openDialog(e) {
     const dialogRef = this.dialog.open(this.dialogTemplate);
     dialogRef.afterClosed().subscribe(() => {
