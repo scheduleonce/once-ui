@@ -88,7 +88,7 @@ export class OuiDialogHeaderAction {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[oui-dialog-header-article], [ouiDialogHeaderArticle]',
-  template: '<oui-icon svgIcon="help-library"></oui-icon>',
+  template: '<oui-icon svgIcon="article-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderArticle',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -123,7 +123,7 @@ export class OuiDialogHeaderArticle implements OnDestroy {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[oui-dialog-header-video], [ouiDialogHeaderVideo]',
-  template: '<oui-icon svgIcon="video-library"></oui-icon>',
+  template: '<oui-icon svgIcon="video-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderVideo',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
@@ -159,7 +159,7 @@ export class OuiDialogHeaderVideo implements OnDestroy {
 @Component({
   // tslint:disable-next-line:component-selector
   selector: '[oui-dialog-header-close], [ouiDialogHeaderClose]',
-  template: '<oui-icon svgIcon="x"></oui-icon>',
+  template: '<oui-icon svgIcon="close-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderClose',
   // tslint:disable-next-line:use-host-property-decorator
   host: {
