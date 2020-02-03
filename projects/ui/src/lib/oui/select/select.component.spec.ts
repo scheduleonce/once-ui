@@ -101,7 +101,7 @@ class BasicSelect {
   ariaLabelledby: string;
   panelClass = ['custom-one', 'custom-two'];
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: true }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -125,7 +125,7 @@ class NgModelSelect {
   ];
   isDisabled: boolean;
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -194,7 +194,7 @@ class SelectInitWithoutOptions {
   foods: any[];
   control = new FormControl('pizza-1');
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 
   addOptions() {
@@ -280,7 +280,7 @@ class MultiSelect {
   ];
   control = new FormControl();
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
   sortComparator: (a: OuiOption, b: OuiOption, options: OuiOption[]) => number;
 }
@@ -354,7 +354,7 @@ class ResetValuesSelect {
   ];
   control = new FormControl();
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
 }
 
 @Component({
@@ -416,7 +416,7 @@ class SelectWithGroups {
     }
   ];
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -474,8 +474,9 @@ class InvalidSelectInForm {
   `
 })
 class SelectInsideFormGroup {
-  @ViewChild(FormGroupDirective) formGroupDirective: FormGroupDirective;
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(FormGroupDirective, { static: false })
+  formGroupDirective: FormGroupDirective;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   formControl = new FormControl('', Validators.required);
   formGroup = new FormGroup({
     food: this.formControl
@@ -501,7 +502,7 @@ class BasicSelectWithoutForms {
     { value: 'sandwich-2', viewValue: 'Sandwich' }
   ];
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
 }
 
 @Component({
@@ -522,7 +523,7 @@ class BasicSelectWithoutFormsPreselected {
     { value: 'pizza-1', viewValue: 'Pizza' }
   ];
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
 }
 
 @Component({
@@ -544,7 +545,7 @@ class BasicSelectWithoutFormsMultiple {
     { value: 'sandwich-2', viewValue: 'Sandwich' }
   ];
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
 }
 
 @Component({
@@ -607,7 +608,7 @@ class NgModelCompareWithSelect {
   };
   comparator: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 
   useCompareByValue() {
@@ -649,7 +650,7 @@ class NgModelCompareWithSelect {
   `
 })
 class CustomErrorBehaviorSelect {
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   control = new FormControl();
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
@@ -678,7 +679,7 @@ class SingleSelectWithPreselectedArrayValues {
 
   selectedFoods = this.foods[1].value;
 
-  @ViewChild(OuiSelect) select: OuiSelect;
+  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -972,8 +973,6 @@ describe('OuiSelect', () => {
         }));
 
         it('should do nothing when typing on a closed multi-select', fakeAsync(() => {
-          fixture.destroy();
-
           const multiFixture = TestBed.createComponent(MultiSelect);
           const instance = multiFixture.componentInstance;
 
@@ -998,6 +997,8 @@ describe('OuiSelect', () => {
             initialValue,
             'Expected value to stay the same.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should do nothing if the key manager did not change the active item', fakeAsync(() => {
@@ -1020,6 +1021,8 @@ describe('OuiSelect', () => {
             true,
             'Expected form control to stay clean.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should continue from the selected option when the value is set programmatically', fakeAsync(() => {
@@ -1034,6 +1037,8 @@ describe('OuiSelect', () => {
           expect(fixture.componentInstance.options.toArray()[5].selected).toBe(
             true
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should not cycle through the options if the control is disabled', fakeAsync(() => {
@@ -1048,6 +1053,8 @@ describe('OuiSelect', () => {
             'eggs-5',
             'Expected value to remain unchaged.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should not open a multiple select when tabbing through', fakeAsync(() => {
@@ -1070,6 +1077,8 @@ describe('OuiSelect', () => {
             false,
             'Expected panel to stay closed.'
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should not prevent the default actions on selection keys when pressing a modifier', fakeAsync(() => {
@@ -1184,7 +1193,6 @@ describe('OuiSelect', () => {
           const options = overlayContainerElement.querySelectorAll(
             'oui-option'
           );
-
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
           );
@@ -1197,6 +1205,8 @@ describe('OuiSelect', () => {
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
           );
+          fixture.destroy();
+          flush();
         }));
 
         it('should restore focus to the trigger after selecting an option in multi-select mode', fakeAsync(() => {
@@ -1247,6 +1257,7 @@ describe('OuiSelect', () => {
       it('should not throw when attempting to open too early', () => {
         // Create component and then immediately open without running change detection
         fixture = TestBed.createComponent(BasicSelect);
+        fixture.detectChanges();
         expect(() => fixture.componentInstance.select.open()).not.toThrow();
       });
 
@@ -1744,7 +1755,6 @@ describe('OuiSelect', () => {
       it('should handle accessing `optionSelectionChanges` before the options are initialized', fakeAsync(() => {
         fixture.destroy();
         fixture = TestBed.createComponent(BasicSelect);
-
         const spy = jasmine.createSpy('option selection spy');
         let subscription: Subscription;
 
