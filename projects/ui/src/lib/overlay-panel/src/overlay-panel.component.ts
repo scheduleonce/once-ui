@@ -18,7 +18,7 @@ export class OverlayPanelComponent implements OnInit, AfterViewChecked {
   size: 'small' | 'large' = 'small';
   @Input()
   imageLink: string;
-  @ViewChild('container')
+  @ViewChild('container', { static: false })
   container;
   visible = false;
   canClose = true;

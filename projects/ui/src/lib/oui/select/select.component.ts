@@ -1,4 +1,4 @@
-import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -301,10 +301,10 @@ export class OuiSelect extends _OuiSelectMixinBase
   controlType = 'oui-select';
 
   /** Trigger that opens the select. */
-  @ViewChild('trigger') trigger: ElementRef;
+  @ViewChild('trigger', { static: false }) trigger: ElementRef;
 
   /** Panel containing the select options. */
-  @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
+  @ViewChild('panel', { read: ElementRef, static: false }) panel: ElementRef;
 
   initialValue = '';
 
@@ -326,6 +326,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** Input that can be used to specify the `aria-labelledby` attribute. */
   @Input('aria-labelledby') ariaLabelledby: string;
   private _large = false;
+  _monitorSubscription: any;
 
   /** Whether the oui-select is of large size. */
   @Input()
@@ -346,7 +347,7 @@ export class OuiSelect extends _OuiSelectMixinBase
 
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
-    () => {
+    (): Observable<OuiOptionSelectionChange> => {
       if (this.options) {
         return merge(...this.options.map(option => option.onSelectionChange));
       }
@@ -400,13 +401,15 @@ export class OuiSelect extends _OuiSelectMixinBase
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
   /** User-supplied override of the trigger element. */
-  @ContentChild(OuiSelectTrigger) customTrigger: OuiSelectTrigger;
+  @ContentChild(OuiSelectTrigger, { static: false })
+  customTrigger: OuiSelectTrigger;
 
   /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
   @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
 
   /** Overlay pane containing the options. */
-  @ViewChild(CdkConnectedOverlay) overlayDir: CdkConnectedOverlay;
+  @ViewChild(CdkConnectedOverlay, { static: false })
+  overlayDir: CdkConnectedOverlay;
 
   /** Emits when the panel element is finished transforming in. */
   _panelDoneAnimatingStream = new Subject<string>();
@@ -520,6 +523,7 @@ export class OuiSelect extends _OuiSelectMixinBase
     private _ngZone: NgZone,
     _defaultErrorStateMatcher: ErrorStateMatcher,
     elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
     @Optional() private _dir: Directionality,
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
@@ -538,6 +542,9 @@ export class OuiSelect extends _OuiSelectMixinBase
       _parentFormGroup,
       ngControl
     );
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this._elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
     this._ouiIconRegistry.addSvgIconLiteral(
       `select-arrow-icon`,
       this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
@@ -615,6 +622,8 @@ export class OuiSelect extends _OuiSelectMixinBase
   }
 
   ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this._elementRef);
     this._destroy.next();
     this._destroy.complete();
     this.stateChanges.complete();

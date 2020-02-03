@@ -55,7 +55,7 @@ class OuiPaginatorApp {
   pageEvent = jasmine.createSpy('page event');
   color: ThemePalette;
 
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
 
   goToLastPage() {
     this.pageIndex = Math.ceil(this.length / this.pageSize) - 1;
@@ -68,7 +68,7 @@ class OuiPaginatorApp {
   `
 })
 class OuiPaginatorWithoutInputsApp {
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
 }
 
 @Component({
@@ -77,7 +77,7 @@ class OuiPaginatorWithoutInputsApp {
   `
 })
 class OuiPaginatorWithoutOptionsApp {
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
 }
 
 @Component({
@@ -86,7 +86,7 @@ class OuiPaginatorWithoutOptionsApp {
   `
 })
 class OuiPaginatorWithStringValues {
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+  @ViewChild(OuiPaginator, { static: false }) paginator: OuiPaginator;
 }
 
 describe('OuiPaginator', () => {
@@ -109,6 +109,7 @@ describe('OuiPaginator', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiPaginatorApp);
+    fixture.detectChanges();
     component = fixture.componentInstance;
     paginator = component.paginator;
 
@@ -376,6 +377,7 @@ describe('OuiPaginator', () => {
     const withStringFixture = TestBed.createComponent(
       OuiPaginatorWithStringValues
     );
+    withStringFixture.detectChanges();
     const withStringPaginator = withStringFixture.componentInstance.paginator;
 
     withStringFixture.detectChanges();

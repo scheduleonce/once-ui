@@ -4,9 +4,14 @@ import {
   Input,
   ChangeDetectionStrategy,
   Inject,
-  Optional
+  Optional,
+  OnDestroy,
+  ElementRef,
+  NgZone
 } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Subscription } from 'rxjs';
 
 /**
  * Possible states for a pseudo checkbox.
@@ -40,14 +45,26 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
     '[class.oui-pseudo-checkbox-disabled]': 'disabled'
   }
 })
-export class OuiPseudoCheckbox {
+export class OuiPseudoCheckbox implements OnDestroy {
   /** Display state of the checkbox. */
   @Input() state: OuiPseudoCheckboxState = 'unchecked';
 
   /** Whether the checkbox is disabled. */
   @Input() disabled = false;
+  private _monitorSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
+    protected elementRef: ElementRef,
+    private _focusMonitor: FocusMonitor,
+    private _ngZone: NgZone,
     @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
-  ) {}
+  ) {
+    this._monitorSubscription = this._focusMonitor
+      .monitor(this.elementRef, true)
+      .subscribe(() => this._ngZone.run(() => {}));
+  }
+  ngOnDestroy() {
+    this._monitorSubscription.unsubscribe();
+    this._focusMonitor.stopMonitoring(this.elementRef);
+  }
 }
