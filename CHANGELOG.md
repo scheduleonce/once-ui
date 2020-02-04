@@ -5,6 +5,164 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.12.1] - 2020-02-03
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- Removing focus when focusing on input element. Now input placeholder behaviour will be as default.
+
+### Fixed
+
+- [`ONCEHUB-20091`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20091) The 'search' text in the search field should remain also in hover state
+- [`ONCEHUB-19450`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19450) Table row 3-dot icon focus
+- [`ONCEHUB-20060`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20060) Popup should be closed on space and enter key
+- [`ONCEHUB-19975`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19975) Remove the initial focus when panel open
+- [`ONCEHUB-20869`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20869) Green border is coming on all the underlined input fields
+- [`ONCEHUB-20855`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20855) Update user app to angular 8
+- [`ONCEHUB-20225`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20225) Button focus state needs text underline
+- [`ONCEHUB-20205`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20205) Dialog text links have visible focus ring on click
+- [`ONCEHUB-23351`](https://scheduleonce.atlassian.net/browse/ONCEHUB-23351) Replaced dialog header icons with oui-icon, and icon color changes
+- [`ONCEHUB-12605`](https://scheduleonce.atlassian.net/browse/ONCEHUB-12605) Nested menu in storybook- need to take the second menu 1 px up
+- [`ONCEHUB-21161`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21161) Action menu position is not correct when opened in smaller width
+
+## [1.12.0-beta.7] - 2020-01-28
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-21161`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21161) Action menu position is not correct when opened in smaller width
+
+## [1.12.0-beta.6] - 2020-01-13
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-23351`](https://scheduleonce.atlassian.net/browse/ONCEHUB-23351) Replaced dialog header icons with oui-icon, and icon color changes
+- [`ONCEHUB-12605`](https://scheduleonce.atlassian.net/browse/ONCEHUB-12605) Nested menu in storybook- need to take the second menu 1 px up
+
+## [1.12.0-beta.5] - 2019-12-12
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-20225`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20225) Button focus state needs text underline
+- [`ONCEHUB-20205`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20205) Dialog text links have visible focus ring on click
+
+## [1.12.0-beta.4] - 2019-12-12
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-20855`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20855) Update user app to angular 8
+
+## [1.12.0-beta.3] - 2019-11-08
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-19975`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19975) Remove the initial focus when panel open
+- [`ONCEHUB-20869`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20869) Green border is coming on all the underlined input fields
+
+## [1.12.0-beta.2] - 2019-10-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-19450`](https://scheduleonce.atlassian.net/browse/ONCEHUB-19450) Table row 3-dot icon focus
+- [`ONCEHUB-20060`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20060) Popup should be closed on space and enter key
+
+## [1.12.0-beta.1] - 2019-10-18
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- Removing focus when focusing on input element. Now input placeholder behaviour will be as default.
+
+### Fixed
+
+- [`ONCEHUB-20091`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20091) The 'search' text in the search field should remain also in hover state
+
 ## [1.12.0] - 2019-11-11
 
 ### Added

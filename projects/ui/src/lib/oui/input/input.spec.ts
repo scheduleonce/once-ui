@@ -122,7 +122,7 @@ class OuiInputWithNgIf {
   `
 })
 class OuiInputWithAppearance {
-  @ViewChild(OuiFormField) formField: OuiFormField;
+  @ViewChild(OuiFormField, { static: false }) formField: OuiFormField;
   appearance: OuiFormFieldAppearance;
 }
 

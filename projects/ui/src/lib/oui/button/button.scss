@@ -37,6 +37,9 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
 
   .oui-button {
     @include oui-progress-button-stages();
+    &.cdk-keyboard-focused {
+      text-decoration: underline;
+    }
   }
   .oui-link-button {
     @include oui-progress-link-button-stages();
@@ -44,6 +47,9 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   .oui-ghost-button {
     background: $ghost-button-background;
     @include oui-progress-ghost-button-stages();
+    &.cdk-keyboard-focused {
+      text-decoration: underline;
+    }
   }
   .oui-icon-button {
     @include oui-button-reset();
@@ -102,8 +108,10 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
   &[disabled]:hover {
     text-decoration: none;
   }
-  &[class^='cdk'],
-  &[class$='focused'] {
+  &:focus {
+    outline: 0 none;
+  }
+  &.cdk-keyboard-focused {
     outline: -webkit-focus-ring-color auto 1px !important;
     text-decoration: underline;
   }

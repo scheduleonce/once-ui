@@ -73,6 +73,9 @@ $header-icon-height: 24px;
   left: auto;
   right: 16px;
   bottom: auto;
+  svg {
+    fill: #4a4a4a;
+  }
 }
 .oui-dialog-header-action::after {
   clear: both;
@@ -104,9 +107,8 @@ $header-icon-height: 24px;
   padding: 2px;
   text-align: center;
   .oui-icon {
-    width: 16px;
+    width: 20px;
     height: 20px;
-    padding-top: 4px;
     svg {
       vertical-align: top;
     }
@@ -140,6 +142,9 @@ $header-icon-height: 24px;
     border-radius: 2px;
     transition: $icon-focus-transition;
   }
+  svg {
+    fill: #006bb1;
+  }
 }
 .oui-dialog-header-video {
   width: $header-icon-width;
@@ -158,6 +163,9 @@ $header-icon-height: 24px;
     background: $icon-focus-background;
     border-radius: 2px;
     transition: $icon-focus-transition;
+  }
+  svg {
+    fill: #006bb1;
   }
 }
 .oui-dialog-header-separator {

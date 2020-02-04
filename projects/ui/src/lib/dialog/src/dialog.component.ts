@@ -26,7 +26,7 @@ import { DOCUMENT } from '@angular/common';
 export class DialogComponent implements OnInit, OnChanges {
   @Input()
   visible: boolean;
-  @ViewChild('dialog')
+  @ViewChild('dialog', { static: false })
   elementView;
   custom: any;
   dialogTop = 50;
