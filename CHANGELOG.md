@@ -29,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`ONCEHUB-20855`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20855) Update user app to angular 8
 - [`ONCEHUB-20225`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20225) Button focus state needs text underline
 - [`ONCEHUB-20205`](https://scheduleonce.atlassian.net/browse/ONCEHUB-20205) Dialog text links have visible focus ring on click
-- [`ONCEHUB-23351`](https://scheduleonce.atlassian.net/browse/ONCEHUB-23351) Changes in Once-ui
+- [`ONCEHUB-23351`](https://scheduleonce.atlassian.net/browse/ONCEHUB-23351) Replaced dialog header icons with oui-icon, and icon color changes
 - [`ONCEHUB-12605`](https://scheduleonce.atlassian.net/browse/ONCEHUB-12605) Nested menu in storybook- need to take the second menu 1 px up
 - [`ONCEHUB-21161`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21161) Action menu position is not correct when opened in smaller width
 
@@ -67,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [`ONCEHUB-23351`](https://scheduleonce.atlassian.net/browse/ONCEHUB-23351) Changes in Once-ui
+- [`ONCEHUB-23351`](https://scheduleonce.atlassian.net/browse/ONCEHUB-23351) Replaced dialog header icons with oui-icon, and icon color changes
 - [`ONCEHUB-12605`](https://scheduleonce.atlassian.net/browse/ONCEHUB-12605) Nested menu in storybook- need to take the second menu 1 px up
 
 ## [1.12.0-beta.5] - 2019-12-12
