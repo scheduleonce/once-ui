@@ -74,8 +74,8 @@ const TABLEDATASOURCE = Array.from({ length: 5000 }, (_, k) =>
   `
 })
 export class OuiTableStorybook implements OnInit {
-  @ViewChild(OuiSort) sort: OuiSort;
-  @ViewChild(OuiPaginator) paginator: OuiPaginator;
+  @ViewChild(OuiSort, { static: true }) sort: OuiSort;
+  @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
   displayedColumns: string[] = [];
   @Input() users: any[] = [];
   @Input() pageSize: any[] = [];
@@ -185,7 +185,7 @@ export class OuiTableCustomStorybook implements OnInit {
     scheduleonce: scheduleonce,
     inviteonce: inviteonce
   };
-  @ViewChild(OuiSort) sort: OuiSort;
+  @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;
   @Input() users: any[] = [];
   @Input() pageSize: any[] = [];

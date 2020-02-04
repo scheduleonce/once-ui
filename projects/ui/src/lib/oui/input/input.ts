@@ -97,8 +97,6 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-invalid]': 'errorState',
     '[attr.aria-required]': 'required.toString()',
-    '(blur)': '_focusChanged(false)',
-    '(focus)': '_focusChanged(true)',
     '(input)': '_onInput()'
   },
   providers: [
@@ -353,19 +351,6 @@ export class OuiInput extends _OuiInputMixinBase
   /** Focuses the input. */
   focus(): void {
     this._elementRef.nativeElement.focus();
-  }
-
-  /** Callback for the cases where the focused state of the input changes. */
-  _focusChanged(isFocused: boolean) {
-    if (isFocused !== this.focused && !this.readonly) {
-      if (this.placeholder) {
-        this._elementRef.nativeElement['placeholder'] = isFocused
-          ? ''
-          : this.placeholder; // Removing placeholder when focused
-      }
-      this.focused = isFocused;
-      this.stateChanges.next();
-    }
   }
 
   _onInput() {

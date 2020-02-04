@@ -292,13 +292,14 @@ export class OuiCalendar<D>
   >();
 
   /** Reference to the current month view component. */
-  @ViewChild(OuiMonthView) monthView: OuiMonthView<D>;
+  @ViewChild(OuiMonthView, { static: false }) monthView: OuiMonthView<D>;
 
   /** Reference to the current year view component. */
-  @ViewChild(OuiYearView) yearView: OuiYearView<D>;
+  @ViewChild(OuiYearView, { static: false }) yearView: OuiYearView<D>;
 
   /** Reference to the current multi-year view component. */
-  @ViewChild(OuiMultiYearView) multiYearView: OuiMultiYearView<D>;
+  @ViewChild(OuiMultiYearView, { static: false })
+  multiYearView: OuiMultiYearView<D>;
 
   /**
    * The current active date. This determines which time period is shown and which date is

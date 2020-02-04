@@ -159,7 +159,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
 
   /** Stream of autocomplete option selections. */
   readonly optionSelections: Observable<OuiOptionSelectionChange> = defer(
-    () => {
+    (): Observable<OuiOptionSelectionChange> => {
       if (this.autocomplete && this.autocomplete.options) {
         return merge(
           ...this.autocomplete.options.map(option => option.onSelectionChange)
