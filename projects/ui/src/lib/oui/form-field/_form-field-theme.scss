@@ -117,7 +117,7 @@ $form-field-textarea-padding: 9px 10px;
   .oui-input {
     border: $standard-form-field-border;
     &:focus {
-      border-color: map-get($primary, lighter);
+      border-color: map-get($primary, default);
     }
   }
   .oui-error {
@@ -150,7 +150,7 @@ $form-field-textarea-padding: 9px 10px;
     }
     &:focus {
       border-width: 2px;
-      border-color: map-get($primary, lighter);
+      border-color: map-get($primary, default);
       padding-bottom: 6px;
     }
   }
