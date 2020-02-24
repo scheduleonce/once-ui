@@ -143,7 +143,7 @@ export class Checkbox extends OuiCheckboxMixinBase
   readonly change: EventEmitter<string> = new EventEmitter<string>();
 
   /** The native `<input type="checkbox">` element */
-  @ViewChild('input', { static: false }) _inputElement: ElementRef<
+  @ViewChild('input') _inputElement: ElementRef<
     HTMLInputElement
   >;
 

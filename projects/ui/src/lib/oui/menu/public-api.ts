@@ -1,3 +1,4 @@
+export * from './menu-icon';
 export * from './menu-module';
 export * from './menu';
 export * from './menu-content';

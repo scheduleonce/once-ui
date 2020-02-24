@@ -1,3 +1,4 @@
+export * from './multi-year-view';
 export * from './calendar';
 export * from './calendar-body';
 export * from './datepicker';

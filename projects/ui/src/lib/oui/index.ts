@@ -1,4 +1,5 @@
 export * from './datepicker/public-api';
+export * from './core/public-api';
 export * from './button/public-api';
 export * from './dialog/public-api';
 export * from './icon/public-api';

@@ -32,7 +32,7 @@ class StandardYearView {
   selected = new Date(2017, MAR, 10);
   selectedMonth: Date;
 
-  @ViewChild(OuiYearView, { static: false }) yearView: OuiYearView<Date>;
+  @ViewChild(OuiYearView) yearView: OuiYearView<Date>;
 }
 
 @Component({

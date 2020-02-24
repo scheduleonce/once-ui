@@ -456,7 +456,7 @@ export class OuiRadioButton extends OuiRadioButtonMixinBase
   >();
 
   /** The native `<input type=radio>` element */
-  @ViewChild('input', { static: false }) _inputElement: ElementRef<
+  @ViewChild('input') _inputElement: ElementRef<
     HTMLInputElement
   >;
 

@@ -199,7 +199,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
   @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
-  @ViewChild(OuiSortHeader, { static: false }) sortHeader: OuiSortHeader;
+  @ViewChild(OuiSortHeader) sortHeader: OuiSortHeader;
 
   constructor() {
     this.underlyingDataSource.data = [];

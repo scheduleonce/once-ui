@@ -90,7 +90,7 @@ class CheckboxWithTabIndex {
   `
 })
 class CheckboxUsingViewChild {
-  @ViewChild(Checkbox, { static: false })
+  @ViewChild(Checkbox)
   checkbox: Checkbox;
 
   set isDisabled(value: boolean) {
