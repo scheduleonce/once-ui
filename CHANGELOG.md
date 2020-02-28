@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`ONCEHUB-25477`](https://scheduleonce.atlassian.net/browse/ONCEHUB-25477) On SO setup page, share a booking link pop-up still displays the booking page in the drop down after deleting the page
 - [`ONCEHUB-25235`](https://scheduleonce.atlassian.net/browse/ONCEHUB-25235) Update Node version to v12.16
 - [`ONCEHUB-25427`](https://scheduleonce.atlassian.net/browse/ONCEHUB-25427) Incorrect border color on focus state in shared components
+- [`ONCEHUB-25638`](https://scheduleonce.atlassian.net/browse/ONCEHUB-25638) Action menu is having scroll on new activity stream [Edge browser]
 
 ## [1.12.1] - 2020-02-03
 
