@@ -8,10 +8,11 @@
 >
   <div class="oui-select-value" [ngSwitch]="empty">
     <span class="oui-select-placeholder" *ngSwitchCase="true">
-      <span *ngIf="!isSearchFieldPresent">{{ placeholder }}</span>
-      <span *ngIf="isSearchFieldPresent"
-        >{{ initialValue || placeholder }}</span
-      >
+      <span *ngIf="!isSearchFieldPresent" [innerHTML]="placeholder"></span>
+      <span
+        *ngIf="isSearchFieldPresent"
+        [innerHTML]="initialValue || placeholder"
+      ></span>
     </span>
     <span
       class="oui-select-value-text"
