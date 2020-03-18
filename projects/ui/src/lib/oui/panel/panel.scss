@@ -51,11 +51,14 @@
 }
 
 .oui-panel-icon {
-  width: 18px !important;
-  height: 18px !important;
+  width: 22px !important;
+  height: 22px !important;
   display: inline-block;
   margin: 0;
   padding: 2px;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
   &:focus {
     outline: none;
   }
@@ -79,6 +82,9 @@ oui-panel-icon {
       background-color: #e8e8e8;
     }
   }
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
 }
 
 .close-panel {
