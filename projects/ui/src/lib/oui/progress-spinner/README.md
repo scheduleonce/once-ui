@@ -3,7 +3,7 @@
 ## Usage
 
 ```js
-import { OuiProgressSpinnerModule } from '@once/ui';
+import { OuiProgressSpinnerModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [

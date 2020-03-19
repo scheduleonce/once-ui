@@ -8,7 +8,7 @@ All radio-buttons with the same `name` comprise a set from which only one may be
 ### Usage
 
 ```js
-import { OuiRadioModule } from '@once/ui';
+import { OuiRadioModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [

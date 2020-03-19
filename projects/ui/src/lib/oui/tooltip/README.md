@@ -4,7 +4,7 @@ over an element.
 ### Usage
 
 ```js
-import { OuiTooltipModule } from '@once/ui';
+import { OuiTooltipModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [
