@@ -3,7 +3,7 @@ The `oui-scrollbar` provides a custom scrollbar to the inner content of element 
 ### Usage
 
 ```js
-import { OuiScrollbarModule } from '@once/ui';
+import { OuiScrollbarModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [

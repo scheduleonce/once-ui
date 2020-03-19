@@ -16,4 +16,4 @@ We will use npm to publish the library privately in [MyGet](https://www.myget.or
 
 ## Consequences
 
-Importing the library is as easy as running `npm install @once/ui`
+Importing the library is as easy as running `npm install @oncehub/ui`

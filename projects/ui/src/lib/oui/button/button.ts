@@ -32,7 +32,7 @@ const BUTTON_HOST_ATTRIBUTES = [
   'oui-icon-text-button'
 ];
 
-/** Default color palette for round buttons (mat-fab and mat-mini-fab) */
+/** Default color palette for round buttons (oui-fab and oui-mini-fab) */
 const DEFAULT_COLOR = 'primary';
 
 // Boilerplate for applying mixins to OuiButton.

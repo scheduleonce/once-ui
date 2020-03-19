@@ -936,7 +936,7 @@ NA
 
 ### Fixed
 
-- Updated all the project dependencies for @once/ui project (@dinesh-rawat)
+- Updated all the project dependencies for @oncehub/ui project (@dinesh-rawat)
 
 ## [1.6.0] - 2019-01-09
 

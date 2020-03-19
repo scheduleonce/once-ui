@@ -152,7 +152,7 @@ When using lazy rendering, additional context data can be passed to the menu pan
 
 ## Api Reference for menu
 
-`import {OuiMenuModule} from '@once/ui';`
+`import {OuiMenuModule} from '@oncehub/ui';`
 
 ### Directive
 

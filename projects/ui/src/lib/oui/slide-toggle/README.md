@@ -7,13 +7,13 @@ A `<oui-slide-toggle>` element should be used whenever some toggle action is per
 ## Getting started
 
 ```js
-import { OuiSlideToggleModule } from '@once/ui';
+import { OuiSlideToggleModule } from '@oncehub/ui';
 ```
 
 ### Usage
 
 ```js
-import { OuiSlideToggleModule } from '@once/ui';
+import { OuiSlideToggleModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [
