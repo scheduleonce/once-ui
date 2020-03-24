@@ -3,7 +3,7 @@
 ## Usage
 
 ```js
-import { OuiProgressBarModule } from '@once/ui';
+import { OuiProgressBarModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [

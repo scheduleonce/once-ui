@@ -10,7 +10,7 @@ The once-ui library comes with several prebuilt theme scss files. You can import
 **style.scss** file or **angular.json** config.
 
 You can include a theme file directly into your application from
-`@once/ui/prebuilt-themes`
+`@oncehub/ui/prebuilt-themes`
 
 Available pre-built themes:
 
@@ -22,19 +22,19 @@ Available pre-built themes:
 If you want to import theme in style.scss file than you can include below line:
 
 ```scss
-@import '~@once/ui/prebuilt-themes/scheduleonce.scss';
+@import '~@oncehub/ui/prebuilt-themes/scheduleonce.scss';
 ```
 
 ### Defining a custom theme
 
 When you want a more customization than a prebuilt themes offers, you can create your own theme file.
 
-To generate your customize theme you need to provide some data objects which contains different colors and other properties. You can use some helper function to generate these objects which @once/ui provides.
+To generate your customize theme you need to provide some data objects which contains different colors and other properties. You can use some helper function to generate these objects which @oncehub/ui provides.
 
 A typical theme file will look something like this:
 
 ```scss
-@import '~@once/ui/theming';
+@import '~@oncehub/ui/theming';
 
 /*
     oui-palette(base,lighter,darker,contrast) is a helper function which generate color objects according to given params
