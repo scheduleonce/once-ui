@@ -18,14 +18,14 @@ By default, icons will use the current font color (`currentColor`). This color c
 
 **OuiIconModule**
 
-`import { OuiIconModule } from '@once/ui';`
+`import { OuiIconModule } from '@oncehub/ui';`
 
 **OuiIconRegistery**
 
 You need to inject `OuiIconRegistry` service in your component like as follows-
 
 ```angular2html
-import { OuiIconRegistry } from '@once/ui';
+import { OuiIconRegistry } from '@oncehub/ui';
 export class AppComponent {
    constructor(
        private ouiIconRegistry: OuiIconRegistry,

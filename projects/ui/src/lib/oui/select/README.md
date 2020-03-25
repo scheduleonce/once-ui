@@ -221,7 +221,7 @@ The `<oui-select>` component has role="listbox" and options inside select have r
 # API
 
 ```
-import {OuiSelectModule} from '@once/ui';
+import {OuiSelectModule} from '@oncehub/ui';
 ```
 
 ## Directives

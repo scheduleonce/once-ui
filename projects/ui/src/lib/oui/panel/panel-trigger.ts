@@ -146,7 +146,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     if (keyCode === SPACE) {
       this.openPanel();
       event.preventDefault();
-      // // on keypad tab it will focus on the element itself
+      // On tab it will focus on the element itself
       this._currentFocusElement = event.target as HTMLElement;
     }
   }
@@ -334,7 +334,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   }
 
   public _handleMouseEnter(event: MouseEvent): void {
-    // on hover it will focus on the element itself
+    // On hover it will focus on the element itself
     const focusElement = event.target as HTMLElement;
     this._currentFocusElement = focusElement.querySelector('oui-icon');
     this._mouseEnter.next(event);
