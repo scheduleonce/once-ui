@@ -23,7 +23,7 @@ Checkboxes without text or labels should be given a meaningful label via aria-la
 # API
 
 ```
-import {OuiCheckboxModule} from '@once/ui';
+import {OuiCheckboxModule} from '@oncehub/ui';
 ```
 
 ## Directives

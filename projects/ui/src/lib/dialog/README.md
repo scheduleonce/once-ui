@@ -5,13 +5,13 @@ The component deals with the popup/dialog shared angular component.
 ## Getting started
 
 ```js
-import { DialogModule } from '@once/ui';
+import { DialogModule } from '@oncehub/ui';
 ```
 
 ### Usage
 
 ```js
-import { DialogModule, DialogService } from '@once/ui';
+import { DialogModule, DialogService } from '@oncehub/ui';
 
 @NgModule({
   imports: [
@@ -132,7 +132,7 @@ export class MyComponent {
 ## component.ts
 
 ```js
-import {DialogService} from '@once/ui';
+import {DialogService} from '@oncehub/ui';
 
 export class MyComponent {
 
@@ -214,7 +214,7 @@ openDialog() {
 ## Basic example
 
 ```js
-import {DialogService} from '@once/ui';
+import {DialogService} from '@oncehub/ui';
 
 constructor(public dialog: DialogService) {
 }
@@ -229,7 +229,7 @@ close() {
 Sometimes, you don't need header with no action items and footer with no action items. You just want to render HTML that you pass to dialog as it is. You can do this as follows-
 
 ```js
-import {DialogService} from '@once/ui';
+import {DialogService} from '@oncehub/ui';
 
 constructor(public dialog: DialogService) {
 }
