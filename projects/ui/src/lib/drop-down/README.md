@@ -19,13 +19,13 @@
 ## Getting started
 
 ```js
-import { DropDownModule } from '@once/ui';
+import { DropDownModule } from '@oncehub/ui';
 ```
 
 The only remaining part is to list the imported module in your application module.:
 
 ```js
-import { DropDownModule } from '@once/ui';
+import { DropDownModule } from '@oncehub/ui';
 
 @NgModule({
   imports: [

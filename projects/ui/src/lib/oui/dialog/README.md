@@ -3,7 +3,7 @@
 1.  Import `OuiDialogModule` in your module.
 
 
-          import { OuiDialogModule } from '@once/ui';
+          import { OuiDialogModule } from '@oncehub/ui';
 
           @NgModule({
             declarations: [AppComponent],
@@ -18,7 +18,7 @@
     dialog reference object.;
 
 
-          import { OuiDialog } from '@once/ui';
+          import { OuiDialog } from '@oncehub/ui';
 
           @Component({
             selector: 'app-root',
@@ -123,7 +123,7 @@ export class AppModule {}
 
 ```typescript
 import { Component, Inject } from '@angular/core';
-import { OUI_DIALOG_DATA } from '@once/ui';
+import { OUI_DIALOG_DATA } from '@oncehub/ui';
 
 @Component({
   selector: 'your-dialog',
