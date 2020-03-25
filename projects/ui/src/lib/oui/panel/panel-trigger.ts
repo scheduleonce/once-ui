@@ -8,8 +8,7 @@ import {
   EventEmitter,
   ElementRef,
   ViewContainerRef,
-  Inject,
-  Optional
+  Inject
 } from '@angular/core';
 import {
   ScrollStrategy,
@@ -30,7 +29,6 @@ import { merge } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { SPACE } from '@angular/cdk/keycodes';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { DOCUMENT } from '@angular/common';
 
 /** Injection token that determines the scroll handling while the panel-overlay is open. */
 export const OUI_PANEL_SCROLL_STRATEGY = new InjectionToken<
@@ -84,7 +82,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _focusTrap: FocusTrap;
 
   /** Element that was focused before the panel was opened. Save this to restore upon close. */
-  private _elementFocusedBeforeDialogWasOpened: HTMLElement = null;
+  private _currentFocusElement: HTMLElement = null;
 
   /** References the panel instance that the trigger is associated with. */
   @Input('ouiPanelTriggerFor')
@@ -124,7 +122,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     private _element: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
     private _focusTrapFactory: FocusTrapFactory,
-    @Optional() @Inject(DOCUMENT) private _document: any,
     @Inject(OUI_PANEL_SCROLL_STRATEGY) scrollStrategy: any
   ) {
     this._scrollStrategy = scrollStrategy;
@@ -149,6 +146,8 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     if (keyCode === SPACE) {
       this.openPanel();
       event.preventDefault();
+      // On tab it will focus on the element itself
+      this._currentFocusElement = event.target as HTMLElement;
     }
   }
 
@@ -309,8 +308,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   /** Restores focus to the element that was focused before the panel opened. */
   public _restoreFocus() {
-    const toFocus = this._elementFocusedBeforeDialogWasOpened;
-
+    const toFocus = this._currentFocusElement;
     // We need the extra check, because IE can set the `activeElement` to null in some cases.
     if (toFocus && typeof toFocus.focus === 'function') {
       toFocus.focus();
@@ -318,22 +316,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
     if (this._focusTrap) {
       this._focusTrap = null;
-    }
-  }
-
-  /** Saves a reference to the element that was focused before the panel was opened. */
-  private _savePreviouslyFocusedElement() {
-    if (this._document) {
-      this._elementFocusedBeforeDialogWasOpened = this._document
-        .activeElement as HTMLElement;
-
-      // Note that there is no focus method when rendering on the server.
-      if (this._element.nativeElement.focus) {
-        // Move focus onto the panel immediately in order to prevent the user from accidentally
-        // opening multiple panels at the same time. Needs to be async, because the element
-        // may not be focusable immediately.
-        Promise.resolve().then(() => this._element.nativeElement.focus());
-      }
     }
   }
 
@@ -348,11 +330,13 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
         this._viewContainerRef
       );
     }
-    this._savePreviouslyFocusedElement();
     return this._portal;
   }
 
   public _handleMouseEnter(event: MouseEvent): void {
+    // On hover it will focus on the element itself
+    const focusElement = event.target as HTMLElement;
+    this._currentFocusElement = focusElement.querySelector('oui-icon');
     this._mouseEnter.next(event);
     this.openPanel();
     event.stopImmediatePropagation();
