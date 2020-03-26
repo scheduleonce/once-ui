@@ -38,6 +38,7 @@ import {
 } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { ouiTooltipAnimations } from './tooltip-animations';
+import { CanDisable } from '../core';
 
 export type TooltipPosition = 'left' | 'right' | 'above' | 'below';
 
@@ -150,7 +151,7 @@ export class TooltipComponent {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _breakpointObserver: BreakpointObserver
-  ) {}
+  ) { }
 
   /**
    * Shows the tooltip with an animation originating from the provided origin
@@ -251,11 +252,11 @@ export class TooltipComponent {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',
     '(touchend)': '_handleTouchend()',
-    '[attr.tabindex]': '_disabled ? -1 : (tabIndex || 0)',
+    '[attr.tabindex]': 'disabled ? -1 : 0',
     '[attr.aria-hidden]': 'false'
   }
 })
-export class OuiTooltip implements OnDestroy {
+export class OuiTooltip implements OnDestroy, CanDisable {
   _overlayRef: OverlayRef | null;
   _tooltipInstance: TooltipComponent | null;
 
