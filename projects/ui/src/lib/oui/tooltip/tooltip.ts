@@ -151,7 +151,7 @@ export class TooltipComponent {
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _breakpointObserver: BreakpointObserver
-  ) { }
+  ) {}
 
   /**
    * Shows the tooltip with an animation originating from the provided origin
