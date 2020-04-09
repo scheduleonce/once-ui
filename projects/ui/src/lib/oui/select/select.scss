@@ -49,12 +49,11 @@ $gray-color: #eee;
   display: table-cell;
   max-width: 0;
   width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .oui-select-value-text {
+  display: inline-block;
+  width: 100%;
   @include oui-truncate-line();
   span img {
     max-width: 20px;
@@ -175,6 +174,9 @@ $gray-color: #eee;
 .oui-select-placeholder {
   // Delay the transition until the label has animated about a third of the way through, in
   // order to prevent the placeholder from overlapping for a split second.
+  @include oui-truncate-line();
+  display: inline-block;
+  width: 100%;
   transition: color $swift-ease-out-duration $swift-ease-out-duration / 3
     $swift-ease-out-timing-function;
   color: #666;
@@ -229,9 +231,7 @@ $gray-color: #eee;
       .oui-select-placeholder,
       .oui-select-value-text {
         width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        @include oui-truncate-line();
         margin-left: -9px;
         display: block;
         height: 19px;
