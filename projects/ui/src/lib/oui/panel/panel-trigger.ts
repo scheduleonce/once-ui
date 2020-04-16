@@ -166,7 +166,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     overlayRef.attach(this._getPortal());
     this._setLargeWidth();
     this._closeSubscription = this._panelClosingActions().subscribe(() => {
-      this.closePanel();
+      this.closePanel('mouserHover');
     });
     this._trapFocus();
     this._setIsPanelOpen(true);
@@ -289,9 +289,11 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   }
 
   /** Closes The Panel */
-  closePanel() {
+  closePanel(hoverType?) {
     this.panel.closed.emit();
-    this._restoreFocus();
+    if (!hoverType) {
+      this._restoreFocus();
+    }
   }
 
   /** Moves the focus inside the focus trap. */
