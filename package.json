@@ -55,7 +55,7 @@
     "@storybook/addon-options": "5.2.5",
     "@storybook/addon-viewport": "5.2.5",
     "@storybook/addons": "5.2.5",
-    "@storybook/angular": "^5.3.18",
+    "@storybook/angular": "5.2.5",
     "@storybook/storybook-deployer": "^2.8.6",
     "@types/jasmine": "^3.3.5",
     "@types/jasminewd2": "^2.0.6",
