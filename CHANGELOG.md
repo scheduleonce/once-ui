@@ -17,12 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- NA
+- [`ONCEHUB-29644`](https://scheduleonce.atlassian.net/browse/ONCEHUB-29644) Removing old components from @oncehub/ui
 
 ### Fixed
 
 - [`ONCEHUB-27124`](https://scheduleonce.atlassian.net/browse/ONCEHUB-27124) Removing CVE-2020-7598 vulnerability in package acorn
-- [`ONCEHUB-29644`](https://scheduleonce.atlassian.net/browse/ONCEHUB-29644) Removing old components from @oncehub/ui
 
 ## [2.0.2] - 2020-04-16
 
