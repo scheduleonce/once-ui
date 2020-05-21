@@ -5,6 +5,45 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.2] - 2020-04-16
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-28804`](https://scheduleonce.atlassian.net/browse/ONCEHUB-28804) After hovering out the panel icon, icon is still shown as selected.
+
+## [2.0.1] - 2020-04-08
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-27593`](https://scheduleonce.atlassian.net/browse/ONCEHUB-27593) disabled and tabindex need to change and candisabled need to be implemented in ouiTooltip
+- [`ONCEHUB-26932`](https://scheduleonce.atlassian.net/browse/ONCEHUB-26932) On app2- the cursor pointing to the top of the bot page after remove hovering from bot response tooltip
+- [`ONCEHUB-26775`](https://scheduleonce.atlassian.net/browse/ONCEHUB-26775) Fix the table issue in a once-ui-qa storybook
+- [`ONCEHUB-26409`](https://scheduleonce.atlassian.net/browse/ONCEHUB-26409) Grey background appears when clicking on the i Icon on secure-checkout page
+
 ## [2.0.1-beta.0] - 2020-03-27
 
 ### Added
