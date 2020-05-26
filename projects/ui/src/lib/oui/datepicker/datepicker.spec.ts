@@ -63,8 +63,8 @@ class StandardDatepicker {
   touch = false;
   disabled = false;
   date: Date | null = new Date(2020, JAN, 1);
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
 }
 
@@ -83,7 +83,7 @@ class MultiInputDatepicker {}
   `
 })
 class NoInputDatepicker {
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
 }
 
 @Component({
@@ -95,7 +95,7 @@ class NoInputDatepicker {
 class DatepickerWithStartAt {
   date = new Date(2020, JAN, 1);
   startDate = new Date(2010, JAN, 1);
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
 }
 
 @Component({
@@ -110,7 +110,7 @@ class DatepickerWithStartAt {
 })
 class DatepickerWithStartViewYear {
   date = new Date(2020, JAN, 1);
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
 
   onYearSelection() {}
 }
@@ -127,7 +127,7 @@ class DatepickerWithStartViewYear {
 })
 class DatepickerWithStartViewMultiYear {
   date = new Date(2020, JAN, 1);
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
 
   onMultiYearSelection() {}
 }
@@ -140,8 +140,8 @@ class DatepickerWithStartViewMultiYear {
 })
 class DatepickerWithNgModel {
   selected: Date | null = null;
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
 }
 
@@ -154,10 +154,10 @@ class DatepickerWithNgModel {
 })
 class DatepickerWithFormControl {
   formControl = new FormControl();
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
-  @ViewChild(OuiDatepickerToggle, { static: false })
+  @ViewChild(OuiDatepickerToggle)
   datepickerToggle: OuiDatepickerToggle<Date>;
 }
 
@@ -169,8 +169,8 @@ class DatepickerWithFormControl {
   `
 })
 class DatepickerWithToggle {
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false }) input: OuiDatepickerInput<
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput) input: OuiDatepickerInput<
     Date
   >;
   touchUI = true;
@@ -196,10 +196,10 @@ class DatepickerWithCustomIcon {}
   `
 })
 class FormFieldDatepicker {
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
-  @ViewChild(OuiFormField, { static: false }) formField: OuiFormField;
+  @ViewChild(OuiFormField) formField: OuiFormField;
 }
 
 @Component({
@@ -215,7 +215,7 @@ class FormFieldDatepicker {
   `
 })
 class DatepickerWithMinAndMaxValidation {
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
   date: Date | null;
   minDate = new Date(2010, JAN, 1);
   maxDate = new Date(2020, JAN, 1);
@@ -233,7 +233,7 @@ class DatepickerWithMinAndMaxValidation {
   `
 })
 class DatepickerWithFilterAndValidation {
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
   date: Date;
   filter = (date: Date) => date.getDate() !== 1;
 }
@@ -246,8 +246,8 @@ class DatepickerWithFilterAndValidation {
 })
 class DatepickerWithi18n {
   date: Date | null = new Date(2010, JAN, 1);
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
 }
 
@@ -262,8 +262,8 @@ class DatepickerWithISOStrings {
   min = new Date(2017, JAN, 1).toISOString();
   max = new Date(2017, DEC, 31).toISOString();
   startAt = new Date(2017, JUL, 1).toISOString();
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
 }
 
@@ -281,7 +281,7 @@ class DatepickerWithEvents {
   selected: Date | null = null;
   openedSpy = jasmine.createSpy('opened spy');
   closedSpy = jasmine.createSpy('closed spy');
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
 }
 
 @Component({
@@ -291,7 +291,7 @@ class DatepickerWithEvents {
   `
 })
 class DatepickerOpeningOnFocus {
-  @ViewChild(OuiDatepicker, { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepicker) datepicker: OuiDatepicker<Date>;
 }
 
 @Component({
@@ -311,7 +311,7 @@ class CustomHeaderForDatepicker {}
   `
 })
 class DatepickerWithCustomHeader {
-  @ViewChild('ch', { static: false }) datepicker: OuiDatepicker<Date>;
+  @ViewChild('ch') datepicker: OuiDatepicker<Date>;
   customHeaderForDatePicker = CustomHeaderForDatepicker;
 }
 
@@ -322,8 +322,8 @@ class DatepickerWithCustomHeader {
   `
 })
 class DelayedDatepicker {
-  @ViewChild('d', { static: false }) datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput, { static: false })
+  @ViewChild('d') datepicker: OuiDatepicker<Date>;
+  @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;
   date: Date | null;
   assignedDatepicker: OuiDatepicker<Date>;

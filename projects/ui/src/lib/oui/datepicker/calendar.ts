@@ -292,13 +292,13 @@ export class OuiCalendar<D>
   >();
 
   /** Reference to the current month view component. */
-  @ViewChild(OuiMonthView, { static: false }) monthView: OuiMonthView<D>;
+  @ViewChild(OuiMonthView) monthView: OuiMonthView<D>;
 
   /** Reference to the current year view component. */
-  @ViewChild(OuiYearView, { static: false }) yearView: OuiYearView<D>;
+  @ViewChild(OuiYearView) yearView: OuiYearView<D>;
 
   /** Reference to the current multi-year view component. */
-  @ViewChild(OuiMultiYearView, { static: false })
+  @ViewChild(OuiMultiYearView)
   multiYearView: OuiMultiYearView<D>;
 
   /**
