@@ -98,7 +98,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     if (this._portalOutlet.hasAttached()) {
       throwOuiDialogContentAlreadyAttachedError();
     }
-    this._savePreviouslyFocusedElement();
+    this._addFocusTrap();
     return this._portalOutlet.attachComponentPortal(portal);
   }
 
@@ -110,33 +110,23 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     if (this._portalOutlet.hasAttached()) {
       throwOuiDialogContentAlreadyAttachedError();
     }
-    this._savePreviouslyFocusedElement();
+    this._addFocusTrap();
     return this._portalOutlet.attachTemplatePortal(portal);
   }
 
   /** Moves the focus inside the focus trap. */
   public _trapFocus() {
-    const element = this.elementRef.nativeElement;
-
-    if (!this._focusTrap) {
-      this._focusTrap = this._focusTrapFactory.create(element);
-    }
-
     // If we were to attempt to focus immediately, then the content of the dialog would not yet be
     // ready in instances where change detection has to run first. To deal with this, we simply
     // wait for the microtask queue to be empty.
     if (this._config.autoFocus) {
-      this._focusTrap.focusInitialElement();
-    } else {
-      const activeElement = this._document.activeElement;
-
+      this._focusTrap.focusInitialElementWhenReady();
+    } else if (!this._containsFocus()) {
       // Otherwise ensure that focus is on the dialog container. It's possible that a different
-      // component tried to move focus while the open animation was running. Note that we only want to do this
+      // component tried to move focus while the open animation was running.
       // if the focus isn't inside the dialog already, because it's possible that the consumer
       // turned off `autoFocus` in order to move focus themselves.
-      if (activeElement !== element && !element.contains(activeElement)) {
-        element.focus();
-      }
+      this.elementRef.nativeElement.focus();
     }
   }
 
@@ -150,7 +140,16 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
       toFocus &&
       typeof toFocus.focus === 'function'
     ) {
-      toFocus.focus();
+      const activeElement = this._document.activeElement;
+      const element = this.elementRef.nativeElement;
+      if (
+        !activeElement ||
+        activeElement === this._document.body ||
+        activeElement === element ||
+        element.contains(activeElement)
+      ) {
+        toFocus.focus();
+      }
     }
 
     if (this._focusTrap) {
@@ -158,12 +157,18 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     }
   }
 
-  /** Saves a reference to the element that was focused before the dialog was opened. */
-  private _savePreviouslyFocusedElement() {
+  /**
+   * Setting up the focus trap and saves a reference to the element that was focused before the dialog was open.
+   */
+  private _addFocusTrap() {
+    if (!this._focusTrap) {
+      this._focusTrap = this._focusTrapFactory.create(
+        this.elementRef.nativeElement
+      );
+    }
     if (this._document) {
       this._elementFocusedBeforeDialogWasOpened = this._document
         .activeElement as HTMLElement;
-
       // Note that there is no focus method when rendering on the server.
       if (this.elementRef.nativeElement.focus) {
         // Move focus onto the dialog immediately in order to prevent the user from accidentally
@@ -172,5 +177,12 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
         Promise.resolve().then(() => this.elementRef.nativeElement.focus());
       }
     }
+  }
+
+  /** Only return when there is focus inside the dialog */
+  private _containsFocus() {
+    const element = this.elementRef.nativeElement;
+    const activeElement = this._document.activeElement;
+    return element === activeElement || element.contains(activeElement);
   }
 }
