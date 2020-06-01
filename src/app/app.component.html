@@ -489,12 +489,14 @@
     </div>
     <div oui-dialog-footer>
       <div oui-dialog-footer-action-left>
-        <button oui-link-button>Left</button>
+        <button oui-link-button cdkFocusRegionStart>Left</button>
         <button oui-link-button>Left</button>
       </div>
       <div oui-dialog-footer-action-right>
-        <button oui-ghost-button (click)="openDialog()">Open</button>
-        <button oui-button ouiDialogClose>Close</button>
+        <button oui-ghost-button (click)="openDialog()" cdkFocusInitial>
+          Open
+        </button>
+        <button oui-button ouiDialogClose cdkFocusRegionEnd>Close</button>
       </div>
     </div>
   </ng-template>

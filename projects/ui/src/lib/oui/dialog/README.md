@@ -273,6 +273,23 @@ By default, the first tabbable element within the dialog will receive focus upon
 
 Tabbing through the elements of the dialog will keep focus inside of the dialog element, wrapping back to the first tabbable element when reaching the end of the tab sequence.
 
+Regions can be declared explicitly with an initial focus element by using the `cdkFocusRegionStart`, `cdkFocusRegionEnd` DOM attributes. `cdkFocusRegionStart` and `cdkFocusRegionEnd` define the region within which focus will be trapped. When using the tab key, focus will move through this region and wrap around on either end.
+
+For example:
+
+```html
+<div oui-dialog-footer>
+  <div oui-dialog-footer-action-left>
+    <button oui-ghost-button cdkFocusRegionStart>Left</button>
+    <button oui-link-button>Left</button>
+  </div>
+  <div oui-dialog-footer-action-right>
+    <button oui-ghost-button cdkFocusInitial>Open</button>
+    <button oui-button ouiDialogClose cdkFocusRegionEnd>Close</button>
+  </div>
+</div>
+```
+
 #### Keyboard interaction
 
 By default pressing the escape key will close the dialog. While this behavior can be turned off via the `disableClose` option, users should generally avoid doing so as it breaks the expected interaction pattern for screen-reader users.
