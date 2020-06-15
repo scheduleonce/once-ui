@@ -37,7 +37,7 @@ Default value for "diameter" is 100 and for "StrokeWidth" is 10. You can simply 
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oncehub-progress-spinner](https://stackblitz.com/edit/oncehub-progress-spinner)
+[https://stackblitz.com/edit/oncehub-progress-spinner-1](https://stackblitz.com/edit/oncehub-progress-spinner-1)
 
 You can click here and can change code to try and test different scenarios.
 

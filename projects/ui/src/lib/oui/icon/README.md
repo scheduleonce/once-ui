@@ -188,7 +188,7 @@ oui-icon {
 
 ## Stackblitz demo link
 
-You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.
+You can see the [https://stackblitz.com/edit/oui-icon-2](https://stackblitz.com/edit/oui-icon-2) demo for more details.
 
 ## How to use oui-icons in any project?
 
