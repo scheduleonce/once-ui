@@ -140,4 +140,4 @@ By default, the Panel width will be 270px. The width can be changed using the `w
 
 ## Stackblitz Link
 
-[https://stackblitz.com/edit/angular-oui-panel-latest-1](https://stackblitz.com/edit/angular-oui-panel-latest-1)
+[https://stackblitz.com/edit/oui-panel](https://stackblitz.com/edit/oui-panel)

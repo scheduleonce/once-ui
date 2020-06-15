@@ -275,4 +275,4 @@ const OUI_MENU_DEFAULT_OPTIONS: InjectionToken<OUIMenuDefaultOptions>;
 
 ## Stackblitz link
 
-[https://stackblitz.com/edit/angular-menu-oui-1](https://stackblitz.com/edit/angular-menu-oui-1)
+[https://stackblitz.com/edit/oui-menu](https://stackblitz.com/edit/oui-menu)
