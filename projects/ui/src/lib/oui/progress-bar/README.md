@@ -36,7 +36,7 @@ Default value for "strokeWidth" is 4. You can simply override and give your own 
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oncehub-progress-bar-1](https://stackblitz.com/edit/oncehub-progress-bar-1)
+[https://stackblitz.com/edit/oui-progress-bar](https://stackblitz.com/edit/oui-progress-bar)
 
 You can click here and can change code to try and test different scenarios.
 
