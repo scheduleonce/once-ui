@@ -72,7 +72,7 @@ shown.
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-tooltip-1](https://stackblitz.com/edit/oui-tooltip-1)
+[https://stackblitz.com/edit/oui-tooltip](https://stackblitz.com/edit/oui-tooltip)
 
 You can click here and can change code to try and test different scenarios.
 

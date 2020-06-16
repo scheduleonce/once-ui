@@ -276,7 +276,7 @@ value can be anything that is accepted by `ngClass`.
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-datepicker-1](https://stackblitz.com/edit/oui-datepicker-1)
+[https://stackblitz.com/edit/oui-datepicker](https://stackblitz.com/edit/oui-datepicker)
 
 You can click here and can change code to try and test different scenarios.
 

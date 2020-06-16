@@ -77,6 +77,6 @@ checkbox use the theme's `'primary'` color. This can be changed to `'accent'` or
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-checkbox-1](https://stackblitz.com/edit/oui-checkbox-1)
+[https://stackblitz.com/edit/oui-checkbox](https://stackblitz.com/edit/oui-checkbox)
 
 You can click here and can change code to try and test different scenarios.

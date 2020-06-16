@@ -84,7 +84,7 @@ Buttons can be colored in terms of the current theme using the color property to
 
 This demo link shows how you can work with `oui-icon-button` component:
 
-You can see the [https://stackblitz.com/edit/oui-button-1](https://stackblitz.com/edit/oui-button-1) demo for more details.
+You can see the [https://stackblitz.com/edit/oui-button](https://stackblitz.com/edit/oui-button) demo for more details.
 
 _Note-`oui-icon-button` has a hover effect. It is basically box surrounding the `icon`. the general rule for the hover size is +4px from the icon size. `oui-icon-button` is enriched with a `shared-layout` directive called `focusOnIconButton`. `focusOnIconButton` works as a glue for `oui-icon-button` and `oui-menu`. `focusOnIconButton` will keep the border box opened as long as `oui-menu` is opened._
 
