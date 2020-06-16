@@ -58,7 +58,7 @@ Slide toggles can be colored in terms of the current theme using the color prope
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oncehub-slide-toggle](https://stackblitz.com/edit/oncehub-slide-toggle)
+[https://stackblitz.com/edit/oui-slide-toggle](https://stackblitz.com/edit/oui-slide-toggle)
 
 You can click here and can change code to try and test different scenarios.
 

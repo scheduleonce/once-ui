@@ -102,7 +102,7 @@ and `ReactiveFormsModule`.
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-radio-button-component](https://stackblitz.com/edit/oui-radio-button-component)
+[https://stackblitz.com/edit/oui-radio-button-1](https://stackblitz.com/edit/oui-radio-button-1)
 
 You can click here and can change code to try and test different scenarios.
 
