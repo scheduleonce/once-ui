@@ -134,4 +134,4 @@ The autocomplete trigger is given `role="combobox"`. The trigger sets `aria-owns
 
 ### Stackblitz demo link
 
-https://stackblitz.com/edit/oui-auto-complete
+https://stackblitz.com/edit/oui-autocomplete
