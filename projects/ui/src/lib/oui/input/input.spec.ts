@@ -199,11 +199,10 @@ describe('OuiInput without forms', () => {
   }));
 
   it('validates the type', async(() => {
-    const fixture = createComponent(OuiInputInvalidTypeTestController);
-
-    expect(() =>
-      fixture.detectChanges()
-    ).toThrow(/* new OuiInputUnsupportedTypeError('file') */);
+    expect(() => {
+      const fixture = createComponent(OuiInputInvalidTypeTestController);
+      fixture.detectChanges();
+    }).toThrow();
   }));
 
   it('supports placeholder attribute', async(() => {
