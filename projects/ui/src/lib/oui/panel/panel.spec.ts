@@ -44,7 +44,7 @@ class SimplePanel {
   @ViewChild(OuiPanel, { static: false }) panel: OuiPanel;
 }
 
-fdescribe('[always] OuiPanel', () => {
+describe('OuiPanel', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   // @ts-ignore
