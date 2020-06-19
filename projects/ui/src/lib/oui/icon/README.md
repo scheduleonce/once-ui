@@ -41,6 +41,23 @@ export class AppComponent {
 }
 ```
 
+**OuiIconTestingModule**
+
+`import { OuiIconTestingModule } from '@oncehub/ui';`
+
+Use this module to install the null icon registry.
+
+```angular2html
+import { OuiIconTestingModule } from '@oncehub/ui';
+describe('App', () => {
+  configureTestSuite(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiIconTestingModule],
+    });
+  });
+})
+```
+
 ## Services
 
 ### `OuiIconRegistry`

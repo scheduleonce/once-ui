@@ -18,6 +18,7 @@ import {
 import { OuiPanelModule } from './panel-module';
 import { OuiPanelTrigger } from './panel-trigger';
 import { OuiPanel } from './panel';
+import { OuiIconTestingModule } from '../icon/public-api';
 
 // tslint:disable-next-line:component-selector
 @Component({
@@ -43,7 +44,7 @@ class SimplePanel {
   @ViewChild(OuiPanel, { static: false }) panel: OuiPanel;
 }
 
-describe('OuiPanel', () => {
+fdescribe('[always] OuiPanel', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   // @ts-ignore
@@ -55,7 +56,7 @@ describe('OuiPanel', () => {
     declarations: any[] = []
   ): ComponentFixture<T> {
     TestBed.configureTestingModule({
-      imports: [OuiPanelModule],
+      imports: [OuiPanelModule, OuiIconTestingModule],
       declarations: [component, ...declarations],
       providers
     }).compileComponents();
