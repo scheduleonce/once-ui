@@ -1,5 +1,5 @@
 {
-  "name": "once-ui",
+  "name": "oncehub-ui",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
@@ -12,15 +12,15 @@
     "fix:prettier": "prettier --write \"**/*.{ts,js,css,scss,md,html}\"",
     "fix:lint": "ng lint --fix *.ts -t verbose",
     "bundle-styles": "npm run bundle-styles-blue && npm run compile-scss-blue && npm run bundle-styles-green && npm run compile-scss-green",
-    "bundle-styles-blue": "scss-bundle -e ./projects/ui/src/lib/themes/once-ui-theme-blue.scss -d ./dist/ui/themes/once-ui-theme-blue.scss",
-    "bundle-styles-green": "scss-bundle -e ./projects/ui/src/lib/themes/once-ui-theme-green.scss -d ./dist/ui/themes/once-ui-theme-green.scss",
+    "bundle-styles-blue": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-blue.scss -d ./dist/ui/themes/once-ui-theme-blue.scss",
+    "bundle-styles-green": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-green.scss -d ./dist/ui/themes/once-ui-theme-green.scss",
     "compile-scss-blue": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-blue.scss ./dist/ui/themes/once-ui-theme-blue.css && rimraf ./dist/ui/themes/once-ui-theme-blue.scss",
     "compile-scss-green": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-green.scss ./dist/ui/themes/once-ui-theme-green.css && rimraf -f ./dist/ui/themes/once-ui-theme-green.scss",
     "npm-pack": "cd dist/ui && npm pack",
     "package": "npm run build && npm run bundle-styles && npm run npm-pack",
-    "build-storybook": "npm run storybook-css && build-storybook -s ./src/stories/styles",
-    "storybook-css": "node-sass --output-style compressed  projects/ui/src/lib/oui/core/theming/prebuilt -o src/stories/styles/themes",
-    "storybook": "npm run storybook-css && start-storybook -p 9000 -s ./src/stories/styles",
+    "build-storybook": "npm run storybook-css && build-storybook -s ./ui/src/stories/styles",
+    "storybook-css": "node-sass --output-style compressed  ui/src/components/core/theming/prebuilt-themes -o ui/src/stories/styles/themes",
+    "storybook": "npm run storybook-css && start-storybook -p 9000 -s ./ui/src/stories/styles",
     "deploy-storybook": "npm run storybook-css && storybook-to-ghpages -o out"
   },
   "private": true,

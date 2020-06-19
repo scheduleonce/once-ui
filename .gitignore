@@ -5,14 +5,20 @@
 /tmp
 /out-tsc
 /out
-/src/stories/themes
+/ui/src/stories/themes
 /storybook-static
+# Only exists if Bazel was run
+/bazel-out
 
 # dependencies
 /node_modules
 
 # storybook dynamic files
-/src/stories/styles/themes
+/ui/src/stories/styles/themes
+
+# profiling files
+chrome-profiler-events*.json
+speed-measure-plugin*.json
 
 # IDEs and editors
 /.idea
@@ -29,6 +35,7 @@
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
 # misc
 /.sass-cache
@@ -36,7 +43,6 @@
 /coverage
 /libpeerconnection.log
 npm-debug.log
-.npmrc
 yarn-error.log
 testem.log
 /typings
