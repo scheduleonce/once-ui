@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [`ONCEHUB-21872`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21872) Adding the OuiIconTestingModule to install the null icon registry.
+- NA
 
 ### Changed
 
@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- [`ONCEHUB-21872`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21872) Adding the OuiIconTestingModule to install the null icon registry.
 - [`ONCEHUB-30940`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30940) Change oncehub/ui Stackblitz links to use npm.
 - [`ONCEHUB-30930`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30930) Update Node version to v12.18.0.
 
