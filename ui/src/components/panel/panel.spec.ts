@@ -18,7 +18,7 @@ import {
 import { OuiPanelModule } from './panel-module';
 import { OuiPanelTrigger } from './panel-trigger';
 import { OuiPanel } from './panel';
-import { OuiIconTestingModule } from '../icon/testing';
+import { OuiIconTestingModule } from '../icon/public-api';
 
 // tslint:disable-next-line:component-selector
 @Component({
@@ -44,7 +44,7 @@ class SimplePanel {
   @ViewChild(OuiPanel, { static: false }) panel: OuiPanel;
 }
 
-fdescribe('[always] OuiPanel', () => {
+describe('OuiPanel', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
   // @ts-ignore

@@ -41,6 +41,23 @@ export class AppComponent {
 }
 ```
 
+**OuiIconTestingModule**
+
+`import { OuiIconTestingModule } from '@oncehub/ui';`
+
+Use this module to install the null icon registry.
+
+```angular2html
+import { OuiIconTestingModule } from '@oncehub/ui';
+describe('App', () => {
+  configureTestSuite(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiIconTestingModule],
+    });
+  });
+})
+```
+
 ## Services
 
 ### `OuiIconRegistry`
@@ -121,7 +138,7 @@ OuiIcon should be given a meaningful label via `aria-label` or `aria-labelledby`
 
 ## Stackblitz demo link
 
-[https://stackblitz.com/edit/oui-icon-component](https://stackblitz.com/edit/oui-icon-component)
+[https://stackblitz.com/edit/oui-icons](https://stackblitz.com/edit/oui-icons)
 
 You can click here and can change code to try and test different scenarios.
 
@@ -188,7 +205,7 @@ oui-icon {
 
 ## Stackblitz demo link
 
-You can see the [https://stackblitz.com/edit/oui-icon-1](https://stackblitz.com/edit/oui-icon-1) demo for more details.
+You can see the [https://stackblitz.com/edit/oui-icons](https://stackblitz.com/edit/oui-icons) demo for more details.
 
 ## How to use oui-icons in any project?
 

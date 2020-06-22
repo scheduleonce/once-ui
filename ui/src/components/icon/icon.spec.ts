@@ -112,7 +112,7 @@ function verifyPathChildElement(
   expect(pathElement.getAttribute('name')).toBe(attributeValue);
 }
 
-fdescribe('[always] OuiIcon', () => {
+describe('OuiIcon', () => {
   let fakePath: string;
 
   beforeEach(async(() => {
