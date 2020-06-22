@@ -19,7 +19,7 @@
     "npm-pack": "cd dist/ui && npm pack",
     "package": "npm run build && npm run bundle-styles && npm run npm-pack",
     "build-storybook": "npm run storybook-css && build-storybook -s ./ui/src/stories/styles",
-    "storybook-css": "node-sass --output-style compressed  ui/src/components/core/theming/prebuilt-themes -o ui/src/stories/styles/themes",
+    "storybook-css": "node-sass --output-style compressed  ui/src/components/core/theming/prebuilt -o ui/src/stories/styles/themes",
     "storybook": "npm run storybook-css && start-storybook -p 9000 -s ./ui/src/stories/styles",
     "deploy-storybook": "npm run storybook-css && storybook-to-ghpages -o out"
   },
