@@ -56,7 +56,7 @@ export enum TransitionCheckState {
  * disabled. Note that all additional accessibility attributes are taken care of by the component,
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
- * See: https://github.com/scheduleonce/once-ui/tree/master/projects/ui/src/lib/oui/checkbox/README.md
+ * See: https://github.com/scheduleonce/once-ui/tree/master/ui/src/components/checkbox/README.md
  */
 @Component({
   selector: 'oui-checkbox',
