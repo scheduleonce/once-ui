@@ -570,10 +570,7 @@ export class OuiSelect extends _OuiSelectMixinBase
     // fire the animation end event twice for the same animation. See:
     // https://github.com/angular/angular/issues/24084
     this._panelDoneAnimatingStream
-      .pipe(
-        distinctUntilChanged(),
-        takeUntil(this._destroy)
-      )
+      .pipe(distinctUntilChanged(), takeUntil(this._destroy))
       .subscribe(() => {
         if (this.panelOpen) {
           this._scrollTop = 0;
@@ -597,10 +594,7 @@ export class OuiSelect extends _OuiSelectMixinBase
       });
 
     this.options.changes
-      .pipe(
-        startWith(null),
-        takeUntil(this._destroy)
-      )
+      .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
         this._resetOptions();
         this._initializeSelection();

@@ -597,7 +597,7 @@ class SelectWithCustomTrigger {
   `
 })
 class NgModelCompareWithSelect {
-  foods: ({ value: string; viewValue: string })[] = [
+  foods: { value: string; viewValue: string }[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
     { value: 'tacos-2', viewValue: 'Tacos' }
@@ -1489,9 +1489,9 @@ describe('OuiSelect', () => {
         flush();
 
         const optionInstances = fixture.componentInstance.options.toArray();
-        const optionNodes: NodeListOf<
-          HTMLElement
-        > = overlayContainerElement.querySelectorAll('oui-option');
+        const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll(
+          'oui-option'
+        );
 
         optionInstances[1].select();
         fixture.detectChanges();
@@ -2735,9 +2735,7 @@ describe('OuiSelect', () => {
       ]);
 
       const triggerVal = trigger.textContent.trim().split(/\s*,\s*/);
-      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${
-        triggerVal[2]
-      }`;
+      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${triggerVal[2]}`;
       expect(stringToTrigger).toContain('Steak, Pizza, Sandwich');
       flush();
     }));
@@ -2960,9 +2958,7 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
 
       const triggerVal = trigger.textContent.trim().split(/\s*,\s*/);
-      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${
-        triggerVal[2]
-      }`;
+      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${triggerVal[2]}`;
 
       expect(stringToTrigger).toContain('Steak, Pizza, Tacos');
       expect(fixture.componentInstance.control.value).toEqual([
@@ -2987,9 +2983,7 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
 
       const triggerVal = trigger.textContent.trim().split(/\s*,\s*/);
-      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${
-        triggerVal[2]
-      }`;
+      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${triggerVal[2]}`;
 
       expect(stringToTrigger).toContain('Steak, Pizza, Tacos');
       expect(fixture.componentInstance.control.value).toEqual([
@@ -3019,9 +3013,7 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
 
       const triggerVal = trigger.textContent.trim().split(/\s*,\s*/);
-      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${
-        triggerVal[2]
-      }`;
+      const stringToTrigger = `${triggerVal[0]}, ${triggerVal[1]}, ${triggerVal[2]}`;
 
       // Expect the items to be in reverse order.
       expect(stringToTrigger).toContain('Tacos, Pizza, Steak');

@@ -133,7 +133,7 @@ class SimpleAutocomplete implements OnDestroy {
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       <oui-option
-        *ngFor="let option of (filteredOptions | async)"
+        *ngFor="let option of filteredOptions | async"
         [value]="option"
       >
         {{ option }}
@@ -285,7 +285,7 @@ class AutocompleteWithOnPushDelay implements OnInit {
     />
     <oui-autocomplete #auto="ouiAutocomplete">
       <oui-option
-        *ngFor="let option of (filteredOptions | async)"
+        *ngFor="let option of filteredOptions | async"
         [value]="option"
       >
         {{ option }}

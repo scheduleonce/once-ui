@@ -660,10 +660,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
       this._ngZone.onMicrotaskEmpty
         .asObservable()
-        .pipe(
-          take(1),
-          takeUntil(this._destroyed)
-        )
+        .pipe(take(1), takeUntil(this._destroyed))
         .subscribe(() => {
           if (this._tooltipInstance) {
             this._overlayRef!.updatePosition();

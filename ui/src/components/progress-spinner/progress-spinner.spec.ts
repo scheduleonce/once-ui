@@ -31,9 +31,7 @@ describe('OuiProgressSpinner', () => {
   let component: OuiProgressSpinner;
   let fixture: ComponentFixture<OuiProgressSpinner>;
   let basicProgressSpinnerFixture: ComponentFixture<BasicProgressSpinner>;
-  let progressSpinnerDiameterFixture: ComponentFixture<
-    ProgressSpinnerCustomDiameter
-  >;
+  let progressSpinnerDiameterFixture: ComponentFixture<ProgressSpinnerCustomDiameter>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({

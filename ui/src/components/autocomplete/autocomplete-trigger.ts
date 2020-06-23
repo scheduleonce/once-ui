@@ -363,8 +363,8 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           this._overlayAttached &&
           clickTarget !== this._element.nativeElement &&
           (!formField || !formField.contains(clickTarget)) &&
-          (!!this._overlayRef &&
-            !this._overlayRef.overlayElement.contains(clickTarget))
+          !!this._overlayRef &&
+          !this._overlayRef.overlayElement.contains(clickTarget)
         );
       })
     );

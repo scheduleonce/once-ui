@@ -677,9 +677,9 @@ describe('OuiRadio', () => {
 
       fruitRadioNativeInputs = [];
       for (const element of fruitRadioNativeElements) {
-        fruitRadioNativeInputs.push(<HTMLElement>(
-          element.querySelector('input')
-        ));
+        fruitRadioNativeInputs.push(
+          <HTMLElement>element.querySelector('input')
+        );
       }
     });
 

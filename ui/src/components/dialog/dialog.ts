@@ -141,9 +141,7 @@ export class OuiDialog implements OnDestroy {
 
     if (config.id && this.getDialogById(config.id)) {
       throw Error(
-        `Dialog with id "${
-          config.id
-        }" exists already. The dialog id must be unique.`
+        `Dialog with id "${config.id}" exists already. The dialog id must be unique.`
       );
     }
 
