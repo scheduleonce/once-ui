@@ -6,7 +6,7 @@ import { Observable, of as observableOf } from 'rxjs';
 type PublicApi<T> = {
   [K in keyof T]: T[K] extends (...x: any[]) => T
     ? (...x: any[]) => PublicApi<T>
-    : T[K]
+    : T[K];
 };
 // tslint:enable:no-any
 
