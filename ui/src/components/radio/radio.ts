@@ -82,8 +82,8 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   >();
 
   /** Child radio buttons. */
-  // tslint:disable-next-line:no-use-before-declare
   @ContentChildren(
+    // tslint:disable-next-line:no-use-before-declare
     forwardRef(() => OuiRadioButton),
     { descendants: true }
   )
