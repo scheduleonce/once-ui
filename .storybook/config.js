@@ -1,14 +1,9 @@
 import { configure, addDecorator, addParameters } from '@storybook/angular';
 import theme from './theme';
-import {
-  boolean,
-  number,
-  text,
-  withKnobs
-} from '@storybook/addon-knobs/angular';
+import { withKnobs } from '@storybook/addon-knobs/angular';
 import { withNotes } from '@storybook/addon-notes';
 import { withOptions } from '@storybook/addon-options';
-import '!style-loader!css-loader!../src/stories/styles/style.css';
+import '!style-loader!css-loader!../ui/src/stories/styles/style.css';
 
 addDecorator(withKnobs);
 addDecorator(withNotes);
@@ -24,7 +19,7 @@ withOptions({
    */
   url: '//github.com/ScheduleOnce/once-ui/'
 });
-const req = require.context('../src/stories', true, /.stories.ts$/);
+const req = require.context('../ui/src/stories', true, /.stories.ts$/);
 const skippedStories = ['./scrollbar/index.stories.ts'];
 function loadStories() {
   req.keys().forEach(filename => {

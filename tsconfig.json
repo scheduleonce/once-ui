@@ -5,21 +5,23 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
     "module": "es2015",
     "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
+    "importHelpers": true,
     "target": "es5",
-    "typeRoots": ["node_modules/@types","./typings.d.ts"],
+    "typeRoots": ["node_modules/@types", "./typings.d.ts"],
+    "lib": ["es2017", "dom"],
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "lib": [
-      "es2017",
-      "dom"
-    ],
     "paths": {
       "ui": ["dist/ui"],
       "ui/*": ["dist/ui/*"]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }

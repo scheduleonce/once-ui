@@ -671,7 +671,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [`oui-panel`](projects/ui/src/lib/oui/panel/README.md)
+- [`oui-panel`](ui/src/components/panel/README.md)
 
 ### Changed
 
@@ -744,7 +744,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [`oui-select`](projects/ui/src/lib/oui/select/README.md) (@dinesh-rawat)
+- [`oui-select`](ui/src/components/select/README.md) (@dinesh-rawat)
 
 ### Changed
 
@@ -818,7 +818,7 @@ NA
 
 ### Added
 
-- [`oui-datepicker`](projects/ui/src/lib/oui/datepicker/README.md) (@garvit-rajput)
+- [`oui-datepicker`](ui/src/components/datepicker/README.md) (@garvit-rajput)
 
 ### Changed
 
@@ -985,8 +985,8 @@ NA
 
 ### Added
 
-- [`oui-radio-button`](projects/ui/src/lib/oui/radio/README.md)
-- [`oui-progress-bar`](projects/ui/src/lib/oui/progress-bar/README.md)
+- [`oui-radio-button`](ui/src/components/radio/README.md)
+- [`oui-progress-bar`](ui/src/components/progress-bar/README.md)
 
 ### Changed
 
@@ -1016,13 +1016,13 @@ NA
 
 ### Fixed
 
-- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected ([@dinesh-rawat](https://github.com/scheduleonce/once-ui/pull/323))
+- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected ([@dinesh-rawat](https://github.com/scheduleonce/once-ui/pull/323))
 
 ## [1.7.0] - 2019-01-11
 
 ### Added
 
-- [`oui-progress-spinner`](projects/ui/src/lib/oui/progress-spinner/README.md)
+- [`oui-progress-spinner`](ui/src/components/progress-spinner/README.md)
 
 ### Changed
 
@@ -1076,7 +1076,7 @@ NA
 
 ### Added
 
-- [oui-tooltip](projects/ui/src/lib/oui/tooltip/README.md) (@garvit-rajput)
+- [oui-tooltip](ui/src/components/tooltip/README.md) (@garvit-rajput)
 
 ### Changed
 
@@ -1138,7 +1138,7 @@ NA
 
 ### Fixed
 
-- [ONCEHUB-588](https://scheduleonce.atlassian.net/browse/ONCEHUB-558) - Fixed an issue with the [old tooltip](projects/ui/src/lib/tooltip/README.md) getting stuck between screens
+- [ONCEHUB-588](https://scheduleonce.atlassian.net/browse/ONCEHUB-558) - Fixed an issue with the [old tooltip](ui/src/components/tooltip/README.md) getting stuck between screens
 
 ## [1.5.2] - 2019-01-07
 
@@ -1148,8 +1148,8 @@ NA
 
 ### Changed
 
-- Improved styling of [Autocomplete](projects/ui/src/lib/oui/autocomplete/README.md) after Graphic QA
-- Improved [Textarea](projects/ui/src/lib/oui/input/README.md) styling after Graphic QA
+- Improved styling of [Autocomplete](ui/src/components/autocomplete/README.md) after Graphic QA
+- Improved [Textarea](ui/src/components/input/README.md) styling after Graphic QA
 
 ### Removed
 
@@ -1163,7 +1163,7 @@ NA
 
 ### Added
 
-- [`oui-checkbox`](projects/ui/src/lib/oui/checkbox/README.md) (@dinesh-rawat)
+- [`oui-checkbox`](ui/src/components/checkbox/README.md) (@dinesh-rawat)
 
 ### Changed
 
@@ -1181,7 +1181,7 @@ NA
 
 ### Added
 
-- [`oui-slide-toggle`](projects/ui/src/lib/oui/slide-toggle/README.md) (@garvit-rajput)
+- [`oui-slide-toggle`](ui/src/components/slide-toggle/README.md) (@garvit-rajput)
 
 ### Changed
 
@@ -1218,9 +1218,9 @@ NA
 
 ### Added
 
-- [`oui-icon`](projects/ui/src/lib/oui/icon/README.md) (@dinesh-rawat)
-- [`oui-menu`](projects/ui/src/lib/oui/menu/README.md) (@TheVikash)
-- [`oui-icon-button`](projects/ui/src/lib/oui/button/README.md) with oui-icon support (@TheVikash)
+- [`oui-icon`](ui/src/components/icon/README.md) (@dinesh-rawat)
+- [`oui-menu`](ui/src/components/menu/README.md) (@TheVikash)
+- [`oui-icon-button`](ui/src/components/button/README.md) with oui-icon support (@TheVikash)
 
 ### Changed
 
@@ -1234,4 +1234,4 @@ NA
 
 - cdk overlay bug fixes
 
-* https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/autocomplete/README.md, https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/input/README.md
+* https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/autocomplete/README.md, https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/input/README.md
