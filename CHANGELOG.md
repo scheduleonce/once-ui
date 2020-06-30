@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [`ONCEHUB-32027`](https://scheduleonce.atlassian.net/browse/ONCEHUB-32027) Remove the ngx-perfect-scrollbar and @angular/material dependency from the oncehub-ui
+- [`ONCEHUB-30930`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30930) Update Node version to v12.18.1.
 
 ## [3.0.1-beta.2] - 2020-06-25
 
