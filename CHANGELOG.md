@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1-beta.3] - 2020-06-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-32027`](https://scheduleonce.atlassian.net/browse/ONCEHUB-32027) Remove the ngx-perfect-scrollbar and @angular/material dependency from the oncehub-ui
+
 ## [3.0.1-beta.2] - 2020-06-25
 
 ### Added
