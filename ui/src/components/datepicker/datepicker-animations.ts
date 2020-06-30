@@ -8,7 +8,7 @@ import {
 } from '@angular/animations';
 
 /**
- * Animations used by the Material datepicker.
+ * Animations used by the datepicker.
  */
 export const ouiDatepickerAnimations: {
   readonly transformPanel: AnimationTriggerMetadata;
