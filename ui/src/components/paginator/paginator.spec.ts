@@ -7,7 +7,7 @@ import {
 } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThemePalette } from '@angular/material/core';
+import { ThemePalette } from '../core';
 import {
   OuiPaginatorModule,
   OuiPaginator,
