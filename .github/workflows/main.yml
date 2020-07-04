@@ -1,0 +1,22 @@
+name: oncehub-ui-lint-and-test
+
+on: 
+  pull_request:
+      types: [opened, edited, reopened, synchronize, assigned]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v1
+      - name: Node Version Check
+        run: node --version
+      - name: NPM Version Check
+        run: npm --version
+      - name: NPM install
+        run: npm install
+      - name: NPM Prettier Check
+        run: npm run prettier
+      - name: Check TSLint
+        run: npm run lint
+      - name: Run Tests
+        run: npm run test
