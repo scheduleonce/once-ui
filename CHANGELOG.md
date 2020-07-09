@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [`ONCEHUB-28262`](https://scheduleonce.atlassian.net/browse/ONCEHUB-28262) Fixed vulnerabilities
+- [`ONCEHUB-31449`](https://scheduleonce.atlassian.net/browse/ONCEHUB-31449) Fixed oui-select spacing issue in user app
 
 ## [3.0.1-beta.3] - 2020-06-30
 
