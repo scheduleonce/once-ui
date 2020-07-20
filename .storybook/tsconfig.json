@@ -1,15 +1,6 @@
 {
   "extends": "../tsconfig.json",
-  "exclude": [
-    "../src/test.ts",
-    "../src/**/*.spec.ts",
-    "../projects/**/*.spec.ts"
-  ],
-  "include": [
-    "../src/**/*",
-    "../projects/**/*"
-  ],
-  "files": [
-    "./typings.d.ts"
-  ]
+  "exclude": ["../ui/*.spec.ts"],
+  "include": ["../ui/*"],
+  "files": ["./typings.d.ts"]
 }

@@ -5,6 +5,118 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1-beta.4] - 2020-07-09
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-28262`](https://scheduleonce.atlassian.net/browse/ONCEHUB-28262) Fixed vulnerabilities
+- [`ONCEHUB-31449`](https://scheduleonce.atlassian.net/browse/ONCEHUB-31449) Fixed oui-select spacing issue in user app
+
+## [3.0.1-beta.3] - 2020-06-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-32027`](https://scheduleonce.atlassian.net/browse/ONCEHUB-32027) Remove the ngx-perfect-scrollbar and @angular/material dependency from the oncehub-ui
+- [`ONCEHUB-30930`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30930) Update Node version to v12.18.1.
+
+## [3.0.1-beta.2] - 2020-06-25
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-30013`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30013) Rearrange folder structure on @oncehub/ui library
+
+## [3.0.1-beta.1] - 2020-06-20
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-21872`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21872) Adding the OuiIconTestingModule to install the null icon registry.
+- [`ONCEHUB-30940`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30940) Change oncehub/ui Stackblitz links to use npm.
+- [`ONCEHUB-30930`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30930) Update Node version to v12.18.0.
+
+## [3.0.1-beta.0] - 2020-06-15
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-26348`](https://scheduleonce.atlassian.net/browse/ONCEHUB-26348) once-ui dialog focus tab order issues
+
+## [3.0.0] - 2020-05-21
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- [`ONCEHUB-29644`](https://scheduleonce.atlassian.net/browse/ONCEHUB-29644) Removing old components from @oncehub/ui
+
+### Fixed
+
+- [`ONCEHUB-27124`](https://scheduleonce.atlassian.net/browse/ONCEHUB-27124) Removing CVE-2020-7598 vulnerability in package acorn
+
 ## [2.0.2] - 2020-04-16
 
 ### Added
@@ -615,7 +727,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [`oui-panel`](projects/ui/src/lib/oui/panel/README.md)
+- [`oui-panel`](ui/src/components/panel/README.md)
 
 ### Changed
 
@@ -688,7 +800,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- [`oui-select`](projects/ui/src/lib/oui/select/README.md) (@dinesh-rawat)
+- [`oui-select`](ui/src/components/select/README.md) (@dinesh-rawat)
 
 ### Changed
 
@@ -762,7 +874,7 @@ NA
 
 ### Added
 
-- [`oui-datepicker`](projects/ui/src/lib/oui/datepicker/README.md) (@garvit-rajput)
+- [`oui-datepicker`](ui/src/components/datepicker/README.md) (@garvit-rajput)
 
 ### Changed
 
@@ -929,8 +1041,8 @@ NA
 
 ### Added
 
-- [`oui-radio-button`](projects/ui/src/lib/oui/radio/README.md)
-- [`oui-progress-bar`](projects/ui/src/lib/oui/progress-bar/README.md)
+- [`oui-radio-button`](ui/src/components/radio/README.md)
+- [`oui-progress-bar`](ui/src/components/progress-bar/README.md)
 
 ### Changed
 
@@ -960,13 +1072,13 @@ NA
 
 ### Fixed
 
-- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected ([@dinesh-rawat](https://github.com/scheduleonce/once-ui/pull/323))
+- [ONCEHUB-1675](https://scheduleonce.atlassian.net/browse/ONCEHUB-1675) - Fixes [once-dropdown](https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/drop-down/README.md) selectedOption issue if 0 (Zero) is passed to be selected ([@dinesh-rawat](https://github.com/scheduleonce/once-ui/pull/323))
 
 ## [1.7.0] - 2019-01-11
 
 ### Added
 
-- [`oui-progress-spinner`](projects/ui/src/lib/oui/progress-spinner/README.md)
+- [`oui-progress-spinner`](ui/src/components/progress-spinner/README.md)
 
 ### Changed
 
@@ -1020,7 +1132,7 @@ NA
 
 ### Added
 
-- [oui-tooltip](projects/ui/src/lib/oui/tooltip/README.md) (@garvit-rajput)
+- [oui-tooltip](ui/src/components/tooltip/README.md) (@garvit-rajput)
 
 ### Changed
 
@@ -1082,7 +1194,7 @@ NA
 
 ### Fixed
 
-- [ONCEHUB-588](https://scheduleonce.atlassian.net/browse/ONCEHUB-558) - Fixed an issue with the [old tooltip](projects/ui/src/lib/tooltip/README.md) getting stuck between screens
+- [ONCEHUB-588](https://scheduleonce.atlassian.net/browse/ONCEHUB-558) - Fixed an issue with the [old tooltip](ui/src/components/tooltip/README.md) getting stuck between screens
 
 ## [1.5.2] - 2019-01-07
 
@@ -1092,8 +1204,8 @@ NA
 
 ### Changed
 
-- Improved styling of [Autocomplete](projects/ui/src/lib/oui/autocomplete/README.md) after Graphic QA
-- Improved [Textarea](projects/ui/src/lib/oui/input/README.md) styling after Graphic QA
+- Improved styling of [Autocomplete](ui/src/components/autocomplete/README.md) after Graphic QA
+- Improved [Textarea](ui/src/components/input/README.md) styling after Graphic QA
 
 ### Removed
 
@@ -1107,7 +1219,7 @@ NA
 
 ### Added
 
-- [`oui-checkbox`](projects/ui/src/lib/oui/checkbox/README.md) (@dinesh-rawat)
+- [`oui-checkbox`](ui/src/components/checkbox/README.md) (@dinesh-rawat)
 
 ### Changed
 
@@ -1125,7 +1237,7 @@ NA
 
 ### Added
 
-- [`oui-slide-toggle`](projects/ui/src/lib/oui/slide-toggle/README.md) (@garvit-rajput)
+- [`oui-slide-toggle`](ui/src/components/slide-toggle/README.md) (@garvit-rajput)
 
 ### Changed
 
@@ -1162,9 +1274,9 @@ NA
 
 ### Added
 
-- [`oui-icon`](projects/ui/src/lib/oui/icon/README.md) (@dinesh-rawat)
-- [`oui-menu`](projects/ui/src/lib/oui/menu/README.md) (@TheVikash)
-- [`oui-icon-button`](projects/ui/src/lib/oui/button/README.md) with oui-icon support (@TheVikash)
+- [`oui-icon`](ui/src/components/icon/README.md) (@dinesh-rawat)
+- [`oui-menu`](ui/src/components/menu/README.md) (@TheVikash)
+- [`oui-icon-button`](ui/src/components/button/README.md) with oui-icon support (@TheVikash)
 
 ### Changed
 
@@ -1178,4 +1290,4 @@ NA
 
 - cdk overlay bug fixes
 
-* https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/autocomplete/README.md, https://github.com/scheduleonce/once-ui/blob/master/projects/ui/src/lib/oui/input/README.md
+* https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/autocomplete/README.md, https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/input/README.md

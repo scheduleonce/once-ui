@@ -10,7 +10,8 @@
   const TAGID = 'theme-css';
   const IFRAMEID = 'storybook-preview-iframe';
   let switchCount = 0;
-  let directory = window.location.host.indexOf('github') > 0 ? '/once-ui' : '';
+  let directory =
+    window.location.host.indexOf('github') > 0 ? '/oncehub-ui' : '';
   function onLoad() {
     setTheme(THEMES[0]);
     addThemeSelectElement();
