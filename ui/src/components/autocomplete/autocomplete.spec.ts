@@ -85,8 +85,8 @@ class SimpleAutocomplete implements OnDestroy {
 
   @ViewChild(OuiAutocompleteTrigger, { static: true })
   trigger: OuiAutocompleteTrigger;
-  @ViewChild(OuiAutocomplete, { static: false }) panel: OuiAutocomplete;
-  @ViewChild(OuiFormField, { static: false }) formField: OuiFormField;
+  @ViewChild(OuiAutocomplete) panel: OuiAutocomplete;
+  @ViewChild(OuiFormField) formField: OuiFormField;
   @ViewChildren(OuiOption) ouiOptions: QueryList<OuiOption>;
 
   states = [
@@ -147,7 +147,7 @@ class NgIfAutocomplete {
   isVisible = true;
   options = ['One', 'Two', 'Three'];
 
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
   @ViewChildren(OuiOption) ouiOptions: QueryList<OuiOption>;
 
@@ -265,7 +265,7 @@ class AutocompleteWithNumbers {
   `
 })
 class AutocompleteWithOnPushDelay implements OnInit {
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
   options: string[];
 
@@ -298,7 +298,7 @@ class AutocompleteWithNativeInput {
   filteredOptions: Observable<any>;
   options = ['En', 'To', 'Tre', 'Fire', 'Fem'];
 
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
   @ViewChildren(OuiOption) ouiOptions: QueryList<OuiOption>;
 
@@ -324,7 +324,7 @@ class AutocompleteWithNativeInput {
   `
 })
 class AutocompleteWithoutPanel {
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
   control = new FormControl();
 }
@@ -349,7 +349,7 @@ class AutocompleteWithoutPanel {
   `
 })
 class AutocompleteWithGroups {
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
   selectedState: string;
   stateGroups = [
@@ -393,9 +393,9 @@ class AutocompleteWithSelectEvent {
   states = ['New York', 'Washington', 'Oregon'];
   optionSelected = jasmine.createSpy('optionSelected callback');
 
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
-  @ViewChild(OuiAutocomplete, { static: false }) autocomplete: OuiAutocomplete;
+  @ViewChild(OuiAutocomplete) autocomplete: OuiAutocomplete;
 }
 
 @Component({
@@ -458,9 +458,9 @@ class AutocompleteWithNumberInputAndNgModel {
   `
 })
 class AutocompleteWithDifferentOrigin {
-  @ViewChild(OuiAutocompleteTrigger, { static: false })
+  @ViewChild(OuiAutocompleteTrigger)
   trigger: OuiAutocompleteTrigger;
-  @ViewChild(OuiAutocompleteOrigin, { static: false })
+  @ViewChild(OuiAutocompleteOrigin)
   alternateOrigin: OuiAutocompleteOrigin;
   selectedValue: string;
   values = ['one', 'two', 'three'];

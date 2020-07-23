@@ -39,9 +39,9 @@ class FakeIcon {}
   `
 })
 class SimplePanel {
-  @ViewChild(OuiPanelTrigger, { static: false }) trigger: OuiPanelTrigger;
-  @ViewChild('triggerEl', { static: false }) triggerEl: ElementRef<HTMLElement>;
-  @ViewChild(OuiPanel, { static: false }) panel: OuiPanel;
+  @ViewChild(OuiPanelTrigger) trigger: OuiPanelTrigger;
+  @ViewChild('triggerEl') triggerEl: ElementRef<HTMLElement>;
+  @ViewChild(OuiPanel) panel: OuiPanel;
 }
 
 describe('OuiPanel', () => {
