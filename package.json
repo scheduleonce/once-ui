@@ -31,7 +31,6 @@
     "@angular/compiler": "^8.2.11",
     "@angular/core": "^8.2.11",
     "@angular/forms": "^8.2.11",
-    "@angular/http": "^7.2.15",
     "@angular/platform-browser": "^8.2.11",
     "@angular/platform-browser-dynamic": "^8.2.11",
     "@angular/router": "^8.2.11",
@@ -41,9 +40,9 @@
     "zone.js": "~0.9.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.803.12",
-    "@angular-devkit/build-ng-packagr": "^0.803.12",
-    "@angular/cli": "~8.2.0",
+    "@angular-devkit/build-angular": "^0.803.29",
+    "@angular-devkit/build-ng-packagr": "^0.803.29",
+    "@angular/cli": "~8.3.29",
     "@angular/compiler-cli": "^8.2.11",
     "@angular/language-service": "^8.2.11",
     "@babel/core": "^7.2.2",
@@ -60,7 +59,7 @@
     "@types/jasminewd2": "^2.0.6",
     "@types/node": "^10.12.18",
     "babel-loader": "^8.0.6",
-    "codelyzer": "^4.4.4",
+    "codelyzer": "^6.0.0",
     "jasmine-core": "^3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "5.1.0",
@@ -77,10 +76,10 @@
     "rimraf": "^2.6.3",
     "scss-bundle": "^2.3.2",
     "ts-node": "~7.0.0",
-    "tsickle": "^0.37.0",
+    "tsickle": "^0.38.0",
     "tslib": "^1.10.0",
     "tslint": "^5.12.0",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "~3.5.3"
+    "typescript": "^3.8.3"
   }
 }
