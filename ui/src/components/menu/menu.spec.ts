@@ -214,9 +214,7 @@ class CustomMenu {
 class NestedMenu {
   @ViewChild('root') rootMenu: OuiMenu;
   @ViewChild('rootTrigger') rootTrigger: OuiMenuTrigger;
-  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<
-    HTMLElement
-  >;
+  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
   @ViewChild('alternateTrigger')
   alternateTrigger: OuiMenuTrigger;
   readonly rootCloseCallback = jasmine.createSpy('root menu closed callback');
@@ -260,9 +258,7 @@ class NestedMenu {
   `
 })
 class NestedMenuRepeater {
-  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<
-    HTMLElement
-  >;
+  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
   @ViewChild('levelOneTrigger')
   levelOneTrigger: OuiMenuTrigger;
 

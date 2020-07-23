@@ -170,9 +170,7 @@ class DatepickerWithFormControl {
 })
 class DatepickerWithToggle {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
-  @ViewChild(OuiDatepickerInput) input: OuiDatepickerInput<
-    Date
-  >;
+  @ViewChild(OuiDatepickerInput) input: OuiDatepickerInput<Date>;
   touchUI = true;
 }
 
