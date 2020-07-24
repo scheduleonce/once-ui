@@ -172,7 +172,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   get selected() {
     return this._selected;
   }
-  set selected(selected: OuiRadioButton | null) {
+  set selected(selected) {
     this._selected = selected;
     this.value = selected ? selected.value : null;
     this._checkSelectedRadioButton();
