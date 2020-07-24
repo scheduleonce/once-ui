@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "postinstall": "ngcc",
     "build": "ng build ui",
     "postbuild": "gulp copy",
     "test": "ng test ui",
