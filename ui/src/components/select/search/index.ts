@@ -61,7 +61,6 @@ export class OuiSelectSearchComponent
     // when the select dropdown panel is opened or closed
     this.ouiSelect.openedChange.subscribe(opened => {
       if (opened) {
-        this.previousSelectedValues=[];
         // focus the search field when opening
         this._focus();
       } else {
@@ -143,12 +142,11 @@ export class OuiSelectSearchComponent
           let restoreSelectedValues = false;
           if (this._value && this._value.length
             && this.previousSelectedValues && Array.isArray(this.previousSelectedValues)) {
-            if (!values || !Array.isArray(values)) {debugger;
+            if (!values || !Array.isArray(values)) {
               values = [];
             }
             const optionValues = this.ouiSelect.options.map(option => option.value);
             this.previousSelectedValues.forEach(previousValue => {
-              debugger;
               if (values.indexOf(previousValue) === -1 && optionValues.indexOf(previousValue) === -1) {
                 // if a value that was selected before is deselected and not found in the options, it was deselected
                 // due to the filtering, so we restore it.
@@ -163,6 +161,9 @@ export class OuiSelectSearchComponent
           }
 
           this.previousSelectedValues = values;
+          if(!this.previousSelectedValues || this.previousSelectedValues.length == 0){
+            this.ouiSelect.initialValue = "";
+          }
         }
       });
   }
