@@ -1359,7 +1359,10 @@ describe('OuiAutocomplete', () => {
         'Expected first up press to open the panel.'
       );
 
-      Object.defineProperty(event, 'keyCode', { value: UP_ARROW });
+      Object.defineProperty(event, 'keyCode', {
+        value: UP_ARROW,
+        configurable: true
+      });
       componentInstance.trigger._handleKeydown(event);
       fixture.detectChanges();
 
@@ -1370,7 +1373,10 @@ describe('OuiAutocomplete', () => {
       expect(optionEls[10].classList).toContain('oui-active');
       expect(optionEls[0].classList).not.toContain('oui-active');
 
-      Object.defineProperty(event, 'keyCode', { value: DOWN_ARROW });
+      Object.defineProperty(event, 'keyCode', {
+        value: DOWN_ARROW,
+        configurable: true
+      });
       componentInstance.trigger._handleKeydown(event);
       fixture.detectChanges();
 
@@ -1500,7 +1506,10 @@ describe('OuiAutocomplete', () => {
     }));
 
     it('should scroll to active options that are above the panel', fakeAsync(() => {
-      Object.defineProperty(event, 'keyCode', { value: DOWN_ARROW });
+      Object.defineProperty(event, 'keyCode', {
+        value: DOWN_ARROW,
+        configurable: true
+      });
       fixture.componentInstance.trigger._handleKeydown(event);
       tick();
       fixture.detectChanges();
@@ -1513,7 +1522,10 @@ describe('OuiAutocomplete', () => {
       });
 
       // These up arrows will set the 2nd option active
-      Object.defineProperty(event, 'keyCode', { value: UP_ARROW });
+      Object.defineProperty(event, 'keyCode', {
+        value: UP_ARROW,
+        configurable: true
+      });
       [5, 4, 3, 2, 1].forEach(() => {
         fixture.componentInstance.trigger._handleKeydown(event);
         tick();

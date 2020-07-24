@@ -1680,7 +1680,6 @@ describe('OuiMenu', () => {
 
         const event = createMouseEvent('mousedown');
 
-        Object.defineProperty(event, 'buttons', { get: () => 1 });
         event.preventDefault = jasmine.createSpy('preventDefault spy');
 
         dispatchMouseEvent(
