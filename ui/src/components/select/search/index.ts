@@ -151,7 +151,8 @@ export class OuiSelectSearchComponent
             const optionValues = this.ouiSelect.options.map(option => option.value);
             this.previousSelectedValues.forEach(previousValue => {
               if (values.indexOf(previousValue) === -1 && optionValues.indexOf(previousValue) === -1) {
-                // if a value that was selected before is not found in the options due to filtering
+                // if a value that was selected before is not found in the options due to filtering then it will be treated as deselected
+                // to avoid this we can push them again.
                 values.push(previousValue);
                 restoreSelectedValues = true;
               }
