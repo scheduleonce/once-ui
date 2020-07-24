@@ -76,14 +76,14 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   /** Config object to be passed into the menu's ngClass */
   _classList: { [key: string]: boolean } = {};
 
-  @ViewChild(TemplateRef, { static: false })
+  @ViewChild(TemplateRef)
   templateRef: TemplateRef<any>;
 
   /**
    * Panel content that will be rendered lazily.
    * @docs-private
    */
-  @ContentChild(OuiPanelContent, { static: false })
+  @ContentChild(OuiPanelContent)
   lazyContent: OuiPanelContent;
 
   /** Event emitted when the menu is closed. */

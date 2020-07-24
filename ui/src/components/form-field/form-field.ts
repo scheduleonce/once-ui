@@ -91,11 +91,11 @@ export class OuiFormField extends _OuiFormFieldMixinBase
   }
   _appearance: OuiFormFieldAppearance;
 
-  @ViewChild('connectionContainer', { static: false })
+  @ViewChild('connectionContainer')
   _connectionContainerRef: ElementRef;
-  @ViewChild('inputContainer', { static: false })
+  @ViewChild('inputContainer')
   _inputContainerRef: ElementRef;
-  @ContentChild(OuiFormFieldControl, { static: false })
+  @ContentChild(OuiFormFieldControl)
   _control: OuiFormFieldControl<any>;
   constructor(
     public _elementRef: ElementRef,
