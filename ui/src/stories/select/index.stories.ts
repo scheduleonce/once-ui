@@ -70,7 +70,8 @@ storiesOf('Form Field/Select', module)
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
         <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
-          <oui-option *ngFor="let food of foods" [value]="food">
+        <oui-select-search [(ngModel)]="keyword"></oui-select-search>  
+        <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
             {{food}}
           </oui-option>
         </oui-select>

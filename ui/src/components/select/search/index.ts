@@ -12,6 +12,8 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'oui-select-search',
@@ -37,6 +39,12 @@ export class OuiSelectSearchComponent
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
 
+  /** Previously selected values when using <oui-select [multiple]="true">*/
+  private previousSelectedValues: any[];
+  
+  /** Subject that emits when the component has been destroyed. */
+  private _onDestroy = new Subject<void>();
+  
   constructor(
     @Inject(OuiSelect) public ouiSelect: OuiSelect,
     @Optional() @Inject(DOCUMENT) private _document: any
@@ -53,6 +61,7 @@ export class OuiSelectSearchComponent
     // when the select dropdown panel is opened or closed
     this.ouiSelect.openedChange.subscribe(opened => {
       if (opened) {
+        this.previousSelectedValues=[];
         // focus the search field when opening
         this._focus();
       } else {
@@ -60,6 +69,7 @@ export class OuiSelectSearchComponent
         this._reset();
       }
     });
+    this.initMultipleHandling();
   }
 
   writeValue(value: any): void {
@@ -121,5 +131,39 @@ export class OuiSelectSearchComponent
     if (focus) {
       this._focus();
     }
+  }
+  private initMultipleHandling() {
+    // if <oui-select [multiple]="true">
+    // store previously selected values and restore them when they are deselected
+    // because the option is not available while we are currently filtering
+    this.ouiSelect.valueChange
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe((values) => {
+        if (this.ouiSelect.multiple) {
+          let restoreSelectedValues = false;
+          if (this._value && this._value.length
+            && this.previousSelectedValues && Array.isArray(this.previousSelectedValues)) {
+            if (!values || !Array.isArray(values)) {debugger;
+              values = [];
+            }
+            const optionValues = this.ouiSelect.options.map(option => option.value);
+            this.previousSelectedValues.forEach(previousValue => {
+              debugger;
+              if (values.indexOf(previousValue) === -1 && optionValues.indexOf(previousValue) === -1) {
+                // if a value that was selected before is deselected and not found in the options, it was deselected
+                // due to the filtering, so we restore it.
+                values.push(previousValue);
+                restoreSelectedValues = true;
+              }
+            });
+          }
+
+          if (restoreSelectedValues) {
+            this.ouiSelect._onChange(values);
+          }
+
+          this.previousSelectedValues = values;
+        }
+      });
   }
 }
