@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.1] - 2020-07-20
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-28262`](https://scheduleonce.atlassian.net/browse/ONCEHUB-28262) Fixed vulnerabilities
+- [`ONCEHUB-31449`](https://scheduleonce.atlassian.net/browse/ONCEHUB-31449) Fixed oui-select spacing issue in user app
+- [`ONCEHUB-32027`](https://scheduleonce.atlassian.net/browse/ONCEHUB-32027) Remove the ngx-perfect-scrollbar and @angular/material dependency from the oncehub-ui
+- [`ONCEHUB-30930`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30930) Update Node version to v12.18.1.
+- [`ONCEHUB-30013`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30013) Rearrange folder structure on @oncehub/ui library
+- [`ONCEHUB-21872`](https://scheduleonce.atlassian.net/browse/ONCEHUB-21872) Adding the OuiIconTestingModule to install the null icon registry.
+- [`ONCEHUB-30940`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30940) Change oncehub/ui Stackblitz links to use npm.
+- [`ONCEHUB-30930`](https://scheduleonce.atlassian.net/browse/ONCEHUB-30930) Update Node version to v12.18.0.
+- [`ONCEHUB-26348`](https://scheduleonce.atlassian.net/browse/ONCEHUB-26348) once-ui dialog focus tab order issues
+
 ## [3.0.1-beta.4] - 2020-07-09
 
 ### Added
