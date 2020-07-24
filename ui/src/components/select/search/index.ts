@@ -39,7 +39,7 @@ export class OuiSelectSearchComponent
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
 
-  /** Previously selected values when using <oui-select [multiple]="true">*/
+  /** Previously selected values when using <oui-select multiple>*/
   private previousSelectedValues: any[];
   
   /** Subject that emits when the component has been destroyed. */
@@ -132,7 +132,7 @@ export class OuiSelectSearchComponent
     }
   }
   private initMultipleHandling() {
-    // if <oui-select [multiple]="true">
+    // if <oui-select multiple>
     // store previously selected values and restore them when they are deselected
     // because the option is not available while we are currently filtering
     this.ouiSelect.valueChange
@@ -161,6 +161,7 @@ export class OuiSelectSearchComponent
           }
 
           this.previousSelectedValues = values;
+          // if all the items are deselected this will show the placeholder.
           if(!this.previousSelectedValues || this.previousSelectedValues.length == 0){
             this.ouiSelect.initialValue = "";
           }
