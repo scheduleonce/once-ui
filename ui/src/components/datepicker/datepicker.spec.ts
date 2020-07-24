@@ -23,7 +23,6 @@ import {
 } from './native-date.module';
 import { OuiFormFieldModule, OuiInputModule, OuiFormField } from '../';
 import { By } from '@angular/platform-browser';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Subject } from 'rxjs';
 import { OuiDatepicker } from './datepicker';
@@ -359,12 +358,6 @@ describe('OuiDatepicker', () => {
       providers,
       declarations: [component, ...entryComponents]
     });
-
-    TestBed.overrideModule(BrowserDynamicTestingModule, {
-      set: {
-        entryComponents: [entryComponents]
-      }
-    }).compileComponents();
 
     return TestBed.createComponent(component);
   }
