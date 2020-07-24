@@ -70,6 +70,11 @@ export class OuiSelectSearchComponent
     });
     this.initMultipleHandling();
   }
+  
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
+  }
 
   writeValue(value: any): void {
     this.onChange(value);
@@ -132,9 +137,7 @@ export class OuiSelectSearchComponent
     }
   }
   private initMultipleHandling() {
-    // if <oui-select multiple>
-    // store previously selected values and restore them when they are deselected
-    // because the option is not available while we are currently filtering
+    // In oui-search, if we filter something then the options which has disappeared, will be treated as deselected. To avoid this problem we can store the previously selected value and restore them if those values are not available in visible option.
     this.ouiSelect.valueChange
       .pipe(takeUntil(this._onDestroy))
       .subscribe((values) => {
@@ -148,8 +151,7 @@ export class OuiSelectSearchComponent
             const optionValues = this.ouiSelect.options.map(option => option.value);
             this.previousSelectedValues.forEach(previousValue => {
               if (values.indexOf(previousValue) === -1 && optionValues.indexOf(previousValue) === -1) {
-                // if a value that was selected before is deselected and not found in the options, it was deselected
-                // due to the filtering, so we restore it.
+                // if a value that was selected before is not found in the options due to filtering
                 values.push(previousValue);
                 restoreSelectedValues = true;
               }
