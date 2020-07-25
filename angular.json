@@ -30,6 +30,7 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
+              "tsConfig": "ui/tsconfig.lib.prod.json",
               "vendorChunk": false,
               "buildOptimizer": true
             }

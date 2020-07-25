@@ -106,15 +106,13 @@
 2. Generate separate component for dialog. For example we generate `some-dialog` component as separate component that consists
    all required html and business logic code. We can open this component dynamically from our main component.
 
-3. Add this component in your module in declarations and entrycomponents.
-   For any component loaded into a dialog, you must include your component class in the list of entryComponents in your NgModule definition so that the Angular compiler knows to create the ComponentFactory for it.
+3. Add this component in your module in declarations.
 
 ```typescript
 @NgModule({
   declarations: [AppComponent, SomeDialogComponent],
   imports: [BrowserModule, OuiButtonModule, OuiDialogModule],
-  providers: [],
-  entryComponents: [SomeDialogComponent]
+  providers: []
 })
 export class AppModule {}
 ```

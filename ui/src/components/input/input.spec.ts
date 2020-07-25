@@ -122,7 +122,7 @@ class OuiInputWithNgIf {
   `
 })
 class OuiInputWithAppearance {
-  @ViewChild(OuiFormField, { static: false }) formField: OuiFormField;
+  @ViewChild(OuiFormField) formField: OuiFormField;
   appearance: OuiFormFieldAppearance;
 }
 
@@ -199,11 +199,10 @@ describe('OuiInput without forms', () => {
   }));
 
   it('validates the type', async(() => {
-    const fixture = createComponent(OuiInputInvalidTypeTestController);
-
-    expect(() =>
-      fixture.detectChanges()
-    ).toThrow(/* new OuiInputUnsupportedTypeError('file') */);
+    expect(() => {
+      const fixture = createComponent(OuiInputInvalidTypeTestController);
+      fixture.detectChanges();
+    }).toThrow(/* new OuiInputUnsupportedTypeError('file') */);
   }));
 
   it('supports placeholder attribute', async(() => {

@@ -61,7 +61,7 @@ export class OuiDialogStorybook {
   @Output()
   readonly close: EventEmitter<string> = new EventEmitter<string>();
   @Input() disabled = false;
-  @ViewChild('dialogTemplate', { static: false })
+  @ViewChild('dialogTemplate')
   dialogTemplate;
   constructor(private dialog: OuiDialog) {}
   openDialog(e) {
