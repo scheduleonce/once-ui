@@ -7,7 +7,8 @@ import {
   ViewChild,
   Optional,
   AfterViewChecked,
-  forwardRef
+  forwardRef,
+  OnDestroy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
@@ -28,7 +29,13 @@ import { Subject } from 'rxjs';
   ]
 })
 export class OuiSelectSearchComponent
-  implements OnInit, AfterViewChecked, ControlValueAccessor {
+  implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy {
+  /** Previously selected values when using <oui-select multiple>*/
+  private previousSelectedValues: any[];
+
+  /** Subject that emits when the component has been destroyed. */
+  private _onDestroy = new Subject<void>();
+
   /** Label of the search placeholder */
   @Input() placeholderLabel = '';
 
@@ -38,12 +45,6 @@ export class OuiSelectSearchComponent
   private _value: string;
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
-
-  /** Previously selected values when using <oui-select multiple>*/
-  private previousSelectedValues: any[];
-
-  /** Subject that emits when the component has been destroyed. */
-  private _onDestroy = new Subject<void>();
 
   constructor(
     @Inject(OuiSelect) public ouiSelect: OuiSelect,
@@ -176,7 +177,7 @@ export class OuiSelectSearchComponent
           // if all the items are deselected this will show the placeholder.
           if (
             !this.previousSelectedValues ||
-            this.previousSelectedValues.length == 0
+            this.previousSelectedValues.length === 0
           ) {
             this.ouiSelect.initialValue = '';
           }
