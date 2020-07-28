@@ -7,11 +7,14 @@ import {
   ViewChild,
   Optional,
   AfterViewChecked,
-  forwardRef
+  forwardRef,
+  OnDestroy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'oui-select-search',
@@ -26,7 +29,13 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   ]
 })
 export class OuiSelectSearchComponent
-  implements OnInit, AfterViewChecked, ControlValueAccessor {
+  implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy {
+  /** Previously selected values when using <oui-select multiple>*/
+  private previousSelectedValues: any[];
+
+  /** Subject that emits when the component has been destroyed. */
+  private _onDestroy = new Subject<void>();
+
   /** Label of the search placeholder */
   @Input() placeholderLabel = '';
 
@@ -60,6 +69,12 @@ export class OuiSelectSearchComponent
         this._reset();
       }
     });
+    this.initMultipleHandling();
+  }
+
+  ngOnDestroy() {
+    this._onDestroy.next();
+    this._onDestroy.complete();
   }
 
   writeValue(value: any): void {
@@ -121,5 +136,52 @@ export class OuiSelectSearchComponent
     if (focus) {
       this._focus();
     }
+  }
+  private initMultipleHandling() {
+    // In oui-search, if we filter something then the options which has disappeared, will be treated as deselected. To avoid this problem we can store the previously selected value and restore them if those values are not available in visible option.
+    this.ouiSelect.valueChange
+      .pipe(takeUntil(this._onDestroy))
+      .subscribe(values => {
+        if (this.ouiSelect.multiple) {
+          let restoreSelectedValues = false;
+          if (
+            this._value &&
+            this._value.length &&
+            this.previousSelectedValues &&
+            Array.isArray(this.previousSelectedValues)
+          ) {
+            if (!values || !Array.isArray(values)) {
+              values = [];
+            }
+            const optionValues = this.ouiSelect.options.map(
+              option => option.value
+            );
+            this.previousSelectedValues.forEach(previousValue => {
+              if (
+                values.indexOf(previousValue) === -1 &&
+                optionValues.indexOf(previousValue) === -1
+              ) {
+                // if a value that was selected before is not found in the options due to filtering then it will be treated as deselected
+                // to avoid this we can push them again.
+                values.push(previousValue);
+                restoreSelectedValues = true;
+              }
+            });
+          }
+
+          if (restoreSelectedValues) {
+            this.ouiSelect._onChange(values);
+          }
+
+          this.previousSelectedValues = values;
+          // if all the items are deselected this will show the placeholder.
+          if (
+            !this.previousSelectedValues ||
+            this.previousSelectedValues.length === 0
+          ) {
+            this.ouiSelect.initialValue = '';
+          }
+        }
+      });
   }
 }
