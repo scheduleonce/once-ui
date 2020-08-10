@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.0-beta.3] - 2020-08-10
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-33309`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33309) CVE-2020-8116 vulnerability found in package dot-prop in project once-ui
+- [`ONCEHUB-33360`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33360) CVE-2020-13822 vulnerability found in package elliptic in project once-ui
+
 ## [4.0.0-beta.2] - 2020-08-04
 
 ### Added
