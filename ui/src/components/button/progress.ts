@@ -1,5 +1,5 @@
 import { Constructor } from '../core/common-behaviors/constructor';
-import { ElementRef } from '@angular/core';
+import { ElementRef, ChangeDetectorRef } from '@angular/core';
 
 /** @docs-private */
 export interface CanProgress {
@@ -24,6 +24,7 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
 ): CanProgressCtor & T {
   return class extends base {
     private _progress: string[] | string;
+    private _cdr: ChangeDetectorRef;
     private _stage: 'default' | 'progress' | 'done' = 'default';
     get progress(): string[] | string {
       return this._progress;
@@ -34,11 +35,15 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
       } else {
         this._progress = value;
       }
-      this._changeStage();
+      setTimeout(() => {
+        this._changeStage();
+        this._cdr.detectChanges();
+      }, 0);
     }
 
     constructor(...args: any[]) {
       super(...args);
+      this._cdr = args[1];
       this._progress = null;
     }
 

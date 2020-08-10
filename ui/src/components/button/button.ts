@@ -38,7 +38,7 @@ const DEFAULT_COLOR = 'primary';
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
 export class OuiButtonBase {
-  constructor(public _elementRef: ElementRef) {}
+  constructor(public _elementRef: ElementRef, public _cdr: ChangeDetectorRef) {}
 }
 
 export const OuiButtonMixinBase: CanDisableCtor &
@@ -73,10 +73,10 @@ export class OuiButton extends OuiButtonMixinBase
   constructor(
     protected elementRef: ElementRef,
     private _focusMonitor: FocusMonitor,
-    private _cdr: ChangeDetectorRef,
+    public _cdr: ChangeDetectorRef,
     private _ngZone: NgZone
   ) {
-    super(elementRef);
+    super(elementRef, _cdr);
     this.addClass();
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
