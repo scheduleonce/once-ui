@@ -74,9 +74,9 @@ import {
   `
 })
 class SimpleMenu {
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
-  @ViewChild('triggerEl', { static: false }) triggerEl: ElementRef<HTMLElement>;
-  @ViewChild(OuiMenu, { static: false }) menu: OuiMenu;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
+  @ViewChild('triggerEl') triggerEl: ElementRef<HTMLElement>;
+  @ViewChild(OuiMenu) menu: OuiMenu;
   @ViewChildren(OuiMenuItem) items: QueryList<OuiMenuItem>;
   extraItems: string[] = [];
   closeCallback = jasmine.createSpy('menu closed callback');
@@ -92,8 +92,8 @@ class SimpleMenu {
   `
 })
 class PositionedMenu {
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
-  @ViewChild('triggerEl', { static: false }) triggerEl: ElementRef<HTMLElement>;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
+  @ViewChild('triggerEl') triggerEl: ElementRef<HTMLElement>;
   xPosition: MenuPositionX = 'before';
   yPosition: MenuPositionY = 'above';
 }
@@ -112,8 +112,8 @@ interface TestableMenu {
 })
 class OverlapMenu implements TestableMenu {
   @Input() overlapTrigger: boolean;
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
-  @ViewChild('triggerEl', { static: false }) triggerEl: ElementRef<HTMLElement>;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
+  @ViewChild('triggerEl') triggerEl: ElementRef<HTMLElement>;
 }
 
 @Component({
@@ -133,7 +133,7 @@ class CustomMenuPanel implements OuiMenuPanel {
   overlapTrigger = true;
   parentMenu: OuiMenuPanel;
 
-  @ViewChild(TemplateRef, { static: false }) templateRef: TemplateRef<any>;
+  @ViewChild(TemplateRef) templateRef: TemplateRef<any>;
   @Output() close = new EventEmitter<void | 'click' | 'keydown' | 'tab'>();
   focusFirstItem = () => {};
   resetActiveItem = () => {};
@@ -149,7 +149,7 @@ class CustomMenuPanel implements OuiMenuPanel {
   `
 })
 class CustomMenu {
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
 }
 
 @Component({
@@ -212,31 +212,29 @@ class CustomMenu {
   `
 })
 class NestedMenu {
-  @ViewChild('root', { static: false }) rootMenu: OuiMenu;
-  @ViewChild('rootTrigger', { static: false }) rootTrigger: OuiMenuTrigger;
-  @ViewChild('rootTriggerEl', { static: false }) rootTriggerEl: ElementRef<
-    HTMLElement
-  >;
-  @ViewChild('alternateTrigger', { static: false })
+  @ViewChild('root') rootMenu: OuiMenu;
+  @ViewChild('rootTrigger') rootTrigger: OuiMenuTrigger;
+  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
+  @ViewChild('alternateTrigger')
   alternateTrigger: OuiMenuTrigger;
   readonly rootCloseCallback = jasmine.createSpy('root menu closed callback');
 
-  @ViewChild('levelOne', { static: false }) levelOneMenu: OuiMenu;
-  @ViewChild('levelOneTrigger', { static: false })
+  @ViewChild('levelOne') levelOneMenu: OuiMenu;
+  @ViewChild('levelOneTrigger')
   levelOneTrigger: OuiMenuTrigger;
   readonly levelOneCloseCallback = jasmine.createSpy(
     'level one menu closed callback'
   );
 
-  @ViewChild('levelTwo', { static: false }) levelTwoMenu: OuiMenu;
-  @ViewChild('levelTwoTrigger', { static: false })
+  @ViewChild('levelTwo') levelTwoMenu: OuiMenu;
+  @ViewChild('levelTwoTrigger')
   levelTwoTrigger: OuiMenuTrigger;
   readonly levelTwoCloseCallback = jasmine.createSpy(
     'level one menu closed callback'
   );
 
-  @ViewChild('lazy', { static: false }) lazyMenu: OuiMenu;
-  @ViewChild('lazyTrigger', { static: false }) lazyTrigger: OuiMenuTrigger;
+  @ViewChild('lazy') lazyMenu: OuiMenu;
+  @ViewChild('lazyTrigger') lazyTrigger: OuiMenuTrigger;
   showLazy = false;
 }
 
@@ -260,10 +258,8 @@ class NestedMenu {
   `
 })
 class NestedMenuRepeater {
-  @ViewChild('rootTriggerEl', { static: false }) rootTriggerEl: ElementRef<
-    HTMLElement
-  >;
-  @ViewChild('levelOneTrigger', { static: false })
+  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
+  @ViewChild('levelOneTrigger')
   levelOneTrigger: OuiMenuTrigger;
 
   items = ['one', 'two', 'three'];
@@ -289,7 +285,7 @@ class NestedMenuRepeater {
   `
 })
 class SubmenuDeclaredInsideParentMenu {
-  @ViewChild('rootTriggerEl', { static: false }) rootTriggerEl: ElementRef;
+  @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef;
 }
 
 @Component({
@@ -311,8 +307,8 @@ class FakeIcon {}
   `
 })
 class SimpleLazyMenu {
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
-  @ViewChild('triggerEl', { static: false }) triggerEl: ElementRef<HTMLElement>;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
+  @ViewChild('triggerEl') triggerEl: ElementRef<HTMLElement>;
   @ViewChildren(OuiMenuItem) items: QueryList<OuiMenuItem>;
 }
 
@@ -342,8 +338,8 @@ class SimpleLazyMenu {
   `
 })
 class LazyMenuWithContext {
-  @ViewChild('triggerOne', { static: false }) triggerOne: OuiMenuTrigger;
-  @ViewChild('triggerTwo', { static: false }) triggerTwo: OuiMenuTrigger;
+  @ViewChild('triggerOne') triggerOne: OuiMenuTrigger;
+  @ViewChild('triggerTwo') triggerTwo: OuiMenuTrigger;
 }
 
 @Component({
@@ -355,9 +351,9 @@ class LazyMenuWithContext {
   `
 })
 class DynamicPanelMenu {
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
-  @ViewChild('one', { static: false }) firstMenu: OuiMenu;
-  @ViewChild('two', { static: false }) secondMenu: OuiMenu;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
+  @ViewChild('one') firstMenu: OuiMenu;
+  @ViewChild('two') secondMenu: OuiMenu;
 }
 
 @Component({
@@ -375,7 +371,7 @@ class DynamicPanelMenu {
   `
 })
 class MenuWithCheckboxItems {
-  @ViewChild(OuiMenuTrigger, { static: false }) trigger: OuiMenuTrigger;
+  @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
 }
 
 describe('OuiMenu', () => {
@@ -1684,7 +1680,6 @@ describe('OuiMenu', () => {
 
         const event = createMouseEvent('mousedown');
 
-        Object.defineProperty(event, 'buttons', { get: () => 1 });
         event.preventDefault = jasmine.createSpy('preventDefault spy');
 
         dispatchMouseEvent(

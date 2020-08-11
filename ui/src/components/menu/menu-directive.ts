@@ -144,7 +144,7 @@ export class OuiMenu
   }
 
   /** @docs-private */
-  @ViewChild(TemplateRef, { static: false })
+  @ViewChild(TemplateRef)
   templateRef: TemplateRef<any>;
 
   /**
@@ -159,7 +159,7 @@ export class OuiMenu
    * Menu content that will be rendered lazily.
    * @docs-private
    */
-  @ContentChild(OuiMenuContent, { static: false })
+  @ContentChild(OuiMenuContent)
   lazyContent: OuiMenuContent;
 
   /** Whether the menu should overlap its trigger. */

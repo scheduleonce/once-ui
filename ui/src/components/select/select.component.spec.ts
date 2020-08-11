@@ -125,7 +125,7 @@ class NgModelSelect {
   ];
   isDisabled: boolean;
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -194,7 +194,7 @@ class SelectInitWithoutOptions {
   foods: any[];
   control = new FormControl('pizza-1');
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 
   addOptions() {
@@ -280,7 +280,7 @@ class MultiSelect {
   ];
   control = new FormControl();
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
   sortComparator: (a: OuiOption, b: OuiOption, options: OuiOption[]) => number;
 }
@@ -354,7 +354,7 @@ class ResetValuesSelect {
   ];
   control = new FormControl();
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
 }
 
 @Component({
@@ -416,7 +416,7 @@ class SelectWithGroups {
     }
   ];
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
@@ -474,9 +474,9 @@ class InvalidSelectInForm {
   `
 })
 class SelectInsideFormGroup {
-  @ViewChild(FormGroupDirective, { static: false })
+  @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   formControl = new FormControl('', Validators.required);
   formGroup = new FormGroup({
     food: this.formControl
@@ -502,7 +502,7 @@ class BasicSelectWithoutForms {
     { value: 'sandwich-2', viewValue: 'Sandwich' }
   ];
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
 }
 
 @Component({
@@ -523,7 +523,7 @@ class BasicSelectWithoutFormsPreselected {
     { value: 'pizza-1', viewValue: 'Pizza' }
   ];
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
 }
 
 @Component({
@@ -545,7 +545,7 @@ class BasicSelectWithoutFormsMultiple {
     { value: 'sandwich-2', viewValue: 'Sandwich' }
   ];
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
 }
 
 @Component({
@@ -608,7 +608,7 @@ class NgModelCompareWithSelect {
   };
   comparator: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 
   useCompareByValue() {
@@ -650,7 +650,7 @@ class NgModelCompareWithSelect {
   `
 })
 class CustomErrorBehaviorSelect {
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   control = new FormControl();
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
@@ -679,7 +679,7 @@ class SingleSelectWithPreselectedArrayValues {
 
   selectedFoods = this.foods[1].value;
 
-  @ViewChild(OuiSelect, { static: false }) select: OuiSelect;
+  @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
 }
 
