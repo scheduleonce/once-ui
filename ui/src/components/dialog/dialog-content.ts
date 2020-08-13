@@ -215,7 +215,8 @@ export class OuiDialogHeaderSeparator {
     '[class.cross-disabled]': 'dialogResult===false',
     '(click)': 'closeDialog()',
     '[attr.aria-label]': 'ariaLabel',
-    '(keydown)': 'handleKeydown($event)'
+    '(keyup.space)': 'handleKeydown()',
+    '(keydown.enter)': 'handleKeydown()'
   }
 })
 export class OuiDialogClose implements OnInit, OnChanges {
@@ -237,13 +238,12 @@ export class OuiDialogClose implements OnInit, OnChanges {
   ) {}
 
   /** Ensures the option is selected when activated from the keyboard. */
-  handleKeydown(event: KeyboardEvent): void {
+  handleKeydown(): void {
     // tslint:disable-next-line:deprecation
-    if (event.keyCode === SPACE || event.keyCode === ENTER) {
       this.closeDialog();
-      event.preventDefault();
-    }
+      event.preventDefault(); 
   }
+  
 
   closeDialog() {
     if (this.dialogResult !== false) {
