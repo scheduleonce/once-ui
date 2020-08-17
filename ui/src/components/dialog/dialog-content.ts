@@ -239,7 +239,6 @@ export class OuiDialogClose implements OnInit, OnChanges {
 
   /** Ensures the option is selected when activated from the keyboard. */
   handleKeydown(event: KeyboardEvent): void {
-    // tslint:disable-next-line:deprecation
       this.closeDialog();
       event.preventDefault(); 
   }
