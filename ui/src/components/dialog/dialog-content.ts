@@ -238,10 +238,9 @@ export class OuiDialogClose implements OnInit, OnChanges {
 
   /** Ensures the option is selected when activated from the keyboard. */
   handleKeydown(event: KeyboardEvent): void {
-      this.closeDialog();
-      event.preventDefault(); 
+    this.closeDialog();
+    event.preventDefault();
   }
-  
 
   closeDialog() {
     if (this.dialogResult !== false) {
