@@ -17,7 +17,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ICONS } from '../core/shared/icons';
 import { Subscription } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { SPACE, ENTER } from '@angular/cdk/keycodes';
 
 /** Counter used to generate unique IDs for dialog elements. */
 let dialogElementUid = 0;
