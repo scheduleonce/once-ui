@@ -3,7 +3,7 @@ import {
   ESCAPE,
   LEFT_ARROW,
   DOWN_ARROW,
-  UP_ARROW,
+  UP_ARROW
 } from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
@@ -23,14 +23,14 @@ import {
   QueryList,
   ViewChild,
   ViewEncapsulation,
-  OnInit,
+  OnInit
 } from '@angular/core';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, switchMap, take } from 'rxjs/operators';
 import { OuiMenuContent } from './menu-content';
 import {
   throwOuiMenuInvalidPositionX,
-  throwOuiMenuInvalidPositionY,
+  throwOuiMenuInvalidPositionY
 } from './menu-errors';
 import { OuiMenuItem } from './menu-item';
 import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
@@ -60,7 +60,7 @@ export const OUI_MENU_DEFAULT_OPTIONS = new InjectionToken<
   OuiMenuDefaultOptions
 >('oui-menu-default-options', {
   providedIn: 'root',
-  factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY,
+  factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY
 });
 
 /** @docs-private */
@@ -69,7 +69,7 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
     overlapTrigger: false,
     xPosition: 'after',
     yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop',
+    backdropClass: 'cdk-overlay-transparent-backdrop'
   };
 }
 
@@ -80,7 +80,7 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenu',
-  providers: [{ provide: OUI_MENU_PANEL, useExisting: OuiMenu }],
+  providers: [{ provide: OUI_MENU_PANEL, useExisting: OuiMenu }]
 })
 export class OuiMenu
   implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy {

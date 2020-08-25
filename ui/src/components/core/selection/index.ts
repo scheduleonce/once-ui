@@ -3,7 +3,7 @@ import { OuiPseudoCheckbox } from './pseudo-checkbox/pseudo-checkbox';
 
 @NgModule({
   exports: [OuiPseudoCheckbox],
-  declarations: [OuiPseudoCheckbox],
+  declarations: [OuiPseudoCheckbox]
 })
 export class OuiPseudoCheckboxModule {}
 

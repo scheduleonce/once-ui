@@ -3,7 +3,7 @@ import {
   OuiIconModule,
   OuiMenuModule,
   OuiIconRegistry,
-  OuiButtonModule,
+  OuiButtonModule
 } from '../../components';
 import { select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -44,7 +44,7 @@ import markdownText from '../../components/menu/README.md';
         <span>Configuration</span>
       </button>
     </oui-menu>
-  `,
+  `
 })
 export class OuiMenuStorybook {
   @Input() xPosition = 'before';
@@ -112,7 +112,7 @@ export class OuiMenuStorybook {
       <button oui-menu-item>Restart</button>
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
-  `,
+  `
 })
 export class OuiNestedMenuStorybook {
   @Input() xPosition = 'before';
@@ -155,7 +155,7 @@ storiesOf('Menu', module)
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
         schemas: [],
-        declarations: [OuiMenuStorybook],
+        declarations: [OuiMenuStorybook]
       },
       template: `<oui-menu-storybook
           [xPosition]="xPosition"
@@ -172,8 +172,8 @@ storiesOf('Menu', module)
         vertical: boolean('vertical', false),
         menuOpened: action('menuOpened'),
         hasBackdrop: boolean('hasBackdrop', true),
-        menuClosed: action('menuClosed'),
-      },
+        menuClosed: action('menuClosed')
+      }
     }),
     { notes: { markdown: markdownText } }
   )
@@ -183,7 +183,7 @@ storiesOf('Menu', module)
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
         schemas: [],
-        declarations: [OuiNestedMenuStorybook],
+        declarations: [OuiNestedMenuStorybook]
       },
       template: `<oui-nested-menu-storybook
   [xPosition]="xPosition"
@@ -199,8 +199,8 @@ storiesOf('Menu', module)
         vertical: boolean('vertical', false),
         hasBackdrop: boolean('hasBackdrop', true),
         menuOpened: action('menuOpened'),
-        menuClosed: action('menuClosed'),
-      },
+        menuClosed: action('menuClosed')
+      }
     }),
     { notes: { markdown: markdownText } }
   );

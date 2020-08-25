@@ -30,5 +30,5 @@ export const OUI_SORT_HEADER_INTL_PROVIDER = {
   // If there is already an OuiSortHeaderIntl available, use that. Otherwise, provide a new one.
   provide: OuiSortHeaderIntl,
   deps: [[new Optional(), new SkipSelf(), OuiSortHeaderIntl]],
-  useFactory: OUI_SORT_HEADER_INTL_PROVIDER_FACTORY,
+  useFactory: OUI_SORT_HEADER_INTL_PROVIDER_FACTORY
 };

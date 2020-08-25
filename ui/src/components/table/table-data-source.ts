@@ -6,7 +6,7 @@ import {
   merge,
   Observable,
   of as observableOf,
-  Subscription,
+  Subscription
 } from 'rxjs';
 import { OuiPaginator, PageEvent } from '../paginator/public-api';
 import { OuiSort, Sort } from '../sort/public-api';

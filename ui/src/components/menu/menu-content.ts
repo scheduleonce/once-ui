@@ -6,7 +6,7 @@ import {
   Injector,
   ViewContainerRef,
   Inject,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
  * Menu content that will be rendered lazily once the menu is opened.
  */
 @Directive({
-  selector: 'ng-template[ouiMenuContent]',
+  selector: 'ng-template[ouiMenuContent]'
 })
 export class OuiMenuContent implements OnDestroy {
   private _portal: TemplatePortal<any>;

@@ -8,7 +8,7 @@ import {
   Optional,
   AfterViewChecked,
   forwardRef,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
@@ -24,9 +24,9 @@ import { Subject } from 'rxjs';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => OuiSelectSearchComponent),
-      multi: true,
-    },
-  ],
+      multi: true
+    }
+  ]
 })
 export class OuiSelectSearchComponent
   implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy {

@@ -8,7 +8,7 @@ import {
   PAGE_UP,
   RIGHT_ARROW,
   UP_ARROW,
-  SPACE,
+  SPACE
 } from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
@@ -21,13 +21,13 @@ import {
   Optional,
   Output,
   ViewEncapsulation,
-  ViewChild,
+  ViewChild
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import {
   OuiCalendarBody,
   OuiCalendarCell,
-  OuiCalendarCellCssClasses,
+  OuiCalendarCellCssClasses
 } from './calendar-body';
 import { createMissingDateImplError } from './datepicker-errors';
 import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
@@ -43,7 +43,7 @@ const DAYS_PER_WEEK = 7;
   templateUrl: 'month-view.html',
   exportAs: 'ouiMonthView',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiMonthView<D> implements AfterContentInit {
   /**

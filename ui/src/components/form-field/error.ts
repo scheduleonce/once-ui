@@ -14,8 +14,8 @@ let nextUniqueId = 0;
   host: {
     class: 'oui-error',
     role: 'alert',
-    '[attr.id]': 'id',
-  },
+    '[attr.id]': 'id'
+  }
 })
 export class OuiError {
   @Input() id = `oui-error-${nextUniqueId++}`;

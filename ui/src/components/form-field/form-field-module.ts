@@ -7,6 +7,6 @@ import { OuiError } from './error';
 @NgModule({
   declarations: [OuiFormField, OuiError],
   imports: [CommonModule, ObserversModule],
-  exports: [OuiFormField, OuiError],
+  exports: [OuiFormField, OuiError]
 })
 export class OuiFormFieldModule {}

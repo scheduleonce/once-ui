@@ -6,7 +6,7 @@ import {
   fakeAsync,
   flushMicrotasks,
   TestBed,
-  tick,
+  tick
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -51,7 +51,7 @@ class FakeDataSource extends DataSource<TestData> {
     copiedData.push({
       a: `a_${nextIndex}`,
       b: `b_${nextIndex}`,
-      c: `c_${nextIndex}`,
+      c: `c_${nextIndex}`
     });
 
     this.data = copiedData;
@@ -90,7 +90,7 @@ class FakeDataSource extends DataSource<TestData> {
       ></oui-row>
       <oui-footer-row *ouiFooterRowDef="columnsToRender"></oui-footer-row>
     </oui-table>
-  `,
+  `
 })
 class OuiTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -120,7 +120,7 @@ class OuiTableApp {
       <tr oui-header-row *ouiHeaderRowDef="columnsToRender"></tr>
       <tr oui-row *ouiRowDef="let row; columns: columnsToRender"></tr>
     </table>
-  `,
+  `
 })
 class NativeHtmlTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -151,7 +151,7 @@ class NativeHtmlTableApp {
       ></oui-row>
       <oui-footer-row *ouiFooterRowDef="['column_a']"></oui-footer-row>
     </oui-table>
-  `,
+  `
 })
 class OuiTableWithWhenRowApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -189,7 +189,7 @@ class OuiTableWithWhenRowApp {
     </oui-table>
 
     <oui-paginator [pageSize]="5"></oui-paginator>
-  `,
+  `
 })
 class ArrayDataSourceOuiTableApp implements AfterViewInit {
   underlyingDataSource = new FakeDataSource();
@@ -243,7 +243,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
       <oui-header-row *ouiHeaderRowDef="columnsToRender"></oui-header-row>
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
-  `,
+  `
 })
 class OuiTableWithSortApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
@@ -294,7 +294,7 @@ class OuiTableWithSortApp implements OnInit {
     </oui-table>
 
     <oui-paginator [pageSize]="5"></oui-paginator>
-  `,
+  `
 })
 class OuiTableWithPaginatorApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
@@ -335,7 +335,7 @@ class OuiTableWithPaginatorApp implements OnInit {
         <oui-row></oui-row>
       </ng-container>
     </oui-table>
-  `,
+  `
 })
 class TableWithNgContainerRow {
   dataSource: FakeDataSource | null = new FakeDataSource();
@@ -458,7 +458,7 @@ describe('OuiTable', () => {
         OuiTableModule,
         OuiPaginatorModule,
         OuiSortModule,
-        NoopAnimationsModule,
+        NoopAnimationsModule
       ],
       declarations: [
         OuiTableApp,
@@ -467,8 +467,8 @@ describe('OuiTable', () => {
         NativeHtmlTableApp,
         OuiTableWithSortApp,
         OuiTableWithPaginatorApp,
-        TableWithNgContainerRow,
-      ],
+        TableWithNgContainerRow
+      ]
     }).compileComponents();
   }));
 
@@ -485,7 +485,7 @@ describe('OuiTable', () => {
         [data[1].a, data[1].b, data[1].c],
         [data[2].a, data[2].b, data[2].c],
         ['fourth_row'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
 
@@ -500,7 +500,7 @@ describe('OuiTable', () => {
         ['a_2'],
         ['a_3'],
         ['fourth_row'],
-        ['Footer A'],
+        ['Footer A']
       ]);
     });
 
@@ -517,7 +517,7 @@ describe('OuiTable', () => {
         ['a_3'],
         ['a_4'], // With multiple rows, this row shows up along with the special 'when' fourth_row
         ['fourth_row'],
-        ['Footer A'],
+        ['Footer A']
       ]);
     });
   });
@@ -533,7 +533,7 @@ describe('OuiTable', () => {
       [data[0].a, data[0].b, data[0].c],
       [data[1].a, data[1].b, data[1].c],
       [data[2].a, data[2].b, data[2].c],
-      [data[3].a, data[3].b, data[3].c],
+      [data[3].a, data[3].b, data[3].c]
     ]);
   });
 
@@ -547,7 +547,7 @@ describe('OuiTable', () => {
       ['Column A', 'Column B', 'Column C'],
       [data[0].a, data[0].b, data[0].c],
       [data[1].a, data[1].b, data[1].c],
-      [data[2].a, data[2].b, data[2].c],
+      [data[2].a, data[2].b, data[2].c]
     ]);
   });
 
@@ -561,7 +561,7 @@ describe('OuiTable', () => {
       ['Column A', 'Column B', 'Column C'],
       [data[0].a, data[0].b, data[0].c],
       [data[1].a, data[1].b, data[1].c],
-      [data[2].a, data[2].b, data[2].c],
+      [data[2].a, data[2].b, data[2].c]
     ]);
   });
 
@@ -596,7 +596,7 @@ describe('OuiTable', () => {
         ['a_1', 'b_1', 'c_1'],
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
 
@@ -610,7 +610,7 @@ describe('OuiTable', () => {
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
         ['a_4', 'b_4', 'c_4'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Remove data
@@ -623,7 +623,7 @@ describe('OuiTable', () => {
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
         ['a_4', 'b_4', 'c_4'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
 
@@ -636,7 +636,7 @@ describe('OuiTable', () => {
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['a_1', 'b_1', 'c_1'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       flushMicrotasks(); // Resolve promise that updates paginator's length
@@ -650,7 +650,7 @@ describe('OuiTable', () => {
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['a_2', 'b_2', 'c_2'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Change filter to empty string, should match all rows
@@ -665,7 +665,7 @@ describe('OuiTable', () => {
         ['a_1', 'b_1', 'c_1'],
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Change filter function and filter, should match to rows with zebra.
@@ -692,7 +692,7 @@ describe('OuiTable', () => {
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
         ['a_2', 'b_2', 'c_2'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     }));
 
@@ -704,7 +704,7 @@ describe('OuiTable', () => {
       expect(dataSource.filteredData.length).toBe(0);
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     }));
 
@@ -717,7 +717,7 @@ describe('OuiTable', () => {
         ['a_1', 'b_1', 'c_1'],
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Activate column A sort again (reverse direction)
@@ -728,7 +728,7 @@ describe('OuiTable', () => {
         ['a_3', 'b_3', 'c_3'],
         ['a_2', 'b_2', 'c_2'],
         ['a_1', 'b_1', 'c_1'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Change sort function to customize how it sorts - first column 1, then 3, then 2
@@ -751,7 +751,7 @@ describe('OuiTable', () => {
         ['a_1', 'b_1', 'c_1'],
         ['a_3', 'b_3', 'c_3'],
         ['a_2', 'b_2', 'c_2'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
 
@@ -767,7 +767,7 @@ describe('OuiTable', () => {
         ['', 'b_1', 'c_1'],
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Expect that empty string row comes before the other values
@@ -778,7 +778,7 @@ describe('OuiTable', () => {
         ['a_3', 'b_3', 'c_3'],
         ['a_2', 'b_2', 'c_2'],
         ['', 'b_1', 'c_1'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
 
@@ -794,7 +794,7 @@ describe('OuiTable', () => {
         ['', 'b_1', 'c_1'],
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Expect that undefined row comes after the other values
@@ -805,7 +805,7 @@ describe('OuiTable', () => {
         ['a_3', 'b_3', 'c_3'],
         ['a_2', 'b_2', 'c_2'],
         ['', 'b_1', 'c_1'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
 
@@ -824,7 +824,7 @@ describe('OuiTable', () => {
         ['-1', 'b_3', 'c_3'],
         ['0', 'b_2', 'c_2'],
         ['1', 'b_1', 'c_1'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Expect that zero comes after the negative numbers and before
@@ -836,7 +836,7 @@ describe('OuiTable', () => {
         ['1', 'b_1', 'c_1'],
         ['0', 'b_2', 'c_2'],
         ['-1', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     }));
 
@@ -854,7 +854,7 @@ describe('OuiTable', () => {
         ['a_3', 'b_3', 'c_3'],
         ['a_4', 'b_4', 'c_4'],
         ['a_5', 'b_5', 'c_5'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       // Navigate to the next page
@@ -867,7 +867,7 @@ describe('OuiTable', () => {
         ['a_8', 'b_8', 'c_8'],
         ['a_9', 'b_9', 'c_9'],
         ['a_10', 'b_10', 'c_10'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     }));
 
@@ -887,7 +887,7 @@ describe('OuiTable', () => {
         [large, 'b_3', 'c_3'],
         [larger, 'b_2', 'c_2'],
         [largest, 'b_1', 'c_1'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
 
       component.sort.sort(component.sortHeader);
@@ -897,7 +897,7 @@ describe('OuiTable', () => {
         [largest, 'b_1', 'c_1'],
         [larger, 'b_2', 'c_2'],
         [large, 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
+        ['Footer A', 'Footer B', 'Footer C']
       ]);
     });
   });

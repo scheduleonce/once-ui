@@ -4,13 +4,13 @@ import { Inject, Injectable, Optional, SecurityContext } from '@angular/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
-  SafeHtml,
+  SafeHtml
 } from '@angular/platform-browser';
 import {
   forkJoin,
   Observable,
   of as observableOf,
-  throwError as observableThrow,
+  throwError as observableThrow
 } from 'rxjs';
 import { catchError, finalize, map, share, tap } from 'rxjs/operators';
 

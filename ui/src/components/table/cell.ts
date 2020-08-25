@@ -6,7 +6,7 @@ import {
   CdkFooterCell,
   CdkFooterCellDef,
   CdkHeaderCell,
-  CdkHeaderCellDef,
+  CdkHeaderCellDef
 } from '@angular/cdk/table';
 
 /**
@@ -15,7 +15,7 @@ import {
  */
 @Directive({
   selector: '[ouiCellDef]',
-  providers: [{ provide: CdkCellDef, useExisting: OuiCellDef }],
+  providers: [{ provide: CdkCellDef, useExisting: OuiCellDef }]
 })
 export class OuiCellDef extends CdkCellDef {}
 
@@ -25,7 +25,7 @@ export class OuiCellDef extends CdkCellDef {}
  */
 @Directive({
   selector: '[ouiHeaderCellDef]',
-  providers: [{ provide: CdkHeaderCellDef, useExisting: OuiHeaderCellDef }],
+  providers: [{ provide: CdkHeaderCellDef, useExisting: OuiHeaderCellDef }]
 })
 export class OuiHeaderCellDef extends CdkHeaderCellDef {}
 
@@ -35,7 +35,7 @@ export class OuiHeaderCellDef extends CdkHeaderCellDef {}
  */
 @Directive({
   selector: '[ouiFooterCellDef]',
-  providers: [{ provide: CdkFooterCellDef, useExisting: OuiFooterCellDef }],
+  providers: [{ provide: CdkFooterCellDef, useExisting: OuiFooterCellDef }]
 })
 export class OuiFooterCellDef extends CdkFooterCellDef {}
 
@@ -47,8 +47,8 @@ export class OuiFooterCellDef extends CdkFooterCellDef {}
   selector: '[ouiColumnDef]',
   providers: [
     { provide: CdkColumnDef, useExisting: OuiColumnDef },
-    { provide: 'OUI_SORT_HEADER_COLUMN_DEF', useExisting: OuiColumnDef },
-  ],
+    { provide: 'OUI_SORT_HEADER_COLUMN_DEF', useExisting: OuiColumnDef }
+  ]
 })
 export class OuiColumnDef extends CdkColumnDef {
   /** Unique name for this column. */
@@ -62,8 +62,8 @@ export class OuiColumnDef extends CdkColumnDef {
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-header-cell',
-    role: 'columnheader',
-  },
+    role: 'columnheader'
+  }
 })
 export class OuiHeaderCell extends CdkHeaderCell {
   constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>) {
@@ -81,8 +81,8 @@ export class OuiHeaderCell extends CdkHeaderCell {
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-footer-cell',
-    role: 'gridcell',
-  },
+    role: 'gridcell'
+  }
 })
 export class OuiFooterCell extends CdkFooterCell {
   constructor(columnDef: CdkColumnDef, elementRef: ElementRef) {
@@ -100,8 +100,8 @@ export class OuiFooterCell extends CdkFooterCell {
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-cell',
-    role: 'gridcell',
-  },
+    role: 'gridcell'
+  }
 })
 export class OuiCell extends CdkCell {
   constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>) {

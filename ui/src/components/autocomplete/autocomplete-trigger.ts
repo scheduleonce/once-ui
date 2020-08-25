@@ -4,7 +4,7 @@ import {
   OverlayConfig,
   OverlayRef,
   PositionStrategy,
-  ScrollStrategy,
+  ScrollStrategy
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -21,7 +21,7 @@ import {
   NgZone,
   OnDestroy,
   Optional,
-  ViewContainerRef,
+  ViewContainerRef
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -31,7 +31,7 @@ import {
   _getOptionScrollPosition,
   keycodes,
   OuiOption,
-  OuiOptionSelectionChange,
+  OuiOptionSelectionChange
 } from '../core';
 
 import {
@@ -41,7 +41,7 @@ import {
   merge,
   of as observableOf,
   Subject,
-  Observable,
+  Observable
 } from 'rxjs';
 import { OuiAutocomplete } from './autocomplete';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -76,7 +76,7 @@ export function OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(
 export const OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_AUTOCOMPLETE_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
+  useFactory: OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY
 };
 
 /**
@@ -86,7 +86,7 @@ export const OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 export const OUI_AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => OuiAutocompleteTrigger),
-  multi: true,
+  multi: true
 };
 
 /**
@@ -119,10 +119,10 @@ export function getOuiAutocompleteMissingPanelError(): Error {
     '(focusin)': '_handleFocus()',
     '(blur)': '_onTouched()',
     '(input)': '_handleInput($event)',
-    '(keydown)': '_handleKeydown($event)',
+    '(keydown)': '_handleKeydown($event)'
   },
   exportAs: 'ouiAutocompleteTrigger',
-  providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR],
+  providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR]
 })
 export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _overlayRef: OverlayRef | null;
@@ -640,7 +640,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     return new OverlayConfig({
       positionStrategy: this._getOverlayPosition(),
       scrollStrategy: this._scrollStrategy(),
-      width: this._getPanelWidth(),
+      width: this._getPanelWidth()
     });
   }
 
@@ -655,7 +655,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
-          overlayY: 'top',
+          overlayY: 'top'
         },
         {
           originX: 'start',
@@ -666,8 +666,8 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           // The overlay edge connected to the trigger should have squared corners, while
           // the opposite end has rounded corners. We apply a CSS class to swap the
           // border-radius based on the overlay position.
-          panelClass: 'oui-autocomplete-panel-above',
-        },
+          panelClass: 'oui-autocomplete-panel-above'
+        }
       ]);
 
     return this._positionStrategy;

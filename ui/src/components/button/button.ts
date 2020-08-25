@@ -6,7 +6,7 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   NgZone,
-  Input,
+  Input
 } from '@angular/core';
 import {
   CanDisable,
@@ -14,7 +14,7 @@ import {
   CanDisableCtor,
   CanColorCtor,
   mixinColor,
-  mixinDisabled,
+  mixinDisabled
 } from '../core';
 
 import { CanProgress, CanProgressCtor, mixinProgress } from './progress';
@@ -29,7 +29,7 @@ const BUTTON_HOST_ATTRIBUTES = [
   'oui-ghost-button',
   'oui-link-button',
   'oui-icon-button',
-  'oui-icon-text-button',
+  'oui-icon-text-button'
 ];
 
 /** Default color palette for round buttons (oui-fab and oui-mini-fab) */
@@ -58,14 +58,14 @@ export const OuiButtonMixinBase: CanDisableCtor &
   exportAs: 'ouiButton',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    '[disabled]': 'disabled || null',
+    '[disabled]': 'disabled || null'
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'color', 'progress', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiButton extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor, CanProgress {
@@ -132,14 +132,14 @@ export class OuiButton extends OuiButtonMixinBase
     '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
-    '(click)': '_haltDisabledEvents($event)',
+    '(click)': '_haltDisabledEvents($event)'
   },
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'color'],
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiAnchor extends OuiButton {
   /** Tabindex of the button. */

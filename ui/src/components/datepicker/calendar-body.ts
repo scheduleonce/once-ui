@@ -8,7 +8,7 @@ import {
   ViewEncapsulation,
   NgZone,
   OnChanges,
-  SimpleChanges,
+  SimpleChanges
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 
@@ -46,11 +46,11 @@ export class OuiCalendarCell {
   host: {
     class: 'oui-calendar-body',
     role: 'grid',
-    'aria-readonly': 'true',
+    'aria-readonly': 'true'
   },
   exportAs: 'ouiCalendarBody',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiCalendarBody implements OnChanges {
   /** The label for the table. (e.g. "Jan 2017"). */

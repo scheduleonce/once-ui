@@ -3,13 +3,13 @@ import {
   ComponentFixture,
   fakeAsync,
   TestBed,
-  tick,
+  tick
 } from '@angular/core/testing';
 import {
   FormControl,
   FormsModule,
   NgModel,
-  ReactiveFormsModule,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -31,7 +31,7 @@ import { OuiRadioModule } from './radio-module';
       <oui-radio-button value="water"> Squirtle </oui-radio-button>
       <oui-radio-button value="leaf"> Bulbasaur </oui-radio-button>
     </oui-radio-group>
-  `,
+  `
 })
 class RadioInsideGroupComponent {
   labelPos: 'before' | 'after';
@@ -48,14 +48,14 @@ class RadioInsideGroupComponent {
         {{ option.label }}
       </oui-radio-button>
     </oui-radio-group>
-  `,
+  `
 })
 class RadioGroupWithNgModel {
   modelValue: string;
   options = [
     { label: 'Vanilla', value: 'vanilla' },
     { label: 'Chocolate', value: 'chocolate' },
-    { label: 'Strawberry', value: 'strawberry' },
+    { label: 'Strawberry', value: 'strawberry' }
   ];
   lastEvent: OuiRadioChange;
 }
@@ -83,7 +83,7 @@ class RadioGroupWithNgModel {
       >Raspberry</oui-radio-button
     >
     <oui-radio-button id="nameless" value="no-name">No name</oui-radio-button>
-  `,
+  `
 })
 class StandaloneRadioButtons {
   ariaLabel = 'Banana';
@@ -92,7 +92,7 @@ class StandaloneRadioButtons {
 }
 
 @Component({
-  template: ` <oui-radio-button>One</oui-radio-button> `,
+  template: ` <oui-radio-button>One</oui-radio-button> `
 })
 class DisableableRadioButton {
   @ViewChild(OuiRadioButton) ouiRadioButton: OuiRadioButton;
@@ -107,14 +107,14 @@ class DisableableRadioButton {
     <oui-radio-group [formControl]="formControl">
       <oui-radio-button value="1">One</oui-radio-button>
     </oui-radio-group>
-  `,
+  `
 })
 class RadioGroupWithFormControl {
   formControl = new FormControl();
 }
 
 @Component({
-  template: ` <oui-radio-button [tabIndex]="tabIndex"></oui-radio-button> `,
+  template: ` <oui-radio-button [tabIndex]="tabIndex"></oui-radio-button> `
 })
 class FocusableRadioButton {
   tabIndex: number;
@@ -129,25 +129,25 @@ class FocusableRadioButton {
         }}</oui-radio-button>
       </oui-transcluding-wrapper>
     </oui-radio-group>
-  `,
+  `
 })
 class InterleavedRadioGroup {
   modelValue = 'strawberry';
   options = [
     { label: 'Vanilla', value: 'vanilla' },
     { label: 'Chocolate', value: 'chocolate' },
-    { label: 'Strawberry', value: 'strawberry' },
+    { label: 'Strawberry', value: 'strawberry' }
   ];
 }
 
 @Component({
   selector: 'oui-transcluding-wrapper',
-  template: ` <div><ng-content></ng-content></div> `,
+  template: ` <div><ng-content></ng-content></div> `
 })
 class TranscludingWrapper {}
 
 @Component({
-  template: ` <oui-radio-button tabindex="0"></oui-radio-button> `,
+  template: ` <oui-radio-button tabindex="0"></oui-radio-button> `
 })
 class RadioButtonWithPredefinedTabindex {}
 
@@ -164,8 +164,8 @@ describe('OuiRadio', () => {
         RadioGroupWithFormControl,
         DisableableRadioButton,
         StandaloneRadioButtons,
-        RadioButtonWithPredefinedTabindex,
-      ],
+        RadioButtonWithPredefinedTabindex
+      ]
     });
 
     TestBed.compileComponents();

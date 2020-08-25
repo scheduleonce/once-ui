@@ -19,7 +19,7 @@ import {
   Output,
   QueryList,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -37,7 +37,7 @@ let nextUniqueId = 0;
 export const OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => OuiRadioGroup),
-  multi: true,
+  multi: true
 };
 
 /** Change event object emitted by OuiRadio and OuiRadioGroup. */
@@ -65,8 +65,8 @@ export class OuiRadioGroupBase {}
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'radiogroup',
-    class: 'oui-radio-group',
-  },
+    class: 'oui-radio-group'
+  }
 })
 export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /**
@@ -322,9 +322,9 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
     // programmatically set, for example inside of a focus trap, in this case we want to forward
     // the focus to the native element.
     '(focus)': '_inputElement.nativeElement.focus()',
-    '(click)': '_fireInputChange()',
+    '(click)': '_fireInputChange()'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class OuiRadioButton extends OuiRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy {

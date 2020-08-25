@@ -5,7 +5,7 @@ import {
   Input,
   ViewEncapsulation,
   Inject,
-  Optional,
+  Optional
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -70,10 +70,10 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
     '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
     '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
     '[attr.aria-valuenow]': 'value',
-    '[attr.mode]': 'mode',
+    '[attr.mode]': 'mode'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private static diameters = new Set<number>([BASE_SIZE]);

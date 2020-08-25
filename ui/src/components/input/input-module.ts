@@ -12,15 +12,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     TextFieldModule,
     OuiFormFieldModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     TextFieldModule,
     // We re-export the `OuiFormFieldModule` since `OuiInput` will almost always
     // be used together with `OuiFormField`.
     OuiFormFieldModule,
-    OuiInput,
+    OuiInput
   ],
-  providers: [ErrorStateMatcher],
+  providers: [ErrorStateMatcher]
 })
 export class OuiInputModule {}

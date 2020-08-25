@@ -262,7 +262,7 @@ application root module.
 ```ts
 @NgModule({
   imports: [OuiDatepickerModule, OuiNativeDateModule],
-  providers: [{ provide: OuiDatepickerIntl, useClass: MyIntl }],
+  providers: [{ provide: OuiDatepickerIntl, useClass: MyIntl }]
 })
 export class MyApp {}
 ```

@@ -3,5 +3,5 @@ export enum keycodes {
   ENTER = 'Enter',
   ESCAPE = 'Escape',
   TAB = 'Tab',
-  UP_ARROW = 'ArrowUp',
+  UP_ARROW = 'ArrowUp'
 }

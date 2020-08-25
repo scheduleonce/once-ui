@@ -8,6 +8,6 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   exports: [OuiSort, OuiSortHeader],
   declarations: [OuiSort, OuiSortHeader],
-  providers: [OUI_SORT_HEADER_INTL_PROVIDER],
+  providers: [OUI_SORT_HEADER_INTL_PROVIDER]
 })
 export class OuiSortModule {}

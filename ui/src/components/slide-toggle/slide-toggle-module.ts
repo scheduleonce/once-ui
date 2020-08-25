@@ -6,6 +6,6 @@ import { OuiSlideToggle } from './slide-toggle';
 @NgModule({
   declarations: [OuiSlideToggle],
   imports: [CommonModule, ObserversModule],
-  exports: [OuiSlideToggle],
+  exports: [OuiSlideToggle]
 })
 export class OuiSlideToggleModule {}

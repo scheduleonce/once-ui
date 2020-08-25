@@ -8,13 +8,13 @@ import {
   ElementRef,
   OnInit,
   Inject,
-  Optional,
+  Optional
 } from '@angular/core';
 import {
   BasePortalOutlet,
   ComponentPortal,
   CdkPortalOutlet,
-  TemplatePortal,
+  TemplatePortal
 } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { OuiDialogConfig } from './dialog-config';
@@ -52,8 +52,8 @@ export function throwOuiDialogContentAlreadyAttachedError() {
     '[attr.role]': '_config.role',
     '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
     '[attr.aria-label]': '_config.ariaLabel',
-    '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
-  },
+    '[attr.aria-describedby]': '_config.ariaDescribedBy || null'
+  }
 })
 export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   /** The portal outlet inside of this container into which the dialog content will be loaded. */

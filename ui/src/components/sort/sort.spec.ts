@@ -6,7 +6,7 @@ import {
   ComponentFixture,
   fakeAsync,
   TestBed,
-  tick,
+  tick
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
@@ -17,13 +17,13 @@ import {
   OuiSortHeader,
   OuiSortModule,
   Sort,
-  SortDirection,
+  SortDirection
 } from './public-api';
 import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
   getSortHeaderNotContainedWithinSortError,
-  getSortInvalidDirectionError,
+  getSortInvalidDirectionError
 } from './sort-errors';
 
 @Component({
@@ -63,7 +63,7 @@ import {
         E
       </div>
     </div>
-  `,
+  `
 })
 class SimpleOuiSortApp {
   latestSortEvent: Sort;
@@ -96,7 +96,7 @@ class SimpleOuiSortApp {
       ['defaultA', this.defaultA],
       ['defaultB', this.defaultB],
       ['overrideStart', this.overrideStart],
-      ['overrideDisableClear', this.overrideDisableClear],
+      ['overrideDisableClear', this.overrideDisableClear]
     ]);
 
     viewStates.forEach((viewState, id) => {
@@ -159,7 +159,7 @@ class FakeDataSource extends DataSource<any> {
       <cdk-header-row *cdkHeaderRowDef="columnsToRender"></cdk-header-row>
       <cdk-row *cdkRowDef="let row; columns: columnsToRender"></cdk-row>
     </cdk-table>
-  `,
+  `
 })
 class CdkTableOuiSortApp {
   @ViewChild(OuiSort) ouiSort: OuiSort;
@@ -195,7 +195,7 @@ class CdkTableOuiSortApp {
       <oui-header-row *ouiHeaderRowDef="columnsToRender"></oui-header-row>
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
-  `,
+  `
 })
 class OuiTableOuiSortApp {
   @ViewChild(OuiSort) ouiSort: OuiSort;
@@ -205,7 +205,7 @@ class OuiTableOuiSortApp {
 }
 
 @Component({
-  template: ` <div oui-sort-header="a">A</div> `,
+  template: ` <div oui-sort-header="a">A</div> `
 })
 class OuiSortHeaderMissingOuiSortApp {}
 
@@ -215,12 +215,12 @@ class OuiSortHeaderMissingOuiSortApp {}
       <div oui-sort-header="duplicateId">A</div>
       <div oui-sort-header="duplicateId">A</div>
     </div>
-  `,
+  `
 })
 class OuiSortDuplicateOuiSortableIdsApp {}
 
 @Component({
-  template: ` <div ouiSort><div oui-sort-header>A</div></div> `,
+  template: ` <div ouiSort><div oui-sort-header>A</div></div> `
 })
 class OuiSortableMissingIdApp {}
 
@@ -229,7 +229,7 @@ class OuiSortableMissingIdApp {}
     <div ouiSort ouiSortDirection="ascending">
       <div oui-sort-header="a">A</div>
     </div>
-  `,
+  `
 })
 class OuiSortableInvalidDirection {}
 
@@ -244,7 +244,7 @@ describe('OuiSort', () => {
         OuiSortModule,
         OuiTableModule,
         CdkTableModule,
-        NoopAnimationsModule,
+        NoopAnimationsModule
       ],
       declarations: [
         SimpleOuiSortApp,
@@ -253,8 +253,8 @@ describe('OuiSort', () => {
         OuiSortHeaderMissingOuiSortApp,
         OuiSortDuplicateOuiSortableIdsApp,
         OuiSortableMissingIdApp,
-        OuiSortableInvalidDirection,
-      ],
+        OuiSortableInvalidDirection
+      ]
     }).compileComponents();
   }));
 

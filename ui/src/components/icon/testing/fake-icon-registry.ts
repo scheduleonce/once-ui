@@ -52,6 +52,6 @@ export class FakeOuiIconRegistry
 
 /** Use this module to install the null icon registry. */
 @NgModule({
-  providers: [{ provide: OuiIconRegistry, useClass: FakeOuiIconRegistry }],
+  providers: [{ provide: OuiIconRegistry, useClass: FakeOuiIconRegistry }]
 })
 export class OuiIconTestingModule {}

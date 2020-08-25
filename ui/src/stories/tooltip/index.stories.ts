@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import {
   OuiTooltipModule,
   OuiIconRegistry,
-  OuiIconModule,
+  OuiIconModule
 } from '../../components';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,7 +22,7 @@ import { TOOLTIPPOSITION } from '../const';
       [color]="'primary'"
       [ouiTooltipDisabled]="disabled"
     ></oui-icon>
-  `,
+  `
 })
 export class OuiTooltipStorybook {
   @Input() disabled = false;
@@ -53,7 +53,7 @@ storiesOf('Tooltip', module).add(
     moduleMetadata: {
       imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],
       schemas: [],
-      declarations: [OuiTooltipStorybook],
+      declarations: [OuiTooltipStorybook]
     },
     template: `<oui-tooltip-storybook [disabled]="disabled"
   [_ouiTooltip]="ouiTooltip"
@@ -66,8 +66,8 @@ storiesOf('Tooltip', module).add(
         'ouiTooltipPosition',
         TOOLTIPPOSITION,
         TOOLTIPPOSITION[0]
-      ),
-    },
+      )
+    }
   }),
   { notes: { markdown: markdownText } }
 );

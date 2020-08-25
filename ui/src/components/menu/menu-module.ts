@@ -6,7 +6,7 @@ import { OuiMenu } from './menu-directive';
 import { OuiMenuItem } from './menu-item';
 import {
   OuiMenuTrigger,
-  OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER,
+  OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER
 } from './menu-trigger';
 import { OuiMenuIcon } from './menu-icon';
 import { OuiIconModule } from '../icon/icon.module';
@@ -19,8 +19,8 @@ import { OuiIconModule } from '../icon/icon.module';
     OuiMenuItem,
     OuiMenuTrigger,
     OuiMenuContent,
-    OuiMenuIcon,
+    OuiMenuIcon
   ],
-  providers: [OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER],
+  providers: [OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
 })
 export class OuiMenuModule {}

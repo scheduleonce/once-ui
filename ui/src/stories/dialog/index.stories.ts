@@ -7,7 +7,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
-  Input,
+  Input
 } from '@angular/core';
 import markdownText from '../../components/dialog/README.md';
 
@@ -55,7 +55,7 @@ import markdownText from '../../components/dialog/README.md';
         </div>
       </div>
     </ng-template>
-  `,
+  `
 })
 export class OuiDialogStorybook {
   @Output()
@@ -77,14 +77,14 @@ storiesOf('Dialog', module).add(
     moduleMetadata: {
       imports: [OuiButtonModule, OuiDialogModule],
       schemas: [],
-      declarations: [OuiDialogStorybook],
+      declarations: [OuiDialogStorybook]
     },
     template: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
     props: {
       click: action('clicked'),
       close: action('closed'),
-      disabled: boolean('disabled', false),
-    },
+      disabled: boolean('disabled', false)
+    }
   }),
   { notes: { markdown: markdownText } }
 );

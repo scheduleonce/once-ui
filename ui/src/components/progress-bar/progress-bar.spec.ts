@@ -13,7 +13,7 @@ class BasicProgressBar {}
 @Component({
   template: `
     <oui-progress-bar [strokeWidth]="4" [color]="color"></oui-progress-bar>
-  `,
+  `
 })
 class ProgressBarWithColor {
   color = 'primary';
@@ -26,7 +26,7 @@ describe('OuiProgressBar', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OuiProgressBar, BasicProgressBar, ProgressBarWithColor],
+      declarations: [OuiProgressBar, BasicProgressBar, ProgressBarWithColor]
     }).compileComponents();
   }));
 

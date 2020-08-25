@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 /** InjectionToken for datepicker that can be used to override default locale code. */
 export const OUI_DATE_LOCALE = new InjectionToken<string>('OUI_DATE_LOCALE', {
   providedIn: 'root',
-  factory: OUI_DATE_LOCALE_FACTORY,
+  factory: OUI_DATE_LOCALE_FACTORY
 });
 
 export function OUI_DATE_LOCALE_FACTORY(): string {
@@ -19,7 +19,7 @@ export function OUI_DATE_LOCALE_FACTORY(): string {
  */
 export const OUI_DATE_LOCALE_PROVIDER = {
   provide: OUI_DATE_LOCALE,
-  useExisting: LOCALE_ID,
+  useExisting: LOCALE_ID
 };
 
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */

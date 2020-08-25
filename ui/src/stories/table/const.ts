@@ -17,7 +17,7 @@ export const NAMES = [
   'Arthur',
   'Mia',
   'Thomas',
-  'Elizabeth',
+  'Elizabeth'
 ];
 export const COLORS = [
   'maroon',
@@ -34,7 +34,7 @@ export const COLORS = [
   'blue',
   'navy',
   'black',
-  'gray',
+  'gray'
 ];
 export const USERINFODATASOURCE = [
   {
@@ -44,7 +44,7 @@ export const USERINFODATASOURCE = [
     image: '',
     integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
     licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited',
+    status: 'invited'
   },
   {
     name: 'anurag',
@@ -53,7 +53,7 @@ export const USERINFODATASOURCE = [
     image: '',
     integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
     licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited',
+    status: 'invited'
   },
   {
     name: 'anurag',
@@ -62,7 +62,7 @@ export const USERINFODATASOURCE = [
     image: '',
     integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
     licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited',
+    status: 'invited'
   },
   {
     name: 'anurag',
@@ -71,15 +71,15 @@ export const USERINFODATASOURCE = [
     image: '',
     integration: ['zapier', 'paypal', 'google-calender', 'salesforce'],
     licence: ['scheduleonce', 'inviteonce'],
-    status: 'invited',
-  },
+    status: 'invited'
+  }
 ];
 export const USERINFOCOLUMNS = [
   'Users',
   'Role',
   'Integrations',
   'Licenses',
-  'Status',
+  'Status'
 ];
 
 export const STORY_ICONS = {
@@ -89,5 +89,5 @@ export const STORY_ICONS = {
   GOOGLE_CALENDAR: `<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient x1="16.617%" y1="24.008%" x2="98.247%" y2="34.773%" id="c"><stop stop-color="#3C77E3" offset="0%"/><stop stop-color="#3582F7" offset="100%"/></linearGradient><path d="M15.226 5.98l-.115.828.059.847c.01.05.018.1.022.151l.35 4.928c.034.53-.352.96-.863.96H1.277c-.51 0-.897-.43-.863-.96l.347-4.928c.004-.051.012-.101.023-.15l.043-.85-.083-.593a1.135 1.135 0 01-.094-.325L.008.959C-.06.43.323 0 .864 0h14.212c.54 0 .924.43.856.96l-.69 4.925a1.26 1.26 0 01-.016.094z" id="a"/></defs><g fill="none" fill-rule="evenodd"><rect fill="#D8D8D8" x=".824" width="14.283" height="3.971" rx="1"/><g transform="translate(0 2.26)"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use fill="#2B61D4" xlink:href="#a"/><path fill="#3D87F9" mask="url(#b)" d="M-.824 6.778h17.373v7.531H-.824z"/></g><path d="M.824 9.056l6.886 6.897h6.911s1.042-.17.9-1.243c-.142-1.074-.392-5.672-.392-5.672L.824 9.056z" fill="url(#c)"/><circle fill="#FFF" cx="4.567" cy="1.13" r="1"/><circle fill="#FFF" cx="11.365" cy="1.13" r="1"/><path d="M3.555 7.505c0-.575.403-1.812 2.065-1.812 1.663 0 1.953 1.228 1.953 1.78 0 .55-.208 1.107-.977 1.516 0 .046 1.107.268 1.107 1.59 0 1.321-1.181 1.922-2.113 1.922-.932 0-2.082-.495-2.082-1.834.01 0 .469-.031.82-.031.024.321.129 1.18 1.25 1.18 1.122 0 1.301-.841 1.301-1.207 0-.366-.214-1.277-1.284-1.277-.47.028-.721 0-.721 0v-.629s.302-.004.7-.004c.398 0 1.225-.32 1.225-1.161 0-.84-.588-1.222-1.144-1.222-.556 0-1.304.282-1.304 1.177.02.012-.77.045-.796.012zm5.272-.978l2.397-.846h.147v6.784h-.856V6.697l-1.685.572" fill="#FFF"/></g></svg>`,
   SALESFORCE: `<svg width="22" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M11.798 13.554C11.159 14.998 9.767 16 8.152 16c-1.678 0-3.116-1.082-3.717-2.62-.236.05-.48.076-.73.076C1.66 13.456 0 11.711 0 9.56c0-1.412.714-2.65 1.784-3.333a4.75 4.75 0 01-.302-1.672C1.482 2.039 3.421 0 5.812 0c1.36 0 2.574.66 3.368 1.692a3.795 3.795 0 012.756-1.2c1.45 0 2.714.831 3.386 2.065a4.544 4.544 0 011.92-.424C19.868 2.133 22 4.374 22 7.138c0 2.765-2.13 5.006-4.759 5.006a4.56 4.56 0 01-.834-.077c-.667 1.083-1.826 1.8-3.145 1.8-.52 0-1.014-.112-1.464-.313z" fill="#00A0DF" fill-rule="evenodd"/></svg>`,
   SCHEDULEONCE: `<svg width="19" height="19" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="a" d="M0 19h19V0H0v19z"/></defs><g fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><path d="M16.484 6.67a7.535 7.535 0 11-3.178-3.673l1.427-1.426A9.5 9.5 0 000 9.5a9.5 9.5 0 1017.967-4.313l-1.483 1.481z" fill="#009BDE" mask="url(#b)"/><path d="M15.828 2.398s.737.65 1.47 1.658l-8.39 8.31-3.411-4.47L6.75 6.173l2.322 3.02 6.756-6.795z" fill="#009BDE"/></g></svg>`,
-  INVITEONCE: `<svg width="19" height="19" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="a" d="M0 19h19V0H0v19z"/></defs><g fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><path d="M16.484 6.67a7.535 7.535 0 11-3.178-3.673l1.427-1.426A9.5 9.5 0 000 9.5a9.5 9.5 0 1017.967-4.313l-1.483 1.481z" fill="#009B48" mask="url(#b)"/><path d="M15.828 2.398s.737.65 1.47 1.658l-8.39 8.31-3.411-4.47L6.75 6.173l2.322 3.02 6.756-6.795z" fill="#009B48"/></g></svg>`,
+  INVITEONCE: `<svg width="19" height="19" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><path id="a" d="M0 19h19V0H0v19z"/></defs><g fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><path d="M16.484 6.67a7.535 7.535 0 11-3.178-3.673l1.427-1.426A9.5 9.5 0 000 9.5a9.5 9.5 0 1017.967-4.313l-1.483 1.481z" fill="#009B48" mask="url(#b)"/><path d="M15.828 2.398s.737.65 1.47 1.658l-8.39 8.31-3.411-4.47L6.75 6.173l2.322 3.02 6.756-6.795z" fill="#009B48"/></g></svg>`
 };

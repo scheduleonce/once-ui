@@ -3,7 +3,7 @@ import { async, inject, TestBed } from '@angular/core/testing';
 import {
   DateAdapter,
   NativeDateAdapter,
-  NativeDateModule,
+  NativeDateModule
 } from './native-date.module';
 
 const SUPPORTS_INTL = typeof Intl !== 'undefined';
@@ -27,7 +27,7 @@ describe('NativeDateAdapter', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [NativeDateModule],
+      imports: [NativeDateModule]
     }).compileComponents();
   }));
 
@@ -79,7 +79,7 @@ describe('NativeDateAdapter', () => {
       'September',
       'October',
       'November',
-      'December',
+      'December'
     ]);
   });
 
@@ -96,7 +96,7 @@ describe('NativeDateAdapter', () => {
       'Sep',
       'Oct',
       'Nov',
-      'Dec',
+      'Dec'
     ]);
   });
 
@@ -115,7 +115,7 @@ describe('NativeDateAdapter', () => {
         'Sep',
         'Oct',
         'Nov',
-        'Dec',
+        'Dec'
       ]);
     } else {
       expect(adapter.getMonthNames('narrow')).toEqual([
@@ -130,7 +130,7 @@ describe('NativeDateAdapter', () => {
         'S',
         'O',
         'N',
-        'D',
+        'D'
       ]);
     }
   });
@@ -167,7 +167,7 @@ describe('NativeDateAdapter', () => {
       '28',
       '29',
       '30',
-      '31',
+      '31'
     ]);
   });
 
@@ -179,7 +179,7 @@ describe('NativeDateAdapter', () => {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday',
+      'Saturday'
     ]);
   });
 
@@ -191,7 +191,7 @@ describe('NativeDateAdapter', () => {
       'Wed',
       'Thu',
       'Fri',
-      'Sat',
+      'Sat'
     ]);
   });
 
@@ -276,7 +276,7 @@ describe('NativeDateAdapter', () => {
         adapter.format(new Date(2017, JAN, 1), {
           year: 'numeric',
           month: 'long',
-          day: 'numeric',
+          day: 'numeric'
         })
       ).toEqual('January 1, 2017');
     } else {
@@ -284,7 +284,7 @@ describe('NativeDateAdapter', () => {
         adapter.format(new Date(2017, JAN, 1), {
           year: 'numeric',
           month: 'long',
-          day: 'numeric',
+          day: 'numeric'
         })
       ).toEqual('Sun Jan 01 2017');
     }

@@ -2,7 +2,7 @@ import {
   FormControl,
   FormGroupDirective,
   NgControl,
-  NgForm,
+  NgForm
 } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { ErrorStateMatcher } from './error-options';

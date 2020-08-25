@@ -8,7 +8,7 @@ import {
   ElementRef,
   Component,
   NgZone,
-  OnDestroy,
+  OnDestroy
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
@@ -29,8 +29,8 @@ let dialogElementUid = 0;
   exportAs: 'ouiDialogHeader',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header',
-  },
+    class: 'oui-dialog-header'
+  }
 })
 export class OuiDialogHeader {
   constructor() {}
@@ -44,8 +44,8 @@ export class OuiDialogHeader {
   exportAs: 'ouiDialogHeaderTitle',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header-title',
-  },
+    class: 'oui-dialog-header-title'
+  }
 })
 export class OuiDialogHeaderTitle {
   constructor() {}
@@ -59,8 +59,8 @@ export class OuiDialogHeaderTitle {
   exportAs: 'ouiDialogHeaderImage',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header-image',
-  },
+    class: 'oui-dialog-header-image'
+  }
 })
 export class OuiDialogHeaderImage {
   constructor() {}
@@ -74,8 +74,8 @@ export class OuiDialogHeaderImage {
   exportAs: 'ouiDialogHeaderAction',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header-action',
-  },
+    class: 'oui-dialog-header-action'
+  }
 })
 export class OuiDialogHeaderAction {
   constructor() {}
@@ -91,8 +91,8 @@ export class OuiDialogHeaderAction {
   exportAs: 'ouiDialogHeaderArticle',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header-article',
-  },
+    class: 'oui-dialog-header-article'
+  }
 })
 export class OuiDialogHeaderArticle implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
@@ -126,8 +126,8 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   exportAs: 'ouiDialogHeaderVideo',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header-video',
-  },
+    class: 'oui-dialog-header-video'
+  }
 })
 export class OuiDialogHeaderVideo implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
@@ -163,8 +163,8 @@ export class OuiDialogHeaderVideo implements OnDestroy {
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-dialog-header-close',
-    '[attr.tabindex]': '0',
-  },
+    '[attr.tabindex]': '0'
+  }
 })
 export class OuiDialogHeaderClose implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
@@ -196,8 +196,8 @@ export class OuiDialogHeaderClose implements OnDestroy {
   exportAs: 'ouiDialogHeaderSeparator',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-header-separator',
-  },
+    class: 'oui-dialog-header-separator'
+  }
 })
 export class OuiDialogHeaderSeparator {
   constructor() {}
@@ -215,8 +215,8 @@ export class OuiDialogHeaderSeparator {
     '(click)': 'closeDialog()',
     '[attr.aria-label]': 'ariaLabel',
     '(keyup.space)': 'handleKeydown($event)',
-    '(keydown.enter)': 'handleKeydown($event)',
-  },
+    '(keydown.enter)': 'handleKeydown($event)'
+  }
 })
 export class OuiDialogClose implements OnInit, OnChanges {
   /** Screenreader label for the button. */
@@ -279,8 +279,8 @@ export class OuiDialogClose implements OnInit, OnChanges {
   exportAs: 'ouiDialogContent',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-content',
-  },
+    class: 'oui-dialog-content'
+  }
 })
 export class OuiDialogContent implements OnInit {
   constructor(
@@ -320,8 +320,8 @@ export class OuiDialogContent implements OnInit {
   exportAs: 'ouiDialogFooter',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-footer',
-  },
+    class: 'oui-dialog-footer'
+  }
 })
 export class OuiDialogFooter {
   @Input()
@@ -337,8 +337,8 @@ export class OuiDialogFooter {
   exportAs: 'ouiDialogFooterActionLeft',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-footer-action-left',
-  },
+    class: 'oui-dialog-footer-action-left'
+  }
 })
 export class OuiDialogFooterActionLeft {
   constructor() {}
@@ -352,8 +352,8 @@ export class OuiDialogFooterActionLeft {
   exportAs: 'ouiDialogFooterActionRight',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-dialog-footer-action-right',
-  },
+    class: 'oui-dialog-footer-action-right'
+  }
 })
 export class OuiDialogFooterActionRight {
   constructor() {}

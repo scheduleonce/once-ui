@@ -12,7 +12,7 @@ import {
   RIGHT_ARROW,
   SPACE,
   UP_ARROW,
-  hasModifierKey,
+  hasModifierKey
 } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -40,13 +40,13 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  Inject,
+  Inject
 } from '@angular/core';
 import {
   ControlValueAccessor,
   FormGroupDirective,
   NgControl,
-  NgForm,
+  NgForm
 } from '@angular/forms';
 import {
   _countGroupLabelsBeforeOption,
@@ -60,7 +60,7 @@ import {
   OuiOptionSelectionChange,
   mixinErrorState,
   mixinTabIndex,
-  mixinDisabled,
+  mixinDisabled
 } from '../core';
 import { OuiFormField, OuiFormFieldControl } from '../form-field/public-api';
 import { DOCUMENT } from '@angular/common';
@@ -75,12 +75,12 @@ import {
   startWith,
   switchMap,
   take,
-  takeUntil,
+  takeUntil
 } from 'rxjs/operators';
 import {
   getOuiSelectDynamicMultipleError,
   getOuiSelectNonArrayValueError,
-  getOuiSelectNonFunctionValueError,
+  getOuiSelectNonFunctionValueError
 } from './select-errors';
 import { OuiIconRegistry } from '../icon/icon-registery';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -161,7 +161,7 @@ export const _OuiSelectMixinBase: CanDisableCtor &
  */
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: 'oui-select-trigger',
+  selector: 'oui-select-trigger'
 })
 export class OuiSelectTrigger {}
 
@@ -195,12 +195,12 @@ export class OuiSelectTrigger {}
     class: 'oui-select oui-input',
     '(keydown)': '_handleKeydown($event)',
     '(focus)': '_onFocus()',
-    '(blur)': '_onBlur()',
+    '(blur)': '_onBlur()'
   },
   providers: [
     { provide: OuiFormFieldControl, useExisting: OuiSelect },
-    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect },
-  ],
+    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect }
+  ]
 })
 export class OuiSelect extends _OuiSelectMixinBase
   implements
@@ -280,14 +280,14 @@ export class OuiSelect extends _OuiSelectMixinBase
       originX: 'start',
       originY: 'top',
       overlayX: 'start',
-      overlayY: 'top',
+      overlayY: 'top'
     },
     {
       originX: 'start',
       originY: 'bottom',
       overlayX: 'start',
-      overlayY: 'bottom',
-    },
+      overlayY: 'bottom'
+    }
   ];
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();

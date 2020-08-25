@@ -4,7 +4,7 @@ import {
   RIGHT_ARROW,
   SPACE,
   TAB,
-  A,
+  A
 } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -15,7 +15,7 @@ import {
   DebugElement,
   QueryList,
   ViewChild,
-  ViewChildren,
+  ViewChildren
 } from '@angular/core';
 import {
   async,
@@ -24,7 +24,7 @@ import {
   flush,
   inject,
   TestBed,
-  tick,
+  tick
 } from '@angular/core/testing';
 import {
   FormControl,
@@ -32,7 +32,7 @@ import {
   FormGroupDirective,
   FormsModule,
   ReactiveFormsModule,
-  Validators,
+  Validators
 } from '@angular/forms';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiOption } from '../core/option/option';
@@ -45,14 +45,14 @@ import { OuiSelect } from './select.component';
 import {
   getOuiSelectDynamicMultipleError,
   getOuiSelectNonArrayValueError,
-  getOuiSelectNonFunctionValueError,
+  getOuiSelectNonFunctionValueError
 } from './select-errors';
 
 import { OuiOptionSelectionChange } from '../core';
 import {
   wrappedErrorMessage,
   dispatchFakeEvent,
-  dispatchEvent,
+  dispatchEvent
 } from '../core/test/utils';
 
 @Component({
@@ -79,7 +79,7 @@ import {
       </oui-select>
     </oui-form-field>
     <div [style.height.px]="heightBelow"></div>
-  `,
+  `
 })
 class BasicSelect {
   foods: any[] = [
@@ -90,7 +90,7 @@ class BasicSelect {
     { value: 'chips-4', viewValue: 'Chips' },
     { value: 'eggs-5', viewValue: 'Eggs' },
     { value: 'pasta-6', viewValue: 'Pasta' },
-    { value: 'sushi-7', viewValue: 'Sushi' },
+    { value: 'sushi-7', viewValue: 'Sushi' }
   ];
   control = new FormControl();
   isRequired: boolean;
@@ -115,13 +115,13 @@ class BasicSelect {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class NgModelSelect {
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
   ];
   isDisabled: boolean;
 
@@ -144,7 +144,7 @@ class NgModelSelect {
         <oui-option value="four">four</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class ManySelects {}
 
@@ -158,7 +158,7 @@ class ManySelects {}
         }}</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SelectWithChangeEvent {
   foods: string[] = [
@@ -169,7 +169,7 @@ class SelectWithChangeEvent {
     'chips-4',
     'eggs-5',
     'pasta-6',
-    'sushi-7',
+    'sushi-7'
   ];
 
   changeListener = jasmine.createSpy('OuiSelect change listener');
@@ -188,7 +188,7 @@ class SelectWithChangeEvent {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SelectInitWithoutOptions {
   foods: any[];
@@ -201,7 +201,7 @@ class SelectInitWithoutOptions {
     this.foods = [
       { value: 'steak-0', viewValue: 'Steak' },
       { value: 'pizza-1', viewValue: 'Pizza' },
-      { value: 'tacos-2', viewValue: 'Tacos' },
+      { value: 'tacos-2', viewValue: 'Tacos' }
     ];
   }
 }
@@ -217,13 +217,13 @@ class SelectInitWithoutOptions {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectOnPush {
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
   ];
   control = new FormControl();
 }
@@ -239,13 +239,13 @@ class BasicSelectOnPush {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectOnPushPreselected {
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
   ];
   control = new FormControl('pizza-1');
 }
@@ -265,7 +265,7 @@ class BasicSelectOnPushPreselected {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class MultiSelect {
   foods: any[] = [
@@ -276,7 +276,7 @@ class MultiSelect {
     { value: 'chips-4', viewValue: 'Chips' },
     { value: 'eggs-5', viewValue: 'Eggs' },
     { value: 'pasta-6', viewValue: 'Pasta' },
-    { value: 'sushi-7', viewValue: 'Sushi' },
+    { value: 'sushi-7', viewValue: 'Sushi' }
   ];
   control = new FormControl();
 
@@ -289,7 +289,7 @@ class MultiSelect {
   selector: 'oui-select-with-plain-tabindex',
   template: `
     <oui-form-field><oui-select tabindex="5"></oui-select></oui-form-field>
-  `,
+  `
 })
 class SelectWithPlainTabindex {}
 
@@ -300,7 +300,7 @@ class SelectWithPlainTabindex {}
       <oui-select #select="ouiSelect"></oui-select>
     </oui-form-field>
     <div *ngIf="select.selected"></div>
-  `,
+  `
 })
 class SelectEarlyAccessSibling {}
 
@@ -312,7 +312,7 @@ class SelectEarlyAccessSibling {}
         <oui-option value="value">There are no other options</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectInitiallyHidden {
   isVisible = false;
@@ -326,7 +326,7 @@ class BasicSelectInitiallyHidden {
         <oui-option value="value">There are no other options</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectNoPlaceholder {}
 
@@ -341,7 +341,7 @@ class BasicSelectNoPlaceholder {}
         <oui-option>None</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class ResetValuesSelect {
   foods: any[] = [
@@ -350,7 +350,7 @@ class ResetValuesSelect {
     { value: 'tacos-2', viewValue: 'Tacos' },
     { value: false, viewValue: 'Falsy' },
     { viewValue: 'Undefined' },
-    { value: null, viewValue: 'Null' },
+    { value: null, viewValue: 'Null' }
   ];
   control = new FormControl();
 
@@ -377,7 +377,7 @@ class ResetValuesSelect {
         <oui-option value="mime-11">Mr. Mime</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SelectWithGroups {
   control = new FormControl();
@@ -387,8 +387,8 @@ class SelectWithGroups {
       pokemon: [
         { value: 'bulbasaur-0', viewValue: 'Bulbasaur' },
         { value: 'oddish-1', viewValue: 'Oddish' },
-        { value: 'bellsprout-2', viewValue: 'Bellsprout' },
-      ],
+        { value: 'bellsprout-2', viewValue: 'Bellsprout' }
+      ]
     },
     {
       name: 'Water',
@@ -396,24 +396,24 @@ class SelectWithGroups {
       pokemon: [
         { value: 'squirtle-3', viewValue: 'Squirtle' },
         { value: 'psyduck-4', viewValue: 'Psyduck' },
-        { value: 'horsea-5', viewValue: 'Horsea' },
-      ],
+        { value: 'horsea-5', viewValue: 'Horsea' }
+      ]
     },
     {
       name: 'Fire',
       pokemon: [
         { value: 'charmander-6', viewValue: 'Charmander' },
         { value: 'vulpix-7', viewValue: 'Vulpix' },
-        { value: 'flareon-8', viewValue: 'Flareon' },
-      ],
+        { value: 'flareon-8', viewValue: 'Flareon' }
+      ]
     },
     {
       name: 'Psychic',
       pokemon: [
         { value: 'mew-9', viewValue: 'Mew' },
-        { value: 'mewtwo-10', viewValue: 'Mewtwo' },
-      ],
-    },
+        { value: 'mewtwo-10', viewValue: 'Mewtwo' }
+      ]
+    }
   ];
 
   @ViewChild(OuiSelect) select: OuiSelect;
@@ -434,15 +434,15 @@ class SelectWithGroups {
         </oui-optgroup>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SelectWithGroupsAndNgContainer {
   control = new FormControl();
   pokemonTypes = [
     {
       name: 'Grass',
-      pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }],
-    },
+      pokemon: [{ value: 'bulbasaur-0', viewValue: 'Bulbasaur' }]
+    }
   ];
 }
 
@@ -453,7 +453,7 @@ class SelectWithGroupsAndNgContainer {
         <oui-select [(ngModel)]="value"></oui-select>
       </oui-form-field>
     </form>
-  `,
+  `
 })
 class InvalidSelectInForm {
   value: any;
@@ -471,7 +471,7 @@ class InvalidSelectInForm {
         <label>This field is required</label>
       </oui-form-field>
     </form>
-  `,
+  `
 })
 class SelectInsideFormGroup {
   @ViewChild(FormGroupDirective)
@@ -479,7 +479,7 @@ class SelectInsideFormGroup {
   @ViewChild(OuiSelect) select: OuiSelect;
   formControl = new FormControl('', Validators.required);
   formGroup = new FormGroup({
-    food: this.formControl,
+    food: this.formControl
   });
 }
 
@@ -492,14 +492,14 @@ class SelectInsideFormGroup {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectWithoutForms {
   selectedFood: string | null;
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'sandwich-2', viewValue: 'Sandwich' },
+    { value: 'sandwich-2', viewValue: 'Sandwich' }
   ];
 
   @ViewChild(OuiSelect) select: OuiSelect;
@@ -514,13 +514,13 @@ class BasicSelectWithoutForms {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectWithoutFormsPreselected {
   selectedFood = 'pizza-1';
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'pizza-1', viewValue: 'Pizza' }
   ];
 
   @ViewChild(OuiSelect) select: OuiSelect;
@@ -535,14 +535,14 @@ class BasicSelectWithoutFormsPreselected {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class BasicSelectWithoutFormsMultiple {
   selectedFoods: string[];
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'sandwich-2', viewValue: 'Sandwich' },
+    { value: 'sandwich-2', viewValue: 'Sandwich' }
   ];
 
   @ViewChild(OuiSelect) select: OuiSelect;
@@ -565,12 +565,12 @@ class BasicSelectWithoutFormsMultiple {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SelectWithCustomTrigger {
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'pizza-1', viewValue: 'Pizza' }
   ];
   control = new FormControl();
 }
@@ -589,17 +589,17 @@ class SelectWithCustomTrigger {
         }}</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class NgModelCompareWithSelect {
   foods: { value: string; viewValue: string }[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
-    { value: 'tacos-2', viewValue: 'Tacos' },
+    { value: 'tacos-2', viewValue: 'Tacos' }
   ];
   selectedFood: { value: string; viewValue: string } = {
     value: 'pizza-1',
-    viewValue: 'Pizza',
+    viewValue: 'Pizza'
   };
   comparator: ((f1: any, f2: any) => boolean) | null = this.compareByValue;
 
@@ -642,14 +642,14 @@ class NgModelCompareWithSelect {
         {{ food.viewValue }}
       </oui-option>
     </oui-select>
-  `,
+  `
 })
 class CustomErrorBehaviorSelect {
   @ViewChild(OuiSelect) select: OuiSelect;
   control = new FormControl();
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
-    { value: 'pizza-1', viewValue: 'Pizza' },
+    { value: 'pizza-1', viewValue: 'Pizza' }
   ];
   errorStateMatcher: ErrorStateMatcher;
 }
@@ -663,13 +663,13 @@ class CustomErrorBehaviorSelect {
         </oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SingleSelectWithPreselectedArrayValues {
   foods: any[] = [
     { value: ['steak-0', 'steak-1'], viewValue: 'Steak' },
     { value: ['pizza-1', 'pizza-2'], viewValue: 'Pizza' },
-    { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' },
+    { value: ['tacos-2', 'tacos-3'], viewValue: 'Tacos' }
   ];
 
   selectedFoods = this.foods[1].value;
@@ -687,7 +687,7 @@ class SingleSelectWithPreselectedArrayValues {
         <oui-option value="thing">A thing</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+  `
 })
 class SelectWithFormFieldLabel {
   placeholder: string;
@@ -701,7 +701,7 @@ function createKeyboardEvent(keyCode: any, target?: Element, key?: any) {
   Object.defineProperties(event, {
     keyCode: { get: () => keyCode },
     key: { get: () => key },
-    target: { get: () => target },
+    target: { get: () => target }
   });
 
   return event;
@@ -738,17 +738,17 @@ describe('OuiSelect', () => {
         OuiSelectModule,
         ReactiveFormsModule,
         FormsModule,
-        NoopAnimationsModule,
+        NoopAnimationsModule
       ],
       declarations: declarations,
       providers: [
         {
           provide: ScrollDispatcher,
           useFactory: () => ({
-            scrolled: () => scrolledSubject.asObservable(),
-          }),
-        },
-      ],
+            scrolled: () => scrolledSubject.asObservable()
+          })
+        }
+      ]
     }).compileComponents();
 
     inject([OverlayContainer, Platform], (oc: OverlayContainer) => {
@@ -769,7 +769,7 @@ describe('OuiSelect', () => {
         SelectWithGroups,
         SelectWithGroupsAndNgContainer,
         SelectWithFormFieldLabel,
-        SelectWithChangeEvent,
+        SelectWithChangeEvent
       ]);
     }));
 
@@ -1647,7 +1647,7 @@ describe('OuiSelect', () => {
       it('should select an option that was added after initialization', fakeAsync(() => {
         fixture.componentInstance.foods.push({
           viewValue: 'Potatoes',
-          value: 'potatoes-8',
+          value: 'potatoes-8'
         });
         trigger.click();
         fixture.detectChanges();
@@ -2340,7 +2340,7 @@ describe('OuiSelect', () => {
       const errorStateMatcher: ErrorStateMatcher = {
         isErrorState: jasmine
           .createSpy('error state matcher')
-          .and.returnValue(true),
+          .and.returnValue(true)
       };
 
       fixture.destroy();
@@ -2351,12 +2351,10 @@ describe('OuiSelect', () => {
           OuiSelectModule,
           ReactiveFormsModule,
           FormsModule,
-          NoopAnimationsModule,
+          NoopAnimationsModule
         ],
         declarations: [SelectInsideFormGroup],
-        providers: [
-          { provide: ErrorStateMatcher, useValue: errorStateMatcher },
-        ],
+        providers: [{ provide: ErrorStateMatcher, useValue: errorStateMatcher }]
       });
 
       const errorFixture = TestBed.createComponent(SelectInsideFormGroup);
@@ -2396,7 +2394,7 @@ describe('OuiSelect', () => {
   describe('with preselected array values', () => {
     beforeEach(async(() =>
       configureOuiSelectTestingModule([
-        SingleSelectWithPreselectedArrayValues,
+        SingleSelectWithPreselectedArrayValues
       ])));
 
     it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
@@ -2418,7 +2416,7 @@ describe('OuiSelect', () => {
     beforeEach(async(() =>
       configureOuiSelectTestingModule([
         BasicSelectOnPush,
-        BasicSelectOnPushPreselected,
+        BasicSelectOnPushPreselected
       ])));
 
     it('should set the trigger text based on the value when initialized', fakeAsync(() => {
@@ -2563,7 +2561,7 @@ describe('OuiSelect', () => {
       configureOuiSelectTestingModule([
         BasicSelectWithoutForms,
         BasicSelectWithoutFormsPreselected,
-        BasicSelectWithoutFormsMultiple,
+        BasicSelectWithoutFormsMultiple
       ])));
 
     it('should set the value when options are clicked', fakeAsync(() => {
@@ -2706,11 +2704,11 @@ describe('OuiSelect', () => {
 
       expect(fixture.componentInstance.selectedFoods).toEqual([
         'steak-0',
-        'sandwich-2',
+        'sandwich-2'
       ]);
       expect(fixture.componentInstance.select.value).toEqual([
         'steak-0',
-        'sandwich-2',
+        'sandwich-2'
       ]);
 
       const textContent = trigger.textContent.trim().split(/\s*,\s*/);
@@ -2723,12 +2721,12 @@ describe('OuiSelect', () => {
       expect(fixture.componentInstance.selectedFoods).toEqual([
         'steak-0',
         'pizza-1',
-        'sandwich-2',
+        'sandwich-2'
       ]);
       expect(fixture.componentInstance.select.value).toEqual([
         'steak-0',
         'pizza-1',
-        'sandwich-2',
+        'sandwich-2'
       ]);
 
       const triggerVal = trigger.textContent.trim().split(/\s*,\s*/);
@@ -2829,7 +2827,7 @@ describe('OuiSelect', () => {
       expect(testInstance.control.value).toEqual([
         'steak-0',
         'tacos-2',
-        'eggs-5',
+        'eggs-5'
       ]);
       flush();
     }));
@@ -2961,7 +2959,7 @@ describe('OuiSelect', () => {
       expect(fixture.componentInstance.control.value).toEqual([
         'steak-0',
         'pizza-1',
-        'tacos-2',
+        'tacos-2'
       ]);
     }));
 
@@ -2986,7 +2984,7 @@ describe('OuiSelect', () => {
       expect(fixture.componentInstance.control.value).toEqual([
         'steak-0',
         'pizza-1',
-        'tacos-2',
+        'tacos-2'
       ]);
     }));
 
@@ -3106,7 +3104,7 @@ describe('OuiSelect', () => {
       fixture.componentInstance.foods = [
         { value: null, viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' },
-        { value: null, viewValue: 'Tacos' },
+        { value: null, viewValue: 'Tacos' }
       ];
 
       fixture.detectChanges();
@@ -3150,7 +3148,7 @@ describe('OuiSelect', () => {
         'chips-4',
         'eggs-5',
         'pasta-6',
-        'sushi-7',
+        'sushi-7'
       ]);
     });
 
@@ -3177,7 +3175,7 @@ describe('OuiSelect', () => {
         'chips-4',
         'eggs-5',
         'pasta-6',
-        'sushi-7',
+        'sushi-7'
       ]);
     });
 
@@ -3208,7 +3206,7 @@ describe('OuiSelect', () => {
         'chips-4',
         'eggs-5',
         'pasta-6',
-        'sushi-7',
+        'sushi-7'
       ]);
     });
 
@@ -3227,7 +3225,7 @@ describe('OuiSelect', () => {
         'chips-4',
         'eggs-5',
         'pasta-6',
-        'sushi-7',
+        'sushi-7'
       ]);
       expect(options.every((option) => option.selected)).toBe(true);
 

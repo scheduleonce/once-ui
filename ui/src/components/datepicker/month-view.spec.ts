@@ -25,7 +25,7 @@ export const JAN = 0,
       [(activeDate)]="date"
       [(selected)]="selected"
     ></oui-month-view>
-  `,
+  `
 })
 class StandardMonthView {
   date = new Date(2017, JAN, 5);
@@ -38,7 +38,7 @@ class StandardMonthView {
       [activeDate]="activeDate"
       [dateFilter]="dateFilter"
     ></oui-month-view>
-  `,
+  `
 })
 class MonthViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -53,7 +53,7 @@ class MonthViewWithDateFilter {
       [activeDate]="activeDate"
       [dateClass]="dateClass"
     ></oui-month-view>
-  `,
+  `
 })
 class MonthViewWithDateClass {
   activeDate = new Date(2017, JAN, 1);
@@ -76,11 +76,11 @@ describe('OuiMonthView', () => {
         // Test components.
         StandardMonthView,
         MonthViewWithDateFilter,
-        MonthViewWithDateClass,
+        MonthViewWithDateClass
       ],
       providers: [
-        { provide: Directionality, useFactory: () => (dir = { value: 'ltr' }) },
-      ],
+        { provide: Directionality, useFactory: () => (dir = { value: 'ltr' }) }
+      ]
     });
 
     TestBed.compileComponents();

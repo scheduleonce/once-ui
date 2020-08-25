@@ -4,13 +4,13 @@ import {
   OverlayConfig,
   OverlayContainer,
   OverlayRef,
-  ScrollStrategy,
+  ScrollStrategy
 } from '@angular/cdk/overlay';
 import {
   ComponentPortal,
   ComponentType,
   PortalInjector,
-  TemplatePortal,
+  TemplatePortal
 } from '@angular/cdk/portal';
 import {
   Inject,
@@ -20,14 +20,14 @@ import {
   OnDestroy,
   Optional,
   SkipSelf,
-  TemplateRef,
+  TemplateRef
 } from '@angular/core';
 import {
   defer,
   Observable,
   of as observableOf,
   Subject,
-  Subscription,
+  Subscription
 } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { OuiDialogConfig } from './dialog-config';
@@ -68,7 +68,7 @@ export function OUI_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
 export const OUI_DIALOG_SCROLL_STRATEGY_PROVIDER = {
   provide: OUI_DIALOG_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
+  useFactory: OUI_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 
 /**
@@ -219,7 +219,7 @@ export class OuiDialog implements OnDestroy {
       minHeight: dialogConfig.minHeight,
       maxWidth: dialogConfig.maxWidth,
       maxHeight: dialogConfig.maxHeight,
-      disposeOnNavigation: true,
+      disposeOnNavigation: true
     });
 
     if (dialogConfig.backdropClass) {
@@ -293,7 +293,7 @@ export class OuiDialog implements OnDestroy {
       dialogContainer.attachTemplatePortal(
         new TemplatePortal<T>(componentOrTemplateRef, null!, <any>{
           $implicit: config.data,
-          dialogRef,
+          dialogRef
         })
       );
     } else {
@@ -337,7 +337,7 @@ export class OuiDialog implements OnDestroy {
     const injectionTokens = new WeakMap<any, any>([
       [OuiDialogContainer, dialogContainer],
       [OUI_DIALOG_DATA, config.data],
-      [OuiDialogRef, dialogRef],
+      [OuiDialogRef, dialogRef]
     ]);
 
     if (
@@ -347,7 +347,7 @@ export class OuiDialog implements OnDestroy {
     ) {
       injectionTokens.set(Directionality, {
         value: config.direction,
-        change: observableOf(),
+        change: observableOf()
       });
     }
 

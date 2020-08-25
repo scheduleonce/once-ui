@@ -15,7 +15,7 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
+      offsetX: PANEL_OFFSET_X
     },
     {
       originX: 'end',
@@ -23,7 +23,7 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
+      offsetX: -PANEL_OFFSET_X
     },
     {
       originX: 'start',
@@ -31,7 +31,7 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
+      offsetX: PANEL_OFFSET_X
     },
     {
       originX: 'end',
@@ -39,8 +39,8 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
-    },
+      offsetX: -PANEL_OFFSET_X
+    }
   ];
   private _afterBelow: ConnectedPosition[] = [
     {
@@ -49,7 +49,7 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
+      offsetX: PANEL_OFFSET_X
     },
     {
       originX: 'end',
@@ -57,7 +57,7 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
+      offsetX: -PANEL_OFFSET_X
     },
     {
       originX: 'start',
@@ -65,7 +65,7 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
+      offsetX: PANEL_OFFSET_X
     },
     {
       originX: 'end',
@@ -73,8 +73,8 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
-    },
+      offsetX: -PANEL_OFFSET_X
+    }
   ];
   private _beforeAbove: ConnectedPosition[] = [
     {
@@ -83,7 +83,7 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
+      offsetX: -PANEL_OFFSET_X
     },
     {
       originX: 'start',
@@ -91,7 +91,7 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
+      offsetX: PANEL_OFFSET_X
     },
     {
       originX: 'end',
@@ -99,7 +99,7 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
+      offsetX: -PANEL_OFFSET_X
     },
     {
       originX: 'start',
@@ -107,8 +107,8 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
-    },
+      offsetX: PANEL_OFFSET_X
+    }
   ];
   private _beforeBelow: ConnectedPosition[] = [
     {
@@ -117,7 +117,7 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
+      offsetX: -PANEL_OFFSET_X
     },
     {
       originX: 'start',
@@ -125,7 +125,7 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'top',
       offsetY: -PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
+      offsetX: PANEL_OFFSET_X
     },
     {
       originX: 'end',
@@ -133,7 +133,7 @@ export class PanelFlexiblePosition {
       overlayX: 'end',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: -PANEL_OFFSET_X,
+      offsetX: -PANEL_OFFSET_X
     },
     {
       originX: 'start',
@@ -141,8 +141,8 @@ export class PanelFlexiblePosition {
       overlayX: 'start',
       overlayY: 'bottom',
       offsetY: PANEL_OFFSET_Y,
-      offsetX: PANEL_OFFSET_X,
-    },
+      offsetX: PANEL_OFFSET_X
+    }
   ];
   private _xPosition: PanelPositionX;
   private _yPosition: PanelPositionY;

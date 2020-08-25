@@ -8,7 +8,7 @@ describe('OuiSlideToggle', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OuiSlideToggle],
+      declarations: [OuiSlideToggle]
     }).compileComponents();
   }));
 

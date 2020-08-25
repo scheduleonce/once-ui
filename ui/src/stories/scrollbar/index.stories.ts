@@ -8,7 +8,7 @@ const valueOptions = {
   range: true,
   min: 100,
   max: 500,
-  step: 1,
+  step: 1
 };
 
 @Component({
@@ -22,7 +22,7 @@ const valueOptions = {
     >
       {{ text }}
     </div>
-  `,
+  `
 })
 export class OuiScrollbarTextStorybook {
   @Input() large = false;
@@ -45,7 +45,7 @@ export class OuiScrollbarTextStorybook {
         <li *ngFor="let item of items">{{ item }}</li>
       </ul>
     </div>
-  `,
+  `
 })
 export class OuiScrollbarListStorybook {
   @Input() large = false;
@@ -62,7 +62,7 @@ storiesOf('Scrollbar', module)
       moduleMetadata: {
         imports: [OuiScrollbarModule],
         schemas: [],
-        declarations: [OuiScrollbarTextStorybook],
+        declarations: [OuiScrollbarTextStorybook]
       },
       template: `<oui-scrollbar-text-storybook
   [large]="large"
@@ -71,8 +71,8 @@ storiesOf('Scrollbar', module)
       props: {
         large: boolean('large', false),
         height: number('height', 350, valueOptions),
-        text: text('text', DUMMY_TEXT),
-      },
+        text: text('text', DUMMY_TEXT)
+      }
     }),
     { notes: { markdown: markdownText } }
   )
@@ -82,7 +82,7 @@ storiesOf('Scrollbar', module)
       moduleMetadata: {
         imports: [OuiScrollbarModule],
         schemas: [],
-        declarations: [OuiScrollbarListStorybook],
+        declarations: [OuiScrollbarListStorybook]
       },
       template: `<oui-scrollbar-list-storybook
   [large]="large"
@@ -91,8 +91,8 @@ storiesOf('Scrollbar', module)
       props: {
         large: boolean('large', false),
         height: number('height', 350, valueOptions),
-        items: array('items', COUNTRY_LIST),
-      },
+        items: array('items', COUNTRY_LIST)
+      }
     }),
     { notes: { markdown: markdownText } }
   );

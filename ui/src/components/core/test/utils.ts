@@ -103,7 +103,7 @@ export function createKeyboardEvent(
   Object.defineProperties(event, {
     keyCode: { get: () => keyCode },
     key: { get: () => key },
-    target: { get: () => target },
+    target: { get: () => target }
   });
 
   // IE won't set `defaultPrevented` on synthetic events so we need to do it manually.

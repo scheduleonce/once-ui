@@ -2,12 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   Input,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import {
   CanDisable,
   CanDisableCtor,
-  mixinDisabled,
+  mixinDisabled
 } from '../common-behaviors/disabled';
 
 // Boilerplate for applying mixins to OuiOptgroup.
@@ -37,8 +37,8 @@ let _uniqueOptgroupIdCounter = 0;
     role: 'group',
     '[class.oui-optgroup-disabled]': 'disabled',
     '[attr.aria-disabled]': 'disabled.toString()',
-    '[attr.aria-labelledby]': '_labelId',
-  },
+    '[attr.aria-labelledby]': '_labelId'
+  }
 })
 export class OuiOptgroup extends _OuiOptgroupMixinBase implements CanDisable {
   /** Label for the option group. */

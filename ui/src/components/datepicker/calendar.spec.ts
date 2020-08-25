@@ -4,7 +4,7 @@ import {
   async,
   ComponentFixture,
   inject,
-  TestBed,
+  TestBed
 } from '@angular/core/testing';
 import { DateAdapter, OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
@@ -27,7 +27,7 @@ const JAN = 0,
       (monthSelected)="selectedMonth = $event"
     >
     </oui-calendar>
-  `,
+  `
 })
 class StandardCalendar {
   selected: Date;
@@ -43,7 +43,7 @@ class StandardCalendar {
       [minDate]="minDate"
       [maxDate]="maxDate"
     ></oui-calendar>
-  `,
+  `
 })
 class CalendarWithMinMax {
   startAt: Date;
@@ -59,7 +59,7 @@ class CalendarWithMinMax {
       [dateFilter]="dateFilter"
     >
     </oui-calendar>
-  `,
+  `
 })
 class CalendarWithDateFilter {
   selected: Date;
@@ -79,7 +79,7 @@ class CalendarWithDateFilter {
       [minDate]="selected"
     >
     </oui-calendar>
-  `,
+  `
 })
 class CalendarWithSelectableMinDate {
   startAt = new Date(2018, JUL, 0);
@@ -126,13 +126,13 @@ describe('OuiCalendar', () => {
         StandardCalendar,
         CalendarWithMinMax,
         CalendarWithDateFilter,
-        CalendarWithSelectableMinDate,
+        CalendarWithSelectableMinDate
       ],
       providers: [
         OuiDatepickerIntl,
         { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
-      ],
+        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) }
+      ]
     });
 
     TestBed.compileComponents();
@@ -270,7 +270,7 @@ describe('OuiCalendar', () => {
     it('should complete the stateChanges stream', () => {
       const spy = jasmine.createSpy('complete spy');
       const subscription = calendarInstance.stateChanges.subscribe({
-        complete: spy,
+        complete: spy
       });
 
       fixture.destroy();

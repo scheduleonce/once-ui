@@ -8,6 +8,6 @@ import { OuiRadioGroup, OuiRadioButton } from './radio';
 @NgModule({
   declarations: [OuiRadioGroup, OuiRadioButton],
   imports: [CommonModule, ObserversModule, OverlayModule],
-  exports: [OuiRadioGroup, OuiRadioButton],
+  exports: [OuiRadioGroup, OuiRadioButton]
 })
 export class OuiRadioModule {}

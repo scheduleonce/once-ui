@@ -4,7 +4,7 @@ import {
   flush,
   inject,
   TestBed,
-  tick,
+  tick
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +19,7 @@ import {
   ViewChildren,
   QueryList,
   Type,
-  Provider,
+  Provider
 } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { OverlayContainer, Overlay } from '@angular/cdk/overlay';
@@ -28,7 +28,7 @@ import {
   LEFT_ARROW,
   RIGHT_ARROW,
   DOWN_ARROW,
-  TAB,
+  TAB
 } from '@angular/cdk/keycodes';
 import {
   OUI_MENU_DEFAULT_OPTIONS,
@@ -38,7 +38,7 @@ import {
   OuiMenuTrigger,
   MenuPositionX,
   MenuPositionY,
-  OuiMenuItem,
+  OuiMenuItem
 } from './public-api';
 import { OUI_MENU_SCROLL_STRATEGY } from './menu-trigger';
 import { Subject } from 'rxjs';
@@ -51,7 +51,7 @@ import {
   createMouseEvent,
   dispatchKeyboardEvent,
   createKeyboardEvent,
-  dispatchEvent,
+  dispatchEvent
 } from '../core/test/utils';
 
 @Component({
@@ -71,7 +71,7 @@ import {
       </button>
       <button *ngFor="let item of extraItems" oui-menu-item>{{ item }}</button>
     </oui-menu>
-  `,
+  `
 })
 class SimpleMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -89,7 +89,7 @@ class SimpleMenu {
     <oui-menu [xPosition]="xPosition" [yPosition]="yPosition" #menu="ouiMenu">
       <button oui-menu-item>Positioned Content</button>
     </oui-menu>
-  `,
+  `
 })
 class PositionedMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -108,7 +108,7 @@ interface TestableMenu {
     <oui-menu [overlapTrigger]="overlapTrigger" #menu="ouiMenu">
       <button oui-menu-item>Not overlapped Content</button>
     </oui-menu>
-  `,
+  `
 })
 class OverlapMenu implements TestableMenu {
   @Input() overlapTrigger: boolean;
@@ -124,7 +124,7 @@ class OverlapMenu implements TestableMenu {
       <ng-content></ng-content>
     </ng-template>
   `,
-  exportAs: 'ouiCustomMenu',
+  exportAs: 'ouiCustomMenu'
 })
 class CustomMenuPanel implements OuiMenuPanel {
   direction: Direction;
@@ -146,7 +146,7 @@ class CustomMenuPanel implements OuiMenuPanel {
     <oui-custom-menu #menu="ouiCustomMenu">
       <button oui-menu-item>Custom Content</button>
     </oui-custom-menu>
-  `,
+  `
 })
 class CustomMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -209,7 +209,7 @@ class CustomMenu {
       <button oui-menu-item>Ten</button> <button oui-menu-item>Eleven</button>
       <button oui-menu-item>Twelve</button>
     </oui-menu>
-  `,
+  `
 })
 class NestedMenu {
   @ViewChild('root') rootMenu: OuiMenu;
@@ -255,7 +255,7 @@ class NestedMenu {
     <oui-menu #levelOne="ouiMenu">
       <button oui-menu-item>Four</button> <button oui-menu-item>Five</button>
     </oui-menu>
-  `,
+  `
 })
 class NestedMenuRepeater {
   @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
@@ -282,7 +282,7 @@ class NestedMenuRepeater {
         <button oui-menu-item class="level-two-item">Two</button>
       </oui-menu>
     </oui-menu>
-  `,
+  `
 })
 class SubmenuDeclaredInsideParentMenu {
   @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef;
@@ -290,7 +290,7 @@ class SubmenuDeclaredInsideParentMenu {
 
 @Component({
   selector: 'oui-fake-icon',
-  template: '<ng-content></ng-content>',
+  template: '<ng-content></ng-content>'
 })
 class FakeIcon {}
 
@@ -304,7 +304,7 @@ class FakeIcon {}
         <button oui-menu-item>Another item</button>
       </ng-template>
     </oui-menu>
-  `,
+  `
 })
 class SimpleLazyMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -335,7 +335,7 @@ class SimpleLazyMenu {
         <button oui-menu-item>{{ label }}</button>
       </ng-template>
     </oui-menu>
-  `,
+  `
 })
 class LazyMenuWithContext {
   @ViewChild('triggerOne') triggerOne: OuiMenuTrigger;
@@ -348,7 +348,7 @@ class LazyMenuWithContext {
     <oui-menu #one="ouiMenu"> <button oui-menu-item>One</button> </oui-menu>
 
     <oui-menu #two="ouiMenu"> <button oui-menu-item>Two</button> </oui-menu>
-  `,
+  `
 })
 class DynamicPanelMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -368,7 +368,7 @@ class DynamicPanelMenu {
         Not checked
       </button>
     </oui-menu>
-  `,
+  `
 })
 class MenuWithCheckboxItems {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -387,7 +387,7 @@ describe('OuiMenu', () => {
     TestBed.configureTestingModule({
       imports: [OuiMenuModule, NoopAnimationsModule],
       declarations: [component, ...declarations],
-      providers,
+      providers
     }).compileComponents();
 
     inject(
@@ -817,14 +817,14 @@ describe('OuiMenu', () => {
       [
         {
           provide: ScrollDispatcher,
-          useFactory: () => ({ scrolled: () => scrolledSubject }),
+          useFactory: () => ({ scrolled: () => scrolledSubject })
         },
         {
           provide: OUI_MENU_SCROLL_STRATEGY,
           deps: [Overlay],
           useFactory: (overlay: Overlay) => () =>
-            overlay.scrollStrategies.close(),
-        },
+            overlay.scrollStrategies.close()
+        }
       ],
       [FakeIcon]
     );
@@ -1194,8 +1194,8 @@ describe('OuiMenu', () => {
         fixture = createComponent(NestedMenu, [
           {
             provide: Directionality,
-            useFactory: () => ({ value: direction }),
-          },
+            useFactory: () => ({ value: direction })
+          }
         ]);
 
         fixture.detectChanges();
@@ -1902,10 +1902,10 @@ describe('OuiMenu default overrides', () => {
           useValue: {
             overlapTrigger: true,
             xPosition: 'before',
-            yPosition: 'above',
-          },
-        },
-      ],
+            yPosition: 'above'
+          }
+        }
+      ]
     }).compileComponents();
   }));
 

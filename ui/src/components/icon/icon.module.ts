@@ -8,6 +8,6 @@ import { OuiIconRegistry } from './icon-registery';
   imports: [CommonModule, HttpClientModule],
   exports: [Icon],
   declarations: [Icon],
-  providers: [OuiIconRegistry, TitleCasePipe],
+  providers: [OuiIconRegistry, TitleCasePipe]
 })
 export class OuiIconModule {}

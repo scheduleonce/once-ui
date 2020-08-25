@@ -11,7 +11,7 @@ storiesOf('Checkbox', module).add(
     moduleMetadata: {
       imports: [OuiCheckboxModule],
       schemas: [],
-      declarations: [],
+      declarations: []
     },
     template: `<oui-checkbox
                 class="example-margin"
@@ -27,8 +27,8 @@ storiesOf('Checkbox', module).add(
       changed: action('change'),
       position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
       disabled: boolean('disabled', false),
-      checked: boolean('checked', false),
-    },
+      checked: boolean('checked', false)
+    }
   }),
   { notes: { markdown: markdownText } }
 );

@@ -3,7 +3,7 @@ import {
   ElementRef,
   ChangeDetectionStrategy,
   Input,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { mixinColor } from '../core';
@@ -29,10 +29,10 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
     '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
     '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
     '[attr.aria-valuenow]': 'value',
-    '[attr.mode]': 'mode',
+    '[attr.mode]': 'mode'
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+  encapsulation: ViewEncapsulation.None
 })
 export class OuiProgressBar extends _OuiProgressBarMixinBase {
   private _value = 0;

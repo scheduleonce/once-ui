@@ -5,7 +5,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   BreakpointObserver,
   Breakpoints,
-  BreakpointState,
+  BreakpointState
 } from '@angular/cdk/layout';
 import {
   FlexibleConnectedPositionStrategy,
@@ -15,7 +15,7 @@ import {
   OverlayConnectionPosition,
   OverlayRef,
   VerticalConnectionPos,
-  ScrollStrategy,
+  ScrollStrategy
 } from '@angular/cdk/overlay';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
@@ -34,7 +34,7 @@ import {
   OnDestroy,
   Optional,
   ViewContainerRef,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { ouiTooltipAnimations } from './tooltip-animations';
@@ -73,7 +73,7 @@ export function OUI_TOOLTIP_SCROLL_STRATEGY_FACTORY(
 export const OUI_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_TOOLTIP_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_TOOLTIP_SCROLL_STRATEGY_FACTORY,
+  useFactory: OUI_TOOLTIP_SCROLL_STRATEGY_FACTORY
 };
 
 /** Default `ouiTooltip` options that can be overridden. */
@@ -88,7 +88,7 @@ export const OUI_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<
   OuiTooltipDefaultOptions
 >('oui-tooltip-default-options', {
   providedIn: 'root',
-  factory: OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
+  factory: OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
 
 /** @docs-private */
@@ -96,7 +96,7 @@ export function OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): OuiTooltipDefaultOptions 
   return {
     showDelay: 0,
     hideDelay: 0,
-    touchendHideDelay: 1500,
+    touchendHideDelay: 1500
   };
 }
 
@@ -119,8 +119,8 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
     // won't be rendered if the animations are disabled or there is no web animations polyfill.
     '[style.zoom]': '_visibility === "visible" ? 1 : null',
     '(body:click)': 'this._handleBodyInteraction()',
-    'aria-hidden': 'true',
-  },
+    'aria-hidden': 'true'
+  }
 })
 export class TooltipComponent {
   /** Message to display in the tooltip */
@@ -253,8 +253,8 @@ export class TooltipComponent {
     '(keydown)': '_handleKeydown($event)',
     '(touchend)': '_handleTouchend()',
     '[attr.tabindex]': 'disabled ? -1 : 0',
-    '[attr.aria-hidden]': 'false',
-  },
+    '[attr.aria-hidden]': 'false'
+  }
 })
 export class OuiTooltip implements OnDestroy, CanDisable {
   _overlayRef: OverlayRef | null;
@@ -535,7 +535,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
       direction: this._dir,
       positionStrategy: strategy,
       panelClass: TOOLTIP_PANEL_CLASS,
-      scrollStrategy: this._scrollStrategy(),
+      scrollStrategy: this._scrollStrategy()
     });
 
     this._updatePosition();
@@ -566,7 +566,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
     position.withPositions([
       { ...origin.main, ...overlay.main },
-      { ...origin.fallback, ...overlay.fallback },
+      { ...origin.fallback, ...overlay.fallback }
     ]);
   }
 
@@ -585,7 +585,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     if (position === 'above' || position === 'below') {
       originPosition = {
         originX: 'center',
-        originY: position === 'above' ? 'top' : 'bottom',
+        originY: position === 'above' ? 'top' : 'bottom'
       };
     } else if (
       (position === 'left' && isLtr) ||
@@ -608,7 +608,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
     return {
       main: originPosition,
-      fallback: { originX: x, originY: y },
+      fallback: { originX: x, originY: y }
     };
   }
 
@@ -646,7 +646,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
     return {
       main: overlayPosition,
-      fallback: { overlayX: x, overlayY: y },
+      fallback: { overlayX: x, overlayY: y }
     };
   }
 

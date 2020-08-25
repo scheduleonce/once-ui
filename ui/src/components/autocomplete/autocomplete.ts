@@ -15,7 +15,7 @@ import {
   QueryList,
   TemplateRef,
   ViewChild,
-  ViewEncapsulation,
+  ViewEncapsulation
 } from '@angular/core';
 
 import { OUI_OPTION_PARENT_COMPONENT, OuiOption } from '../core/option/option';
@@ -48,7 +48,7 @@ export const OUI_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<
   OuiAutocompleteDefaultOptions
 >('oui-autocomplete-default-options', {
   providedIn: 'root',
-  factory: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
+  factory: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY
 });
 
 /** @docs-private */
@@ -65,11 +65,11 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
   exportAs: 'ouiAutocomplete',
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-autocomplete',
+    class: 'oui-autocomplete'
   },
   providers: [
-    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiAutocomplete },
-  ],
+    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiAutocomplete }
+  ]
 })
 export class OuiAutocomplete implements AfterContentInit {
   /** Manages active item in option list based on key events. */
