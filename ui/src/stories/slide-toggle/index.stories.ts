@@ -13,8 +13,8 @@ storiesOf('Slide Toggle', module).add(
       checked: boolean('checked', true),
       disabled: boolean('disabled', false),
       color: select('color', COLORS, COLORS[0]),
-      change: action('state-change')
-    }
+      change: action('state-change'),
+    },
   }),
   { notes: { markdown: markdownText } }
 );

@@ -6,7 +6,7 @@ import {
   OnDestroy,
   ElementRef,
   NgZone,
-  IterableDiffers
+  IterableDiffers,
 } from '@angular/core';
 import {
   CDK_ROW_TEMPLATE,
@@ -15,7 +15,7 @@ import {
   CdkHeaderRow,
   CdkHeaderRowDef,
   CdkRow,
-  CdkRowDef
+  CdkRowDef,
 } from '@angular/cdk/table';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Subscription } from 'rxjs';
@@ -28,7 +28,7 @@ import { Subscription } from 'rxjs';
   selector: '[ouiHeaderRowDef]',
   providers: [{ provide: CdkHeaderRowDef, useExisting: OuiHeaderRowDef }],
   // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['columns: ouiHeaderRowDef']
+  inputs: ['columns: ouiHeaderRowDef'],
 })
 export class OuiHeaderRowDef extends CdkHeaderRowDef {}
 
@@ -40,7 +40,7 @@ export class OuiHeaderRowDef extends CdkHeaderRowDef {}
   selector: '[ouiFooterRowDef]',
   providers: [{ provide: CdkFooterRowDef, useExisting: OuiFooterRowDef }],
   // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['columns: ouiFooterRowDef']
+  inputs: ['columns: ouiFooterRowDef'],
 })
 export class OuiFooterRowDef extends CdkFooterRowDef {}
 
@@ -53,7 +53,7 @@ export class OuiFooterRowDef extends CdkFooterRowDef {}
   selector: '[ouiRowDef]',
   providers: [{ provide: CdkRowDef, useExisting: OuiRowDef }],
   // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['columns: ouiRowDefColumns', 'when: ouiRowDefWhen']
+  inputs: ['columns: ouiRowDefColumns', 'when: ouiRowDefWhen'],
 })
 export class OuiRowDef<T> extends CdkRowDef<T> {}
 
@@ -64,12 +64,12 @@ export class OuiRowDef<T> extends CdkRowDef<T> {}
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-header-row',
-    role: 'row'
+    role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiHeaderRow',
-  providers: [{ provide: CdkHeaderRow, useExisting: OuiHeaderRow }]
+  providers: [{ provide: CdkHeaderRow, useExisting: OuiHeaderRow }],
 })
 export class OuiHeaderRow extends CdkHeaderRow {}
 
@@ -80,12 +80,12 @@ export class OuiHeaderRow extends CdkHeaderRow {}
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-footer-row',
-    role: 'row'
+    role: 'row',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiFooterRow',
-  providers: [{ provide: CdkFooterRow, useExisting: OuiFooterRow }]
+  providers: [{ provide: CdkFooterRow, useExisting: OuiFooterRow }],
 })
 export class OuiFooterRow extends CdkFooterRow {}
 
@@ -97,12 +97,12 @@ export class OuiFooterRow extends CdkFooterRow {}
   host: {
     class: 'oui-row',
     role: 'row',
-    tabindex: '0'
+    tabindex: '0',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRow',
-  providers: [{ provide: CdkRow, useExisting: OuiRow }]
+  providers: [{ provide: CdkRow, useExisting: OuiRow }],
 })
 export class OuiRow extends CdkRow implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;

@@ -1,6 +1,6 @@
 import {
   coerceNumberProperty,
-  coerceBooleanProperty
+  coerceBooleanProperty,
 } from '@angular/cdk/coercion';
 import {
   ChangeDetectionStrategy,
@@ -11,7 +11,7 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OuiPaginatorIntl } from './paginator-intl';
@@ -21,7 +21,7 @@ import {
   mixinInitialized,
   mixinDisabled,
   CanDisableCtor,
-  CanDisable
+  CanDisable,
 } from '../core';
 
 /** The default page size if there is no page size and there are no provided page size options. */
@@ -69,12 +69,13 @@ export const _OuiPaginatorBase: CanDisableCtor &
   inputs: ['disabled'],
   // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-paginator'
+    class: 'oui-paginator',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
-export class OuiPaginator extends _OuiPaginatorBase
+export class OuiPaginator
+  extends _OuiPaginatorBase
   implements OnInit, OnDestroy, CanDisable, HasInitialized {
   private _initialized: boolean;
   private _intlChanges: Subscription;
@@ -258,7 +259,7 @@ export class OuiPaginator extends _OuiPaginatorBase
       previousPageIndex,
       pageIndex: this.pageIndex,
       pageSize: this.pageSize,
-      length: this.length
+      length: this.length,
     });
   }
 }

@@ -11,7 +11,7 @@ import {
   OnDestroy,
   OnInit,
   Optional,
-  Self
+  Self,
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
@@ -22,7 +22,7 @@ import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
 import { OUI_INPUT_VALUE_ACCESSOR } from './input-value-accessor';
 import {
   CanUpdateErrorStateCtor,
-  mixinErrorState
+  mixinErrorState,
 } from '../core/common-behaviors/error-state';
 
 // Invalid input type. Using one of these will throw an OuiInputUnsupportedTypeError.
@@ -35,7 +35,7 @@ const OUI_INPUT_INVALID_TYPES = [
   'radio',
   'range',
   'reset',
-  'submit'
+  'submit',
 ];
 
 /** Default color palette for input */
@@ -97,15 +97,16 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-invalid]': 'errorState',
     '[attr.aria-required]': 'required.toString()',
-    '(input)': '_onInput()'
+    '(input)': '_onInput()',
   },
   providers: [
     { provide: OuiFormFieldControl, useExisting: OuiInput },
     NgForm,
-    FormGroupDirective
-  ]
+    FormGroupDirective,
+  ],
 })
-export class OuiInput extends _OuiInputMixinBase
+export class OuiInput
+  extends _OuiInputMixinBase
   implements
     OuiFormFieldControl<any>,
     OnChanges,
@@ -272,8 +273,8 @@ export class OuiInput extends _OuiInputMixinBase
     'datetime-local',
     'month',
     'time',
-    'week'
-  ].filter(t => getSupportedInputTypes().has(t));
+    'week',
+  ].filter((t) => getSupportedInputTypes().has(t));
 
   constructor(
     public _elementRef: ElementRef<
@@ -327,7 +328,7 @@ export class OuiInput extends _OuiInputMixinBase
     if (this._platform.isBrowser) {
       this._autofillMonitor
         .monitor(this._elementRef.nativeElement)
-        .subscribe(event => {
+        .subscribe((event) => {
           this.autofilled = event.isAutofilled;
           this.stateChanges.next();
         });
@@ -370,7 +371,7 @@ export class OuiInput extends _OuiInputMixinBase
 
   /** Gets whether the button has one of the given attributes. */
   hasHostAttributes(...attributes: string[]) {
-    return attributes.some(attribute =>
+    return attributes.some((attribute) =>
       this.getHostElement().hasAttribute(attribute)
     );
   }

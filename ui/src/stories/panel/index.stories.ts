@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/angular';
 import {
   OuiIconModule,
   OuiPanelModule,
-  OuiButtonModule
+  OuiButtonModule,
 } from '../../components';
 import { select, number } from '@storybook/addon-knobs';
 import { Component, Input } from '@angular/core';
@@ -33,7 +33,7 @@ import markdownText from '../../components/panel/README.md';
         <a href="https://www.scheduleonce.com/" target="blank">Learn more</a>
       </p>
     </oui-panel>
-  `
+  `,
 })
 export class OuiPanelStorybook {
   @Input() xPosition = 'before';
@@ -45,7 +45,7 @@ const widthOptions = {
   range: true,
   min: 270,
   max: 512,
-  step: 1
+  step: 1,
 };
 @Component({
   selector: 'oui-panel-with-image-storybook',
@@ -70,7 +70,7 @@ const widthOptions = {
         tempora beatae.
       </p>
     </oui-panel>
-  `
+  `,
 })
 export class OuiPanelWithImageStorybook {
   @Input() xPosition = 'before';
@@ -87,10 +87,10 @@ storiesOf('Panel', module)
           OuiIconModule,
           OuiButtonModule,
           OuiPanelModule,
-          OverlayModule
+          OverlayModule,
         ],
         schemas: [],
-        declarations: [OuiPanelStorybook]
+        declarations: [OuiPanelStorybook],
       },
       template: `<oui-panel-storybook
   [xPosition]="xPosition"
@@ -100,8 +100,8 @@ storiesOf('Panel', module)
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
         yPosition: select('yPosotion', ['above', 'below'], 'above'),
-        width: number('width', 270, widthOptions)
-      }
+        width: number('width', 270, widthOptions),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -113,10 +113,10 @@ storiesOf('Panel', module)
           OuiIconModule,
           OuiButtonModule,
           OuiPanelModule,
-          OverlayModule
+          OverlayModule,
         ],
         schemas: [],
-        declarations: [OuiPanelWithImageStorybook]
+        declarations: [OuiPanelWithImageStorybook],
       },
       template: `<oui-panel-with-image-storybook
     [xPosition]="xPosition"
@@ -124,8 +124,8 @@ storiesOf('Panel', module)
               </oui-panel-with-image-storybook>`,
       props: {
         xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosotion', ['above', 'below'], 'above')
-      }
+        yPosition: select('yPosotion', ['above', 'below'], 'above'),
+      },
     }),
     { notes: { markdown: markdownText } }
   );

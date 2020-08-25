@@ -1,7 +1,7 @@
 import {
   FocusMonitor,
   FocusOrigin,
-  isFakeMousedownFromScreenReader
+  isFakeMousedownFromScreenReader,
 } from '@angular/cdk/a11y';
 import { RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import {
@@ -11,7 +11,7 @@ import {
   OverlayConfig,
   OverlayRef,
   VerticalConnectionPos,
-  ScrollStrategy
+  ScrollStrategy,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import {
@@ -26,7 +26,7 @@ import {
   Optional,
   Output,
   Self,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { asapScheduler, merge, of as observableOf, Subscription } from 'rxjs';
@@ -53,7 +53,7 @@ export function OUI_MENU_SCROLL_STRATEGY_FACTORY(
 export const OUI_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_MENU_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_MENU_SCROLL_STRATEGY_FACTORY
+  useFactory: OUI_MENU_SCROLL_STRATEGY_FACTORY,
 };
 
 /** Default top padding of the menu panel. */
@@ -64,7 +64,7 @@ export const MENU_PANEL_LEFT_PADDING = 2;
 
 /** Options for binding a passive event listener. */
 const passiveEventListenerOptions = normalizePassiveListenerOptions({
-  passive: true
+  passive: true,
 });
 
 // TODO(andrewseguin): Remove the kebab versions in favor of camelCased attribute selectors
@@ -81,9 +81,9 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
     '[attr.aria-expanded]': 'menuOpen || null',
     '(mousedown)': '_handleMousedown($event)',
     '(keydown)': '_handleKeydown($event)',
-    '(click)': '_handleClick($event)'
+    '(click)': '_handleClick($event)',
   },
-  exportAs: 'ouiMenuTrigger'
+  exportAs: 'ouiMenuTrigger',
 })
 export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _portal: TemplatePortal;
@@ -114,7 +114,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     if (menu) {
       this._menuCloseSubscription = menu.close
         .asObservable()
-        .subscribe(event => {
+        .subscribe((event) => {
           this._destroyMenu(event);
           // If a click closed the menu, we should close the entire chain of nested menus.
           if ((event === 'click' || event === 'tab') && this._parentMenu) {
@@ -361,7 +361,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       backdropClass:
         this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this._scrollStrategy(),
-      direction: 'ltr'
+      direction: 'ltr',
     });
   }
 
@@ -374,7 +374,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     position: FlexibleConnectedPositionStrategy
   ): void {
     if (this.menu.setPositionClasses) {
-      position.positionChanges.subscribe(change => {
+      position.positionChanges.subscribe((change) => {
         const posX: MenuPositionX =
           change.connectionPair.overlayX === 'start' ? 'after' : 'before';
         const posY: MenuPositionY =
@@ -430,7 +430,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayX: overlayFallbackX,
         overlayY,
         offsetY,
-        offsetX
+        offsetX,
       },
       {
         originX,
@@ -438,7 +438,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayX,
         overlayY: overlayFallbackY,
         offsetY: -offsetY,
-        offsetX
+        offsetX,
       },
       {
         originX: originFallbackX,
@@ -446,8 +446,8 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayX: overlayFallbackX,
         overlayY: overlayFallbackY,
         offsetY: -offsetY,
-        offsetX: -offsetX
-      }
+        offsetX: -offsetX,
+      },
     ]);
   }
 
@@ -466,7 +466,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       : observableOf();
     const hover = this._parentMenu
       ? this._parentMenu._hovered().pipe(
-          filter(active => active !== this._menuItemInstance),
+          filter((active) => active !== this._menuItemInstance),
           filter(() => this._menuOpen)
         )
       : observableOf();
@@ -532,7 +532,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       // with different data and triggers), we have to delay it by a tick to ensure that
       // it won't be closed immediately after it is opened.
       .pipe(
-        filter(active => active === this._menuItemInstance && !active.disabled),
+        filter(
+          (active) => active === this._menuItemInstance && !active.disabled
+        ),
         delay(0, asapScheduler)
       )
       .subscribe(() => {

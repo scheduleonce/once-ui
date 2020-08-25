@@ -5,7 +5,7 @@ import { OuiOptionModule } from '../core/option/index';
 import { OuiAutocomplete } from './autocomplete';
 import {
   OuiAutocompleteTrigger,
-  OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER
+  OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER,
 } from './autocomplete-trigger';
 import { OuiAutocompleteOrigin } from './autocomplete-origin';
 
@@ -15,13 +15,13 @@ import { OuiAutocompleteOrigin } from './autocomplete-origin';
     OuiAutocomplete,
     OuiOptionModule,
     OuiAutocompleteTrigger,
-    OuiAutocompleteOrigin
+    OuiAutocompleteOrigin,
   ],
   declarations: [
     OuiAutocomplete,
     OuiAutocompleteTrigger,
-    OuiAutocompleteOrigin
+    OuiAutocompleteOrigin,
   ],
-  providers: [OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER]
+  providers: [OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
 })
 export class OuiAutocompleteModule {}

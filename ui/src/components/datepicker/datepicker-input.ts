@@ -10,7 +10,7 @@ import {
   OnDestroy,
   Optional,
   Output,
-  AfterViewInit
+  AfterViewInit,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -20,7 +20,7 @@ import {
   ValidationErrors,
   Validator,
   ValidatorFn,
-  Validators
+  Validators,
 } from '@angular/forms';
 import { OuiFormField } from '../form-field/form-field';
 import { OUI_INPUT_VALUE_ACCESSOR } from '../input/input-value-accessor';
@@ -34,13 +34,13 @@ import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
 export const OUI_DATEPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => OuiDatepickerInput),
-  multi: true
+  multi: true,
 };
 
 export const OUI_DATEPICKER_VALIDATORS: any = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => OuiDatepickerInput),
-  multi: true
+  multi: true,
 };
 
 /**
@@ -69,7 +69,7 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
   providers: [
     OUI_DATEPICKER_VALUE_ACCESSOR,
     OUI_DATEPICKER_VALIDATORS,
-    { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput }
+    { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput },
   ],
   // tslint:disable-next-line:no-host-metadata-property
   host: {
@@ -83,9 +83,9 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     '(change)': '_onChange()',
     '(blur)': '_onBlur()',
     '(keydown)': '_onKeydown($event)',
-    '[class.oui-datepicker-disabled]': '_datepickerDisabled'
+    '[class.oui-datepicker-disabled]': '_datepickerDisabled',
   },
-  exportAs: 'ouiDatepickerInput'
+  exportAs: 'ouiDatepickerInput',
 })
 export class OuiDatepickerInput<D>
   implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator {
@@ -281,7 +281,7 @@ export class OuiDatepickerInput<D>
     this._parseValidator,
     this._minValidator,
     this._maxValidator,
-    this._filterValidator
+    this._filterValidator,
   ]);
 
   constructor(

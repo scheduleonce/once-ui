@@ -5,7 +5,7 @@
  */
 import { Pipe, PipeTransform } from '@angular/core';
 @Pipe({
-  name: 'filterOptions'
+  name: 'filterOptions',
 })
 export class FilterPipe implements PipeTransform {
   transform(items: any[], searchText: string, field: string): any[] {
@@ -17,7 +17,7 @@ export class FilterPipe implements PipeTransform {
       return items;
     }
 
-    return items.filter(it => {
+    return items.filter((it) => {
       let results;
       // Support both array and the json object
       if (it[field]) {

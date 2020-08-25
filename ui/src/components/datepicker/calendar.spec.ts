@@ -4,7 +4,7 @@ import {
   async,
   ComponentFixture,
   inject,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import { DateAdapter, OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
@@ -27,7 +27,7 @@ const JAN = 0,
       (monthSelected)="selectedMonth = $event"
     >
     </oui-calendar>
-  `
+  `,
 })
 class StandardCalendar {
   selected: Date;
@@ -43,7 +43,7 @@ class StandardCalendar {
       [minDate]="minDate"
       [maxDate]="maxDate"
     ></oui-calendar>
-  `
+  `,
 })
 class CalendarWithMinMax {
   startAt: Date;
@@ -59,7 +59,7 @@ class CalendarWithMinMax {
       [dateFilter]="dateFilter"
     >
     </oui-calendar>
-  `
+  `,
 })
 class CalendarWithDateFilter {
   selected: Date;
@@ -79,7 +79,7 @@ class CalendarWithDateFilter {
       [minDate]="selected"
     >
     </oui-calendar>
-  `
+  `,
 })
 class CalendarWithSelectableMinDate {
   startAt = new Date(2018, JUL, 0);
@@ -126,13 +126,13 @@ describe('OuiCalendar', () => {
         StandardCalendar,
         CalendarWithMinMax,
         CalendarWithDateFilter,
-        CalendarWithSelectableMinDate
+        CalendarWithSelectableMinDate,
       ],
       providers: [
         OuiDatepickerIntl,
         { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) }
-      ]
+        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+      ],
     });
 
     TestBed.compileComponents();
@@ -269,7 +269,9 @@ describe('OuiCalendar', () => {
 
     it('should complete the stateChanges stream', () => {
       const spy = jasmine.createSpy('complete spy');
-      const subscription = calendarInstance.stateChanges.subscribe({complete: spy});
+      const subscription = calendarInstance.stateChanges.subscribe({
+        complete: spy,
+      });
 
       fixture.destroy();
 
@@ -478,11 +480,11 @@ describe('OuiCalendar', () => {
       );
 
       expect(
-        cells.slice(0, 9).every(c => c.classList.contains(disabledClass))
+        cells.slice(0, 9).every((c) => c.classList.contains(disabledClass))
       ).toBe(true, 'Expected dates up to the 10th to be disabled.');
 
       expect(
-        cells.slice(9).every(c => c.classList.contains(disabledClass))
+        cells.slice(9).every((c) => c.classList.contains(disabledClass))
       ).toBe(false, 'Expected dates after the 10th to be enabled.');
 
       (cells[14] as HTMLElement).click();
@@ -492,11 +494,11 @@ describe('OuiCalendar', () => {
       );
 
       expect(
-        cells.slice(0, 14).every(c => c.classList.contains(disabledClass))
+        cells.slice(0, 14).every((c) => c.classList.contains(disabledClass))
       ).toBe(true, 'Expected dates up to the 14th to be disabled.');
 
       expect(
-        cells.slice(14).every(c => c.classList.contains(disabledClass))
+        cells.slice(14).every((c) => c.classList.contains(disabledClass))
       ).toBe(false, 'Expected dates after the 14th to be enabled.');
     });
   });

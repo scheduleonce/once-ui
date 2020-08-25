@@ -2,7 +2,7 @@ import { inject, async, fakeAsync, tick, TestBed } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { Component } from '@angular/core';
 import { OuiIconModule } from './icon.module';
@@ -23,25 +23,21 @@ export const FAKE_SVGS = {
         <svg id="left-arrow" name="left-arrow"><path name="left"></path></svg>
         <svg id="right-arrow" name="right-arrow"><path name="right"></path></svg>
       </defs>
-    </svg>  `
+    </svg>  `,
 };
 
 /**
  * Test components
  */
 @Component({
-  template: `
-    <oui-icon></oui-icon>
-  `
+  template: ` <oui-icon></oui-icon> `,
 })
 class IconWithLigature {
   iconName = '';
 }
 
 @Component({
-  template: `
-    <oui-icon [color]="iconColor"></oui-icon>
-  `
+  template: ` <oui-icon [color]="iconColor"></oui-icon> `,
 })
 class IconWithColor {
   iconName = '';
@@ -49,18 +45,14 @@ class IconWithColor {
 }
 
 @Component({
-  template: `
-    <oui-icon [svgIcon]="iconName"></oui-icon>
-  `
+  template: ` <oui-icon [svgIcon]="iconName"></oui-icon> `,
 })
 class IconFromSvgName {
   iconName: string | undefined = '';
 }
 
 @Component({
-  template: `
-    <oui-icon [svgIcon]="iconName" *ngIf="showIcon"></oui-icon>
-  `
+  template: ` <oui-icon [svgIcon]="iconName" *ngIf="showIcon"></oui-icon> `,
 })
 class IconWithBindingAndNgIf {
   iconName = 'fluffy';
@@ -68,18 +60,14 @@ class IconWithBindingAndNgIf {
 }
 
 @Component({
-  template: `
-    <oui-icon [inline]="inline"></oui-icon>
-  `
+  template: ` <oui-icon [inline]="inline"></oui-icon> `,
 })
 class InlineIcon {
   inline = false;
 }
 
 @Component({
-  template: `
-    <oui-icon [svgIcon]="iconName"><div>Hello</div></oui-icon>
-  `
+  template: ` <oui-icon [svgIcon]="iconName"><div>Hello</div></oui-icon> `,
 })
 class SvgIconWithUserContent {
   iconName: string | undefined = '';
@@ -128,14 +116,14 @@ describe('OuiIcon', () => {
         IconFromSvgName,
         IconWithBindingAndNgIf,
         InlineIcon,
-        SvgIconWithUserContent
+        SvgIconWithUserContent,
       ],
       providers: [
         {
           provide: OUI_ICON_LOCATION,
-          useValue: { getPathname: () => fakePath }
-        }
-      ]
+          useValue: { getPathname: () => fakePath },
+        },
+      ],
     });
 
     TestBed.compileComponents();
@@ -165,7 +153,7 @@ describe('OuiIcon', () => {
     fixture.detectChanges();
     expect(sortedClassNames(ouiIconElement)).toEqual([
       'oui-icon',
-      'oui-primary'
+      'oui-primary',
     ]);
   });
 
@@ -288,7 +276,7 @@ describe('OuiIcon', () => {
       verifyPathChildElement(svgElement, 'meow');
 
       // Assert that a registered icon can be looked-up by name.
-      iconRegistry.getNamedSvgIcon('fluffy').subscribe(element => {
+      iconRegistry.getNamedSvgIcon('fluffy').subscribe((element) => {
         verifyPathChildElement(element, 'meow');
       });
 

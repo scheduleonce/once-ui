@@ -11,7 +11,7 @@ import {
   ElementRef,
   Attribute,
   ViewChild,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -47,7 +47,7 @@ export enum TransitionCheckState {
   /** The state representing the component when it's becoming checked. */
   Checked,
   /** The state representing the component when it's becoming unchecked. */
-  Unchecked
+  Unchecked,
 }
 
 /**
@@ -70,7 +70,7 @@ export enum TransitionCheckState {
     '[attr.tabindex]': 'null',
     '[class.oui-checkbox-checked]': 'checked',
     '[class.oui-checkbox-disabled]': 'disabled',
-    '[class.oui-checkbox-label-before]': 'labelPosition == "before"'
+    '[class.oui-checkbox-label-before]': 'labelPosition == "before"',
   },
   // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['tabIndex', 'color'],
@@ -80,11 +80,12 @@ export enum TransitionCheckState {
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => Checkbox),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
-export class Checkbox extends OuiCheckboxMixinBase
+export class Checkbox
+  extends OuiCheckboxMixinBase
   implements ControlValueAccessor, HasTabIndex, OnDestroy {
   /**
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will

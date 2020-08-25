@@ -6,20 +6,20 @@ import {
   FactoryProvider,
   Type,
   ValueProvider,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
   flush,
   inject,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   OUI_DATE_LOCALE,
   OuiNativeDateModule,
-  NativeDateModule
+  NativeDateModule,
 } from './native-date.module';
 import { OuiFormFieldModule, OuiInputModule, OuiFormField } from '../';
 import { By } from '@angular/platform-browser';
@@ -31,7 +31,7 @@ import { OuiDatepickerToggle } from './datepicker-toggle';
 import {
   OUI_DATEPICKER_SCROLL_STRATEGY,
   OuiDatepickerIntl,
-  OuiDatepickerModule
+  OuiDatepickerModule,
 } from './index';
 export const JAN = 0,
   FEB = 1,
@@ -55,7 +55,7 @@ export const JAN = 0,
       [disabled]="disabled"
       [opened]="opened"
     ></oui-datepicker>
-  `
+  `,
 })
 class StandardDatepicker {
   opened = false;
@@ -72,14 +72,12 @@ class StandardDatepicker {
     <input [ouiDatepicker]="d" /><input [ouiDatepicker]="d" /><oui-datepicker
       #d
     ></oui-datepicker>
-  `
+  `,
 })
 class MultiInputDatepicker {}
 
 @Component({
-  template: `
-    <oui-datepicker #d></oui-datepicker>
-  `
+  template: ` <oui-datepicker #d></oui-datepicker> `,
 })
 class NoInputDatepicker {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -89,7 +87,7 @@ class NoInputDatepicker {
   template: `
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker #d [startAt]="startDate"></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithStartAt {
   date = new Date(2020, JAN, 1);
@@ -105,7 +103,7 @@ class DatepickerWithStartAt {
       startView="year"
       (monthSelected)="onYearSelection()"
     ></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithStartViewYear {
   date = new Date(2020, JAN, 1);
@@ -122,7 +120,7 @@ class DatepickerWithStartViewYear {
       startView="multi-year"
       (yearSelected)="onMultiYearSelection()"
     ></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithStartViewMultiYear {
   date = new Date(2020, JAN, 1);
@@ -135,7 +133,7 @@ class DatepickerWithStartViewMultiYear {
   template: `
     <input [(ngModel)]="selected" [ouiDatepicker]="d" />
     <oui-datepicker #d></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithNgModel {
   selected: Date | null = null;
@@ -149,7 +147,7 @@ class DatepickerWithNgModel {
     <input [formControl]="formControl" [ouiDatepicker]="d" />
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithFormControl {
   formControl = new FormControl();
@@ -165,7 +163,7 @@ class DatepickerWithFormControl {
     <input [ouiDatepicker]="d" />
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="touchUI"></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithToggle {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -180,7 +178,7 @@ class DatepickerWithToggle {
       <div class="custom-icon" ouiDatepickerToggleIcon></div>
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithCustomIcon {}
 
@@ -190,7 +188,7 @@ class DatepickerWithCustomIcon {}
       <input oui-input [ouiDatepicker]="d" />
       <oui-datepicker #d></oui-datepicker>
     </oui-form-field>
-  `
+  `,
 })
 class FormFieldDatepicker {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -209,7 +207,7 @@ class FormFieldDatepicker {
     />
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithMinAndMaxValidation {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -227,7 +225,7 @@ class DatepickerWithMinAndMaxValidation {
     />
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="true"></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithFilterAndValidation {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -239,7 +237,7 @@ class DatepickerWithFilterAndValidation {
   template: `
     <input [ouiDatepicker]="d" [(ngModel)]="date" />
     <oui-datepicker #d></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithi18n {
   date: Date | null = new Date(2010, JAN, 1);
@@ -252,7 +250,7 @@ class DatepickerWithi18n {
   template: `
     <input [ouiDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max" />
     <oui-datepicker #d [startAt]="startAt"></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithISOStrings {
   value = new Date(2017, JUN, 1).toISOString();
@@ -272,7 +270,7 @@ class DatepickerWithISOStrings {
       (closed)="closedSpy()"
       #d
     ></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithEvents {
   selected: Date | null = null;
@@ -285,7 +283,7 @@ class DatepickerWithEvents {
   template: `
     <input (focus)="d.open()" [ouiDatepicker]="d" />
     <oui-datepicker #d="ouiDatepicker"></oui-datepicker>
-  `
+  `,
 })
 class DatepickerOpeningOnFocus {
   @ViewChild(OuiDatepicker) datepicker: OuiDatepicker<Date>;
@@ -295,7 +293,7 @@ class DatepickerOpeningOnFocus {
   template: `
     <div class="custom-element">Custom element</div>
     <oui-calendar-header></oui-calendar-header>
-  `
+  `,
 })
 class CustomHeaderForDatepicker {}
 @Component({
@@ -305,7 +303,7 @@ class CustomHeaderForDatepicker {}
       #ch
       [calendarHeaderComponent]="customHeaderForDatePicker"
     ></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithCustomHeader {
   @ViewChild('ch') datepicker: OuiDatepicker<Date>;
@@ -316,7 +314,7 @@ class DatepickerWithCustomHeader {
   template: `
     <input [ouiDatepicker]="assignedDatepicker" [value]="date" />
     <oui-datepicker #d [touchUi]="touch"></oui-datepicker>
-  `
+  `,
 })
 class DelayedDatepicker {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -333,7 +331,7 @@ class DelayedDatepicker {
       <div class="custom-icon" ouiDatepickerToggleIcon></div>
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
-  `
+  `,
 })
 class DatepickerWithTabindexOnToggle {}
 
@@ -353,10 +351,10 @@ describe('OuiDatepicker', () => {
         OuiInputModule,
         NoopAnimationsModule,
         ReactiveFormsModule,
-        ...imports
+        ...imports,
       ],
       providers,
-      declarations: [component, ...entryComponents]
+      declarations: [component, ...entryComponents],
     });
 
     return TestBed.createComponent(component);
@@ -603,14 +601,14 @@ describe('OuiDatepicker', () => {
             [
               {
                 provide: ScrollDispatcher,
-                useValue: { scrolled: () => scrolledSubject }
+                useValue: { scrolled: () => scrolledSubject },
               },
               {
                 provide: OUI_DATEPICKER_SCROLL_STRATEGY,
                 deps: [Overlay],
                 useFactory: (overlay: Overlay) => () =>
-                  overlay.scrollStrategies.close()
-              }
+                  overlay.scrollStrategies.close(),
+              },
             ]
           );
 
@@ -634,7 +632,7 @@ describe('OuiDatepicker', () => {
     describe('datepicker with too many inputs', () => {
       it('should throw when multiple inputs registered', fakeAsync(() => {
         const fixture = createComponent(MultiInputDatepicker, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         expect(() => fixture.detectChanges()).toThrow();
       }));
@@ -643,7 +641,7 @@ describe('OuiDatepicker', () => {
     describe('datepicker that is assigned to input at a later point', () => {
       it('should handle value changes when a datepicker is assigned after init', fakeAsync(() => {
         const fixture = createComponent(DelayedDatepicker, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         const testComponent: DelayedDatepicker = fixture.componentInstance;
         const toSelect = new Date(2017, JAN, 1);
@@ -720,7 +718,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerWithStartViewYear, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -756,7 +754,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerWithStartViewMultiYear, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -885,7 +883,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerWithFormControl, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -1031,7 +1029,7 @@ describe('OuiDatepicker', () => {
     describe('datepicker with custom oui-datepicker-toggle icon', () => {
       it('should be able to override the oui-datepicker-toggle icon', fakeAsync(() => {
         const fixture = createComponent(DatepickerWithCustomIcon, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
         expect(
@@ -1049,7 +1047,7 @@ describe('OuiDatepicker', () => {
     describe('datepicker with tabindex on oui-datepicker-toggle', () => {
       it('should forward the tabindex to the underlying button', () => {
         const fixture = createComponent(DatepickerWithTabindexOnToggle, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -1062,7 +1060,7 @@ describe('OuiDatepicker', () => {
 
       it('should clear the tabindex from the oui-datepicker-toggle host', () => {
         const fixture = createComponent(DatepickerWithTabindexOnToggle, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -1075,7 +1073,7 @@ describe('OuiDatepicker', () => {
 
       it('should forward focus to the underlying button when the host is focused', () => {
         const fixture = createComponent(DatepickerWithTabindexOnToggle, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -1153,7 +1151,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerWithMinAndMaxValidation, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -1237,7 +1235,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerWithFilterAndValidation, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
 
@@ -1290,7 +1288,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerWithISOStrings, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         testComponent = fixture.componentInstance;
       }));
@@ -1358,7 +1356,7 @@ describe('OuiDatepicker', () => {
 
       beforeEach(fakeAsync(() => {
         fixture = createComponent(DatepickerOpeningOnFocus, [
-          OuiNativeDateModule
+          OuiNativeDateModule,
         ]);
         fixture.detectChanges();
         testComponent = fixture.componentInstance;
@@ -1374,8 +1372,8 @@ describe('OuiDatepicker', () => {
           [
             {
               provide: Directionality,
-              useValue: { value: 'rtl' }
-            }
+              useValue: { value: 'rtl' },
+            },
           ]
         );
 
@@ -1398,8 +1396,8 @@ describe('OuiDatepicker', () => {
           [
             {
               provide: Directionality,
-              useFactory: () => dirProvider
-            }
+              useFactory: () => dirProvider,
+            },
           ]
         );
 
@@ -1435,8 +1433,8 @@ describe('OuiDatepicker', () => {
           [
             {
               provide: Directionality,
-              useValue: { value: 'rtl' }
-            }
+              useValue: { value: 'rtl' },
+            },
           ]
         );
 

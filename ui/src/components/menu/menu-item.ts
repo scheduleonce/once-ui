@@ -7,7 +7,7 @@ import {
   ViewEncapsulation,
   Inject,
   Optional,
-  Input
+  Input,
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
 import { Subject } from 'rxjs';
@@ -40,13 +40,14 @@ export const _OuiMenuItemMixinBase: CanDisableCtor &
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.disabled]': 'disabled || null',
     '(click)': '_checkDisabled($event)',
-    '(mouseenter)': '_handleMouseEnter()'
+    '(mouseenter)': '_handleMouseEnter()',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  templateUrl: 'menu-item.html'
+  templateUrl: 'menu-item.html',
 })
-export class OuiMenuItem extends _OuiMenuItemMixinBase
+export class OuiMenuItem
+  extends _OuiMenuItemMixinBase
   implements FocusableOption, CanDisable, OnDestroy {
   /** ARIA role for the menu item. */
   @Input()

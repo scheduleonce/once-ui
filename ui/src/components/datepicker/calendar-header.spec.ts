@@ -21,7 +21,7 @@ const JAN = 0,
       (monthSelected)="selectedMonth = $event"
     >
     </oui-calendar>
-  `
+  `,
 })
 class StandardCalendar {
   selected: Date;
@@ -36,12 +36,12 @@ describe('OuiCalendarHeader', () => {
       imports: [OuiNativeDateModule, OuiDatepickerModule],
       declarations: [
         // Test components.
-        StandardCalendar
+        StandardCalendar,
       ],
       providers: [
         OuiDatepickerIntl,
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) }
-      ]
+        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+      ],
     });
 
     TestBed.compileComponents();

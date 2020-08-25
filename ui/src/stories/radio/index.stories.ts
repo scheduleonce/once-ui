@@ -10,7 +10,7 @@ storiesOf('Radio Button', module).add(
     moduleMetadata: {
       imports: [OuiRadioModule],
       schemas: [],
-      declarations: []
+      declarations: [],
     },
     template: `<oui-radio-group (change)="changed($event)" [disabled]="disabled" [labelPosition]="position">
     <oui-radio-button checked value="Winter" [color]="color"> Winter </oui-radio-button>
@@ -20,8 +20,8 @@ storiesOf('Radio Button', module).add(
       color: select('color', COLORS, COLORS[0]),
       changed: action('change'),
       position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
-      disabled: boolean('disabled', false)
-    }
+      disabled: boolean('disabled', false),
+    },
   }),
   { notes: { markdown: markdownText } }
 );

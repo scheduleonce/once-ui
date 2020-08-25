@@ -6,7 +6,7 @@ import {
   merge,
   Observable,
   of as observableOf,
-  Subscription
+  Subscription,
 } from 'rxjs';
 import { OuiPaginator, PageEvent } from '../paginator/public-api';
 import { OuiSort, Sort } from '../sort/public-api';
@@ -253,7 +253,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
     );
     // Watched for paged data changes and send the result to the table to render.
     this._renderChangesSubscription.unsubscribe();
-    this._renderChangesSubscription = paginatedData.subscribe(data =>
+    this._renderChangesSubscription = paginatedData.subscribe((data) =>
       this._renderData.next(data)
     );
   }
@@ -269,7 +269,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
     // May be overridden for customization.
     this.filteredData = !this.filter
       ? data
-      : data.filter(obj => this.filterPredicate(obj, this.filter));
+      : data.filter((obj) => this.filterPredicate(obj, this.filter));
 
     if (this.paginator) {
       this._updatePaginator(this.filteredData.length);

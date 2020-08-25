@@ -7,7 +7,7 @@ import { APPEARANCE } from '../const';
 import {
   OuiAutocompleteModule,
   OuiFormFieldModule,
-  OuiInputModule
+  OuiInputModule,
 } from '../../components';
 import markdownText from '../../components/autocomplete/README.md';
 import { Input, Component, OnInit } from '@angular/core';
@@ -17,7 +17,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
   FormBuilder,
-  FormGroup
+  FormGroup,
 } from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 
@@ -28,7 +28,7 @@ export interface StateGroup {
 export const _filter = (opt: string[], value: string): string[] => {
   const filterValue = value.toLowerCase();
 
-  return opt.filter(item => item.toLowerCase().indexOf(filterValue) === 0);
+  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);
 };
 
 @Component({
@@ -54,7 +54,7 @@ export const _filter = (opt: string[], value: string): string[] => {
         {{ option }}
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
@@ -72,8 +72,8 @@ export class OuiAutocompleteStorybook implements OnInit {
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string>(''),
-      map(value => (typeof value === 'string' ? value : value)),
-      map(option => (option ? this._filter(option) : this.options.slice()))
+      map((value) => (typeof value === 'string' ? value : value)),
+      map((option) => (option ? this._filter(option) : this.options.slice()))
     );
   }
   private _filter(option): string[] {
@@ -81,7 +81,7 @@ export class OuiAutocompleteStorybook implements OnInit {
 
     return this.options.filter(
       // tslint:disable-next-line: no-shadowed-variable
-      option => option.toLowerCase().indexOf(filterValue) === 0
+      (option) => option.toLowerCase().indexOf(filterValue) === 0
     );
   }
 }
@@ -118,7 +118,7 @@ export class OuiAutocompleteStorybook implements OnInit {
         </oui-optgroup>
       </oui-autocomplete>
     </oui-form-field>
-  `
+  `,
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {
   @Input() stateGroups: any[];
@@ -131,7 +131,7 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
     }
   }
   stateForm: FormGroup = this.fb.group({
-    stateGroup: ''
+    stateGroup: '',
   });
   stateGroupOptions: Observable<StateGroup[]>;
 
@@ -141,18 +141,18 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
       .get('stateGroup')!
       .valueChanges.pipe(
         startWith(''),
-        map(value => this._filterGroup(value))
+        map((value) => this._filterGroup(value))
       );
   }
 
   private _filterGroup(value: string): StateGroup[] {
     if (value) {
       return this.stateGroups
-        .map(group => ({
+        .map((group) => ({
           letter: group.letter,
-          names: _filter(group.names, value)
+          names: _filter(group.names, value),
         }))
-        .filter(group => group.names.length > 0);
+        .filter((group) => group.names.length > 0);
     }
 
     return this.stateGroups;
@@ -170,10 +170,10 @@ storiesOf('Form Field/Autocomplete', module)
           OuiInputModule,
           OuiAutocompleteModule,
           FormsModule,
-          ReactiveFormsModule
+          ReactiveFormsModule,
         ],
         schemas: [],
-        declarations: [OuiAutocompleteStorybook]
+        declarations: [OuiAutocompleteStorybook],
       },
       component: OuiAutocompleteStorybook,
       props: {
@@ -183,8 +183,8 @@ storiesOf('Form Field/Autocomplete', module)
         closed: action('closed'),
         disabled: boolean('disabled', false),
         opened: action('opened'),
-        optionSelected: action('optionSelected')
-      }
+        optionSelected: action('optionSelected'),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -197,10 +197,10 @@ storiesOf('Form Field/Autocomplete', module)
           OuiInputModule,
           OuiAutocompleteModule,
           FormsModule,
-          ReactiveFormsModule
+          ReactiveFormsModule,
         ],
         schemas: [],
-        declarations: [OuiAutocompleteGroupStorybook]
+        declarations: [OuiAutocompleteGroupStorybook],
       },
       component: OuiAutocompleteGroupStorybook,
       props: {
@@ -210,8 +210,8 @@ storiesOf('Form Field/Autocomplete', module)
         closed: action('closed'),
         disabled: boolean('disabled', false),
         opened: action('opened'),
-        optionSelected: action('optionSelected')
-      }
+        optionSelected: action('optionSelected'),
+      },
     }),
     { notes: { markdown: markdownText } }
   );

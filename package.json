@@ -71,7 +71,7 @@
     "karma-junit-reporter": "^2.0.1",
     "ng-packagr": "^9.1.5",
     "node-sass": "^4.14.1",
-    "prettier": "^1.15.3",
+    "prettier": "^2.1.0",
     "protractor": "7.0.0",
     "puppeteer": "^5.2.1",
     "rimraf": "^3.0.2",

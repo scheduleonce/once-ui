@@ -8,14 +8,14 @@ import {
   EventEmitter,
   ElementRef,
   ViewContainerRef,
-  Inject
+  Inject,
 } from '@angular/core';
 import {
   ScrollStrategy,
   Overlay,
   OverlayRef,
   FlexibleConnectedPositionStrategy,
-  OverlayConfig
+  OverlayConfig,
 } from '@angular/cdk/overlay';
 import { Subscription, Observable, Subject } from 'rxjs';
 import { TemplatePortal } from '@angular/cdk/portal';
@@ -23,7 +23,7 @@ import { OuiPanelOverlay } from './panel-overlay';
 import {
   PanelPositionY,
   PanelPositionX,
-  PanelFlexiblePosition
+  PanelFlexiblePosition,
 } from './panel-positions';
 import { merge } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
@@ -46,7 +46,7 @@ export function OUI_PANEL_SCROLL_STRATEGY_FACTORY(
 export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_PANEL_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_PANEL_SCROLL_STRATEGY_FACTORY
+  useFactory: OUI_PANEL_SCROLL_STRATEGY_FACTORY,
 };
 
 /**
@@ -61,9 +61,9 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     '[attr.aria-expanded]': 'panelOpen || null',
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handelMouseLeave($event)',
-    '(keydown)': '_handleKeydown($event)'
+    '(keydown)': '_handleKeydown($event)',
   },
-  exportAs: 'ouiPanelTrigger'
+  exportAs: 'ouiPanelTrigger',
 })
 export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _portal: TemplatePortal;
@@ -198,7 +198,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       // break anybody that may have implemented the `OuiPanelOverlay` themselves.
       this._keyboardEventSubscription = this._overlayRef
         .keydownEvents()
-        .pipe(filter(event => event.key === 'Escape'))
+        .pipe(filter((event) => event.key === 'Escape'))
         .subscribe(() => this.closePanel());
     }
     return this._overlayRef;
@@ -217,7 +217,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
         .withTransformOriginOn('.oui-panel-overlay'),
       backdropClass: 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this._scrollStrategy(),
-      direction: 'ltr'
+      direction: 'ltr',
     });
   }
 
@@ -230,7 +230,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     position: FlexibleConnectedPositionStrategy
   ): void {
     if (this.panel.setPositionClasses) {
-      position.positionChanges.subscribe(change => {
+      position.positionChanges.subscribe((change) => {
         const posX: PanelPositionX =
           change.connectionPair.overlayX === 'start' ? 'after' : 'before';
         const posY: PanelPositionY =
@@ -359,7 +359,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
       this.panel.mouseEnter
     ).pipe(
       debounceTime(200),
-      filter(event => event.type === 'mouseleave')
+      filter((event) => event.type === 'mouseleave')
     );
     return merge(detachments, mouseLeave);
   }

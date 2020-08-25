@@ -7,7 +7,7 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  Output
+  Output,
 } from '@angular/core';
 import {
   CanDisable,
@@ -15,14 +15,14 @@ import {
   HasInitialized,
   HasInitializedCtor,
   mixinDisabled,
-  mixinInitialized
+  mixinInitialized,
 } from '../core';
 import { Subject } from 'rxjs';
 import { SortDirection } from './sort-direction';
 import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
-  getSortInvalidDirectionError
+  getSortInvalidDirectionError,
 } from './sort-errors';
 
 /** Interface for a directive that holds sorting state consumed by `OuiSortHeader`. */
@@ -58,9 +58,10 @@ export const _OuiSortMixinBase: HasInitializedCtor &
   selector: '[ouiSort]',
   exportAs: 'ouiSort',
   // tslint:disable-next-line:no-inputs-metadata-property
-  inputs: ['disabled: ouiSortDisabled']
+  inputs: ['disabled: ouiSortDisabled'],
 })
-export class OuiSort extends _OuiSortMixinBase
+export class OuiSort
+  extends _OuiSortMixinBase
   implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
   /** Collection of all registered sortables that this directive manages. */
   sortables = new Map<string, OuiSortable>();

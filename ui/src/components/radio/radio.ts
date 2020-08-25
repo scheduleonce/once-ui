@@ -19,7 +19,7 @@ import {
   Output,
   QueryList,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -37,7 +37,7 @@ let nextUniqueId = 0;
 export const OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => OuiRadioGroup),
-  multi: true
+  multi: true,
 };
 
 /** Change event object emitted by OuiRadio and OuiRadioGroup. */
@@ -60,15 +60,13 @@ export class OuiRadioGroupBase {}
 @Component({
   selector: 'oui-radio-group',
   exportAs: 'ouiRadioGroup',
-  template: `
-    <ng-content></ng-content>
-  `,
+  template: ` <ng-content></ng-content> `,
   providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
   // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'radiogroup',
-    class: 'oui-radio-group'
-  }
+    class: 'oui-radio-group',
+  },
 })
 export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /**
@@ -81,10 +79,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   >();
 
   /** Child radio buttons. */
-  @ContentChildren(
-    forwardRef(() => OuiRadioButton),
-    { descendants: true }
-  )
+  @ContentChildren(forwardRef(() => OuiRadioButton), { descendants: true })
   _radios: QueryList<OuiRadioButton>;
   /** Selected value for the radio group. */
   private _value: any = null;
@@ -221,7 +216,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   private _updateRadioButtonNames(): void {
     if (this._radios) {
-      this._radios.forEach(radio => {
+      this._radios.forEach((radio) => {
         radio.name = this.name;
       });
     }
@@ -235,7 +230,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
     if (this._radios && !isAlreadySelected) {
       this._selected = null;
-      this._radios.forEach(radio => {
+      this._radios.forEach((radio) => {
         radio.checked = this.value === radio.value;
         if (radio.checked) {
           this._selected = radio;
@@ -253,7 +248,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   _markRadiosForCheck() {
     if (this._radios) {
-      this._radios.forEach(radio => radio._markForCheck());
+      this._radios.forEach((radio) => radio._markForCheck());
     }
   }
 
@@ -327,11 +322,12 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
     // programmatically set, for example inside of a focus trap, in this case we want to forward
     // the focus to the native element.
     '(focus)': '_inputElement.nativeElement.focus()',
-    '(click)': '_fireInputChange()'
+    '(click)': '_fireInputChange()',
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class OuiRadioButton extends OuiRadioButtonMixinBase
+export class OuiRadioButton
+  extends OuiRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy {
   private _uniqueId = `oui-radio-${++nextUniqueId}`;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
@@ -540,7 +536,7 @@ export class OuiRadioButton extends OuiRadioButtonMixinBase
   ngAfterViewInit() {
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe(focusOrigin => {
+      .subscribe((focusOrigin) => {
         if (!focusOrigin && this.radioGroup) {
           this.radioGroup._touch();
         }

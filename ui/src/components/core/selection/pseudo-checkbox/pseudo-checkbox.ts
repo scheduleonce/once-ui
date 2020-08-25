@@ -7,7 +7,7 @@ import {
   Optional,
   OnDestroy,
   ElementRef,
-  NgZone
+  NgZone,
 } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -42,8 +42,8 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   host: {
     class: 'oui-pseudo-checkbox',
     '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
-    '[class.oui-pseudo-checkbox-disabled]': 'disabled'
-  }
+    '[class.oui-pseudo-checkbox-disabled]': 'disabled',
+  },
 })
 export class OuiPseudoCheckbox implements OnDestroy {
   /** Display state of the checkbox. */

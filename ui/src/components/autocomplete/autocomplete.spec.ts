@@ -13,7 +13,7 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
-  Type
+  Type,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -21,14 +21,14 @@ import {
   flush,
   inject,
   TestBed,
-  tick
+  tick,
 } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   _countGroupLabelsBeforeOption,
   _getOptionScrollPosition,
   OuiOption,
-  OuiOptionSelectionChange
+  OuiOptionSelectionChange,
 } from '../core';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiFormField } from '../form-field/form-field';
@@ -44,7 +44,7 @@ import {
   OuiAutocompleteModule,
   OuiAutocompleteSelectedEvent,
   OuiAutocompleteTrigger,
-  OuiAutocompleteOrigin
+  OuiAutocompleteOrigin,
 } from './index';
 import { map, startWith } from 'rxjs/operators';
 
@@ -70,7 +70,7 @@ import { map, startWith } from 'rxjs/operators';
         <span>{{ state.code }}: {{ state.name }}</span>
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class SimpleAutocomplete implements OnDestroy {
   stateCtrl = new FormControl();
@@ -100,14 +100,14 @@ class SimpleAutocomplete implements OnDestroy {
     { code: 'PA', name: 'Pennsylvania' },
     { code: 'TN', name: 'Tennessee' },
     { code: 'VA', name: 'Virginia' },
-    { code: 'WY', name: 'Wyoming' }
+    { code: 'WY', name: 'Wyoming' },
   ];
 
   constructor() {
     this.filteredStates = this.states;
-    this.valueSub = this.stateCtrl.valueChanges.subscribe(val => {
+    this.valueSub = this.stateCtrl.valueChanges.subscribe((val) => {
       this.filteredStates = val
-        ? this.states.filter(s => s.name.match(new RegExp(val, 'gi')))
+        ? this.states.filter((s) => s.name.match(new RegExp(val, 'gi')))
         : this.states;
     });
   }
@@ -139,7 +139,7 @@ class SimpleAutocomplete implements OnDestroy {
         {{ option }}
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class NgIfAutocomplete {
   optionCtrl = new FormControl();
@@ -156,7 +156,7 @@ class NgIfAutocomplete {
       startWith(''),
       map((val: string) => {
         return val
-          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          ? this.options.filter((option) => new RegExp(val, 'gi').test(option))
           : this.options.slice();
       })
     );
@@ -178,7 +178,7 @@ class NgIfAutocomplete {
         <span> {{ state }} </span>
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithoutForms {
   filteredStates: any[];
@@ -189,7 +189,7 @@ class AutocompleteWithoutForms {
   }
 
   onInput(value: any) {
-    this.filteredStates = this.states.filter(s =>
+    this.filteredStates = this.states.filter((s) =>
       new RegExp(value, 'gi').test(s)
     );
   }
@@ -211,7 +211,7 @@ class AutocompleteWithoutForms {
         <span>{{ state }}</span>
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithNgModel {
   filteredStates: any[];
@@ -223,7 +223,7 @@ class AutocompleteWithNgModel {
   }
 
   onInput(value: any) {
-    this.filteredStates = this.states.filter(s =>
+    this.filteredStates = this.states.filter((s) =>
       new RegExp(value, 'gi').test(s)
     );
   }
@@ -244,7 +244,7 @@ class AutocompleteWithNgModel {
         <span>{{ number }}</span>
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithNumbers {
   selectedNumber: number;
@@ -262,7 +262,7 @@ class AutocompleteWithNumbers {
         option
       }}</oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithOnPushDelay implements OnInit {
   @ViewChild(OuiAutocompleteTrigger)
@@ -291,7 +291,7 @@ class AutocompleteWithOnPushDelay implements OnInit {
         {{ option }}
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithNativeInput {
   optionCtrl = new FormControl();
@@ -307,7 +307,7 @@ class AutocompleteWithNativeInput {
       startWith(''),
       map((val: string) => {
         return val
-          ? this.options.filter(option => new RegExp(val, 'gi').test(option))
+          ? this.options.filter((option) => new RegExp(val, 'gi').test(option))
           : this.options.slice();
       })
     );
@@ -321,7 +321,7 @@ class AutocompleteWithNativeInput {
       [ouiAutocomplete]="auto"
       [formControl]="control"
     />
-  `
+  `,
 })
 class AutocompleteWithoutPanel {
   @ViewChild(OuiAutocompleteTrigger)
@@ -346,7 +346,7 @@ class AutocompleteWithoutPanel {
         </oui-option>
       </oui-optgroup>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithGroups {
   @ViewChild(OuiAutocompleteTrigger)
@@ -355,16 +355,16 @@ class AutocompleteWithGroups {
   stateGroups = [
     {
       title: 'One',
-      states: ['Alabama', 'California', 'Florida', 'Oregon']
+      states: ['Alabama', 'California', 'Florida', 'Oregon'],
     },
     {
       title: 'Two',
-      states: ['Kansas', 'Massachusetts', 'New York', 'Pennsylvania']
+      states: ['Kansas', 'Massachusetts', 'New York', 'Pennsylvania'],
     },
     {
       title: 'Three',
-      states: ['Tennessee', 'Virginia', 'Wyoming', 'Alaska']
-    }
+      states: ['Tennessee', 'Virginia', 'Wyoming', 'Alaska'],
+    },
   ];
 }
 
@@ -386,7 +386,7 @@ class AutocompleteWithGroups {
         <span>{{ state }}</span>
       </oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithSelectEvent {
   selectedState: string;
@@ -402,7 +402,7 @@ class AutocompleteWithSelectEvent {
   template: `
     <input [formControl]="formControl" [ouiAutocomplete]="auto" />
     <oui-autocomplete #auto="ouiAutocomplete"></oui-autocomplete>
-  `
+  `,
 })
 class PlainAutocompleteInputWithFormControl {
   formControl = new FormControl();
@@ -423,7 +423,7 @@ class PlainAutocompleteInputWithFormControl {
         value
       }}</oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithNumberInputAndNgModel {
   selectedValue: number;
@@ -455,7 +455,7 @@ class AutocompleteWithNumberInputAndNgModel {
         value
       }}</oui-option>
     </oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithDifferentOrigin {
   @ViewChild(OuiAutocompleteTrigger)
@@ -475,14 +475,14 @@ class AutocompleteWithDifferentOrigin {
       [ouiAutocomplete]="auto"
     />
     <oui-autocomplete #auto="ouiAutocomplete"></oui-autocomplete>
-  `
+  `,
 })
 class AutocompleteWithNativeAutocompleteAttribute {
   value: string;
 }
 
 @Component({
-  template: '<input [ouiAutocomplete]="null" ouiAutocompleteDisabled>'
+  template: '<input [ouiAutocomplete]="null" ouiAutocompleteDisabled>',
 })
 class InputWithoutAutocompleteAndDisabled {}
 
@@ -500,13 +500,13 @@ describe('OuiAutocomplete', () => {
         OuiInputModule,
         FormsModule,
         ReactiveFormsModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [component],
       providers: [
         { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-        ...providers
-      ]
+        ...providers,
+      ],
     });
 
     TestBed.compileComponents();
@@ -930,8 +930,8 @@ describe('OuiAutocomplete', () => {
     const ltrFixture = createComponent(SimpleAutocomplete, [
       {
         provide: Directionality,
-        useFactory: () => ({ value: 'ltr', change: EMPTY })
-      }
+        useFactory: () => ({ value: 'ltr', change: EMPTY }),
+      },
     ]);
 
     ltrFixture.detectChanges();
@@ -947,7 +947,7 @@ describe('OuiAutocomplete', () => {
   xit('should update the panel direction if it changes for the trigger', () => {
     const dirProvider = { value: 'ltr', change: EMPTY };
     const ltrFixture = createComponent(SimpleAutocomplete, [
-      { provide: Directionality, useFactory: () => dirProvider }
+      { provide: Directionality, useFactory: () => dirProvider },
     ]);
 
     ltrFixture.detectChanges();
@@ -1132,7 +1132,7 @@ describe('OuiAutocomplete', () => {
     it('should fill the text field correctly if value is set to obj programmatically', fakeAsync(() => {
       fixture.componentInstance.stateCtrl.setValue({
         code: 'AL',
-        name: 'Alabama'
+        name: 'Alabama',
       });
       fixture.detectChanges();
       tick();
@@ -1361,7 +1361,7 @@ describe('OuiAutocomplete', () => {
 
       Object.defineProperty(event, 'keyCode', {
         value: UP_ARROW,
-        configurable: true
+        configurable: true,
       });
       componentInstance.trigger._handleKeydown(event);
       fixture.detectChanges();
@@ -1375,7 +1375,7 @@ describe('OuiAutocomplete', () => {
 
       Object.defineProperty(event, 'keyCode', {
         value: DOWN_ARROW,
-        configurable: true
+        configurable: true,
       });
       componentInstance.trigger._handleKeydown(event);
       fixture.detectChanges();
@@ -1508,7 +1508,7 @@ describe('OuiAutocomplete', () => {
     it('should scroll to active options that are above the panel', fakeAsync(() => {
       Object.defineProperty(event, 'keyCode', {
         value: DOWN_ARROW,
-        configurable: true
+        configurable: true,
       });
       fixture.componentInstance.trigger._handleKeydown(event);
       tick();
@@ -1524,7 +1524,7 @@ describe('OuiAutocomplete', () => {
       // These up arrows will set the 2nd option active
       Object.defineProperty(event, 'keyCode', {
         value: UP_ARROW,
-        configurable: true
+        configurable: true,
       });
       [5, 4, 3, 2, 1].forEach(() => {
         fixture.componentInstance.trigger._handleKeydown(event);
@@ -1589,7 +1589,7 @@ describe('OuiAutocomplete', () => {
       );
 
       const DOWN_ARROW_EVENT = new KeyboardEvent('keydown', {
-        code: 'ArrowDown'
+        code: 'ArrowDown',
       });
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       tick();
@@ -1740,8 +1740,8 @@ describe('OuiAutocomplete', () => {
       const fixture = createComponent(SimpleAutocomplete, [
         {
           provide: ScrollDispatcher,
-          useValue: { scrolled: () => scrolledSubject.asObservable() }
-        }
+          useValue: { scrolled: () => scrolledSubject.asObservable() },
+        },
       ]);
 
       fixture.detectChanges();
@@ -1925,7 +1925,7 @@ describe('OuiAutocomplete', () => {
         for (let i = 0; i < 20; i++) {
           fixture.componentInstance.filteredStates.push({
             code: 'FK',
-            name: 'Fake State'
+            name: 'Fake State',
           });
           fixture.detectChanges();
         }
@@ -2009,7 +2009,7 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
 
       const componentOptions = fixture.componentInstance.ouiOptions.toArray();
-      componentOptions.forEach(option => spyOn(option, 'deselect'));
+      componentOptions.forEach((option) => spyOn(option, 'deselect'));
 
       expect(componentOptions[0].selected).toBe(
         true,
@@ -2025,7 +2025,7 @@ describe('OuiAutocomplete', () => {
       expect(componentOptions[0].deselect).toHaveBeenCalled();
       componentOptions
         .slice(1)
-        .forEach(option => expect(option.deselect).not.toHaveBeenCalled());
+        .forEach((option) => expect(option.deselect).not.toHaveBeenCalled());
     }));
 
     it('should be able to preselect the first option', fakeAsync(() => {
@@ -2072,8 +2072,8 @@ describe('OuiAutocomplete', () => {
       fixture = createComponent(SimpleAutocomplete, [
         {
           provide: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS,
-          useValue: { autoActiveFirstOption: true }
-        }
+          useValue: { autoActiveFirstOption: true },
+        },
       ]);
 
       fixture.detectChanges();
@@ -2335,7 +2335,7 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
 
       const DOWN_ARROW_EVENT = new KeyboardEvent('keydown', {
-        code: 'ArrowDown'
+        code: 'ArrowDown',
       });
       fixture.componentInstance.trigger._handleKeydown(DOWN_ARROW_EVENT);
       fixture.detectChanges();
@@ -2394,14 +2394,14 @@ describe('OuiAutocomplete', () => {
       const fixture = createComponent(SimpleAutocomplete, [
         {
           provide: ScrollDispatcher,
-          useValue: { scrolled: () => scrolledSubject.asObservable() }
+          useValue: { scrolled: () => scrolledSubject.asObservable() },
         },
         {
           provide: OUI_AUTOCOMPLETE_SCROLL_STRATEGY,
           useFactory: (overlay: Overlay) => () =>
             overlay.scrollStrategies.close(),
-          deps: [Overlay]
-        }
+          deps: [Overlay],
+        },
       ]);
 
       fixture.detectChanges();
