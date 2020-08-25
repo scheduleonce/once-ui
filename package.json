@@ -50,6 +50,7 @@
     "@storybook/addon-actions": "^6.0.16",
     "@storybook/addon-essentials": "^6.0.16",
     "@storybook/addon-links": "^6.0.16",
+    "@storybook/addon-knobs": "^6.0.16",
     "@storybook/angular": "^6.0.16",
     "@types/jasmine": "^3.3.5",
     "@types/jasminewd2": "^2.0.6",
