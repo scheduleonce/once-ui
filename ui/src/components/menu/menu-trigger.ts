@@ -75,7 +75,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
  */
 @Directive({
   selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'menuOpen || null',

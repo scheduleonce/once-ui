@@ -63,7 +63,7 @@ export enum TransitionCheckState {
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.scss'],
   exportAs: 'ouiCheckbox',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-checkbox',
     '[id]': 'id',
@@ -72,7 +72,7 @@ export enum TransitionCheckState {
     '[class.oui-checkbox-disabled]': 'disabled',
     '[class.oui-checkbox-label-before]': 'labelPosition == "before"'
   },
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['tabIndex', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

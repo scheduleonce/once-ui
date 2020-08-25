@@ -33,14 +33,12 @@ import { OuiDateFormats, OUI_DATE_FORMATS } from './date-formats';
 
 export const OUI_DATEPICKER_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiDatepickerInput),
   multi: true
 };
 
 export const OUI_DATEPICKER_VALIDATORS: any = {
   provide: NG_VALIDATORS,
-  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiDatepickerInput),
   multi: true
 };
@@ -73,7 +71,7 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     OUI_DATEPICKER_VALIDATORS,
     { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput }
   ],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',

@@ -28,7 +28,7 @@ import {
 import { merge } from 'rxjs';
 import { debounceTime, filter } from 'rxjs/operators';
 import { SPACE } from '@angular/cdk/keycodes';
-import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusTrap, ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 
 /** Injection token that determines the scroll handling while the panel-overlay is open. */
 export const OUI_PANEL_SCROLL_STRATEGY = new InjectionToken<
@@ -55,7 +55,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 @Directive({
   selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'panelOpen || null',
@@ -121,7 +121,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
     private _overlay: Overlay,
     private _element: ElementRef<HTMLElement>,
     private _viewContainerRef: ViewContainerRef,
-    private _focusTrapFactory: FocusTrapFactory,
+    private _focusTrapFactory: ConfigurableFocusTrapFactory,
     @Inject(OUI_PANEL_SCROLL_STRATEGY) scrollStrategy: any
   ) {
     this._scrollStrategy = scrollStrategy;

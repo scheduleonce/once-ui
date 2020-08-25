@@ -59,7 +59,7 @@ export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<
 @Component({
   selector: 'oui-option',
   exportAs: 'ouiOption',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'option',
     '[attr.tabindex]': '_getTabIndex()',

@@ -77,7 +77,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-datepicker-content',
     '[@transformPanel]': '"enter"',
@@ -90,7 +90,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   exportAs: 'ouiDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['color']
 })
 export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
@@ -123,7 +123,7 @@ export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
   exportAs: 'ouiDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[class.oui-datepicker-disabled]': 'disabled'
   }

@@ -75,9 +75,9 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   selector: 'oui-icon',
   exportAs: 'ouiIcon',
   styleUrls: ['icon.scss'],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['color'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'img',
     class: 'oui-icon',

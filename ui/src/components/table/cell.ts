@@ -59,7 +59,7 @@ export class OuiColumnDef extends CdkColumnDef {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: 'oui-header-cell, th[oui-header-cell]',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-header-cell',
     role: 'columnheader'
@@ -78,7 +78,7 @@ export class OuiHeaderCell extends CdkHeaderCell {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: 'oui-footer-cell, td[oui-footer-cell]',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-footer-cell',
     role: 'gridcell'
@@ -97,7 +97,7 @@ export class OuiFooterCell extends CdkFooterCell {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: 'oui-cell, td[oui-cell]',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-cell',
     role: 'gridcell'

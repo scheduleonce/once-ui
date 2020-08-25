@@ -85,7 +85,6 @@ export const OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 export const OUI_AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiAutocompleteTrigger),
   multi: true
 };
@@ -105,7 +104,7 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',

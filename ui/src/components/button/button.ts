@@ -56,13 +56,13 @@ export const OuiButtonMixinBase: CanDisableCtor &
   selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button], button[oui-icon-button],
                button[oui-icon-text-button]`,
   exportAs: 'ouiButton',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[disabled]': 'disabled || null'
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'color', 'progress', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -127,14 +127,14 @@ export class OuiButton extends OuiButtonMixinBase
   selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button], a[oui-icon-button],
     a[oui-icon-text-button]`,
   exportAs: 'ouiButton, ouiAnchor',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
     '(click)': '_haltDisabledEvents($event)'
   },
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'color'],
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],

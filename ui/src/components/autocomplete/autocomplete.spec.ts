@@ -153,7 +153,7 @@ class NgIfAutocomplete {
 
   constructor() {
     this.filteredOptions = this.optionCtrl.valueChanges.pipe(
-      startWith(null),
+      startWith(''),
       map((val: string) => {
         return val
           ? this.options.filter(option => new RegExp(val, 'gi').test(option))
@@ -304,7 +304,7 @@ class AutocompleteWithNativeInput {
 
   constructor() {
     this.filteredOptions = this.optionCtrl.valueChanges.pipe(
-      startWith(null),
+      startWith(''),
       map((val: string) => {
         return val
           ? this.options.filter(option => new RegExp(val, 'gi').test(option))

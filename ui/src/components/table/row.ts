@@ -27,7 +27,7 @@ import { Subscription } from 'rxjs';
 @Directive({
   selector: '[ouiHeaderRowDef]',
   providers: [{ provide: CdkHeaderRowDef, useExisting: OuiHeaderRowDef }],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['columns: ouiHeaderRowDef']
 })
 export class OuiHeaderRowDef extends CdkHeaderRowDef {}
@@ -39,7 +39,7 @@ export class OuiHeaderRowDef extends CdkHeaderRowDef {}
 @Directive({
   selector: '[ouiFooterRowDef]',
   providers: [{ provide: CdkFooterRowDef, useExisting: OuiFooterRowDef }],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['columns: ouiFooterRowDef']
 })
 export class OuiFooterRowDef extends CdkFooterRowDef {}
@@ -52,7 +52,7 @@ export class OuiFooterRowDef extends CdkFooterRowDef {}
 @Directive({
   selector: '[ouiRowDef]',
   providers: [{ provide: CdkRowDef, useExisting: OuiRowDef }],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['columns: ouiRowDefColumns', 'when: ouiRowDefWhen']
 })
 export class OuiRowDef<T> extends CdkRowDef<T> {}
@@ -61,7 +61,7 @@ export class OuiRowDef<T> extends CdkRowDef<T> {}
 @Component({
   selector: 'oui-header-row, tr[oui-header-row]',
   template: CDK_ROW_TEMPLATE,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-header-row',
     role: 'row'
@@ -77,7 +77,7 @@ export class OuiHeaderRow extends CdkHeaderRow {}
 @Component({
   selector: 'oui-footer-row, tr[oui-footer-row]',
   template: CDK_ROW_TEMPLATE,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-footer-row',
     role: 'row'
@@ -93,7 +93,7 @@ export class OuiFooterRow extends CdkFooterRow {}
 @Component({
   selector: 'oui-row, tr[oui-row]',
   template: CDK_ROW_TEMPLATE,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-row',
     role: 'row',

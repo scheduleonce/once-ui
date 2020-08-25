@@ -63,7 +63,7 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'ouiAutocomplete',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-autocomplete'
   },

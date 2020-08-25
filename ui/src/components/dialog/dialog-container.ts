@@ -18,7 +18,7 @@ import {
 } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { OuiDialogConfig } from './dialog-config';
-import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
+import { FocusTrap, ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -43,7 +43,7 @@ export function throwOuiDialogContentAlreadyAttachedError() {
   // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-dialog-container',
     tabindex: '-1',
@@ -73,7 +73,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   _id: string;
 
   constructor(
-    private _focusTrapFactory: FocusTrapFactory,
+    private _focusTrapFactory: ConfigurableFocusTrapFactory,
     public _config: OuiDialogConfig,
     public elementRef: ElementRef<HTMLElement>,
     @Optional() @Inject(DOCUMENT) private _document: any

@@ -28,9 +28,9 @@ export const _OuiMenuItemMixinBase: CanDisableCtor &
   // tslint:disable-next-line:component-selector
   selector: `[oui-menu-item]`,
   exportAs: 'ouiMenuItem',
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[attr.role]': 'role',
     class: 'oui-menu-item',

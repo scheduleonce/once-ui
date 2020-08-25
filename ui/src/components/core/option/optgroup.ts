@@ -28,10 +28,10 @@ let _uniqueOptgroupIdCounter = 0;
   templateUrl: 'optgroup.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled'],
   styleUrls: ['optgroup.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-optgroup',
     role: 'group',

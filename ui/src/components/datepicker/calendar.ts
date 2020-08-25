@@ -42,7 +42,7 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-calendar'
   },
@@ -208,7 +208,6 @@ export class OuiCalendar<D>
 
   ngAfterContentInit() {
     this._calendarHeaderPortal = new ComponentPortal(
-      // tslint:disable-next-line:no-use-before-declare
       this.headerComponent || OuiCalendarHeader
     );
     this.activeDate = this.startAt || this._dateAdapter.today();
@@ -317,7 +316,6 @@ export class OuiCalendar<D>
 export class OuiCalendarHeader<D> {
   constructor(
     private _intl: OuiDatepickerIntl,
-    // tslint:disable-next-line:no-use-before-declare
     @Inject(forwardRef(() => OuiCalendar)) public calendar: OuiCalendar<D>,
     @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,

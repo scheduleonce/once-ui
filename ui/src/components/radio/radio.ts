@@ -36,7 +36,6 @@ let nextUniqueId = 0;
  */
 export const OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiRadioGroup),
   multi: true
 };
@@ -65,7 +64,7 @@ export class OuiRadioGroupBase {}
     <ng-content></ng-content>
   `,
   providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'radiogroup',
     class: 'oui-radio-group'
@@ -83,7 +82,6 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   /** Child radio buttons. */
   @ContentChildren(
-    // tslint:disable-next-line:no-use-before-declare
     forwardRef(() => OuiRadioButton),
     { descendants: true }
   )
@@ -317,7 +315,7 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
   styleUrls: ['radio.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRadioButton',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-radio-button',
     '[class.oui-radio-checked]': 'checked',

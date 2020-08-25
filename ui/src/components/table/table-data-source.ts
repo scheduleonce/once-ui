@@ -240,15 +240,15 @@ export class OuiTableDataSource<T> extends DataSource<T> {
 
     const dataStream = this._data;
     // Watch for base data or filter changes to provide a filtered set of data.
-    const filteredData = combineLatest(dataStream, this._filter).pipe(
+    const filteredData = combineLatest([dataStream, this._filter]).pipe(
       map(([data]) => this._filterData(data))
     );
     // Watch for filtered data or sort changes to provide an ordered set of data.
-    const orderedData = combineLatest(filteredData, sortChange).pipe(
+    const orderedData = combineLatest([filteredData, sortChange]).pipe(
       map(([data]) => this._orderData(data))
     );
     // Watch for ordered data or page changes to provide a paged set of data.
-    const paginatedData = combineLatest(orderedData, pageChange).pipe(
+    const paginatedData = combineLatest([orderedData, pageChange]).pipe(
       map(([data]) => this._pageData(data))
     );
     // Watched for paged data changes and send the result to the table to render.

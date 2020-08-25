@@ -57,7 +57,7 @@ export const _OuiSortMixinBase: HasInitializedCtor &
 @Directive({
   selector: '[ouiSort]',
   exportAs: 'ouiSort',
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled: ouiSortDisabled']
 })
 export class OuiSort extends _OuiSortMixinBase

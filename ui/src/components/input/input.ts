@@ -84,7 +84,7 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
   // tslint:disable-next-line:directive-selector
   selector: `input[oui-input], textarea[oui-input]`,
   exportAs: 'ouiInput',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-input-element',
     // Native input properties that are overwritten by Angular inputs need to be synced with

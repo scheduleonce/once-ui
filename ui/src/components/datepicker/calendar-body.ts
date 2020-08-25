@@ -42,7 +42,7 @@ export class OuiCalendarCell {
   selector: '[oui-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-calendar-body',
     role: 'grid',

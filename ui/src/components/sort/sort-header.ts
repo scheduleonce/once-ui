@@ -68,7 +68,7 @@ interface OuiSortHeaderColumnDef {
   exportAs: 'ouiSortHeader',
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '(click)': '_handleClick()',
     '(mouseenter)': '_setIndicatorHintVisible(true)',
@@ -79,7 +79,7 @@ interface OuiSortHeaderColumnDef {
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled'],
   animations: [
     ouiSortAnimations.indicator,
