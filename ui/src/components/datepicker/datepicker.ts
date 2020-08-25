@@ -6,7 +6,7 @@ import {
   OverlayConfig,
   OverlayRef,
   PositionStrategy,
-  ScrollStrategy
+  ScrollStrategy,
 } from '@angular/cdk/overlay';
 import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -26,7 +26,7 @@ import {
   Output,
   ViewChild,
   ViewContainerRef,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OuiDialog, OuiDialogRef } from '../dialog/public-api';
@@ -57,7 +57,7 @@ export function OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY(
 export const OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_DATEPICKER_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY
+  useFactory: OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 };
 
 // Boilerplate for applying mixins to OuiDatepickerContent.
@@ -77,21 +77,21 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-datepicker-content',
     '[@transformPanel]': '"enter"',
-    '[class.oui-datepicker-content-touch]': 'datepicker.touchUi'
+    '[class.oui-datepicker-content-touch]': 'datepicker.touchUi',
   },
   animations: [
     ouiDatepickerAnimations.transformPanel,
-    ouiDatepickerAnimations.fadeInCalendar
+    ouiDatepickerAnimations.fadeInCalendar,
   ],
   exportAs: 'ouiDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-input-property-decorator
-  inputs: ['color']
+  // tslint:disable-next-line:no-inputs-metadata-property
+  inputs: ['color'],
 })
 export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
   implements AfterViewInit, CanColor {
@@ -123,10 +123,10 @@ export class OuiDatepickerContent<D> extends _OuiDatepickerContentMixinBase
   exportAs: 'ouiDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
-    '[class.oui-datepicker-disabled]': 'disabled'
-  }
+    '[class.oui-datepicker-disabled]': 'disabled',
+  },
 })
 export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _scrollStrategy: () => ScrollStrategy;
@@ -436,7 +436,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       {
         direction: this._dir ? this._dir.value : 'ltr',
         viewContainerRef: this._viewContainerRef,
-        panelClass: 'oui-datepicker-dialog'
+        panelClass: 'oui-datepicker-dialog',
       }
     );
 
@@ -481,7 +481,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       backdropClass: 'oui-overlay-transparent-backdrop',
       direction: this._dir,
       scrollStrategy: this._scrollStrategy(),
-      panelClass: 'oui-datepicker-popup'
+      panelClass: 'oui-datepicker-popup',
     });
 
     this._popupRef = this._overlay.create(overlayConfig);
@@ -491,7 +491,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       this._popupRef.backdropClick(),
       this._popupRef.detachments(),
       this._popupRef.keydownEvents().pipe(
-        filter(event => {
+        filter((event) => {
           // Closing on alt + up is only valid when there's an input associated with the datepicker.
           return (
             event.keyCode === ESCAPE ||
@@ -518,26 +518,26 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
-          overlayY: 'top'
+          overlayY: 'top',
         },
         {
           originX: 'start',
           originY: 'top',
           overlayX: 'start',
-          overlayY: 'bottom'
+          overlayY: 'bottom',
         },
         {
           originX: 'end',
           originY: 'bottom',
           overlayX: 'end',
-          overlayY: 'top'
+          overlayY: 'top',
         },
         {
           originX: 'end',
           originY: 'top',
           overlayX: 'end',
-          overlayY: 'bottom'
-        }
+          overlayY: 'bottom',
+        },
       ]);
   }
 

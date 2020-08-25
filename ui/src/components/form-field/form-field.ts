@@ -13,7 +13,7 @@ import {
   ViewChild,
   ViewEncapsulation,
   OnDestroy,
-  Input
+  Input,
 } from '@angular/core';
 import { mixinColor, ThemePalette } from '../core';
 import { Subject } from 'rxjs';
@@ -65,16 +65,16 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
   // in form-field-input.css. The OuiInput styles are fairly minimal so it shouldn't be a
   // big deal for people who aren't using OuiInput.
   styleUrls: ['form-field.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-form-field',
     '[class.oui-focused]': '_control.focused',
     '[class.oui-disabled]': '_control.disabled',
     '[class.oui-form-field-appearance-standard]': 'appearance == "standard"',
-    '[class.oui-form-field-appearance-underline]': 'appearance == "underline"'
+    '[class.oui-form-field-appearance-underline]': 'appearance == "underline"',
   },
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiFormField extends _OuiFormFieldMixinBase
   implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {

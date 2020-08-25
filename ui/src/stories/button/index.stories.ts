@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import {
   OuiButtonModule,
   OuiIconModule,
-  OuiIconRegistry
+  OuiIconRegistry,
 } from '../../components';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import markdownText from '../../components/button/README.md';
@@ -23,7 +23,7 @@ import { COLORS } from '../const';
     >
       <oui-icon [svgIcon]="icon" [color]="color"></oui-icon>{{ text }}
     </button>
-  `
+  `,
 })
 export class OuiIconButtonStorybook {
   constructor(
@@ -52,15 +52,15 @@ storiesOf('Button', module)
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
-        declarations: []
+        declarations: [],
       },
       template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
       props: {
         color: select('color', COLORS, COLORS[0]),
         disabled: boolean('disabled', false),
         text: text('text', 'This is a button'),
-        clicked: action('click')
-      }
+        clicked: action('click'),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -70,14 +70,14 @@ storiesOf('Button', module)
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
-        declarations: []
+        declarations: [],
       },
       template: `<button oui-link-button [disabled]="disabled" (click)="clicked()">{{text}}</button>`,
       props: {
         disabled: boolean('disabled', false),
         text: text('text', 'This is a button'),
-        clicked: action('click')
-      }
+        clicked: action('click'),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -87,15 +87,15 @@ storiesOf('Button', module)
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
-        declarations: []
+        declarations: [],
       },
       template: `<button oui-ghost-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
       props: {
         color: select('color', COLORS, COLORS[0]),
         disabled: boolean('disabled', false),
         text: text('text', 'This is a button'),
-        clicked: action('click')
-      }
+        clicked: action('click'),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -105,7 +105,7 @@ storiesOf('Button', module)
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
-        declarations: []
+        declarations: [],
       },
       template: `<button
                   #progressButton
@@ -121,15 +121,15 @@ storiesOf('Button', module)
         isDisable: boolean('disabled', false),
         text: text('text', 'This is a button'),
         clicked: action('click'),
-        progressButtonClick: function(progressButton) {
+        progressButtonClick: function (progressButton) {
           progressButton.setToProgress();
           action('set to progress', progressButton);
           setTimeout(() => {
             this.isDisable = false;
             progressButton.setToDone();
           }, 1000);
-        }
-      }
+        },
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -139,14 +139,14 @@ storiesOf('Button', module)
       moduleMetadata: {
         imports: [OuiButtonModule, OuiIconModule],
         schemas: [],
-        declarations: [OuiIconButtonStorybook]
+        declarations: [OuiIconButtonStorybook],
       },
       component: OuiIconButtonStorybook,
       props: {
         color: select('color', COLORS, COLORS[0]),
         clicked: action('click'),
-        icon: text('icon', 'notification-editor')
-      }
+        icon: text('icon', 'notification-editor'),
+      },
     }),
     { notes: { markdown: markdownText } }
   );

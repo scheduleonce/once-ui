@@ -11,7 +11,7 @@ import {
   Attribute,
   OnDestroy,
   NgZone,
-  forwardRef
+  forwardRef,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
@@ -26,9 +26,8 @@ let nextUniqueId = 0;
 /** @docs-private */
 export const OUI_SLIDE_TOGGLE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiSlideToggle),
-  multi: true
+  multi: true,
 };
 
 export class OuiSlideToggleBase {
@@ -43,18 +42,18 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   selector: 'oui-slide-toggle',
   exportAs: 'ouiSlideToggle',
   templateUrl: 'slide-toggle.html',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-slide-toggle',
     '[class.oui-disabled]': 'disabled',
-    '[attr.tabindex]': 'disabled ? null : -1'
+    '[attr.tabindex]': 'disabled ? null : -1',
   },
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'tabIndex'],
   styleUrls: ['./slide-toggle.scss'],
   providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   implements AfterContentInit, ControlValueAccessor, OnDestroy {
@@ -114,7 +113,7 @@ export class OuiSlideToggle extends _OuiSlideToggleMixinBase
   ngAfterContentInit() {
     this._focusMonitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe(focusOrigin => {
+      .subscribe((focusOrigin) => {
         if (!focusOrigin) {
           Promise.resolve().then(() => this.onTouched());
         }

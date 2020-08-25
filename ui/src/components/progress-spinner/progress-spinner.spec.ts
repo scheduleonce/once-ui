@@ -12,7 +12,7 @@ class BasicProgressSpinner {}
 
 @Component({
   template:
-    '<oui-progress-spinner [diameter]="diameter"></oui-progress-spinner>'
+    '<oui-progress-spinner [diameter]="diameter"></oui-progress-spinner>',
 })
 class ProgressSpinnerCustomDiameter {
   diameter: number;
@@ -21,7 +21,7 @@ class ProgressSpinnerCustomDiameter {
 @Component({
   template: `
     <oui-progress-spinner [value]="60" [color]="color"></oui-progress-spinner>
-  `
+  `,
 })
 class ProgressSpinnerWithColor {
   color = 'primary';
@@ -39,8 +39,8 @@ describe('OuiProgressSpinner', () => {
         OuiProgressSpinner,
         BasicProgressSpinner,
         ProgressSpinnerCustomDiameter,
-        ProgressSpinnerWithColor
-      ]
+        ProgressSpinnerWithColor,
+      ],
     }).compileComponents();
   }));
 

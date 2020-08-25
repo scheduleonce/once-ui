@@ -10,7 +10,7 @@ import { getOuiFormFieldMissingControlError } from '../form-field/form-field-err
 import {
   OUI_FORM_FIELD_DEFAULT_OPTIONS,
   OuiFormField,
-  OuiFormFieldAppearance
+  OuiFormFieldAppearance,
 } from '..';
 
 @Component({
@@ -18,14 +18,14 @@ import {
     <oui-form-field>
       <input oui-input id="test-id" placeholder="test" />
     </oui-form-field>
-  `
+  `,
 })
 class OuiInputWithId {}
 
 @Component({
   template: `
-    <oui-form-field><input oui-input [required]="required"/></oui-form-field>
-  `
+    <oui-form-field><input oui-input [required]="required" /></oui-form-field>
+  `,
 })
 class OuiInputWithRequired {
   required: boolean;
@@ -33,8 +33,8 @@ class OuiInputWithRequired {
 
 @Component({
   template: `
-    <oui-form-field><input oui-input [type]="type"/></oui-form-field>
-  `
+    <oui-form-field><input oui-input [type]="type" /></oui-form-field>
+  `,
 })
 class OuiInputWithType {
   type: string;
@@ -45,7 +45,7 @@ class OuiInputWithType {
     <oui-form-field>
       <input oui-input placeholder="Hello" [formControl]="formControl" />
     </oui-form-field>
-  `
+  `,
 })
 class OuiInputWithFormControl {
   formControl = new FormControl();
@@ -56,7 +56,7 @@ class OuiInputWithFormControl {
     <oui-form-field
       ><input oui-input [placeholder]="placeholder"
     /></oui-form-field>
-  `
+  `,
 })
 class OuiInputPlaceholderAttrTestComponent {
   placeholder = '';
@@ -64,8 +64,8 @@ class OuiInputPlaceholderAttrTestComponent {
 
 @Component({
   template: `
-    <oui-form-field><input oui-input type="file"/></oui-form-field>
-  `
+    <oui-form-field><input oui-input type="file" /></oui-form-field>
+  `,
 })
 class OuiInputInvalidTypeTestController {}
 
@@ -74,7 +74,7 @@ class OuiInputInvalidTypeTestController {}
     <oui-form-field>
       <input oui-input type="text" placeholder="Placeholder" />
     </oui-form-field>
-  `
+  `,
 })
 class OuiInputTextTestController {}
 
@@ -90,7 +90,7 @@ class OuiInputTextTestController {}
       >
       </textarea>
     </oui-form-field>
-  `
+  `,
 })
 class OuiInputTextareaWithBindings {
   rows = 4;
@@ -99,16 +99,14 @@ class OuiInputTextareaWithBindings {
 }
 
 @Component({
-  template: `
-    <oui-form-field><input /></oui-form-field>
-  `
+  template: ` <oui-form-field><input /></oui-form-field> `,
 })
 class OuiInputMissingOuiInputTestController {}
 
 @Component({
   template: `
     <oui-form-field> <input oui-input *ngIf="renderInput" /> </oui-form-field>
-  `
+  `,
 })
 class OuiInputWithNgIf {
   renderInput = true;
@@ -119,7 +117,7 @@ class OuiInputWithNgIf {
     <oui-form-field [appearance]="appearance">
       <input oui-input placeholder="Placeholder" />
     </oui-form-field>
-  `
+  `,
 })
 class OuiInputWithAppearance {
   @ViewChild(OuiFormField) formField: OuiFormField;
@@ -127,9 +125,7 @@ class OuiInputWithAppearance {
 }
 
 @Component({
-  template: `
-    <oui-form-field> <input oui-input /> </oui-form-field>
-  `
+  template: ` <oui-form-field> <input oui-input /> </oui-form-field> `,
 })
 class OuiInputWithoutPlaceholder {}
 
@@ -318,8 +314,8 @@ describe('OuiFormField default options', () => {
     const fixture = createComponent(OuiInputWithAppearance, [
       {
         provide: OUI_FORM_FIELD_DEFAULT_OPTIONS,
-        useValue: {}
-      }
+        useValue: {},
+      },
     ]);
 
     fixture.detectChanges();
@@ -330,8 +326,8 @@ describe('OuiFormField default options', () => {
     const fixture = createComponent(OuiInputWithAppearance, [
       {
         provide: OUI_FORM_FIELD_DEFAULT_OPTIONS,
-        useValue: { appearance: 'underline' }
-      }
+        useValue: { appearance: 'underline' },
+      },
     ]);
     fixture.detectChanges();
     expect(fixture.componentInstance.formField.appearance).toBe('underline');
@@ -352,10 +348,10 @@ function createComponent<T>(
       BrowserAnimationsModule,
       PlatformModule,
       ReactiveFormsModule,
-      ...imports
+      ...imports,
     ],
     declarations: [component, ...declarations],
-    providers
+    providers,
   }).compileComponents();
 
   return TestBed.createComponent<T>(component);

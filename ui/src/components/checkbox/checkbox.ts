@@ -11,7 +11,7 @@ import {
   ElementRef,
   Attribute,
   ViewChild,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -47,7 +47,7 @@ export enum TransitionCheckState {
   /** The state representing the component when it's becoming checked. */
   Checked,
   /** The state representing the component when it's becoming unchecked. */
-  Unchecked
+  Unchecked,
 }
 
 /**
@@ -63,16 +63,16 @@ export enum TransitionCheckState {
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.scss'],
   exportAs: 'ouiCheckbox',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-checkbox',
     '[id]': 'id',
     '[attr.tabindex]': 'null',
     '[class.oui-checkbox-checked]': 'checked',
     '[class.oui-checkbox-disabled]': 'disabled',
-    '[class.oui-checkbox-label-before]': 'labelPosition == "before"'
+    '[class.oui-checkbox-label-before]': 'labelPosition == "before"',
   },
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['tabIndex', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -80,9 +80,9 @@ export enum TransitionCheckState {
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => Checkbox),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class Checkbox extends OuiCheckboxMixinBase
   implements ControlValueAccessor, HasTabIndex, OnDestroy {

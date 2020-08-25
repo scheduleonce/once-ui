@@ -68,7 +68,7 @@ Buttons can be colored in terms of the current theme using the color property to
          () => {
            this.progressButton.setToDone();
          },
-         error => {
+         (error) => {
            this.progressButton.setToDefault();
          }
        );

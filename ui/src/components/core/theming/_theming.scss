@@ -4,27 +4,27 @@ $default-primary: (
   default: $oui-blue,
   lighter: lighten($oui-blue, 10%),
   darker: $oui-darker-blue,
-  default-contrast: $oui-white
+  default-contrast: $oui-white,
 );
 
 $default-accent: (
   default: $oui-green,
   lighter: lighten($oui-green, 10%),
   darker: darken($oui-green, 10%),
-  default-contrast: $oui-white
+  default-contrast: $oui-white,
 );
 
 $default-warn: (
   default: $oui-warn,
   lighter: lighten($oui-warn, 10%),
   darker: darken($oui-warn, 10%),
-  default-contrast: $oui-white
+  default-contrast: $oui-white,
 );
 
 $default-background: (
   background: $oui-white,
   disabled-button: #c8c8c8,
-  disabled-button-border: $oui-disabled-grey
+  disabled-button-border: $oui-disabled-grey,
 );
 
 $default-foreground: (
@@ -37,7 +37,7 @@ $default-foreground: (
   divider: rgba(black, 0.12),
   disabled-text: $oui-disabled-grey,
   secondary-text: #666666,
-  hover: rgba(0, 0, 0, 0.04)
+  hover: rgba(0, 0, 0, 0.04),
 );
 @function oui-palette(
   $base,
