@@ -8,7 +8,7 @@ import {
   Optional,
   AfterViewChecked,
   forwardRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
@@ -25,9 +25,9 @@ import { OuiOption } from '../../core/option/option';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => OuiSelectSearchComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class OuiSelectSearchComponent
   implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy {
@@ -61,7 +61,7 @@ export class OuiSelectSearchComponent
 
   ngOnInit() {
     // when the select dropdown panel is opened or closed
-    this.ouiSelect.openedChange.subscribe(opened => {
+    this.ouiSelect.openedChange.subscribe((opened) => {
       if (opened) {
         // focus the search field when opening
         this._focus();
@@ -133,7 +133,7 @@ export class OuiSelectSearchComponent
       return;
     }
     // focus
-    setTimeout(_ => this.searchSelectInput.nativeElement.focus());
+    setTimeout((_) => this.searchSelectInput.nativeElement.focus());
     this.ouiSelect.ouiSelectInputOuter();
   }
 
@@ -155,7 +155,7 @@ export class OuiSelectSearchComponent
     // In oui-search, if we filter something then the options which has disappeared, will be treated as deselected. To avoid this problem we can store the previously selected value and restore them if those values are not available in visible option.
     this.ouiSelect.valueChange
       .pipe(takeUntil(this._onDestroy))
-      .subscribe(values => {
+      .subscribe((values) => {
         if (this.ouiSelect.multiple) {
           let restoreSelectedValues = false;
           if (
@@ -168,9 +168,9 @@ export class OuiSelectSearchComponent
               values = [];
             }
             const optionValues = this.ouiSelect.options.map(
-              option => option.value
+              (option) => option.value
             );
-            this.previousSelectedValues.forEach(previousValue => {
+            this.previousSelectedValues.forEach((previousValue) => {
               if (
                 values.indexOf(previousValue) === -1 &&
                 optionValues.indexOf(previousValue) === -1

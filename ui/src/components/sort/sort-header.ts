@@ -11,7 +11,7 @@ import {
   Inject,
   ElementRef,
   IterableDiffers,
-  NgZone
+  NgZone,
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
 import { merge, Subscription } from 'rxjs';
@@ -68,18 +68,18 @@ interface OuiSortHeaderColumnDef {
   exportAs: 'ouiSortHeader',
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '(click)': '_handleClick()',
     '(mouseenter)': '_setIndicatorHintVisible(true)',
     '(longpress)': '_setIndicatorHintVisible(true)',
     '(mouseleave)': '_setIndicatorHintVisible(false)',
     '[attr.aria-sort]': '_getAriaSortAttribute()',
-    '[class.oui-sort-header-disabled]': '_isDisabled()'
+    '[class.oui-sort-header-disabled]': '_isDisabled()',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled'],
   animations: [
     ouiSortAnimations.indicator,
@@ -87,10 +87,11 @@ interface OuiSortHeaderColumnDef {
     ouiSortAnimations.rightPointer,
     ouiSortAnimations.arrowOpacity,
     ouiSortAnimations.arrowPosition,
-    ouiSortAnimations.allowChildren
-  ]
+    ouiSortAnimations.allowChildren,
+  ],
 })
-export class OuiSortHeader extends _OuiSortHeaderMixinBase
+export class OuiSortHeader
+  extends _OuiSortHeaderMixinBase
   implements CanDisable, OuiSortable, OnDestroy, OnInit {
   private _rerenderSubscription: Subscription;
 
@@ -185,7 +186,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
         this._disableViewStateAnimation = false;
         this._setAnimationTransitionState({
           fromState: 'active',
-          toState: this._arrowDirection
+          toState: this._arrowDirection,
         });
       }
 
@@ -203,7 +204,7 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
     // Initialize the direction of the arrow and set the view state to be immediately that state.
     this._updateArrowDirection();
     this._setAnimationTransitionState({
-      toState: this._isSorted() ? 'active' : this._arrowDirection
+      toState: this._isSorted() ? 'active' : this._arrowDirection,
     });
 
     this._sort.register(this);
@@ -233,12 +234,12 @@ export class OuiSortHeader extends _OuiSortHeaderMixinBase
       if (this._showIndicatorHint) {
         this._setAnimationTransitionState({
           fromState: this._arrowDirection,
-          toState: 'hint'
+          toState: 'hint',
         });
       } else {
         this._setAnimationTransitionState({
           fromState: 'hint',
-          toState: this._arrowDirection
+          toState: this._arrowDirection,
         });
       }
     }

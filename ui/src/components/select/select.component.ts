@@ -170,11 +170,11 @@ export class OuiSelectTrigger {}
   exportAs: 'ouiSelect',
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'listbox',
     '[attr.id]': 'id',

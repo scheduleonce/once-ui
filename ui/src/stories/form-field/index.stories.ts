@@ -10,7 +10,7 @@ storiesOf('Form Field/Input', module).add(
     moduleMetadata: {
       imports: [OuiFormFieldModule, OuiInputModule],
       schemas: [],
-      declarations: []
+      declarations: [],
     },
     template: `<oui-form-field [appearance]="appearance"> <input [disabled]="disabled" (blur)="blured()" (focus)="focused()" [type]="type" oui-input [placeholder]="placeholder" /> </oui-form-field>`,
     props: {
@@ -19,8 +19,8 @@ storiesOf('Form Field/Input', module).add(
       disabled: boolean('disabled', false),
       placeholder: text('placeholder', 'Type Here'),
       focused: action('focus'),
-      blured: action('blur')
-    }
+      blured: action('blur'),
+    },
   }),
   { notes: { markdown: markdownText } }
 );

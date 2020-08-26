@@ -2,7 +2,7 @@ import { CDK_TABLE_TEMPLATE, CdkTable } from '@angular/cdk/table';
 import {
   ChangeDetectionStrategy,
   Component,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 
 /**
@@ -13,11 +13,11 @@ import {
   exportAs: 'ouiTable',
   template: CDK_TABLE_TEMPLATE,
   styleUrls: ['table.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-table'
+    class: 'oui-table',
   },
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiTable<T> extends CdkTable<T> {}
