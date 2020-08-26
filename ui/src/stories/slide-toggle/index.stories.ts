@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions';
-import { OuiSlideToggle } from '../../ui/src/components/slide-toggle/slide-toggle';
+import { OuiSlideToggle } from '../../components/slide-toggle/slide-toggle';
 import { select, boolean } from '@storybook/addon-knobs';
 import { COLORS } from '../const';
 
