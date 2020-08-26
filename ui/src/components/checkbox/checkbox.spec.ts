@@ -3,13 +3,13 @@ import {
   fakeAsync,
   TestBed,
   flush,
-  flushMicrotasks
+  flushMicrotasks,
 } from '@angular/core/testing';
 import {
   FormControl,
   FormsModule,
   NgModel,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
 import { Component, DebugElement, ViewChild, Type } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -35,7 +35,7 @@ import { Checkbox, OuiCheckboxModule } from './public-api';
         Simple checkbox
       </oui-checkbox>
     </div>
-  `
+  `,
 })
 class SingleCheckbox {
   labelPos = 'after';
@@ -55,7 +55,7 @@ class SingleCheckbox {
     <oui-checkbox [required]="isRequired" [(ngModel)]="isGood"
       >Be good</oui-checkbox
     >
-  `
+  `,
 })
 class CheckboxWithNgModel {
   isGood = false;
@@ -67,7 +67,7 @@ class CheckboxWithNgModel {
   template: `
     <oui-checkbox>Option 1</oui-checkbox>
     <oui-checkbox>Option 2</oui-checkbox>
-  `
+  `,
 })
 class MultipleCheckboxes {}
 
@@ -76,7 +76,7 @@ class MultipleCheckboxes {}
   template: `
     <oui-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
     </oui-checkbox>
-  `
+  `,
 })
 class CheckboxWithTabIndex {
   customTabIndex = 7;
@@ -85,9 +85,7 @@ class CheckboxWithTabIndex {
 
 /** Simple test component that accesses Checkbox using ViewChild. */
 @Component({
-  template: `
-    <oui-checkbox></oui-checkbox>
-  `
+  template: ` <oui-checkbox></oui-checkbox> `,
 })
 class CheckboxUsingViewChild {
   @ViewChild(Checkbox)
@@ -100,33 +98,25 @@ class CheckboxUsingViewChild {
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `
-    <oui-checkbox aria-label="Super effective"></oui-checkbox>
-  `
+  template: ` <oui-checkbox aria-label="Super effective"></oui-checkbox> `,
 })
 class CheckboxWithAriaLabel {}
 
 /** Simple test component with an aria-label set. */
 @Component({
-  template: `
-    <oui-checkbox aria-labelledby="some-id"></oui-checkbox>
-  `
+  template: ` <oui-checkbox aria-labelledby="some-id"></oui-checkbox> `,
 })
 class CheckboxWithAriaLabelledby {}
 
 /** Simple test component with name attribute */
 @Component({
-  template: `
-    <oui-checkbox name="test-name"></oui-checkbox>
-  `
+  template: ` <oui-checkbox name="test-name"></oui-checkbox> `,
 })
 class CheckboxWithNameAttribute {}
 
 /** Test component with reactive forms */
 @Component({
-  template: `
-    <oui-checkbox [formControl]="formControl"></oui-checkbox>
-  `
+  template: ` <oui-checkbox [formControl]="formControl"></oui-checkbox> `,
 })
 class CheckboxWithFormControl {
   formControl = new FormControl();
@@ -134,9 +124,7 @@ class CheckboxWithFormControl {
 
 /** Test component without label */
 @Component({
-  template: `
-    <oui-checkbox>{{ label }}</oui-checkbox>
-  `
+  template: ` <oui-checkbox>{{ label }}</oui-checkbox> `,
 })
 class CheckboxWithoutLabel {
   label: string;
@@ -144,9 +132,7 @@ class CheckboxWithoutLabel {
 
 /** Test component with the native tabindex attribute. */
 @Component({
-  template: `
-    <oui-checkbox tabindex="5"></oui-checkbox>
-  `
+  template: ` <oui-checkbox tabindex="5"></oui-checkbox> `,
 })
 class CheckboxWithTabindexAttr {}
 
@@ -159,7 +145,7 @@ describe('Checkbox', () => {
   ) {
     TestBed.configureTestingModule({
       imports: [OuiCheckboxModule, FormsModule, ReactiveFormsModule],
-      declarations: [componentType, ...extraDeclarations]
+      declarations: [componentType, ...extraDeclarations],
     }).compileComponents();
 
     return TestBed.createComponent<T>(componentType);
@@ -594,7 +580,7 @@ describe('Checkbox', () => {
       const [firstId, secondId] = fixture.debugElement
         .queryAll(By.directive(Checkbox))
         .map(
-          debugElement => debugElement.nativeElement.querySelector('input').id
+          (debugElement) => debugElement.nativeElement.querySelector('input').id
         );
 
       expect(firstId).toMatch(/oui-checkbox-\d+-input/);

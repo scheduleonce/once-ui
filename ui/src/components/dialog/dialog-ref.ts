@@ -64,7 +64,7 @@ export class OuiDialogRef<T, R = any> {
 
     _overlayRef
       .keydownEvents()
-      .pipe(filter(event => event.key === 'Escape' && !this.disableClose))
+      .pipe(filter((event) => event.key === 'Escape' && !this.disableClose))
       .subscribe(() => this.close());
   }
 

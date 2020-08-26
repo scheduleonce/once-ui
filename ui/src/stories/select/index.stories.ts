@@ -2,14 +2,14 @@ import { storiesOf } from '@storybook/angular';
 import {
   OuiSelectModule,
   OuiFormFieldModule,
-  OuiInputModule
+  OuiInputModule,
 } from '../../components';
 import {
   array,
   boolean,
   text,
   object,
-  select
+  select,
 } from '@storybook/addon-knobs/angular';
 import { action } from '@storybook/addon-actions';
 import markdownText from '../../components/select/README.md';
@@ -43,13 +43,13 @@ storiesOf('Form Field/Select', module)
           'Kababs',
           'Rolls',
           'Biryani',
-          'Sweets'
+          'Sweets',
         ]),
         placeholder: text('placeholder', 'Favorite food'),
         disabled: boolean('disabled', false),
         large: boolean('large', false),
         onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
       },
       moduleMetadata: {
         imports: [
@@ -57,9 +57,9 @@ storiesOf('Form Field/Select', module)
           OuiInputModule,
           OuiSelectModule,
           FormsModule,
-          ReactiveFormsModule
-        ]
-      }
+          ReactiveFormsModule,
+        ],
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -83,7 +83,7 @@ storiesOf('Form Field/Select', module)
         disabled: boolean('disabled', false),
         large: boolean('large', false),
         onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
       },
       moduleMetadata: {
         imports: [
@@ -91,9 +91,9 @@ storiesOf('Form Field/Select', module)
           OuiInputModule,
           OuiSelectModule,
           FormsModule,
-          ReactiveFormsModule
-        ]
-      }
+          ReactiveFormsModule,
+        ],
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -118,7 +118,7 @@ storiesOf('Form Field/Select', module)
         foodGroups: object('foodGroups', [
           {
             name: 'Fruit',
-            foods: ['Apple', 'Orange']
+            foods: ['Apple', 'Orange'],
           },
           {
             name: 'Vegetables',
@@ -129,19 +129,19 @@ storiesOf('Form Field/Select', module)
               'Cucumber',
               'Lettuce',
               'Pumpkin',
-              'Tomato'
-            ]
+              'Tomato',
+            ],
           },
           {
             name: 'Meats',
-            foods: ['Steak', 'Chicken']
-          }
+            foods: ['Steak', 'Chicken'],
+          },
         ]),
         disabled: boolean('disabled', false),
         large: boolean('large', false),
         placeholder: text('placeholder', 'Foods'),
         onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
       },
       moduleMetadata: {
         imports: [
@@ -149,9 +149,9 @@ storiesOf('Form Field/Select', module)
           OuiInputModule,
           OuiSelectModule,
           FormsModule,
-          ReactiveFormsModule
-        ]
-      }
+          ReactiveFormsModule,
+        ],
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -182,7 +182,7 @@ storiesOf('Form Field/Select', module)
         disabled: boolean('disabled', false),
         large: boolean('large', false),
         onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
       },
       moduleMetadata: {
         imports: [
@@ -190,9 +190,9 @@ storiesOf('Form Field/Select', module)
           OuiInputModule,
           OuiSelectModule,
           FormsModule,
-          ReactiveFormsModule
-        ]
-      }
+          ReactiveFormsModule,
+        ],
+      },
     }),
     { notes: { markdown: markdownText } }
   );

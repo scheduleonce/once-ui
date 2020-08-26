@@ -7,7 +7,7 @@ import {
   Attribute,
   ChangeDetectionStrategy,
   InjectionToken,
-  inject
+  inject,
 } from '@angular/core';
 import { CanColor, CanColorCtor, mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -35,7 +35,7 @@ export const OUI_ICON_LOCATION = new InjectionToken<OuiIconLocation>(
   'oui-icon-location',
   {
     providedIn: 'root',
-    factory: OUI_ICON_LOCATION_FACTORY
+    factory: OUI_ICON_LOCATION_FACTORY,
   }
 );
 
@@ -55,7 +55,7 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   return {
     // Note that this needs to be a function, rather than a property, because Angular
     // will only resolve it once, but we want the current path on each call.
-    getPathname: () => (_location ? _location.pathname + _location.search : '')
+    getPathname: () => (_location ? _location.pathname + _location.search : ''),
   };
 }
 
@@ -75,17 +75,17 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   selector: 'oui-icon',
   exportAs: 'ouiIcon',
   styleUrls: ['icon.scss'],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['color'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'img',
     class: 'oui-icon',
     '[class.oui-icon-inline]': 'inline',
-    '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)'
+    '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)',
   },
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   /**
@@ -134,7 +134,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
         .getNamedSvgIcon(this.svgIcon)
         .pipe(take(1))
         .subscribe(
-          svg => this._setSvgElement(svg),
+          (svg) => this._setSvgElement(svg),
           (err: Error) => console.log(`Error retrieving icon: ${err.message}`)
         );
     }

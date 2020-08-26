@@ -8,7 +8,7 @@ import {
   PAGE_UP,
   RIGHT_ARROW,
   UP_ARROW,
-  SPACE
+  SPACE,
 } from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
@@ -20,7 +20,7 @@ import {
   Optional,
   Output,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { OuiCalendarBody, OuiCalendarCell } from './calendar-body';
@@ -39,7 +39,7 @@ export const yearsPerRow = 4;
   templateUrl: 'multi-year-view.html',
   exportAs: 'ouiMultiYearView',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiMultiYearView<D> implements AfterContentInit {
   /** The date to display in this multi-year view (everything other than the year is ignored). */
@@ -154,7 +154,7 @@ export class OuiMultiYearView<D> implements AfterContentInit {
     for (let i = 0, row: number[] = []; i < yearsPerPage; i++) {
       row.push(activeYear - activeOffset + i);
       if (row.length === yearsPerRow) {
-        this._years.push(row.map(year => this._createCellForYear(year)));
+        this._years.push(row.map((year) => this._createCellForYear(year)));
         row = [];
       }
     }

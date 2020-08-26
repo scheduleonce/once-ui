@@ -12,7 +12,7 @@ import {
   RIGHT_ARROW,
   SPACE,
   UP_ARROW,
-  hasModifierKey
+  hasModifierKey,
 } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -40,13 +40,13 @@ import {
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  Inject
+  Inject,
 } from '@angular/core';
 import {
   ControlValueAccessor,
   FormGroupDirective,
   NgControl,
-  NgForm
+  NgForm,
 } from '@angular/forms';
 import {
   _countGroupLabelsBeforeOption,
@@ -60,7 +60,7 @@ import {
   OuiOptionSelectionChange,
   mixinErrorState,
   mixinTabIndex,
-  mixinDisabled
+  mixinDisabled,
 } from '../core';
 import { OuiFormField, OuiFormFieldControl } from '../form-field/public-api';
 import { DOCUMENT } from '@angular/common';
@@ -75,12 +75,12 @@ import {
   startWith,
   switchMap,
   take,
-  takeUntil
+  takeUntil,
 } from 'rxjs/operators';
 import {
   getOuiSelectDynamicMultipleError,
   getOuiSelectNonArrayValueError,
-  getOuiSelectNonFunctionValueError
+  getOuiSelectNonFunctionValueError,
 } from './select-errors';
 import { OuiIconRegistry } from '../icon/icon-registery';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -161,7 +161,7 @@ export const _OuiSelectMixinBase: CanDisableCtor &
  */
 @Directive({
   // tslint:disable-next-line:directive-selector
-  selector: 'oui-select-trigger'
+  selector: 'oui-select-trigger',
 })
 export class OuiSelectTrigger {}
 
@@ -170,11 +170,11 @@ export class OuiSelectTrigger {}
   exportAs: 'ouiSelect',
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
-  // tslint:disable-next-line:use-input-property-decorator
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'listbox',
     '[attr.id]': 'id',
@@ -195,14 +195,15 @@ export class OuiSelectTrigger {}
     class: 'oui-select oui-input',
     '(keydown)': '_handleKeydown($event)',
     '(focus)': '_onFocus()',
-    '(blur)': '_onBlur()'
+    '(blur)': '_onBlur()',
   },
   providers: [
     { provide: OuiFormFieldControl, useExisting: OuiSelect },
-    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect }
-  ]
+    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect },
+  ],
 })
-export class OuiSelect extends _OuiSelectMixinBase
+export class OuiSelect
+  extends _OuiSelectMixinBase
   implements
     AfterContentInit,
     OnChanges,
@@ -280,14 +281,14 @@ export class OuiSelect extends _OuiSelectMixinBase
       originX: 'start',
       originY: 'top',
       overlayX: 'start',
-      overlayY: 'top'
+      overlayY: 'top',
     },
     {
       originX: 'start',
       originY: 'bottom',
       overlayX: 'start',
-      overlayY: 'bottom'
-    }
+      overlayY: 'bottom',
+    },
   ];
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
@@ -349,7 +350,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
     (): Observable<OuiOptionSelectionChange> => {
       if (this.options) {
-        return merge(...this.options.map(option => option.onSelectionChange));
+        return merge(...this.options.map((option) => option.onSelectionChange));
       }
 
       return this._ngZone.onStable.asObservable().pipe(
@@ -379,7 +380,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   @Output('opened') readonly _openedStream: Observable<
     void
   > = this.openedChange.pipe(
-    filter(o => o),
+    filter((o) => o),
     map(() => {})
   );
 
@@ -388,7 +389,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   @Output('closed') readonly _closedStream: Observable<
     void
   > = this.openedChange.pipe(
-    filter(o => !o),
+    filter((o) => !o),
     map(() => {})
   );
 
@@ -588,9 +589,9 @@ export class OuiSelect extends _OuiSelectMixinBase
 
     this._selectionModel.changed
       .pipe(takeUntil(this._destroy))
-      .subscribe(event => {
-        event.added.forEach(option => option.select());
-        event.removed.forEach(option => option.deselect());
+      .subscribe((event) => {
+        event.added.forEach((option) => option.select());
+        event.removed.forEach((option) => option.deselect());
       });
 
     this.options.changes
@@ -663,7 +664,7 @@ export class OuiSelect extends _OuiSelectMixinBase
       this._elementRef.nativeElement.classList.remove(
         'oui-select-list-options-opened'
       );
-      setTimeout(_ => this._document.activeElement.blur());
+      setTimeout((_) => this._document.activeElement.blur());
     }
   }
 
@@ -732,7 +733,7 @@ export class OuiSelect extends _OuiSelectMixinBase
     }
     if (this._multiple) {
       const selectedOptions = this._selectionModel.selected.map(
-        option => option.viewValueForSelect
+        (option) => option.viewValueForSelect
       );
 
       if (this._isRtl()) {
@@ -838,10 +839,10 @@ export class OuiSelect extends _OuiSelectMixinBase
    */
   private handleCtrlKey() {
     const hasDeselectedOptions = this.options.some(
-      opt => !opt.disabled && !opt.selected
+      (opt) => !opt.disabled && !opt.selected
     );
 
-    this.options.forEach(option => {
+    this.options.forEach((option) => {
       if (!option.disabled) {
         hasDeselectedOptions ? option.select() : option.deselect();
       }
@@ -1039,7 +1040,7 @@ export class OuiSelect extends _OuiSelectMixinBase
 
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
-      .subscribe(event => {
+      .subscribe((event) => {
         this._onSelect(event.source, event.isUserInput);
 
         if (event.isUserInput && !this.multiple && this._panelOpen) {
@@ -1050,7 +1051,7 @@ export class OuiSelect extends _OuiSelectMixinBase
 
     // Listen to changes in the internal state of the options and react accordingly.
     // Handles cases like the labels of the selected options changing.
-    merge(...this.options.map(option => option._stateChanges))
+    merge(...this.options.map((option) => option._stateChanges))
       .pipe(takeUntil(changedOrDestroyed))
       .subscribe(() => {
         this._changeDetectorRef.markForCheck();
@@ -1116,7 +1117,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     let valueToEmit: any = null;
 
     if (this.multiple) {
-      valueToEmit = (this.selected as OuiOption[]).map(option => option.value);
+      valueToEmit = (this.selected as OuiOption[]).map(
+        (option) => option.value
+      );
     } else {
       valueToEmit = this.selected
         ? (this.selected as OuiOption).value
@@ -1133,7 +1136,7 @@ export class OuiSelect extends _OuiSelectMixinBase
 
   /** Records option IDs to pass to the aria-owns property. */
   private _setOptionIds() {
-    this._optionIds = this.options.map(option => option.id).join(' ');
+    this._optionIds = this.options.map((option) => option.id).join(' ');
   }
 
   /**
@@ -1217,13 +1220,13 @@ export class OuiSelect extends _OuiSelectMixinBase
    * Custom overlay class for cdk overlay container
    */
   openCdk() {
-    this.overlayDir.positionChange.pipe(take(1)).subscribe(e => {
+    this.overlayDir.positionChange.pipe(take(1)).subscribe((e) => {
       this.cdkConnectionOverlayPanel = '';
       if (e.connectionPair.originY === 'top') {
         this.cdkConnectionOverlayPanel = 'select-overlay-top';
       }
       this._changeDetectorRef.detectChanges();
-      setTimeout(_ => this._scrollToOption());
+      setTimeout((_) => this._scrollToOption());
     });
 
     const cdkOverLayContainer = this._document.querySelector(

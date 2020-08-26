@@ -10,7 +10,7 @@ import { COLORS } from '../const';
   selector: 'oui-icon-storybook',
   template: `
     <oui-icon [svgIcon]="icon" [size]="size" [color]="color"></oui-icon>
-  `
+  `,
 })
 export class OuiiconStorybook {
   @Input() icon = 'notification-editor';
@@ -38,7 +38,7 @@ const sizeOptions = {
   range: true,
   min: 15,
   max: 200,
-  step: 1
+  step: 1,
 };
 storiesOf('Icon', module).add(
   'Regular',
@@ -46,14 +46,14 @@ storiesOf('Icon', module).add(
     moduleMetadata: {
       imports: [OuiIconModule],
       schemas: [],
-      declarations: [OuiiconStorybook]
+      declarations: [OuiiconStorybook],
     },
     template: `<oui-icon-storybook [color]="color" [icon]="icon" [size]="size"></oui-icon-storybook>`,
     props: {
       color: select('color', COLORS, COLORS[0]),
       icon: text('icon', 'notification-editor'),
-      size: number('size', 20, sizeOptions)
-    }
+      size: number('size', 20, sizeOptions),
+    },
   }),
   { notes: { markdown: markdownText } }
 );

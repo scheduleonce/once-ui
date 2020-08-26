@@ -12,7 +12,7 @@ import {
   OnDestroy,
   SimpleChanges,
   ViewEncapsulation,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
 import { OuiButton } from '../button/button';
 import { merge, of as observableOf, Subscription } from 'rxjs';
@@ -21,7 +21,7 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 
 /** Can be used to override the icon of a `ouiDatepickerToggle`. */
 @Directive({
-  selector: '[ouiDatepickerToggleIcon]'
+  selector: '[ouiDatepickerToggleIcon]',
 })
 export class OuiDatepickerToggleIcon {}
 
@@ -29,7 +29,7 @@ export class OuiDatepickerToggleIcon {}
   selector: 'oui-datepicker-toggle',
   templateUrl: 'datepicker-toggle.html',
   styleUrls: ['datepicker-toggle.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-datepicker-toggle',
     // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
@@ -39,11 +39,11 @@ export class OuiDatepickerToggleIcon {}
     '[class.oui-accent]': 'datepicker && datepicker.color === "accent"',
     '[class.oui-warn]': 'datepicker && datepicker.color === "warn"',
     '(focus)': '_button.focus()',
-    '[class.oui-datepicker-disabled]': 'disabled'
+    '[class.oui-datepicker-disabled]': 'disabled',
   },
   exportAs: 'ouiDatepickerToggle',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiDatepickerToggle<D>
   implements AfterContentInit, OnChanges, OnDestroy {
