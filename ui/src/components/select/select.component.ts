@@ -389,7 +389,9 @@ export class OuiSelect extends _OuiSelectMixinBase
     void
   > = this.openedChange.pipe(
     filter(o => !o),
-    map(() => {})
+    map(() => {
+      this.isSearchFieldPresent = false;
+    })
   );
 
   /** Event emitted when the selected value has been changed by the user. */
@@ -728,6 +730,7 @@ export class OuiSelect extends _OuiSelectMixinBase
   /** The value displayed in the trigger. */
   get triggerValue(): string {
     if (this.empty) {
+      this.initialValue = '';
       return '';
     }
     if (this._multiple) {
@@ -901,7 +904,7 @@ export class OuiSelect extends _OuiSelectMixinBase
    */
   _onBlur() {
     this._focused = false;
-
+    this.isSearchFieldPresent = false;
     if (!this.disabled && !this.panelOpen) {
       this._onTouched();
       this._changeDetectorRef.markForCheck();
