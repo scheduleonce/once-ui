@@ -6,7 +6,7 @@ import {
   Injector,
   ViewContainerRef,
   Inject,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -16,7 +16,7 @@ import { Subject } from 'rxjs';
  * Panel content that will be rendered lazily once the panel is opened.
  */
 @Directive({
-  selector: 'ng-template[ouiPanelContent]'
+  selector: 'ng-template[ouiPanelContent]',
 })
 export class OuiPanelContent implements OnDestroy {
   private _portal: TemplatePortal<any>;

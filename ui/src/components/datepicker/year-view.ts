@@ -8,7 +8,7 @@ import {
   PAGE_UP,
   RIGHT_ARROW,
   UP_ARROW,
-  SPACE
+  SPACE,
 } from '@angular/cdk/keycodes';
 import {
   AfterContentInit,
@@ -21,7 +21,7 @@ import {
   Optional,
   Output,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { OuiCalendarBody, OuiCalendarCell } from './calendar-body';
@@ -37,7 +37,7 @@ import { DateAdapter } from './date-adapter';
   templateUrl: 'year-view.html',
   exportAs: 'ouiYearView',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiYearView<D> implements AfterContentInit {
   /** The date to display in this year view (everything other than the year is ignored). */
@@ -260,9 +260,9 @@ export class OuiYearView<D> implements AfterContentInit {
     this._months = [
       [0, 1, 2, 3],
       [4, 5, 6, 7],
-      [8, 9, 10, 11]
-    ].map(row =>
-      row.map(month => this._createCellForMonth(month, monthNames[month]))
+      [8, 9, 10, 11],
+    ].map((row) =>
+      row.map((month) => this._createCellForMonth(month, monthNames[month]))
     );
     this._changeDetectorRef.markForCheck();
   }

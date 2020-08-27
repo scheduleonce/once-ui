@@ -38,5 +38,5 @@ export const OUI_PAGINATOR_INTL_PROVIDER = {
   // If there is already an OuiPaginatorIntl available, use that. Otherwise, provide a new one.
   provide: OuiPaginatorIntl,
   deps: [[new Optional(), new SkipSelf(), OuiPaginatorIntl]],
-  useFactory: OUI_PAGINATOR_INTL_PROVIDER_FACTORY
+  useFactory: OUI_PAGINATOR_INTL_PROVIDER_FACTORY,
 };

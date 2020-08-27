@@ -5,7 +5,7 @@ import {
   Provider,
   Component,
   ViewChild,
-  ElementRef
+  ElementRef,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -13,7 +13,7 @@ import {
   inject,
   tick,
   fakeAsync,
-  discardPeriodicTasks
+  discardPeriodicTasks,
 } from '@angular/core/testing';
 import { OuiPanelModule } from './panel-module';
 import { OuiPanelTrigger } from './panel-trigger';
@@ -23,7 +23,7 @@ import { OuiIconTestingModule } from '../icon/public-api';
 // tslint:disable-next-line:component-selector
 @Component({
   selector: 'oui-fake-icon',
-  template: '<ng-content></ng-content>'
+  template: '<ng-content></ng-content>',
 })
 class FakeIcon {}
 
@@ -36,7 +36,7 @@ class FakeIcon {}
       <p>Lorem ipsum dolor sit, amet consectetur adipisiciiandae</p>
       <p>Lorem ipsum dolor sit amet</p>
     </oui-panel>
-  `
+  `,
 })
 class SimplePanel {
   @ViewChild(OuiPanelTrigger) trigger: OuiPanelTrigger;
@@ -58,7 +58,7 @@ describe('OuiPanel', () => {
     TestBed.configureTestingModule({
       imports: [OuiPanelModule, OuiIconTestingModule],
       declarations: [component, ...declarations],
-      providers
+      providers,
     }).compileComponents();
 
     inject(

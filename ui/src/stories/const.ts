@@ -39,5 +39,5 @@ export const COUNTRY_LIST = [
   'Sudan',
   'Togo',
   'Tonga',
-  'Yemen'
+  'Yemen',
 ];

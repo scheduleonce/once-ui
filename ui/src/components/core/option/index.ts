@@ -7,7 +7,7 @@ import { OuiPseudoCheckboxModule } from '../selection/index';
 @NgModule({
   imports: [CommonModule, OuiPseudoCheckboxModule],
   exports: [OuiOption, OuiOptgroup],
-  declarations: [OuiOption, OuiOptgroup]
+  declarations: [OuiOption, OuiOptgroup],
 })
 export class OuiOptionModule {}
 

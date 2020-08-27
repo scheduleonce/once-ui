@@ -5,6 +5,6 @@ import { OuiProgressBar } from './progress-bar';
 @NgModule({
   imports: [CommonModule],
   exports: [OuiProgressBar],
-  declarations: [OuiProgressBar]
+  declarations: [OuiProgressBar],
 })
 export class OuiProgressBarModule {}

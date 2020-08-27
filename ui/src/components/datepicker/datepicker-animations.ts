@@ -4,7 +4,7 @@ import {
   style,
   transition,
   trigger,
-  AnimationTriggerMetadata
+  AnimationTriggerMetadata,
 } from '@angular/animations';
 
 /**
@@ -20,7 +20,7 @@ export const ouiDatepickerAnimations: {
       'void',
       style({
         opacity: 0,
-        transform: 'scale(1, 0.8)'
+        transform: 'scale(1, 0.8)',
       })
     ),
     transition(
@@ -29,11 +29,11 @@ export const ouiDatepickerAnimations: {
         '120ms cubic-bezier(0, 0, 0.2, 1)',
         style({
           opacity: 1,
-          transform: 'scale(1, 1)'
+          transform: 'scale(1, 1)',
         })
       )
     ),
-    transition('* => void', animate('100ms linear', style({ opacity: 0 })))
+    transition('* => void', animate('100ms linear', style({ opacity: 0 }))),
   ]),
 
   /** Fades in the content of the calendar. */
@@ -46,6 +46,6 @@ export const ouiDatepickerAnimations: {
     transition(
       'void => *',
       animate('120ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-    )
-  ])
+    ),
+  ]),
 };

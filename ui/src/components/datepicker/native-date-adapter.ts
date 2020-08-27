@@ -20,7 +20,7 @@ const DEFAULT_MONTH_NAMES = {
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ],
   short: [
     'Jan',
@@ -34,13 +34,13 @@ const DEFAULT_MONTH_NAMES = {
     'Sep',
     'Oct',
     'Nov',
-    'Dec'
+    'Dec',
   ],
-  narrow: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+  narrow: ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D'],
 };
 
 /** The default date names to use if Intl API is not available. */
-const DEFAULT_DATE_NAMES = range(31, i => String(i + 1));
+const DEFAULT_DATE_NAMES = range(31, (i) => String(i + 1));
 
 /** The default day of the week names to use if Intl API is not available. */
 const DEFAULT_DAY_OF_WEEK_NAMES = {
@@ -51,10 +51,10 @@ const DEFAULT_DAY_OF_WEEK_NAMES = {
     'Wednesday',
     'Thursday',
     'Friday',
-    'Saturday'
+    'Saturday',
   ],
   short: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-  narrow: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sat']
+  narrow: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sat'],
 };
 
 /**
@@ -259,7 +259,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return [
       date.getUTCFullYear(),
       this._2digit(date.getUTCMonth() + 1),
-      this._2digit(date.getUTCDate())
+      this._2digit(date.getUTCDate()),
     ].join('-');
   }
 

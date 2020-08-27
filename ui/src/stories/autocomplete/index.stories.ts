@@ -1,4 +1,3 @@
-// import { setOptions } from '@storybook/addon-options';
 import { action } from '@storybook/addon-actions';
 import { select, boolean, object } from '@storybook/addon-knobs';
 import { STATEGROUPS, OPTIONS } from './const';

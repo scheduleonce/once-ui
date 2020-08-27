@@ -5,6 +5,6 @@ import { OuiScrollbar } from './scrollbar';
 @NgModule({
   imports: [CommonModule],
   declarations: [OuiScrollbar],
-  exports: [OuiScrollbar]
+  exports: [OuiScrollbar],
 })
 export class OuiScrollbarModule {}

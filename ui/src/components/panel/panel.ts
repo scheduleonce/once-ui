@@ -14,12 +14,12 @@ import {
   Attribute,
   NgZone,
   ElementRef,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
   throwOuiPanelInvalidPositionX,
-  throwOuiPanelInvalidPositionY
+  throwOuiPanelInvalidPositionY,
 } from './panel-errors';
 import { OuiPanelOverlay } from './panel-overlay';
 import { OuiPanelContent } from './panel-content';
@@ -43,14 +43,14 @@ export const OUI_PANEL_DEFAULT_OPTIONS = new InjectionToken<
   OuiPanelDefaultOptions
 >('oui-panel-default-options', {
   providedIn: 'root',
-  factory: OUI_PANEL_DEFAULT_OPTIONS_FACTORY
+  factory: OUI_PANEL_DEFAULT_OPTIONS_FACTORY,
 });
 
 /** @docs-private */
 export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
   return {
     xPosition: 'after',
-    yPosition: 'below'
+    yPosition: 'below',
   };
 }
 
@@ -60,7 +60,7 @@ export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  exportAs: 'ouiPanel'
+  exportAs: 'ouiPanel',
 })
 export class OuiPanel implements OnInit, OuiPanelOverlay {
   private _xPosition: PanelPositionX = this._defaultOptions.xPosition;
@@ -165,7 +165,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  exportAs: 'ouiPanelIcon'
+  exportAs: 'ouiPanelIcon',
 })
 export class OuiPanelIcon implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;

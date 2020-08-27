@@ -2,7 +2,7 @@ import {
   TestBed,
   ComponentFixture,
   tick,
-  fakeAsync
+  fakeAsync,
 } from '@angular/core/testing';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
@@ -12,9 +12,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
-  template: `
-    <button ouiTooltip>button</button>
-  `
+  template: ` <button ouiTooltip>button</button> `,
 })
 class TestTooltipComponent {}
 
@@ -26,7 +24,7 @@ describe('Directive: HoverFocus', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [TestTooltipComponent],
-      imports: [OuiTooltipModule, OverlayModule, NoopAnimationsModule]
+      imports: [OuiTooltipModule, OverlayModule, NoopAnimationsModule],
     });
     fixture = TestBed.createComponent(TestTooltipComponent);
     buttonDebugElement = fixture.debugElement.query(By.css('button'));

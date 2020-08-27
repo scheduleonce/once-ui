@@ -2,7 +2,6 @@ import { action } from '@storybook/addon-actions';
 import { OuiCheckboxModule, Checkbox } from '../../components';
 import { select, boolean } from '@storybook/addon-knobs';
 import { LABELPOSITION, COLORS } from '../const';
-// import { OuiCheckboxModule } from '../../components';
 
 export default {
   title: 'Checkbox',

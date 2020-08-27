@@ -5,6 +5,6 @@ import { OuiAnchor, OuiButton } from './button';
 @NgModule({
   imports: [CommonModule],
   exports: [OuiButton, OuiAnchor],
-  declarations: [OuiButton, OuiAnchor]
+  declarations: [OuiButton, OuiAnchor],
 })
 export class OuiButtonModule {}
