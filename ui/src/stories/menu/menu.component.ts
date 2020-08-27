@@ -34,7 +34,7 @@ import { DomSanitizer } from '@angular/platform-browser';
         <span>Configuration</span>
       </button>
     </oui-menu>
-  `
+  `,
 })
 export class OuiMenuStorybook {
   @Input() xPosition = 'before';
@@ -77,7 +77,6 @@ export class OuiMenuStorybook {
     <div style="display:inline-block">
       <oui-menu-icon
         [ouiMenuTriggerFor]="rootMenu"
-        (click)="triggerClick()"
         (menuOpened)="opened()"
         (menuClosed)="closed()"
         [vertical]="vertical"
@@ -102,7 +101,7 @@ export class OuiMenuStorybook {
       <button oui-menu-item>Restart</button>
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
-  `
+  `,
 })
 export class OuiNestedMenuStorybook {
   @Input() xPosition = 'before';
