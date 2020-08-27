@@ -4,13 +4,13 @@ import { Inject, Injectable, Optional, SecurityContext } from '@angular/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
-  SafeHtml
+  SafeHtml,
 } from '@angular/platform-browser';
 import {
   forkJoin,
   Observable,
   of as observableOf,
-  throwError as observableThrow
+  throwError as observableThrow,
 } from 'rxjs';
 import { catchError, finalize, map, share, tap } from 'rxjs/operators';
 
@@ -202,8 +202,8 @@ export class OuiIconRegistry {
     } else {
       // Fetch the icon from the config's URL, cache it, and return a copy.
       return this._loadSvgIconFromConfig(config).pipe(
-        tap(svg => (config.svgElement = svg)),
-        map(svg => cloneSvg(svg))
+        tap((svg) => (config.svgElement = svg)),
+        map((svg) => cloneSvg(svg))
       );
     }
   }
@@ -234,8 +234,8 @@ export class OuiIconRegistry {
     // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
     // fetched, fetch them now and look for iconName in the results.
     const iconSetFetchRequests: Observable<SVGElement | null>[] = iconSetConfigs
-      .filter(iconSetConfig => !iconSetConfig.svgElement)
-      .map(iconSetConfig => {
+      .filter((iconSetConfig) => !iconSetConfig.svgElement)
+      .map((iconSetConfig) => {
         return this._loadSvgIconSetFromConfig(iconSetConfig).pipe(
           catchError(
             (err: HttpErrorResponse): Observable<SVGElement | null> => {
@@ -306,7 +306,7 @@ export class OuiIconRegistry {
     config: SvgIconConfig
   ): Observable<SVGElement> {
     return this._fetchUrl(config.url).pipe(
-      map(svgText => this._createSvgElementForSingleIcon(svgText))
+      map((svgText) => this._createSvgElementForSingleIcon(svgText))
     );
   }
 
@@ -323,7 +323,7 @@ export class OuiIconRegistry {
     }
 
     return this._fetchUrl(config.url).pipe(
-      map(svgText => {
+      map((svgText) => {
         // It is possible that the icon set was parsed and cached by an earlier request, so parsing
         // only needs to occur if the cache is yet unset.
         if (!config.svgElement) {

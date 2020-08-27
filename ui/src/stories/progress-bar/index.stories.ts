@@ -12,13 +12,13 @@ const strokeWidthOptions = {
   range: true,
   min: 1,
   max: 20,
-  step: 1
+  step: 1,
 };
 const valueOptions = {
   range: true,
   min: 1,
   max: 100,
-  step: 1
+  step: 1,
 };
 storiesOf('Progress Bar', module)
   .add(
@@ -28,8 +28,8 @@ storiesOf('Progress Bar', module)
       props: {
         color: select('color', COLORS, COLORS[0]),
         strokeWidth: number('strokeWidth', 5, strokeWidthOptions),
-        value: number('value', 60, valueOptions)
-      }
+        value: number('value', 60, valueOptions),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -40,8 +40,8 @@ storiesOf('Progress Bar', module)
       component: OuiProgressBar,
       props: {
         color: select('color', COLORS, COLORS[0]),
-        strokeWidth: number('strokeWidth', 5, strokeWidthOptions)
-      }
+        strokeWidth: number('strokeWidth', 5, strokeWidthOptions),
+      },
     }),
     { notes: { markdown: markdownText } }
   );

@@ -8,7 +8,7 @@ import {
   OuiSort,
   OuiPaginator,
   OuiInputModule,
-  OuiTooltipModule
+  OuiTooltipModule,
 } from '../../components';
 import { object, number } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +29,7 @@ function createNewUser(id: number) {
     id: id.toString(),
     name: name,
     progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))],
   };
 }
 
@@ -66,7 +66,7 @@ const TABLEDATASOURCE = Array.from({ length: 5000 }, (_, k) =>
 
       <oui-paginator pageSize="{{ pageSize }}"></oui-paginator>
     </div>
-  `
+  `,
 })
 export class OuiTableStorybook implements OnInit {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
@@ -167,18 +167,18 @@ export class OuiTableStorybook implements OnInit {
         <tr oui-row *ouiRowDef="let row; columns: userInfoColumns"></tr>
       </table>
     </div>
-  `
+  `,
 })
 export class OuiTableCustomStorybook implements OnInit {
   INTEGRATIONS = {
     paypal: STORY_ICONS.PAYPAL,
     zapier: STORY_ICONS.ZAPIER,
     'google-calender': STORY_ICONS.GOOGLE_CALENDAR,
-    salesforce: STORY_ICONS.SALESFORCE
+    salesforce: STORY_ICONS.SALESFORCE,
   };
   LICENCES = {
     scheduleonce: STORY_ICONS.SCHEDULEONCE,
-    inviteonce: STORY_ICONS.INVITEONCE
+    inviteonce: STORY_ICONS.INVITEONCE,
   };
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;
@@ -196,7 +196,7 @@ const valueOptions = {
   range: true,
   min: 5,
   max: 50,
-  step: 5
+  step: 5,
 };
 storiesOf('Table', module)
   .add(
@@ -209,16 +209,16 @@ storiesOf('Table', module)
           OuiPaginatorModule,
           OuiIconModule,
           OuiInputModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
         ],
         schemas: [],
-        declarations: [OuiTableStorybook]
+        declarations: [OuiTableStorybook],
       },
       template: `<oui-table-storybook [pageSize]="pageSize" [users]="data"></oui-table-storybook>`,
       props: {
         pageSize: number('pageSize', 10, valueOptions),
-        data: object('data', TABLEDATASOURCE)
-      }
+        data: object('data', TABLEDATASOURCE),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -232,15 +232,15 @@ storiesOf('Table', module)
           OuiIconModule,
           OuiInputModule,
           OuiTooltipModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
         ],
         schemas: [],
-        declarations: [OuiTableCustomStorybook]
+        declarations: [OuiTableCustomStorybook],
       },
       template: `<oui-table-custom-storybook [users]="data"></oui-table-custom-storybook>`,
       props: {
-        data: object('data', USERINFODATASOURCE)
-      }
+        data: object('data', USERINFODATASOURCE),
+      },
     }),
     { notes: { markdown: markdownText } }
   );

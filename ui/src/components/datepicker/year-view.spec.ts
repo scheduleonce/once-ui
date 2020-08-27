@@ -25,7 +25,7 @@ export const JAN = 0,
       [(selected)]="selected"
       (monthSelected)="selectedMonth = $event"
     ></oui-year-view>
-  `
+  `,
 })
 class StandardYearView {
   date = new Date(2017, JAN, 5);
@@ -41,7 +41,7 @@ class StandardYearView {
       [activeDate]="activeDate"
       [dateFilter]="dateFilter"
     ></oui-year-view>
-  `
+  `,
 })
 class YearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -69,11 +69,11 @@ describe('OuiYearView', () => {
 
         // Test components.
         StandardYearView,
-        YearViewWithDateFilter
+        YearViewWithDateFilter,
       ],
       providers: [
-        { provide: Directionality, useFactory: () => (dir = { value: 'ltr' }) }
-      ]
+        { provide: Directionality, useFactory: () => (dir = { value: 'ltr' }) },
+      ],
     });
 
     TestBed.compileComponents();

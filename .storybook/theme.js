@@ -38,5 +38,5 @@ export default create({
   inputBorderRadius: 4,
   brandUrl: 'https://github.com/scheduleonce/once-ui',
   brandImage:
-    'https://cdn.oncehub.com/images/newsiteImages/oncehub-logo-main-menu.svg'
+    'https://cdn.oncehub.com/images/newsiteImages/oncehub-logo-main-menu.svg',
 });

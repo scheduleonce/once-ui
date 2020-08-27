@@ -17,12 +17,12 @@ withOptions({
    * URL for name in top left corner to link to
    * @type {String}
    */
-  url: '//github.com/ScheduleOnce/once-ui/'
+  url: '//github.com/ScheduleOnce/once-ui/',
 });
 const req = require.context('../ui/src/stories', true, /.stories.ts$/);
 const skippedStories = ['./scrollbar/index.stories.ts'];
 function loadStories() {
-  req.keys().forEach(filename => {
+  req.keys().forEach((filename) => {
     if (skippedStories.includes(filename)) return;
     return req(filename);
   });
@@ -31,8 +31,8 @@ function loadStories() {
 addParameters({
   options: {
     theme: theme,
-    addonPanelInRight: true
-  }
+    addonPanelInRight: true,
+  },
 });
 
 configure(loadStories, module);

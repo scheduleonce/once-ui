@@ -6,13 +6,13 @@ import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import markdownText from '../../components/datepicker/README.md';
 import {
   OuiDatepickerModule,
-  OuiDatepickerInputEvent
+  OuiDatepickerInputEvent,
 } from '../../components/datepicker';
 import {
   OuiFormFieldModule,
   OuiInputModule,
   OuiDateFormats,
-  OUI_DATE_FORMATS
+  OUI_DATE_FORMATS,
 } from '../../components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -31,18 +31,18 @@ function getDate(day: number, month: number, year: number) {
 
 export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   parse: {
-    dateInput: null
+    dateInput: null,
   },
   display: {
     dateInput: {
       year: 'numeric',
       day: '2-digit',
-      month: '2-digit'
+      month: '2-digit',
     },
     monthYearLabel: { year: 'numeric', month: 'short' },
     dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' }
-  }
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
 };
 
 @Component({
@@ -73,7 +73,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
         ></oui-datepicker>
       </oui-form-field>
     </div>
-  `
+  `,
 })
 export class OuiDatepickerStorybook implements OnInit {
   @Input() appearance = 'standard';
@@ -149,7 +149,7 @@ export class OuiDatepickerStorybook implements OnInit {
       </oui-form-field>
     </div>
   `,
-  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }]
+  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
 })
 export class OuiDatepickerCustomStorybook implements OnInit {
   @Input() appearance = 'standard';
@@ -245,7 +245,7 @@ export class OuiDatepickerCustomStorybook implements OnInit {
         </oui-form-field>
       </div>
     </div>
-  `
+  `,
 })
 export class OuiDaterangepickerStorybook implements OnInit {
   @Input() appearance = 'standard';
@@ -272,7 +272,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
     if (this.maxDate) {
       this._dateChange.emit({
         min: this.minDate,
-        max: this.maxDate
+        max: this.maxDate,
       });
     }
     // this._dateChange.emit(e);
@@ -283,7 +283,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
     if (this.minDate) {
       this._dateChange.emit({
         min: this.minDate,
-        max: this.maxDate
+        max: this.maxDate,
       });
     }
     // this._dateChange.emit(e);
@@ -299,10 +299,10 @@ storiesOf('Form Field/Datepicker', module)
           OuiDatepickerModule,
           OuiFormFieldModule,
           OuiInputModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
         ],
         schemas: [],
-        declarations: [OuiDatepickerStorybook]
+        declarations: [OuiDatepickerStorybook],
       },
       template: `<oui-datepicker-storybook 
     [value]="value" 
@@ -341,8 +341,8 @@ storiesOf('Form Field/Datepicker', module)
           APPEARANCE,
           APPEARANCE[0],
           'OuiDatepickerInput'
-        )
-      }
+        ),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -354,10 +354,10 @@ storiesOf('Form Field/Datepicker', module)
           OuiDatepickerModule,
           OuiFormFieldModule,
           OuiInputModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
         ],
         schemas: [],
-        declarations: [OuiDatepickerCustomStorybook]
+        declarations: [OuiDatepickerCustomStorybook],
       },
       template: `<oui-datepicker-custom-storybook 
     [value]="value" 
@@ -396,8 +396,8 @@ storiesOf('Form Field/Datepicker', module)
           APPEARANCE,
           APPEARANCE[1],
           'OuiDatepickerInput'
-        )
-      }
+        ),
+      },
     }),
     { notes: { markdown: markdownText } }
   )
@@ -409,10 +409,10 @@ storiesOf('Form Field/Datepicker', module)
           OuiDatepickerModule,
           OuiFormFieldModule,
           OuiInputModule,
-          BrowserAnimationsModule
+          BrowserAnimationsModule,
         ],
         schemas: [],
-        declarations: [OuiDaterangepickerStorybook]
+        declarations: [OuiDaterangepickerStorybook],
       },
       template: `<oui-daterangepicker-storybook
     [disabled]="disabled" 
@@ -448,8 +448,8 @@ storiesOf('Form Field/Datepicker', module)
           APPEARANCE,
           APPEARANCE[0],
           'OuiDatepickerInput'
-        )
-      }
+        ),
+      },
     }),
     { notes: { markdown: markdownText } }
   );
