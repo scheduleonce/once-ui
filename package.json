@@ -18,11 +18,10 @@
     "compile-scss-green": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-green.scss ./dist/ui/themes/once-ui-theme-green.css && rimraf -f ./dist/ui/themes/once-ui-theme-green.scss",
     "npm-pack": "cd dist/ui && npm pack",
     "package": "npm run build && npm run bundle-styles && npm run npm-pack",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",    
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "build-storybook": "npm run storybook-css && npm run docs:json &&  build-storybook -s ./ui/src/stories/styles",
     "storybook-css": "node-sass --output-style compressed  ui/src/components/core/theming/prebuilt -o ui/src/stories/styles/themes",
     "storybook": "npm run storybook-css && npm run docs:json && start-storybook -p 9000 -s ./ui/src/stories/styles"
-
   },
   "private": true,
   "dependencies": {

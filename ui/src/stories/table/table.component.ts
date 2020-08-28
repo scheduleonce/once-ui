@@ -30,7 +30,7 @@ import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
 
       <oui-paginator pageSize="{{ pageSize }}"></oui-paginator>
     </div>
-  `
+  `,
 })
 export class OuiTableStorybook implements OnInit {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
@@ -126,18 +126,18 @@ export class OuiTableStorybook implements OnInit {
         <tr oui-row *ouiRowDef="let row; columns: userInfoColumns"></tr>
       </table>
     </div>
-  `
+  `,
 })
 export class OuiTableCustomStorybook implements OnInit {
   INTEGRATIONS = {
     paypal: STORY_ICONS.PAYPAL,
     zapier: STORY_ICONS.ZAPIER,
     'google-calender': STORY_ICONS.GOOGLE_CALENDAR,
-    salesforce: STORY_ICONS.SALESFORCE
+    salesforce: STORY_ICONS.SALESFORCE,
   };
   LICENCES = {
     scheduleonce: STORY_ICONS.SCHEDULEONCE,
-    inviteonce: STORY_ICONS.INVITEONCE
+    inviteonce: STORY_ICONS.INVITEONCE,
   };
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;

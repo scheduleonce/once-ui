@@ -12,7 +12,7 @@ import { OuiIconRegistry } from '../../components';
     >
       <oui-icon [svgIcon]="icon" [color]="color"></oui-icon>{{ text }}
     </button>
-  `
+  `,
 })
 export class OuiIconButtonStorybook {
   constructor(

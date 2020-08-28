@@ -11,7 +11,7 @@ import { Input, Component } from '@angular/core';
     >
       {{ text }}
     </div>
-  `
+  `,
 })
 export class OuiScrollbarTextStorybook {
   @Input() large = false;
@@ -34,7 +34,7 @@ export class OuiScrollbarTextStorybook {
         <li *ngFor="let item of items">{{ item }}</li>
       </ul>
     </div>
-  `
+  `,
 })
 export class OuiScrollbarListStorybook {
   @Input() large = false;

@@ -5,7 +5,7 @@ import {
   OuiSortModule,
   OuiInputModule,
   OuiTooltipModule,
-  OuiTable
+  OuiTable,
 } from '../../components';
 import { object, number } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,7 +24,7 @@ function createNewUser(id: number) {
     id: id.toString(),
     name: name,
     progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))],
   };
 }
 
@@ -36,12 +36,12 @@ const valueOptions = {
   range: true,
   min: 5,
   max: 50,
-  step: 5
+  step: 5,
 };
 
 export default {
   title: 'Table',
-  component: OuiTable
+  component: OuiTable,
 };
 
 export const Regular = () => ({
@@ -52,16 +52,16 @@ export const Regular = () => ({
       OuiPaginatorModule,
       OuiIconModule,
       OuiInputModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
     ],
     schemas: [],
-    declarations: [OuiTableStorybook]
+    declarations: [OuiTableStorybook],
   },
   template: `<oui-table-storybook [pageSize]="pageSize" [users]="data"></oui-table-storybook>`,
   props: {
     pageSize: number('pageSize', 10, valueOptions),
-    data: object('data', TABLEDATASOURCE)
-  }
+    data: object('data', TABLEDATASOURCE),
+  },
 });
 
 export const Custom = () => ({
@@ -72,13 +72,13 @@ export const Custom = () => ({
       OuiIconModule,
       OuiInputModule,
       OuiTooltipModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
     ],
     schemas: [],
-    declarations: [OuiTableCustomStorybook]
+    declarations: [OuiTableCustomStorybook],
   },
   template: `<oui-table-custom-storybook [users]="data"></oui-table-custom-storybook>`,
   props: {
-    data: object('data', USERINFODATASOURCE)
-  }
+    data: object('data', USERINFODATASOURCE),
+  },
 });

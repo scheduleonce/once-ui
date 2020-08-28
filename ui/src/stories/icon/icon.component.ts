@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'oui-icon-storybook',
   template: `
     <oui-icon [svgIcon]="icon" [size]="size" [color]="color"></oui-icon>
-  `
+  `,
 })
 export class OuiiconStorybook {
   @Input() icon = 'notification-editor';

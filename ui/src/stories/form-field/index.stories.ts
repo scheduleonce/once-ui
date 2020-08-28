@@ -2,21 +2,21 @@ import { action } from '@storybook/addon-actions';
 import {
   OuiFormFieldModule,
   OuiInputModule,
-  OuiFormField
+  OuiFormField,
 } from '../../components';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { APPEARANCE } from '../const';
 
 export default {
   title: 'Form Field/Input',
-  component: OuiFormField
+  component: OuiFormField,
 };
 
 export const Regular = () => ({
   moduleMetadata: {
     imports: [OuiFormFieldModule, OuiInputModule],
     schemas: [],
-    declarations: []
+    declarations: [],
   },
   template: `<oui-form-field [appearance]="appearance"> <input [disabled]="disabled" (blur)="blured()" (focus)="focused()" [type]="type" oui-input [placeholder]="placeholder" /> </oui-form-field>`,
   props: {
@@ -25,6 +25,6 @@ export const Regular = () => ({
     disabled: boolean('disabled', false),
     placeholder: text('placeholder', 'Type Here'),
     focused: action('focus'),
-    blured: action('blur')
-  }
+    blured: action('blur'),
+  },
 });

@@ -5,14 +5,14 @@ import { LABELPOSITION, COLORS } from '../const';
 
 export default {
   title: 'Radio Button',
-  component: OuiRadioButton
+  component: OuiRadioButton,
 };
 
 export const Regular = () => ({
   moduleMetadata: {
     imports: [OuiRadioModule],
     schemas: [],
-    declarations: []
+    declarations: [],
   },
   template: `<oui-radio-group (change)="changed($event)" [disabled]="disabled" [labelPosition]="position">
       <oui-radio-button checked value="Winter" [color]="color"> Winter </oui-radio-button>
@@ -22,6 +22,6 @@ export const Regular = () => ({
     color: select('color', COLORS, COLORS[0]),
     changed: action('change'),
     position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
-    disabled: boolean('disabled', false)
-  }
+    disabled: boolean('disabled', false),
+  },
 });

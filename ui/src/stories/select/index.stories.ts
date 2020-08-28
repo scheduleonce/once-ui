@@ -2,7 +2,7 @@ import {
   OuiSelectModule,
   OuiFormFieldModule,
   OuiInputModule,
-  OuiSelect
+  OuiSelect,
 } from '../../components';
 import { array, boolean, text, object, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -11,7 +11,7 @@ import { APPEARANCE } from '../const';
 
 export default {
   title: 'Form Field/Select',
-  component: OuiSelect
+  component: OuiSelect,
 };
 
 export const Regular = () => ({
@@ -38,13 +38,13 @@ export const Regular = () => ({
       'Kababs',
       'Rolls',
       'Biryani',
-      'Sweets'
+      'Sweets',
     ]),
     placeholder: text('placeholder', 'Favorite food'),
     disabled: boolean('disabled', false),
     large: boolean('large', false),
     onChange: action('change'),
-    appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
   },
   moduleMetadata: {
     imports: [
@@ -52,9 +52,9 @@ export const Regular = () => ({
       OuiInputModule,
       OuiSelectModule,
       FormsModule,
-      ReactiveFormsModule
-    ]
-  }
+      ReactiveFormsModule,
+    ],
+  },
 });
 
 export const Multi = () => ({
@@ -75,7 +75,7 @@ export const Multi = () => ({
     disabled: boolean('disabled', false),
     large: boolean('large', false),
     onChange: action('change'),
-    appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
   },
   moduleMetadata: {
     imports: [
@@ -83,9 +83,9 @@ export const Multi = () => ({
       OuiInputModule,
       OuiSelectModule,
       FormsModule,
-      ReactiveFormsModule
-    ]
-  }
+      ReactiveFormsModule,
+    ],
+  },
 });
 
 export const Groups = () => ({
@@ -107,7 +107,7 @@ export const Groups = () => ({
     foodGroups: object('foodGroups', [
       {
         name: 'Fruit',
-        foods: ['Apple', 'Orange']
+        foods: ['Apple', 'Orange'],
       },
       {
         name: 'Vegetables',
@@ -118,19 +118,19 @@ export const Groups = () => ({
           'Cucumber',
           'Lettuce',
           'Pumpkin',
-          'Tomato'
-        ]
+          'Tomato',
+        ],
       },
       {
         name: 'Meats',
-        foods: ['Steak', 'Chicken']
-      }
+        foods: ['Steak', 'Chicken'],
+      },
     ]),
     disabled: boolean('disabled', false),
     large: boolean('large', false),
     placeholder: text('placeholder', 'Foods'),
     onChange: action('change'),
-    appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
   },
   moduleMetadata: {
     imports: [
@@ -138,9 +138,9 @@ export const Groups = () => ({
       OuiInputModule,
       OuiSelectModule,
       FormsModule,
-      ReactiveFormsModule
-    ]
-  }
+      ReactiveFormsModule,
+    ],
+  },
 });
 
 export const Search_Options = () => ({
@@ -168,7 +168,7 @@ export const Search_Options = () => ({
     disabled: boolean('disabled', false),
     large: boolean('large', false),
     onChange: action('change'),
-    appearance: select('appearance', APPEARANCE, APPEARANCE[0])
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
   },
   moduleMetadata: {
     imports: [
@@ -176,7 +176,7 @@ export const Search_Options = () => ({
       OuiInputModule,
       OuiSelectModule,
       FormsModule,
-      ReactiveFormsModule
-    ]
-  }
+      ReactiveFormsModule,
+    ],
+  },
 });

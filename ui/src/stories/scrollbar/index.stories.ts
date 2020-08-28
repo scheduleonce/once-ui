@@ -4,26 +4,26 @@ import { DUMMY_TEXT, COUNTRY_LIST } from '../const';
 import { OuiScrollbar } from '../../components/scrollbar/scrollbar';
 import {
   OuiScrollbarTextStorybook,
-  OuiScrollbarListStorybook
+  OuiScrollbarListStorybook,
 } from './scrollbar.component';
 
 const valueOptions = {
   range: true,
   min: 100,
   max: 500,
-  step: 1
+  step: 1,
 };
 
 export default {
   title: 'Scrollbar',
-  component: OuiScrollbar
+  component: OuiScrollbar,
 };
 
 export const Text = () => ({
   moduleMetadata: {
     imports: [OuiScrollbarModule],
     schemas: [],
-    declarations: [OuiScrollbarTextStorybook]
+    declarations: [OuiScrollbarTextStorybook],
   },
   template: `<oui-scrollbar-text-storybook
   [large]="large"
@@ -32,15 +32,15 @@ export const Text = () => ({
   props: {
     large: boolean('large', false),
     height: number('height', 350, valueOptions),
-    text: text('text', DUMMY_TEXT)
-  }
+    text: text('text', DUMMY_TEXT),
+  },
 });
 
 export const List = () => ({
   moduleMetadata: {
     imports: [OuiScrollbarModule],
     schemas: [],
-    declarations: [OuiScrollbarListStorybook]
+    declarations: [OuiScrollbarListStorybook],
   },
   template: `<oui-scrollbar-list-storybook
   [large]="large"
@@ -49,6 +49,6 @@ export const List = () => ({
   props: {
     large: boolean('large', false),
     height: number('height', 350, valueOptions),
-    items: array('items', COUNTRY_LIST)
-  }
+    items: array('items', COUNTRY_LIST),
+  },
 });

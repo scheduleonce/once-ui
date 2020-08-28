@@ -2,7 +2,7 @@ import {
   OuiIconModule,
   OuiMenuModule,
   OuiButtonModule,
-  OuiMenu
+  OuiMenu,
 } from '../../components';
 import { select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
@@ -11,14 +11,14 @@ import { OuiMenuStorybook, OuiNestedMenuStorybook } from './menu.component';
 
 export default {
   title: 'Menu',
-  component: OuiMenu
+  component: OuiMenu,
 };
 
 export const Regular = () => ({
   moduleMetadata: {
     imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
     schemas: [],
-    declarations: [OuiMenuStorybook]
+    declarations: [OuiMenuStorybook],
   },
   template: `<oui-menu-storybook
           [xPosition]="xPosition"
@@ -35,15 +35,15 @@ export const Regular = () => ({
     vertical: boolean('vertical', false),
     menuOpened: action('menuOpened'),
     hasBackdrop: boolean('hasBackdrop', true),
-    menuClosed: action('menuClosed')
-  }
+    menuClosed: action('menuClosed'),
+  },
 });
 
 export const Nested = () => ({
   moduleMetadata: {
     imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
     schemas: [],
-    declarations: [OuiNestedMenuStorybook]
+    declarations: [OuiNestedMenuStorybook],
   },
   template: `<oui-nested-menu-storybook
   [xPosition]="xPosition"
@@ -59,6 +59,6 @@ export const Nested = () => ({
     vertical: boolean('vertical', false),
     hasBackdrop: boolean('hasBackdrop', true),
     menuOpened: action('menuOpened'),
-    menuClosed: action('menuClosed')
-  }
+    menuClosed: action('menuClosed'),
+  },
 });

@@ -24,7 +24,7 @@ import { Component, Input } from '@angular/core';
         <a href="https://www.scheduleonce.com/" target="blank">Learn more</a>
       </p>
     </oui-panel>
-  `
+  `,
 })
 export class OuiPanelStorybook {
   @Input() xPosition = 'before';
@@ -55,7 +55,7 @@ export class OuiPanelStorybook {
         tempora beatae.
       </p>
     </oui-panel>
-  `
+  `,
 })
 export class OuiPanelWithImageStorybook {
   @Input() xPosition = 'before';

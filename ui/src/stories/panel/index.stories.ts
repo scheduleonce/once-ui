@@ -2,32 +2,32 @@ import {
   OuiIconModule,
   OuiPanelModule,
   OuiButtonModule,
-  OuiPanel
+  OuiPanel,
 } from '../../components';
 import { select, number } from '@storybook/addon-knobs';
 import { OverlayModule } from '@angular/cdk/overlay';
 import {
   OuiPanelStorybook,
-  OuiPanelWithImageStorybook
+  OuiPanelWithImageStorybook,
 } from './panel.component';
 
 const widthOptions = {
   range: true,
   min: 270,
   max: 512,
-  step: 1
+  step: 1,
 };
 
 export default {
   title: 'Panel',
-  component: OuiPanel
+  component: OuiPanel,
 };
 
 export const Regular = () => ({
   moduleMetadata: {
     imports: [OuiIconModule, OuiButtonModule, OuiPanelModule, OverlayModule],
     schemas: [],
-    declarations: [OuiPanelStorybook]
+    declarations: [OuiPanelStorybook],
   },
   template: `<oui-panel-storybook
   [xPosition]="xPosition"
@@ -37,15 +37,15 @@ export const Regular = () => ({
   props: {
     xPosition: select('xPosition', ['before', 'after'], 'before'),
     yPosition: select('yPosotion', ['above', 'below'], 'above'),
-    width: number('width', 270, widthOptions)
-  }
+    width: number('width', 270, widthOptions),
+  },
 });
 
 export const Panel = () => ({
   moduleMetadata: {
     imports: [OuiIconModule, OuiButtonModule, OuiPanelModule, OverlayModule],
     schemas: [],
-    declarations: [OuiPanelWithImageStorybook]
+    declarations: [OuiPanelWithImageStorybook],
   },
   template: `<oui-panel-with-image-storybook
     [xPosition]="xPosition"
@@ -53,6 +53,6 @@ export const Panel = () => ({
               </oui-panel-with-image-storybook>`,
   props: {
     xPosition: select('xPosition', ['before', 'after'], 'before'),
-    yPosition: select('yPosotion', ['above', 'below'], 'above')
-  }
+    yPosition: select('yPosotion', ['above', 'below'], 'above'),
+  },
 });
