@@ -82,10 +82,10 @@ export class OuiSelectSearchComponent
       )
       .subscribe(() => {
         this.previousSelectedValues = (this.ouiSelect
-          .selected as OuiOption[]).map(option => option.value);
+          .selected as OuiOption[]).map((option) => option.value);
       });
   }
-  
+
   ngOnDestroy() {
     this._onDestroy.next();
     this._onDestroy.complete();

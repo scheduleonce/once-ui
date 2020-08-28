@@ -906,7 +906,7 @@ export class OuiSelect
   _onBlur() {
     this._focused = false;
     this.isSearchFieldPresent = false;
-    
+
     if (!this.disabled && !this.panelOpen) {
       this._onTouched();
       this._changeDetectorRef.markForCheck();
