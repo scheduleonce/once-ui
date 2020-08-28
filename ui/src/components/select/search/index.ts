@@ -13,8 +13,9 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { OuiOption } from '../../core/option/option';
 
 @Component({
   selector: 'oui-select-search',
@@ -70,6 +71,19 @@ export class OuiSelectSearchComponent
       }
     });
     this.initMultipleHandling();
+    this.storeInitialValuesIntoPrevious();
+  }
+
+  private storeInitialValuesIntoPrevious() {
+    this.ouiSelect._openedStream
+      .pipe(
+        takeUntil(this._onDestroy),
+        filter(() => this.ouiSelect.multiple)
+      )
+      .subscribe(() => {
+        this.previousSelectedValues = (this.ouiSelect
+          .selected as OuiOption[]).map((option) => option.value);
+      });
   }
 
   ngOnDestroy() {
