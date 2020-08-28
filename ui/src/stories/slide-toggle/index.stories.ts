@@ -5,7 +5,7 @@ import { COLORS } from '../const';
 
 export default {
   title: 'Slide Toggle',
-  component: OuiSlideToggle
+  component: OuiSlideToggle,
 };
 
 export const Regular = () => ({
@@ -14,6 +14,6 @@ export const Regular = () => ({
     checked: boolean('checked', true),
     disabled: boolean('disabled', false),
     color: select('color', COLORS, COLORS[0]),
-    change: action('state-change')
-  }
+    change: action('state-change'),
+  },
 });

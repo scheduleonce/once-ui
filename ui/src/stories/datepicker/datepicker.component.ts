@@ -4,18 +4,18 @@ import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
 
 export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   parse: {
-    dateInput: null
+    dateInput: null,
   },
   display: {
     dateInput: {
       year: 'numeric',
       day: '2-digit',
-      month: '2-digit'
+      month: '2-digit',
     },
     monthYearLabel: { year: 'numeric', month: 'short' },
     dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' }
-  }
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
 };
 
 @Component({
@@ -46,7 +46,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
         ></oui-datepicker>
       </oui-form-field>
     </div>
-  `
+  `,
 })
 export class OuiDatepickerStorybook implements OnInit {
   @Input() appearance = 'standard';
@@ -122,7 +122,7 @@ export class OuiDatepickerStorybook implements OnInit {
       </oui-form-field>
     </div>
   `,
-  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }]
+  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
 })
 export class OuiDatepickerCustomStorybook implements OnInit {
   @Input() appearance = 'standard';
@@ -218,7 +218,7 @@ export class OuiDatepickerCustomStorybook implements OnInit {
         </oui-form-field>
       </div>
     </div>
-  `
+  `,
 })
 export class OuiDaterangepickerStorybook implements OnInit {
   @Input() appearance = 'standard';
@@ -245,7 +245,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
     if (this.maxDate) {
       this._dateChange.emit({
         min: this.minDate,
-        max: this.maxDate
+        max: this.maxDate,
       });
     }
     // this._dateChange.emit(e);
@@ -256,7 +256,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
     if (this.minDate) {
       this._dateChange.emit({
         min: this.minDate,
-        max: this.maxDate
+        max: this.maxDate,
       });
     }
     // this._dateChange.emit(e);

@@ -3,7 +3,7 @@ import {
   ViewChild,
   Output,
   EventEmitter,
-  Input
+  Input,
 } from '@angular/core';
 import { OuiDialog } from '../../components';
 
@@ -51,7 +51,7 @@ import { OuiDialog } from '../../components';
         </div>
       </div>
     </ng-template>
-  `
+  `,
 })
 export class OuiDialogStorybook {
   @Output()

@@ -5,13 +5,13 @@ import { OuiDatepickerModule } from '../../components/datepicker';
 import {
   OuiFormFieldModule,
   OuiInputModule,
-  OuiDatepicker
+  OuiDatepicker,
 } from '../../components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   OuiDaterangepickerStorybook,
   OuiDatepickerStorybook,
-  OuiDatepickerCustomStorybook
+  OuiDatepickerCustomStorybook,
 } from './datepicker.component';
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
@@ -28,7 +28,7 @@ function getDate(day: number, month: number, year: number) {
 }
 export default {
   title: 'Form Field/Datepicker',
-  component: OuiDatepicker
+  component: OuiDatepicker,
 };
 
 export const Regular = () => ({
@@ -37,10 +37,10 @@ export const Regular = () => ({
       OuiDatepickerModule,
       OuiFormFieldModule,
       OuiInputModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
     ],
     schemas: [],
-    declarations: [OuiDatepickerStorybook]
+    declarations: [OuiDatepickerStorybook],
   },
   template: `<oui-datepicker-storybook 
     [value]="value" 
@@ -79,8 +79,8 @@ export const Regular = () => ({
       APPEARANCE,
       APPEARANCE[0],
       'OuiDatepickerInput'
-    )
-  }
+    ),
+  },
 });
 
 export const Custom = () => ({
@@ -89,11 +89,11 @@ export const Custom = () => ({
       OuiDatepickerModule,
       OuiFormFieldModule,
       OuiInputModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
     ],
     schemas: [],
 
-    declarations: [OuiDatepickerCustomStorybook]
+    declarations: [OuiDatepickerCustomStorybook],
   },
   template: `<oui-datepicker-custom-storybook 
     [value]="value" 
@@ -132,8 +132,8 @@ export const Custom = () => ({
       APPEARANCE,
       APPEARANCE[1],
       'OuiDatepickerInput'
-    )
-  }
+    ),
+  },
 });
 
 export const Daterange = () => ({
@@ -142,10 +142,10 @@ export const Daterange = () => ({
       OuiDatepickerModule,
       OuiFormFieldModule,
       OuiInputModule,
-      BrowserAnimationsModule
+      BrowserAnimationsModule,
     ],
     schemas: [],
-    declarations: [OuiDaterangepickerStorybook]
+    declarations: [OuiDaterangepickerStorybook],
   },
   template: `<oui-daterangepicker-storybook
       [disabled]="disabled" 
@@ -181,6 +181,6 @@ export const Daterange = () => ({
       APPEARANCE,
       APPEARANCE[0],
       'OuiDatepickerInput'
-    )
-  }
+    ),
+  },
 });

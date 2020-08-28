@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       [color]="'primary'"
       [ouiTooltipDisabled]="disabled"
     ></oui-icon>
-  `
+  `,
 })
 export class OuiTooltipStorybook {
   @Input() disabled = false;

@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions';
 import {
   OuiTooltipModule,
   OuiIconModule,
-  OuiFormField
+  OuiFormField,
 } from '../../components';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,14 +11,14 @@ import { OuiTooltipStorybook } from './tooltip.component';
 
 export default {
   title: 'Tooltip',
-  component: OuiFormField
+  component: OuiFormField,
 };
 
 export const Regular = () => ({
   moduleMetadata: {
     imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],
     schemas: [],
-    declarations: [OuiTooltipStorybook]
+    declarations: [OuiTooltipStorybook],
   },
   template: `<oui-tooltip-storybook [disabled]="disabled"
     [_ouiTooltip]="ouiTooltip"
@@ -31,6 +31,6 @@ export const Regular = () => ({
       'ouiTooltipPosition',
       TOOLTIPPOSITION,
       TOOLTIPPOSITION[0]
-    )
-  }
+    ),
+  },
 });

@@ -6,17 +6,17 @@ import {
   OuiAutocompleteModule,
   OuiFormFieldModule,
   OuiInputModule,
-  OuiAutocomplete
+  OuiAutocomplete,
 } from '../../components';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   OuiAutocompleteStorybook,
-  OuiAutocompleteGroupStorybook
+  OuiAutocompleteGroupStorybook,
 } from './autocomplete.component';
 
 export default {
   title: 'Form Field/Autocomplete',
-  component: OuiAutocomplete
+  component: OuiAutocomplete,
 };
 
 export const Regular = () => ({
@@ -26,10 +26,10 @@ export const Regular = () => ({
       OuiInputModule,
       OuiAutocompleteModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
     ],
     schemas: [],
-    declarations: [OuiAutocompleteStorybook]
+    declarations: [OuiAutocompleteStorybook],
   },
   component: OuiAutocompleteStorybook,
   props: {
@@ -39,8 +39,8 @@ export const Regular = () => ({
     closed: action('closed'),
     disabled: boolean('disabled', false),
     opened: action('opened'),
-    optionSelected: action('optionSelected')
-  }
+    optionSelected: action('optionSelected'),
+  },
 });
 
 export const Groups = () => ({
@@ -50,10 +50,10 @@ export const Groups = () => ({
       OuiInputModule,
       OuiAutocompleteModule,
       FormsModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
     ],
     schemas: [],
-    declarations: [OuiAutocompleteGroupStorybook]
+    declarations: [OuiAutocompleteGroupStorybook],
   },
   component: OuiAutocompleteGroupStorybook,
   props: {
@@ -63,6 +63,6 @@ export const Groups = () => ({
     closed: action('closed'),
     disabled: boolean('disabled', false),
     opened: action('opened'),
-    optionSelected: action('optionSelected')
-  }
+    optionSelected: action('optionSelected'),
+  },
 });

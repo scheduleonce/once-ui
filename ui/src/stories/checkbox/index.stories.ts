@@ -5,14 +5,14 @@ import { LABELPOSITION, COLORS } from '../const';
 
 export default {
   title: 'Checkbox',
-  component: Checkbox
+  component: Checkbox,
 };
 
 export const Regular = () => ({
   moduleMetadata: {
     imports: [OuiCheckboxModule],
     schemas: [],
-    declarations: []
+    declarations: [],
   },
   template: `<oui-checkbox
                 class="example-margin"
@@ -28,6 +28,6 @@ export const Regular = () => ({
     changed: action('change'),
     position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
     disabled: boolean('disabled', false),
-    checked: boolean('checked', false)
-  }
+    checked: boolean('checked', false),
+  },
 });
