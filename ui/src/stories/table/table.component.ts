@@ -1,7 +1,7 @@
 import { STORY_ICONS, USERINFOCOLUMNS } from './const';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
-
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'oui-table-storybook',
   template: `
@@ -88,11 +88,9 @@ export class OuiTableStorybook implements OnInit {
             <div class="integrationsContainer">
               <ul>
                 <li *ngFor="let integration of user.integration">
-                  <img
-                    [ouiTooltip]="integration"
-                    ouiTooltipPosition="above"
-                    [src]="INTEGRATIONS[integration]"
-                  />
+                  <span [ouiTooltip]="integration"
+                  ouiTooltipPosition="above"
+                  [innerHTML]=INTEGRATIONS[integration]></span>
                 </li>
               </ul>
             </div>
@@ -106,11 +104,10 @@ export class OuiTableStorybook implements OnInit {
             <div class="licensesContainer">
               <ul>
                 <li *ngFor="let license of user.licence">
-                  <img
-                    [ouiTooltip]="license"
-                    ouiTooltipPosition="above"
-                    [src]="LICENCES[license]"
-                  />
+                  <span [ouiTooltip]="license"
+                  ouiTooltipPosition="above" 
+                  [innerHTML]=LICENCES[license]></span>
+                  
                 </li>
               </ul>
             </div>
@@ -130,21 +127,21 @@ export class OuiTableStorybook implements OnInit {
 })
 export class OuiTableCustomStorybook implements OnInit {
   INTEGRATIONS = {
-    paypal: STORY_ICONS.PAYPAL,
-    zapier: STORY_ICONS.ZAPIER,
-    'google-calender': STORY_ICONS.GOOGLE_CALENDAR,
-    salesforce: STORY_ICONS.SALESFORCE,
+    paypal: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.PAYPAL),
+    zapier: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.ZAPIER),
+    'google-calender': this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.GOOGLE_CALENDAR),
+    salesforce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.SALESFORCE),
   };
   LICENCES = {
-    scheduleonce: STORY_ICONS.SCHEDULEONCE,
-    inviteonce: STORY_ICONS.INVITEONCE,
+    scheduleonce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.SCHEDULEONCE),
+    inviteonce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.INVITEONCE),
   };
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;
   @Input() users: any[] = [];
   @Input() pageSize: any[] = [];
   userInfoDataSource = new OuiTableDataSource(this.users);
-  constructor() {}
+  constructor(private sanitizer: DomSanitizer) {}
   ngOnInit() {
     this.userInfoDataSource = new OuiTableDataSource(this.users);
     this.userInfoDataSource.sort = this.sort;

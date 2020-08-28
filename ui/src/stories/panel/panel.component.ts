@@ -42,7 +42,7 @@ export class OuiPanelStorybook {
     <oui-panel #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <img
-        src="https://images.pexels.com/photos/1509428/pexels-photo-1509428.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        src="https://images.pexels.com/photos/1856488/pexels-photo-1856488.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
       />
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate
