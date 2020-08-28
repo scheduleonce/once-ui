@@ -984,7 +984,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-074f03c126e3db4e8922b3d79f6133fb",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -1028,7 +1028,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-074f03c126e3db4e8922b3d79f6133fb-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -4921,7 +4921,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-074f03c126e3db4e8922b3d79f6133fb",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -4965,7 +4965,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-074f03c126e3db4e8922b3d79f6133fb-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -14796,9 +14796,9 @@
         },
         {
             "name": "OuiSelectTrigger",
-            "id": "component-OuiSelect-a455f61d95dd1d3c95a49881e14bdf76",
+            "id": "directive-OuiSelectTrigger-a455f61d95dd1d3c95a49881e14bdf76",
             "file": "ui/src/components/select/select.component.ts",
-            "type": "component",
+            "type": "directive",
             "description": "<p>Allows the user to customize the trigger that is displayed when the select has a value.</p>\n",
             "sourceCode": "import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';\r\nimport { Directionality } from '@angular/cdk/bidi';\r\nimport { coerceBooleanProperty } from '@angular/cdk/coercion';\r\nimport { SelectionModel } from '@angular/cdk/collections';\r\nimport {\r\n  A,\r\n  DOWN_ARROW,\r\n  END,\r\n  ENTER,\r\n  HOME,\r\n  LEFT_ARROW,\r\n  RIGHT_ARROW,\r\n  SPACE,\r\n  UP_ARROW,\r\n  hasModifierKey,\r\n} from '@angular/cdk/keycodes';\r\nimport { CdkConnectedOverlay } from '@angular/cdk/overlay';\r\nimport {\r\n  AfterContentInit,\r\n  Attribute,\r\n  ChangeDetectionStrategy,\r\n  ChangeDetectorRef,\r\n  Component,\r\n  ContentChild,\r\n  ContentChildren,\r\n  Directive,\r\n  DoCheck,\r\n  ElementRef,\r\n  EventEmitter,\r\n  Input,\r\n  isDevMode,\r\n  NgZone,\r\n  OnChanges,\r\n  OnDestroy,\r\n  OnInit,\r\n  Optional,\r\n  Output,\r\n  QueryList,\r\n  Self,\r\n  SimpleChanges,\r\n  ViewChild,\r\n  ViewEncapsulation,\r\n  Inject,\r\n} from '@angular/core';\r\nimport {\r\n  ControlValueAccessor,\r\n  FormGroupDirective,\r\n  NgControl,\r\n  NgForm,\r\n} from '@angular/forms';\r\nimport {\r\n  _countGroupLabelsBeforeOption,\r\n  _getOptionScrollPosition,\r\n  CanDisable,\r\n  CanDisableCtor,\r\n  CanUpdateErrorState,\r\n  CanUpdateErrorStateCtor,\r\n  HasTabIndex,\r\n  HasTabIndexCtor,\r\n  OuiOptionSelectionChange,\r\n  mixinErrorState,\r\n  mixinTabIndex,\r\n  mixinDisabled,\r\n} from '../core';\r\nimport { OuiFormField, OuiFormFieldControl } from '../form-field/public-api';\r\nimport { DOCUMENT } from '@angular/common';\r\nimport { OUI_OPTION_PARENT_COMPONENT, OuiOption } from '../core/option/option';\r\nimport { OuiOptgroup } from '../core/option/optgroup';\r\nimport { ErrorStateMatcher } from '../core/error/error-options';\r\nimport { defer, merge, Observable, Subject } from 'rxjs';\r\nimport {\r\n  distinctUntilChanged,\r\n  filter,\r\n  map,\r\n  startWith,\r\n  switchMap,\r\n  take,\r\n  takeUntil,\r\n} from 'rxjs/operators';\r\nimport {\r\n  getOuiSelectDynamicMultipleError,\r\n  getOuiSelectNonArrayValueError,\r\n  getOuiSelectNonFunctionValueError,\r\n} from './select-errors';\r\nimport { OuiIconRegistry } from '../icon/icon-registery';\r\nimport { DomSanitizer } from '@angular/platform-browser';\r\nimport { ICONS } from '../core/shared/icons';\r\n\r\nlet nextUniqueId = 0;\r\n\r\n/**\r\n * The following style constants are necessary to save here in order\r\n * to properly calculate the alignment of the selected option over\r\n * the trigger element.\r\n */\r\n\r\n/** The height of each select option. */\r\nexport const SELECT_OPTION_HEIGHT = 40;\r\n\r\n/** The panel's padding on the x-axis */\r\nexport const SELECT_PANEL_PADDING_X = 16;\r\n\r\n/** The panel's x axis padding if it is indented (e.g. there is an option group). */\r\nexport const SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;\r\n\r\n/** The height of the select items in `em` units. */\r\nexport const SELECT_ITEM_HEIGHT_EM = 3;\r\n\r\n/** The total height of the select panel. */\r\nexport const SELECT_PANEL_HEIGHT = 200;\r\n\r\n// TODO(josephperrott): Revert to a constant after 2018 spec updates are fully merged.\r\n/**\r\n * Distance between the panel edge and the option text in\r\n * multi-selection mode.\r\n *\r\n * Calculated as:\r\n * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44\r\n * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.\r\n * The checkbox width is 16px.\r\n */\r\nexport let SELECT_MULTIPLE_PANEL_PADDING_X = 0;\r\n\r\n/**\r\n * The select panel will only \"fit\" inside the viewport if it is positioned at\r\n * this value or more away from the viewport boundary.\r\n */\r\nexport const SELECT_PANEL_VIEWPORT_PADDING = 8;\r\n\r\n/** Change event object that is emitted when the select value has changed. */\r\nexport class OuiSelectChange {\r\n  constructor(\r\n    /** Reference to the select that emitted the change event. */\r\n    public source: OuiSelect,\r\n    /** Current value of the select that emitted the event. */\r\n    public value: any\r\n  ) {}\r\n}\r\n\r\n// Boilerplate for applying mixins to OuiSelect.\r\n/** @docs-private */\r\nexport class OuiSelectBase {\r\n  constructor(\r\n    public _elementRef: ElementRef,\r\n    public _defaultErrorStateMatcher: ErrorStateMatcher,\r\n    public _parentForm: NgForm,\r\n    public _parentFormGroup: FormGroupDirective,\r\n    public ngControl: NgControl\r\n  ) {}\r\n}\r\n\r\nexport const _OuiSelectMixinBase: CanDisableCtor &\r\n  HasTabIndexCtor &\r\n  CanUpdateErrorStateCtor &\r\n  typeof OuiSelectBase = mixinTabIndex(\r\n  mixinDisabled(mixinErrorState(OuiSelectBase))\r\n);\r\n\r\n/**\r\n * Allows the user to customize the trigger that is displayed when the select has a value.\r\n */\r\n@Directive({\r\n  // tslint:disable-next-line:directive-selector\r\n  selector: 'oui-select-trigger',\r\n})\r\nexport class OuiSelectTrigger {}\r\n\r\n@Component({\r\n  selector: 'oui-select',\r\n  exportAs: 'ouiSelect',\r\n  templateUrl: 'select.html',\r\n  styleUrls: ['select.scss'],\r\n  // tslint:disable-next-line:no-inputs-metadata-property\r\n  inputs: ['disabled', 'tabIndex'],\r\n  encapsulation: ViewEncapsulation.None,\r\n  changeDetection: ChangeDetectionStrategy.OnPush,\r\n  // tslint:disable-next-line:no-host-metadata-property\r\n  host: {\r\n    role: 'listbox',\r\n    '[attr.id]': 'id',\r\n    '[attr.tabindex]': 'tabIndex',\r\n    '[attr.aria-label]': '_getAriaLabel()',\r\n    '[attr.aria-labelledby]': '_getAriaLabelledby()',\r\n    '[attr.aria-required]': 'required.toString()',\r\n    '[attr.aria-disabled]': 'disabled.toString()',\r\n    '[attr.aria-invalid]': 'errorState',\r\n    '[attr.aria-owns]': 'panelOpen ? _optionIds : null',\r\n    '[attr.aria-multiselectable]': 'multiple',\r\n    '[attr.aria-describedby]': '_ariaDescribedby || null',\r\n    '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',\r\n    '[class.oui-select-disabled]': 'disabled',\r\n    '[class.oui-select-invalid]': 'errorState',\r\n    '[class.oui-select-required]': 'required',\r\n    '[class.oui-select-empty]': 'empty',\r\n    class: 'oui-select oui-input',\r\n    '(keydown)': '_handleKeydown($event)',\r\n    '(focus)': '_onFocus()',\r\n    '(blur)': '_onBlur()',\r\n  },\r\n  providers: [\r\n    { provide: OuiFormFieldControl, useExisting: OuiSelect },\r\n    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect },\r\n  ],\r\n})\r\nexport class OuiSelect\r\n  extends _OuiSelectMixinBase\r\n  implements\r\n    AfterContentInit,\r\n    OnChanges,\r\n    OnDestroy,\r\n    OnInit,\r\n    DoCheck,\r\n    ControlValueAccessor,\r\n    CanDisable,\r\n    HasTabIndex,\r\n    OuiFormFieldControl<any>,\r\n    CanUpdateErrorState {\r\n  /** Whether or not the overlay panel is open. */\r\n  private _panelOpen = false;\r\n\r\n  /** Whether filling out the select is required in the form. */\r\n  private _required = false;\r\n\r\n  /** The scroll position of the overlay panel, calculated to center the selected option. */\r\n  private _scrollTop = 0;\r\n\r\n  /** The placeholder displayed in the trigger of the select. */\r\n  private _placeholder: string;\r\n\r\n  /** Whether the component is in multiple selection mode. */\r\n  private _multiple = false;\r\n\r\n  /** Search input field **/\r\n  isSearchFieldPresent: boolean;\r\n\r\n  /** Unique id for this input. */\r\n  private _uid = `oui-select-${nextUniqueId++}`;\r\n\r\n  /** The last measured value for the trigger's client bounding rect. */\r\n  _triggerRect: ClientRect;\r\n\r\n  /** The aria-describedby attribute on the select for improved a11y. */\r\n  _ariaDescribedby: string;\r\n\r\n  /** The cached font-size of the trigger element. */\r\n  _triggerFontSize = 0;\r\n\r\n  /** Deals with the selection logic. */\r\n  _selectionModel: SelectionModel<OuiOption>;\r\n\r\n  /** Manages keyboard events for options in the panel. */\r\n  _keyManager: ActiveDescendantKeyManager<OuiOption>;\r\n\r\n  /** The IDs of child options to be passed to the aria-owns attribute. */\r\n  _optionIds = '';\r\n\r\n  /** The value of the select panel's transform-origin property. */\r\n  _transformOrigin = 'top';\r\n\r\n  /** If there is search input field a class is added dynamically to the perfect scrollbar **/\r\n  ouiSelectInputOuterClassName: string;\r\n\r\n  /** Adding top class to overlay panel */\r\n  cdkConnectionOverlayPanel = '';\r\n\r\n  /**\r\n   * The y-offset of the overlay panel in relation to the trigger's top start corner.\r\n   * This must be adjusted to align the selected option text over the trigger text.\r\n   * when the panel opens. Will change based on the y-position of the selected option.\r\n   */\r\n  _offsetY = 0;\r\n\r\n  /**\r\n   * This position config ensures that the top \"start\" corner of the overlay\r\n   * is aligned with with the top \"start\" of the origin by default (overlapping\r\n   * the trigger completely). If the panel cannot fit below the trigger, it\r\n   * will fall back to a position above the trigger.\r\n   */\r\n  _positions = [\r\n    {\r\n      originX: 'start',\r\n      originY: 'top',\r\n      overlayX: 'start',\r\n      overlayY: 'top',\r\n    },\r\n    {\r\n      originX: 'start',\r\n      originY: 'bottom',\r\n      overlayX: 'start',\r\n      overlayY: 'bottom',\r\n    },\r\n  ];\r\n  /** Emits whenever the component is destroyed. */\r\n  private readonly _destroy = new Subject<void>();\r\n\r\n  /** Whether the component is disabling centering of the active option over the trigger. */\r\n  private _disableOptionCentering = false;\r\n\r\n  private _focused = false;\r\n\r\n  /** A name for this control that can be used by `oui-form-field`. */\r\n  controlType = 'oui-select';\r\n\r\n  /** Trigger that opens the select. */\r\n  @ViewChild('trigger') trigger: ElementRef;\r\n\r\n  /** Panel containing the select options. */\r\n  @ViewChild('panel', { read: ElementRef }) panel: ElementRef;\r\n\r\n  initialValue = '';\r\n\r\n  private _value: any;\r\n\r\n  /**\r\n   * Function used to sort the values in a select in multiple mode.\r\n   * Follows the same logic as `Array.prototype.sort`.\r\n   */\r\n  @Input() sortComparator: (\r\n    a: OuiOption,\r\n    b: OuiOption,\r\n    options: OuiOption[]\r\n  ) => number;\r\n\r\n  /** Aria label of the select. If not specified, the placeholder will be used as label. */\r\n  @Input('aria-label') ariaLabel = '';\r\n\r\n  /** Input that can be used to specify the `aria-labelledby` attribute. */\r\n  @Input('aria-labelledby') ariaLabelledby: string;\r\n  private _large = false;\r\n  _monitorSubscription: any;\r\n\r\n  /** Whether the oui-select is of large size. */\r\n  @Input()\r\n  get large(): boolean {\r\n    return this._large;\r\n  }\r\n  set large(value) {\r\n    this._large = coerceBooleanProperty(value);\r\n    this._changeDetectorRef.markForCheck();\r\n  }\r\n\r\n  private _id: string;\r\n\r\n  /** Event emitted when the select panel has been toggled. */\r\n  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<\r\n    boolean\r\n  >();\r\n\r\n  /** Combined stream of all of the child options' change events. */\r\n  readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(\r\n    (): Observable<OuiOptionSelectionChange> => {\r\n      if (this.options) {\r\n        return merge(...this.options.map((option) => option.onSelectionChange));\r\n      }\r\n\r\n      return this._ngZone.onStable.asObservable().pipe(\r\n        take(1),\r\n        switchMap(() => this.optionSelectionChanges)\r\n      );\r\n    }\r\n  );\r\n\r\n  /**\r\n   * Event that emits whenever the raw value of the select changes. This is here primarily\r\n   * to facilitate the two-way binding for the `value` input.\r\n   * @docs-private\r\n   */\r\n  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();\r\n\r\n  /** Object used to control when error messages are shown. */\r\n  @Input() errorStateMatcher: ErrorStateMatcher;\r\n\r\n  /** All of the defined select options. */\r\n  @ContentChildren(OuiOption, { descendants: true }) options: QueryList<\r\n    OuiOption\r\n  >;\r\n\r\n  /** Event emitted when the select has been opened. */\r\n  // tslint:disable-next-line:no-output-rename\r\n  @Output('opened') readonly _openedStream: Observable<\r\n    void\r\n  > = this.openedChange.pipe(\r\n    filter((o) => o),\r\n    map(() => {})\r\n  );\r\n\r\n  /** Event emitted when the select has been closed. */\r\n  // tslint:disable-next-line:no-output-rename\r\n  @Output('closed') readonly _closedStream: Observable<\r\n    void\r\n  > = this.openedChange.pipe(\r\n    filter((o) => !o),\r\n    map(() => {})\r\n  );\r\n\r\n  /** Event emitted when the selected value has been changed by the user. */\r\n  @Output() readonly selectionChange: EventEmitter<\r\n    OuiSelectChange\r\n  > = new EventEmitter<OuiSelectChange>();\r\n\r\n  /** All of the defined groups of options. */\r\n  @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;\r\n\r\n  /** User-supplied override of the trigger element. */\r\n  @ContentChild(OuiSelectTrigger)\r\n  customTrigger: OuiSelectTrigger;\r\n\r\n  /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */\r\n  @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };\r\n\r\n  /** Overlay pane containing the options. */\r\n  @ViewChild(CdkConnectedOverlay)\r\n  overlayDir: CdkConnectedOverlay;\r\n\r\n  /** Emits when the panel element is finished transforming in. */\r\n  _panelDoneAnimatingStream = new Subject<string>();\r\n\r\n  /** Comparison function to specify which option is displayed. Defaults to object equality. */\r\n  private _compareWith = (o1: any, o2: any) => o1 === o2;\r\n\r\n  /** Whether the select is focused. */\r\n  get focused(): boolean {\r\n    return this._focused || this._panelOpen;\r\n  }\r\n  /** `View -> model callback called when value changes` */\r\n  _onChange: (value: any) => void = () => {};\r\n\r\n  /** `View -> model callback called when select has been touched` */\r\n  _onTouched = () => {};\r\n\r\n  /**\r\n   * @deprecated Setter to be removed as this property is intended to be readonly.\r\n   */\r\n  set focused(value: boolean) {\r\n    this._focused = value;\r\n  }\r\n\r\n  /** Placeholder to be shown if no value has been selected. */\r\n  @Input()\r\n  get placeholder(): string {\r\n    return this._placeholder;\r\n  }\r\n  set placeholder(value: string) {\r\n    this._placeholder = value;\r\n    this.stateChanges.next();\r\n  }\r\n\r\n  /** Whether the component is required. */\r\n  @Input()\r\n  get required(): boolean {\r\n    return this._required;\r\n  }\r\n  set required(value: boolean) {\r\n    this._required = coerceBooleanProperty(value);\r\n    this.stateChanges.next();\r\n  }\r\n\r\n  /** Whether the user should be allowed to select multiple options. */\r\n  @Input()\r\n  get multiple(): boolean {\r\n    return this._multiple;\r\n  }\r\n  set multiple(value: boolean) {\r\n    if (this._selectionModel) {\r\n      throw getOuiSelectDynamicMultipleError();\r\n    }\r\n\r\n    this._multiple = coerceBooleanProperty(value);\r\n  }\r\n\r\n  /** Whether to center the active option over the trigger. */\r\n  @Input()\r\n  get disableOptionCentering(): boolean {\r\n    return this._disableOptionCentering;\r\n  }\r\n  set disableOptionCentering(value: boolean) {\r\n    this._disableOptionCentering = coerceBooleanProperty(value);\r\n  }\r\n\r\n  /**\r\n   * Function to compare the option values with the selected values. The first argument\r\n   * is a value from an option. The second is a value from the selection. A boolean\r\n   * should be returned.\r\n   */\r\n  @Input()\r\n  get compareWith() {\r\n    return this._compareWith;\r\n  }\r\n  set compareWith(fn: (o1: any, o2: any) => boolean) {\r\n    if (typeof fn !== 'function') {\r\n      throw getOuiSelectNonFunctionValueError();\r\n    }\r\n    this._compareWith = fn;\r\n    if (this._selectionModel) {\r\n      // A different comparator means the selection could change.\r\n      this._initializeSelection();\r\n    }\r\n  }\r\n\r\n  /** Value of the select control. */\r\n  @Input()\r\n  get value(): any {\r\n    return this._value;\r\n  }\r\n  set value(newValue: any) {\r\n    if (newValue !== this._value) {\r\n      this.writeValue(newValue);\r\n      this._value = newValue;\r\n    }\r\n  }\r\n\r\n  /** Unique id of the element. */\r\n  @Input()\r\n  get id(): string {\r\n    return this._id;\r\n  }\r\n  set id(value: string) {\r\n    this._id = value || this._uid;\r\n    this.stateChanges.next();\r\n  }\r\n\r\n  constructor(\r\n    private _changeDetectorRef: ChangeDetectorRef,\r\n    private _ngZone: NgZone,\r\n    _defaultErrorStateMatcher: ErrorStateMatcher,\r\n    elementRef: ElementRef,\r\n    private _focusMonitor: FocusMonitor,\r\n    @Optional() private _dir: Directionality,\r\n    @Optional() _parentForm: NgForm,\r\n    @Optional() _parentFormGroup: FormGroupDirective,\r\n    @Optional() private _parentFormField: OuiFormField,\r\n    @Self() @Optional() public ngControl: NgControl,\r\n    @Attribute('tabindex') tabIndex: string,\r\n    @Optional() @Inject(DOCUMENT) private _document: any,\r\n    public _elementRef: ElementRef,\r\n    public _ouiIconRegistry: OuiIconRegistry,\r\n    private _domSanitizer: DomSanitizer\r\n  ) {\r\n    super(\r\n      elementRef,\r\n      _defaultErrorStateMatcher,\r\n      _parentForm,\r\n      _parentFormGroup,\r\n      ngControl\r\n    );\r\n    this._monitorSubscription = this._focusMonitor\r\n      .monitor(this._elementRef, true)\r\n      .subscribe(() => this._ngZone.run(() => {}));\r\n    this._ouiIconRegistry.addSvgIconLiteral(\r\n      `select-arrow-icon`,\r\n      this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)\r\n    );\r\n\r\n    if (this.ngControl) {\r\n      // Note: we provide the value accessor through here, instead of\r\n      // the `providers` to avoid running into a circular import.\r\n      this.ngControl.valueAccessor = this;\r\n    }\r\n\r\n    this.tabIndex = parseInt(tabIndex, 10) || 0;\r\n\r\n    // Force setter to be called in case id was not specified.\r\n    this.id = this.id;\r\n  }\r\n\r\n  ngOnInit() {\r\n    this._selectionModel = new SelectionModel<OuiOption>(this.multiple);\r\n    this.stateChanges.next();\r\n\r\n    // We need `distinctUntilChanged` here, because some browsers will\r\n    // fire the animation end event twice for the same animation. See:\r\n    // https://github.com/angular/angular/issues/24084\r\n    this._panelDoneAnimatingStream\r\n      .pipe(distinctUntilChanged(), takeUntil(this._destroy))\r\n      .subscribe(() => {\r\n        if (this.panelOpen) {\r\n          this._scrollTop = 0;\r\n          this.openedChange.emit(true);\r\n        } else {\r\n          this.openedChange.emit(false);\r\n          this.overlayDir.offsetX = 0;\r\n          this._changeDetectorRef.markForCheck();\r\n        }\r\n      });\r\n  }\r\n\r\n  ngAfterContentInit() {\r\n    this._initKeyManager();\r\n\r\n    this._selectionModel.changed\r\n      .pipe(takeUntil(this._destroy))\r\n      .subscribe((event) => {\r\n        event.added.forEach((option) => option.select());\r\n        event.removed.forEach((option) => option.deselect());\r\n      });\r\n\r\n    this.options.changes\r\n      .pipe(startWith(null), takeUntil(this._destroy))\r\n      .subscribe(() => {\r\n        this._resetOptions();\r\n        this._initializeSelection();\r\n      });\r\n  }\r\n\r\n  ngDoCheck() {\r\n    if (this.ngControl) {\r\n      this.updateErrorState();\r\n    }\r\n  }\r\n\r\n  ngOnChanges(changes: SimpleChanges) {\r\n    // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let\r\n    // the parent form field know to run change detection when the disabled state changes.\r\n    if (changes.disabled) {\r\n      this.stateChanges.next();\r\n    }\r\n  }\r\n\r\n  ngOnDestroy() {\r\n    this._monitorSubscription.unsubscribe();\r\n    this._focusMonitor.stopMonitoring(this._elementRef);\r\n    this._destroy.next();\r\n    this._destroy.complete();\r\n    this.stateChanges.complete();\r\n  }\r\n\r\n  /** Toggles the overlay panel open or closed. */\r\n  toggle(): void {\r\n    this.panelOpen ? this.close() : this.open();\r\n  }\r\n\r\n  /** Opens the overlay panel. */\r\n  open(): void {\r\n    if (\r\n      this.disabled ||\r\n      !this.options ||\r\n      !this.options.length ||\r\n      this._panelOpen\r\n    ) {\r\n      return;\r\n    }\r\n\r\n    this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();\r\n\r\n    this._panelOpen = true;\r\n    this._keyManager.withHorizontalOrientation(null);\r\n\r\n    this._highlightCorrectOption();\r\n    this._changeDetectorRef.markForCheck();\r\n    this.openedChange.emit(true);\r\n    this._elementRef.nativeElement.classList.add(\r\n      'oui-select-list-options-opened'\r\n    );\r\n  }\r\n\r\n  /** Closes the overlay panel and focuses the host element. */\r\n  close(): void {\r\n    if (this._panelOpen) {\r\n      this._panelOpen = false;\r\n      this._keyManager.withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');\r\n      this._changeDetectorRef.markForCheck();\r\n      this._onTouched();\r\n      this.openedChange.emit(false);\r\n      this._elementRef.nativeElement.classList.remove(\r\n        'oui-select-list-options-opened'\r\n      );\r\n      setTimeout((_) => this._document.activeElement.blur());\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Sets the select's value. Part of the ControlValueAccessor interface\r\n   * required to integrate with Angular's core forms API.\r\n   *\r\n   * @param value New value to be written to the model.\r\n   */\r\n  writeValue(value: any): void {\r\n    if (this.options) {\r\n      this._setSelectionByValue(value);\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Saves a callback function to be invoked when the select's value\r\n   * changes from user input. Part of the ControlValueAccessor interface\r\n   * required to integrate with Angular's core forms API.\r\n   *\r\n   * @param fn Callback to be triggered when the value changes.\r\n   */\r\n  registerOnChange(fn: (value: any) => void): void {\r\n    this._onChange = fn;\r\n  }\r\n\r\n  /**\r\n   * Saves a callback function to be invoked when the select is blurred\r\n   * by the user. Part of the ControlValueAccessor interface required\r\n   * to integrate with Angular's core forms API.\r\n   *\r\n   * @param fn Callback to be triggered when the component has been touched.\r\n   */\r\n  registerOnTouched(fn: () => {}): void {\r\n    this._onTouched = fn;\r\n  }\r\n\r\n  /**\r\n   * Disables the select. Part of the ControlValueAccessor interface required\r\n   * to integrate with Angular's core forms API.\r\n   *\r\n   * @param isDisabled Sets whether the component is disabled.\r\n   */\r\n  setDisabledState(isDisabled: boolean): void {\r\n    this.disabled = isDisabled;\r\n    this._changeDetectorRef.markForCheck();\r\n    this.stateChanges.next();\r\n  }\r\n\r\n  /** Whether or not the overlay panel is open. */\r\n  get panelOpen(): boolean {\r\n    return this._panelOpen;\r\n  }\r\n\r\n  /** The currently selected option. */\r\n  get selected(): OuiOption | OuiOption[] {\r\n    return this.multiple\r\n      ? this._selectionModel.selected\r\n      : this._selectionModel.selected[0];\r\n  }\r\n\r\n  /** The value displayed in the trigger. */\r\n  get triggerValue(): string {\r\n    if (this.empty) {\r\n      return '';\r\n    }\r\n    if (this._multiple) {\r\n      const selectedOptions = this._selectionModel.selected.map(\r\n        (option) => option.viewValueForSelect\r\n      );\r\n\r\n      if (this._isRtl()) {\r\n        selectedOptions.reverse();\r\n      }\r\n      this.initialValue = selectedOptions.join(', ');\r\n      return selectedOptions.join(', ');\r\n    }\r\n    this.initialValue = this._selectionModel.selected[0].viewValueForSelect;\r\n    return this._selectionModel.selected[0].viewValueForSelect;\r\n  }\r\n\r\n  /** Whether the element is in RTL mode. */\r\n  _isRtl(): boolean {\r\n    return this._dir ? this._dir.value === 'rtl' : false;\r\n  }\r\n\r\n  /** Handles all keydown events on the select. */\r\n  _handleKeydown(event: KeyboardEvent): void {\r\n    if (!this.disabled) {\r\n      this.panelOpen\r\n        ? this._handleOpenKeydown(event)\r\n        : this._handleClosedKeydown(event);\r\n    }\r\n  }\r\n\r\n  /** Handles keyboard events while the select is closed. */\r\n  private _handleClosedKeydown(event: KeyboardEvent): void {\r\n    const keyCode = event.keyCode;\r\n    const isArrowKey =\r\n      keyCode === DOWN_ARROW ||\r\n      keyCode === UP_ARROW ||\r\n      keyCode === LEFT_ARROW ||\r\n      keyCode === RIGHT_ARROW;\r\n    const isOpenKey = keyCode === ENTER || keyCode === SPACE;\r\n    const manager = this._keyManager;\r\n\r\n    // Open the select on ALT + arrow key to match the native <select>\r\n    if (\r\n      (isOpenKey && !hasModifierKey(event)) ||\r\n      ((this.multiple || event.altKey) && isArrowKey)\r\n    ) {\r\n      event.preventDefault(); // prevents the page from scrolling down when pressing space\r\n      this.open();\r\n    } else if (!this.multiple) {\r\n      if (keyCode === HOME || keyCode === END) {\r\n        keyCode === HOME\r\n          ? manager.setFirstItemActive()\r\n          : manager.setLastItemActive();\r\n        event.preventDefault();\r\n      } else {\r\n        manager.onKeydown(event);\r\n      }\r\n    }\r\n  }\r\n\r\n  /** Handles keyboard events when the selected is open. */\r\n  private _handleOpenKeydown(event: KeyboardEvent): void {\r\n    const keyCode = event.keyCode;\r\n    const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;\r\n    const manager = this._keyManager;\r\n\r\n    // Check if search input field is present in select box\r\n    const searchField = <HTMLInputElement>event.target;\r\n    /** There is search field inside the list **/\r\n    if (\r\n      searchField &&\r\n      searchField.tagName &&\r\n      searchField.tagName.toLowerCase() === 'input'\r\n    ) {\r\n      this.isSearchFieldPresent = true;\r\n      if (keyCode === SPACE) {\r\n        return;\r\n      }\r\n    }\r\n\r\n    if (keyCode === HOME || keyCode === END) {\r\n      event.preventDefault();\r\n      keyCode === HOME\r\n        ? manager.setFirstItemActive()\r\n        : manager.setLastItemActive();\r\n    } else if (isArrowKey && event.altKey) {\r\n      // Close the select on ALT + arrow key to match the native <select>\r\n      event.preventDefault();\r\n      this.close();\r\n    } else if (\r\n      (keyCode === ENTER || keyCode === SPACE) &&\r\n      manager.activeItem &&\r\n      !hasModifierKey(event)\r\n    ) {\r\n      event.preventDefault();\r\n      manager.activeItem._selectViaInteraction();\r\n    } else if (this._multiple && keyCode === A && event.ctrlKey) {\r\n      event.preventDefault();\r\n      this.handleCtrlKey();\r\n    } else {\r\n      this.handleScrolling(manager, event, isArrowKey, keyCode);\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Handle ctrl key\r\n   */\r\n  private handleCtrlKey() {\r\n    const hasDeselectedOptions = this.options.some(\r\n      (opt) => !opt.disabled && !opt.selected\r\n    );\r\n\r\n    this.options.forEach((option) => {\r\n      if (!option.disabled) {\r\n        hasDeselectedOptions ? option.select() : option.deselect();\r\n      }\r\n    });\r\n  }\r\n\r\n  /**\r\n   * @param manager\r\n   * @param event\r\n   * @param isArrowKey\r\n   * @param keyCode\r\n   */\r\n  private handleScrolling(\r\n    manager: ActiveDescendantKeyManager<OuiOption>,\r\n    event: KeyboardEvent,\r\n    isArrowKey: boolean,\r\n    keyCode: number\r\n  ) {\r\n    const previouslyFocusedIndex = manager.activeItemIndex;\r\n\r\n    manager.onKeydown(event);\r\n\r\n    if (\r\n      this._multiple &&\r\n      isArrowKey &&\r\n      event.shiftKey &&\r\n      manager.activeItem &&\r\n      manager.activeItemIndex !== previouslyFocusedIndex\r\n    ) {\r\n      manager.activeItem._selectViaInteraction();\r\n    }\r\n    if (isArrowKey && manager.activeItemIndex !== previouslyFocusedIndex) {\r\n      this._scrollToOption();\r\n    } else {\r\n      // First or last\r\n      if (keyCode === DOWN_ARROW) {\r\n        manager.setFirstItemActive();\r\n        this._setScrollTop(0);\r\n      }\r\n      if (keyCode === UP_ARROW) {\r\n        manager.setLastItemActive();\r\n        this._scrollToOption();\r\n      }\r\n    }\r\n  }\r\n\r\n  _onFocus() {\r\n    if (!this.disabled) {\r\n      this._focused = true;\r\n      this.stateChanges.next();\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Calls the touched callback only if the panel is closed. Otherwise, the trigger will\r\n   * \"blur\" to the panel when it opens, causing a false positive.\r\n   */\r\n  _onBlur() {\r\n    this._focused = false;\r\n\r\n    if (!this.disabled && !this.panelOpen) {\r\n      this._onTouched();\r\n      this._changeDetectorRef.markForCheck();\r\n      this.stateChanges.next();\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Callback that is invoked when the overlay panel has been attached.\r\n   */\r\n  _onAttached(): void {\r\n    this.overlayDir.positionChange.pipe(take(1)).subscribe(() => {\r\n      this._setPseudoCheckboxPaddingSize();\r\n      this._changeDetectorRef.detectChanges();\r\n      this.panel.nativeElement.scrollTop = this._scrollTop;\r\n    });\r\n  }\r\n\r\n  /** Returns the theme to be used on the panel. */\r\n  _getPanelTheme(): string {\r\n    return this._parentFormField ? `oui-${this._parentFormField.color}` : '';\r\n  }\r\n\r\n  // TODO(josephperrott): Remove after 2018 spec updates are fully merged.\r\n  /** Sets the pseudo checkbox padding size based on the width of the pseudo checkbox. */\r\n  private _setPseudoCheckboxPaddingSize() {\r\n    if (!SELECT_MULTIPLE_PANEL_PADDING_X && this.multiple) {\r\n      const pseudoCheckbox = this.panel.nativeElement.querySelector(\r\n        '.oui-pseudo-checkbox'\r\n      );\r\n      if (pseudoCheckbox) {\r\n        SELECT_MULTIPLE_PANEL_PADDING_X =\r\n          SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;\r\n      }\r\n    }\r\n  }\r\n\r\n  /** Whether the select has a value. */\r\n  get empty(): boolean {\r\n    return !this._selectionModel || this._selectionModel.isEmpty();\r\n  }\r\n\r\n  private _initializeSelection(): void {\r\n    // Defer setting the value in order to avoid the \"Expression\r\n    // has changed after it was checked\" errors from Angular.\r\n    Promise.resolve().then(() => {\r\n      this._setSelectionByValue(\r\n        this.ngControl ? this.ngControl.value : this._value\r\n      );\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Sets the selected option based on a value. If no option can be\r\n   * found with the designated value, the select trigger is cleared.\r\n   */\r\n  private _setSelectionByValue(value: any | any[]): void {\r\n    if (this.multiple && value) {\r\n      if (!Array.isArray(value)) {\r\n        throw getOuiSelectNonArrayValueError();\r\n      }\r\n\r\n      this._selectionModel.clear();\r\n      value.forEach((currentValue: any) => this._selectValue(currentValue));\r\n      this._sortValues();\r\n    } else {\r\n      this._selectionModel.clear();\r\n      const correspondingOption = this._selectValue(value);\r\n      // Shift focus to the active item. Note that we shouldn't do this in multiple\r\n      // mode, because we don't know what option the user interacted with last.\r\n      if (correspondingOption) {\r\n        this._keyManager.setActiveItem(correspondingOption);\r\n      }\r\n    }\r\n    this._changeDetectorRef.markForCheck();\r\n  }\r\n\r\n  /**\r\n   * Finds and selects and option based on its value.\r\n   * @returns Option that has the corresponding value.\r\n   */\r\n  private _selectValue(value: any): OuiOption | undefined {\r\n    const correspondingOption = this.options.find((option: OuiOption) => {\r\n      try {\r\n        // Treat null as a special reset value.\r\n        return option.value != null && this._compareWith(option.value, value);\r\n      } catch (error) {\r\n        if (isDevMode()) {\r\n          // Notify developers of errors in their comparator.\r\n          console.warn(error);\r\n        }\r\n        return false;\r\n      }\r\n    });\r\n\r\n    if (correspondingOption) {\r\n      this._selectionModel.select(correspondingOption);\r\n    }\r\n\r\n    return correspondingOption;\r\n  }\r\n\r\n  /** Sets up a key manager to listen to keyboard events on the overlay panel. */\r\n  private _initKeyManager() {\r\n    this._keyManager = new ActiveDescendantKeyManager<OuiOption>(this.options)\r\n      .withTypeAhead()\r\n      .withVerticalOrientation()\r\n      .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')\r\n      .withAllowedModifierKeys(['shiftKey']);\r\n\r\n    this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {\r\n      // Restore focus to the trigger before closing. Ensures that the focus\r\n      // position won't be lost if the user got focus into the overlay.\r\n      this.focus();\r\n      this.close();\r\n    });\r\n\r\n    this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {\r\n      if (this._panelOpen && this.panel) {\r\n        // Panel is opened\r\n        // Need not to scroll\r\n      } else if (\r\n        !this._panelOpen &&\r\n        !this.multiple &&\r\n        this._keyManager.activeItem\r\n      ) {\r\n        this._keyManager.activeItem._selectViaInteraction();\r\n      }\r\n    });\r\n  }\r\n\r\n  /** Drops current option subscriptions and IDs and resets from scratch. */\r\n  private _resetOptions(): void {\r\n    const changedOrDestroyed = merge(this.options.changes, this._destroy);\r\n\r\n    this.optionSelectionChanges\r\n      .pipe(takeUntil(changedOrDestroyed))\r\n      .subscribe((event) => {\r\n        this._onSelect(event.source, event.isUserInput);\r\n\r\n        if (event.isUserInput && !this.multiple && this._panelOpen) {\r\n          this.close();\r\n          this.focus();\r\n        }\r\n      });\r\n\r\n    // Listen to changes in the internal state of the options and react accordingly.\r\n    // Handles cases like the labels of the selected options changing.\r\n    merge(...this.options.map((option) => option._stateChanges))\r\n      .pipe(takeUntil(changedOrDestroyed))\r\n      .subscribe(() => {\r\n        this._changeDetectorRef.markForCheck();\r\n        this.stateChanges.next();\r\n      });\r\n\r\n    this._setOptionIds();\r\n  }\r\n\r\n  /** Invoked when an option is clicked. */\r\n  private _onSelect(option: OuiOption, isUserInput: boolean): void {\r\n    const wasSelected = this._selectionModel.isSelected(option);\r\n\r\n    if (option.value == null && !this._multiple) {\r\n      option.deselect();\r\n      this._selectionModel.clear();\r\n      this._propagateChanges(option.value);\r\n    } else {\r\n      option.selected\r\n        ? this._selectionModel.select(option)\r\n        : this._selectionModel.deselect(option);\r\n\r\n      if (isUserInput) {\r\n        this._keyManager.setActiveItem(option);\r\n      }\r\n\r\n      if (this.multiple) {\r\n        this._sortValues();\r\n\r\n        if (isUserInput) {\r\n          // In case the user selected the option with their mouse, we\r\n          // want to restore focus back to the trigger, in order to\r\n          // prevent the select keyboard controls from clashing with\r\n          // the ones from `oui-option`.\r\n          this.focus();\r\n        }\r\n      }\r\n    }\r\n\r\n    if (wasSelected !== this._selectionModel.isSelected(option)) {\r\n      this._propagateChanges();\r\n    }\r\n\r\n    this.stateChanges.next();\r\n  }\r\n\r\n  /** Sorts the selected values in the selected based on their order in the panel. */\r\n  private _sortValues() {\r\n    if (this.multiple) {\r\n      const options = this.options.toArray();\r\n\r\n      this._selectionModel.sort((a, b) => {\r\n        return this.sortComparator\r\n          ? this.sortComparator(a, b, options)\r\n          : options.indexOf(a) - options.indexOf(b);\r\n      });\r\n      this.stateChanges.next();\r\n    }\r\n  }\r\n\r\n  /** Emits change event to set the model value. */\r\n  private _propagateChanges(fallbackValue?: any): void {\r\n    let valueToEmit: any = null;\r\n\r\n    if (this.multiple) {\r\n      valueToEmit = (this.selected as OuiOption[]).map(\r\n        (option) => option.value\r\n      );\r\n    } else {\r\n      valueToEmit = this.selected\r\n        ? (this.selected as OuiOption).value\r\n        : fallbackValue;\r\n    }\r\n\r\n    this._value = valueToEmit;\r\n    this.valueChange.emit(valueToEmit);\r\n    this._onChange(valueToEmit);\r\n    this.selectionChange.emit(new OuiSelectChange(this, valueToEmit));\r\n    // this.initialValue = this.triggerValue;\r\n    this._changeDetectorRef.markForCheck();\r\n  }\r\n\r\n  /** Records option IDs to pass to the aria-owns property. */\r\n  private _setOptionIds() {\r\n    this._optionIds = this.options.map((option) => option.id).join(' ');\r\n  }\r\n\r\n  /**\r\n   * Highlights the selected item. If no option is selected, it will highlight\r\n   * the first item instead.\r\n   */\r\n  private _highlightCorrectOption(): void {\r\n    if (this._keyManager) {\r\n      if (this.empty) {\r\n        this._keyManager.setFirstItemActive();\r\n      } else {\r\n        this._keyManager.setActiveItem(this._selectionModel.selected[0]);\r\n      }\r\n    }\r\n  }\r\n\r\n  /** Focuses the select element. */\r\n  focus(): void {\r\n    this._elementRef.nativeElement.focus();\r\n  }\r\n\r\n  /** Returns the aria-label of the select component. */\r\n  _getAriaLabel(): string | null {\r\n    // If an ariaLabelledby value has been set by the consumer, the select should not overwrite the\r\n    // `aria-labelledby` value by setting the ariaLabel to the placeholder.\r\n    return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;\r\n  }\r\n\r\n  /** Returns the aria-labelledby of the select component. */\r\n  _getAriaLabelledby(): string | null {\r\n    if (this.ariaLabelledby) {\r\n      return this.ariaLabelledby;\r\n    }\r\n\r\n    return null;\r\n  }\r\n\r\n  /** Determines the `aria-activedescendant` to be set on the host. */\r\n  _getAriaActiveDescendant(): string | null {\r\n    if (this.panelOpen && this._keyManager && this._keyManager.activeItem) {\r\n      return this._keyManager.activeItem.id;\r\n    }\r\n\r\n    return null;\r\n  }\r\n\r\n  /**\r\n   * Implemented as part of OuiFormFieldControl.\r\n   * @docs-private\r\n   */\r\n  setDescribedByIds(ids: string[]) {\r\n    this._ariaDescribedby = ids.join(' ');\r\n  }\r\n\r\n  /**\r\n   * Implemented as part of OuiFormFieldControl.\r\n   * @docs-private\r\n   */\r\n  onContainerClick() {\r\n    this.focus();\r\n    this.open();\r\n  }\r\n\r\n  /**\r\n   * Implemented as part of OuiFormFieldControl.\r\n   * @docs-private\r\n   */\r\n  get shouldLabelFloat(): boolean {\r\n    return this._panelOpen || !this.empty;\r\n  }\r\n\r\n  /**\r\n   * Add outer class to perfect scrollbar\r\n   * This is added only when there is a search field\r\n   */\r\n  ouiSelectInputOuter() {\r\n    this.ouiSelectInputOuterClassName = 'oui-select-input-outer';\r\n  }\r\n\r\n  /**\r\n   * Custom overlay class for cdk overlay container\r\n   */\r\n  openCdk() {\r\n    this.overlayDir.positionChange.pipe(take(1)).subscribe((e) => {\r\n      this.cdkConnectionOverlayPanel = '';\r\n      if (e.connectionPair.originY === 'top') {\r\n        this.cdkConnectionOverlayPanel = 'select-overlay-top';\r\n      }\r\n      this._changeDetectorRef.detectChanges();\r\n      setTimeout((_) => this._scrollToOption());\r\n    });\r\n\r\n    const cdkOverLayContainer = this._document.querySelector(\r\n      '.cdk-overlay-container'\r\n    );\r\n    const ouiSelectPanel = this._document.querySelector('.oui-select-panel');\r\n    cdkOverLayContainer.classList.add('oui-select-overlay-container');\r\n    const containerWidth = this._elementRef.nativeElement.offsetWidth;\r\n    ouiSelectPanel.style.width = `${containerWidth}px`;\r\n    if (this._document.querySelector('.oui-select-search-inner')) {\r\n      this.scrollCalc();\r\n    }\r\n  }\r\n\r\n  scrollCalc() {\r\n    const searchInput = this._document.querySelector(\r\n      '.oui-select-search-inner'\r\n    );\r\n    const outter = this._document.querySelector('.oui-select-panel');\r\n    let inner = this._document.querySelector('.oui-option');\r\n    if (inner === null) {\r\n      inner = 0;\r\n    }\r\n    const scrollbarWidth = outter.offsetWidth - inner.offsetWidth;\r\n    if (scrollbarWidth > 5) {\r\n      searchInput.style.width = `${inner.offsetWidth}px`;\r\n    } else {\r\n      searchInput.style.width = `calc(100% + 8px)`;\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Given that we are not actually focusing active options, we must manually adjust scroll\r\n   * to reveal options below the fold. First, we find the offset of the option from the top\r\n   * of the panel. If that offset is below the fold, the new scrollTop will be the offset -\r\n   * the panel height + the option height, so the active option will be just visible at the\r\n   * bottom of the panel. If that offset is above the top of the visible panel, the new scrollTop\r\n   * will become the offset. If that offset is visible within the panel already, the scrollTop is\r\n   * not adjusted.\r\n   */\r\n  private _scrollToOption(): void {\r\n    const manager = this._keyManager;\r\n    const index = manager.activeItemIndex || 0;\r\n    const labelCount = _countGroupLabelsBeforeOption(\r\n      index,\r\n      this.options,\r\n      this.optionGroups\r\n    );\r\n    const scrollTop = this._getScrollTop();\r\n    const newScrollPosition = _getOptionScrollPosition(\r\n      index + labelCount,\r\n      SELECT_OPTION_HEIGHT,\r\n      scrollTop,\r\n      SELECT_PANEL_HEIGHT\r\n    );\r\n    this._setScrollTop(newScrollPosition);\r\n  }\r\n\r\n  /**\r\n   * Sets the panel scrollTop. This allows us to manually scroll to display options\r\n   * above or below the fold, as they are not actually being focused when active.\r\n   */\r\n  _setScrollTop(scrollTop: number): void {\r\n    if (this.panel) {\r\n      this.panel.nativeElement.scrollTop = scrollTop;\r\n    }\r\n  }\r\n\r\n  /** Returns the panel's scrollTop. */\r\n  _getScrollTop(): number {\r\n    return this.panel ? this.panel.nativeElement.scrollTop : 0;\r\n  }\r\n}\r\n",
             "selector": "oui-select-trigger",
@@ -34161,17 +34161,17 @@
                 "name": "Determinate",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-spinner/index.stories.ts",
+                "file": "ui/src/stories/progress-bar/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: OuiProgressSpinner,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    diameter: number('diameter', 15, diameterOptions),\r\n    strokeWidth: number('strokeWidth', 2, strokeWidthOptions),\r\n    value: number('value', 60, valueOptions)\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions),\r\n    value: number('value', 60, valueOptions)\r\n  }\r\n})"
             },
             {
                 "name": "Determinate",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-bar/index.stories.ts",
+                "file": "ui/src/stories/progress-spinner/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions),\r\n    value: number('value', 60, valueOptions)\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: OuiProgressSpinner,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    diameter: number('diameter', 15, diameterOptions),\r\n    strokeWidth: number('strokeWidth', 2, strokeWidthOptions),\r\n    value: number('value', 60, valueOptions)\r\n  }\r\n})"
             },
             {
                 "name": "dialogElementUid",
@@ -34202,17 +34202,17 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.ts",
+                "file": "environments/environment.prod.ts",
                 "type": "object",
-                "defaultValue": "{\r\n  production: false,\r\n}"
+                "defaultValue": "{\r\n  production: true,\r\n}"
             },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.prod.ts",
+                "file": "environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\r\n  production: true,\r\n}"
+                "defaultValue": "{\r\n  production: false,\r\n}"
             },
             {
                 "name": "EXPORTED_DECLARATIONS",
@@ -34266,17 +34266,17 @@
                 "name": "Indeterminate",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-spinner/index.stories.ts",
+                "file": "ui/src/stories/progress-bar/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: OuiProgressSpinner,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    diameter: number('diameter', 15, diameterOptions),\r\n    strokeWidth: number('strokeWidth', 2, strokeWidthOptions)\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions)\r\n  }\r\n})"
             },
             {
                 "name": "Indeterminate",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-bar/index.stories.ts",
+                "file": "ui/src/stories/progress-spinner/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions)\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: OuiProgressSpinner,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    diameter: number('diameter', 15, diameterOptions),\r\n    strokeWidth: number('strokeWidth', 2, strokeWidthOptions)\r\n  }\r\n})"
             },
             {
                 "name": "INDETERMINATE_ANIMATION_TEMPLATE",
@@ -34399,7 +34399,7 @@
                 "name": "nextUniqueId",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/components/form-field/error.ts",
+                "file": "ui/src/components/input/input.ts",
                 "type": "number",
                 "defaultValue": "0"
             },
@@ -34407,7 +34407,7 @@
                 "name": "nextUniqueId",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/components/input/input.ts",
+                "file": "ui/src/components/form-field/error.ts",
                 "type": "number",
                 "defaultValue": "0"
             },
@@ -34423,7 +34423,7 @@
                 "name": "nextUniqueId",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/components/slide-toggle/slide-toggle.ts",
+                "file": "ui/src/components/select/select.component.ts",
                 "type": "number",
                 "defaultValue": "0"
             },
@@ -34431,7 +34431,7 @@
                 "name": "nextUniqueId",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/components/select/select.component.ts",
+                "file": "ui/src/components/slide-toggle/slide-toggle.ts",
                 "type": "number",
                 "defaultValue": "0"
             },
@@ -34865,14 +34865,6 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/button/index.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiButtonModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<button oui-button [disabled]=\"disabled\" (click)=\"clicked()\" [color]=\"color\">{{text}}</button>`,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    disabled: boolean('disabled', false),\r\n    text: text('text', 'This is a button'),\r\n    clicked: action('click')\r\n  }\r\n})"
-            },
-            {
-                "name": "Regular",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "ui/src/stories/autocomplete/index.stories.ts",
                 "type": "",
                 "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [\r\n      OuiFormFieldModule,\r\n      OuiInputModule,\r\n      OuiAutocompleteModule,\r\n      FormsModule,\r\n      ReactiveFormsModule\r\n    ],\r\n    schemas: [],\r\n    declarations: [OuiAutocompleteStorybook]\r\n  },\r\n  component: OuiAutocompleteStorybook,\r\n  props: {\r\n    appearance: select('appearance', ['standard', 'underline'], 'standard'),\r\n    options: object('options', OPTIONS),\r\n    autoActiveFirstOption: boolean('autoActiveFirstOption', false),\r\n    closed: action('closed'),\r\n    disabled: boolean('disabled', false),\r\n    opened: action('opened'),\r\n    optionSelected: action('optionSelected')\r\n  }\r\n})"
@@ -34889,25 +34881,17 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "ui/src/stories/button/index.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiButtonModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<button oui-button [disabled]=\"disabled\" (click)=\"clicked()\" [color]=\"color\">{{text}}</button>`,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    disabled: boolean('disabled', false),\r\n    text: text('text', 'This is a button'),\r\n    clicked: action('click')\r\n  }\r\n})"
+            },
+            {
+                "name": "Regular",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "ui/src/stories/datepicker/index.stories.ts",
                 "type": "",
                 "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [\r\n      OuiDatepickerModule,\r\n      OuiFormFieldModule,\r\n      OuiInputModule,\r\n      BrowserAnimationsModule\r\n    ],\r\n    schemas: [],\r\n    declarations: [OuiDatepickerStorybook]\r\n  },\r\n  template: `<oui-datepicker-storybook \r\n    [value]=\"value\" \r\n    [disabled]=\"disabled\" \r\n    [startView]=\"startView\" \r\n    [appearance]=\"appearance\"\r\n    [color]=\"color\" \r\n    [opened]=\"opened\" \r\n    [mindate]=\"minDate\" \r\n    [maxdate]=\"maxDate\"\r\n    (_closed)=\"closed($event)\"\r\n    (_monthSelected)=\"monthSelected($event)\"\r\n    (_opened)=\"datepickeropened($event)\"\r\n    (_yearSelected)=\"yearSelected($event)\"\r\n    (_dateChange)=\"dateChange($event)\"></oui-datepicker-storybook>`,\r\n  props: {\r\n    closed: action('closed'),\r\n    monthSelected: action('monthSelected'),\r\n    datepickeropened: action('opened'),\r\n    yearSelected: action('yearSelected'),\r\n    dateChange: action('dateChange'),\r\n    color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),\r\n    startView: select(\r\n      'start-view',\r\n      START_VIEWS,\r\n      START_VIEWS[0],\r\n      'OuiDatepicker'\r\n    ),\r\n    opened: boolean('opened', false, 'OuiDatepicker'),\r\n    disabled: boolean('disabled', false, 'OuiDatepicker'),\r\n    minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),\r\n    maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),\r\n    value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),\r\n    appearance: select(\r\n      'appearance',\r\n      APPEARANCE,\r\n      APPEARANCE[0],\r\n      'OuiDatepickerInput'\r\n    )\r\n  }\r\n})"
-            },
-            {
-                "name": "Regular",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "ui/src/stories/form-field/index.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiFormFieldModule, OuiInputModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-form-field [appearance]=\"appearance\"> <input [disabled]=\"disabled\" (blur)=\"blured()\" (focus)=\"focused()\" [type]=\"type\" oui-input [placeholder]=\"placeholder\" /> </oui-form-field>`,\r\n  props: {\r\n    type: select('type', ['text', 'number', 'email', 'password'], 'text'),\r\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),\r\n    disabled: boolean('disabled', false),\r\n    placeholder: text('placeholder', 'Type Here'),\r\n    focused: action('focus'),\r\n    blured: action('blur')\r\n  }\r\n})"
-            },
-            {
-                "name": "Regular",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "ui/src/stories/menu/index.stories.ts",
-                "type": "",
-                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],\r\n    schemas: [],\r\n    declarations: [OuiMenuStorybook]\r\n  },\r\n  template: `<oui-menu-storybook\r\n          [xPosition]=\"xPosition\"\r\n          [yPosition]=\"yPosition\"\r\n          [vertical]=\"vertical\"\r\n          [hasBackdrop]=\"hasBackdrop\"\r\n          (_opened)=\"menuOpened($event)\"\r\n          (_closed)=\"menuClosed($event)\"\r\n          >\r\n          </oui-menu-storybook>`,\r\n  props: {\r\n    xPosition: select('xPosition', ['before', 'after'], 'before'),\r\n    yPosition: select('yPosition', ['above', 'below'], 'above'),\r\n    vertical: boolean('vertical', false),\r\n    menuOpened: action('menuOpened'),\r\n    hasBackdrop: boolean('hasBackdrop', true),\r\n    menuClosed: action('menuClosed')\r\n  }\r\n})"
             },
             {
                 "name": "Regular",
@@ -34929,9 +34913,17 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/radio/index.stories.ts",
+                "file": "ui/src/stories/form-field/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiRadioModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-radio-group (change)=\"changed($event)\" [disabled]=\"disabled\" [labelPosition]=\"position\">\r\n      <oui-radio-button checked value=\"Winter\" [color]=\"color\"> Winter </oui-radio-button>\r\n      <oui-radio-button value=\"Summer\" [color]=\"color\"> Summer </oui-radio-button>\r\n    </oui-radio-group>`,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    changed: action('change'),\r\n    position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),\r\n    disabled: boolean('disabled', false)\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiFormFieldModule, OuiInputModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-form-field [appearance]=\"appearance\"> <input [disabled]=\"disabled\" (blur)=\"blured()\" (focus)=\"focused()\" [type]=\"type\" oui-input [placeholder]=\"placeholder\" /> </oui-form-field>`,\r\n  props: {\r\n    type: select('type', ['text', 'number', 'email', 'password'], 'text'),\r\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),\r\n    disabled: boolean('disabled', false),\r\n    placeholder: text('placeholder', 'Type Here'),\r\n    focused: action('focus'),\r\n    blured: action('blur')\r\n  }\r\n})"
+            },
+            {
+                "name": "Regular",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "ui/src/stories/menu/index.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],\r\n    schemas: [],\r\n    declarations: [OuiMenuStorybook]\r\n  },\r\n  template: `<oui-menu-storybook\r\n          [xPosition]=\"xPosition\"\r\n          [yPosition]=\"yPosition\"\r\n          [vertical]=\"vertical\"\r\n          [hasBackdrop]=\"hasBackdrop\"\r\n          (_opened)=\"menuOpened($event)\"\r\n          (_closed)=\"menuClosed($event)\"\r\n          >\r\n          </oui-menu-storybook>`,\r\n  props: {\r\n    xPosition: select('xPosition', ['before', 'after'], 'before'),\r\n    yPosition: select('yPosition', ['above', 'below'], 'above'),\r\n    vertical: boolean('vertical', false),\r\n    menuOpened: action('menuOpened'),\r\n    hasBackdrop: boolean('hasBackdrop', true),\r\n    menuClosed: action('menuClosed')\r\n  }\r\n})"
             },
             {
                 "name": "Regular",
@@ -34945,17 +34937,17 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/select/index.stories.ts",
+                "file": "ui/src/stories/radio/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  template: `\r\n    <div style=\"width: 213px;\">\r\n    <oui-form-field [appearance]=\"appearance\">\r\n        <oui-select (selectionChange)=\"onChange($event)\" [large]=\"large\" [placeholder]=\"placeholder\" [disabled]=\"disabled\">\r\n          <oui-option *ngFor=\"let food of foods\" [value]=\"food\">\r\n            {{food}}\r\n          </oui-option>\r\n        </oui-select>\r\n      </oui-form-field>\r\n    </div>\r\n    `,\r\n  props: {\r\n    foods: array('foods', [\r\n      'Pizza',\r\n      'Burgers',\r\n      'Steak',\r\n      'Tacos',\r\n      'Pasta',\r\n      'Fries',\r\n      'Momos',\r\n      'Kababs',\r\n      'Rolls',\r\n      'Biryani',\r\n      'Sweets'\r\n    ]),\r\n    placeholder: text('placeholder', 'Favorite food'),\r\n    disabled: boolean('disabled', false),\r\n    large: boolean('large', false),\r\n    onChange: action('change'),\r\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0])\r\n  },\r\n  moduleMetadata: {\r\n    imports: [\r\n      OuiFormFieldModule,\r\n      OuiInputModule,\r\n      OuiSelectModule,\r\n      FormsModule,\r\n      ReactiveFormsModule\r\n    ]\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiRadioModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-radio-group (change)=\"changed($event)\" [disabled]=\"disabled\" [labelPosition]=\"position\">\r\n      <oui-radio-button checked value=\"Winter\" [color]=\"color\"> Winter </oui-radio-button>\r\n      <oui-radio-button value=\"Summer\" [color]=\"color\"> Summer </oui-radio-button>\r\n    </oui-radio-group>`,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    changed: action('change'),\r\n    position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),\r\n    disabled: boolean('disabled', false)\r\n  }\r\n})"
             },
             {
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/slide-toggle/index.stories.ts",
+                "file": "ui/src/stories/select/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  component: OuiSlideToggle,\r\n  props: {\r\n    checked: boolean('checked', true),\r\n    disabled: boolean('disabled', false),\r\n    color: select('color', COLORS, COLORS[0]),\r\n    change: action('state-change')\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  template: `\r\n    <div style=\"width: 213px;\">\r\n    <oui-form-field [appearance]=\"appearance\">\r\n        <oui-select (selectionChange)=\"onChange($event)\" [large]=\"large\" [placeholder]=\"placeholder\" [disabled]=\"disabled\">\r\n          <oui-option *ngFor=\"let food of foods\" [value]=\"food\">\r\n            {{food}}\r\n          </oui-option>\r\n        </oui-select>\r\n      </oui-form-field>\r\n    </div>\r\n    `,\r\n  props: {\r\n    foods: array('foods', [\r\n      'Pizza',\r\n      'Burgers',\r\n      'Steak',\r\n      'Tacos',\r\n      'Pasta',\r\n      'Fries',\r\n      'Momos',\r\n      'Kababs',\r\n      'Rolls',\r\n      'Biryani',\r\n      'Sweets'\r\n    ]),\r\n    placeholder: text('placeholder', 'Favorite food'),\r\n    disabled: boolean('disabled', false),\r\n    large: boolean('large', false),\r\n    onChange: action('change'),\r\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0])\r\n  },\r\n  moduleMetadata: {\r\n    imports: [\r\n      OuiFormFieldModule,\r\n      OuiInputModule,\r\n      OuiSelectModule,\r\n      FormsModule,\r\n      ReactiveFormsModule\r\n    ]\r\n  }\r\n})"
             },
             {
                 "name": "Regular",
@@ -34969,9 +34961,9 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/textarea/index.stories.ts",
+                "file": "ui/src/stories/slide-toggle/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiFormFieldModule, OuiInputModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-form-field> <textarea [disabled]=\"disabled\" [rows]=\"rows\" (blur)=\"blured()\" (focus)=\"focused()\" oui-input [placeholder]=\"placeholder\"></textarea> </oui-form-field>`,\r\n  props: {\r\n    disabled: boolean('disabled', false),\r\n    placeholder: text('placeholder', 'Type Here'),\r\n    rows: number('rows', 2, rowsOptions),\r\n    focused: action('focus'),\r\n    blured: action('blur')\r\n  }\r\n})"
+                "defaultValue": "() => ({\r\n  component: OuiSlideToggle,\r\n  props: {\r\n    checked: boolean('checked', true),\r\n    disabled: boolean('disabled', false),\r\n    color: select('color', COLORS, COLORS[0]),\r\n    change: action('state-change')\r\n  }\r\n})"
             },
             {
                 "name": "Regular",
@@ -34980,6 +34972,14 @@
                 "file": "ui/src/stories/tooltip/index.stories.ts",
                 "type": "",
                 "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],\r\n    schemas: [],\r\n    declarations: [OuiTooltipStorybook]\r\n  },\r\n  template: `<oui-tooltip-storybook [disabled]=\"disabled\"\r\n    [_ouiTooltip]=\"ouiTooltip\"\r\n    [_ouiTooltipPosition]=\"ouiTooltipPosition\"></oui-tooltip-storybook>`,\r\n  props: {\r\n    changed: action('change'),\r\n    disabled: boolean('ouiTooltipDisabled', false),\r\n    ouiTooltip: text('ouiTooltip', 'This is a tooltip'),\r\n    ouiTooltipPosition: select(\r\n      'ouiTooltipPosition',\r\n      TOOLTIPPOSITION,\r\n      TOOLTIPPOSITION[0]\r\n    )\r\n  }\r\n})"
+            },
+            {
+                "name": "Regular",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "ui/src/stories/textarea/index.stories.ts",
+                "type": "",
+                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiFormFieldModule, OuiInputModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-form-field> <textarea [disabled]=\"disabled\" [rows]=\"rows\" (blur)=\"blured()\" (focus)=\"focused()\" oui-input [placeholder]=\"placeholder\"></textarea> </oui-form-field>`,\r\n  props: {\r\n    disabled: boolean('disabled', false),\r\n    placeholder: text('placeholder', 'Type Here'),\r\n    rows: number('rows', 2, rowsOptions),\r\n    focused: action('focus'),\r\n    blured: action('blur')\r\n  }\r\n})"
             },
             {
                 "name": "require",
@@ -35120,7 +35120,7 @@
                 "name": "strokeWidthOptions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-spinner/index.stories.ts",
+                "file": "ui/src/stories/progress-bar/index.stories.ts",
                 "type": "object",
                 "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 20,\r\n  step: 1\r\n}"
             },
@@ -35128,7 +35128,7 @@
                 "name": "strokeWidthOptions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-bar/index.stories.ts",
+                "file": "ui/src/stories/progress-spinner/index.stories.ts",
                 "type": "object",
                 "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 20,\r\n  step: 1\r\n}"
             },
@@ -35202,7 +35202,7 @@
                 "name": "valueOptions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-spinner/index.stories.ts",
+                "file": "ui/src/stories/progress-bar/index.stories.ts",
                 "type": "object",
                 "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 100,\r\n  step: 1\r\n}"
             },
@@ -35210,7 +35210,7 @@
                 "name": "valueOptions",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/progress-bar/index.stories.ts",
+                "file": "ui/src/stories/progress-spinner/index.stories.ts",
                 "type": "object",
                 "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 100,\r\n  step: 1\r\n}"
             },
@@ -37736,6 +37736,40 @@
                     "description": "<p>Whether the browser supports the Intl API. </p>\n"
                 }
             ],
+            "ui/src/stories/progress-bar/index.stories.ts": [
+                {
+                    "name": "Determinate",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/progress-bar/index.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions),\r\n    value: number('value', 60, valueOptions)\r\n  }\r\n})"
+                },
+                {
+                    "name": "Indeterminate",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/progress-bar/index.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions)\r\n  }\r\n})"
+                },
+                {
+                    "name": "strokeWidthOptions",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/progress-bar/index.stories.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 20,\r\n  step: 1\r\n}"
+                },
+                {
+                    "name": "valueOptions",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/progress-bar/index.stories.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 100,\r\n  step: 1\r\n}"
+                }
+            ],
             "ui/src/stories/progress-spinner/index.stories.ts": [
                 {
                     "name": "Determinate",
@@ -37778,40 +37812,6 @@
                     "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 100,\r\n  step: 1\r\n}"
                 }
             ],
-            "ui/src/stories/progress-bar/index.stories.ts": [
-                {
-                    "name": "Determinate",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/progress-bar/index.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions),\r\n    value: number('value', 60, valueOptions)\r\n  }\r\n})"
-                },
-                {
-                    "name": "Indeterminate",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/progress-bar/index.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  component: OuiProgressBar,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    strokeWidth: number('strokeWidth', 5, strokeWidthOptions)\r\n  }\r\n})"
-                },
-                {
-                    "name": "strokeWidthOptions",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/progress-bar/index.stories.ts",
-                    "type": "object",
-                    "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 20,\r\n  step: 1\r\n}"
-                },
-                {
-                    "name": "valueOptions",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/progress-bar/index.stories.ts",
-                    "type": "object",
-                    "defaultValue": "{\r\n  range: true,\r\n  min: 1,\r\n  max: 100,\r\n  step: 1\r\n}"
-                }
-            ],
             "ui/src/components/dialog/dialog-content.ts": [
                 {
                     "name": "dialogElementUid",
@@ -37823,16 +37823,6 @@
                     "description": "<p>Counter used to generate unique IDs for dialog elements. </p>\n"
                 }
             ],
-            "environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.ts",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: false,\r\n}"
-                }
-            ],
             "environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -37841,6 +37831,16 @@
                     "file": "environments/environment.prod.ts",
                     "type": "object",
                     "defaultValue": "{\r\n  production: true,\r\n}"
+                }
+            ],
+            "environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\r\n  production: false,\r\n}"
                 }
             ],
             "ui/src/components/table/table-module.ts": [
@@ -38471,16 +38471,6 @@
                     "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiCheckboxModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-checkbox\r\n                class=\"example-margin\"\r\n                [(ngModel)]=\"checked\"\r\n                [labelPosition]=\"position\"\r\n                (change)=\"changed($event)\"\r\n                [disabled]=\"disabled\"\r\n                [color]=\"color\">\r\n                I'm a checkbox\r\n              </oui-checkbox>`,\r\n  props: {\r\n    color: select('color', COLORS, COLORS[0]),\r\n    changed: action('change'),\r\n    position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),\r\n    disabled: boolean('disabled', false),\r\n    checked: boolean('checked', false)\r\n  }\r\n})"
                 }
             ],
-            "ui/src/stories/form-field/index.stories.ts": [
-                {
-                    "name": "Regular",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/form-field/index.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiFormFieldModule, OuiInputModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-form-field [appearance]=\"appearance\"> <input [disabled]=\"disabled\" (blur)=\"blured()\" (focus)=\"focused()\" [type]=\"type\" oui-input [placeholder]=\"placeholder\" /> </oui-form-field>`,\r\n  props: {\r\n    type: select('type', ['text', 'number', 'email', 'password'], 'text'),\r\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),\r\n    disabled: boolean('disabled', false),\r\n    placeholder: text('placeholder', 'Type Here'),\r\n    focused: action('focus'),\r\n    blured: action('blur')\r\n  }\r\n})"
-                }
-            ],
             "ui/src/stories/dialog/index.stories.ts": [
                 {
                     "name": "Regular",
@@ -38509,6 +38499,16 @@
                     "defaultValue": "{\r\n  range: true,\r\n  min: 15,\r\n  max: 200,\r\n  step: 1\r\n}"
                 }
             ],
+            "ui/src/stories/form-field/index.stories.ts": [
+                {
+                    "name": "Regular",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/form-field/index.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiFormFieldModule, OuiInputModule],\r\n    schemas: [],\r\n    declarations: []\r\n  },\r\n  template: `<oui-form-field [appearance]=\"appearance\"> <input [disabled]=\"disabled\" (blur)=\"blured()\" (focus)=\"focused()\" [type]=\"type\" oui-input [placeholder]=\"placeholder\" /> </oui-form-field>`,\r\n  props: {\r\n    type: select('type', ['text', 'number', 'email', 'password'], 'text'),\r\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),\r\n    disabled: boolean('disabled', false),\r\n    placeholder: text('placeholder', 'Type Here'),\r\n    focused: action('focus'),\r\n    blured: action('blur')\r\n  }\r\n})"
+                }
+            ],
             "ui/src/stories/radio/index.stories.ts": [
                 {
                     "name": "Regular",
@@ -38529,6 +38529,16 @@
                     "defaultValue": "() => ({\r\n  component: OuiSlideToggle,\r\n  props: {\r\n    checked: boolean('checked', true),\r\n    disabled: boolean('disabled', false),\r\n    color: select('color', COLORS, COLORS[0]),\r\n    change: action('state-change')\r\n  }\r\n})"
                 }
             ],
+            "ui/src/stories/tooltip/index.stories.ts": [
+                {
+                    "name": "Regular",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/tooltip/index.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],\r\n    schemas: [],\r\n    declarations: [OuiTooltipStorybook]\r\n  },\r\n  template: `<oui-tooltip-storybook [disabled]=\"disabled\"\r\n    [_ouiTooltip]=\"ouiTooltip\"\r\n    [_ouiTooltipPosition]=\"ouiTooltipPosition\"></oui-tooltip-storybook>`,\r\n  props: {\r\n    changed: action('change'),\r\n    disabled: boolean('ouiTooltipDisabled', false),\r\n    ouiTooltip: text('ouiTooltip', 'This is a tooltip'),\r\n    ouiTooltipPosition: select(\r\n      'ouiTooltipPosition',\r\n      TOOLTIPPOSITION,\r\n      TOOLTIPPOSITION[0]\r\n    )\r\n  }\r\n})"
+                }
+            ],
             "ui/src/stories/textarea/index.stories.ts": [
                 {
                     "name": "Regular",
@@ -38545,16 +38555,6 @@
                     "file": "ui/src/stories/textarea/index.stories.ts",
                     "type": "object",
                     "defaultValue": "{\r\n  range: true,\r\n  min: 2,\r\n  max: 50,\r\n  step: 1\r\n}"
-                }
-            ],
-            "ui/src/stories/tooltip/index.stories.ts": [
-                {
-                    "name": "Regular",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/tooltip/index.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],\r\n    schemas: [],\r\n    declarations: [OuiTooltipStorybook]\r\n  },\r\n  template: `<oui-tooltip-storybook [disabled]=\"disabled\"\r\n    [_ouiTooltip]=\"ouiTooltip\"\r\n    [_ouiTooltipPosition]=\"ouiTooltipPosition\"></oui-tooltip-storybook>`,\r\n  props: {\r\n    changed: action('change'),\r\n    disabled: boolean('ouiTooltipDisabled', false),\r\n    ouiTooltip: text('ouiTooltip', 'This is a tooltip'),\r\n    ouiTooltipPosition: select(\r\n      'ouiTooltipPosition',\r\n      TOOLTIPPOSITION,\r\n      TOOLTIPPOSITION[0]\r\n    )\r\n  }\r\n})"
                 }
             ],
             "ui/src/components/dialog/dialog-ref.ts": [
@@ -42773,8 +42773,8 @@
             },
             {
                 "filePath": "ui/src/components/select/select.component.ts",
-                "type": "component",
-                "linktype": "component",
+                "type": "directive",
+                "linktype": "directive",
                 "name": "OuiSelectTrigger",
                 "coveragePercent": 100,
                 "coverageCount": "1/1",

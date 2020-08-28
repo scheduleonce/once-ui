@@ -18,11 +18,11 @@
     "compile-scss-green": "node-sass --include-path scss ./dist/ui/themes/once-ui-theme-green.scss ./dist/ui/themes/once-ui-theme-green.css && rimraf -f ./dist/ui/themes/once-ui-theme-green.scss",
     "npm-pack": "cd dist/ui && npm pack",
     "package": "npm run build && npm run bundle-styles && npm run npm-pack",
-    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",    
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "build-storybook": "npm run storybook-css && npm run docs:json &&  build-storybook -s ./ui/src/stories/styles",
     "storybook-css": "node-sass --output-style compressed  ui/src/components/core/theming/prebuilt -o ui/src/stories/styles/themes",
-    "storybook": "npm run storybook-css && npm run docs:json && start-storybook -p 9000 -s ./ui/src/stories/styles"
-
+    "storybook": "npm run storybook-css && npm run docs:json && start-storybook -p 6006 -s ./ui/src/stories/styles",
+    "deploy-storybook": "npm run storybook-css && storybook-to-ghpages -o out"
   },
   "private": true,
   "dependencies": {
@@ -48,11 +48,11 @@
     "@angular/language-service": "^9.1.12",
     "@babel/core": "^7.11.4",
     "@compodoc/compodoc": "^1.1.11",
-    "@storybook/addon-actions": "^6.0.16",
-    "@storybook/addon-essentials": "^6.0.16",
-    "@storybook/addon-links": "^6.0.16",
-    "@storybook/addon-knobs": "^6.0.16",
-    "@storybook/angular": "^6.0.16",
+    "@storybook/addon-actions": "6.0.16",
+    "@storybook/addon-essentials": "6.0.16",
+    "@storybook/addon-links": "6.0.16",
+    "@storybook/addon-knobs": "6.0.16",
+    "@storybook/angular": "6.0.16",
     "@storybook/storybook-deployer": "^2.8.6",
     "@types/jasmine": "^3.5.13",
     "@types/jasminewd2": "^2.0.8",
