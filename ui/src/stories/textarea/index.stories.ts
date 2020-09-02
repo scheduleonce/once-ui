@@ -1,7 +1,9 @@
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { OuiFormFieldModule, OuiInputModule } from '../../components';
-import markdownText from '../../components/input/README.md';
+import {
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiFormField,
+} from '../../components';
 import { text, boolean, number } from '@storybook/addon-knobs';
 
 const rowsOptions = {
@@ -11,22 +13,23 @@ const rowsOptions = {
   step: 1,
 };
 
-storiesOf('Form Field/Textarea', module).add(
-  'Regular',
-  () => ({
-    moduleMetadata: {
-      imports: [OuiFormFieldModule, OuiInputModule],
-      schemas: [],
-      declarations: [],
-    },
-    template: `<oui-form-field> <textarea [disabled]="disabled" [rows]="rows" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder"></textarea> </oui-form-field>`,
-    props: {
-      disabled: boolean('disabled', false),
-      placeholder: text('placeholder', 'Type Here'),
-      rows: number('rows', 2, rowsOptions),
-      focused: action('focus'),
-      blured: action('blur'),
-    },
-  }),
-  { notes: { markdown: markdownText } }
-);
+export default {
+  title: 'Form Field/Textarea',
+  component: OuiFormField,
+};
+
+export const Regular = () => ({
+  moduleMetadata: {
+    imports: [OuiFormFieldModule, OuiInputModule],
+    schemas: [],
+    declarations: [],
+  },
+  template: `<oui-form-field> <textarea [disabled]="disabled" [rows]="rows" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder"></textarea> </oui-form-field>`,
+  props: {
+    disabled: boolean('disabled', false),
+    placeholder: text('placeholder', 'Type Here'),
+    rows: number('rows', 2, rowsOptions),
+    focused: action('focus'),
+    blured: action('blur'),
+  },
+});
