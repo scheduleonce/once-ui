@@ -14,6 +14,6 @@ import {
   imports: [CommonModule, ObserversModule, OverlayModule],
   exports: [TooltipComponent, OuiTooltip],
   providers: [OUI_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
-  entryComponents: [TooltipComponent]
+  entryComponents: [TooltipComponent],
 })
 export class OuiTooltipModule {}

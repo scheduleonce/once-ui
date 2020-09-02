@@ -88,9 +88,11 @@ export class OuiTableStorybook implements OnInit {
             <div class="integrationsContainer">
               <ul>
                 <li *ngFor="let integration of user.integration">
-                  <span [ouiTooltip]="integration"
-                  ouiTooltipPosition="above"
-                  [innerHTML]=INTEGRATIONS[integration]></span>
+                  <span
+                    [ouiTooltip]="integration"
+                    ouiTooltipPosition="above"
+                    [innerHTML]="INTEGRATIONS[integration]"
+                  ></span>
                 </li>
               </ul>
             </div>
@@ -104,10 +106,11 @@ export class OuiTableStorybook implements OnInit {
             <div class="licensesContainer">
               <ul>
                 <li *ngFor="let license of user.licence">
-                  <span [ouiTooltip]="license"
-                  ouiTooltipPosition="above" 
-                  [innerHTML]=LICENCES[license]></span>
-                  
+                  <span
+                    [ouiTooltip]="license"
+                    ouiTooltipPosition="above"
+                    [innerHTML]="LICENCES[license]"
+                  ></span>
                 </li>
               </ul>
             </div>
@@ -129,11 +132,15 @@ export class OuiTableCustomStorybook implements OnInit {
   INTEGRATIONS = {
     paypal: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.PAYPAL),
     zapier: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.ZAPIER),
-    'google-calender': this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.GOOGLE_CALENDAR),
+    'google-calender': this.sanitizer.bypassSecurityTrustHtml(
+      STORY_ICONS.GOOGLE_CALENDAR
+    ),
     salesforce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.SALESFORCE),
   };
   LICENCES = {
-    scheduleonce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.SCHEDULEONCE),
+    scheduleonce: this.sanitizer.bypassSecurityTrustHtml(
+      STORY_ICONS.SCHEDULEONCE
+    ),
     inviteonce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.INVITEONCE),
   };
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
