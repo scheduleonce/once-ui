@@ -1,26 +1,21 @@
-import { storiesOf } from '@storybook/angular';
 import {
   OuiSelectModule,
   OuiFormFieldModule,
   OuiInputModule,
+  OuiSelect,
 } from '../../components';
-import {
-  array,
-  boolean,
-  text,
-  object,
-  select,
-} from '@storybook/addon-knobs/angular';
+import { array, boolean, text, object, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import markdownText from '../../components/select/README.md';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { APPEARANCE } from '../const';
 
-storiesOf('Form Field/Select', module)
-  .add(
-    'Regular',
-    () => ({
-      template: `
+export default {
+  title: 'Form Field/Select',
+  component: OuiSelect,
+};
+
+export const Regular = () => ({
+  template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
         <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
@@ -31,42 +26,39 @@ storiesOf('Form Field/Select', module)
       </oui-form-field>
     </div>
     `,
-      props: {
-        foods: array('foods', [
-          'Pizza',
-          'Burgers',
-          'Steak',
-          'Tacos',
-          'Pasta',
-          'Fries',
-          'Momos',
-          'Kababs',
-          'Rolls',
-          'Biryani',
-          'Sweets',
-        ]),
-        placeholder: text('placeholder', 'Favorite food'),
-        disabled: boolean('disabled', false),
-        large: boolean('large', false),
-        onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
-      },
-      moduleMetadata: {
-        imports: [
-          OuiFormFieldModule,
-          OuiInputModule,
-          OuiSelectModule,
-          FormsModule,
-          ReactiveFormsModule,
-        ],
-      },
-    }),
-    { notes: { markdown: markdownText } }
-  )
-  .add(
-    'Multi select',
-    () => ({
-      template: `
+  props: {
+    foods: array('foods', [
+      'Pizza',
+      'Burgers',
+      'Steak',
+      'Tacos',
+      'Pasta',
+      'Fries',
+      'Momos',
+      'Kababs',
+      'Rolls',
+      'Biryani',
+      'Sweets',
+    ]),
+    placeholder: text('placeholder', 'Favorite food'),
+    disabled: boolean('disabled', false),
+    large: boolean('large', false),
+    onChange: action('change'),
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+  },
+  moduleMetadata: {
+    imports: [
+      OuiFormFieldModule,
+      OuiInputModule,
+      OuiSelectModule,
+      FormsModule,
+      ReactiveFormsModule,
+    ],
+  },
+});
+
+export const Multi = () => ({
+  template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
         <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
@@ -77,30 +69,27 @@ storiesOf('Form Field/Select', module)
       </oui-form-field>
     </div>
     `,
-      props: {
-        foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
-        placeholder: text('placeholder', 'Favorite food'),
-        disabled: boolean('disabled', false),
-        large: boolean('large', false),
-        onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
-      },
-      moduleMetadata: {
-        imports: [
-          OuiFormFieldModule,
-          OuiInputModule,
-          OuiSelectModule,
-          FormsModule,
-          ReactiveFormsModule,
-        ],
-      },
-    }),
-    { notes: { markdown: markdownText } }
-  )
-  .add(
-    'Groups',
-    () => ({
-      template: `
+  props: {
+    foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
+    placeholder: text('placeholder', 'Favorite food'),
+    disabled: boolean('disabled', false),
+    large: boolean('large', false),
+    onChange: action('change'),
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+  },
+  moduleMetadata: {
+    imports: [
+      OuiFormFieldModule,
+      OuiInputModule,
+      OuiSelectModule,
+      FormsModule,
+      ReactiveFormsModule,
+    ],
+  },
+});
+
+export const Groups = () => ({
+  template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
         <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
@@ -114,51 +103,48 @@ storiesOf('Form Field/Select', module)
       </oui-form-field>
     </div>
     `,
-      props: {
-        foodGroups: object('foodGroups', [
-          {
-            name: 'Fruit',
-            foods: ['Apple', 'Orange'],
-          },
-          {
-            name: 'Vegetables',
-            foods: [
-              'Lettuce',
-              'Broccoli',
-              'Corn',
-              'Cucumber',
-              'Lettuce',
-              'Pumpkin',
-              'Tomato',
-            ],
-          },
-          {
-            name: 'Meats',
-            foods: ['Steak', 'Chicken'],
-          },
-        ]),
-        disabled: boolean('disabled', false),
-        large: boolean('large', false),
-        placeholder: text('placeholder', 'Foods'),
-        onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+  props: {
+    foodGroups: object('foodGroups', [
+      {
+        name: 'Fruit',
+        foods: ['Apple', 'Orange'],
       },
-      moduleMetadata: {
-        imports: [
-          OuiFormFieldModule,
-          OuiInputModule,
-          OuiSelectModule,
-          FormsModule,
-          ReactiveFormsModule,
+      {
+        name: 'Vegetables',
+        foods: [
+          'Lettuce',
+          'Broccoli',
+          'Corn',
+          'Cucumber',
+          'Lettuce',
+          'Pumpkin',
+          'Tomato',
         ],
       },
-    }),
-    { notes: { markdown: markdownText } }
-  )
-  .add(
-    'Search options',
-    () => ({
-      template: `
+      {
+        name: 'Meats',
+        foods: ['Steak', 'Chicken'],
+      },
+    ]),
+    disabled: boolean('disabled', false),
+    large: boolean('large', false),
+    placeholder: text('placeholder', 'Foods'),
+    onChange: action('change'),
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+  },
+  moduleMetadata: {
+    imports: [
+      OuiFormFieldModule,
+      OuiInputModule,
+      OuiSelectModule,
+      FormsModule,
+      ReactiveFormsModule,
+    ],
+  },
+});
+
+export const Search_Options = () => ({
+  template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">
         <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
@@ -176,23 +162,21 @@ storiesOf('Form Field/Select', module)
       </oui-form-field>
     </div>
     `,
-      props: {
-        foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
-        placeholder: text('placeholder', 'Favorite food'),
-        disabled: boolean('disabled', false),
-        large: boolean('large', false),
-        onChange: action('change'),
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
-      },
-      moduleMetadata: {
-        imports: [
-          OuiFormFieldModule,
-          OuiInputModule,
-          OuiSelectModule,
-          FormsModule,
-          ReactiveFormsModule,
-        ],
-      },
-    }),
-    { notes: { markdown: markdownText } }
-  );
+  props: {
+    foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
+    placeholder: text('placeholder', 'Favorite food'),
+    disabled: boolean('disabled', false),
+    large: boolean('large', false),
+    onChange: action('change'),
+    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+  },
+  moduleMetadata: {
+    imports: [
+      OuiFormFieldModule,
+      OuiInputModule,
+      OuiSelectModule,
+      FormsModule,
+      ReactiveFormsModule,
+    ],
+  },
+});
