@@ -314,7 +314,7 @@ export class OuiSelect
   // set initialValue(value:string){
   //   this._initialValue = value;
   // }
-  initialValue="";
+  initialValue = '';
   private _value: any;
 
   /**
@@ -739,7 +739,9 @@ export class OuiSelect
     debugger;
     if (this.empty) {
       this.initialValue = '';
-      setTimeout(()=>{this._changeDetectorRef.detectChanges()},0);
+      setTimeout(() => {
+        this._changeDetectorRef.detectChanges();
+      }, 0);
       return '';
     }
     if (this._multiple) {
