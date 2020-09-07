@@ -307,13 +307,6 @@ export class OuiSelect
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
-  // private _initialValue = '';
-  // get initialValue(){
-  //   return this._initialValue;
-  // }
-  // set initialValue(value:string){
-  //   this._initialValue = value;
-  // }
   initialValue = '';
   private _value: any;
 
@@ -736,7 +729,6 @@ export class OuiSelect
 
   /** The value displayed in the trigger. */
   get triggerValue(): string {
-    debugger;
     if (this.empty) {
       this.initialValue = '';
       setTimeout(() => {
