@@ -43,7 +43,7 @@ export const Regular = () => ({
   },
 });
 
-export const Groups = () => ({
+export const With_Groups = () => ({
   moduleMetadata: {
     imports: [
       OuiFormFieldModule,

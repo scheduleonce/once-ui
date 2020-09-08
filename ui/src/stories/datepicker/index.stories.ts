@@ -83,7 +83,7 @@ export const Regular = () => ({
   },
 });
 
-export const Custom = () => ({
+export const Custom_Format = () => ({
   moduleMetadata: {
     imports: [
       OuiDatepickerModule,
@@ -136,7 +136,7 @@ export const Custom = () => ({
   },
 });
 
-export const Daterange = () => ({
+export const Daterange_Picker = () => ({
   moduleMetadata: {
     imports: [
       OuiDatepickerModule,

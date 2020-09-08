@@ -39,7 +39,7 @@ export const Regular = () => ({
   },
 });
 
-export const Nested = () => ({
+export const Nested_Menu = () => ({
   moduleMetadata: {
     imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
     schemas: [],
