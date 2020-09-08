@@ -61,13 +61,16 @@ export const Multi = () => ({
   template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
-          <oui-option *ngFor="let food of foods" [value]="food">
+        <oui-select (selectionChange)="onChange($event)" [large]="large" [(ngModel)]="currentValue" [placeholder]="placeholder" multiple [disabled]="disabled">
+        <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+        <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
             {{food}}
           </oui-option>
         </oui-select>
       </oui-form-field>
     </div>
+    <br><br><br><br><br><br><br>
+    <button (click)="clearCurrentValue()">Clear</button>
     `,
   props: {
     foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
@@ -76,6 +79,10 @@ export const Multi = () => ({
     large: boolean('large', false),
     onChange: action('change'),
     appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+    currentValue:['Pizza'],
+    clearCurrentValue:function(){
+      this.currentValue="";
+    }
   },
   moduleMetadata: {
     imports: [
