@@ -41,7 +41,7 @@ export const Regular = () => ({
   },
 });
 
-export const Panel = () => ({
+export const With_Image = () => ({
   moduleMetadata: {
     imports: [OuiIconModule, OuiButtonModule, OuiPanelModule, OverlayModule],
     schemas: [],
