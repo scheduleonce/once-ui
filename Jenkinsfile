@@ -1,5 +1,4 @@
 def testReports = false
-//stage 'Build'
 node {
     try {
         def branchName = env.CHANGE_TARGET
