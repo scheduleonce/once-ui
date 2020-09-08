@@ -731,9 +731,9 @@ export class OuiSelect
   get triggerValue(): string {
     if (this.empty) {
       this.initialValue = '';
-      setTimeout(() => {
+      this._ngZone.onStable.subscribe(() => {
         this._changeDetectorRef.detectChanges();
-      }, 0);
+      });
       return '';
     }
     if (this._multiple) {
