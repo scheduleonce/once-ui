@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { OuiDatepickerInputEvent } from '../../components/datepicker';
 import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
 
@@ -48,7 +54,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
     </div>
   `,
 })
-export class OuiDatepickerStorybook implements OnInit {
+export class OuiDatepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';
   @Input() color = 'primary';
   @Input() startView = 'primary';
@@ -71,11 +77,12 @@ export class OuiDatepickerStorybook implements OnInit {
   @Output()
   readonly _dateChange: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
-  ngOnInit() {
+  ngOnChanges() {
     this.minDate = new Date(this.mindate);
     this.maxDate = new Date(this.maxdate);
     this._value = new Date(this.value);
   }
+
   closed(e) {
     this._closed.emit(e);
   }
@@ -124,7 +131,7 @@ export class OuiDatepickerStorybook implements OnInit {
   `,
   providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
 })
-export class OuiDatepickerCustomStorybook implements OnInit {
+export class OuiDatepickerCustomStorybook implements OnChanges {
   @Input() appearance = 'standard';
   @Input() color = 'primary';
   @Input() startView = 'primary';
@@ -147,7 +154,7 @@ export class OuiDatepickerCustomStorybook implements OnInit {
   @Output()
   readonly _dateChange: EventEmitter<string> = new EventEmitter<string>();
   constructor() {}
-  ngOnInit() {
+  ngOnChanges() {
     this.minDate = new Date(this.mindate);
     this.maxDate = new Date(this.maxdate);
     this._value = new Date(this.value);
@@ -220,7 +227,7 @@ export class OuiDatepickerCustomStorybook implements OnInit {
     </div>
   `,
 })
-export class OuiDaterangepickerStorybook implements OnInit {
+export class OuiDaterangepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';
   @Input() color = 'primary';
   @Input() startView = 'primary';
@@ -235,7 +242,7 @@ export class OuiDaterangepickerStorybook implements OnInit {
   @Output()
   readonly _dateChange: EventEmitter<{}> = new EventEmitter<{}>();
   constructor() {}
-  ngOnInit() {
+  ngOnChanges() {
     this.minRangeDate = new Date(this.mindate);
     this.maxRangeDate = new Date(this.maxdate);
   }
