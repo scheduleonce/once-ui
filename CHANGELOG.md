@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - [`ONCEHUB-34023`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34023) Upgrade Storybook to version 6
+- [`ONCEHUB-34358`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34358) Two way binding of oui-select is not working properly.
 
 ## [4.0.1-beta.0] - 2020-09-02
 
