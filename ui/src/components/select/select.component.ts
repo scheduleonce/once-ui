@@ -308,7 +308,6 @@ export class OuiSelect
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
   initialValue = '';
-
   private _value: any;
 
   /**
@@ -732,6 +731,9 @@ export class OuiSelect
   get triggerValue(): string {
     if (this.empty) {
       this.initialValue = '';
+      this._ngZone.onStable.subscribe(() => {
+        this._changeDetectorRef.detectChanges();
+      });
       return '';
     }
     if (this._multiple) {

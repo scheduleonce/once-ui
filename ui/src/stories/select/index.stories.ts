@@ -57,7 +57,7 @@ export const Regular = () => ({
   },
 });
 
-export const Multi = () => ({
+export const Multi_Select = () => ({
   template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
