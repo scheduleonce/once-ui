@@ -1,4 +1,10 @@
-import { Component, Output, EventEmitter, Input, OnChanges } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+} from '@angular/core';
 import { OuiDatepickerInputEvent } from '../../components/datepicker';
 import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
 
@@ -76,7 +82,7 @@ export class OuiDatepickerStorybook implements OnChanges {
     this.maxDate = new Date(this.maxdate);
     this._value = new Date(this.value);
   }
-  
+
   closed(e) {
     this._closed.emit(e);
   }
