@@ -188,13 +188,6 @@ export class OuiSelectSearchComponent
           }
 
           this.previousSelectedValues = values;
-          // if all the items are deselected this will show the placeholder.
-          if (
-            !this.previousSelectedValues ||
-            this.previousSelectedValues.length === 0
-          ) {
-            this.ouiSelect.initialValue = '';
-          }
         }
       });
   }

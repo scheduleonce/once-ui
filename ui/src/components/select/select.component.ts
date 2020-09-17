@@ -307,7 +307,6 @@ export class OuiSelect
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
-  initialValue = '';
   private _value: any;
 
   /**
@@ -730,10 +729,6 @@ export class OuiSelect
   /** The value displayed in the trigger. */
   get triggerValue(): string {
     if (this.empty) {
-      this.initialValue = '';
-      this._ngZone.onStable.subscribe(() => {
-        this._changeDetectorRef.detectChanges();
-      });
       return '';
     }
     if (this._multiple) {
@@ -744,10 +739,8 @@ export class OuiSelect
       if (this._isRtl()) {
         selectedOptions.reverse();
       }
-      this.initialValue = selectedOptions.join(', ');
       return selectedOptions.join(', ');
     }
-    this.initialValue = this._selectionModel.selected[0].viewValueForSelect;
     return this._selectionModel.selected[0].viewValueForSelect;
   }
 
@@ -1136,7 +1129,6 @@ export class OuiSelect
     this.valueChange.emit(valueToEmit);
     this._onChange(valueToEmit);
     this.selectionChange.emit(new OuiSelectChange(this, valueToEmit));
-    // this.initialValue = this.triggerValue;
     this._changeDetectorRef.markForCheck();
   }
 
