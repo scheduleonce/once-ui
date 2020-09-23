@@ -16,7 +16,7 @@ export const Regular = () => ({
   },
   template: `<oui-checkbox
                 class="example-margin"
-                [(ngModel)]="checked"
+                [checked]="checked"
                 [labelPosition]="position"
                 (change)="changed($event)"
                 [disabled]="disabled"

@@ -1,5 +1,5 @@
 import { STORY_ICONS, USERINFOCOLUMNS } from './const';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
@@ -32,7 +32,7 @@ import { DomSanitizer } from '@angular/platform-browser';
     </div>
   `,
 })
-export class OuiTableStorybook implements OnInit {
+export class OuiTableStorybook implements OnInit, OnChanges {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
   displayedColumns: string[] = [];
@@ -40,11 +40,15 @@ export class OuiTableStorybook implements OnInit {
   @Input() pageSize: any[] = [];
   dataSource = new OuiTableDataSource(this.users);
   constructor() {}
+
   ngOnInit() {
     // tslint:disable-next-line:forin
     for (const key in this.users[0]) {
       this.displayedColumns.push(key);
     }
+  }
+
+  ngOnChanges() {
     this.dataSource = new OuiTableDataSource(this.users);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
@@ -128,7 +132,7 @@ export class OuiTableStorybook implements OnInit {
     </div>
   `,
 })
-export class OuiTableCustomStorybook implements OnInit {
+export class OuiTableCustomStorybook implements OnChanges {
   INTEGRATIONS = {
     paypal: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.PAYPAL),
     zapier: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.ZAPIER),
@@ -149,7 +153,7 @@ export class OuiTableCustomStorybook implements OnInit {
   @Input() pageSize: any[] = [];
   userInfoDataSource = new OuiTableDataSource(this.users);
   constructor(private sanitizer: DomSanitizer) {}
-  ngOnInit() {
+  ngOnChanges() {
     this.userInfoDataSource = new OuiTableDataSource(this.users);
     this.userInfoDataSource.sort = this.sort;
   }
