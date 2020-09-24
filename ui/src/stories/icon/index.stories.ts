@@ -5,7 +5,7 @@ import { OuiiconStorybook } from './icon.component';
 
 const sizeOptions = {
   range: true,
-  min: 15,
+  min: 20,
   max: 200,
   step: 1,
 };

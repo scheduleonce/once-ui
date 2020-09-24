@@ -4,7 +4,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'oui-icon-storybook',
   template: `
-    <oui-icon [svgIcon]="icon" [size]="size" [color]="color"></oui-icon>
+    <oui-icon
+      [svgIcon]="icon"
+      [size]="size"
+      [color]="color"
+      [style.width.px]="size"
+      [style.height.px]="size"
+    ></oui-icon>
   `,
 })
 export class OuiiconStorybook {
