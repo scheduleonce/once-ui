@@ -81,6 +81,9 @@ export class OuiDatepickerStorybook implements OnChanges {
     this.minDate = new Date(this.mindate);
     this.maxDate = new Date(this.maxdate);
     this._value = new Date(this.value);
+    if (this.opened) {
+      (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
+    }
   }
 
   closed(e) {
@@ -158,6 +161,9 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
     this.minDate = new Date(this.mindate);
     this.maxDate = new Date(this.maxdate);
     this._value = new Date(this.value);
+    if (this.opened) {
+      (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
+    }
   }
   closed(e) {
     this._closed.emit(e);
