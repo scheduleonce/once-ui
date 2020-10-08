@@ -18,7 +18,7 @@ import {
   OuiDialogHeaderSeparator,
   OuiDialogFooterActionLeft,
   OuiDialogFooterActionRight,
-  OuiDialogHeaderImage
+  OuiDialogHeaderImage,
 } from './dialog-content';
 import { OuiIconModule } from '../icon/icon.module';
 
@@ -38,7 +38,7 @@ import { OuiIconModule } from '../icon/icon.module';
     OuiDialogClose,
     OuiDialogHeaderSeparator,
     OuiDialogFooterActionLeft,
-    OuiDialogFooterActionRight
+    OuiDialogFooterActionRight,
   ],
   declarations: [
     OuiDialogContainer,
@@ -54,12 +54,13 @@ import { OuiIconModule } from '../icon/icon.module';
     OuiDialogClose,
     OuiDialogHeaderSeparator,
     OuiDialogFooterActionLeft,
-    OuiDialogFooterActionRight
+    OuiDialogFooterActionRight,
   ],
   providers: [
     OuiDialog,
     DialogScrollStrategy,
-    OUI_DIALOG_SCROLL_STRATEGY_PROVIDER
-  ]
+    OUI_DIALOG_SCROLL_STRATEGY_PROVIDER,
+  ],
+  entryComponents: [OuiDialogContainer],
 })
 export class OuiDialogModule {}

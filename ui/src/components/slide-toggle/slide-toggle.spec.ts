@@ -8,7 +8,7 @@ describe('OuiSlideToggle', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [OuiSlideToggle]
+      declarations: [OuiSlideToggle],
     }).compileComponents();
   }));
 
@@ -55,7 +55,7 @@ describe('OuiSlideToggle', () => {
       new Event('click')
     );
     fixture.detectChanges();
-    component.change.subscribe(val => {
+    component.change.subscribe((val) => {
       expect(val).toBeTruthy();
     });
   });

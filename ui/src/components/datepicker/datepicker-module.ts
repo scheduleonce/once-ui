@@ -10,13 +10,13 @@ import { OuiCalendarBody } from './calendar-body';
 import {
   OuiDatepicker,
   OuiDatepickerContent,
-  OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER
+  OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
 } from './datepicker';
 import { OuiDatepickerInput } from './datepicker-input';
 import { OuiDatepickerIntl } from './datepicker-intl';
 import {
   OuiDatepickerToggle,
-  OuiDatepickerToggleIcon
+  OuiDatepickerToggleIcon,
 } from './datepicker-toggle';
 import { OuiMonthView } from './month-view';
 import { OuiMultiYearView } from './multi-year-view';
@@ -33,7 +33,7 @@ import { OuiIconModule } from '../icon/icon.module';
     A11yModule,
     PortalModule,
     OuiNativeDateModule,
-    OuiIconModule
+    OuiIconModule,
   ],
   exports: [
     OuiCalendar,
@@ -46,7 +46,7 @@ import { OuiIconModule } from '../icon/icon.module';
     OuiMonthView,
     OuiYearView,
     OuiMultiYearView,
-    OuiCalendarHeader
+    OuiCalendarHeader,
   ],
   declarations: [
     OuiCalendar,
@@ -59,11 +59,12 @@ import { OuiIconModule } from '../icon/icon.module';
     OuiMonthView,
     OuiYearView,
     OuiMultiYearView,
-    OuiCalendarHeader
+    OuiCalendarHeader,
   ],
   providers: [
     OuiDatepickerIntl,
-    OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER
-  ]
+    OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
+  ],
+  entryComponents: [OuiDatepickerContent, OuiCalendarHeader],
 })
 export class OuiDatepickerModule {}

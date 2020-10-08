@@ -2,7 +2,6 @@
 
 1.  Import `OuiDialogModule` in your module.
 
-
           import { OuiDialogModule } from '@oncehub/ui';
 
           @NgModule({
@@ -16,7 +15,6 @@
 
 2.  Import and Inject `OuiDialog` service in your component. This service will open the dialog with configuration and returns
     dialog reference object.;
-
 
           import { OuiDialog } from '@oncehub/ui';
 
@@ -112,7 +110,7 @@
 @NgModule({
   declarations: [AppComponent, SomeDialogComponent],
   imports: [BrowserModule, OuiButtonModule, OuiDialogModule],
-  providers: []
+  providers: [],
 })
 export class AppModule {}
 ```
@@ -125,7 +123,7 @@ import { OUI_DIALOG_DATA } from '@oncehub/ui';
 
 @Component({
   selector: 'your-dialog',
-  template: 'passed in {{ data.name }}'
+  template: 'passed in {{ data.name }}',
 })
 export class SomeDialogComponent {
   constructor(@Inject(OUI_DIALOG_DATA) public data: any) {}
@@ -142,7 +140,7 @@ import { SomeDialogComponent } from 'some-dialog/some-dialog.component.ts';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   @ViewChild('dialogTemplate')
@@ -154,8 +152,8 @@ export class AppComponent {
     const config = {
       data: {
         title: 'this is the title',
-        save: this.save.bind(this)
-      }
+        save: this.save.bind(this),
+      },
     };
     this.dialogRef = this.dialog.open(SomeDialogComponent);
     this.dialogRef.afterClosed().subscribe(() => {

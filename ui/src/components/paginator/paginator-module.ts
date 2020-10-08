@@ -9,6 +9,6 @@ import { OUI_PAGINATOR_INTL_PROVIDER } from './paginator-intl';
   imports: [CommonModule, OuiButtonModule, OuiTooltipModule],
   exports: [OuiPaginator],
   declarations: [OuiPaginator],
-  providers: [OUI_PAGINATOR_INTL_PROVIDER]
+  providers: [OUI_PAGINATOR_INTL_PROVIDER],
 })
 export class OuiPaginatorModule {}

@@ -8,11 +8,7 @@
 >
   <div class="oui-select-value" [ngSwitch]="empty">
     <span class="oui-select-placeholder" *ngSwitchCase="true">
-      <span *ngIf="!isSearchFieldPresent" [innerHTML]="placeholder"></span>
-      <span
-        *ngIf="isSearchFieldPresent"
-        [innerHTML]="initialValue || placeholder"
-      ></span>
+      <span [innerHTML]="placeholder"></span>
     </span>
     <span
       class="oui-select-value-text"
@@ -32,7 +28,6 @@
     <oui-icon svgIcon="select-arrow-icon" class="oui-select-arrow"></oui-icon>
   </div>
 </div>
-
 <ng-template
   cdk-connected-overlay
   cdkConnectedOverlayLockPosition

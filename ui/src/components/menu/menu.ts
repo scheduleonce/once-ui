@@ -1,7 +1,7 @@
 export {
   OuiMenu,
   OuiMenuDefaultOptions,
-  OUI_MENU_DEFAULT_OPTIONS
+  OUI_MENU_DEFAULT_OPTIONS,
 } from './menu-directive';
 export { OuiMenuItem } from './menu-item';
 export { OuiMenuTrigger } from './menu-trigger';

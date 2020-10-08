@@ -8,7 +8,7 @@ import {
   OuiFooterCell,
   OuiFooterCellDef,
   OuiHeaderCell,
-  OuiHeaderCellDef
+  OuiHeaderCellDef,
 } from './cell';
 import {
   OuiFooterRow,
@@ -16,7 +16,7 @@ import {
   OuiHeaderRow,
   OuiHeaderRowDef,
   OuiRow,
-  OuiRowDef
+  OuiRowDef,
 } from './row';
 import { CommonModule } from '@angular/common';
 
@@ -41,12 +41,12 @@ const EXPORTED_DECLARATIONS = [
   // Row directions
   OuiHeaderRow,
   OuiRow,
-  OuiFooterRow
+  OuiFooterRow,
 ];
 
 @NgModule({
   imports: [CdkTableModule, CommonModule],
   exports: EXPORTED_DECLARATIONS,
-  declarations: EXPORTED_DECLARATIONS
+  declarations: EXPORTED_DECLARATIONS,
 })
 export class OuiTableModule {}

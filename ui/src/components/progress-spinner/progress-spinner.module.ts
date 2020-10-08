@@ -5,6 +5,6 @@ import { OuiProgressSpinner } from './progress-spinner';
 @NgModule({
   imports: [CommonModule],
   declarations: [OuiProgressSpinner],
-  exports: [OuiProgressSpinner]
+  exports: [OuiProgressSpinner],
 })
 export class OuiProgressSpinnerModule {}
