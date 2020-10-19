@@ -81,7 +81,7 @@ export class OuiDialogConfig<D = any> {
   ariaLabel?: string | null = null;
 
   /** Whether the dialog should focus the first focusable element on open. */
-  autoFocus? = true;
+  autoFocus? = false;
 
   /**
    * Whether the dialog should restore focus to the
