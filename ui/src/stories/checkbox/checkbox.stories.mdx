@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiCheckboxModule, Checkbox } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { select, boolean } from '@storybook/addon-knobs';
+import { LABELPOSITION, COLORS } from '../const';
+
+<Meta title='MDX/Checkbox' component={Checkbox} />
+
+# Checkbox
+
+Supports all of the functionality of an HTML5 checkbox, and exposes a similar API. A MatCheckbox can be either checked, unchecked, or disabled. Note that all additional accessibility attributes are taken care of by the component, so there is no need to provide them yourself. However, if you want to omit a label and still have the checkbox be accessible, you may supply an [aria-label] input. See: https://github.com/scheduleonce/once-ui/tree/master/ui/src/components/checkbox/README.md
+
+<Canvas>
+  <Story name='regular'>
+  {{
+    moduleMetadata: {
+    imports: [OuiCheckboxModule],
+    schemas: [],
+    declarations: [],
+  },
+  template: `<oui-checkbox
+                class="example-margin"
+                [checked]="checked"
+                [labelPosition]="position"
+                (change)="changed($event)"
+                [disabled]="disabled"
+                [color]="color">
+                I'm a checkbox
+              </oui-checkbox>`,
+  props: {
+    color: select('color', COLORS, COLORS[0]),
+    changed: action('change'),
+    position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
+    disabled: boolean('disabled', false),
+    checked: boolean('checked', false),
+  },
+  }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-checkbox
+
+<ArgsTable of={Checkbox} />
