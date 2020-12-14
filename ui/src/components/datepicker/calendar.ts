@@ -15,7 +15,7 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
-  ViewEncapsulation
+  ViewEncapsulation,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { createMissingDateImplError } from './datepicker-errors';
@@ -42,13 +42,13 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
-    class: 'oui-calendar'
+    class: 'oui-calendar',
   },
   exportAs: 'ouiCalendar',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiCalendar<D>
   implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
@@ -208,7 +208,6 @@ export class OuiCalendar<D>
 
   ngAfterContentInit() {
     this._calendarHeaderPortal = new ComponentPortal(
-      // tslint:disable-next-line:no-use-before-declare
       this.headerComponent || OuiCalendarHeader
     );
     this.activeDate = this.startAt || this._dateAdapter.today();
@@ -312,12 +311,11 @@ export class OuiCalendar<D>
   templateUrl: 'calendar-header.html',
   exportAs: 'ouiCalendarHeader',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiCalendarHeader<D> {
   constructor(
     private _intl: OuiDatepickerIntl,
-    // tslint:disable-next-line:no-use-before-declare
     @Inject(forwardRef(() => OuiCalendar)) public calendar: OuiCalendar<D>,
     @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
@@ -372,7 +370,7 @@ export class OuiCalendarHeader<D> {
     return {
       month: this._intl.prevMonthLabel,
       year: this._intl.prevYearLabel,
-      'multi-year': this._intl.prevMultiYearLabel
+      'multi-year': this._intl.prevMultiYearLabel,
     }[this.calendar.currentView];
   }
 
@@ -381,7 +379,7 @@ export class OuiCalendarHeader<D> {
     return {
       month: this._intl.nextMonthLabel,
       year: this._intl.nextYearLabel,
-      'multi-year': this._intl.nextMultiYearLabel
+      'multi-year': this._intl.nextMultiYearLabel,
     }[this.calendar.currentView];
   }
 

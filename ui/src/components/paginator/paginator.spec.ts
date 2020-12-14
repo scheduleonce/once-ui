@@ -3,7 +3,7 @@ import {
   ComponentFixture,
   TestBed,
   tick,
-  fakeAsync
+  fakeAsync,
 } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,7 +11,7 @@ import { ThemePalette } from '../core';
 import {
   OuiPaginatorModule,
   OuiPaginator,
-  OuiPaginatorIntl
+  OuiPaginatorIntl,
 } from './public-api';
 
 function getPreviousButton(fixture: ComponentFixture<any>) {
@@ -43,7 +43,7 @@ function getLastButton(fixture: ComponentFixture<any>) {
       (page)="pageEvent($event)"
     >
     </oui-paginator>
-  `
+  `,
 })
 class OuiPaginatorApp {
   pageIndex = 0;
@@ -63,18 +63,14 @@ class OuiPaginatorApp {
 }
 
 @Component({
-  template: `
-    <oui-paginator></oui-paginator>
-  `
+  template: ` <oui-paginator></oui-paginator> `,
 })
 class OuiPaginatorWithoutInputsApp {
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
 }
 
 @Component({
-  template: `
-    <oui-paginator [pageSize]="10"></oui-paginator>
-  `
+  template: ` <oui-paginator [pageSize]="10"></oui-paginator> `,
 })
 class OuiPaginatorWithoutOptionsApp {
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
@@ -83,7 +79,7 @@ class OuiPaginatorWithoutOptionsApp {
 @Component({
   template: `
     <oui-paginator pageIndex="0" pageSize="10" length="100"> </oui-paginator>
-  `
+  `,
 })
 class OuiPaginatorWithStringValues {
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
@@ -101,9 +97,9 @@ describe('OuiPaginator', () => {
         OuiPaginatorApp,
         OuiPaginatorWithoutOptionsApp,
         OuiPaginatorWithoutInputsApp,
-        OuiPaginatorWithStringValues
+        OuiPaginatorWithStringValues,
       ],
-      providers: [OuiPaginatorIntl]
+      providers: [OuiPaginatorIntl],
     }).compileComponents();
   }));
 
@@ -201,7 +197,7 @@ describe('OuiPaginator', () => {
         expect(component.pageEvent).toHaveBeenCalledWith(
           jasmine.objectContaining({
             previousPageIndex: 0,
-            pageIndex: 1
+            pageIndex: 1,
           })
         );
       });
@@ -219,7 +215,7 @@ describe('OuiPaginator', () => {
         expect(component.pageEvent).toHaveBeenCalledWith(
           jasmine.objectContaining({
             previousPageIndex: 1,
-            pageIndex: 0
+            pageIndex: 0,
           })
         );
       });
@@ -235,7 +231,7 @@ describe('OuiPaginator', () => {
         expect(component.pageEvent).toHaveBeenCalledWith(
           jasmine.objectContaining({
             previousPageIndex: 0,
-            pageIndex: 9
+            pageIndex: 9,
           })
         );
       });
@@ -254,7 +250,7 @@ describe('OuiPaginator', () => {
         expect(component.pageEvent).toHaveBeenCalledWith(
           jasmine.objectContaining({
             previousPageIndex: 3,
-            pageIndex: 0
+            pageIndex: 0,
           })
         );
       });
@@ -327,7 +323,7 @@ describe('OuiPaginator', () => {
     expect(component.pageEvent).toHaveBeenCalledWith(
       jasmine.objectContaining({
         pageIndex: 1,
-        pageSize: 25
+        pageSize: 25,
       })
     );
 
@@ -339,7 +335,7 @@ describe('OuiPaginator', () => {
     expect(component.pageEvent).toHaveBeenCalledWith(
       jasmine.objectContaining({
         pageIndex: 3,
-        pageSize: 8
+        pageSize: 8,
       })
     );
 
@@ -351,7 +347,7 @@ describe('OuiPaginator', () => {
     expect(component.pageEvent).toHaveBeenCalledWith(
       jasmine.objectContaining({
         pageIndex: 0,
-        pageSize: 25
+        pageSize: 25,
       })
     );
   });

@@ -10,8 +10,7 @@
   const TAGID = 'theme-css';
   const IFRAMEID = 'storybook-preview-iframe';
   let switchCount = 0;
-  let directory =
-    window.location.host.indexOf('github') > 0 ? '/oncehub-ui' : '';
+  let directory = window.location.host.indexOf('github') > 0 ? '/once-ui' : '';
   function onLoad() {
     setTheme(THEMES[0]);
     addThemeSelectElement();
@@ -47,24 +46,24 @@
     const themesOptionHTML = THEMES.reduce((acc, curr) => {
       return `${acc}<option value='${curr}'>${curr}</option>`;
     }, '');
-    document.getElementsByClassName(
-      'css-1tgscux'
-    )[0].outerHTML += `<span class="css-1wvalln"></span>
-    <div style="padding: 4px 0px 0px 0px;">
-                            <select id="themeSelect" style="-webkit-appearance:none;-moz-appearance:none;appearance:none;border:0;box-sizing:inherit;display:block;margin:0;background:white;padding:.42em 1em;font-size:13px;position:relative;-webkit-transition:all 200ms ease-out;transition:all 200ms ease-out;color:#333333;box-shadow:rgba(0,0,0,.1) 0 0 0 1px inset;border-radius:4px;line-height:20px;-webkit-flex:1;-ms-flex:1;flex:1;height:32px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding-right:20px;-webkit-appearance:menulist;-moz-appearance:menulist;appearance:menulist;"
-                            onchange="themeChange()">
-                            ${themesOptionHTML}  
-                            </select>
-                      </div>`;
+    document.querySelector(
+      '#root > div > div.css-sqdry3 > div > div.css-sqdry3 > div.os-host.os-host-foreign.os-theme-dark.os-host-resize-disabled.os-host-scrollbar-horizontal-hidden.os-host-scrollbar-vertical-hidden.css-13ho6wg.os-host-transition > div.os-padding > div > div > div > div.css-11sh1n2'
+    ).outerHTML += `<span class="css-11fmq5u"></span>
+      <div style="padding: 4px 0px 0px 0px;">
+                              <select id="themeSelect" style="-webkit-appearance:none;-moz-appearance:none;appearance:none;border:0;box-sizing:inherit;display:block;margin:0;background:white;padding:.42em 1em;font-size:13px;position:relative;-webkit-transition:all 200ms ease-out;transition:all 200ms ease-out;color:#333333;box-shadow:rgba(0,0,0,.1) 0 0 0 1px inset;border-radius:4px;line-height:20px;-webkit-flex:1;-ms-flex:1;flex:1;height:32px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding-right:20px;-webkit-appearance:menulist;-moz-appearance:menulist;appearance:menulist;"
+                              onchange="themeChange()">
+                              ${themesOptionHTML}  
+                              </select>
+                        </div>`;
   }
 
   function themeChange() {
     var theme = document.getElementById('themeSelect').value;
     setTheme(theme);
   }
-  window.onload = function() {
+  window.onload = function () {
     setTimeout(() => {
       onLoad();
-    }, 500);
+    }, 2000);
   };
 </script>

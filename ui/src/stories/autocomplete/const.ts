@@ -2,18 +2,18 @@ export const OPTIONS = ['Scheduleonce', 'Inviteonce', 'Chatonce'];
 export const STATEGROUPS = [
   {
     letter: 'A',
-    names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas']
+    names: ['Alabama', 'Alaska', 'Arizona', 'Arkansas'],
   },
   {
     letter: 'C',
-    names: ['California', 'Colorado', 'Connecticut']
+    names: ['California', 'Colorado', 'Connecticut'],
   },
   {
     letter: 'D',
-    names: ['Delaware']
+    names: ['Delaware'],
   },
   {
     letter: 'F',
-    names: ['Florida']
-  }
+    names: ['Florida'],
+  },
 ];

@@ -5,6 +5,159 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.0.2-beta.0] - 2020-11-04
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-33523`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33523) Dialog shared component opens with a hover state on the x icon by default
+
+## [4.0.1] - 2020-10-08
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-34358`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34358) Two way binding of oui-select is not working properly.
+- [`ONCEHUB-34023`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34023) Upgrade Storybook to version 6
+- [`ONCEHUB-33955`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33955) Upgrade packages in once-ui
+
+## [4.0.1-beta.2] - 2020-09-18
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-34358`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34358) Two way binding of oui-select is not working properly.
+
+## [4.0.1-beta.1] - 2020-09-09
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-34023`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34023) Upgrade Storybook to version 6
+- [`ONCEHUB-34358`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34358) Two way binding of oui-select is not working properly.
+
+## [4.0.1-beta.0] - 2020-09-02
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-34023`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34023) Upgrade Storybook to version 6
+- [`ONCEHUB-34358`](https://scheduleonce.atlassian.net/browse/ONCEHUB-34358) Two way binding of oui-select is not working properly.
+- [`ONCEHUB-33955`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33955) Upgrade packages in once-ui
+
+## [4.0.0] - 2020-08-11
+
+### Added
+
+- [`ONCEHUB-32936`](https://scheduleonce.atlassian.net/browse/ONCEHUB-32936) Upgrade @oncehub/ui to Angular 9
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-33309`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33309) CVE-2020-8116 vulnerability found in package dot-prop in project once-ui
+- [`ONCEHUB-33360`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33360) CVE-2020-13822 vulnerability found in package elliptic in project once-ui
+- Added a fix for the progress button
+- Removed the peer dependencies
+
+## [4.0.0-beta.3] - 2020-08-10
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-33309`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33309) CVE-2020-8116 vulnerability found in package dot-prop in project once-ui
+- [`ONCEHUB-33360`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33360) CVE-2020-13822 vulnerability found in package elliptic in project once-ui
+
+## [4.0.0-beta.2] - 2020-08-04
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- Added a fix for the progress button
+
 ## [4.0.0-beta.1] - 2020-07-29
 
 ### Added

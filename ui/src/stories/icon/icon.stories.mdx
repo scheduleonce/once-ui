@@ -1,0 +1,59 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiIconModule, Icon } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { select, text, number } from '@storybook/addon-knobs';
+import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
+import { OuiiconStorybook } from './icon.component';
+
+<Meta title='MDX/Icon' component={Icon} />
+
+# Icon
+
+Let's define a story for our `Icon` component:
+
+Icon with Default color:
+<Canvas>
+  <Story name='Default color'>
+  {{
+    moduleMetadata: {
+    imports: [OuiIconModule],
+    schemas: [],
+    declarations: [OuiiconStorybook],
+  },
+  template: `<oui-icon-storybook 
+                [icon]="icon" 
+                [size]="size">
+                </oui-icon-storybook>`,
+  props: {
+    icon: text('icon', 'notification-editor')
+  },
+  }}
+  </Story>
+</Canvas>
+
+You can change size and use specific colors on `Icon` component:
+<Canvas>
+  <Story name='Custom icon'>
+  {{
+    moduleMetadata: {
+    imports: [OuiIconModule],
+    schemas: [],
+    declarations: [OuiiconStorybook],
+  },
+  template: `<oui-icon-storybook 
+                [color]="color" 
+                [icon]="icon" 
+                [size]="size">
+                </oui-icon-storybook>`,
+  props: {
+    color: select('color', ICON_COLORS, ICON_COLORS[0]),
+    icon: text('icon', 'configuration'),
+    size: number('size', 20),
+  },
+  }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-icons
+
+<ArgsTable of={Icon} />

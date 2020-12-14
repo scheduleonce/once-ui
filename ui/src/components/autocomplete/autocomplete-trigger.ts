@@ -4,7 +4,7 @@ import {
   OverlayConfig,
   OverlayRef,
   PositionStrategy,
-  ScrollStrategy
+  ScrollStrategy,
 } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
@@ -21,7 +21,7 @@ import {
   NgZone,
   OnDestroy,
   Optional,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -31,7 +31,7 @@ import {
   _getOptionScrollPosition,
   keycodes,
   OuiOption,
-  OuiOptionSelectionChange
+  OuiOptionSelectionChange,
 } from '../core';
 
 import {
@@ -41,7 +41,7 @@ import {
   merge,
   of as observableOf,
   Subject,
-  Observable
+  Observable,
 } from 'rxjs';
 import { OuiAutocomplete } from './autocomplete';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -76,7 +76,7 @@ export function OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(
 export const OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   provide: OUI_AUTOCOMPLETE_SCROLL_STRATEGY,
   deps: [Overlay],
-  useFactory: OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY
+  useFactory: OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 };
 
 /**
@@ -85,9 +85,8 @@ export const OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 export const OUI_AUTOCOMPLETE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
-  // tslint:disable-next-line:no-use-before-declare
   useExisting: forwardRef(() => OuiAutocompleteTrigger),
-  multi: true
+  multi: true,
 };
 
 /**
@@ -105,7 +104,7 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 @Directive({
   // tslint:disable-next-line:directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
@@ -120,10 +119,10 @@ export function getOuiAutocompleteMissingPanelError(): Error {
     '(focusin)': '_handleFocus()',
     '(blur)': '_onTouched()',
     '(input)': '_handleInput($event)',
-    '(keydown)': '_handleKeydown($event)'
+    '(keydown)': '_handleKeydown($event)',
   },
   exportAs: 'ouiAutocompleteTrigger',
-  providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR]
+  providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR],
 })
 export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _overlayRef: OverlayRef | null;
@@ -162,7 +161,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     (): Observable<OuiOptionSelectionChange> => {
       if (this.autocomplete && this.autocomplete.options) {
         return merge(
-          ...this.autocomplete.options.map(option => option.onSelectionChange)
+          ...this.autocomplete.options.map((option) => option.onSelectionChange)
         );
       }
 
@@ -330,7 +329,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
         : observableOf()
     ).pipe(
       // Normalize the output so we return a consistent type.
-      map(event => (event instanceof OuiOptionSelectionChange ? event : null))
+      map((event) => (event instanceof OuiOptionSelectionChange ? event : null))
     );
   }
 
@@ -353,7 +352,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
       fromEvent<MouseEvent>(this._document, 'click'),
       fromEvent<TouchEvent>(this._document, 'touchend')
     ).pipe(
-      filter(event => {
+      filter((event) => {
         const clickTarget = event.target as HTMLElement;
         const formField = this._formField
           ? this._formField._elementRef.nativeElement
@@ -518,7 +517,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           take(1)
         )
         // set the value, close the panel, and complete.
-        .subscribe(event => this._setValueAndClose(event))
+        .subscribe((event) => this._setValueAndClose(event))
     );
   }
 
@@ -573,7 +572,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Clear any previous selected option and emit a selection change event for this option
    */
   private _clearPreviousSelectedOption(skip: OuiOption) {
-    this.autocomplete.options.forEach(option => {
+    this.autocomplete.options.forEach((option) => {
       if (option !== skip && option.selected) {
         option.deselect();
       }
@@ -594,7 +593,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
 
       // Use the `keydownEvents` in order to take advantage of
       // the overlay event targeting provided by the CDK overlay.
-      this._overlayRef.keydownEvents().subscribe(event => {
+      this._overlayRef.keydownEvents().subscribe((event) => {
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
         if (
@@ -641,7 +640,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     return new OverlayConfig({
       positionStrategy: this._getOverlayPosition(),
       scrollStrategy: this._scrollStrategy(),
-      width: this._getPanelWidth()
+      width: this._getPanelWidth(),
     });
   }
 
@@ -656,7 +655,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           originX: 'start',
           originY: 'bottom',
           overlayX: 'start',
-          overlayY: 'top'
+          overlayY: 'top',
         },
         {
           originX: 'start',
@@ -667,8 +666,8 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           // The overlay edge connected to the trigger should have squared corners, while
           // the opposite end has rounded corners. We apply a CSS class to swap the
           // border-radius based on the overlay position.
-          panelClass: 'oui-autocomplete-panel-above'
-        }
+          panelClass: 'oui-autocomplete-panel-above',
+        },
       ]);
 
     return this._positionStrategy;

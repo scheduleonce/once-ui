@@ -5,7 +5,7 @@ import {
   ElementRef,
   AfterContentInit,
   Input,
-  OnChanges
+  OnChanges,
 } from '@angular/core';
 import { OuiIconRegistry } from '../icon/icon-registery';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -22,11 +22,11 @@ import { ICONS } from '../core/shared/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenuIcon',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '(menuOpened)': 'menuOpened()',
-    '(menuClosed)': 'menuClosed()'
-  }
+    '(menuClosed)': 'menuClosed()',
+  },
 })
 export class OuiMenuIcon implements AfterContentInit, OnChanges {
   private _iconDiv: HTMLDivElement;

@@ -15,7 +15,7 @@ import {
   Output,
   QueryList,
   ViewEncapsulation,
-  NgZone
+  NgZone,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { OuiOptgroup } from './optgroup';
@@ -59,7 +59,7 @@ export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<
 @Component({
   selector: 'oui-option',
   exportAs: 'ouiOption',
-  // tslint:disable-next-line:use-host-property-decorator
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'option',
     '[attr.tabindex]': '_getTabIndex()',
@@ -72,12 +72,12 @@ export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<
     '[class.oui-option-disabled]': 'disabled',
     '(click)': '_selectViaInteraction()',
     '(keydown)': '_handleKeydown($event)',
-    class: 'oui-option'
+    class: 'oui-option',
   },
   styleUrls: ['option.scss'],
   templateUrl: 'option.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiOption implements AfterViewChecked, OnDestroy {
   private _selected = false;

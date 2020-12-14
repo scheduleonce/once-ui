@@ -1,2 +1,4 @@
 package.json
 dist
+storybook-static
+documentation.json

@@ -14,20 +14,20 @@ import { OuiIconModule } from '../icon/icon.module';
     OverlayModule,
     OuiInputModule,
     CommonModule,
-    OuiIconModule
+    OuiIconModule,
   ],
   exports: [
     OuiOptionModule,
     OuiSelectTrigger,
     OuiSelectSearchComponent,
     FilterPipe,
-    OuiSelect
+    OuiSelect,
   ],
   declarations: [
     OuiSelectTrigger,
     OuiSelectSearchComponent,
     FilterPipe,
-    OuiSelect
-  ]
+    OuiSelect,
+  ],
 })
 export class OuiSelectModule {}

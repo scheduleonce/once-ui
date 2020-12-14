@@ -114,7 +114,8 @@ $header-icon-height: 24px;
     }
   }
   &[class^='cdk'],
-  &[class$='focused'] {
+  &[class$='focused'],
+  &:hover {
     background: $icon-focus-background;
     border-radius: 2px;
     transition: $icon-focus-transition;
