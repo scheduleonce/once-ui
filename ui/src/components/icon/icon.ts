@@ -110,7 +110,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   /** Name of the icon in the SVG icon set. */
   @Input()
   svgIcon: string;
-  /** Name of the icon in the SVG icon set. */
+  /** User will be able to supply a size property for overriding the size. */
   @Input()
   size: number;
 
