@@ -11,7 +11,7 @@ import { LABELPOSITION, COLORS } from '../const';
 Supports all of the functionality of an HTML5 checkbox, and exposes a similar API. A MatCheckbox can be either checked, unchecked, or disabled. Note that all additional accessibility attributes are taken care of by the component, so there is no need to provide them yourself. However, if you want to omit a label and still have the checkbox be accessible, you may supply an [aria-label] input. See: https://github.com/scheduleonce/once-ui/tree/master/ui/src/components/checkbox/README.md
 
 <Canvas>
-  <Story name='regular'>
+  <Story name='regular' parameters={{ docs: { source: { code: `<oui-checkbox class="example-margin" labelPosition="after">I'm a checkbox</oui-checkbox>` } } }}>
   {{
     moduleMetadata: {
     imports: [OuiCheckboxModule],
