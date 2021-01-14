@@ -121,7 +121,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
     this._updateRadioButtonNames();
   }
 
-  /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
+  /** Whether the labels should appear after or before the radio-buttons. Defaults to `after` */
   @Input()
   get labelPosition(): 'before' | 'after' {
     return this._labelPosition;
@@ -338,18 +338,18 @@ export class OuiRadioButton
   /** The unique ID for the radio button. */
   @Input() id: string = this._uniqueId;
 
-  /** Analog to HTML 'name' attribute used to group radios for unique selection. */
+  /** Analog to HTML `name` attribute used to group radios for unique selection. */
   @Input() name: string;
 
-  /** Used to set the 'aria-label' attribute on the underlying input element. */
+  /** Used to set the `aria-label` attribute on the underlying input element. */
   @Input('aria-label') ariaLabel: string;
 
-  /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
+  /** The `aria-labelledby` attribute takes precedence as the element text alternative. */
   @Input('aria-labelledby') ariaLabelledby: string;
-  /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
+  /** The `aria-labelledby` attribute takes precedence as the element text alternative. */
   @Input() tabIndex: number;
 
-  /** The 'aria-describedby' attribute is read after the element's label and field type. */
+  /** The  `aria-describedby` attribute is read after the element label and field type. */
   @Input('aria-describedby') ariaDescribedby: string;
 
   /** Whether this radio button is checked. */
@@ -405,7 +405,7 @@ export class OuiRadioButton
     }
   }
 
-  /** Whether the label should appear after or before the radio button. Defaults to 'after' */
+  /** Whether the label should appear after or before the radio button. Defaults to `after` */
   @Input()
   get labelPosition(): 'before' | 'after' {
     return (
