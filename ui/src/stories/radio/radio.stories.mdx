@@ -1,0 +1,54 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiRadioModule, Radio } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { select, boolean } from '@storybook/addon-knobs';
+import { LABELPOSITION, COLORS } from '../const';
+import { OuiRadioButton, RadioDoc } from '../../components';
+
+<Meta title='MDX/Radio' component={Radio} />
+
+# Radio
+
+`<oui-radio>` provides the same functionality as a native `<input type="radio">` enhanced with design styling and animations.
+
+All radio-buttons with the same name comprise a set from which only one may be selected at a time. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/radio/README.md
+
+
+<Canvas>
+  <Story name='Regular' parameters={{ docs: { source: { code: `<oui-radio-group name="enabled1" value="Winter"><oui-radio-button #s value="Winter"> Winter </oui-radio-button><oui-radio-button value="Summer"> Summer </oui-radio-button></oui-radio-group>` } } }}>
+  {{
+  moduleMetadata: {
+    imports: [OuiRadioModule],
+    schemas: [],
+    declarations: [],
+  },
+  template: `<oui-radio-group 
+                (change)="changed($event)" 
+                [disabled]="disabled" 
+                [labelPosition]="position">
+                <oui-radio-button 
+                    checked 
+                    value="Winter" 
+                    [color]="color"> 
+                    Winter 
+                </oui-radio-button>
+                <oui-radio-button 
+                    value="Summer" 
+                    [color]="color"> 
+                    Summer 
+                </oui-radio-button>
+            </oui-radio-group>`,
+  props: {
+    color: select('color', COLORS, COLORS[0]),
+    changed: action('change'),
+    position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
+    disabled: boolean('disabled', false),
+  },
+  }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-radio-button
+
+
+<ArgsTable of={OuiRadioButton} />
