@@ -1,0 +1,44 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiButtonModule, Button } from '../../components';
+import { OuiDialog, Dialog } from '../../components';
+import { OuiDialogModule, DialogModule } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { boolean } from '@storybook/addon-knobs';
+import { OuiDialogStorybook } from './dialog.component';
+
+<Meta title="MDX/Dialog" component={Dialog} />
+
+# Dialog
+
+Service to open Once UI Design modal dialogs. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/dialog/README.md
+
+<Canvas>
+  <Story
+    name="regular"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-checkbox class="example-margin" labelPosition="after">I'm a checkbox</oui-checkbox>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiButtonModule, OuiDialogModule],
+        schemas: [],
+        declarations: [OuiDialogStorybook],
+      },
+      template: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
+      props: {
+        click: action('clicked'),
+        close: action('closed'),
+        disabled: boolean('disabled', false),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-dialog
+
+<ArgsTable of={Dialog} />
