@@ -7,85 +7,123 @@ import { select, text, number, boolean } from '@storybook/addon-knobs';
 import { COLORS } from '../const';
 import { OuiIconButtonStorybook } from './button.component';
 
-<Meta title='MDX/Button' component={Button}  />
+<Meta title="MDX/Button" component={Button} />
 
 # Button
 
-The Once UI buttons are native `<button>` or `<a>` elements with oncehub styling and other utilities. 
+The Once UI buttons are native `<button>` or `<a>` elements with oncehub styling and other utilities.
 
 Native `<button>` or `<a>` elements are always used in order to provide the most straightforward and accessible experience for users. A `<button>` element should be used whenever some action is performed. An `<a>` element should be used whenever the user will navigate to another view. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/button/README.md
 
 There are several `<button>` variants, each applied as an attribute
 
 Regular button:
+
 <Canvas>
-  <Story name='Regular' parameters={{ docs: { source: { code: `<button oui-button color="primary">Primary</button>` } } }}>
-  {{
-    moduleMetadata: {
-    imports: [OuiButtonModule],
-    schemas: [],
-    declarations: [],
-  },
-  template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
-  props: {
-    color: select('color', COLORS, COLORS[0]),
-    disabled: boolean('disabled', false),
-    text: text('text', 'This is a button'),
-    clicked: action('click'),
-  },
-  }}
+  <Story
+    name="Regular"
+    parameters={{
+      docs: {
+        source: { code: `<button oui-button color="primary">Primary</button>` },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiButtonModule],
+        schemas: [],
+        declarations: [],
+      },
+      template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        disabled: boolean('disabled', false),
+        text: text('text', 'This is a button'),
+        clicked: action('click'),
+      },
+    }}
   </Story>
 </Canvas>
 
 Link button:
+
 <Canvas>
-  <Story name='Link' parameters={{ docs: { source: { code: `<button oui-link-button color="primary">Primary</button>` } } }}>
-  {{
-    moduleMetadata: {
-    imports: [OuiButtonModule],
-    schemas: [],
-    declarations: [],
-  },
-  template: `<button oui-link-button [disabled]="disabled" (click)="clicked()">{{text}}</button>`,
-  props: {
-    disabled: boolean('disabled', false),
-    text: text('text', 'This is a button'),
-    clicked: action('click'),
-  },
-  }}
+  <Story
+    name="Link"
+    parameters={{
+      docs: {
+        source: {
+          code: `<button oui-link-button color="primary">Primary</button>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiButtonModule],
+        schemas: [],
+        declarations: [],
+      },
+      template: `<button oui-link-button [disabled]="disabled" (click)="clicked()">{{text}}</button>`,
+      props: {
+        disabled: boolean('disabled', false),
+        text: text('text', 'This is a button'),
+        clicked: action('click'),
+      },
+    }}
   </Story>
 </Canvas>
 
 Ghost button:
+
 <Canvas>
-  <Story name='Ghost' parameters={{ docs: { source: { code: `<button oui-ghost-button color="primary">Primary</button>` } } }}>
-  {{
-    moduleMetadata: {
-    imports: [OuiButtonModule],
-    schemas: [],
-    declarations: [],
-  },
-  template: `<button oui-ghost-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
-  props: {
-    color: select('color', COLORS, COLORS[0]),
-    disabled: boolean('disabled', false),
-    text: text('text', 'This is a button'),
-    clicked: action('click'),
-  },
-  }}
+  <Story
+    name="Ghost"
+    parameters={{
+      docs: {
+        source: {
+          code: `<button oui-ghost-button color="primary">Primary</button>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiButtonModule],
+        schemas: [],
+        declarations: [],
+      },
+      template: `<button oui-ghost-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        disabled: boolean('disabled', false),
+        text: text('text', 'This is a button'),
+        clicked: action('click'),
+      },
+    }}
   </Story>
 </Canvas>
 
 Progress button:
+
 <Canvas>
-  <Story name='Progress' parameters={{ docs: { source: { code: `<button #progressButton oui-button [progress]="['Discard','Discarding...','Discarded']"(click)="buttonClick()"></button>` } } }}>
-  {{
-    moduleMetadata: {
-    imports: [OuiButtonModule],
-    schemas: [],
-    declarations: [],
-  },
-  template: `<button
+  <Story
+    name="Progress"
+    parameters={{
+      docs: {
+        source: {
+          code: `<button #progressButton oui-button [progress]="['Discard','Discarding...','Discarded']"(click)="buttonClick()"></button>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiButtonModule],
+        schemas: [],
+        declarations: [],
+      },
+      template: `<button
                   #progressButton
                   oui-button
                   progress
@@ -94,44 +132,52 @@ Progress button:
                   (click)="clicked();progressButtonClick(progressButton)">
                   button
                 </button>`,
-  props: {
-    color: select('color', COLORS, COLORS[0]),
-    isDisable: boolean('disabled', false),
-    text: text('text', 'This is a button'),
-    clicked: action('click'),
-    progressButtonClick: function (progressButton) {
-      progressButton.setToProgress();
-      action('set to progress', progressButton);
-      setTimeout(() => {
-        this.isDisable = false;
-        progressButton.setToDone();
-      }, 1000);
-    },
-  },
-  }}
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        isDisable: boolean('disabled', false),
+        text: text('text', 'This is a button'),
+        clicked: action('click'),
+        progressButtonClick: function (progressButton) {
+          progressButton.setToProgress();
+          action('set to progress', progressButton);
+          setTimeout(() => {
+            this.isDisable = false;
+            progressButton.setToDone();
+          }, 1000);
+        },
+      },
+    }}
   </Story>
 </Canvas>
 
 Icon button:
+
 <Canvas>
-  <Story name='Icon' parameters={{ docs: { source: { code: `<button oui-icon-button><oui-icon svgIcon="configuration"></oui-icon></button>` } } }}>
-  {{
-    moduleMetadata: {
-    imports: [OuiButtonModule, OuiIconModule],
-    schemas: [],
-    declarations: [],
-  },
-  component: OuiIconButtonStorybook,
-  props: {
-    color: select('color', COLORS, COLORS[0]),
-    clicked: action('click'),
-    icon: text('icon', 'configuration'),
-  },
-  }}
+  <Story
+    name="Icon"
+    parameters={{
+      docs: {
+        source: {
+          code: `<button oui-icon-button><oui-icon svgIcon="configuration"></oui-icon></button>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiButtonModule, OuiIconModule],
+        schemas: [],
+        declarations: [],
+      },
+      component: OuiIconButtonStorybook,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        clicked: action('click'),
+        icon: text('icon', 'configuration'),
+      },
+    }}
   </Story>
 </Canvas>
-
-
 
 Stackblitz demo link : https://stackblitz.com/edit/oui-button
 

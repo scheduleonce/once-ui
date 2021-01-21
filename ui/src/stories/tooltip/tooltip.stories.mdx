@@ -1,0 +1,54 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiTooltipModule, Tooltip } from '../../components';
+import { OuiIconModule, Icon } from '../../components';
+import { TooltipComponent, TtComponent } from '../../components';
+import { OuiFormField, FormField } from '../../components';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { action } from '@storybook/addon-actions';
+import { select, text, boolean } from '@storybook/addon-knobs';
+import { TOOLTIPPOSITION } from '../const';
+import { OuiTooltipStorybook } from './tooltip.component';
+
+<Meta title="MDX/Tooltip" component={Tooltip} />
+
+# Tooltip
+
+The `oui-tooltip` provides a text label that is displayed when the user hovers over an element. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/tooltip/README.md
+
+<Canvas>
+  <Story
+    name="Regular"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-icon svgIcon="help-library" ouiTooltip="This is a tooltip" color="primary"></oui-icon>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiTooltipModule, OuiIconModule, BrowserAnimationsModule],
+        schemas: [],
+        declarations: [OuiTooltipStorybook],
+      },
+      template: `<oui-tooltip-storybook [disabled]="disabled"
+    [_ouiTooltip]="ouiTooltip"
+    [_ouiTooltipPosition]="ouiTooltipPosition"></oui-tooltip-storybook>`,
+      props: {
+        changed: action('change'),
+        disabled: boolean('ouiTooltipDisabled', false),
+        ouiTooltip: text('ouiTooltip', 'This is a tooltip'),
+        ouiTooltipPosition: select(
+          'ouiTooltipPosition',
+          TOOLTIPPOSITION,
+          TOOLTIPPOSITION[0]
+        ),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-tooltip
+
+<ArgsTable of={TooltipComponent} />
