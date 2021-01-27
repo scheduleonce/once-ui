@@ -8,7 +8,7 @@ import { select, boolean } from '@storybook/addon-knobs';
 import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
 import { OuiMenuStorybook, OuiNestedMenuStorybook } from './menu.component';
 
-<Meta title='MDX/Menu' component={Menu} />
+<Meta title="MDX/Menu" component={Menu} />
 
 # Menu
 
@@ -19,13 +19,14 @@ Let's define a story for our `Menu` component:
 The `<oui-menu>` doesn't render anything by itself. The menu is attached to and opened via application of the `ouiMenuTriggerFor` directive. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/menu/README.md
 
 Default Menu with single list:
+
 <Canvas>
-  <Story 
-    name='Default'
+  <Story
+    name="Default"
     parameters={{
       docs: {
-          source: {
-             code: `<button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
+        source: {
+          code: `<button oui-icon-button [ouiMenuTriggerFor]="afterAboveMenu">
     <oui-icon svgIcon="dots-horizontal"></oui-icon>
 </button>
 <oui-menu #afterAboveMenu xPosition="after" yPosition="above">
@@ -41,18 +42,18 @@ Default Menu with single list:
         <oui-icon svgIcon="configuration"></oui-icon>
         <span>Configuration</span>
     </button>
-</oui-menu>` 
-          } 
-      } 
+</oui-menu>`,
+        },
+      },
     }}
   >
-  {{
-    moduleMetadata: {
-    imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
-    schemas: [],
-    declarations: [OuiMenuStorybook],
-  },
-  template: `<oui-menu-storybook
+    {{
+      moduleMetadata: {
+        imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
+        schemas: [],
+        declarations: [OuiMenuStorybook],
+      },
+      template: `<oui-menu-storybook
           [xPosition]="xPosition"
           [yPosition]="yPosition"
           [vertical]="vertical"
@@ -61,26 +62,27 @@ Default Menu with single list:
           (_closed)="menuClosed($event)"
           >
           </oui-menu-storybook>`,
-  props: {
-    xPosition: select('xPosition', ['before', 'after'], 'before'),
-    yPosition: select('yPosition', ['above', 'below'], 'above'),
-    vertical: boolean('vertical', false),
-    menuOpened: action('menuOpened'),
-    hasBackdrop: boolean('hasBackdrop', true),
-    menuClosed: action('menuClosed'),
-  },
-  }}
+      props: {
+        xPosition: select('xPosition', ['before', 'after'], 'before'),
+        yPosition: select('yPosition', ['above', 'below'], 'above'),
+        vertical: boolean('vertical', false),
+        menuOpened: action('menuOpened'),
+        hasBackdrop: boolean('hasBackdrop', true),
+        menuClosed: action('menuClosed'),
+      },
+    }}
   </Story>
 </Canvas>
 
 Nested Menu:
+
 <Canvas>
-  <Story 
-    name='Nested Menu'
+  <Story
+    name="Nested Menu"
     parameters={{
       docs: {
-          source: {
-             code: `<button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
+        source: {
+          code: `<button oui-icon-button [ouiMenuTriggerFor]="rootMenu">
     <oui-icon svgIcon="dots-horizontal"></oui-icon>
 </button>
 <oui-menu #rootMenu="ouiMenu">
@@ -93,18 +95,18 @@ Nested Menu:
     <button oui-menu-item>Shut down</button>
     <button oui-menu-item>Restart</button>
     <button oui-menu-item>Hibernate</button>
-</oui-menu>` 
-          } 
-      } 
-    }}  
+</oui-menu>`,
+        },
+      },
+    }}
   >
-  {{
-    moduleMetadata: {
-    imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
-    schemas: [],
-    declarations: [OuiNestedMenuStorybook],
-  },
-  template: `<oui-nested-menu-storybook
+    {{
+      moduleMetadata: {
+        imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
+        schemas: [],
+        declarations: [OuiNestedMenuStorybook],
+      },
+      template: `<oui-nested-menu-storybook
           [xPosition]="xPosition"
           [yPosition]="yPosition"
           [vertical]="vertical"
@@ -113,15 +115,15 @@ Nested Menu:
           (_closed)="menuClosed($event)"
           >
           </oui-nested-menu-storybook>`,
-  props: {
-    xPosition: select('xPosition', ['before', 'after'], 'before'),
-    yPosition: select('yPosition', ['above', 'below'], 'above'),
-    vertical: boolean('vertical', false),
-    menuOpened: action('menuOpened'),
-    hasBackdrop: boolean('hasBackdrop', true),
-    menuClosed: action('menuClosed'),
-  },
-  }}
+      props: {
+        xPosition: select('xPosition', ['before', 'after'], 'before'),
+        yPosition: select('yPosition', ['above', 'below'], 'above'),
+        vertical: boolean('vertical', false),
+        menuOpened: action('menuOpened'),
+        hasBackdrop: boolean('hasBackdrop', true),
+        menuClosed: action('menuClosed'),
+      },
+    }}
   </Story>
 </Canvas>
 
