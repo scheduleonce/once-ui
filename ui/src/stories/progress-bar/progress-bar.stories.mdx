@@ -1,0 +1,72 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { select, number, text } from '@storybook/addon-knobs';
+import {
+  OuiProgressBar,
+  ProgressBar,
+} from '../../components/progress-bar/progress-bar';
+import { COLORS } from '../const';
+
+<Meta title="MDX/ProgressBar" component={ProgressBar} />
+
+# ProgressBar
+
+`<oui-progress-bar>` is a horizontal progress-bar for indicating progress and activity.
+
+Example:
+
+Determinate: `<oui-progress-bar color="primary|accent|warn"></oui-progress-bar>`
+
+Indeterminate: `<oui-progress-bar color="primary|accent|warn" value="1 to 100"></oui-progress-bar>`
+
+See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/progress-bar/README.md
+
+Determinate Progress Bar:
+
+<Canvas>
+  <Story
+    name="Determinate"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-progress-bar color="primary" value="60"></oui-progress-bar>`,
+        },
+      },
+    }}
+  >
+    {{
+      component: OuiProgressBar,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        strokeWidth: text('strokeWidth', '5'),
+        value: text('value', '60'),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Indeterminate Progress Bar:
+
+<Canvas>
+  <Story
+    name="Indeterminate"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-progress-bar color="primary"></oui-progress-bar>`,
+        },
+      },
+    }}
+  >
+    {{
+      component: OuiProgressBar,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        strokeWidth: text('strokeWidth', '5'),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-progress-bar
+
+<ArgsTable of={OuiProgressBar} />
