@@ -16,6 +16,8 @@ node {
             print "Environment will be : ${env.NODE_ENV}"
             def nodeHome = tool 'node:12.20.1'
             env.PATH = "${env.PATH}:${nodeHome}/bin"
+                sh "node -v"
+                sh "npm install"
                 sh "npm install"
                 sh "npm run prettier"
                 sh "npm run lint"
