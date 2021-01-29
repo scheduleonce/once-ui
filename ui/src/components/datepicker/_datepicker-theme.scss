@@ -133,8 +133,8 @@ $oui-datepicker-input-padding: 7px 9px !important;
   }
 
   .oui-form-field-infix .oui-datepicker-input:disabled {
-    border-color: $form-field-border-color;
-    background-color: transparent !important;
+    border-color: #c8c8c8;
+    background-color: transparent;
     cursor: pointer;
     &::placeholder {
       color: $form-field-placeholder-color;
@@ -152,11 +152,16 @@ $oui-datepicker-input-padding: 7px 9px !important;
     }
   }
   input.oui-datepicker-disabled {
-    opacity: 0.3;
+    border: 1px solid #e4e4e4 !important;
+    background-color: #f9f9f9 !important;
+    color: #9b9b9b !important;
+    opacity: 1;
     cursor: default !important;
   }
   .oui-datepicker-disabled {
+    background-color: #f9f9f9 !important;
     svg {
+      opacity: 0.5;
       color: #9b9b9b;
       cursor: default !important;
     }
@@ -205,4 +210,9 @@ $oui-datepicker-input-padding: 7px 9px !important;
   // Avoid some cases where the browser will still render the native controls (see #9049).
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+.oui-form-field-infix .oui-icon-button {
+  &[class$='focused'] {
+    background: none !important;
+  }
 }
