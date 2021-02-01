@@ -1,11 +1,6 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, NgZone, EventEmitter } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  inject,
-  TestBed,
-} from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { DateAdapter, OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendar } from './calendar';
@@ -118,7 +113,7 @@ export class MockNgZone extends NgZone {
 describe('OuiCalendar', () => {
   let zone: MockNgZone;
   console.log(zone);
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [OuiNativeDateModule, OuiDatepickerModule],
       declarations: [

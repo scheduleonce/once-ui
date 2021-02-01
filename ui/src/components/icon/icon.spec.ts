@@ -1,4 +1,4 @@
-import { inject, async, fakeAsync, tick, TestBed } from '@angular/core/testing';
+import { inject, fakeAsync, tick, TestBed, waitForAsync } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   HttpClientTestingModule,
@@ -103,7 +103,7 @@ function verifyPathChildElement(
 describe('OuiIcon', () => {
   let fakePath: string;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     // The $ prefix tells Karma not to try to process the
     // request so that we don't get warnings in our logs.
     fakePath = '/$fake-path';

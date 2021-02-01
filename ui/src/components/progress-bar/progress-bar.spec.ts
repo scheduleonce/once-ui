@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { OuiProgressBar } from './progress-bar';
 import { By } from '@angular/platform-browser';
@@ -24,7 +24,7 @@ describe('OuiProgressBar', () => {
   let fixture: ComponentFixture<OuiProgressBar>;
   let BasicProgressBarFixture: ComponentFixture<BasicProgressBar>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [OuiProgressBar, BasicProgressBar, ProgressBarWithColor],
     }).compileComponents();

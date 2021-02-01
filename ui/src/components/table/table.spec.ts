@@ -1,13 +1,6 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  flushMicrotasks,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OuiPaginator, OuiPaginatorModule } from '../paginator/public-api';
@@ -452,7 +445,7 @@ function expectTableToMatchContent(tableElement: Element, expected: any[]) {
 }
 
 describe('OuiTable', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         OuiTableModule,

@@ -1,13 +1,7 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -238,7 +232,7 @@ describe('OuiSort', () => {
 
   let component: SimpleOuiSortApp;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         OuiSortModule,

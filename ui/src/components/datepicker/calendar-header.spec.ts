@@ -1,6 +1,6 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendar } from './calendar';
@@ -31,7 +31,7 @@ class StandardCalendar {
 }
 
 describe('OuiCalendarHeader', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [OuiNativeDateModule, OuiDatepickerModule],
       declarations: [

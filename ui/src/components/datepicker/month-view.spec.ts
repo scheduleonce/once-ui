@@ -1,6 +1,6 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendarBody } from './calendar-body';
@@ -66,7 +66,7 @@ describe('OuiMonthView', () => {
   let dir: { value: Direction };
   console.log(dir);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [OuiNativeDateModule],
       declarations: [

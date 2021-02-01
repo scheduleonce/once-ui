@@ -1,10 +1,4 @@
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import {
   FormControl,
   FormsModule,
@@ -152,7 +146,7 @@ class TranscludingWrapper {}
 class RadioButtonWithPredefinedTabindex {}
 
 describe('OuiRadio', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [OuiRadioModule, FormsModule, ReactiveFormsModule],
       declarations: [
@@ -180,7 +174,7 @@ describe('OuiRadio', () => {
     let groupInstance: OuiRadioGroup;
     let radioInstances: OuiRadioButton[];
     let testComponent: RadioInsideGroupComponent;
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(RadioInsideGroupComponent);
       fixture.detectChanges();
 
@@ -852,7 +846,7 @@ describe('OuiRadio', () => {
     let radioDebugElements: DebugElement[];
     let radioInstances: OuiRadioButton[];
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(InterleavedRadioGroup);
       fixture.detectChanges();
 

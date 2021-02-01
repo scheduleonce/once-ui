@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { async, inject, TestBed } from '@angular/core/testing';
+import { inject, TestBed, waitForAsync } from '@angular/core/testing';
 import {
   DateAdapter,
   NativeDateAdapter,
@@ -25,7 +25,7 @@ describe('NativeDateAdapter', () => {
   let adapter: NativeDateAdapter;
   let assertValidDate: (d: Date | null, valid: boolean) => void;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [NativeDateModule],
     }).compileComponents();

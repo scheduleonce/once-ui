@@ -5,7 +5,7 @@ import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OuiInput, OuiInputModule } from './index';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { getOuiFormFieldMissingControlError } from '../form-field/form-field-errors';
 import {
   OUI_FORM_FIELD_DEFAULT_OPTIONS,
@@ -130,7 +130,7 @@ class OuiInputWithAppearance {
 class OuiInputWithoutPlaceholder {}
 
 describe('OuiInput without forms', () => {
-  it('should add id', async(() => {
+  it('should add id', waitForAsync(() => {
     const fixture = createComponent(OuiInputTextTestController);
     fixture.detectChanges();
 
@@ -141,7 +141,7 @@ describe('OuiInput without forms', () => {
     expect(inputElement.id).toBeTruthy();
   }));
 
-  it('should not overwrite existing id', async(() => {
+  it('should not overwrite existing id', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithId);
     fixture.detectChanges();
 
@@ -152,7 +152,7 @@ describe('OuiInput without forms', () => {
     expect(inputElement.id).toBe('test-id');
   }));
 
-  it('should add aria-required reflecting the required state', async(() => {
+  it('should add aria-required reflecting the required state', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithRequired);
     fixture.detectChanges();
 
@@ -174,7 +174,7 @@ describe('OuiInput without forms', () => {
     );
   }));
 
-  it('validates that ouiInput child is present', async(() => {
+  it('validates that ouiInput child is present', waitForAsync(() => {
     const fixture = createComponent(OuiInputMissingOuiInputTestController);
 
     expect(() => fixture.detectChanges()).toThrowError(
@@ -182,7 +182,7 @@ describe('OuiInput without forms', () => {
     );
   }));
 
-  it('validates that ouiInput child is present after initialization', async(() => {
+  it('validates that ouiInput child is present after initialization', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithNgIf);
     expect(() => fixture.detectChanges()).not.toThrowError(
       getOuiFormFieldMissingControlError().message
@@ -194,14 +194,14 @@ describe('OuiInput without forms', () => {
     );
   }));
 
-  it('validates the type', async(() => {
+  it('validates the type', waitForAsync(() => {
     expect(() => {
       const fixture = createComponent(OuiInputInvalidTypeTestController);
       fixture.detectChanges();
     }).toThrow(/* new OuiInputUnsupportedTypeError('file') */);
   }));
 
-  it('supports placeholder attribute', async(() => {
+  it('supports placeholder attribute', waitForAsync(() => {
     const fixture = createComponent(OuiInputPlaceholderAttrTestComponent);
     fixture.detectChanges();
 
@@ -215,7 +215,7 @@ describe('OuiInput without forms', () => {
     expect(inputEl.placeholder).toBe('Other placeholder');
   }));
 
-  it('supports the required attribute as binding', async(() => {
+  it('supports the required attribute as binding', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithRequired);
     fixture.detectChanges();
 
@@ -229,7 +229,7 @@ describe('OuiInput without forms', () => {
     expect(inputEl.required).toBe(true);
   }));
 
-  it('supports the type attribute as binding', async(() => {
+  it('supports the type attribute as binding', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithType);
     fixture.detectChanges();
 
@@ -243,7 +243,7 @@ describe('OuiInput without forms', () => {
     expect(inputEl.type).toBe('password');
   }));
 
-  it('supports textarea', async(() => {
+  it('supports textarea', waitForAsync(() => {
     const fixture = createComponent(OuiInputTextareaWithBindings);
     fixture.detectChanges();
 
@@ -253,7 +253,7 @@ describe('OuiInput without forms', () => {
     expect(textarea).not.toBeNull();
   }));
 
-  it('should not add the `placeholder` attribute if there is no placeholder', async(() => {
+  it('should not add the `placeholder` attribute if there is no placeholder', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithoutPlaceholder);
     fixture.detectChanges();
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
@@ -263,7 +263,7 @@ describe('OuiInput without forms', () => {
 });
 
 describe('OuiInput with forms', () => {
-  it('should update the value when using FormControl.setValue', async(() => {
+  it('should update the value when using FormControl.setValue', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithFormControl);
     fixture.detectChanges();
 
@@ -278,7 +278,7 @@ describe('OuiInput with forms', () => {
     expect(input.value).toBe('something');
   }));
 
-  it('should display disabled styles when using FormControl.disable()', async(() => {
+  it('should display disabled styles when using FormControl.disable()', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithFormControl);
     fixture.detectChanges();
 
@@ -304,13 +304,13 @@ describe('OuiInput with forms', () => {
 });
 
 describe('OuiFormField default options', () => {
-  it('should be standard appearance if no default options provided', async(() => {
+  it('should be standard appearance if no default options provided', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithAppearance);
     fixture.detectChanges();
     expect(fixture.componentInstance.formField.appearance).toBe('standard');
   }));
 
-  it('should be standard appearance if empty default options provided', async(() => {
+  it('should be standard appearance if empty default options provided', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithAppearance, [
       {
         provide: OUI_FORM_FIELD_DEFAULT_OPTIONS,
@@ -322,7 +322,7 @@ describe('OuiFormField default options', () => {
     expect(fixture.componentInstance.formField.appearance).toBe('standard');
   }));
 
-  it('should be custom default appearance if custom appearance specified in default options', async(() => {
+  it('should be custom default appearance if custom appearance specified in default options', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithAppearance, [
       {
         provide: OUI_FORM_FIELD_DEFAULT_OPTIONS,

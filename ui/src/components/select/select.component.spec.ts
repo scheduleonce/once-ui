@@ -17,15 +17,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {
-  async,
-  ComponentFixture,
-  fakeAsync,
-  flush,
-  inject,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import {
   FormControl,
   FormGroup,
@@ -762,7 +754,7 @@ describe('OuiSelect', () => {
   });
 
   describe('core', () => {
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
       configureOuiSelectTestingModule([
         BasicSelect,
         MultiSelect,
@@ -1832,7 +1824,7 @@ describe('OuiSelect', () => {
   });
 
   describe('when initialized without options', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectInitWithoutOptions])));
 
     it('should select the proper option when option list is initialized later', fakeAsync(() => {
@@ -1855,7 +1847,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with a selectionChange event handler', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectWithChangeEvent])));
 
     let fixture: ComponentFixture<SelectWithChangeEvent>;
@@ -1898,7 +1890,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with ngModel', () => {
-    beforeEach(async(() => configureOuiSelectTestingModule([NgModelSelect])));
+    beforeEach(waitForAsync(() => configureOuiSelectTestingModule([NgModelSelect])));
 
     it('should disable itself when control is disabled using the property', fakeAsync(() => {
       const fixture = TestBed.createComponent(NgModelSelect);
@@ -1954,7 +1946,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with multiple oui-select elements in one view', () => {
-    beforeEach(async(() => configureOuiSelectTestingModule([ManySelects])));
+    beforeEach(waitForAsync(() => configureOuiSelectTestingModule([ManySelects])));
 
     let fixture: ComponentFixture<ManySelects>;
     let triggers: DebugElement[];
@@ -2076,7 +2068,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with tabindex', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectWithPlainTabindex])));
 
     it('should be able to set the tabindex via the native attribute', fakeAsync(() => {
@@ -2090,7 +2082,7 @@ describe('OuiSelect', () => {
   });
 
   describe('change events', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectWithPlainTabindex])));
 
     it('should complete the stateChanges stream on destroy', () => {
@@ -2114,7 +2106,7 @@ describe('OuiSelect', () => {
   });
 
   describe('when initially hidden', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([BasicSelectInitiallyHidden])));
 
     it('should set the width of the overlay if the element was hidden initially', fakeAsync(() => {
@@ -2140,7 +2132,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with no placeholder', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([BasicSelectNoPlaceholder])));
 
     it('should set the width of the overlay if there is no placeholder', fakeAsync(() => {
@@ -2163,7 +2155,7 @@ describe('OuiSelect', () => {
   });
 
   describe('when invalid inside a form', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([InvalidSelectInForm])));
 
     it('should not throw SelectionModel errors in addition to ngModel errors', fakeAsync(() => {
@@ -2181,7 +2173,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with ngModel using compareWith', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([NgModelCompareWithSelect])));
 
     let fixture: ComponentFixture<NgModelCompareWithSelect>;
@@ -2217,7 +2209,7 @@ describe('OuiSelect', () => {
   });
 
   describe(`when the select's value is accessed on initialization`, () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectEarlyAccessSibling])));
 
     it('should not throw when trying to access the selected value on init', fakeAsync(() => {
@@ -2228,7 +2220,7 @@ describe('OuiSelect', () => {
   });
 
   describe('inside of a form group', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectInsideFormGroup])));
 
     let fixture: ComponentFixture<SelectInsideFormGroup>;
@@ -2370,7 +2362,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with custom error behavior', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([CustomErrorBehaviorSelect])));
 
     it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
@@ -2394,7 +2386,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with preselected array values', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([
         SingleSelectWithPreselectedArrayValues,
       ])));
@@ -2415,7 +2407,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with OnPush', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([
         BasicSelectOnPush,
         BasicSelectOnPushPreselected,
@@ -2450,7 +2442,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with custom trigger', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([SelectWithCustomTrigger])));
 
     it('should allow the user to customize the label', fakeAsync(() => {
@@ -2471,7 +2463,7 @@ describe('OuiSelect', () => {
   });
 
   describe('when reseting the value by setting null or undefined', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([ResetValuesSelect])));
 
     let fixture: ComponentFixture<ResetValuesSelect>;
@@ -2559,7 +2551,7 @@ describe('OuiSelect', () => {
   });
 
   describe('without Angular forms', () => {
-    beforeEach(async(() =>
+    beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([
         BasicSelectWithoutForms,
         BasicSelectWithoutFormsPreselected,
@@ -2798,7 +2790,7 @@ describe('OuiSelect', () => {
   });
 
   describe('with multiple selection', () => {
-    beforeEach(async(() => configureOuiSelectTestingModule([MultiSelect])));
+    beforeEach(waitForAsync(() => configureOuiSelectTestingModule([MultiSelect])));
 
     let fixture;
     let testInstance: MultiSelect;
