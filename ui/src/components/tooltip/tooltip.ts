@@ -83,6 +83,10 @@ export interface OuiTooltipDefaultOptions {
   touchendHideDelay: number;
 }
 
+export interface NewCSSStyleDeclaration extends CSSStyleDeclaration {
+  msUserSelect: string;
+}
+
 /** Injection token to be used to override the default options for `ouiTooltip`. */
 export const OUI_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<OuiTooltipDefaultOptions>(
   'oui-tooltip-default-options',
@@ -369,7 +373,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   ) {
     this._scrollStrategy = scrollStrategy;
     const element: HTMLElement = _elementRef.nativeElement;
-    const elementStyle = element.style as CSSStyleDeclaration & {
+    const elementStyle = element.style as NewCSSStyleDeclaration & {
       webkitUserDrag: string;
     };
     const hasGestures = typeof window === 'undefined' || (window as any).Hammer;

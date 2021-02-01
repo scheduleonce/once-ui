@@ -294,7 +294,7 @@ export class OuiRadioButtonBase {
   // Since the disabled property is manually defined for the OuiRadioButton and isn't set up in
   // the mixin base class. To be able to use the tabindex mixin, a disabled property must be
   // defined to properly work.
-  disabled: boolean;
+  // disabled: boolean;
 
   constructor(public _elementRef: ElementRef) {}
 }

@@ -52,7 +52,13 @@ export class OuiFooterCellDef extends CdkFooterCellDef {}
 })
 export class OuiColumnDef extends CdkColumnDef {
   /** Unique name for this column. */
-  @Input('ouiColumnDef') name: string;
+  @Input('ouiColumnDef')
+  get name(): string {
+    return this._name;
+  }
+  set name(name: string) {
+    this._setNameInput(name);
+  }
 }
 
 /** Header cell template container that adds the right classes and role. */
