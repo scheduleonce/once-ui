@@ -77,7 +77,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     class: 'oui-datepicker-content',
     '[@transformPanel]': '"enter"',
@@ -90,7 +90,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   exportAs: 'ouiDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-inputs-metadata-property
+
   inputs: ['color'],
 })
 export class OuiDatepickerContent<D>
@@ -124,7 +124,7 @@ export class OuiDatepickerContent<D>
   exportAs: 'ouiDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     '[class.oui-datepicker-disabled]': 'disabled',
   },
@@ -220,11 +220,11 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   @Input() dateClass: (date: D) => OuiCalendarCellCssClasses;
 
   /** Emits when the datepicker has been opened. */
-  // tslint:disable-next-line:no-output-rename
+
   @Output('opened') openedStream: EventEmitter<void> = new EventEmitter<void>();
 
   /** Emits when the datepicker has been closed. */
-  // tslint:disable-next-line:no-output-rename
+
   @Output('closed') closedStream: EventEmitter<void> = new EventEmitter<void>();
 
   /** Whether the calendar is open. */

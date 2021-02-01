@@ -81,10 +81,9 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 
 /** Directive that allows a native input to work inside a `OuiFormField`. */
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: `input[oui-input], textarea[oui-input]`,
   exportAs: 'ouiInput',
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     class: 'oui-input-element',
     // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -127,7 +126,7 @@ export class OuiInput
    * Implemented as part of CanUpdateErrorState.
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
+
   errorState: boolean = false;
 
   /** The aria-describedby attribute on the input for improved a11y. */
@@ -143,7 +142,7 @@ export class OuiInput
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
+
   focused: boolean = false;
 
   /**
@@ -156,7 +155,7 @@ export class OuiInput
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
+
   controlType: string = 'oui-input';
 
   /**

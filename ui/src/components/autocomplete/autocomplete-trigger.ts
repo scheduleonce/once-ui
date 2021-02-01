@@ -102,9 +102,8 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 }
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
@@ -153,7 +152,6 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   /** Stream of keyboard events that can close the panel. */
   private readonly _closeKeyEventStream = new Subject<void>();
 
-  // tslint:disable-next-line:no-inferrable-types
   private _overlayAttached: boolean = false;
 
   /** Stream of autocomplete option selections. */
@@ -175,7 +173,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   );
 
   /** The autocomplete panel to be attached to this trigger. */
-  // tslint:disable-next-line:no-input-rename
+
   @Input('ouiAutocomplete')
   autocomplete: OuiAutocomplete;
 
@@ -183,7 +181,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Reference relative to which to position the autocomplete panel.
    * Defaults to the autocomplete trigger element.
    */
-  // tslint:disable-next-line:no-input-rename
+
   @Input('ouiAutocompleteConnectedTo')
   connectedTo: OuiAutocompleteOrigin;
 
@@ -191,7 +189,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * `autocomplete` attribute to be set on the input element.
    * @docs-private
    */
-  // tslint:disable-next-line:no-input-rename
+
   @Input('autocomplete')
   autocompleteAttribute = 'off';
 

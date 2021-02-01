@@ -75,9 +75,9 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   selector: 'oui-icon',
   exportAs: 'ouiIcon',
   styleUrls: ['icon.scss'],
-  // tslint:disable-next-line:no-inputs-metadata-property
+
   inputs: ['color'],
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     role: 'img',
     class: 'oui-icon',
@@ -99,7 +99,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   set inline(inline: boolean) {
     this._inline = coerceBooleanProperty(inline);
   }
-  // tslint:disable-next-line:no-inferrable-types
+
   private _inline: boolean = false;
 
   /**

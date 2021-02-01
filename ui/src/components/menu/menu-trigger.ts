@@ -75,7 +75,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
  */
 @Directive({
   selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'menuOpen || null',
@@ -127,7 +127,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Data to be passed along to any lazily-rendered content. */
 
-  // tslint:disable-next-line:no-input-rename
   @Input('ouiMenuTriggerData')
   menuData: any;
 
@@ -492,7 +491,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Handles key presses on the trigger. */
   _handleKeydown(event: KeyboardEvent): void {
-    // tslint:disable-next-line:deprecation
     const keyCode = event.keyCode;
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
       this.openMenu();

@@ -25,12 +25,11 @@ export const _OuiMenuItemMixinBase: CanDisableCtor &
  * It exists mostly to set the role attribute.
  */
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: `[oui-menu-item]`,
   exportAs: 'ouiMenuItem',
-  // tslint:disable-next-line:no-inputs-metadata-property
+
   inputs: ['disabled'],
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     '[attr.role]': 'role',
     class: 'oui-menu-item',

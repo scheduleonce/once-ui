@@ -71,7 +71,7 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     OUI_DATEPICKER_VALIDATORS,
     { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput },
   ],
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',
@@ -276,7 +276,6 @@ export class OuiDatepickerInput<D>
   };
 
   /** The combined form control validator for this input. */
-  // tslint:disable-next-line:member-ordering
   private _validator: ValidatorFn | null = Validators.compose([
     this._parseValidator,
     this._minValidator,

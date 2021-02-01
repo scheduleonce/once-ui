@@ -1,0 +1,21 @@
+module.exports = {
+  extends: ['@oncehub/eslint-config'],
+  rules: {
+    '@typescript-eslint/camelcase': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/consistent-type-assertions': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    'sonarjs/no-duplicate-string': 'off',
+    'sonarjs/no-identical-functions': 'off',
+    '@typescript-eslint/adjacent-overload-signatures': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
+    'sonarjs/no-all-duplicated-branches': 'off',
+    'sonarjs/no-duplicated-branches': 'off',
+    'sonarjs/no-collapsible-if': 'off',
+    'sonarjs/cognitive-complexity': 'off',
+    'sonarjs/no-collection-size-mischeck': 'off',
+    '@typescript-eslint/ban-ts-ignore': 'off',
+    '@typescript-eslint/ban-types': 'off',
+    'prefer-rest-params': 'off',
+  },
+};

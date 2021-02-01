@@ -160,7 +160,6 @@ export const _OuiSelectMixinBase: CanDisableCtor &
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: 'oui-select-trigger',
 })
 export class OuiSelectTrigger {}
@@ -170,11 +169,11 @@ export class OuiSelectTrigger {}
   exportAs: 'ouiSelect',
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
-  // tslint:disable-next-line:no-inputs-metadata-property
+
   inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     role: 'listbox',
     '[attr.id]': 'id',
@@ -372,7 +371,7 @@ export class OuiSelect
   options: QueryList<OuiOption>;
 
   /** Event emitted when the select has been opened. */
-  // tslint:disable-next-line:no-output-rename
+
   @Output('opened')
   readonly _openedStream: Observable<void> = this.openedChange.pipe(
     filter((o) => o),
@@ -380,7 +379,7 @@ export class OuiSelect
   );
 
   /** Event emitted when the select has been closed. */
-  // tslint:disable-next-line:no-output-rename
+
   @Output('closed')
   readonly _closedStream: Observable<void> = this.openedChange.pipe(
     filter((o) => !o),

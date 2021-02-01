@@ -8,9 +8,8 @@ let nextUniqueId = 0;
 
 /** Single error message to be shown underneath the form field. */
 @Directive({
-  // tslint:disable-next-line:directive-selector
   selector: 'oui-error',
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     class: 'oui-error',
     role: 'alert',

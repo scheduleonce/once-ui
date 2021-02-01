@@ -64,7 +64,7 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'ouiAutocomplete',
-  // tslint:disable-next-line:no-host-metadata-property
+
   host: {
     class: 'oui-autocomplete',
   },
@@ -77,14 +77,14 @@ export class OuiAutocomplete implements AfterContentInit {
   _keyManager: ActiveDescendantKeyManager<OuiOption>;
 
   /** Whether the autocomplete panel should be visible, depending on option length. */
-  // tslint:disable-next-line:no-inferrable-types
+
   showPanel: boolean = false;
 
   /** Whether the autocomplete panel is open. */
   get isOpen(): boolean {
     return this._isOpen && this.showPanel;
   }
-  // tslint:disable-next-line:no-inferrable-types
+
   _isOpen: boolean = false;
 
   /** @docs-private */
@@ -155,7 +155,7 @@ export class OuiAutocomplete implements AfterContentInit {
   _classList: { [key: string]: boolean } = {};
 
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
-  // tslint:disable-next-line:no-inferrable-types
+
   id: string = `oui-autocomplete-${_uniqueAutocompleteIdCounter++}`;
 
   constructor(

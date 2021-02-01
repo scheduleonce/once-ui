@@ -1397,7 +1397,6 @@ describe('OuiSelect', () => {
           dispatchFakeEvent(selectElement, 'focus');
           fixture.detectChanges();
 
-          // tslint:disable-next-line:deprecation
           expect(selectInstance.focused).toBe(
             true,
             'Expected select to be focused.'
@@ -1409,7 +1408,6 @@ describe('OuiSelect', () => {
           dispatchFakeEvent(selectElement, 'blur');
           fixture.detectChanges();
 
-          // tslint:disable-next-line:deprecation
           expect(selectInstance.focused).toBe(
             true,
             'Expected select element to remain focused.'
