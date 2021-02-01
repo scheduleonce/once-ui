@@ -64,6 +64,6 @@ import { OuiIconModule } from '../icon/icon.module';
   providers: [
     OuiDatepickerIntl,
     OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
-  ]
+  ],
 })
 export class OuiDatepickerModule {}
