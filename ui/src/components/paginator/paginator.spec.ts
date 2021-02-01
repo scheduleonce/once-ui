@@ -1,4 +1,10 @@
-import { ComponentFixture, TestBed, tick, fakeAsync, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  tick,
+  fakeAsync,
+  waitForAsync,
+} from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemePalette } from '../core';
@@ -84,18 +90,20 @@ describe('OuiPaginator', () => {
   let component: OuiPaginatorApp;
   let paginator: OuiPaginator;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiPaginatorModule, NoopAnimationsModule],
-      declarations: [
-        OuiPaginatorApp,
-        OuiPaginatorWithoutOptionsApp,
-        OuiPaginatorWithoutInputsApp,
-        OuiPaginatorWithStringValues,
-      ],
-      providers: [OuiPaginatorIntl],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiPaginatorModule, NoopAnimationsModule],
+        declarations: [
+          OuiPaginatorApp,
+          OuiPaginatorWithoutOptionsApp,
+          OuiPaginatorWithoutInputsApp,
+          OuiPaginatorWithStringValues,
+        ],
+        providers: [OuiPaginatorIntl],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiPaginatorApp);

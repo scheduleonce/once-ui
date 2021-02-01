@@ -84,12 +84,13 @@ export interface OuiTooltipDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `ouiTooltip`. */
-export const OUI_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<
-  OuiTooltipDefaultOptions
->('oui-tooltip-default-options', {
-  providedIn: 'root',
-  factory: OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
-});
+export const OUI_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<OuiTooltipDefaultOptions>(
+  'oui-tooltip-default-options',
+  {
+    providedIn: 'root',
+    factory: OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
+  }
+);
 
 /** @docs-private */
 export function OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): OuiTooltipDefaultOptions {

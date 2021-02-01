@@ -56,12 +56,13 @@ export interface OuiMenuDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `oui-menu`. */
-export const OUI_MENU_DEFAULT_OPTIONS = new InjectionToken<
-  OuiMenuDefaultOptions
->('oui-menu-default-options', {
-  providedIn: 'root',
-  factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY,
-});
+export const OUI_MENU_DEFAULT_OPTIONS = new InjectionToken<OuiMenuDefaultOptions>(
+  'oui-menu-default-options',
+  {
+    providedIn: 'root',
+    factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY,
+  }
+);
 
 /** @docs-private */
 export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {

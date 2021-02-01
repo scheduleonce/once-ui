@@ -1,6 +1,11 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, NgZone, EventEmitter } from '@angular/core';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  inject,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { DateAdapter, OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendar } from './calendar';
@@ -113,25 +118,27 @@ export class MockNgZone extends NgZone {
 describe('OuiCalendar', () => {
   let zone: MockNgZone;
   console.log(zone);
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule, OuiDatepickerModule],
-      declarations: [
-        // Test components.
-        StandardCalendar,
-        CalendarWithMinMax,
-        CalendarWithDateFilter,
-        CalendarWithSelectableMinDate,
-      ],
-      providers: [
-        OuiDatepickerIntl,
-        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiNativeDateModule, OuiDatepickerModule],
+        declarations: [
+          // Test components.
+          StandardCalendar,
+          CalendarWithMinMax,
+          CalendarWithDateFilter,
+          CalendarWithSelectableMinDate,
+        ],
+        providers: [
+          OuiDatepickerIntl,
+          { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
+          { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('standard calendar', () => {
     let fixture: ComponentFixture<StandardCalendar>;

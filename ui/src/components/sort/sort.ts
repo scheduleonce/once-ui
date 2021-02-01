@@ -113,9 +113,8 @@ export class OuiSort
 
   /** Event emitted when the user changes either the active sort or sort direction. */
   // tslint:disable-next-line:no-output-rename
-  @Output('ouiSortChange') readonly sortChange: EventEmitter<
-    Sort
-  > = new EventEmitter<Sort>();
+  @Output('ouiSortChange')
+  readonly sortChange: EventEmitter<Sort> = new EventEmitter<Sort>();
 
   /**
    * Register function to be used by the contained OuiSortables. Adds the OuiSortable to the

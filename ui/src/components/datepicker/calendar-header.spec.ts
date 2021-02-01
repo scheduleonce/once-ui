@@ -31,21 +31,23 @@ class StandardCalendar {
 }
 
 describe('OuiCalendarHeader', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule, OuiDatepickerModule],
-      declarations: [
-        // Test components.
-        StandardCalendar,
-      ],
-      providers: [
-        OuiDatepickerIntl,
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiNativeDateModule, OuiDatepickerModule],
+        declarations: [
+          // Test components.
+          StandardCalendar,
+        ],
+        providers: [
+          OuiDatepickerIntl,
+          { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('standard calendar', () => {
     let fixture: ComponentFixture<StandardCalendar>;

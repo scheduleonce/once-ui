@@ -340,9 +340,8 @@ export class OuiSelect
   private _id: string;
 
   /** Event emitted when the select panel has been toggled. */
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
+  @Output()
+  readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
@@ -369,24 +368,21 @@ export class OuiSelect
   @Input() errorStateMatcher: ErrorStateMatcher;
 
   /** All of the defined select options. */
-  @ContentChildren(OuiOption, { descendants: true }) options: QueryList<
-    OuiOption
-  >;
+  @ContentChildren(OuiOption, { descendants: true })
+  options: QueryList<OuiOption>;
 
   /** Event emitted when the select has been opened. */
   // tslint:disable-next-line:no-output-rename
-  @Output('opened') readonly _openedStream: Observable<
-    void
-  > = this.openedChange.pipe(
+  @Output('opened')
+  readonly _openedStream: Observable<void> = this.openedChange.pipe(
     filter((o) => o),
     map(() => {})
   );
 
   /** Event emitted when the select has been closed. */
   // tslint:disable-next-line:no-output-rename
-  @Output('closed') readonly _closedStream: Observable<
-    void
-  > = this.openedChange.pipe(
+  @Output('closed')
+  readonly _closedStream: Observable<void> = this.openedChange.pipe(
     filter((o) => !o),
     map(() => {
       this.isSearchFieldPresent = false;
@@ -394,9 +390,8 @@ export class OuiSelect
   );
 
   /** Event emitted when the selected value has been changed by the user. */
-  @Output() readonly selectionChange: EventEmitter<
-    OuiSelectChange
-  > = new EventEmitter<OuiSelectChange>();
+  @Output()
+  readonly selectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
 
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;

@@ -44,12 +44,13 @@ export interface OuiAutocompleteDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `oui-autocomplete`. */
-export const OUI_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<
-  OuiAutocompleteDefaultOptions
->('oui-autocomplete-default-options', {
-  providedIn: 'root',
-  factory: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
-});
+export const OUI_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<OuiAutocompleteDefaultOptions>(
+  'oui-autocomplete-default-options',
+  {
+    providedIn: 'root',
+    factory: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
+  }
+);
 
 /** @docs-private */
 export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefaultOptions {
@@ -128,9 +129,7 @@ export class OuiAutocomplete implements AfterContentInit {
 
   /** Event that is emitted whenever an option from the list is selected. */
   @Output()
-  readonly optionSelected: EventEmitter<
-    OuiAutocompleteSelectedEvent
-  > = new EventEmitter<OuiAutocompleteSelectedEvent>();
+  readonly optionSelected: EventEmitter<OuiAutocompleteSelectedEvent> = new EventEmitter<OuiAutocompleteSelectedEvent>();
 
   /** Event that is emitted when the autocomplete panel is opened. */
   @Output()

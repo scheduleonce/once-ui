@@ -52,9 +52,9 @@ export interface OuiFormFieldDefaultOptions {
  * Injection token that can be used to configure the
  * default options for all form field within an app.
  */
-export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
-  OuiFormFieldDefaultOptions
->('OUI_FORM_FIELD_DEFAULT_OPTIONS');
+export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<OuiFormFieldDefaultOptions>(
+  'OUI_FORM_FIELD_DEFAULT_OPTIONS'
+);
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({

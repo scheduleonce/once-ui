@@ -1,6 +1,13 @@
 import { DataSource } from '@angular/cdk/collections';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { ComponentFixture, fakeAsync, flushMicrotasks, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flushMicrotasks,
+  TestBed,
+  tick,
+  waitForAsync,
+} from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { OuiPaginator, OuiPaginatorModule } from '../paginator/public-api';
@@ -445,25 +452,27 @@ function expectTableToMatchContent(tableElement: Element, expected: any[]) {
 }
 
 describe('OuiTable', () => {
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        OuiTableModule,
-        OuiPaginatorModule,
-        OuiSortModule,
-        NoopAnimationsModule,
-      ],
-      declarations: [
-        OuiTableApp,
-        OuiTableWithWhenRowApp,
-        ArrayDataSourceOuiTableApp,
-        NativeHtmlTableApp,
-        OuiTableWithSortApp,
-        OuiTableWithPaginatorApp,
-        TableWithNgContainerRow,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          OuiTableModule,
+          OuiPaginatorModule,
+          OuiSortModule,
+          NoopAnimationsModule,
+        ],
+        declarations: [
+          OuiTableApp,
+          OuiTableWithWhenRowApp,
+          ArrayDataSourceOuiTableApp,
+          NativeHtmlTableApp,
+          OuiTableWithSortApp,
+          OuiTableWithPaginatorApp,
+          TableWithNgContainerRow,
+        ],
+      }).compileComponents();
+    })
+  );
 
   describe('with basic data source', () => {
     it('should be able to create a table with the right content and without when row', () => {

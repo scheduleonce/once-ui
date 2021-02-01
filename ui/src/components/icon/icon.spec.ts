@@ -1,4 +1,10 @@
-import { inject, fakeAsync, tick, TestBed, waitForAsync } from '@angular/core/testing';
+import {
+  inject,
+  fakeAsync,
+  tick,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   HttpClientTestingModule,
@@ -103,31 +109,33 @@ function verifyPathChildElement(
 describe('OuiIcon', () => {
   let fakePath: string;
 
-  beforeEach(waitForAsync(() => {
-    // The $ prefix tells Karma not to try to process the
-    // request so that we don't get warnings in our logs.
-    fakePath = '/$fake-path';
+  beforeEach(
+    waitForAsync(() => {
+      // The $ prefix tells Karma not to try to process the
+      // request so that we don't get warnings in our logs.
+      fakePath = '/$fake-path';
 
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, OuiIconModule],
-      declarations: [
-        IconWithColor,
-        IconWithLigature,
-        IconFromSvgName,
-        IconWithBindingAndNgIf,
-        InlineIcon,
-        SvgIconWithUserContent,
-      ],
-      providers: [
-        {
-          provide: OUI_ICON_LOCATION,
-          useValue: { getPathname: () => fakePath },
-        },
-      ],
-    });
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule, OuiIconModule],
+        declarations: [
+          IconWithColor,
+          IconWithLigature,
+          IconFromSvgName,
+          IconWithBindingAndNgIf,
+          InlineIcon,
+          SvgIconWithUserContent,
+        ],
+        providers: [
+          {
+            provide: OUI_ICON_LOCATION,
+            useValue: { getPathname: () => fakePath },
+          },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   let iconRegistry: OuiIconRegistry;
   let http: HttpTestingController;
