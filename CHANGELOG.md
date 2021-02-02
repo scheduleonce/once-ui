@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- [`ONCEHUB-33523`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33523)
+- [`ONCEHUB-36656`](https://scheduleonce.atlassian.net/browse/ONCEHUB-36656) Convert once-ui Progress bar component mdx format
 
 ## [4.0.2-beta.0] - 2020-11-04
 
