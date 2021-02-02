@@ -10,7 +10,7 @@
     "prettier": "prettier --list-different \"**/*.{ts,js,css,scss,md,html}\"",
     "e2e": "ng e2e",
     "fix:prettier": "prettier --write \"**/*.{ts,js,css,scss,md,html}\"",
-    "fix:lint": "eslint --fix *.ts -t verbose",
+    "fix:lint": "eslint --fix --ext .ts ui",
     "bundle-styles": "npm run bundle-styles-blue && npm run compile-scss-blue && npm run bundle-styles-green && npm run compile-scss-green",
     "bundle-styles-blue": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-blue.scss -o ./dist/ui/themes/once-ui-theme-blue.scss",
     "bundle-styles-green": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-green.scss -o ./dist/ui/themes/once-ui-theme-green.scss",
