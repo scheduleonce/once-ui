@@ -8,13 +8,13 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 @Component({
   template: ` <ng-content></ng-content> `,
-
+  // tslint:disable-next-line:component-selector
   selector: '[oui-scrollbar]',
   exportAs: 'OuiScrollbar',
   styleUrls: ['scrollbar.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-scrollbar-container',
     '[class.oui-scrollbar-container-large]': 'large',

@@ -1059,6 +1059,7 @@ describe('OuiMenu', () => {
     class OverlapSubject<T extends TestableMenu> {
       readonly fixture: ComponentFixture<T>;
       readonly trigger: HTMLElement;
+      // tslint:disable-next-line:callable-types
       constructor(ctor: { new (): T }, inputs: { [key: string]: any } = {}) {
         this.fixture = createComponent(ctor);
         Object.keys(inputs).forEach(

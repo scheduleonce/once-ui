@@ -155,7 +155,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
       // This avoids inconsistent results when comparing values to undefined/null.
       // If neither value exists, return 0 (equal).
       let comparatorResult = 0;
-
+      // tslint:disable-next-line:triple-equals
       if (valueA != null && valueB != null) {
         // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
         if (valueA > valueB) {
@@ -163,12 +163,16 @@ export class OuiTableDataSource<T> extends DataSource<T> {
         } else if (valueA < valueB) {
           comparatorResult = -1;
         }
-      } else if (valueA != null) {
+      }
+      // tslint:disable-next-line:triple-equals
+      else if (valueA != null) {
         comparatorResult = 1;
-      } else if (valueB != null) {
+      }
+      // tslint:disable-next-line:triple-equals
+      else if (valueB != null) {
         comparatorResult = -1;
       }
-
+      // tslint:disable-next-line:triple-equals
       return comparatorResult * (direction == 'asc' ? 1 : -1);
     });
   };

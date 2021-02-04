@@ -59,7 +59,7 @@ export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<OuiOptionParentCom
 @Component({
   selector: 'oui-option',
   exportAs: 'ouiOption',
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'option',
     '[attr.tabindex]': '_getTabIndex()',
@@ -102,6 +102,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
   /** The unique ID of the option. */
   @Input()
+  // tslint:disable-next-line:no-inferrable-types
   id: string = `oui-option-${_uniqueIdCounter++}`;
 
   /** Whether the option is disabled. */
@@ -114,6 +115,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   }
 
   /** Event emitted when the option is selected or deselected. */
+  // tslint:disable-next-line:no-output-on-prefix
   @Output()
   readonly onSelectionChange = new EventEmitter<OuiOptionSelectionChange>();
 
@@ -220,6 +222,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
+    // tslint:disable-next-line:deprecation
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
       this._selectViaInteraction();
 

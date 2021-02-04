@@ -19,6 +19,7 @@ const CURRENT_DATE = new Date();
 const MAX_DATE = getDate(0, 0, 1);
 
 function getDate(day: number, month: number, year: number) {
+  // tslint:disable-next-line: no-shadowed-variable
   const date = new Date();
   date.setFullYear(date.getFullYear() + year);
   date.setMonth(date.getMonth() + month);

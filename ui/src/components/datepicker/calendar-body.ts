@@ -38,10 +38,11 @@ export class OuiCalendarCell {
  * An internal component used to display calendar data in a table.
  */
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: '[oui-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-calendar-body',
     role: 'grid',

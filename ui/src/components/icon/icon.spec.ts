@@ -203,6 +203,7 @@ describe('OuiIcon', () => {
       const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
         'oui-icon'
       );
+      let svgElement: any;
 
       testComponent.iconName = 'left-arrow';
       fixture.detectChanges();
@@ -210,7 +211,7 @@ describe('OuiIcon', () => {
 
       // arrow-set.svg stores its icons as nested <svg> elements, so they should be used
       // directly and not wrapped in an outer <svg> tag like the <g> elements in other sets.
-      const svgElement = verifyAndGetSingleSvgChild(ouiIconElement);
+      svgElement = verifyAndGetSingleSvgChild(ouiIconElement);
       verifyPathChildElement(svgElement, 'left');
     });
 
@@ -271,6 +272,7 @@ describe('OuiIcon', () => {
       );
 
       const fixture = TestBed.createComponent(IconFromSvgName);
+      let svgElement: SVGElement;
       const testComponent = fixture.componentInstance;
       const iconElement = fixture.debugElement.nativeElement.querySelector(
         'oui-icon'
@@ -278,7 +280,7 @@ describe('OuiIcon', () => {
 
       testComponent.iconName = 'fluffy';
       fixture.detectChanges();
-      const svgElement = verifyAndGetSingleSvgChild(iconElement);
+      svgElement = verifyAndGetSingleSvgChild(iconElement);
       verifyPathChildElement(svgElement, 'meow');
 
       // Assert that a registered icon can be looked-up by name.

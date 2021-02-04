@@ -63,11 +63,12 @@ interface OuiSortHeaderColumnDef {
  * column definition.
  */
 @Component({
+  // tslint:disable-next-line
   selector: '[oui-sort-header]',
   exportAs: 'ouiSortHeader',
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '(click)': '_handleClick()',
     '(mouseenter)': '_setIndicatorHintVisible(true)',
@@ -78,7 +79,7 @@ interface OuiSortHeaderColumnDef {
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled'],
   animations: [
     ouiSortAnimations.indicator,
@@ -119,7 +120,7 @@ export class OuiSortHeader
    * ID of this sort header. If used within the context of a CdkColumnDef, this will default to
    * the column's name.
    */
-
+  // tslint:disable-next-line:no-input-rename
   @Input('oui-sort-header') id: string;
 
   /** Sets the position of the arrow that displays when sorted. */

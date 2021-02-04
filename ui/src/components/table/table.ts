@@ -13,7 +13,7 @@ import {
   exportAs: 'ouiTable',
   template: CDK_TABLE_TEMPLATE,
   styleUrls: ['table.scss'],
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-table',
   },

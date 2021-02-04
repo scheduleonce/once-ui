@@ -6,11 +6,11 @@
     "build": "ng build ui",
     "postbuild": "gulp copy",
     "test": "ng test ui",
-    "lint": "eslint ui --ext .ts ui",
+    "lint": "ng lint ui --format stylish",
     "prettier": "prettier --list-different \"**/*.{ts,js,css,scss,md,html}\"",
     "e2e": "ng e2e",
     "fix:prettier": "prettier --write \"**/*.{ts,js,css,scss,md,html}\"",
-    "fix:lint": "eslint --fix --ext .ts ui",
+    "fix:lint": "ng lint --fix *.ts -t verbose",
     "bundle-styles": "npm run bundle-styles-blue && npm run compile-scss-blue && npm run bundle-styles-green && npm run compile-scss-green",
     "bundle-styles-blue": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-blue.scss -o ./dist/ui/themes/once-ui-theme-blue.scss",
     "bundle-styles-green": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-green.scss -o ./dist/ui/themes/once-ui-theme-green.scss",
@@ -48,7 +48,6 @@
     "@angular/language-service": "^11.1.1",
     "@babel/core": "^7.12.10",
     "@compodoc/compodoc": "^1.1.11",
-    "@oncehub/eslint-config": "^1.1.1",
     "@storybook/addon-actions": "6.1.15",
     "@storybook/addon-docs": "6.1.15",
     "@storybook/addon-essentials": "6.1.15",
@@ -61,7 +60,6 @@
     "@types/node": "^14.14.22",
     "babel-loader": "^8.2.2",
     "codelyzer": "^6.0.1",
-    "eslint": "^7.19.0",
     "gulp": "^4.0.2",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "^6.0.0",
@@ -79,6 +77,8 @@
     "rimraf": "^3.0.2",
     "scss-bundle": "^3.1.2",
     "ts-node": "^9.1.1",
+    "tslint": "~6.1.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.1.3"
   }
 }

@@ -461,11 +461,13 @@ describe('OuiDatepicker', () => {
 
         const popup = document.querySelector('.cdk-overlay-pane')!;
         expect(popup).not.toBeNull();
+        // tslint:disable-next-line:radix
         expect(parseInt(getComputedStyle(popup).height as string)).not.toBe(0);
 
         testComponent.datepicker.close();
         fixture.detectChanges();
         flush();
+        // tslint:disable-next-line:radix
         expect(parseInt(getComputedStyle(popup).height as string)).toBe(0);
       }));
 

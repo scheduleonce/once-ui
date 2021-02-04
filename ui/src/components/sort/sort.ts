@@ -57,7 +57,7 @@ export const _OuiSortMixinBase: HasInitializedCtor &
 @Directive({
   selector: '[ouiSort]',
   exportAs: 'ouiSort',
-
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled: ouiSortDisabled'],
 })
 export class OuiSort
@@ -70,14 +70,14 @@ export class OuiSort
   readonly _stateChanges = new Subject<void>();
 
   /** The id of the most recently sorted OuiSortable. */
-
+  // tslint:disable-next-line:no-input-rename
   @Input('ouiSortActive') active: string;
 
   /**
    * The direction to set when an OuiSortable is initially sorted.
    * May be overriden by the OuiSortable's sort start.
    */
-
+  // tslint:disable-next-line:no-input-rename
   @Input('ouiSortStart') start: 'asc' | 'desc' = 'asc';
 
   /** The sort direction of the currently active OuiSortable. */
@@ -112,7 +112,7 @@ export class OuiSort
   private _disableClear: boolean;
 
   /** Event emitted when the user changes either the active sort or sort direction. */
-
+  // tslint:disable-next-line:no-output-rename
   @Output('ouiSortChange')
   readonly sortChange: EventEmitter<Sort> = new EventEmitter<Sort>();
 

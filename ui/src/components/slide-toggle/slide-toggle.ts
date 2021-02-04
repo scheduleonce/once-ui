@@ -42,13 +42,13 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
   selector: 'oui-slide-toggle',
   exportAs: 'ouiSlideToggle',
   templateUrl: 'slide-toggle.html',
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-slide-toggle',
     '[class.oui-disabled]': 'disabled',
     '[attr.tabindex]': 'disabled ? null : -1',
   },
-
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled', 'tabIndex'],
   styleUrls: ['./slide-toggle.scss'],
   providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
@@ -86,6 +86,7 @@ export class OuiSlideToggle
   @Input('aria-labelledby')
   ariaLabelledby: string | null = null;
 
+  // tslint:disable-next-line:no-output-rename
   @Output('state-change')
   change = new EventEmitter();
 

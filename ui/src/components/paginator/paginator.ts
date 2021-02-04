@@ -65,9 +65,9 @@ export const _OuiPaginatorBase: CanDisableCtor &
   exportAs: 'ouiPaginator',
   templateUrl: 'paginator.html',
   styleUrls: ['paginator.scss'],
-
+  // tslint:disable-next-line:no-inputs-metadata-property
   inputs: ['disabled'],
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-paginator',
   },

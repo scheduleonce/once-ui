@@ -20,12 +20,14 @@ import { OuiPanelTrigger } from './panel-trigger';
 import { OuiPanel } from './panel';
 import { OuiIconTestingModule } from '../icon/public-api';
 
+// tslint:disable-next-line:component-selector
 @Component({
   selector: 'oui-fake-icon',
   template: '<ng-content></ng-content>',
 })
 class FakeIcon {}
 
+// tslint:disable-next-line:component-selector
 @Component({
   template: `
     <button [ouiPanelTriggerFor]="panel" #triggerEl>Toggle panel</button>

@@ -62,7 +62,7 @@ export class OuiRadioGroupBase {}
   exportAs: 'ouiRadioGroup',
   template: ` <ng-content></ng-content> `,
   providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     role: 'radiogroup',
     class: 'oui-radio-group',
@@ -309,7 +309,7 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
   styleUrls: ['radio.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRadioButton',
-
+  // tslint:disable-next-line:no-host-metadata-property
   host: {
     class: 'oui-radio-button',
     '[class.oui-radio-checked]': 'checked',
