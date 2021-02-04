@@ -1,0 +1,72 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { select, number, text } from '@storybook/addon-knobs';
+import {
+  OuiProgressSpinner,
+  ProgressSpinner,
+} from '../../components/progress-spinner/progress-spinner';
+import { COLORS } from '../const';
+
+<Meta title="MDX/ProgressSpinner" component={ProgressSpinner} />
+
+# ProgressSpinner
+
+`<oui-progress-spinner>` is a circular indicators of progress and activity.
+
+Example:
+
+Determinate: `<oui-progress-spinner color="primary|accent|warn"></oui-progress-spinner>`
+
+Indeterminate: `<oui-progress-spinner color="primary|accent|warn" value="1 to 100"></oui-progress-spinner>`
+
+See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/progress-spinner/README.md
+
+Determinate Progress spinner:
+
+<Canvas>
+  <Story
+    name="Determinate"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-progress-spinner color="primary" value="60"></oui-progress-spinner>`,
+        },
+      },
+    }}
+  >
+    {{
+      component: OuiProgressSpinner,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        strokeWidth: text('strokeWidth', '1'),
+        value: text('value', '60'),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Indeterminate Progress spinner:
+
+<Canvas>
+  <Story
+    name="Indeterminate"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-progress-spinner color="primary"></oui-progress-spinner>`,
+        },
+      },
+    }}
+  >
+    {{
+      component: OuiProgressSpinner,
+      props: {
+        color: select('color', COLORS, COLORS[0]),
+        strokeWidth: text('strokeWidth', '1'),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-progress-bar
+
+<ArgsTable of={OuiProgressSpinner} />
