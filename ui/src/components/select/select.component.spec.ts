@@ -729,6 +729,7 @@ describe('OuiSelect', () => {
    * Configures the test module for OuiSelect with the given declarations. This is broken out so
    * that we're only compiling the necessary test components for each test in order to speed up
    * overall test time.
+   *
    * @param declarations Components to declare for this block
    */
   function configureOuiSelectTestingModule(declarations: any[]) {
@@ -740,7 +741,7 @@ describe('OuiSelect', () => {
         FormsModule,
         NoopAnimationsModule,
       ],
-      declarations: declarations,
+      declarations,
       providers: [
         {
           provide: ScrollDispatcher,
@@ -1397,7 +1398,7 @@ describe('OuiSelect', () => {
           dispatchFakeEvent(selectElement, 'focus');
           fixture.detectChanges();
 
-          // tslint:disable-next-line:deprecation
+          // eslint-disable-next-line import/no-deprecated
           expect(selectInstance.focused).toBe(
             true,
             'Expected select to be focused.'
@@ -1409,7 +1410,7 @@ describe('OuiSelect', () => {
           dispatchFakeEvent(selectElement, 'blur');
           fixture.detectChanges();
 
-          // tslint:disable-next-line:deprecation
+          // eslint-disable-next-line import/no-deprecated
           expect(selectInstance.focused).toBe(
             true,
             'Expected select element to remain focused.'
@@ -3043,9 +3044,8 @@ describe('OuiSelect', () => {
     }));
 
     it('should be able to customize the value sorting logic', fakeAsync(() => {
-      fixture.componentInstance.sortComparator = (a, b, optionsArray) => {
-        return optionsArray.indexOf(b) - optionsArray.indexOf(a);
-      };
+      fixture.componentInstance.sortComparator = (a, b, optionsArray) =>
+        optionsArray.indexOf(b) - optionsArray.indexOf(a);
       fixture.detectChanges();
 
       trigger.click();

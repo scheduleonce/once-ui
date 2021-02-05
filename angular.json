@@ -44,14 +44,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "ui/tsconfig.lib.json",
-              "ui/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "ui/**/*.ts",
+              "ui/**/*.html"
             ]
           }
         }

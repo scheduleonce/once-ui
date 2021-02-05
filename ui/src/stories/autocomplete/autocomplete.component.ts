@@ -62,7 +62,7 @@ export class OuiAutocompleteStorybook implements OnInit {
     const filterValue = option.toLowerCase();
 
     return this.options.filter(
-      // tslint:disable-next-line: no-shadowed-variable
+      // eslint-disable-next-line no-shadow
       (option) => option.toLowerCase().indexOf(filterValue) === 0
     );
   }

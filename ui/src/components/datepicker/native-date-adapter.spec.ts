@@ -7,18 +7,18 @@ import {
 } from './native-date.module';
 
 const SUPPORTS_INTL = typeof Intl !== 'undefined';
-export const JAN = 0,
-  FEB = 1,
-  MAR = 2,
-  APR = 3,
-  MAY = 4,
-  JUN = 5,
-  JUL = 6,
-  AUG = 7,
-  SEP = 8,
-  OCT = 9,
-  NOV = 10,
-  DEC = 11;
+export const JAN = 0;
+export const FEB = 1;
+export const MAR = 2;
+export const APR = 3;
+export const MAY = 4;
+export const JUN = 5;
+export const JUL = 6;
+export const AUG = 7;
+export const SEP = 8;
+export const OCT = 9;
+export const NOV = 10;
+export const DEC = 11;
 
 describe('NativeDateAdapter', () => {
   let platform: Platform;

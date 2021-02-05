@@ -82,6 +82,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
   /**
    * Panel content that will be rendered lazily.
+   *
    * @docs-private
    */
   @ContentChild(OuiPanelContent)
@@ -131,6 +132,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   /**
    * Adds classes to the panel-overlay based on its position. Can be used by
    * consumers to add specific styling based on the position.
+   *
    * @param posX Position of the panel along the x axis.
    * @param posY Position of the panel along the y axis.
    * @docs-private

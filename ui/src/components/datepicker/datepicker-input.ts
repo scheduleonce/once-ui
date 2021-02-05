@@ -71,7 +71,7 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     OUI_DATEPICKER_VALIDATORS,
     { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput },
   ],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',
@@ -229,11 +229,10 @@ export class OuiDatepickerInput<D>
   private _validatorOnChange = () => {};
 
   /** The form control validator for whether the input parses. */
-  private _parseValidator: ValidatorFn = (): ValidationErrors | null => {
-    return this._lastValueValid
+  private _parseValidator: ValidatorFn = (): ValidationErrors | null =>
+    this._lastValueValid
       ? null
       : { ouiDatepickerParse: { text: this._elementRef.nativeElement.value } };
-  };
 
   /** The form control validator for the min date. */
   private _minValidator: ValidatorFn = (
@@ -276,7 +275,7 @@ export class OuiDatepickerInput<D>
   };
 
   /** The combined form control validator for this input. */
-  // tslint:disable-next-line:member-ordering
+  // eslint-disable-next-line @typescript-eslint/member-ordering
   private _validator: ValidatorFn | null = Validators.compose([
     this._parseValidator,
     this._minValidator,
@@ -339,6 +338,7 @@ export class OuiDatepickerInput<D>
 
   /**
    * Gets the element that the datepicker popup should be connected to.
+   *
    * @return The element to connect the popup to.
    */
   getConnectedOverlayOrigin(): ElementRef {

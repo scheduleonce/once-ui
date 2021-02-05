@@ -42,7 +42,7 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-calendar',
   },

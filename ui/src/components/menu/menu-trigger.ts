@@ -75,7 +75,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
  */
 @Directive({
   selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'menuOpen || null',
@@ -127,7 +127,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Data to be passed along to any lazily-rendered content. */
 
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ouiMenuTriggerData')
   menuData: any;
 
@@ -243,6 +243,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /**
    * Focuses the menu trigger.
+   *
    * @param origin Source of the menu trigger's focus.
    */
   focus(origin: FocusOrigin = 'program') {
@@ -349,6 +350,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /**
    * This method builds the configuration object needed to create the overlay, the OverlayState.
+   *
    * @returns OverlayConfig
    */
   private _getOverlayConfig(): OverlayConfig {
@@ -388,6 +390,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   /**
    * Sets the appropriate positions on a position strategy
    * so the overlay connects with the trigger correctly.
+   *
    * @param positionStrategy Strategy whose position to update.
    */
   private _setPosition(positionStrategy: FlexibleConnectedPositionStrategy) {
@@ -492,7 +495,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Handles key presses on the trigger. */
   _handleKeydown(event: KeyboardEvent): void {
-    // tslint:disable-next-line:deprecation
+    // eslint-disable-next-line import/no-deprecated
     const keyCode = event.keyCode;
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
       this.openMenu();

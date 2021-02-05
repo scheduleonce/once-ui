@@ -50,6 +50,7 @@ export const TOOLTIP_PANEL_CLASS = 'oui-tooltip-panel';
 
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
+ *
  * @docs-private
  */
 export function getOuiTooltipInvalidPositionError(position: string) {
@@ -109,6 +110,7 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 
 /**
  * Internal component that wraps the tooltip's content.
+ *
  * @docs-private
  */
 @Component({
@@ -118,7 +120,7 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [ouiTooltipAnimations.tooltipState],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     // Forces the element to have a layout in IE and Edge. This fixes issues where the element
     // won't be rendered if the animations are disabled or there is no web animations polyfill.
@@ -160,6 +162,7 @@ export class TooltipComponent {
 
   /**
    * Shows the tooltip with an animation originating from the provided origin
+   *
    * @param delay Amount of milliseconds to the delay showing the tooltip.
    */
   show(): void {
@@ -183,6 +186,7 @@ export class TooltipComponent {
 
   /**
    * Begins the animation to hide the tooltip after the provided delay in ms.
+   *
    * @param delay Amount of milliseconds to delay showing the tooltip.
    */
   hide(): void {
@@ -252,7 +256,7 @@ export class TooltipComponent {
 @Directive({
   selector: '[ouiTooltip]',
   exportAs: 'ouiTooltip',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',

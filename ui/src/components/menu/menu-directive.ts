@@ -150,6 +150,7 @@ export class OuiMenu
 
   /**
    * List of the items inside of a menu.
+   *
    * @deprecated
    * @breaking-change 8.0.0
    */
@@ -158,6 +159,7 @@ export class OuiMenu
 
   /**
    * Menu content that will be rendered lazily.
+   *
    * @docs-private
    */
   @ContentChild(OuiMenuContent)
@@ -177,6 +179,7 @@ export class OuiMenu
    * This method takes classes set on the host oui-menu element and applies them on the
    * menu template that displays in the overlay container.  Otherwise, it's difficult
    * to style the containing menu from outside the component.
+   *
    * @param classes list of class names
    */
   @Input('class')
@@ -201,6 +204,7 @@ export class OuiMenu
 
   /**
    * Event emitted when the menu is closed.
+   *
    * @deprecated Switch to `closed` instead
    * @breaking-change 8.0.0
    */
@@ -242,7 +246,7 @@ export class OuiMenu
 
   /** Handle a keyboard event from the menu, delegating to the appropriate action. */
   _handleKeydown(event: KeyboardEvent) {
-    // tslint:disable-next-line:deprecation
+    // eslint-disable-next-line import/no-deprecated
     const keyCode = event.keyCode;
     switch (keyCode) {
       case ESCAPE:
@@ -264,6 +268,7 @@ export class OuiMenu
 
   /**
    * Focus the first item in the menu.
+   *
    * @param origin Action from which the focus originated. Used to set the correct styling.
    */
   focusFirstItem(origin: FocusOrigin = 'program'): void {
@@ -290,6 +295,7 @@ export class OuiMenu
 
   /**
    * Registers a menu item with the menu.
+   *
    * @docs-private
    */
   addItem(item: OuiMenuItem) {
@@ -306,6 +312,7 @@ export class OuiMenu
 
   /**
    * Removes an item from the menu.
+   *
    * @docs-private
    */
   removeItem(item: OuiMenuItem) {
@@ -320,6 +327,7 @@ export class OuiMenu
   /**
    * Adds classes to the menu panel based on its position. Can be used by
    * consumers to add specific styling based on the position.
+   *
    * @param posX Position of the menu along the x axis.
    * @param posY Position of the menu along the y axis.
    * @docs-private

@@ -8,9 +8,9 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 import { OuiDatepickerModule } from './datepicker-module';
 import { yearsPerPage } from './multi-year-view';
 
-const JAN = 0,
-  FEB = 1,
-  DEC = 11;
+const JAN = 0;
+const FEB = 1;
+const DEC = 11;
 
 @Component({
   template: `

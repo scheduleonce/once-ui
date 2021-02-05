@@ -37,6 +37,7 @@ export class PageEvent {
 
   /**
    * Index of the page that was selected previously.
+   *
    * @breaking-change 8.0.0 To be made into a required property.
    */
   previousPageIndex?: number;
@@ -65,9 +66,9 @@ export const _OuiPaginatorBase: CanDisableCtor &
   exportAs: 'ouiPaginator',
   templateUrl: 'paginator.html',
   styleUrls: ['paginator.scss'],
-  // tslint:disable-next-line:no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-paginator',
   },

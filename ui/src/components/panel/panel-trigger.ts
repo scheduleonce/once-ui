@@ -55,7 +55,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 @Directive({
   selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'panelOpen || null',
@@ -141,7 +141,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    // tslint:disable-next-line:deprecation
+    // eslint-disable-next-line import/no-deprecated
     const keyCode = event.keyCode;
     if (keyCode === SPACE) {
       this.openPanel();
@@ -206,6 +206,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   /**
    * This method builds the configuration object needed to create the overlay, the OverlayState.
+   *
    * @returns OverlayConfig
    */
   private _getOverlayConfig(): OverlayConfig {
@@ -244,6 +245,7 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   /**
    * Sets the appropriate positions on a position strategy
    * so the overlay connects with the trigger correctly.
+   *
    * @param positionStrategy Strategy whose position to update.
    */
   private _setPosition(positionStrategy: FlexibleConnectedPositionStrategy) {

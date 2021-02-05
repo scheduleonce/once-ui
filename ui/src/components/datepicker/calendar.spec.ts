@@ -12,11 +12,11 @@ import { OuiCalendar } from './calendar';
 import { OuiDatepickerIntl } from './datepicker-intl';
 import { OuiDatepickerModule } from './datepicker-module';
 
-const JAN = 0,
-  FEB = 1,
-  JUL = 6,
-  NOV = 10,
-  DEC = 11;
+const JAN = 0;
+const FEB = 1;
+const JUL = 6;
+const NOV = 10;
+const DEC = 11;
 
 @Component({
   template: `

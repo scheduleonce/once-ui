@@ -5,6 +5,7 @@ import { OuiMenuContent } from './menu-content';
 
 /**
  * Injection token used to provide the parent menu to menu-specific components.
+ *
  * @docs-private
  */
 export const OUI_MENU_PANEL = new InjectionToken<OuiMenuPanel>(
@@ -13,6 +14,7 @@ export const OUI_MENU_PANEL = new InjectionToken<OuiMenuPanel>(
 
 /**
  * Interface for a custom menu panel that can be used with `ouiMenuTriggerFor`.
+ *
  * @docs-private
  */
 export interface OuiMenuPanel<T = any> {
