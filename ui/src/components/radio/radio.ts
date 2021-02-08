@@ -32,6 +32,7 @@ let nextUniqueId = 0;
 /**
  * Provider Expression that allows oui-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
+ *
  * @docs-private
  */
 export const OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any = {
@@ -62,7 +63,7 @@ export class OuiRadioGroupBase {}
   exportAs: 'ouiRadioGroup',
   template: ` <ng-content></ng-content> `,
   providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'radiogroup',
     class: 'oui-radio-group',
@@ -74,9 +75,8 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
    * Change events are only emitted when the value changes due to user interaction with
    * a radio button (the same behavior as `<input type-"radio">`).
    */
-  @Output() readonly change: EventEmitter<OuiRadioChange> = new EventEmitter<
-    OuiRadioChange
-  >();
+  @Output()
+  readonly change: EventEmitter<OuiRadioChange> = new EventEmitter<OuiRadioChange>();
 
   /** Child radio buttons. */
   @ContentChildren(forwardRef(() => OuiRadioButton), { descendants: true })
@@ -107,6 +107,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   /**
    * onTouch function registered via registerOnTouch (ControlValueAccessor).
+   *
    * @docs-private
    */
   onTouched: () => any = () => {};
@@ -254,6 +255,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   /**
    * Sets the model value. Implemented as part of ControlValueAccessor.
+   *
    * @param value
    */
   writeValue(value: any) {
@@ -264,6 +266,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /**
    * Registers a callback to be triggered when the model value changes.
    * Implemented as part of ControlValueAccessor.
+   *
    * @param fn Callback to be registered.
    */
   registerOnChange(fn: (value: any) => void) {
@@ -273,6 +276,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /**
    * Registers a callback to be triggered when the control is touched.
    * Implemented as part of ControlValueAccessor.
+   *
    * @param fn Callback to be registered.
    */
   registerOnTouched(fn: any) {
@@ -281,6 +285,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   /**
    * Sets the disabled state of the control. Implemented as a part of ControlValueAccessor.
+   *
    * @param isDisabled Whether the control should be disabled.
    */
   setDisabledState(isDisabled: boolean) {
@@ -295,7 +300,7 @@ export class OuiRadioButtonBase {
   // Since the disabled property is manually defined for the OuiRadioButton and isn't set up in
   // the mixin base class. To be able to use the tabindex mixin, a disabled property must be
   // defined to properly work.
-  disabled: boolean;
+  // disabled: boolean;
 
   constructor(public _elementRef: ElementRef) {}
 }
@@ -310,7 +315,7 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
   styleUrls: ['radio.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRadioButton',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-radio-button',
     '[class.oui-radio-checked]': 'checked',
@@ -448,9 +453,8 @@ export class OuiRadioButton
    * Change events are only emitted when the value changes due to user interaction with
    * the radio button (the same behavior as `<input type-"radio">`).
    */
-  @Output() readonly change: EventEmitter<OuiRadioChange> = new EventEmitter<
-    OuiRadioChange
-  >();
+  @Output()
+  readonly change: EventEmitter<OuiRadioChange> = new EventEmitter<OuiRadioChange>();
 
   /** The native `<input type=radio>` element */
   @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;

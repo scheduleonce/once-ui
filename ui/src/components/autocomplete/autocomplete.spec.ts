@@ -154,11 +154,11 @@ class NgIfAutocomplete {
   constructor() {
     this.filteredOptions = this.optionCtrl.valueChanges.pipe(
       startWith(''),
-      map((val: string) => {
-        return val
+      map((val: string) =>
+        val
           ? this.options.filter((option) => new RegExp(val, 'gi').test(option))
-          : this.options.slice();
-      })
+          : this.options.slice()
+      )
     );
   }
 }
@@ -305,11 +305,11 @@ class AutocompleteWithNativeInput {
   constructor() {
     this.filteredOptions = this.optionCtrl.valueChanges.pipe(
       startWith(''),
-      map((val: string) => {
-        return val
+      map((val: string) =>
+        val
           ? this.options.filter((option) => new RegExp(val, 'gi').test(option))
-          : this.options.slice();
-      })
+          : this.options.slice()
+      )
     );
   }
 }

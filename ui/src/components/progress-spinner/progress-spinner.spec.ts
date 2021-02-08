@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { OuiProgressSpinner } from './progress-spinner';
 import { By } from '@angular/platform-browser';
@@ -33,16 +33,18 @@ describe('OuiProgressSpinner', () => {
   let basicProgressSpinnerFixture: ComponentFixture<BasicProgressSpinner>;
   let progressSpinnerDiameterFixture: ComponentFixture<ProgressSpinnerCustomDiameter>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        OuiProgressSpinner,
-        BasicProgressSpinner,
-        ProgressSpinnerCustomDiameter,
-        ProgressSpinnerWithColor,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          OuiProgressSpinner,
+          BasicProgressSpinner,
+          ProgressSpinnerCustomDiameter,
+          ProgressSpinnerWithColor,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiProgressSpinner);

@@ -28,10 +28,10 @@ let _uniqueOptgroupIdCounter = 0;
   templateUrl: 'optgroup.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
   styleUrls: ['optgroup.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-optgroup',
     role: 'group',
@@ -46,6 +46,6 @@ export class OuiOptgroup extends _OuiOptgroupMixinBase implements CanDisable {
   label: string;
 
   /** Unique id for the underlying label. */
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   _labelId: string = `oui-optgroup-label-${_uniqueOptgroupIdCounter++}`;
 }

@@ -81,6 +81,7 @@ export const OUI_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
+ *
  * @docs-private
  */
 export const OUI_AUTOCOMPLETE_VALUE_ACCESSOR: any = {
@@ -91,6 +92,7 @@ export const OUI_AUTOCOMPLETE_VALUE_ACCESSOR: any = {
 
 /**
  * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
+ *
  * @docs-private
  */
 export function getOuiAutocompleteMissingPanelError(): Error {
@@ -102,9 +104,9 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 }
 
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
@@ -153,7 +155,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   /** Stream of keyboard events that can close the panel. */
   private readonly _closeKeyEventStream = new Subject<void>();
 
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   private _overlayAttached: boolean = false;
 
   /** Stream of autocomplete option selections. */
@@ -175,7 +177,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   );
 
   /** The autocomplete panel to be attached to this trigger. */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ouiAutocomplete')
   autocomplete: OuiAutocomplete;
 
@@ -183,15 +185,16 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Reference relative to which to position the autocomplete panel.
    * Defaults to the autocomplete trigger element.
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ouiAutocompleteConnectedTo')
   connectedTo: OuiAutocompleteOrigin;
 
   /**
    * `autocomplete` attribute to be set on the input element.
+   *
    * @docs-private
    */
-  // tslint:disable-next-line:no-input-rename
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('autocomplete')
   autocompleteAttribute = 'off';
 

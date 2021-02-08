@@ -1,6 +1,7 @@
 /**
  * Returns an exception to be thrown when attempting to change a select's `multiple` option
  * after initialization.
+ *
  * @docs-private
  */
 export function getOuiSelectDynamicMultipleError(): Error {
@@ -11,6 +12,7 @@ export function getOuiSelectDynamicMultipleError(): Error {
  * Returns an exception to be thrown when attempting to assign a non-array value to a select
  * in `multiple` mode. Note that `undefined` and `null` are still valid values to allow for
  * resetting the value.
+ *
  * @docs-private
  */
 export function getOuiSelectNonArrayValueError(): Error {
