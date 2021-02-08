@@ -81,10 +81,10 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 
 /** Directive that allows a native input to work inside a `OuiFormField`. */
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[oui-input], textarea[oui-input]`,
   exportAs: 'ouiInput',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-input-element',
     // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -125,9 +125,10 @@ export class OuiInput
 
   /**
    * Implemented as part of CanUpdateErrorState.
+   *
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   errorState: boolean = false;
 
   /** The aria-describedby attribute on the input for improved a11y. */
@@ -141,32 +142,37 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   focused: boolean = false;
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   readonly stateChanges: Subject<void> = new Subject<void>();
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   controlType: string = 'oui-input';
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   autofilled = false;
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   @Input()
@@ -190,6 +196,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   @Input()
@@ -203,6 +210,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   @Input()
@@ -210,6 +218,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   @Input()
@@ -244,6 +253,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   @Input()
@@ -427,6 +437,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   get empty(): boolean {
@@ -440,6 +451,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   get shouldLabelFloat(): boolean {
@@ -466,6 +478,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   setDescribedByIds(ids: string[]) {
@@ -474,6 +487,7 @@ export class OuiInput
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   onContainerClick() {

@@ -264,7 +264,7 @@ This component can be used if someone want to have the search input field inside
 ## Properties
 
 | Name                                                         | Description                                                                                                                  |
-| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- |
+| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | @Input('aria-label') ariaLabel: string                       | Aria label of the select. If not specified, the placeholder will be used as label.                                           |
 | @Input('aria-labelledby') ariaLabelledby: string             | Input that can be used to specify the aria-labelledby attribute.                                                             |
 | @Input() disabled: boolean                                   | Whether the component is disabled.                                                                                           |

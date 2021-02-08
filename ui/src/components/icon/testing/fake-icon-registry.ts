@@ -2,13 +2,13 @@ import { Injectable, NgModule, OnDestroy } from '@angular/core';
 import { OuiIconRegistry } from '../icon-registery';
 import { Observable, of as observableOf } from 'rxjs';
 
-// tslint:disable:no-any Impossible to tell param types.
+/* eslint-disable @typescript-eslint/no-explicit-any */
 type PublicApi<T> = {
   [K in keyof T]: T[K] extends (...x: any[]) => T
     ? (...x: any[]) => PublicApi<T>
     : T[K];
 };
-// tslint:enable:no-any
+/* eslint-enable @typescript-eslint/no-explicit-any */
 
 /**
  * A null icon registry that must be imported to allow disabling of custom icons

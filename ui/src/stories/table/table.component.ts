@@ -42,7 +42,7 @@ export class OuiTableStorybook implements OnInit, OnChanges {
   constructor() {}
 
   ngOnInit() {
-    // tslint:disable-next-line:forin
+    // eslint-disable-next-line guard-for-in
     for (const key in this.users[0]) {
       this.displayedColumns.push(key);
     }
