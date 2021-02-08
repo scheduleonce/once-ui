@@ -5,6 +5,7 @@ import { EventEmitter, Injectable, NgZone } from '@angular/core';
  * to flush out `onStable` subscriptions in tests.
  *
  * via: https://github.com/angular/angular/blob/master/packages/core/testing/src/ng_zone_mock.ts
+ *
  * @docs-private
  */
 @Injectable()

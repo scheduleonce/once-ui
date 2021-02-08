@@ -5,6 +5,7 @@ import { Observable, Subject } from 'rxjs';
 
 /**
  * Injection token used to provide the parent menu to menu-specific components.
+ *
  * @docs-private
  */
 export const OUI_PANEL_OVERLAY = new InjectionToken<OuiPanelOverlay>(
@@ -13,6 +14,7 @@ export const OUI_PANEL_OVERLAY = new InjectionToken<OuiPanelOverlay>(
 
 /**
  * Interface for a custom menu panel that can be used with `ouiMenuTriggerFor`.
+ *
  * @docs-private
  */
 export interface OuiPanelOverlay {

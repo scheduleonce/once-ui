@@ -23,12 +23,14 @@ export type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 
 /**
  * Base reference size of the spinner.
+ *
  * @docs-private
  */
 const BASE_SIZE = 15;
 
 /**
  * Base reference stroke width of the spinner.
+ *
  * @docs-private
  */
 const BASE_STROKE_WIDTH = 2;
@@ -62,7 +64,7 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
   selector: 'oui-progress-spinner',
   exportAs: 'OuiProgressSpinner',
   styleUrls: ['progress-spinner.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-progress-spinner',
     '[style.width.px]': 'diameter',
