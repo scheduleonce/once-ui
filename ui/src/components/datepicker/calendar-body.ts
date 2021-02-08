@@ -38,11 +38,11 @@ export class OuiCalendarCell {
  * An internal component used to display calendar data in a table.
  */
 @Component({
-  // tslint:disable-next-line:component-selector
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[oui-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-calendar-body',
     role: 'grid',
@@ -81,9 +81,8 @@ export class OuiCalendarBody implements OnChanges {
   @Input() cellAspectRatio = 1;
 
   /** Emits when a new value is selected. */
-  @Output() readonly selectedValueChange: EventEmitter<
-    number
-  > = new EventEmitter<number>();
+  @Output()
+  readonly selectedValueChange: EventEmitter<number> = new EventEmitter<number>();
 
   /** The number of blank cells to put at the beginning for the first row. */
   _firstRowOffset: number;

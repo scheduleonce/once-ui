@@ -33,18 +33,18 @@ import {
   OuiDatepickerIntl,
   OuiDatepickerModule,
 } from './index';
-export const JAN = 0,
-  FEB = 1,
-  MAR = 2,
-  APR = 3,
-  MAY = 4,
-  JUN = 5,
-  JUL = 6,
-  AUG = 7,
-  SEP = 8,
-  OCT = 9,
-  NOV = 10,
-  DEC = 11;
+export const JAN = 0;
+export const FEB = 1;
+export const MAR = 2;
+export const APR = 3;
+export const MAY = 4;
+export const JUN = 5;
+export const JUL = 6;
+export const AUG = 7;
+export const SEP = 8;
+export const OCT = 9;
+export const NOV = 10;
+export const DEC = 11;
 
 @Component({
   template: `
@@ -461,13 +461,13 @@ describe('OuiDatepicker', () => {
 
         const popup = document.querySelector('.cdk-overlay-pane')!;
         expect(popup).not.toBeNull();
-        // tslint:disable-next-line:radix
+        // eslint-disable-next-line radix
         expect(parseInt(getComputedStyle(popup).height as string)).not.toBe(0);
 
         testComponent.datepicker.close();
         fixture.detectChanges();
         flush();
-        // tslint:disable-next-line:radix
+        // eslint-disable-next-line radix
         expect(parseInt(getComputedStyle(popup).height as string)).toBe(0);
       }));
 

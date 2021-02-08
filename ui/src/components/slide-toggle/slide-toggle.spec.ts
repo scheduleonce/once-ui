@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OuiSlideToggle } from './slide-toggle';
 
@@ -6,11 +6,13 @@ describe('OuiSlideToggle', () => {
   let component: OuiSlideToggle;
   let fixture: ComponentFixture<OuiSlideToggle>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [OuiSlideToggle],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [OuiSlideToggle],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiSlideToggle);

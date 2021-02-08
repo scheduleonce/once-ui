@@ -1,6 +1,6 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendar } from './calendar';
@@ -8,9 +8,9 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 import { OuiDatepickerModule } from './datepicker-module';
 import { yearsPerPage } from './multi-year-view';
 
-const JAN = 0,
-  FEB = 1,
-  DEC = 11;
+const JAN = 0;
+const FEB = 1;
+const DEC = 11;
 
 @Component({
   template: `
@@ -31,21 +31,23 @@ class StandardCalendar {
 }
 
 describe('OuiCalendarHeader', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule, OuiDatepickerModule],
-      declarations: [
-        // Test components.
-        StandardCalendar,
-      ],
-      providers: [
-        OuiDatepickerIntl,
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiNativeDateModule, OuiDatepickerModule],
+        declarations: [
+          // Test components.
+          StandardCalendar,
+        ],
+        providers: [
+          OuiDatepickerIntl,
+          { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('standard calendar', () => {
     let fixture: ComponentFixture<StandardCalendar>;

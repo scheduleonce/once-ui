@@ -17,6 +17,7 @@ import { catchError, finalize, map, share, tap } from 'rxjs/operators';
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
+ *
  * @docs-private
  */
 export function getOuiIconNameNotFoundError(iconName: string): Error {
@@ -26,6 +27,7 @@ export function getOuiIconNameNotFoundError(iconName: string): Error {
 /**
  * Returns an exception to be thrown when the consumer attempts to use
  * `<oui-icon>` without including @angular/http.
+ *
  * @docs-private
  */
 export function getOuiIconNoHttpProviderError(): Error {
@@ -38,6 +40,7 @@ export function getOuiIconNoHttpProviderError(): Error {
 
 /**
  * Returns an exception to be thrown when a URL couldn't be sanitized.
+ *
  * @param url URL that was attempted to be sanitized.
  * @docs-private
  */
@@ -52,6 +55,7 @@ export function getOuiIconFailedToSanitizeUrlError(
 
 /**
  * Returns an exception to be thrown when a HTML string couldn't be sanitized.
+ *
  * @param literal HTML that was attempted to be sanitized.
  * @docs-private
  */
@@ -118,6 +122,7 @@ export class OuiIconRegistry {
 
   /**
    * Registers an icon by URL in the default namespace.
+   *
    * @param iconName Name under which the icon should be registered.
    * @param url
    */
@@ -128,6 +133,7 @@ export class OuiIconRegistry {
 
   /**
    * Registers an icon using an HTML string in the default namespace.
+   *
    * @param iconName Name under which the icon should be registered.
    * @param literal SVG source of the icon.
    */
@@ -152,6 +158,7 @@ export class OuiIconRegistry {
 
   /**
    * Registers an icon set by URL in the default namespace.
+   *
    * @param url
    */
   addSvgIconSet(url: SafeResourceUrl): this {
@@ -171,6 +178,7 @@ export class OuiIconRegistry {
    * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
    * and namespace. The icon must have been previously registered with addIcon or addIconSet;
    * if not, the Observable will throw an error.
+   *
    * @param name
    * @param namespace
    */
@@ -235,8 +243,8 @@ export class OuiIconRegistry {
     // fetched, fetch them now and look for iconName in the results.
     const iconSetFetchRequests: Observable<SVGElement | null>[] = iconSetConfigs
       .filter((iconSetConfig) => !iconSetConfig.svgElement)
-      .map((iconSetConfig) => {
-        return this._loadSvgIconSetFromConfig(iconSetConfig).pipe(
+      .map((iconSetConfig) =>
+        this._loadSvgIconSetFromConfig(iconSetConfig).pipe(
           catchError(
             (err: HttpErrorResponse): Observable<SVGElement | null> => {
               const url = this._sanitizer.sanitize(
@@ -252,8 +260,8 @@ export class OuiIconRegistry {
               return observableOf(null);
             }
           )
-        );
-      });
+        )
+      );
 
     // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
     // cached SVG element (unless the request failed), and we can check again for the icon.

@@ -42,7 +42,7 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-calendar',
   },
@@ -140,9 +140,8 @@ export class OuiCalendar<D>
   @Output() readonly monthSelected: EventEmitter<D> = new EventEmitter<D>();
 
   /** Emits when any date is selected. */
-  @Output() readonly _userSelection: EventEmitter<void> = new EventEmitter<
-    void
-  >();
+  @Output()
+  readonly _userSelection: EventEmitter<void> = new EventEmitter<void>();
 
   /** Reference to the current month view component. */
   @ViewChild(OuiMonthView) monthView: OuiMonthView<D>;

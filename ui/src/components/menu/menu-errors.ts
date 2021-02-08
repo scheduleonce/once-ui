@@ -1,5 +1,6 @@
 /**
  * Throws an exception for the case when menu trigger doesn't have a valid oui-menu instance
+ *
  * @docs-private
  */
 export function throwOuiMenuMissingError() {
@@ -13,6 +14,7 @@ export function throwOuiMenuMissingError() {
 /**
  * Throws an exception for the case when menu's x-position value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
+ *
  * @docs-private
  */
 export function throwOuiMenuInvalidPositionX() {
@@ -23,6 +25,7 @@ export function throwOuiMenuInvalidPositionX() {
 /**
  * Throws an exception for the case when menu's y-position value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
+ *
  * @docs-private
  */
 export function throwOuiMenuInvalidPositionY() {

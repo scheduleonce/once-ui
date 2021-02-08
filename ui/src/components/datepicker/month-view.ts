@@ -117,9 +117,8 @@ export class OuiMonthView<D> implements AfterContentInit {
   readonly selectedChange: EventEmitter<D | null> = new EventEmitter<D | null>();
 
   /** Emits when any date is selected. */
-  @Output() readonly _userSelection: EventEmitter<void> = new EventEmitter<
-    void
-  >();
+  @Output()
+  readonly _userSelection: EventEmitter<void> = new EventEmitter<void>();
 
   /** Emits when any date is activated. */
   @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
@@ -166,9 +165,10 @@ export class OuiMonthView<D> implements AfterContentInit {
     const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
     const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
     // Rotate the labels for days of the week based on the configured first day of the week.
-    const weekdays = longWeekdays.map((long, i) => {
-      return { long, narrow: narrowWeekdays[i] };
-    });
+    const weekdays = longWeekdays.map((long, i) => ({
+      long,
+      narrow: narrowWeekdays[i],
+    }));
     this._weekdays = weekdays.slice(firstDayOfWeek).concat();
     this._activeDate = this._dateAdapter.today();
   }

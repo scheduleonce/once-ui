@@ -1,6 +1,7 @@
 /**
  * Throws an exception for the case when panel's x-position value isn't valid.
  * In other words, it doesn't match 'before' or 'after'.
+ *
  * @docs-private
  */
 export function throwOuiPanelInvalidPositionX() {
@@ -11,6 +12,7 @@ export function throwOuiPanelInvalidPositionX() {
 /**
  * Throws an exception for the case when panel's y-position value isn't valid.
  * In other words, it doesn't match 'above' or 'below'.
+ *
  * @docs-private
  */
 export function throwOuiPanelInvalidPositionY() {

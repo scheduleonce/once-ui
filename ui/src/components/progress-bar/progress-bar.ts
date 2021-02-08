@@ -23,7 +23,7 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
   selector: 'oui-progress-bar',
   exportAs: 'OuiProgressBar',
   styleUrls: ['progress-bar.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-progress-bar',
     '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
