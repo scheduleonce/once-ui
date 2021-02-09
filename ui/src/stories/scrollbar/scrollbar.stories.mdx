@@ -1,0 +1,57 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiScrollbarModule, Scrollbar } from '../../components';
+import { text, number, boolean, array } from '@storybook/addon-knobs';
+import { DUMMY_TEXT, COUNTRY_LIST } from '../const';
+import { OuiScrollbar, OuiSBar } from '../../components';
+import { OuiScrollbarTextStorybook } from './scrollbar.component';
+import { OuiScrollbarListStorybook } from './scrollbar.component';
+
+<Meta title="MDX/Scrollbar" component={Scrollbar} />
+
+# Scrollbar
+
+<Canvas>
+  <Story name="regular">
+    {{
+      moduleMetadata: {
+        imports: [OuiScrollbarModule, OuiScrollbar],
+        schemas: [],
+        declarations: [OuiScrollbarTextStorybook],
+      },
+      template: `<oui-scrollbar-text-storybook
+        [large]="large"
+        [height]="height"
+        [text]="text"></oui-scrollbar-text-storybook>`,
+      props: {
+        large: boolean('large', false),
+        height: text('height', '350'),
+        text: text('text', DUMMY_TEXT),
+      },
+    }}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="list">
+    {{
+      moduleMetadata: {
+        imports: [OuiScrollbarModule, OuiScrollbar],
+        schemas: [],
+        declarations: [OuiScrollbarListStorybook],
+      },
+      template: `<oui-scrollbar-list-storybook
+  [large]="large"
+  [height]="height"
+  [items]="items"></oui-scrollbar-list-storybook>`,
+      props: {
+        large: boolean('large', false),
+        height: number('height', '350'),
+        items: array('items', COUNTRY_LIST),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-dialog
+
+<ArgsTable of={OuiScrollbarModule} />
