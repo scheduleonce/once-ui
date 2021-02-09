@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import {
   OuiCalendarBody,
@@ -27,11 +27,9 @@ class StandardCalendarBody {
   rows = [
     [1, 2, 3, 4, 5, 6, 7],
     [8, 9, 10, 11, 12, 13, 14],
-  ].map((row) => {
-    return row.map((cell) =>
-      createCell(cell, cell % 2 === 0 ? 'even' : undefined)
-    );
-  });
+  ].map((row) =>
+    row.map((cell) => createCell(cell, cell % 2 === 0 ? 'even' : undefined))
+  );
   todayValue = 3;
   selectedValue = 4;
   labelMinRequiredCells = 3;
@@ -53,18 +51,20 @@ function createCell(value: number, cellClasses?: OuiCalendarCellCssClasses) {
 }
 
 describe('OuiCalendarBody', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        OuiCalendarBody,
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [
+          OuiCalendarBody,
 
-        // Test components.
-        StandardCalendarBody,
-      ],
-    });
+          // Test components.
+          StandardCalendarBody,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('standard calendar body', () => {
     let fixture: ComponentFixture<StandardCalendarBody>;

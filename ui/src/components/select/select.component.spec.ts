@@ -18,13 +18,13 @@ import {
   ViewChildren,
 } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   flush,
   inject,
   TestBed,
   tick,
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   FormControl,
@@ -729,6 +729,7 @@ describe('OuiSelect', () => {
    * Configures the test module for OuiSelect with the given declarations. This is broken out so
    * that we're only compiling the necessary test components for each test in order to speed up
    * overall test time.
+   *
    * @param declarations Components to declare for this block
    */
   function configureOuiSelectTestingModule(declarations: any[]) {
@@ -740,7 +741,7 @@ describe('OuiSelect', () => {
         FormsModule,
         NoopAnimationsModule,
       ],
-      declarations: declarations,
+      declarations,
       providers: [
         {
           provide: ScrollDispatcher,
@@ -762,16 +763,18 @@ describe('OuiSelect', () => {
   });
 
   describe('core', () => {
-    beforeEach(async(() => {
-      configureOuiSelectTestingModule([
-        BasicSelect,
-        MultiSelect,
-        SelectWithGroups,
-        SelectWithGroupsAndNgContainer,
-        SelectWithFormFieldLabel,
-        SelectWithChangeEvent,
-      ]);
-    }));
+    beforeEach(
+      waitForAsync(() => {
+        configureOuiSelectTestingModule([
+          BasicSelect,
+          MultiSelect,
+          SelectWithGroups,
+          SelectWithGroupsAndNgContainer,
+          SelectWithFormFieldLabel,
+          SelectWithChangeEvent,
+        ]);
+      })
+    );
 
     describe('accessibility', () => {
       describe('for select', () => {
@@ -1395,7 +1398,7 @@ describe('OuiSelect', () => {
           dispatchFakeEvent(selectElement, 'focus');
           fixture.detectChanges();
 
-          // tslint:disable-next-line:deprecation
+          // eslint-disable-next-line import/no-deprecated
           expect(selectInstance.focused).toBe(
             true,
             'Expected select to be focused.'
@@ -1407,7 +1410,7 @@ describe('OuiSelect', () => {
           dispatchFakeEvent(selectElement, 'blur');
           fixture.detectChanges();
 
-          // tslint:disable-next-line:deprecation
+          // eslint-disable-next-line import/no-deprecated
           expect(selectInstance.focused).toBe(
             true,
             'Expected select element to remain focused.'
@@ -1832,8 +1835,11 @@ describe('OuiSelect', () => {
   });
 
   describe('when initialized without options', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectInitWithoutOptions])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectInitWithoutOptions])
+      )
+    );
 
     it('should select the proper option when option list is initialized later', fakeAsync(() => {
       const fixture = TestBed.createComponent(SelectInitWithoutOptions);
@@ -1855,8 +1861,11 @@ describe('OuiSelect', () => {
   });
 
   describe('with a selectionChange event handler', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectWithChangeEvent])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectWithChangeEvent])
+      )
+    );
 
     let fixture: ComponentFixture<SelectWithChangeEvent>;
     let trigger: HTMLElement;
@@ -1898,7 +1907,9 @@ describe('OuiSelect', () => {
   });
 
   describe('with ngModel', () => {
-    beforeEach(async(() => configureOuiSelectTestingModule([NgModelSelect])));
+    beforeEach(
+      waitForAsync(() => configureOuiSelectTestingModule([NgModelSelect]))
+    );
 
     it('should disable itself when control is disabled using the property', fakeAsync(() => {
       const fixture = TestBed.createComponent(NgModelSelect);
@@ -1954,7 +1965,9 @@ describe('OuiSelect', () => {
   });
 
   describe('with multiple oui-select elements in one view', () => {
-    beforeEach(async(() => configureOuiSelectTestingModule([ManySelects])));
+    beforeEach(
+      waitForAsync(() => configureOuiSelectTestingModule([ManySelects]))
+    );
 
     let fixture: ComponentFixture<ManySelects>;
     let triggers: DebugElement[];
@@ -2076,8 +2089,11 @@ describe('OuiSelect', () => {
   });
 
   describe('with tabindex', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectWithPlainTabindex])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectWithPlainTabindex])
+      )
+    );
 
     it('should be able to set the tabindex via the native attribute', fakeAsync(() => {
       const fixture = TestBed.createComponent(SelectWithPlainTabindex);
@@ -2090,8 +2106,11 @@ describe('OuiSelect', () => {
   });
 
   describe('change events', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectWithPlainTabindex])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectWithPlainTabindex])
+      )
+    );
 
     it('should complete the stateChanges stream on destroy', () => {
       const fixture = TestBed.createComponent(SelectWithPlainTabindex);
@@ -2114,8 +2133,11 @@ describe('OuiSelect', () => {
   });
 
   describe('when initially hidden', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([BasicSelectInitiallyHidden])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([BasicSelectInitiallyHidden])
+      )
+    );
 
     it('should set the width of the overlay if the element was hidden initially', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectInitiallyHidden);
@@ -2140,8 +2162,11 @@ describe('OuiSelect', () => {
   });
 
   describe('with no placeholder', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([BasicSelectNoPlaceholder])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([BasicSelectNoPlaceholder])
+      )
+    );
 
     it('should set the width of the overlay if there is no placeholder', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectNoPlaceholder);
@@ -2163,8 +2188,9 @@ describe('OuiSelect', () => {
   });
 
   describe('when invalid inside a form', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([InvalidSelectInForm])));
+    beforeEach(
+      waitForAsync(() => configureOuiSelectTestingModule([InvalidSelectInForm]))
+    );
 
     it('should not throw SelectionModel errors in addition to ngModel errors', fakeAsync(() => {
       const fixture = TestBed.createComponent(InvalidSelectInForm);
@@ -2181,8 +2207,11 @@ describe('OuiSelect', () => {
   });
 
   describe('with ngModel using compareWith', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([NgModelCompareWithSelect])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([NgModelCompareWithSelect])
+      )
+    );
 
     let fixture: ComponentFixture<NgModelCompareWithSelect>;
     let instance: NgModelCompareWithSelect;
@@ -2217,8 +2246,11 @@ describe('OuiSelect', () => {
   });
 
   describe(`when the select's value is accessed on initialization`, () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectEarlyAccessSibling])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectEarlyAccessSibling])
+      )
+    );
 
     it('should not throw when trying to access the selected value on init', fakeAsync(() => {
       expect(() => {
@@ -2228,8 +2260,11 @@ describe('OuiSelect', () => {
   });
 
   describe('inside of a form group', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectInsideFormGroup])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectInsideFormGroup])
+      )
+    );
 
     let fixture: ComponentFixture<SelectInsideFormGroup>;
     let testComponent: SelectInsideFormGroup;
@@ -2370,8 +2405,11 @@ describe('OuiSelect', () => {
   });
 
   describe('with custom error behavior', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([CustomErrorBehaviorSelect])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([CustomErrorBehaviorSelect])
+      )
+    );
 
     it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
       const fixture = TestBed.createComponent(CustomErrorBehaviorSelect);
@@ -2394,10 +2432,13 @@ describe('OuiSelect', () => {
   });
 
   describe('with preselected array values', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([
-        SingleSelectWithPreselectedArrayValues,
-      ])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([
+          SingleSelectWithPreselectedArrayValues,
+        ])
+      )
+    );
 
     it('should be able to preselect an array value in single-selection mode', fakeAsync(() => {
       const fixture = TestBed.createComponent(
@@ -2415,11 +2456,14 @@ describe('OuiSelect', () => {
   });
 
   describe('with OnPush', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([
-        BasicSelectOnPush,
-        BasicSelectOnPushPreselected,
-      ])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([
+          BasicSelectOnPush,
+          BasicSelectOnPushPreselected,
+        ])
+      )
+    );
 
     it('should set the trigger text based on the value when initialized', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectOnPushPreselected);
@@ -2450,8 +2494,11 @@ describe('OuiSelect', () => {
   });
 
   describe('with custom trigger', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([SelectWithCustomTrigger])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([SelectWithCustomTrigger])
+      )
+    );
 
     it('should allow the user to customize the label', fakeAsync(() => {
       const fixture = TestBed.createComponent(SelectWithCustomTrigger);
@@ -2471,8 +2518,9 @@ describe('OuiSelect', () => {
   });
 
   describe('when reseting the value by setting null or undefined', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([ResetValuesSelect])));
+    beforeEach(
+      waitForAsync(() => configureOuiSelectTestingModule([ResetValuesSelect]))
+    );
 
     let fixture: ComponentFixture<ResetValuesSelect>;
     let trigger: HTMLElement;
@@ -2559,12 +2607,15 @@ describe('OuiSelect', () => {
   });
 
   describe('without Angular forms', () => {
-    beforeEach(async(() =>
-      configureOuiSelectTestingModule([
-        BasicSelectWithoutForms,
-        BasicSelectWithoutFormsPreselected,
-        BasicSelectWithoutFormsMultiple,
-      ])));
+    beforeEach(
+      waitForAsync(() =>
+        configureOuiSelectTestingModule([
+          BasicSelectWithoutForms,
+          BasicSelectWithoutFormsPreselected,
+          BasicSelectWithoutFormsMultiple,
+        ])
+      )
+    );
 
     it('should set the value when options are clicked', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectWithoutForms);
@@ -2798,7 +2849,9 @@ describe('OuiSelect', () => {
   });
 
   describe('with multiple selection', () => {
-    beforeEach(async(() => configureOuiSelectTestingModule([MultiSelect])));
+    beforeEach(
+      waitForAsync(() => configureOuiSelectTestingModule([MultiSelect]))
+    );
 
     let fixture;
     let testInstance: MultiSelect;
@@ -2991,9 +3044,8 @@ describe('OuiSelect', () => {
     }));
 
     it('should be able to customize the value sorting logic', fakeAsync(() => {
-      fixture.componentInstance.sortComparator = (a, b, optionsArray) => {
-        return optionsArray.indexOf(b) - optionsArray.indexOf(a);
-      };
+      fixture.componentInstance.sortComparator = (a, b, optionsArray) =>
+        optionsArray.indexOf(b) - optionsArray.indexOf(a);
       fixture.detectChanges();
 
       trigger.click();

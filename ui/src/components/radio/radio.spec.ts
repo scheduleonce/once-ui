@@ -1,9 +1,9 @@
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick,
+  waitForAsync,
 } from '@angular/core/testing';
 import {
   FormControl,
@@ -152,24 +152,26 @@ class TranscludingWrapper {}
 class RadioButtonWithPredefinedTabindex {}
 
 describe('OuiRadio', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiRadioModule, FormsModule, ReactiveFormsModule],
-      declarations: [
-        RadioInsideGroupComponent,
-        RadioGroupWithNgModel,
-        TranscludingWrapper,
-        InterleavedRadioGroup,
-        FocusableRadioButton,
-        RadioGroupWithFormControl,
-        DisableableRadioButton,
-        StandaloneRadioButtons,
-        RadioButtonWithPredefinedTabindex,
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiRadioModule, FormsModule, ReactiveFormsModule],
+        declarations: [
+          RadioInsideGroupComponent,
+          RadioGroupWithNgModel,
+          TranscludingWrapper,
+          InterleavedRadioGroup,
+          FocusableRadioButton,
+          RadioGroupWithFormControl,
+          DisableableRadioButton,
+          StandaloneRadioButtons,
+          RadioButtonWithPredefinedTabindex,
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('inside of a group', () => {
     let fixture: ComponentFixture<RadioInsideGroupComponent>;
@@ -180,33 +182,35 @@ describe('OuiRadio', () => {
     let groupInstance: OuiRadioGroup;
     let radioInstances: OuiRadioButton[];
     let testComponent: RadioInsideGroupComponent;
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(RadioInsideGroupComponent);
-      fixture.detectChanges();
+    beforeEach(
+      waitForAsync(() => {
+        fixture = TestBed.createComponent(RadioInsideGroupComponent);
+        fixture.detectChanges();
 
-      testComponent = fixture.debugElement.componentInstance;
+        testComponent = fixture.debugElement.componentInstance;
 
-      groupDebugElement = fixture.debugElement.query(
-        By.directive(OuiRadioGroup)
-      );
-      groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
-        OuiRadioGroup
-      );
+        groupDebugElement = fixture.debugElement.query(
+          By.directive(OuiRadioGroup)
+        );
+        groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
+          OuiRadioGroup
+        );
 
-      radioDebugElements = fixture.debugElement.queryAll(
-        By.directive(OuiRadioButton)
-      );
-      radioInstances = radioDebugElements.map(
-        (debugEl) => debugEl.componentInstance
-      );
+        radioDebugElements = fixture.debugElement.queryAll(
+          By.directive(OuiRadioButton)
+        );
+        radioInstances = radioDebugElements.map(
+          (debugEl) => debugEl.componentInstance
+        );
 
-      radioLabelElements = radioDebugElements.map(
-        (debugEl) => debugEl.query(By.css('label')).nativeElement
-      );
-      radioInputElements = radioDebugElements.map(
-        (debugEl) => debugEl.query(By.css('input')).nativeElement
-      );
-    }));
+        radioLabelElements = radioDebugElements.map(
+          (debugEl) => debugEl.query(By.css('label')).nativeElement
+        );
+        radioInputElements = radioDebugElements.map(
+          (debugEl) => debugEl.query(By.css('input')).nativeElement
+        );
+      })
+    );
 
     it('should set individual radio names based on the group name', () => {
       expect(groupInstance.name).toBeTruthy();
@@ -852,23 +856,25 @@ describe('OuiRadio', () => {
     let radioDebugElements: DebugElement[];
     let radioInstances: OuiRadioButton[];
 
-    beforeEach(async(() => {
-      fixture = TestBed.createComponent(InterleavedRadioGroup);
-      fixture.detectChanges();
+    beforeEach(
+      waitForAsync(() => {
+        fixture = TestBed.createComponent(InterleavedRadioGroup);
+        fixture.detectChanges();
 
-      groupDebugElement = fixture.debugElement.query(
-        By.directive(OuiRadioGroup)
-      );
-      groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
-        OuiRadioGroup
-      );
-      radioDebugElements = fixture.debugElement.queryAll(
-        By.directive(OuiRadioButton)
-      );
-      radioInstances = radioDebugElements.map(
-        (debugEl) => debugEl.componentInstance
-      );
-    }));
+        groupDebugElement = fixture.debugElement.query(
+          By.directive(OuiRadioGroup)
+        );
+        groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
+          OuiRadioGroup
+        );
+        radioDebugElements = fixture.debugElement.queryAll(
+          By.directive(OuiRadioButton)
+        );
+        radioInstances = radioDebugElements.map(
+          (debugEl) => debugEl.componentInstance
+        );
+      })
+    );
 
     it('should initialize selection of radios based on model value', () => {
       expect(groupInstance.selected).toBe(radioInstances[2]);

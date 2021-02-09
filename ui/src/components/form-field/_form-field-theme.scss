@@ -10,6 +10,7 @@ $standard-form-field-border: 1px solid #c8c8c8;
 $form-field-color: #333333;
 $form-field-color-placeholder: #666666;
 $form-field-disabled-color: #9c9c9c;
+$form-field-disabled-value-color: #9b9b9b;
 $form-field-disabled-border: #e4e4e4;
 $form-field-disabled-background: #f9f9f9;
 $form-field-box-sizing: border-box;
@@ -83,6 +84,7 @@ $form-field-textarea-padding: 9px 10px;
     &:disabled {
       border-color: $form-field-disabled-border;
       background-color: $form-field-disabled-background;
+      color: $form-field-disabled-value-color;
     }
     &:disabled::-webkit-input-placeholder {
       color: $form-field-disabled-color;

@@ -77,7 +77,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-datepicker-content',
     '[@transformPanel]': '"enter"',
@@ -90,7 +90,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   exportAs: 'ouiDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color'],
 })
 export class OuiDatepickerContent<D>
@@ -124,7 +124,7 @@ export class OuiDatepickerContent<D>
   exportAs: 'ouiDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class.oui-datepicker-disabled]': 'disabled',
   },
@@ -220,11 +220,11 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   @Input() dateClass: (date: D) => OuiCalendarCellCssClasses;
 
   /** Emits when the datepicker has been opened. */
-  // tslint:disable-next-line:no-output-rename
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('opened') openedStream: EventEmitter<void> = new EventEmitter<void>();
 
   /** Emits when the datepicker has been closed. */
-  // tslint:disable-next-line:no-output-rename
+  // eslint-disable-next-line @angular-eslint/no-output-rename
   @Output('closed') closedStream: EventEmitter<void> = new EventEmitter<void>();
 
   /** Whether the calendar is open. */
@@ -344,6 +344,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
 
   /**
    * Register an input with this datepicker.
+   *
    * @param input The datepicker input to register with this datepicker.
    */
   _registerInput(input: OuiDatepickerInput<D>): void {
@@ -492,15 +493,14 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       this._popupRef.backdropClick(),
       this._popupRef.detachments(),
       this._popupRef.keydownEvents().pipe(
-        filter((event) => {
-          // Closing on alt + up is only valid when there's an input associated with the datepicker.
-          return (
+        filter(
+          (event) =>
+            // Closing on alt + up is only valid when there's an input associated with the datepicker.
             event.keyCode === ESCAPE ||
             (this._datepickerInput &&
               event.altKey &&
               event.keyCode === UP_ARROW)
-          );
-        })
+        )
       )
     ).subscribe(() => this.close());
   }

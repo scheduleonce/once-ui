@@ -1,22 +1,22 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendarBody } from './calendar-body';
 import { OuiYearView } from './year-view';
-export const JAN = 0,
-  FEB = 1,
-  MAR = 2,
-  APR = 3,
-  MAY = 4,
-  JUN = 5,
-  JUL = 6,
-  AUG = 7,
-  SEP = 8,
-  OCT = 9,
-  NOV = 10,
-  DEC = 11;
+export const JAN = 0;
+export const FEB = 1;
+export const MAR = 2;
+export const APR = 3;
+export const MAY = 4;
+export const JUN = 5;
+export const JUL = 6;
+export const AUG = 7;
+export const SEP = 8;
+export const OCT = 9;
+export const NOV = 10;
+export const DEC = 11;
 
 @Component({
   template: `
@@ -60,24 +60,29 @@ describe('OuiYearView', () => {
   let dir: { value: Direction };
   console.log(dir);
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule],
-      declarations: [
-        OuiCalendarBody,
-        OuiYearView,
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiNativeDateModule],
+        declarations: [
+          OuiCalendarBody,
+          OuiYearView,
 
-        // Test components.
-        StandardYearView,
-        YearViewWithDateFilter,
-      ],
-      providers: [
-        { provide: Directionality, useFactory: () => (dir = { value: 'ltr' }) },
-      ],
-    });
+          // Test components.
+          StandardYearView,
+          YearViewWithDateFilter,
+        ],
+        providers: [
+          {
+            provide: Directionality,
+            useFactory: () => (dir = { value: 'ltr' }),
+          },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('standard year view', () => {
     let fixture: ComponentFixture<StandardYearView>;

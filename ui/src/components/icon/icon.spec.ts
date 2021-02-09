@@ -1,4 +1,10 @@
-import { inject, async, fakeAsync, tick, TestBed } from '@angular/core/testing';
+import {
+  inject,
+  fakeAsync,
+  tick,
+  TestBed,
+  waitForAsync,
+} from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   HttpClientTestingModule,
@@ -103,31 +109,33 @@ function verifyPathChildElement(
 describe('OuiIcon', () => {
   let fakePath: string;
 
-  beforeEach(async(() => {
-    // The $ prefix tells Karma not to try to process the
-    // request so that we don't get warnings in our logs.
-    fakePath = '/$fake-path';
+  beforeEach(
+    waitForAsync(() => {
+      // The $ prefix tells Karma not to try to process the
+      // request so that we don't get warnings in our logs.
+      fakePath = '/$fake-path';
 
-    TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, OuiIconModule],
-      declarations: [
-        IconWithColor,
-        IconWithLigature,
-        IconFromSvgName,
-        IconWithBindingAndNgIf,
-        InlineIcon,
-        SvgIconWithUserContent,
-      ],
-      providers: [
-        {
-          provide: OUI_ICON_LOCATION,
-          useValue: { getPathname: () => fakePath },
-        },
-      ],
-    });
+      TestBed.configureTestingModule({
+        imports: [HttpClientTestingModule, OuiIconModule],
+        declarations: [
+          IconWithColor,
+          IconWithLigature,
+          IconFromSvgName,
+          IconWithBindingAndNgIf,
+          InlineIcon,
+          SvgIconWithUserContent,
+        ],
+        providers: [
+          {
+            provide: OUI_ICON_LOCATION,
+            useValue: { getPathname: () => fakePath },
+          },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   let iconRegistry: OuiIconRegistry;
   let http: HttpTestingController;
@@ -195,7 +203,6 @@ describe('OuiIcon', () => {
       const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
         'oui-icon'
       );
-      let svgElement: any;
 
       testComponent.iconName = 'left-arrow';
       fixture.detectChanges();
@@ -203,7 +210,7 @@ describe('OuiIcon', () => {
 
       // arrow-set.svg stores its icons as nested <svg> elements, so they should be used
       // directly and not wrapped in an outer <svg> tag like the <g> elements in other sets.
-      svgElement = verifyAndGetSingleSvgChild(ouiIconElement);
+      const svgElement = verifyAndGetSingleSvgChild(ouiIconElement);
       verifyPathChildElement(svgElement, 'left');
     });
 
@@ -264,7 +271,6 @@ describe('OuiIcon', () => {
       );
 
       const fixture = TestBed.createComponent(IconFromSvgName);
-      let svgElement: SVGElement;
       const testComponent = fixture.componentInstance;
       const iconElement = fixture.debugElement.nativeElement.querySelector(
         'oui-icon'
@@ -272,7 +278,7 @@ describe('OuiIcon', () => {
 
       testComponent.iconName = 'fluffy';
       fixture.detectChanges();
-      svgElement = verifyAndGetSingleSvgChild(iconElement);
+      const svgElement = verifyAndGetSingleSvgChild(iconElement);
       verifyPathChildElement(svgElement, 'meow');
 
       // Assert that a registered icon can be looked-up by name.

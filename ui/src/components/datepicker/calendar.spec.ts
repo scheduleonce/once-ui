@@ -1,10 +1,10 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Component, NgZone, EventEmitter } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   inject,
   TestBed,
+  waitForAsync,
 } from '@angular/core/testing';
 import { DateAdapter, OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
@@ -12,11 +12,11 @@ import { OuiCalendar } from './calendar';
 import { OuiDatepickerIntl } from './datepicker-intl';
 import { OuiDatepickerModule } from './datepicker-module';
 
-const JAN = 0,
-  FEB = 1,
-  JUL = 6,
-  NOV = 10,
-  DEC = 11;
+const JAN = 0;
+const FEB = 1;
+const JUL = 6;
+const NOV = 10;
+const DEC = 11;
 
 @Component({
   template: `
@@ -118,25 +118,27 @@ export class MockNgZone extends NgZone {
 describe('OuiCalendar', () => {
   let zone: MockNgZone;
   console.log(zone);
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule, OuiDatepickerModule],
-      declarations: [
-        // Test components.
-        StandardCalendar,
-        CalendarWithMinMax,
-        CalendarWithDateFilter,
-        CalendarWithSelectableMinDate,
-      ],
-      providers: [
-        OuiDatepickerIntl,
-        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
-      ],
-    });
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [OuiNativeDateModule, OuiDatepickerModule],
+        declarations: [
+          // Test components.
+          StandardCalendar,
+          CalendarWithMinMax,
+          CalendarWithDateFilter,
+          CalendarWithSelectableMinDate,
+        ],
+        providers: [
+          OuiDatepickerIntl,
+          { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
+          { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+        ],
+      });
 
-    TestBed.compileComponents();
-  }));
+      TestBed.compileComponents();
+    })
+  );
 
   describe('standard calendar', () => {
     let fixture: ComponentFixture<StandardCalendar>;

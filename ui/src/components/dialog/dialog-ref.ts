@@ -70,6 +70,7 @@ export class OuiDialogRef<T, R = any> {
 
   /**
    * Close the dialog.
+   *
    * @param dialogResult Optional result to return to the dialog opener.
    */
   close(dialogResult?: R): void {
@@ -117,6 +118,7 @@ export class OuiDialogRef<T, R = any> {
 
   /**
    * Updates the dialog's position.
+   *
    * @param position New dialog position.
    */
   updatePosition(position?: DialogPosition): this {
@@ -145,14 +147,15 @@ export class OuiDialogRef<T, R = any> {
 
   /**
    * Updates the dialog's width and height.
+   *
    * @param width New width of the dialog.
    * @param height New height of the dialog.
    */
   updateSize(width: string = '', height: string = ''): this {
     this._getPositionStrategy()
-      // tslint:disable-next-line
+      // eslint-disable-next-line
       .width(width)
-      // tslint:disable-next-line
+      // eslint-disable-next-line
       .height(height);
     this._overlayRef.updatePosition();
     return this;

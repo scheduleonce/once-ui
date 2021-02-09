@@ -14,6 +14,7 @@ const SORT_ANIMATION_TRANSITION = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 
 /**
  * Animations used by OuiSort.
+ *
  * @docs-private
  */
 export const ouiSortAnimations: {

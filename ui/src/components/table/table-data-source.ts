@@ -107,6 +107,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
    * This default function assumes that the sort header IDs (which defaults to the column name)
    * matches the data's properties (e.g. column Xyz represents data['Xyz']).
    * May be set to a custom function for different behavior.
+   *
    * @param data Data object that is being accessed.
    * @param sortHeaderId The name of the column that represents the data.
    */
@@ -133,6 +134,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
    * By default, the function retrieves the active sort and its direction and compares data
    * by retrieving data using the sortingDataAccessor. May be overridden for a custom implementation
    * of data ordering.
+   *
    * @param data The array of data that should be sorted.
    * @param sort The connected OuiSort that holds the current sort state.
    */
@@ -155,7 +157,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
       // This avoids inconsistent results when comparing values to undefined/null.
       // If neither value exists, return 0 (equal).
       let comparatorResult = 0;
-      // tslint:disable-next-line:triple-equals
+      // eslint-disable-next-line eqeqeq
       if (valueA != null && valueB != null) {
         // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
         if (valueA > valueB) {
@@ -164,15 +166,15 @@ export class OuiTableDataSource<T> extends DataSource<T> {
           comparatorResult = -1;
         }
       }
-      // tslint:disable-next-line:triple-equals
+      // eslint-disable-next-line eqeqeq
       else if (valueA != null) {
         comparatorResult = 1;
       }
-      // tslint:disable-next-line:triple-equals
+      // eslint-disable-next-line eqeqeq
       else if (valueB != null) {
         comparatorResult = -1;
       }
-      // tslint:disable-next-line:triple-equals
+      // eslint-disable-next-line eqeqeq
       return comparatorResult * (direction == 'asc' ? 1 : -1);
     });
   };
@@ -183,6 +185,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
    * at least one occurrence in that string. By default, the filter string has its whitespace
    * trimmed and the match is case-insensitive. May be overridden for a custom implementation of
    * filter matching.
+   *
    * @param data Data object used to check against the filter.
    * @param filter Filter string that has been set on the data source.
    * @returns Whether the filter matches against the data
@@ -193,15 +196,17 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   ): boolean => {
     // Transform the data into a lowercase string of all property values.
     const dataStr = Object.keys(data)
-      .reduce((currentTerm: string, key: string) => {
-        // Use an obscure Unicode character to delimit the words in the concatenated string.
-        // This avoids matches where the values of two columns combined will match the user's query
-        // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
-        // that has a very low chance of being typed in by somebody in a text field. This one in
-        // particular is "White up-pointing triangle with dot" from
-        // https://en.wikipedia.org/wiki/List_of_Unicode_characters
-        return currentTerm + (data as { [key: string]: any })[key] + '◬';
-      }, '')
+      .reduce(
+        (currentTerm: string, key: string) =>
+          // Use an obscure Unicode character to delimit the words in the concatenated string.
+          // This avoids matches where the values of two columns combined will match the user's query
+          // (e.g. `Flute` and `Stop` will match `Test`). The character is intended to be something
+          // that has a very low chance of being typed in by somebody in a text field. This one in
+          // particular is "White up-pointing triangle with dot" from
+          // https://en.wikipedia.org/wiki/List_of_Unicode_characters
+          currentTerm + (data as { [key: string]: any })[key] + '◬',
+        ''
+      )
       .toLowerCase();
 
     // Transform the filter by converting it to lowercase and removing whitespace.
@@ -332,6 +337,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
 
   /**
    * Used by the OuiTable. Called when it connects to the data source.
+   *
    * @docs-private
    */
   connect() {
@@ -340,6 +346,7 @@ export class OuiTableDataSource<T> extends DataSource<T> {
 
   /**
    * Used by the OuiTable. Called when it is destroyed. No-op.
+   *
    * @docs-private
    */
   disconnect() {}
