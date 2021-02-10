@@ -23,6 +23,7 @@ import { FocusTrap, ConfigurableFocusTrapFactory } from '@angular/cdk/a11y';
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
+ *
  * @docs-private
  */
 export function throwOuiDialogContentAlreadyAttachedError() {
@@ -33,6 +34,7 @@ export function throwOuiDialogContentAlreadyAttachedError() {
 
 /**
  * Internal component that wraps user-provided dialog content.
+ *
  * @docs-private
  */
 @Component({
@@ -41,9 +43,9 @@ export function throwOuiDialogContentAlreadyAttachedError() {
   styleUrls: ['dialog.scss'],
   encapsulation: ViewEncapsulation.None,
   // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
-  // tslint:disable-next-line:validate-decorators
+  // eslint-disable-next-line
   changeDetection: ChangeDetectionStrategy.Default,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-container',
     tabindex: '-1',
@@ -92,6 +94,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   }
   /**
    * Attach a ComponentPortal as content to this dialog container.
+   *
    * @param portal Portal to be attached as the dialog content.
    */
   attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
@@ -104,6 +107,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
 
   /**
    * Attach a TemplatePortal as content to this dialog container.
+   *
    * @param portal Portal to be attached as the dialog content.
    */
   attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {

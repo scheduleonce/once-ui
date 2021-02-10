@@ -160,7 +160,7 @@ export const _OuiSelectMixinBase: CanDisableCtor &
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 @Directive({
-  // tslint:disable-next-line:directive-selector
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'oui-select-trigger',
 })
 export class OuiSelectTrigger {}
@@ -170,11 +170,11 @@ export class OuiSelectTrigger {}
   exportAs: 'ouiSelect',
   templateUrl: 'select.html',
   styleUrls: ['select.scss'],
-  // tslint:disable-next-line:no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'listbox',
     '[attr.id]': 'id',
@@ -340,9 +340,8 @@ export class OuiSelect
   private _id: string;
 
   /** Event emitted when the select panel has been toggled. */
-  @Output() readonly openedChange: EventEmitter<boolean> = new EventEmitter<
-    boolean
-  >();
+  @Output()
+  readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
@@ -361,6 +360,7 @@ export class OuiSelect
   /**
    * Event that emits whenever the raw value of the select changes. This is here primarily
    * to facilitate the two-way binding for the `value` input.
+   *
    * @docs-private
    */
   @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
@@ -369,24 +369,21 @@ export class OuiSelect
   @Input() errorStateMatcher: ErrorStateMatcher;
 
   /** All of the defined select options. */
-  @ContentChildren(OuiOption, { descendants: true }) options: QueryList<
-    OuiOption
-  >;
+  @ContentChildren(OuiOption, { descendants: true })
+  options: QueryList<OuiOption>;
 
   /** Event emitted when the select has been opened. */
-  // tslint:disable-next-line:no-output-rename
-  @Output('opened') readonly _openedStream: Observable<
-    void
-  > = this.openedChange.pipe(
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('opened')
+  readonly _openedStream: Observable<void> = this.openedChange.pipe(
     filter((o) => o),
     map(() => {})
   );
 
   /** Event emitted when the select has been closed. */
-  // tslint:disable-next-line:no-output-rename
-  @Output('closed') readonly _closedStream: Observable<
-    void
-  > = this.openedChange.pipe(
+  // eslint-disable-next-line @angular-eslint/no-output-rename
+  @Output('closed')
+  readonly _closedStream: Observable<void> = this.openedChange.pipe(
     filter((o) => !o),
     map(() => {
       this.isSearchFieldPresent = false;
@@ -394,9 +391,8 @@ export class OuiSelect
   );
 
   /** Event emitted when the selected value has been changed by the user. */
-  @Output() readonly selectionChange: EventEmitter<
-    OuiSelectChange
-  > = new EventEmitter<OuiSelectChange>();
+  @Output()
+  readonly selectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
 
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
@@ -981,6 +977,7 @@ export class OuiSelect
 
   /**
    * Finds and selects and option based on its value.
+   *
    * @returns Option that has the corresponding value.
    */
   private _selectValue(value: any): OuiOption | undefined {
@@ -1102,11 +1099,11 @@ export class OuiSelect
     if (this.multiple) {
       const options = this.options.toArray();
 
-      this._selectionModel.sort((a, b) => {
-        return this.sortComparator
+      this._selectionModel.sort((a, b) =>
+        this.sortComparator
           ? this.sortComparator(a, b, options)
-          : options.indexOf(a) - options.indexOf(b);
-      });
+          : options.indexOf(a) - options.indexOf(b)
+      );
       this.stateChanges.next();
     }
   }
@@ -1183,6 +1180,7 @@ export class OuiSelect
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   setDescribedByIds(ids: string[]) {
@@ -1191,6 +1189,7 @@ export class OuiSelect
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   onContainerClick() {
@@ -1200,6 +1199,7 @@ export class OuiSelect
 
   /**
    * Implemented as part of OuiFormFieldControl.
+   *
    * @docs-private
    */
   get shouldLabelFloat(): boolean {

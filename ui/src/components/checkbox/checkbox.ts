@@ -40,6 +40,7 @@ export const OuiCheckboxMixinBase: typeof OuiCheckboxBase = mixinColor(
 
 /**
  * Represents the different states that require custom transitions between them.
+ *
  * @docs-private
  */
 export enum TransitionCheckState {
@@ -63,7 +64,7 @@ export enum TransitionCheckState {
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.scss'],
   exportAs: 'ouiCheckbox',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-checkbox',
     '[id]': 'id',
@@ -72,7 +73,7 @@ export enum TransitionCheckState {
     '[class.oui-checkbox-disabled]': 'disabled',
     '[class.oui-checkbox-label-before]': 'labelPosition == "before"',
   },
-  // tslint:disable-next-line:no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['tabIndex', 'color'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -228,6 +229,7 @@ export class Checkbox
    * Toggles checked state if element is not disabled.
    * Do not toggle on (change) event since IE doesn't fire change event when
    *   indeterminate checkbox is clicked.
+   *
    * @param event
    */
   _onInputClick(event: Event) {
@@ -324,6 +326,7 @@ export class Checkbox
 
   /**
    * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
+   *
    * @docs-private
    */
   _onTouched: () => any = () => {};

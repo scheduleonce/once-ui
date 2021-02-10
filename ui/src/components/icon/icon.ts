@@ -29,6 +29,7 @@ export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
 /**
  * Injection token used to provide the current location to `OuiIcon`.
  * Used to handle server-side rendering and to stub out during unit tests.
+ *
  * @docs-private
  */
 export const OUI_ICON_LOCATION = new InjectionToken<OuiIconLocation>(
@@ -41,6 +42,7 @@ export const OUI_ICON_LOCATION = new InjectionToken<OuiIconLocation>(
 
 /**
  * Stubbed out location for `OuiIcon`.
+ *
  * @docs-private
  */
 export interface OuiIconLocation {
@@ -75,9 +77,9 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   selector: 'oui-icon',
   exportAs: 'ouiIcon',
   styleUrls: ['icon.scss'],
-  // tslint:disable-next-line:no-inputs-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'img',
     class: 'oui-icon',
@@ -99,7 +101,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   set inline(inline: boolean) {
     this._inline = coerceBooleanProperty(inline);
   }
-  // tslint:disable-next-line:no-inferrable-types
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   private _inline: boolean = false;
 
   /**

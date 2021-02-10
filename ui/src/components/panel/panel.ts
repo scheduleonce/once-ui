@@ -39,12 +39,13 @@ export interface OuiPanelDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `oui-menu`. */
-export const OUI_PANEL_DEFAULT_OPTIONS = new InjectionToken<
-  OuiPanelDefaultOptions
->('oui-panel-default-options', {
-  providedIn: 'root',
-  factory: OUI_PANEL_DEFAULT_OPTIONS_FACTORY,
-});
+export const OUI_PANEL_DEFAULT_OPTIONS = new InjectionToken<OuiPanelDefaultOptions>(
+  'oui-panel-default-options',
+  {
+    providedIn: 'root',
+    factory: OUI_PANEL_DEFAULT_OPTIONS_FACTORY,
+  }
+);
 
 /** @docs-private */
 export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
@@ -81,6 +82,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
   /**
    * Panel content that will be rendered lazily.
+   *
    * @docs-private
    */
   @ContentChild(OuiPanelContent)
@@ -130,6 +132,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   /**
    * Adds classes to the panel-overlay based on its position. Can be used by
    * consumers to add specific styling based on the position.
+   *
    * @param posX Position of the panel along the x axis.
    * @param posY Position of the panel along the y axis.
    * @docs-private

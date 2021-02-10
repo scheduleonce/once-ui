@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 
 /**
  * Possible states for a pseudo checkbox.
+ *
  * @docs-private
  */
 export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
@@ -30,6 +31,7 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
  * interchangeable with `<oui-checkbox>` and should *not* be used if the user would directly
  * interact with the checkbox. The pseudo-checkbox should only be used as an implementation detail
  * of more complex components that appropriately handle selected / checked state.
+ *
  * @docs-private
  */
 @Component({
@@ -38,7 +40,7 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   selector: 'oui-pseudo-checkbox',
   styleUrls: ['pseudo-checkbox.scss'],
   template: '',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-pseudo-checkbox',
     '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',

@@ -59,9 +59,7 @@ export function OUI_DIALOG_SCROLL_STRATEGY_FACTORY(
 export function OUI_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(
   overlay: Overlay
 ): () => ScrollStrategy {
-  return () => {
-    return overlay.scrollStrategies.block();
-  };
+  return () => overlay.scrollStrategies.block();
 }
 
 /** @docs-private */
@@ -125,6 +123,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Opens a modal dialog containing the given component.
+   *
    * @param componentOrTemplateRef Type of the component to load into the dialog,
    *     or a TemplateRef to instantiate as the dialog content.
    * @param config Extra configuration options.
@@ -178,6 +177,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Finds an open dialog by its id.
+   *
    * @param id ID to use when looking up the dialog.
    */
   getDialogById(id: string): OuiDialogRef<any> | undefined {
@@ -195,6 +195,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Creates the overlay into which the dialog will be loaded.
+   *
    * @param config The dialog configuration.
    * @returns A promise resolving to the OverlayRef for the created overlay.
    */
@@ -205,6 +206,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Creates an overlay config from a dialog config.
+   *
    * @param dialogConfig The dialog configuration.
    * @returns The overlay configuration.
    */
@@ -231,6 +233,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Attaches an OuiDialogContainer to a dialog's already-created overlay.
+   *
    * @param overlay Reference to the dialog's underlying overlay.
    * @param config The dialog configuration.
    * @returns A promise resolving to a ComponentRef for the attached container.
@@ -257,6 +260,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Attaches the user-provided component to the already-created OuiDialogContainer.
+   *
    * @param componentOrTemplateRef The type of component being loaded into the dialog,
    *     or a TemplateRef to instantiate as the content.
    * @param dialogContainer Reference to the wrapping OuiDialogContainer.
@@ -317,6 +321,7 @@ export class OuiDialog implements OnDestroy {
   /**
    * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
    * of a dialog to close itself and, optionally, to return a value.
+   *
    * @param config Config object that is used to construct the dialog.
    * @param dialogRef Reference to the dialog.
    * @param container Dialog container element that wraps all of the contents.
@@ -356,6 +361,7 @@ export class OuiDialog implements OnDestroy {
 
   /**
    * Removes a dialog from the array of open dialogs.
+   *
    * @param dialogRef Dialog to be removed.
    */
   private _removeOpenDialog(dialogRef: OuiDialogRef<any>) {
@@ -426,6 +432,7 @@ export class OuiDialog implements OnDestroy {
 
 /**
  * Applies default options to the dialog config.
+ *
  * @param config Config to be modified.
  * @param defaultOptions Default options provided.
  * @returns The new configuration object.

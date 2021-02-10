@@ -14,9 +14,7 @@ export class OuiSortHeaderIntl {
   readonly changes: Subject<void> = new Subject<void>();
 
   /** ARIA label for the sorting button. */
-  sortButtonLabel = (id: string) => {
-    return `${id}`;
-  };
+  sortButtonLabel = (id: string) => `${id}`;
 }
 /** @docs-private */
 export function OUI_SORT_HEADER_INTL_PROVIDER_FACTORY(

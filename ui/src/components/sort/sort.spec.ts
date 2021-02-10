@@ -2,11 +2,11 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import {
-  async,
   ComponentFixture,
   fakeAsync,
   TestBed,
   tick,
+  waitForAsync,
 } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { Observable } from 'rxjs';
@@ -238,25 +238,27 @@ describe('OuiSort', () => {
 
   let component: SimpleOuiSortApp;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        OuiSortModule,
-        OuiTableModule,
-        CdkTableModule,
-        NoopAnimationsModule,
-      ],
-      declarations: [
-        SimpleOuiSortApp,
-        CdkTableOuiSortApp,
-        OuiTableOuiSortApp,
-        OuiSortHeaderMissingOuiSortApp,
-        OuiSortDuplicateOuiSortableIdsApp,
-        OuiSortableMissingIdApp,
-        OuiSortableInvalidDirection,
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: [
+          OuiSortModule,
+          OuiTableModule,
+          CdkTableModule,
+          NoopAnimationsModule,
+        ],
+        declarations: [
+          SimpleOuiSortApp,
+          CdkTableOuiSortApp,
+          OuiTableOuiSortApp,
+          OuiSortHeaderMissingOuiSortApp,
+          OuiSortDuplicateOuiSortableIdsApp,
+          OuiSortableMissingIdApp,
+          OuiSortableInvalidDirection,
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SimpleOuiSortApp);

@@ -40,6 +40,7 @@ export class OuiOptionSelectionChange {
 /**
  * Describes a parent component that manages a list of options.
  * Contains properties that the options can inherit.
+ *
  * @docs-private
  */
 export interface OuiOptionParentComponent {
@@ -49,9 +50,9 @@ export interface OuiOptionParentComponent {
 /**
  * Injection token used to provide the parent component to options.
  */
-export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<
-  OuiOptionParentComponent
->('OUI_OPTION_PARENT_COMPONENT');
+export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<OuiOptionParentComponent>(
+  'OUI_OPTION_PARENT_COMPONENT'
+);
 
 /**
  * Single option inside of a `<oui-select>` element.
@@ -59,7 +60,7 @@ export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<
 @Component({
   selector: 'oui-option',
   exportAs: 'ouiOption',
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'option',
     '[attr.tabindex]': '_getTabIndex()',
@@ -102,8 +103,8 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
   /** The unique ID of the option. */
   @Input()
-  // tslint:disable-next-line:no-inferrable-types
-  id: string = `oui-option-${_uniqueIdCounter++}`;
+  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
+  id = `oui-option-${_uniqueIdCounter++}`;
 
   /** Whether the option is disabled. */
   @Input()
@@ -115,7 +116,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   }
 
   /** Event emitted when the option is selected or deselected. */
-  // tslint:disable-next-line:no-output-on-prefix
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output()
   readonly onSelectionChange = new EventEmitter<OuiOptionSelectionChange>();
 
@@ -222,7 +223,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    // tslint:disable-next-line:deprecation
+    // eslint-disable-next-line import/no-deprecated
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
       this._selectViaInteraction();
 
@@ -285,6 +286,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
 /**
  * Counts the amount of option group labels that precede the specified option.
+ *
  * @param optionIndex Index of the option at which to start counting.
  * @param options Flat list of all of the options.
  * @param optionGroups Flat list of all of the option groups.
@@ -317,6 +319,7 @@ export function _countGroupLabelsBeforeOption(
 
 /**
  * Determines the position to which to scroll a panel in order for an option to be into view.
+ *
  * @param optionIndex Index of the option to be scrolled into the view.
  * @param optionHeight Height of the options.
  * @param currentScrollPosition Current scroll position of the panel.

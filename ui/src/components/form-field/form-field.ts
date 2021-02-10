@@ -23,6 +23,7 @@ import { getOuiFormFieldMissingControlError } from './form-field-errors';
 
 /**
  * Boilerplate for applying mixins to OuiFormField.
+ *
  * @docs-private
  */
 export class OuiFormFieldBase {
@@ -31,6 +32,7 @@ export class OuiFormFieldBase {
 
 /**
  * Base class to which we're applying the form field mixins.
+ *
  * @docs-private
  */
 export const _OuiFormFieldMixinBase: typeof OuiFormFieldBase = mixinColor(
@@ -52,9 +54,9 @@ export interface OuiFormFieldDefaultOptions {
  * Injection token that can be used to configure the
  * default options for all form field within an app.
  */
-export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
-  OuiFormFieldDefaultOptions
->('OUI_FORM_FIELD_DEFAULT_OPTIONS');
+export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<OuiFormFieldDefaultOptions>(
+  'OUI_FORM_FIELD_DEFAULT_OPTIONS'
+);
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
@@ -65,7 +67,7 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<
   // in form-field-input.css. The OuiInput styles are fairly minimal so it shouldn't be a
   // big deal for people who aren't using OuiInput.
   styleUrls: ['form-field.scss'],
-  // tslint:disable-next-line:no-host-metadata-property
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-form-field',
     '[class.oui-focused]': '_control.focused',
