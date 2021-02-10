@@ -495,7 +495,6 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
 
   /** Handles key presses on the trigger. */
   _handleKeydown(event: KeyboardEvent): void {
-    // eslint-disable-next-line import/no-deprecated
     const keyCode = event.keyCode;
     if (this.triggersSubmenu() && keyCode === RIGHT_ARROW) {
       this.openMenu();
