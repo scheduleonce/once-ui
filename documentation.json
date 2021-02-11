@@ -1004,7 +1004,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -1048,7 +1048,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -4941,7 +4941,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -4985,7 +4985,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -34250,17 +34250,17 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.ts",
+                "file": "environments/environment.prod.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: false,\n}"
+                "defaultValue": "{\n  production: true,\n}"
             },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.prod.ts",
+                "file": "environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: true,\n}"
+                "defaultValue": "{\n  production: false,\n}"
             },
             {
                 "name": "EXPORTED_DECLARATIONS",
@@ -34889,9 +34889,9 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/table/index.stories.ts",
+                "file": "ui/src/stories/slide-toggle/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [\r\n      OuiTableModule,\r\n      OuiSortModule,\r\n      OuiPaginatorModule,\r\n      OuiIconModule,\r\n      OuiInputModule,\r\n      BrowserAnimationsModule,\r\n    ],\r\n    schemas: [],\r\n    declarations: [OuiTableStorybook],\r\n  },\r\n  template: `<oui-table-storybook [pageSize]=\"pageSize\" [users]=\"data\"></oui-table-storybook>`,\r\n  props: {\r\n    pageSize: number('pageSize', 10, valueOptions),\r\n    data: object('data', TABLEDATASOURCE),\r\n  },\r\n})"
+                "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
             },
             {
                 "name": "Regular",
@@ -34905,9 +34905,9 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/slide-toggle/index.stories.ts",
+                "file": "ui/src/stories/table/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
+                "defaultValue": "() => ({\r\n  moduleMetadata: {\r\n    imports: [\r\n      OuiTableModule,\r\n      OuiSortModule,\r\n      OuiPaginatorModule,\r\n      OuiIconModule,\r\n      OuiInputModule,\r\n      BrowserAnimationsModule,\r\n    ],\r\n    schemas: [],\r\n    declarations: [OuiTableStorybook],\r\n  },\r\n  template: `<oui-table-storybook [pageSize]=\"pageSize\" [users]=\"data\"></oui-table-storybook>`,\r\n  props: {\r\n    pageSize: number('pageSize', 10, valueOptions),\r\n    data: object('data', TABLEDATASOURCE),\r\n  },\r\n})"
             },
             {
                 "name": "Regular",
@@ -37651,16 +37651,6 @@
                     "description": "<p>Counter used to generate unique IDs for dialog elements. </p>\n"
                 }
             ],
-            "environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.ts",
-                    "type": "object",
-                    "defaultValue": "{\n  production: false,\n}"
-                }
-            ],
             "environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -37669,6 +37659,16 @@
                     "file": "environments/environment.prod.ts",
                     "type": "object",
                     "defaultValue": "{\n  production: true,\n}"
+                }
+            ],
+            "environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false,\n}"
                 }
             ],
             "ui/src/components/table/table-module.ts": [
@@ -38223,6 +38223,16 @@
                     "defaultValue": "() => ({\n  moduleMetadata: {\n    imports: [OuiRadioModule],\n    schemas: [],\n    declarations: [],\n  },\n  template: `<oui-radio-group (change)=\"changed($event)\" [disabled]=\"disabled\" [labelPosition]=\"position\">\n      <oui-radio-button checked value=\"Winter\" [color]=\"color\"> Winter </oui-radio-button>\n      <oui-radio-button value=\"Summer\" [color]=\"color\"> Summer </oui-radio-button>\n    </oui-radio-group>`,\n  props: {\n    color: select('color', COLORS, COLORS[0]),\n    changed: action('change'),\n    position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),\n    disabled: boolean('disabled', false),\n  },\n})"
                 }
             ],
+            "ui/src/stories/slide-toggle/index.stories.ts": [
+                {
+                    "name": "Regular",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/slide-toggle/index.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
+                }
+            ],
             "ui/src/stories/textarea/index.stories.ts": [
                 {
                     "name": "Regular",
@@ -38239,16 +38249,6 @@
                     "file": "ui/src/stories/textarea/index.stories.ts",
                     "type": "object",
                     "defaultValue": "{\n  range: true,\n  min: 2,\n  max: 50,\n  step: 1,\n}"
-                }
-            ],
-            "ui/src/stories/slide-toggle/index.stories.ts": [
-                {
-                    "name": "Regular",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/slide-toggle/index.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
                 }
             ],
             "ui/src/stories/tooltip/index.stories.ts": [
