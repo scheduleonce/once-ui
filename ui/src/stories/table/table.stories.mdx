@@ -29,21 +29,7 @@ Regular Table:
     parameters={{
       docs: {
         source: {
-          code: `
-            <oui-panel-icon [ouiPanelTriggerFor]="beforeAboveMenu">
-            </oui-panel-icon>
-            <oui-panel #beforeAboveMenu xPosition="before" yPosition="above">
-                <h6>Lorem ipsum, dolor sit amet consectetur</h6>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate harum quod a incidunt?
-                    Obcaecati dolores omnis odio repudiandae quo quidem? <a href="https://www.scheduleonce.com/"
-                        target="blank">Learn more</a>
-                </p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, dolorum! Reprehenderit
-                    reiciendis hic magnam esse odio asperiores qui tempora beatae. <a
-                        href="https://www.scheduleonce.com/" target="blank">Learn more</a>
-                </p>
-            </oui-panel>
-          `,
+          code: `<oui-table-storybook [pageSize]="pageSize" [users]="data"></oui-table-storybook>`,
         },
       },
     }}
@@ -77,21 +63,7 @@ Custom Table:
     parameters={{
       docs: {
         source: {
-          code: `
-            <oui-panel-icon [ouiPanelTriggerFor]="beforeAboveMenu">
-            </oui-panel-icon>
-            <oui-panel #beforeAboveMenu xPosition="before" yPosition="above">
-                <h6>Lorem ipsum, dolor sit amet consectetur</h6>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate harum quod a incidunt?
-                    Obcaecati dolores omnis odio repudiandae quo quidem? <a href="https://www.scheduleonce.com/"
-                        target="blank">Learn more</a>
-                </p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate, dolorum! Reprehenderit
-                    reiciendis hic magnam esse odio asperiores qui tempora beatae. <a
-                        href="https://www.scheduleonce.com/" target="blank">Learn more</a>
-                </p>
-            </oui-panel>
-          `,
+          code: `<oui-table-custom-storybook [users]="data"></oui-table-custom-storybook>`,
         },
       },
     }}
