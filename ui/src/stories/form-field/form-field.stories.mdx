@@ -1,0 +1,48 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { OuiFormFieldModule, FormFieldModule } from '../../components';
+import { OuiInputModule, OuiFormField } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { text, select, boolean } from '@storybook/addon-knobs';
+import { APPEARANCE } from '../const';
+
+<Meta title="MDX FORM FIELD/Input" />
+
+# Input
+
+`ouiInput` is a directive that allows native `<input>` and `<textarea>` elements to work with `<oui-form-field>`. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/input/README.md
+
+Regular Input field
+
+<Canvas>
+  <Story
+    name="Regular"
+    parameters={{
+      docs: {
+        source: {
+          code: ``,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [OuiFormFieldModule, OuiInputModule],
+        schemas: [],
+        declarations: [],
+      },
+      template: `<oui-form-field [appearance]="appearance"> <input [disabled]="disabled" (blur)="blured()" (focus)="focused()" [type]="type" oui-input [placeholder]="placeholder" /> </oui-form-field>`,
+      props: {
+        type: select('type', ['text', 'number', 'email', 'password'], 'text'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+        disabled: boolean('disabled', false),
+        placeholder: text('placeholder', 'Type Here'),
+        focused: action('focus'),
+        blured: action('blur'),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-input-field
+
+<ArgsTable of={OuiFormField} />
