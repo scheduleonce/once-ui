@@ -1,12 +1,9 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { select, number, text } from '@storybook/addon-knobs';
-import {
-  OuiProgressSpinner,
-  ProgressSpinner,
-} from '../../components/progress-spinner/progress-spinner';
+import { OuiProgressSpinner } from '../../components/progress-spinner/progress-spinner';
 import { COLORS } from '../const';
 
-<Meta title="MDX/ProgressSpinner" component={ProgressSpinner} />
+<Meta title="MDX/ProgressSpinner" />
 
 # ProgressSpinner
 
@@ -67,6 +64,6 @@ Indeterminate Progress spinner:
   </Story>
 </Canvas>
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-progress-bar
+Stackblitz demo link : https://stackblitz.com/edit/oui-progress-spinner
 
 <ArgsTable of={OuiProgressSpinner} />
