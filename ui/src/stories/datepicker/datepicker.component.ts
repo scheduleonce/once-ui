@@ -57,7 +57,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
 export class OuiDatepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';
   @Input() color = 'primary';
-  @Input() startView = 'primary';
+  @Input() startView = ['month', 'year', 'multi-year'];
   @Input() opened = false;
   @Input() disabled = false;
   @Input() mindate: Date = new Date();
@@ -137,7 +137,7 @@ export class OuiDatepickerStorybook implements OnChanges {
 export class OuiDatepickerCustomStorybook implements OnChanges {
   @Input() appearance = 'standard';
   @Input() color = 'primary';
-  @Input() startView = 'primary';
+  @Input() startView = ['month', 'year', 'multi-year'];
   @Input() opened = false;
   @Input() disabled = false;
   @Input() mindate: Date = new Date();
