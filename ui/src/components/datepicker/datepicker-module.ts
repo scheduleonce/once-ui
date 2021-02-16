@@ -65,5 +65,6 @@ import { OuiIconModule } from '../icon/icon.module';
     OuiDatepickerIntl,
     OUI_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
   ],
+  entryComponents: [OuiDatepickerContent, OuiCalendarHeader],
 })
 export class OuiDatepickerModule {}
