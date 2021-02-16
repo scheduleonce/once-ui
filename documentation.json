@@ -1004,7 +1004,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -1048,7 +1048,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -4941,7 +4941,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -4985,7 +4985,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -31621,7 +31621,7 @@
         },
         {
             "name": "OuiTooltipStorybook",
-            "id": "component-OuiTooltipStorybook-7f473eb61f179f51d58b00d479a019a4",
+            "id": "component-OuiTooltipStorybook-f52bf2a0cc0143ee325fed5ea636e176",
             "file": "ui/src/stories/tooltip/tooltip.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -31659,7 +31659,7 @@
             "description": "",
             "rawdescription": "",
             "type": "component",
-            "sourceCode": "import { OuiIconRegistry } from '../../components';\nimport { Input, Component } from '@angular/core';\nimport { DomSanitizer } from '@angular/platform-browser';\n\n@Component({\n  selector: 'oui-tooltip-storybook',\n  template: `\n    <oui-icon\n      [svgIcon]=\"'help-library'\"\n      [ouiTooltip]=\"_ouiTooltip\"\n      [ouiTooltipPosition]=\"_ouiTooltipPosition\"\n      [color]=\"'primary'\"\n      [ouiTooltipDisabled]=\"disabled\"\n    ></oui-icon>\n  `,\n})\nexport class OuiTooltipStorybook {\n  @Input() disabled = false;\n  @Input() _ouiTooltip = 'This is a tooltip';\n  @Input() _ouiTooltipPosition = 'above';\n  constructor(\n    private ouiIconRegistry: OuiIconRegistry,\n    private domSanitizer: DomSanitizer\n  ) {\n    this.ouiIconRegistry.addSvgIcon(\n      `local`,\n      this.domSanitizer.bypassSecurityTrustResourceUrl(\n        `/assets/images/v-green.svg`\n      )\n    );\n\n    this.ouiIconRegistry.addSvgIconSet(\n      this.domSanitizer.bypassSecurityTrustResourceUrl(\n        'https://s3.amazonaws.com/icomoon.io/135790/oncehub-20/symbol-defs.svg?nhbz3f'\n      )\n    );\n  }\n}\n",
+            "sourceCode": "import { OuiIconRegistry } from '../../components';\r\nimport { Input, Component } from '@angular/core';\r\nimport { DomSanitizer } from '@angular/platform-browser';\r\n\r\n@Component({\r\n  selector: 'oui-tooltip-storybook',\r\n  template: `\r\n    <oui-icon\r\n      [svgIcon]=\"'help-library'\"\r\n      [ouiTooltip]=\"_ouiTooltip\"\r\n      [ouiTooltipPosition]=\"_ouiTooltipPosition\"\r\n      [color]=\"'primary'\"\r\n      [ouiTooltipDisabled]=\"disabled\"\r\n    ></oui-icon>\r\n  `,\r\n})\r\nexport class OuiTooltipStorybook {\r\n  @Input() disabled = false;\r\n  @Input() _ouiTooltip = 'This is a tooltip';\r\n  @Input() _ouiTooltipPosition = 'above';\r\n  constructor(\r\n    private ouiIconRegistry: OuiIconRegistry,\r\n    private domSanitizer: DomSanitizer\r\n  ) {\r\n    this.ouiIconRegistry.addSvgIcon(\r\n      `local`,\r\n      this.domSanitizer.bypassSecurityTrustResourceUrl(\r\n        `/assets/images/v-green.svg`\r\n      )\r\n    );\r\n\r\n    this.ouiIconRegistry.addSvgIconSet(\r\n      this.domSanitizer.bypassSecurityTrustResourceUrl(\r\n        'https://s3.amazonaws.com/icomoon.io/135790/oncehub-20/symbol-defs.svg?nhbz3f'\r\n      )\r\n    );\r\n  }\r\n}\r\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -34116,7 +34116,7 @@
                 "subtype": "variable",
                 "file": "ui/src/stories/const.ts",
                 "type": "[]",
-                "defaultValue": "[\n  'Aruba',\n  'Benin',\n  'Chad',\n  'Chile',\n  'China',\n  'Congo',\n  'Cuba',\n  'Egypt',\n  'Fiji',\n  'Gabon',\n  'Ghana',\n  'Guam',\n  'Haiti',\n  'India',\n  'Iraq',\n  'Italy',\n  'Japan',\n  'Kenya',\n  'Libya',\n  'Macao',\n  'Mali',\n  'Malta',\n  'Nauru',\n  'Nepal',\n  'Niger',\n  'Niue',\n  'Oman',\n  'Palau',\n  'Peru',\n  'Qatar',\n  'Samoa',\n  'Spain',\n  'Sudan',\n  'Togo',\n  'Tonga',\n  'Yemen',\n]"
+                "defaultValue": "[\r\n  'Aruba',\r\n  'Benin',\r\n  'Chad',\r\n  'Chile',\r\n  'China',\r\n  'Congo',\r\n  'Cuba',\r\n  'Egypt',\r\n  'Fiji',\r\n  'Gabon',\r\n  'Ghana',\r\n  'Guam',\r\n  'Haiti',\r\n  'India',\r\n  'Iraq',\r\n  'Italy',\r\n  'Japan',\r\n  'Kenya',\r\n  'Libya',\r\n  'Macao',\r\n  'Mali',\r\n  'Malta',\r\n  'Nauru',\r\n  'Nepal',\r\n  'Niger',\r\n  'Niue',\r\n  'Oman',\r\n  'Palau',\r\n  'Peru',\r\n  'Qatar',\r\n  'Samoa',\r\n  'Spain',\r\n  'Sudan',\r\n  'Togo',\r\n  'Tonga',\r\n  'Yemen',\r\n]"
             },
             {
                 "name": "CURRENT_DATE",
@@ -34171,19 +34171,19 @@
                 "name": "DEFAULT_COLOR",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/components/input/input.ts",
+                "file": "ui/src/components/button/button.ts",
                 "type": "string",
                 "defaultValue": "'primary'",
-                "description": "<p>Default color palette for input </p>\n"
+                "description": "<p>Default color palette for round buttons (oui-fab and oui-mini-fab) </p>\n"
             },
             {
                 "name": "DEFAULT_COLOR",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/components/button/button.ts",
+                "file": "ui/src/components/input/input.ts",
                 "type": "string",
                 "defaultValue": "'primary'",
-                "description": "<p>Default color palette for round buttons (oui-fab and oui-mini-fab) </p>\n"
+                "description": "<p>Default color palette for input </p>\n"
             },
             {
                 "name": "DEFAULT_DATE_NAMES",
@@ -34242,17 +34242,17 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.ts",
+                "file": "environments/environment.prod.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: false,\n}"
+                "defaultValue": "{\n  production: true,\n}"
             },
             {
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.prod.ts",
+                "file": "environments/environment.ts",
                 "type": "object",
-                "defaultValue": "{\n  production: true,\n}"
+                "defaultValue": "{\n  production: false,\n}"
             },
             {
                 "name": "EXPORTED_DECLARATIONS",
@@ -34865,17 +34865,17 @@
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/slide-toggle/index.stories.ts",
+                "file": "ui/src/stories/textarea/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
+                "defaultValue": "() => ({\n  moduleMetadata: {\n    imports: [OuiFormFieldModule, OuiInputModule],\n    schemas: [],\n    declarations: [],\n  },\n  template: `<oui-form-field> <textarea [disabled]=\"disabled\" [rows]=\"rows\" (blur)=\"blured()\" (focus)=\"focused()\" oui-input [placeholder]=\"placeholder\"></textarea> </oui-form-field>`,\n  props: {\n    disabled: boolean('disabled', false),\n    placeholder: text('placeholder', 'Type Here'),\n    rows: number('rows', 2, rowsOptions),\n    focused: action('focus'),\n    blured: action('blur'),\n  },\n})"
             },
             {
                 "name": "Regular",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "ui/src/stories/textarea/index.stories.ts",
+                "file": "ui/src/stories/slide-toggle/index.stories.ts",
                 "type": "",
-                "defaultValue": "() => ({\n  moduleMetadata: {\n    imports: [OuiFormFieldModule, OuiInputModule],\n    schemas: [],\n    declarations: [],\n  },\n  template: `<oui-form-field> <textarea [disabled]=\"disabled\" [rows]=\"rows\" (blur)=\"blured()\" (focus)=\"focused()\" oui-input [placeholder]=\"placeholder\"></textarea> </oui-form-field>`,\n  props: {\n    disabled: boolean('disabled', false),\n    placeholder: text('placeholder', 'Type Here'),\n    rows: number('rows', 2, rowsOptions),\n    focused: action('focus'),\n    blured: action('blur'),\n  },\n})"
+                "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
             },
             {
                 "name": "require",
@@ -37229,7 +37229,7 @@
                     "subtype": "variable",
                     "file": "ui/src/stories/const.ts",
                     "type": "[]",
-                    "defaultValue": "[\n  'Aruba',\n  'Benin',\n  'Chad',\n  'Chile',\n  'China',\n  'Congo',\n  'Cuba',\n  'Egypt',\n  'Fiji',\n  'Gabon',\n  'Ghana',\n  'Guam',\n  'Haiti',\n  'India',\n  'Iraq',\n  'Italy',\n  'Japan',\n  'Kenya',\n  'Libya',\n  'Macao',\n  'Mali',\n  'Malta',\n  'Nauru',\n  'Nepal',\n  'Niger',\n  'Niue',\n  'Oman',\n  'Palau',\n  'Peru',\n  'Qatar',\n  'Samoa',\n  'Spain',\n  'Sudan',\n  'Togo',\n  'Tonga',\n  'Yemen',\n]"
+                    "defaultValue": "[\r\n  'Aruba',\r\n  'Benin',\r\n  'Chad',\r\n  'Chile',\r\n  'China',\r\n  'Congo',\r\n  'Cuba',\r\n  'Egypt',\r\n  'Fiji',\r\n  'Gabon',\r\n  'Ghana',\r\n  'Guam',\r\n  'Haiti',\r\n  'India',\r\n  'Iraq',\r\n  'Italy',\r\n  'Japan',\r\n  'Kenya',\r\n  'Libya',\r\n  'Macao',\r\n  'Mali',\r\n  'Malta',\r\n  'Nauru',\r\n  'Nepal',\r\n  'Niger',\r\n  'Niue',\r\n  'Oman',\r\n  'Palau',\r\n  'Peru',\r\n  'Qatar',\r\n  'Samoa',\r\n  'Spain',\r\n  'Sudan',\r\n  'Togo',\r\n  'Tonga',\r\n  'Yemen',\r\n]"
                 },
                 {
                     "name": "DUMMY_TEXT",
@@ -37541,16 +37541,6 @@
                     "description": "<p>Counter used to generate unique IDs for dialog elements. </p>\n"
                 }
             ],
-            "environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.ts",
-                    "type": "object",
-                    "defaultValue": "{\n  production: false,\n}"
-                }
-            ],
             "environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -37559,6 +37549,16 @@
                     "file": "environments/environment.prod.ts",
                     "type": "object",
                     "defaultValue": "{\n  production: true,\n}"
+                }
+            ],
+            "environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "environments/environment.ts",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false,\n}"
                 }
             ],
             "ui/src/components/table/table-module.ts": [
@@ -38093,16 +38093,6 @@
                     "defaultValue": "() => ({\n  moduleMetadata: {\n    imports: [\n      OuiFormFieldModule,\n      OuiInputModule,\n      OuiAutocompleteModule,\n      FormsModule,\n      ReactiveFormsModule,\n    ],\n    schemas: [],\n    declarations: [OuiAutocompleteGroupStorybook],\n  },\n  component: OuiAutocompleteGroupStorybook,\n  props: {\n    appearance: select('appearance', APPEARANCE, APPEARANCE[0]),\n    stateGroups: object('options', STATEGROUPS),\n    autoActiveFirstOption: boolean('autoActiveFirstOption', false),\n    closed: action('closed'),\n    disabled: boolean('disabled', false),\n    opened: action('opened'),\n    optionSelected: action('optionSelected'),\n  },\n})"
                 }
             ],
-            "ui/src/stories/slide-toggle/index.stories.ts": [
-                {
-                    "name": "Regular",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "ui/src/stories/slide-toggle/index.stories.ts",
-                    "type": "",
-                    "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
-                }
-            ],
             "ui/src/stories/textarea/index.stories.ts": [
                 {
                     "name": "Regular",
@@ -38119,6 +38109,16 @@
                     "file": "ui/src/stories/textarea/index.stories.ts",
                     "type": "object",
                     "defaultValue": "{\n  range: true,\n  min: 2,\n  max: 50,\n  step: 1,\n}"
+                }
+            ],
+            "ui/src/stories/slide-toggle/index.stories.ts": [
+                {
+                    "name": "Regular",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "ui/src/stories/slide-toggle/index.stories.ts",
+                    "type": "",
+                    "defaultValue": "() => ({\n  component: OuiSlideToggle,\n  props: {\n    checked: boolean('checked', true),\n    disabled: boolean('disabled', false),\n    color: select('color', COLORS, COLORS[0]),\n    change: action('state-change'),\n  },\n})"
                 }
             ],
             "ui/src/components/dialog/dialog-ref.ts": [
