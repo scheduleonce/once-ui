@@ -1,0 +1,278 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  OuiSelectModule,
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiSelect,
+} from '../../components';
+import { action } from '@storybook/addon-actions';
+import { array, boolean, text, object, select } from '@storybook/addon-knobs';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { APPEARANCE } from '../const';
+
+<Meta title="MDX FORM FIELD/Select" />
+
+# Select
+
+`<oui-select>` is a form control for selecting a value from a set of options, similar to the native `<select>` element. It is designed to work inside of a `<oui-form-field>` element.
+
+To add options to the select, add elements to the `<oui-select>`. Each `<oui-option>` has a value property that can be used to set the value that will be selected if the user chooses this option. The content of the `<oui-option>` is what will be shown to the user. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/select/README.md
+
+Regular Select
+
+<Canvas>
+  <Story
+    name="Regular"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+          <oui-select large placeholder="Favorite food">
+            <oui-option *ngFor="let food of foods" [value]="food">
+              {{food array}}
+            </oui-option>
+          </oui-select>
+        </oui-form-field>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule,
+        ],
+      },
+      template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+          <oui-option *ngFor="let food of foods" [value]="food">
+            {{food}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+      props: {
+        foods: array('foods', [
+          'Pizza',
+          'Burgers',
+          'Steak',
+          'Tacos',
+          'Pasta',
+          'Fries',
+          'Momos',
+          'Kababs',
+          'Rolls',
+          'Biryani',
+          'Sweets',
+        ]),
+        placeholder: text('placeholder', 'Favorite food'),
+        disabled: boolean('disabled', false),
+        large: boolean('large', false),
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Multi select:
+
+<Canvas>
+  <Story
+    name="Multi select"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+          <oui-select large placeholder="Favorite food" multiple>
+            <oui-option *ngFor="let food of foods" [value]="food">
+              {{food array}}
+            </oui-option>
+          </oui-select>
+        </oui-form-field>`,
+        },
+      },
+    }}
+  >
+    {{
+      template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
+          <oui-option *ngFor="let food of foods" [value]="food">
+            {{food}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+      props: {
+        foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
+        placeholder: text('placeholder', 'Favorite food'),
+        disabled: boolean('disabled', false),
+        large: boolean('large', false),
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+      },
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule,
+        ],
+      },
+    }}
+  </Story>
+</Canvas>
+
+Groups:
+
+<Canvas>
+  <Story
+    name="Groups"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+          <oui-select large placeholder="Favorite food" multiple>
+            <oui-option>-- None --</oui-option>
+            <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
+                <oui-option *ngFor="let food of foods" [value]="food">
+                {{food array}}
+                </oui-option>
+            </oui-optgroup>
+          </oui-select>
+        </oui-form-field>`,
+        },
+      },
+    }}
+  >
+    {{
+      template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+          <oui-option>-- None --</oui-option>
+          <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
+            <oui-option *ngFor="let food of group.foods" [value]="food">
+              {{food}}
+            </oui-option>
+          </oui-optgroup>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+      props: {
+        foodGroups: object('foodGroups', [
+          {
+            name: 'Fruit',
+            foods: ['Apple', 'Orange'],
+          },
+          {
+            name: 'Vegetables',
+            foods: [
+              'Lettuce',
+              'Broccoli',
+              'Corn',
+              'Cucumber',
+              'Lettuce',
+              'Pumpkin',
+              'Tomato',
+            ],
+          },
+          {
+            name: 'Meats',
+            foods: ['Steak', 'Chicken'],
+          },
+        ]),
+        disabled: boolean('disabled', false),
+        large: boolean('large', false),
+        placeholder: text('placeholder', 'Foods'),
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+      },
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule,
+        ],
+      },
+    }}
+  </Story>
+</Canvas>
+
+Search options:
+
+<Canvas>
+  <Story
+    name="Search options"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+          <oui-select large placeholder="Favorite food" multiple>
+            <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+            <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
+              {{food array}}
+            </oui-option>
+          </oui-select>
+        </oui-form-field>`,
+        },
+      },
+    }}
+  >
+    {{
+      template: `
+    <div style="width: 213px;">
+      <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+          <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+          <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
+            {{food}}
+          </oui-option>
+          <div
+            *ngIf="!(foods | filterOptions: keyword).length"
+            class="noResults"
+          >
+            No results match "{{ keyword }}"
+          </div>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+      props: {
+        foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
+        placeholder: text('placeholder', 'Favorite food'),
+        disabled: boolean('disabled', false),
+        large: boolean('large', false),
+        onChange: action('change'),
+        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
+      },
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule,
+        ],
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-select-box
+
+<ArgsTable of={OuiSelect} />

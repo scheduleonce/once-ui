@@ -1,13 +1,13 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { date, select, boolean } from '@storybook/addon-knobs';
-import { COLORS, APPEARANCE } from '../const';
-import { OuiDatepickerModule } from '../../components/datepicker';
-import { action } from '@storybook/addon-actions';
 import {
+  OuiDatepickerModule,
   OuiFormFieldModule,
   OuiInputModule,
   OuiDatepicker,
 } from '../../components';
+import { date, select, boolean } from '@storybook/addon-knobs';
+import { COLORS, APPEARANCE } from '../const';
+import { action } from '@storybook/addon-actions';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   OuiDaterangepickerStorybook,
@@ -78,6 +78,8 @@ Regular Input field
     }}
   </Story>
 </Canvas>
+
+Daterange Picker:
 
 <Canvas>
   <Story
@@ -174,8 +176,6 @@ Regular Input field
     }}
   </Story>
 </Canvas>
-
-Custom
 
 Stackblitz demo link : https://stackblitz.com/edit/oui-datepicker
 
