@@ -13,6 +13,7 @@ import {
   declarations: [OuiTooltip, TooltipComponent],
   imports: [CommonModule, ObserversModule, OverlayModule],
   exports: [TooltipComponent, OuiTooltip],
+  entryComponents: [TooltipComponent],
   providers: [OUI_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER],
 })
 export class OuiTooltipModule {}
