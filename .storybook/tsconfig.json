@@ -1,6 +1,18 @@
 {
-  "extends": "../tsconfig.json",
-  "exclude": ["../ui/*.spec.ts"],
-  "include": ["../ui/*"],
-  "files": ["./typings.d.ts"]
+  "extends": "../ui/tsconfig.lib.json",
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
+  },
+  "exclude": [
+    "../ui/src/test.ts",
+    "../ui/src/components/**/*.spec.ts",
+  ],
+  "include": [
+    "../ui/src/components/**/*"
+  ],
+  "files": [
+    "./typings.d.ts"
+  ]
 }
