@@ -1,0 +1,182 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import {
+  OuiDatepickerModule,
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiDatepicker,
+} from '../../components';
+import { date, select, boolean } from '@storybook/addon-knobs';
+import { COLORS, APPEARANCE } from '../const';
+import { action } from '@storybook/addon-actions';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  OuiDaterangepickerStorybook,
+  OuiDatepickerStorybook,
+  OuiDatepickerCustomStorybook,
+} from './datepicker.component';
+
+<Meta title="MDX FORM FIELD/Datepicker" />
+
+# Datepicker
+
+The datepicker allows users to enter a date either through text input, or by choosing a date from the calendar. It is made up of several components and directives that work together. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/datepicker/README.md
+
+Regular Input field
+
+<Canvas>
+  <Story
+    name="Regular"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+          <input [min]="minDate" oui-input [ouiDatepicker]="picker" placeholder="Choose a date" />
+          <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
+          <oui-datepicker #picker></oui-datepicker>
+        </oui-form-field>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [
+          OuiDatepickerModule,
+          OuiFormFieldModule,
+          OuiInputModule,
+          BrowserAnimationsModule,
+        ],
+        schemas: [],
+        declarations: [OuiDatepickerStorybook],
+      },
+      template: `<oui-datepicker-storybook 
+    [disabled]="disabled" 
+    [appearance]="appearance"
+    [color]="color" 
+    [opened]="opened" 
+    (_closed)="closed($event)"
+    (_monthSelected)="monthSelected($event)"
+    (_opened)="datepickeropened($event)"
+    (_yearSelected)="yearSelected($event)"
+    (_dateChange)="dateChange($event)"></oui-datepicker-storybook>`,
+      props: {
+        closed: action('closed'),
+        monthSelected: action('monthSelected'),
+        datepickeropened: action('opened'),
+        yearSelected: action('yearSelected'),
+        dateChange: action('dateChange'),
+        color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
+        opened: boolean('opened', false, 'OuiDatepicker'),
+        disabled: boolean('disabled', false, 'OuiDatepicker'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[0],
+          'OuiDatepickerInput'
+        ),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Daterange Picker:
+
+<Canvas>
+  <Story
+    name="Daterange Picker"
+    parameters={{
+      docs: {
+        source: {
+          code: `<div style="display: inline-flex;">
+      <div style="max-width: 170px;">
+        <oui-form-field [appearance]="appearance">
+          <input
+            oui-input
+            [ouiDatepicker]="minpicker"
+            [min]="minRangeDate"
+            [max]="maxDate"
+            (dateChange)="mindateChange($event)"
+            placeholder="Please select"
+          />
+          <oui-datepicker-toggle
+            ouiSuffix
+            [for]="minpicker"
+          ></oui-datepicker-toggle>
+          <oui-datepicker
+            [disabled]="disabled"
+            [startView]="startView"
+            [color]="color"
+            #minpicker
+          ></oui-datepicker>
+        </oui-form-field>
+      </div>
+      <div style="max-width: 170px;margin-left: 20px;">
+        <oui-form-field [appearance]="appearance">
+          <input
+            oui-input
+            [ouiDatepicker]="maxpicker"
+            [min]="minDate"
+            [max]="maxRangeDate"
+            (dateChange)="maxdateChange($event)"
+            placeholder="Please select"
+          />
+          <oui-datepicker-toggle
+            ouiSuffix
+            [for]="maxpicker"
+          ></oui-datepicker-toggle>
+          <oui-datepicker
+            [disabled]="disabled"
+            [startView]="startView"
+            [color]="color"
+            #maxpicker
+          ></oui-datepicker>
+        </oui-form-field>
+      </div>
+    </div>`,
+        },
+      },
+    }}
+  >
+    {{
+      moduleMetadata: {
+        imports: [
+          OuiDatepickerModule,
+          OuiFormFieldModule,
+          OuiInputModule,
+          BrowserAnimationsModule,
+        ],
+        schemas: [],
+        declarations: [OuiDaterangepickerStorybook],
+      },
+      template: `<oui-daterangepicker-storybook
+      [disabled]="disabled" 
+      [appearance]="appearance"
+      [color]="color" 
+      [opened]="opened" 
+      (_closed)="closed($event)"
+      (_monthSelected)="monthSelected($event)"
+      (_opened)="datepickeropened($event)"
+      (_yearSelected)="yearSelected($event)"
+      (_dateChange)="dateChange($event)"></oui-daterangepicker-storybook>`,
+      props: {
+        closed: action('closed'),
+        monthSelected: action('monthSelected'),
+        datepickeropened: action('opened'),
+        yearSelected: action('yearSelected'),
+        dateChange: action('dateChange'),
+        color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
+        disabled: boolean('disabled', false, 'OuiDatepicker'),
+        appearance: select(
+          'appearance',
+          APPEARANCE,
+          APPEARANCE[0],
+          'OuiDatepickerInput'
+        ),
+      },
+    }}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-datepicker
+
+<ArgsTable of={OuiDatepicker} />

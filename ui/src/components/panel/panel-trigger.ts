@@ -141,7 +141,6 @@ export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    // eslint-disable-next-line import/no-deprecated
     const keyCode = event.keyCode;
     if (keyCode === SPACE) {
       this.openPanel();

@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - 2021-02-09
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-38994`](https://scheduleonce.atlassian.net/browse/ONCEHUB-38994) Upgrade once-ui to Angular version 11
+- [`ONCEHUB-39187`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39187) Migrating tslint to eslint in once-ui and also upadate packages
+- [`ONCEHUB-36656`](https://scheduleonce.atlassian.net/browse/ONCEHUB-36656) Convert once-ui Progress bar component mdx format
+- [`ONCEHUB-33523`](https://scheduleonce.atlassian.net/browse/ONCEHUB-33523) Dialog shared component opens with a hover state on the x icon by default
+
 ## [4.0.2-beta.2] - 2021-02-03
 
 ### Added
