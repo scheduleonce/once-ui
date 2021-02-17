@@ -1,8 +1,7 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { OuiScrollbarModule, Scrollbar } from '../../components';
+import { OuiScrollbarModule, Scrollbar } from '../../components/scrollbar/scrollbar-module';
 import { text, number, boolean, array } from '@storybook/addon-knobs';
 import { DUMMY_TEXT, COUNTRY_LIST } from '../const';
-import { OuiScrollbar, OuiSBar } from '../../components';
 import { OuiScrollbarTextStorybook } from './scrollbar.component';
 import { OuiScrollbarListStorybook } from './scrollbar.component';
 
@@ -14,7 +13,7 @@ import { OuiScrollbarListStorybook } from './scrollbar.component';
   <Story name="regular">
     {{
       moduleMetadata: {
-        imports: [OuiScrollbarModule, OuiScrollbar],
+        imports: [OuiScrollbarModule],
         schemas: [],
         declarations: [OuiScrollbarTextStorybook],
       },
@@ -35,7 +34,7 @@ import { OuiScrollbarListStorybook } from './scrollbar.component';
   <Story name="list">
     {{
       moduleMetadata: {
-        imports: [OuiScrollbarModule, OuiScrollbar],
+        imports: [OuiScrollbarModule],
         schemas: [],
         declarations: [OuiScrollbarListStorybook],
       },
