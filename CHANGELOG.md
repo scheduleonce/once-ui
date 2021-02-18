@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.1-beta.0] - 2021-02-18
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-39602`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39602) Remove extra eslintrc file in the once-ui library and combine the rules
+- [`ONCEHUB-38790`](https://scheduleonce.atlassian.net/browse/ONCEHUB-38790) CVE-2020-28481 vulnerability found in package socket.io in project once-ui
+- [`ONCEHUB-39632`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39632) Remove unused dependencies from once-ui
+
 ## [5.0.0] - 2021-02-09
 
 ### Added
