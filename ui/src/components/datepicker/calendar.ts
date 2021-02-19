@@ -317,7 +317,6 @@ export class OuiCalendarHeader<D> {
     private _intl: OuiDatepickerIntl,
     @Inject(forwardRef(() => OuiCalendar)) public calendar: OuiCalendar<D>,
     @Optional() private _dateAdapter: DateAdapter<D>,
-    @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
     changeDetectorRef: ChangeDetectorRef,
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
@@ -333,15 +332,10 @@ export class OuiCalendarHeader<D> {
 
   /** The label for the current calendar view. */
   get periodButtonText(): string {
-    if (this.calendar.currentView === 'month') {
-      return this._dateAdapter
-        .format(
-          this.calendar.activeDate,
-          this._dateFormats.display.monthYearLabel
-        )
-        .toLocaleUpperCase();
-    }
-    if (this.calendar.currentView === 'year') {
+    if (
+      this.calendar.currentView === 'month' ||
+      this.calendar.currentView === 'year'
+    ) {
       return this._dateAdapter.getYearName(this.calendar.activeDate);
     }
     const activeYear = this._dateAdapter.getYear(this.calendar.activeDate);

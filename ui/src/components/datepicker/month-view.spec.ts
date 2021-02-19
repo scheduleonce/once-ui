@@ -111,7 +111,7 @@ describe('OuiMonthView', () => {
       const labelEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-label'
       )!;
-      expect(labelEl.innerHTML.trim()).toBe('JAN');
+      expect(labelEl.innerHTML.trim()).toBe('Jan');
     });
 
     it('has 31 days', () => {
