@@ -4,6 +4,7 @@ $oui-datepicker-today-fade-amount: 0.2;
 $oui-calendar-body-font-size: 13px !default;
 $oui-calendar-body-label-size: 14px !default;
 $form-field-border-color: #9c9c9c;
+$form-field-placeholder-disabled-color: #9b9b9b;
 $form-field-placeholder-color: #333333;
 $oui-calendar-body-label-weight: 400;
 $oui-calendar-table-header-weight: 400;
@@ -131,7 +132,6 @@ $oui-datepicker-input-padding: 7px 9px !important;
       color: map-get(map-get($theme, warn), default);
     }
   }
-
   .oui-form-field-infix .oui-datepicker-input:disabled {
     border-color: #c8c8c8;
     background-color: transparent;
@@ -151,10 +151,27 @@ $oui-datepicker-input-padding: 7px 9px !important;
       color: $form-field-placeholder-color;
     }
   }
+
+  .oui-datepicker-input.oui-input.oui-datepicker-disabled {
+    &::placeholder {
+      color: $form-field-placeholder-disabled-color;
+      opacity: 1; /* Firefox */
+    }
+
+    &:-ms-input-placeholder {
+      /* Internet Explorer 10-11 */
+      color: $form-field-placeholder-disabled-color;
+    }
+
+    &::-ms-input-placeholder {
+      /* Microsoft Edge */
+      color: $form-field-placeholder-disabled-color;
+    }
+  }
   input.oui-datepicker-disabled {
     border: 1px solid #e4e4e4 !important;
     background-color: #f9f9f9 !important;
-    color: #9b9b9b !important;
+    color: $form-field-placeholder-disabled-color !important;
     opacity: 1;
     cursor: default !important;
   }
@@ -162,7 +179,7 @@ $oui-datepicker-input-padding: 7px 9px !important;
     background-color: #f9f9f9 !important;
     svg {
       opacity: 0.5;
-      color: #9b9b9b;
+      color: $form-field-placeholder-disabled-color;
       cursor: default !important;
     }
     button {
@@ -190,6 +207,9 @@ $oui-datepicker-input-padding: 7px 9px !important;
   }
 }
 
+.oui-datepicker-input {
+  color: $form-field-placeholder-color !important;
+}
 .oui-form-field-appearance-underline .oui-datepicker-input {
   padding: $oui-datepicker-input-padding;
 }
