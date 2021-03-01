@@ -167,7 +167,7 @@ export class OuiTableCustomStorybook implements OnChanges {
     scheduleonce: this.sanitizer.bypassSecurityTrustHtml(
       STORY_ICONS.SCHEDULEONCE
     ),
-    inviteonce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.INVITEONCE),
+    chatonce: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.CHATONCE),
   };
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;
