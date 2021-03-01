@@ -61,5 +61,6 @@ import { OuiIconModule } from '../icon/icon.module';
     DialogScrollStrategy,
     OUI_DIALOG_SCROLL_STRATEGY_PROVIDER,
   ],
+  entryComponents: [OuiDialogContainer],
 })
 export class OuiDialogModule {}
