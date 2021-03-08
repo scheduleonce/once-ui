@@ -34,7 +34,7 @@ export class OuiPanelStorybook {
 }
 @Component({
   selector: 'oui-panel-with-image-storybook',
-  template: `    
+  template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
     <oui-panel #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
