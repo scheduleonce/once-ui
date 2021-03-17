@@ -8,21 +8,8 @@ import {
 import { OuiDatepickerInputEvent } from '../../components/datepicker';
 import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
 
-export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
-  parse: {
-    dateInput: null,
-  },
-  display: {
-    dateInput: {
-      year: 'numeric',
-      day: '2-digit',
-      month: '2-digit',
-    },
-    monthYearLabel: { year: 'numeric', month: 'short' },
-    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
-    monthYearA11yLabel: { year: 'numeric', month: 'long' },
-  },
-};
+import { NativeDateAdapter } from '../../components/datepicker/native-date-adapter';
+import {DateAdapter} from '../../components/datepicker/date-adapter';
 
 @Component({
   selector: 'oui-datepicker-storybook',
@@ -103,6 +90,71 @@ export class OuiDatepickerStorybook implements OnChanges {
   }
 }
 
+
+export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
+  parse: {
+    dateInput: null,
+  },
+  display: {
+    dateInput: {
+      year: 'numeric',
+      day: '2-digit',
+      month: '2-digit',
+    },
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
+};
+
+const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', 'Satuarday'];
+export class AppDateAdapter extends NativeDateAdapter {
+  parse(value: any): Date | null {
+    if (typeof value === 'string' && value.indexOf('/') > -1) {
+      const str = value.split('/');
+      const year = Number(str[2]);
+      const month = Number(str[1]) - 1;
+      const date = Number(str[0]);
+      return new Date(year, month, date);
+    }
+    const timestamp = typeof value === 'number' ? value : Date.parse(value);
+    return isNaN(timestamp) ? null : new Date(timestamp);
+  }
+  format(date: Date, displayFormat: string): string {
+
+    let daate = date.getDate();
+    let day = date.getDay();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+
+    return weekDays[day].substring(0,3) + ',' + this._to2digit(daate) + '/' + this._to2digit(month) + '/' + year;
+
+
+    //
+    if (displayFormat == 'input') {
+      let daate = date.getDate();
+      let day = date.getDay();
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+
+      return weekDays[day] + ',' + this._to2digit(daate) + '/' + this._to2digit(month) + '/' + year;
+    } else if (displayFormat == 'inputMonth') {
+      let month = date.getMonth() + 1;
+      let year = date.getFullYear();
+      return this._to2digit(month) + '/' + year;
+    } else {
+      return date.toDateString();
+    }
+  }
+
+  private _to2digit(n: number) {
+    return ('00' + n).slice(-2);
+  }
+}
+
+///
+
+
 @Component({
   selector: 'oui-datepicker-custom-storybook',
   template: `
@@ -132,7 +184,10 @@ export class OuiDatepickerStorybook implements OnChanges {
       </oui-form-field>
     </div>
   `,
-  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
+  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS },    {
+    provide: DateAdapter,
+    useClass: AppDateAdapter,
+  },],
 })
 export class OuiDatepickerCustomStorybook implements OnChanges {
   @Input() appearance = 'standard';
