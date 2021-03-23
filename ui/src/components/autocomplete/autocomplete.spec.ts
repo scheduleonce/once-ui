@@ -25,8 +25,6 @@ import {
 } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition,
   OuiOption,
   OuiOptionSelectionChange,
 } from '../core';

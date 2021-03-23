@@ -47,8 +47,6 @@ class SimplePanel {
 describe('OuiPanel', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
-  // @ts-ignore
-  let focusMonitor: FocusMonitor;
 
   function createComponent<T>(
     component: Type<T>,
@@ -63,10 +61,9 @@ describe('OuiPanel', () => {
 
     inject(
       [OverlayContainer, FocusMonitor],
-      (oc: OverlayContainer, fm: FocusMonitor) => {
+      (oc: OverlayContainer) => {
         overlayContainer = oc;
         overlayContainerElement = oc.getContainerElement();
-        focusMonitor = fm;
       }
     )();
 
