@@ -24,12 +24,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  _countGroupLabelsBeforeOption,
-  _getOptionScrollPosition,
-  OuiOption,
-  OuiOptionSelectionChange,
-} from '../core';
+import { OuiOption, OuiOptionSelectionChange } from '../core';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiFormField } from '../form-field/form-field';
 import { By } from '@angular/platform-browser';
