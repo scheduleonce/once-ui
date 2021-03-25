@@ -1,15 +1,16 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { OuiTooltipModule, Tooltip } from '../../components';
-import { OuiIconModule, Icon } from '../../components';
-import { TooltipComponent, TtComponent } from '../../components';
-import { OuiFormField, FormField } from '../../components';
+import {
+  OuiTooltipModule,
+  OuiIconModule,
+  OuiFormField,
+} from '../../components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
 import { TOOLTIPPOSITION } from '../const';
 import { OuiTooltipStorybook } from './tooltip.component';
 
-<Meta title="MDX/Tooltip" component={Tooltip} />
+<Meta title="Tooltip" />
 
 # Tooltip
 
@@ -51,4 +52,4 @@ The `oui-tooltip` provides a text label that is displayed when the user hovers o
 
 Stackblitz demo link : https://stackblitz.com/edit/oui-tooltip
 
-<ArgsTable of={TooltipComponent} />
+<ArgsTable of={OuiTooltipModule} />

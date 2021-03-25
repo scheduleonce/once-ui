@@ -223,7 +223,6 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
 
   /** Ensures the option is selected when activated from the keyboard. */
   _handleKeydown(event: KeyboardEvent): void {
-    // eslint-disable-next-line import/no-deprecated
     if (event.keyCode === ENTER || event.keyCode === SPACE) {
       this._selectViaInteraction();
 

@@ -1,12 +1,10 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
-import { OuiButtonModule, Button } from '../../components';
-import { OuiDialog, Dialog } from '../../components';
-import { OuiDialogModule, DialogModule } from '../../components';
+import { OuiButtonModule, OuiDialog, OuiDialogModule } from '../../components';
 import { action } from '@storybook/addon-actions';
 import { boolean } from '@storybook/addon-knobs';
 import { OuiDialogStorybook } from './dialog.component';
 
-<Meta title="MDX/Dialog" component={Dialog} />
+<Meta title="Dialog" />
 
 # Dialog
 
@@ -41,4 +39,4 @@ Service to open Once UI Design modal dialogs. See: https://github.com/scheduleon
 
 Stackblitz demo link : https://stackblitz.com/edit/oui-dialog
 
-<ArgsTable of={Dialog} />
+<ArgsTable of={OuiDialog} />

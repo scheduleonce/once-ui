@@ -35,10 +35,8 @@ export class OuiPanelStorybook {
 @Component({
   selector: 'oui-panel-with-image-storybook',
   template: `
-    <div style="margin-left: 10px; margin-top:30px;">
-      <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
-      </oui-panel-icon>
-    </div>
+    <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
+    </oui-panel-icon>
     <oui-panel #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <img
