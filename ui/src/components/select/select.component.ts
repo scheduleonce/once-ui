@@ -660,7 +660,7 @@ export class OuiSelect
       this._elementRef.nativeElement.classList.remove(
         'oui-select-list-options-opened'
       );
-      setTimeout(() => this._document.activeElement.blur());
+      setTimeout((_) => this._document.activeElement.blur());
     }
   }
 
@@ -1224,7 +1224,7 @@ export class OuiSelect
         this.cdkConnectionOverlayPanel = 'select-overlay-top';
       }
       this._changeDetectorRef.detectChanges();
-      setTimeout(() => this._scrollToOption());
+      setTimeout((_) => this._scrollToOption());
     });
 
     const cdkOverLayContainer = this._document.querySelector(
