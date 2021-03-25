@@ -96,7 +96,7 @@ class OuiTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
   dataSource: FakeDataSource | null = new FakeDataSource();
   columnsToRender = ['column_a', 'column_b', 'column_c'];
-  isFourthRow = (i: number, _rowData: TestData) => i === 3;
+  isFourthRow = (i: number) => i === 3;
 }
 
 @Component({
@@ -157,7 +157,7 @@ class OuiTableWithWhenRowApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
   multiTemplateDataRows = false;
   dataSource: FakeDataSource | null = new FakeDataSource();
-  isFourthRow = (i: number, _rowData: TestData) => i === 3;
+  isFourthRow = (i: number) => i === 3;
 }
 
 @Component({
