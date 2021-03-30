@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.2] - 2021-03-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-41031`](https://scheduleonce.atlassian.net/browse/ONCEHUB-41031) [App3] - UI is not correctly visible on calendar connection with exchange and O365 via Oauth connection
+
+## [5.0.2-beta.0] - 2021-03-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-41031`](https://scheduleonce.atlassian.net/browse/ONCEHUB-41031) [App3] - UI is not correctly visible on calendar connection with exchange and O365 via Oauth connection
+
 ## [5.0.1] - 2021-03-25
 
 ### Added
