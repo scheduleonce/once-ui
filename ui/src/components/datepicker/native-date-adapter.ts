@@ -316,7 +316,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    * @returns The padded number.
    */
   private _2digit(n: number) {
-    return ('00' + n).slice(-2);
+    return `00${n}`.slice(-2);
   }
 
   /**
