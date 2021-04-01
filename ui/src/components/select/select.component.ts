@@ -930,7 +930,7 @@ export class OuiSelect
       );
       if (pseudoCheckbox) {
         SELECT_MULTIPLE_PANEL_PADDING_X =
-          SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
+          SELECT_PANEL_PADDING_X * 1.5 + <number>pseudoCheckbox.offsetWidth;
       }
     }
   }

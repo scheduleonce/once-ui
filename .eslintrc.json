@@ -39,7 +39,6 @@
         "@typescript-eslint/no-unsafe-return": "off",
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/restrict-template-expressions": "off",
-        "@typescript-eslint/restrict-plus-operands": "off",
         "@angular-eslint/no-input-rename": "off",
         "@typescript-eslint/unbound-method": "off",
         "@angular-eslint/no-empty-lifecycle-method": "off",
