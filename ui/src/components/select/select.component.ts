@@ -418,18 +418,17 @@ export class OuiSelect
   get focused(): boolean {
     return this._focused || this._panelOpen;
   }
-  /** `View -> model callback called when value changes` */
-  _onChange: (value: any) => void = () => {};
-
-  /** `View -> model callback called when select has been touched` */
-  _onTouched = () => {};
-
   /**
    * @deprecated Setter to be removed as this property is intended to be readonly.
    */
   set focused(value: boolean) {
     this._focused = value;
   }
+  /** `View -> model callback called when value changes` */
+  _onChange: (value: any) => void = () => {};
+
+  /** `View -> model callback called when select has been touched` */
+  _onTouched = () => {};
 
   /** Placeholder to be shown if no value has been selected. */
   @Input()
