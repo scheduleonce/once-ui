@@ -5,7 +5,7 @@ import { select, text, number, boolean } from '@storybook/addon-knobs';
 import { COLORS } from '../const';
 import { OuiIconButtonStorybook } from './button.component';
 
-<Meta title="MDX/Button" />
+<Meta title="Button" />
 
 # Button
 
@@ -110,7 +110,7 @@ Progress button:
     parameters={{
       docs: {
         source: {
-          code: `<button #progressButton oui-button [progress]="['Discard','Discarding...','Discarded']"(click)="buttonClick()"></button>`,
+          code: `<button #progressButton oui-button [progress]="['Discard','Discarding...','Discarded']"></button>`,
         },
       },
     }}

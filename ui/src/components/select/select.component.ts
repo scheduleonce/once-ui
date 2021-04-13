@@ -659,7 +659,7 @@ export class OuiSelect
       this._elementRef.nativeElement.classList.remove(
         'oui-select-list-options-opened'
       );
-      setTimeout((_) => this._document.activeElement.blur());
+      setTimeout(() => this._document.activeElement.blur());
     }
   }
 
@@ -929,7 +929,7 @@ export class OuiSelect
       );
       if (pseudoCheckbox) {
         SELECT_MULTIPLE_PANEL_PADDING_X =
-          SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
+          SELECT_PANEL_PADDING_X * 1.5 + <number>pseudoCheckbox.offsetWidth;
       }
     }
   }
@@ -1223,7 +1223,7 @@ export class OuiSelect
         this.cdkConnectionOverlayPanel = 'select-overlay-top';
       }
       this._changeDetectorRef.detectChanges();
-      setTimeout((_) => this._scrollToOption());
+      setTimeout(() => this._scrollToOption());
     });
 
     const cdkOverLayContainer = this._document.querySelector(

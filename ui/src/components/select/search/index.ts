@@ -133,7 +133,7 @@ export class OuiSelectSearchComponent
       return;
     }
     // focus
-    setTimeout((_) => this.searchSelectInput.nativeElement.focus());
+    setTimeout(() => this.searchSelectInput.nativeElement.focus());
     this.ouiSelect.ouiSelectInputOuter();
   }
 

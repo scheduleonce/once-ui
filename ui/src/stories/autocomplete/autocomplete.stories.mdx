@@ -15,7 +15,7 @@ import {
   OuiAutocompleteGroupStorybook,
 } from './autocomplete.component';
 
-<Meta title="MDX FORM FIELD/Autocomplete" />
+<Meta title="FORM FIELD/Autocomplete" />
 
 # Autocomplete
 
@@ -30,13 +30,13 @@ Regular Input field
       docs: {
         source: {
           code: `<oui-form-field>
-            <input oui-input [ouiAutocomplete]="auto" />
-          </oui-form-field>
-          <oui-autocomplete #auto="ouiAutocomplete">
-            <oui-option *ngFor="let option of options" [value]="option">
-              {{ option }}
-            </oui-option>
-          </oui-autocomplete>`,
+  <input oui-input [ouiAutocomplete]="auto" />
+</oui-form-field>
+<oui-autocomplete #auto="ouiAutocomplete">
+  <oui-option *ngFor="let option of options" [value]="option">
+    {{ option }}
+  </oui-option>
+</oui-autocomplete>`,
         },
       },
     }}
@@ -76,13 +76,13 @@ With Group
       docs: {
         source: {
           code: `<oui-form-field>
-            <input oui-input [ouiAutocomplete]="auto" />
-          </oui-form-field>
-          <oui-autocomplete #auto="ouiAutocomplete">
-            <oui-option *ngFor="let option of options" [value]="option">
-              {{ option }}
-            </oui-option>
-          </oui-autocomplete>`,
+  <input oui-input [ouiAutocomplete]="auto" />
+</oui-form-field>
+<oui-autocomplete #auto="ouiAutocomplete">
+  <oui-option *ngFor="let option of options" [value]="option">
+    {{ option }}
+  </oui-option>
+</oui-autocomplete>`,
         },
       },
     }}

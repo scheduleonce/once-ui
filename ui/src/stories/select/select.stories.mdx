@@ -10,7 +10,7 @@ import { array, boolean, text, object, select } from '@storybook/addon-knobs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { APPEARANCE } from '../const';
 
-<Meta title="MDX FORM FIELD/Select" />
+<Meta title="FORM FIELD/Select" />
 
 # Select
 
@@ -27,12 +27,12 @@ Regular Select
       docs: {
         source: {
           code: `<oui-form-field>
-          <oui-select large placeholder="Favorite food">
-            <oui-option *ngFor="let food of foods" [value]="food">
-              {{food array}}
-            </oui-option>
-          </oui-select>
-        </oui-form-field>`,
+  <oui-select large placeholder="Favorite food">
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
         },
       },
     }}
@@ -91,12 +91,12 @@ Multi select:
       docs: {
         source: {
           code: `<oui-form-field>
-          <oui-select large placeholder="Favorite food" multiple>
-            <oui-option *ngFor="let food of foods" [value]="food">
-              {{food array}}
-            </oui-option>
-          </oui-select>
-        </oui-form-field>`,
+  <oui-select large placeholder="Favorite food" multiple>
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
         },
       },
     }}
@@ -143,15 +143,15 @@ Groups:
       docs: {
         source: {
           code: `<oui-form-field>
-          <oui-select large placeholder="Favorite food" multiple>
-            <oui-option>-- None --</oui-option>
-            <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
-                <oui-option *ngFor="let food of foods" [value]="food">
-                {{food array}}
-                </oui-option>
-            </oui-optgroup>
-          </oui-select>
-        </oui-form-field>`,
+  <oui-select large placeholder="Favorite food" multiple>
+    <oui-option>-- None --</oui-option>
+    <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
+        <oui-option *ngFor="let food of foods" [value]="food">
+        {{food array}}
+        </oui-option>
+    </oui-optgroup>
+  </oui-select>
+</oui-form-field>`,
         },
       },
     }}
@@ -222,13 +222,13 @@ Search options:
       docs: {
         source: {
           code: `<oui-form-field>
-          <oui-select large placeholder="Favorite food" multiple>
-            <oui-select-search [(ngModel)]="keyword"></oui-select-search>
-            <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
-              {{food array}}
-            </oui-option>
-          </oui-select>
-        </oui-form-field>`,
+  <oui-select large placeholder="Favorite food" multiple>
+    <oui-select-search [(ngModel)]="keyword"></oui-select-search>
+    <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
         },
       },
     }}

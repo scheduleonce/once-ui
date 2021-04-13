@@ -5,6 +5,86 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.2] - 2021-03-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-41031`](https://scheduleonce.atlassian.net/browse/ONCEHUB-41031) [App3] - UI is not correctly visible on calendar connection with exchange and O365 via Oauth connection
+
+## [5.0.2-beta.0] - 2021-03-30
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-41031`](https://scheduleonce.atlassian.net/browse/ONCEHUB-41031) [App3] - UI is not correctly visible on calendar connection with exchange and O365 via Oauth connection
+
+## [5.0.1] - 2021-03-25
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-40427`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40427) CVE-2020-28498 vulnerability found in package elliptic in project once-ui
+- [`ONCEHUB-40355`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40355) Storybook change the left side navigation to be like in the production one
+- [`ONCEHUB-40354`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40354) Storybook render component in canvas center
+- [`ONCEHUB-38424`](https://scheduleonce.atlassian.net/browse/ONCEHUB-38424) Date-picker shared component UI
+- [`ONCEHUB-39602`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39602) Remove extra eslintrc file in the once-ui library and combine the rules
+- [`ONCEHUB-38790`](https://scheduleonce.atlassian.net/browse/ONCEHUB-38790) CVE-2020-28481 vulnerability found in package socket.io in project once-ui
+- [`ONCEHUB-39632`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39632) Remove unused dependencies from once-ui
+
+## [5.0.1-beta.2] - 2021-03-10
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-40427`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40427) CVE-2020-28498 vulnerability found in package elliptic in project once-ui
+- [`ONCEHUB-40355`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40355) Storybook change the left side navigation to be like in the production one
+- [`ONCEHUB-40354`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40354) Storybook render component in canvas center
+
 ## [5.0.1-beta.1] - 2021-02-23
 
 ### Added
