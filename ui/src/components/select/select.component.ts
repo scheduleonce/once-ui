@@ -421,7 +421,7 @@ export class OuiSelect
   /**
    * @deprecated Setter to be removed as this property is intended to be readonly.
    */
-   set focused(value: boolean) {
+  set focused(value: boolean) {
     this._focused = value;
   }
   /** `View -> model callback called when value changes` */
