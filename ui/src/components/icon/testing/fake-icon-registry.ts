@@ -1,4 +1,4 @@
-import { Injectable, NgModule, OnDestroy } from '@angular/core';
+import { Injectable, NgModule } from '@angular/core';
 import { OuiIconRegistry } from '../icon-registery';
 import { Observable, of as observableOf } from 'rxjs';
 
@@ -15,7 +15,7 @@ type PublicApi<T> = {
  */
 @Injectable()
 export class FakeOuiIconRegistry
-  implements PublicApi<OuiIconRegistry>, OnDestroy {
+  implements PublicApi<OuiIconRegistry> {
   addSvgIcon(): this {
     return this;
   }
@@ -31,8 +31,6 @@ export class FakeOuiIconRegistry
   getNamedSvgIcon(): Observable<SVGElement> {
     return observableOf(this._generateEmptySvg());
   }
-
-  ngOnDestroy() {}
 
   private _generateEmptySvg(): SVGElement {
     const emptySvg = document.createElementNS(

@@ -1,7 +1,6 @@
 import {
   AfterContentChecked,
   AfterContentInit,
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -80,7 +79,7 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<OuiFormFieldDef
 })
 export class OuiFormField
   extends _OuiFormFieldMixinBase
-  implements AfterContentInit, AfterContentChecked, AfterViewInit, OnDestroy {
+  implements AfterContentInit, AfterContentChecked, OnDestroy {
   private _destroyed = new Subject<void>();
   @Input() color: ThemePalette;
   /** The form-field appearance style. */
@@ -138,10 +137,6 @@ export class OuiFormField
 
   ngAfterContentChecked() {
     this._validateControlChild();
-  }
-
-  ngAfterViewInit() {
-    // Avoid animations on load.
   }
 
   ngOnDestroy() {

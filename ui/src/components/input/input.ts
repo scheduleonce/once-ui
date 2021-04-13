@@ -3,7 +3,6 @@ import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
   Directive,
-  DoCheck,
   ElementRef,
   Inject,
   Input,
@@ -112,7 +111,6 @@ export class OuiInput
     OnChanges,
     OnDestroy,
     OnInit,
-    DoCheck,
     CanColor {
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
@@ -356,8 +354,6 @@ export class OuiInput
       this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
     }
   }
-
-  ngDoCheck() {}
 
   /** Focuses the input. */
   focus(): void {
