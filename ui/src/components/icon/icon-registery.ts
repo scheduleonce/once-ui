@@ -78,7 +78,7 @@ class SvgIconConfig {
   constructor(data: SafeResourceUrl | SVGElement) {
     // Note that we can't use `instanceof SVGElement` here,
 
-    if (!!(data as any).nodeName) {
+    if ((data as any).nodeName) {
       this.svgElement = data as SVGElement;
     } else {
       this.url = data as SafeResourceUrl;
