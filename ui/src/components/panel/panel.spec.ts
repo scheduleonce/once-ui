@@ -47,7 +47,8 @@ class SimplePanel {
 describe('OuiPanel', () => {
   let overlayContainer: OverlayContainer;
   let overlayContainerElement: HTMLElement;
-
+  // @ts-ignore
+  let focusMonitor: FocusMonitor;
   function createComponent<T>(
     component: Type<T>,
     providers: Provider[] = [],
