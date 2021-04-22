@@ -93,7 +93,7 @@ export class OuiSlideToggle
 
   wrapper: ElementRef;
 
-  private onChange = () => {};
+  private onChange = (_: any) => {};
   private onTouched = () => {};
   constructor(
     protected elementRef: ElementRef,
@@ -125,7 +125,7 @@ export class OuiSlideToggle
   emitChange() {
     if (!this.disabled) {
       this.toggle();
-      this.onChange();
+      this.onChange(this.checked);
       this.change.emit(this.checked);
     }
   }
