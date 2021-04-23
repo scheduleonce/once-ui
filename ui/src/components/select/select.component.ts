@@ -418,18 +418,17 @@ export class OuiSelect
   get focused(): boolean {
     return this._focused || this._panelOpen;
   }
-  /** `View -> model callback called when value changes` */
-  _onChange: (value: any) => void = () => {};
-
-  /** `View -> model callback called when select has been touched` */
-  _onTouched = () => {};
-
   /**
    * @deprecated Setter to be removed as this property is intended to be readonly.
    */
   set focused(value: boolean) {
     this._focused = value;
   }
+  /** `View -> model callback called when value changes` */
+  _onChange: (value: any) => void = () => {};
+
+  /** `View -> model callback called when select has been touched` */
+  _onTouched = () => {};
 
   /** Placeholder to be shown if no value has been selected. */
   @Input()
@@ -660,7 +659,7 @@ export class OuiSelect
       this._elementRef.nativeElement.classList.remove(
         'oui-select-list-options-opened'
       );
-      setTimeout(() => this._document.activeElement.blur());
+      setTimeout((_) => this._document.activeElement.blur());
     }
   }
 
@@ -930,7 +929,7 @@ export class OuiSelect
       );
       if (pseudoCheckbox) {
         SELECT_MULTIPLE_PANEL_PADDING_X =
-          SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
+          SELECT_PANEL_PADDING_X * 1.5 + <number>pseudoCheckbox.offsetWidth;
       }
     }
   }
@@ -1224,7 +1223,7 @@ export class OuiSelect
         this.cdkConnectionOverlayPanel = 'select-overlay-top';
       }
       this._changeDetectorRef.detectChanges();
-      setTimeout(() => this._scrollToOption());
+      setTimeout((_) => this._scrollToOption());
     });
 
     const cdkOverLayContainer = this._document.querySelector(
