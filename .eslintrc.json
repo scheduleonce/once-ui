@@ -45,6 +45,7 @@
         "no-self-assign": "off",
         "@typescript-eslint/ban-ts-comment": "off",
         "no-useless-escape": "off",
+        "@angular-eslint/no-empty-lifecycle-method": "off",
         "@typescript-eslint/prefer-regexp-exec": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",

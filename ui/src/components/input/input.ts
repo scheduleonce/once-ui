@@ -107,7 +107,13 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 })
 export class OuiInput
   extends _OuiInputMixinBase
-  implements OuiFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanColor {
+  implements
+    OuiFormFieldControl<any>,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    DoCheck,
+    CanColor {
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
   private _inputValueAccessor: { value: any };

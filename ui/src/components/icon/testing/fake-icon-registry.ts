@@ -14,7 +14,8 @@ type PublicApi<T> = {
  * A null icon registry that must be imported to allow disabling of custom icons
  */
 @Injectable()
-export class FakeOuiIconRegistry implements PublicApi<OuiIconRegistry>, OnDestroy {
+export class FakeOuiIconRegistry
+  implements PublicApi<OuiIconRegistry>, OnDestroy {
   addSvgIcon(): this {
     return this;
   }
