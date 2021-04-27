@@ -1,4 +1,4 @@
-import { Injectable, NgModule } from '@angular/core';
+import { Injectable, NgModule, OnDestroy } from '@angular/core';
 import { OuiIconRegistry } from '../icon-registery';
 import { Observable, of as observableOf } from 'rxjs';
 
@@ -14,7 +14,7 @@ type PublicApi<T> = {
  * A null icon registry that must be imported to allow disabling of custom icons
  */
 @Injectable()
-export class FakeOuiIconRegistry implements PublicApi<OuiIconRegistry> {
+export class FakeOuiIconRegistry implements PublicApi<OuiIconRegistry>, OnDestroy {
   addSvgIcon(): this {
     return this;
   }
@@ -30,6 +30,8 @@ export class FakeOuiIconRegistry implements PublicApi<OuiIconRegistry> {
   getNamedSvgIcon(): Observable<SVGElement> {
     return observableOf(this._generateEmptySvg());
   }
+
+  ngOnDestroy() {}
 
   private _generateEmptySvg(): SVGElement {
     const emptySvg = document.createElementNS(

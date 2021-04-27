@@ -1,6 +1,7 @@
 import {
   InjectionToken,
   Directive,
+  AfterContentInit,
   OnDestroy,
   Input,
   Output,
@@ -64,7 +65,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   },
   exportAs: 'ouiPanelTrigger',
 })
-export class OuiPanelTrigger implements OnDestroy {
+export class OuiPanelTrigger implements AfterContentInit, OnDestroy {
   private _portal: TemplatePortal;
   private _overlayRef: OverlayRef | null = null;
   private _panelOpen = false;
@@ -125,6 +126,8 @@ export class OuiPanelTrigger implements OnDestroy {
   ) {
     this._scrollStrategy = scrollStrategy;
   }
+
+  ngAfterContentInit() {}
 
   /** Whether the panel is open. */
   get panelOpen(): boolean {
