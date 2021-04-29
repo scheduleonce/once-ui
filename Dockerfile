@@ -1,4 +1,4 @@
-FROM node:12.22.1-alpine3.12 AS buildnpm i
+FROM node:12.22.1-alpine3.12 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN npm install
