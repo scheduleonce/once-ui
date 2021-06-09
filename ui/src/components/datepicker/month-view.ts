@@ -278,9 +278,10 @@ export class OuiMonthView<D> implements AfterContentInit {
   _init() {
     this._selectedDate = this._getDateInCurrentMonth(this.selected);
     this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
-    this._monthLabel = this._dateAdapter.getMonthNames('short')[
-      this._dateAdapter.getMonth(this.activeDate)
-    ];
+    this._monthLabel =
+      this._dateAdapter.getMonthNames('short')[
+        this._dateAdapter.getMonth(this.activeDate)
+      ];
 
     const firstOfMonth = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
