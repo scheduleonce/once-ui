@@ -46,7 +46,8 @@ export class OuiDatepickerToggleIcon {}
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiDatepickerToggle<D>
-  implements AfterContentInit, OnChanges, OnDestroy {
+  implements AfterContentInit, OnChanges, OnDestroy
+{
   private _stateChanges = Subscription.EMPTY;
 
   /** Datepicker instance that the button will toggle. */

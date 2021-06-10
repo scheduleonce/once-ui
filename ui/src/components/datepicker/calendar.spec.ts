@@ -212,17 +212,21 @@ describe('OuiCalendar', () => {
       expect(calendarInstance.currentView).toBe('multi-year');
       expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-      (calendarElement.querySelector(
-        '.oui-calendar-body-active'
-      ) as HTMLElement).click();
+      (
+        calendarElement.querySelector(
+          '.oui-calendar-body-active'
+        ) as HTMLElement
+      ).click();
 
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('year');
 
-      (calendarElement.querySelector(
-        '.oui-calendar-body-active'
-      ) as HTMLElement).click();
+      (
+        calendarElement.querySelector(
+          '.oui-calendar-body-active'
+        ) as HTMLElement
+      ).click();
 
       const normalizedMonth: Date = fixture.componentInstance.selectedMonth;
       expect(normalizedMonth.getMonth()).toEqual(0);
@@ -235,9 +239,11 @@ describe('OuiCalendar', () => {
       expect(calendarInstance.currentView).toBe('multi-year');
       expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
 
-      (calendarElement.querySelector(
-        '.oui-calendar-body-active'
-      ) as HTMLElement).click();
+      (
+        calendarElement.querySelector(
+          '.oui-calendar-body-active'
+        ) as HTMLElement
+      ).click();
 
       fixture.detectChanges();
 
@@ -396,9 +402,11 @@ describe('OuiCalendar', () => {
       periodButton.click();
       fixture.detectChanges();
 
-      (calendarElement.querySelector(
-        '.oui-calendar-body-active'
-      ) as HTMLElement).click();
+      (
+        calendarElement.querySelector(
+          '.oui-calendar-body-active'
+        ) as HTMLElement
+      ).click();
       fixture.detectChanges();
 
       spyOn(calendarInstance.yearView, '_init').and.callThrough();
@@ -417,9 +425,11 @@ describe('OuiCalendar', () => {
       periodButton.click();
       fixture.detectChanges();
 
-      (calendarElement.querySelector(
-        '.oui-calendar-body-active'
-      ) as HTMLElement).click();
+      (
+        calendarElement.querySelector(
+          '.oui-calendar-body-active'
+        ) as HTMLElement
+      ).click();
       fixture.detectChanges();
 
       spyOn(calendarInstance.yearView, '_init').and.callThrough();

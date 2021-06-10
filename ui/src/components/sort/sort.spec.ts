@@ -285,9 +285,8 @@ describe('OuiSort', () => {
   }));
 
   it('should use the column definition if used within an oui table', () => {
-    const ouiTableOuiSortAppFixture = TestBed.createComponent(
-      OuiTableOuiSortApp
-    );
+    const ouiTableOuiSortAppFixture =
+      TestBed.createComponent(OuiTableOuiSortApp);
     const ouiTableOuiSortAppComponent =
       ouiTableOuiSortAppFixture.componentInstance;
 

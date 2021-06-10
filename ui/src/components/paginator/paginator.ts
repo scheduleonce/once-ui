@@ -77,7 +77,8 @@ export const _OuiPaginatorBase: CanDisableCtor &
 })
 export class OuiPaginator
   extends _OuiPaginatorBase
-  implements OnInit, OnDestroy, CanDisable, HasInitialized {
+  implements OnInit, OnDestroy, CanDisable, HasInitialized
+{
   private _initialized: boolean;
   private _intlChanges: Subscription;
 

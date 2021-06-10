@@ -30,7 +30,8 @@ import { OuiOption } from '../../core/option/option';
   ],
 })
 export class OuiSelectSearchComponent
-  implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy {
+  implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy
+{
   /** Previously selected values when using <oui-select multiple>*/
   private previousSelectedValues: any[];
 
@@ -81,8 +82,9 @@ export class OuiSelectSearchComponent
         filter(() => this.ouiSelect.multiple)
       )
       .subscribe(() => {
-        this.previousSelectedValues = (this.ouiSelect
-          .selected as OuiOption[]).map((option) => option.value);
+        this.previousSelectedValues = (
+          this.ouiSelect.selected as OuiOption[]
+        ).map((option) => option.value);
       });
   }
 

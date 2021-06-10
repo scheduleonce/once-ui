@@ -22,9 +22,8 @@ export class OuiIconBase {
   constructor(public _elementRef: ElementRef) {}
 }
 
-export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase = mixinColor(
-  OuiIconBase
-);
+export const OuiIconMixinBase: CanColorCtor & typeof OuiIconBase =
+  mixinColor(OuiIconBase);
 
 /**
  * Injection token used to provide the current location to `OuiIcon`.
