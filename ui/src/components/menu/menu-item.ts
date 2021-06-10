@@ -17,8 +17,8 @@ import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
 // Boilerplate for applying mixins to OuiMenuItem.
 
 export class OuiMenuItemBase {}
-export const _OuiMenuItemMixinBase: CanDisableCtor &
-  typeof OuiMenuItemBase = mixinDisabled(OuiMenuItemBase);
+export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
+  mixinDisabled(OuiMenuItemBase);
 
 /**
  * This directive is intended to be used inside an oui-menu tag.
@@ -48,7 +48,8 @@ export const _OuiMenuItemMixinBase: CanDisableCtor &
 })
 export class OuiMenuItem
   extends _OuiMenuItemMixinBase
-  implements FocusableOption, CanDisable, OnDestroy {
+  implements FocusableOption, CanDisable, OnDestroy
+{
   /** ARIA role for the menu item. */
   @Input()
   role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
