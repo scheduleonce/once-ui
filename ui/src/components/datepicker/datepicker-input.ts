@@ -88,17 +88,16 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
   exportAs: 'ouiDatepickerInput',
 })
 export class OuiDatepickerInput<D>
-  implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator {
+  implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator
+{
   private _disabled: boolean;
   /** Emits when a `change` event is fired on this `<input>`. */
-  @Output() readonly dateChange: EventEmitter<
-    OuiDatepickerInputEvent<D>
-  > = new EventEmitter<OuiDatepickerInputEvent<D>>();
+  @Output() readonly dateChange: EventEmitter<OuiDatepickerInputEvent<D>> =
+    new EventEmitter<OuiDatepickerInputEvent<D>>();
 
   /** Emits when an `input` event is fired on this `<input>`. */
-  @Output() readonly dateInput: EventEmitter<
-    OuiDatepickerInputEvent<D>
-  > = new EventEmitter<OuiDatepickerInputEvent<D>>();
+  @Output() readonly dateInput: EventEmitter<OuiDatepickerInputEvent<D>> =
+    new EventEmitter<OuiDatepickerInputEvent<D>>();
 
   /** Emits when the value changes (either due to user input or programmatic change). */
   _valueChange = new EventEmitter<D | null>();

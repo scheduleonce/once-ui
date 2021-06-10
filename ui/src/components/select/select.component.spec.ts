@@ -784,8 +784,9 @@ describe('OuiSelect', () => {
         beforeEach(fakeAsync(() => {
           fixture = TestBed.createComponent(BasicSelect);
           fixture.detectChanges();
-          select = fixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = fixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
         }));
 
         it('should set the role of the select to listbox', fakeAsync(() => {
@@ -902,8 +903,9 @@ describe('OuiSelect', () => {
           );
           labelFixture.componentInstance.placeholder = 'Thing selector';
           labelFixture.detectChanges();
-          select = labelFixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = labelFixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           expect(select.getAttribute('aria-labelledby')).toBeFalsy();
         });
@@ -913,8 +915,9 @@ describe('OuiSelect', () => {
 
           const labelFixture = TestBed.createComponent(SelectWithChangeEvent);
           labelFixture.detectChanges();
-          select = labelFixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = labelFixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           expect(select.getAttribute('aria-labelledby')).toBeFalsy();
         });
@@ -929,9 +932,11 @@ describe('OuiSelect', () => {
           fixture.detectChanges();
           flush();
 
-          (overlayContainerElement.querySelectorAll(
-            'oui-option'
-          )[3] as HTMLElement).click();
+          (
+            overlayContainerElement.querySelectorAll(
+              'oui-option'
+            )[3] as HTMLElement
+          ).click();
           fixture.detectChanges();
           flush();
 
@@ -975,8 +980,9 @@ describe('OuiSelect', () => {
           const instance = multiFixture.componentInstance;
 
           multiFixture.detectChanges();
-          select = multiFixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = multiFixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           const initialValue = instance.control.value;
 
@@ -1061,8 +1067,9 @@ describe('OuiSelect', () => {
           const multiFixture = TestBed.createComponent(MultiSelect);
 
           multiFixture.detectChanges();
-          select = multiFixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = multiFixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           expect(multiFixture.componentInstance.select.panelOpen).toBe(
             false,
@@ -1117,8 +1124,9 @@ describe('OuiSelect', () => {
           const multiFixture = TestBed.createComponent(MultiSelect);
 
           multiFixture.detectChanges();
-          select = multiFixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = multiFixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           expect(select.getAttribute('aria-multiselectable')).toBe('true');
         }));
@@ -1131,8 +1139,9 @@ describe('OuiSelect', () => {
           fixture.componentInstance.control.setValue('chips-4');
           fixture.detectChanges();
 
-          const host = fixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          const host = fixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           expect(host.hasAttribute('aria-activedescendant')).toBe(
             false,
@@ -1143,9 +1152,8 @@ describe('OuiSelect', () => {
           fixture.detectChanges();
           flush();
 
-          const options = overlayContainerElement.querySelectorAll(
-            'oui-option'
-          );
+          const options =
+            overlayContainerElement.querySelectorAll('oui-option');
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[4].id,
@@ -1163,16 +1171,16 @@ describe('OuiSelect', () => {
         }));
 
         it('should set aria-activedescendant based on the focused option', fakeAsync(() => {
-          const host = fixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          const host = fixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           fixture.componentInstance.select.open();
           fixture.detectChanges();
           flush();
 
-          const options = overlayContainerElement.querySelectorAll(
-            'oui-option'
-          );
+          const options =
+            overlayContainerElement.querySelectorAll('oui-option');
 
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
@@ -1181,16 +1189,16 @@ describe('OuiSelect', () => {
         }));
 
         it('should not change the aria-activedescendant using the horizontal arrow keys', fakeAsync(() => {
-          const host = fixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          const host = fixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
 
           fixture.componentInstance.select.open();
           fixture.detectChanges();
           flush();
 
-          const options = overlayContainerElement.querySelectorAll(
-            'oui-option'
-          );
+          const options =
+            overlayContainerElement.querySelectorAll('oui-option');
           expect(host.getAttribute('aria-activedescendant')).toBe(
             options[0].id
           );
@@ -1214,8 +1222,9 @@ describe('OuiSelect', () => {
           const instance = multiFixture.componentInstance;
 
           multiFixture.detectChanges();
-          select = multiFixture.debugElement.query(By.css('oui-select'))
-            .nativeElement;
+          select = multiFixture.debugElement.query(
+            By.css('oui-select')
+          ).nativeElement;
           instance.select.open();
           multiFixture.detectChanges();
 
@@ -1248,8 +1257,9 @@ describe('OuiSelect', () => {
       beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(BasicSelect);
         fixture.detectChanges();
-        trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-          .nativeElement;
+        trigger = fixture.debugElement.query(
+          By.css('.oui-select-trigger')
+        ).nativeElement;
       }));
 
       it('should not throw when attempting to open too early', () => {
@@ -1375,8 +1385,9 @@ describe('OuiSelect', () => {
           SelectWithGroupsAndNgContainer
         );
         groupFixture.detectChanges();
-        trigger = groupFixture.debugElement.query(By.css('.oui-select-trigger'))
-          .nativeElement;
+        trigger = groupFixture.debugElement.query(
+          By.css('.oui-select-trigger')
+        ).nativeElement;
         trigger.click();
         groupFixture.detectChanges();
 
@@ -1390,9 +1401,8 @@ describe('OuiSelect', () => {
         'should not consider itself as blurred if the trigger loses focus while the ' +
           'panel is still open',
         fakeAsync(() => {
-          const selectElement = fixture.nativeElement.querySelector(
-            '.oui-select'
-          );
+          const selectElement =
+            fixture.nativeElement.querySelector('.oui-select');
           const selectInstance = fixture.componentInstance.select;
 
           dispatchFakeEvent(selectElement, 'focus');
@@ -1426,10 +1436,12 @@ describe('OuiSelect', () => {
       beforeEach(fakeAsync(() => {
         fixture = TestBed.createComponent(BasicSelect);
         fixture.detectChanges();
-        trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-          .nativeElement;
-        formField = fixture.debugElement.query(By.css('.oui-form-field'))
-          .nativeElement;
+        trigger = fixture.debugElement.query(
+          By.css('.oui-select-trigger')
+        ).nativeElement;
+        formField = fixture.debugElement.query(
+          By.css('.oui-form-field')
+        ).nativeElement;
       }));
 
       it('should not float label if no option is selected', fakeAsync(() => {
@@ -1485,9 +1497,8 @@ describe('OuiSelect', () => {
         flush();
 
         const optionInstances = fixture.componentInstance.options.toArray();
-        const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll(
-          'oui-option'
-        );
+        const optionNodes: NodeListOf<HTMLElement> =
+          overlayContainerElement.querySelectorAll('oui-option');
 
         optionInstances[1].select();
         fixture.detectChanges();
@@ -1619,8 +1630,9 @@ describe('OuiSelect', () => {
         fixture.detectChanges();
         flush();
 
-        const value = fixture.debugElement.query(By.css('.oui-select-value'))
-          .nativeElement;
+        const value = fixture.debugElement.query(
+          By.css('.oui-select-value')
+        ).nativeElement;
 
         expect(value.textContent).toContain('Steak');
         flush();
@@ -1707,9 +1719,8 @@ describe('OuiSelect', () => {
           .nativeElement.click();
         groupFixture.detectChanges();
 
-        const disabledGroup = overlayContainerElement.querySelectorAll(
-          'oui-optgroup'
-        )[1];
+        const disabledGroup =
+          overlayContainerElement.querySelectorAll('oui-optgroup')[1];
         const options = disabledGroup.querySelectorAll('oui-option');
 
         (options[0] as HTMLElement).click();
@@ -1733,9 +1744,10 @@ describe('OuiSelect', () => {
         flush();
 
         const spy = jasmine.createSpy('option selection spy');
-        const subscription = fixture.componentInstance.select.optionSelectionChanges.subscribe(
-          spy
-        );
+        const subscription =
+          fixture.componentInstance.select.optionSelectionChanges.subscribe(
+            spy
+          );
         const option = overlayContainerElement.querySelector(
           'oui-option'
         ) as HTMLElement;
@@ -1756,14 +1768,16 @@ describe('OuiSelect', () => {
 
         expect(fixture.componentInstance.select.options).toBeFalsy();
         expect(() => {
-          subscription = fixture.componentInstance.select.optionSelectionChanges.subscribe(
-            spy
-          );
+          subscription =
+            fixture.componentInstance.select.optionSelectionChanges.subscribe(
+              spy
+            );
         }).not.toThrow();
 
         fixture.detectChanges();
-        trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-          .nativeElement;
+        trigger = fixture.debugElement.query(
+          By.css('.oui-select-trigger')
+        ).nativeElement;
 
         trigger.click();
         fixture.detectChanges();
@@ -1872,17 +1886,18 @@ describe('OuiSelect', () => {
       fixture = TestBed.createComponent(SelectWithChangeEvent);
       fixture.detectChanges();
 
-      trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
     }));
 
     it('should emit an event when the selected option has changed', fakeAsync(() => {
       trigger.click();
       fixture.detectChanges();
 
-      (overlayContainerElement.querySelector(
-        'oui-option'
-      ) as HTMLElement).click();
+      (
+        overlayContainerElement.querySelector('oui-option') as HTMLElement
+      ).click();
 
       expect(fixture.componentInstance.changeListener).toHaveBeenCalled();
       flush();
@@ -1918,8 +1933,9 @@ describe('OuiSelect', () => {
       flush();
 
       fixture.detectChanges();
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
       expect(getComputedStyle(trigger).getPropertyValue('cursor')).toEqual(
         'default',
         `Expected cursor to be default arrow on disabled control.`
@@ -2097,8 +2113,9 @@ describe('OuiSelect', () => {
       const fixture = TestBed.createComponent(SelectWithPlainTabindex);
       fixture.detectChanges();
 
-      const select = fixture.debugElement.query(By.css('oui-select'))
-        .nativeElement;
+      const select = fixture.debugElement.query(
+        By.css('oui-select')
+      ).nativeElement;
       expect(select.getAttribute('tabindex')).toBe('5');
     }));
   });
@@ -2141,8 +2158,9 @@ describe('OuiSelect', () => {
       const fixture = TestBed.createComponent(BasicSelectInitiallyHidden);
       fixture.detectChanges();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
       trigger.style.width = '200px';
       fixture.componentInstance.isVisible = true;
       fixture.detectChanges();
@@ -2170,8 +2188,9 @@ describe('OuiSelect', () => {
       const fixture = TestBed.createComponent(BasicSelectNoPlaceholder);
 
       fixture.detectChanges();
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       trigger.click();
       fixture.detectChanges();
@@ -2446,8 +2465,9 @@ describe('OuiSelect', () => {
       flush();
       fixture.detectChanges();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       expect(trigger.textContent).toContain('Pizza');
     }));
@@ -2469,8 +2489,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       flush();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       fixture.detectChanges();
 
@@ -2480,8 +2501,9 @@ describe('OuiSelect', () => {
     it('should update the trigger based on the value', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectOnPush);
       fixture.detectChanges();
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       fixture.componentInstance.control.setValue('pizza-1');
       fixture.detectChanges();
@@ -2505,8 +2527,9 @@ describe('OuiSelect', () => {
       fixture.componentInstance.control.setValue('pizza-1');
       fixture.detectChanges();
 
-      const label = fixture.debugElement.query(By.css('.oui-select-value'))
-        .nativeElement;
+      const label = fixture.debugElement.query(
+        By.css('.oui-select-value')
+      ).nativeElement;
 
       expect(label.textContent).toContain(
         'azziP',
@@ -2528,10 +2551,12 @@ describe('OuiSelect', () => {
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(ResetValuesSelect);
       fixture.detectChanges();
-      trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
-      formField = fixture.debugElement.query(By.css('.oui-form-field'))
-        .nativeElement;
+      trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
+      formField = fixture.debugElement.query(
+        By.css('.oui-form-field')
+      ).nativeElement;
 
       trigger.click();
       fixture.detectChanges();
@@ -2621,16 +2646,17 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       expect(fixture.componentInstance.selectedFood).toBeFalsy();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       trigger.click();
       fixture.detectChanges();
       flush();
 
-      (overlayContainerElement.querySelector(
-        'oui-option'
-      ) as HTMLElement).click();
+      (
+        overlayContainerElement.querySelector('oui-option') as HTMLElement
+      ).click();
       fixture.detectChanges();
       flush();
 
@@ -2642,9 +2668,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       flush();
 
-      (overlayContainerElement.querySelectorAll(
-        'oui-option'
-      )[2] as HTMLElement).click();
+      (
+        overlayContainerElement.querySelectorAll('oui-option')[2] as HTMLElement
+      ).click();
       fixture.detectChanges();
       flush();
 
@@ -2660,8 +2686,9 @@ describe('OuiSelect', () => {
       fixture.componentInstance.selectedFood = 'sandwich-2';
       fixture.detectChanges();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
       expect(trigger.textContent).toContain('Sandwich');
 
       trigger.click();
@@ -2680,16 +2707,17 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       expect(fixture.componentInstance.selectedFood).toBeFalsy();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       trigger.click();
       fixture.detectChanges();
       flush();
 
-      (overlayContainerElement.querySelector(
-        'oui-option'
-      ) as HTMLElement).click();
+      (
+        overlayContainerElement.querySelector('oui-option') as HTMLElement
+      ).click();
       fixture.detectChanges();
       flush();
 
@@ -2712,8 +2740,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       flush();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
       fixture.detectChanges();
       expect(trigger.textContent).toContain('Pizza');
 
@@ -2733,8 +2762,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       expect(fixture.componentInstance.selectedFoods).toBeFalsy();
 
-      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      const trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
 
       trigger.click();
       fixture.detectChanges();
@@ -2788,9 +2818,8 @@ describe('OuiSelect', () => {
 
     it('should not restore focus to the host element when clicking outside', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectWithoutForms);
-      const select = fixture.debugElement.nativeElement.querySelector(
-        'oui-select'
-      );
+      const select =
+        fixture.debugElement.nativeElement.querySelector('oui-select');
 
       fixture.detectChanges();
       fixture.debugElement
@@ -2805,9 +2834,11 @@ describe('OuiSelect', () => {
       );
 
       select.blur(); // Blur manually since the programmatic click might not do it.
-      (overlayContainerElement.querySelector(
-        '.cdk-overlay-backdrop'
-      ) as HTMLElement).click();
+      (
+        overlayContainerElement.querySelector(
+          '.cdk-overlay-backdrop'
+        ) as HTMLElement
+      ).click();
       fixture.detectChanges();
       flush();
 
@@ -2835,9 +2866,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       flush();
 
-      (overlayContainerElement.querySelector(
-        'oui-option'
-      ) as HTMLElement).click();
+      (
+        overlayContainerElement.querySelector('oui-option') as HTMLElement
+      ).click();
       fixture.detectChanges();
       flush();
 
@@ -2860,8 +2891,9 @@ describe('OuiSelect', () => {
       testInstance = fixture.componentInstance;
       fixture.detectChanges();
 
-      trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
-        .nativeElement;
+      trigger = fixture.debugElement.query(
+        By.css('.oui-select-trigger')
+      ).nativeElement;
     }));
 
     it('should be able to select multiple values', fakeAsync(() => {
