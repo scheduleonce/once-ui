@@ -140,9 +140,10 @@ export class OuiCalendarBody implements OnChanges {
         .asObservable()
         .pipe(take(1))
         .subscribe(() => {
-          const activeCell: HTMLElement | null = this._elementRef.nativeElement.querySelector(
-            '.oui-calendar-body-active'
-          );
+          const activeCell: HTMLElement | null =
+            this._elementRef.nativeElement.querySelector(
+              '.oui-calendar-body-active'
+            );
 
           if (activeCell) {
             activeCell.focus();

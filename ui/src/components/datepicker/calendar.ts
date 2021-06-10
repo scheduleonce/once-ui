@@ -51,7 +51,8 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OuiCalendar<D>
-  implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
+  implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges
+{
   /** An input indicating the type of the header component, if set. */
   @Input() headerComponent: ComponentType<any>;
 

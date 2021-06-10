@@ -34,9 +34,8 @@ export const OUI_SLIDE_TOGGLE_VALUE_ACCESSOR: any = {
 export class OuiSlideToggleBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
-  OuiSlideToggleBase
-);
+export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
+  mixinColor(OuiSlideToggleBase);
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
@@ -58,7 +57,8 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase = mixinColor(
 })
 export class OuiSlideToggle
   extends _OuiSlideToggleMixinBase
-  implements AfterContentInit, ControlValueAccessor, OnDestroy {
+  implements AfterContentInit, ControlValueAccessor, OnDestroy
+{
   private _checked = false;
   tabIndex: any;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
