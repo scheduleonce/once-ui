@@ -2,7 +2,7 @@ import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
 import { OuiButtonModule, OuiButton, OuiIconModule } from '../../components';
 import { action } from '@storybook/addon-actions';
 import { select, text, number, boolean } from '@storybook/addon-knobs';
-import { COLORS } from '../const';
+import { COLORS, THEME } from '../const';
 import { OuiIconButtonStorybook } from './button.component';
 
 <Meta title="Button" />
@@ -32,8 +32,9 @@ Regular button:
         schemas: [],
         declarations: [],
       },
-      template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
+      template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color" ngClass="{{theme}}">{{text}}</button>`,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         color: select('color', COLORS, COLORS[0]),
         disabled: boolean('disabled', false),
         text: text('text', 'This is a button'),
@@ -91,8 +92,9 @@ Ghost button:
         schemas: [],
         declarations: [],
       },
-      template: `<button oui-ghost-button [disabled]="disabled" (click)="clicked()" [color]="color">{{text}}</button>`,
+      template: `<button oui-ghost-button [disabled]="disabled" ngClass="{{theme}}" (click)="clicked()" [color]="color">{{text}}</button>`,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         color: select('color', COLORS, COLORS[0]),
         disabled: boolean('disabled', false),
         text: text('text', 'This is a button'),
@@ -127,10 +129,12 @@ Progress button:
                   progress
                   [color]="color"
                   [disabled]="isDisable"
+                  ngClass="{{theme}}"
                   (click)="clicked();progressButtonClick(progressButton)">
                   button
                 </button>`,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         color: select('color', COLORS, COLORS[0]),
         isDisable: boolean('disabled', false),
         text: text('text', 'This is a button'),
