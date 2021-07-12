@@ -7,7 +7,7 @@ import {
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { action } from '@storybook/addon-actions';
 import { select, text, boolean } from '@storybook/addon-knobs';
-import { TOOLTIPPOSITION } from '../const';
+import { TOOLTIPPOSITION, THEME } from '../const';
 import { OuiTooltipStorybook } from './tooltip.component';
 
 <Meta title="Tooltip" />
@@ -33,10 +33,11 @@ The `oui-tooltip` provides a text label that is displayed when the user hovers o
         schemas: [],
         declarations: [OuiTooltipStorybook],
       },
-      template: `<oui-tooltip-storybook [disabled]="disabled"
+      template: `<oui-tooltip-storybook [disabled]="disabled" ngClass={{theme}}
     [_ouiTooltip]="ouiTooltip"
     [_ouiTooltipPosition]="ouiTooltipPosition"></oui-tooltip-storybook>`,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         changed: action('change'),
         disabled: boolean('ouiTooltipDisabled', false),
         ouiTooltip: text('ouiTooltip', 'This is a tooltip'),
