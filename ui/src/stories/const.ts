@@ -1,5 +1,6 @@
 export const APPEARANCE = ['standard', 'underline'];
 export const COLORS = ['primary', 'accent', 'warn'];
+export const THEME = ['oncehub', 'chatonce', 'inviteonce', 'scheduleonce'];
 export const ICON_COLORS = ['maroon', 'blue', 'orange'];
 export const LABELPOSITION = ['before', 'after'];
 export const TOOLTIPPOSITION = ['above', 'below', 'left', 'right'];
