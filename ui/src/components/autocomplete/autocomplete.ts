@@ -44,14 +44,13 @@ export interface OuiAutocompleteDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `oui-autocomplete`. */
-export const OUI_AUTOCOMPLETE_DEFAULT_OPTIONS =
-  new InjectionToken<OuiAutocompleteDefaultOptions>(
-    'oui-autocomplete-default-options',
-    {
-      providedIn: 'root',
-      factory: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
-    }
-  );
+export const OUI_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken<OuiAutocompleteDefaultOptions>(
+  'oui-autocomplete-default-options',
+  {
+    providedIn: 'root',
+    factory: OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
+  }
+);
 
 /** @docs-private */
 export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefaultOptions {

@@ -14,8 +14,9 @@ import { mixinColor } from '../core';
 export class OuiProgressSpinnerBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _OuiProgressSpinnerMixinBase: typeof OuiProgressSpinnerBase =
-  mixinColor(OuiProgressSpinnerBase);
+export const _OuiProgressSpinnerMixinBase: typeof OuiProgressSpinnerBase = mixinColor(
+  OuiProgressSpinnerBase
+);
 
 /** Possible mode for a progress spinner. */
 export type ProgressSpinnerMode = 'determinate' | 'indeterminate';

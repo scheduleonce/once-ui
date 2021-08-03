@@ -69,8 +69,7 @@ export const OuiButtonMixinBase: CanDisableCtor &
 })
 export class OuiButton
   extends OuiButtonMixinBase
-  implements OnDestroy, CanDisable, CanColor, CanProgress
-{
+  implements OnDestroy, CanDisable, CanColor, CanProgress {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   constructor(
     protected elementRef: ElementRef,
