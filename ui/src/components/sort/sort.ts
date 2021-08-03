@@ -62,8 +62,7 @@ export const _OuiSortMixinBase: HasInitializedCtor &
 })
 export class OuiSort
   extends _OuiSortMixinBase
-  implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit
-{
+  implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
   /** Collection of all registered sortables that this directive manages. */
   sortables = new Map<string, OuiSortable>();
 

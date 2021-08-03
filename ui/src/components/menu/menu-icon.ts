@@ -43,8 +43,9 @@ export class OuiMenuIcon implements AfterContentInit, OnChanges {
   }
 
   ngAfterContentInit() {
-    this._iconDiv =
-      this._elementRef.nativeElement.querySelector('.oui-menu-icon');
+    this._iconDiv = this._elementRef.nativeElement.querySelector(
+      '.oui-menu-icon'
+    );
     this._transformIcon();
   }
 

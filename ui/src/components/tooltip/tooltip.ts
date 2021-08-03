@@ -89,11 +89,13 @@ export interface NewCSSStyleDeclaration extends CSSStyleDeclaration {
 }
 
 /** Injection token to be used to override the default options for `ouiTooltip`. */
-export const OUI_TOOLTIP_DEFAULT_OPTIONS =
-  new InjectionToken<OuiTooltipDefaultOptions>('oui-tooltip-default-options', {
+export const OUI_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken<OuiTooltipDefaultOptions>(
+  'oui-tooltip-default-options',
+  {
     providedIn: 'root',
     factory: OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY,
-  });
+  }
+);
 
 /** @docs-private */
 export function OUI_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): OuiTooltipDefaultOptions {
@@ -396,10 +398,8 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     );
 
     if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
-      elementStyle.webkitUserSelect =
-        elementStyle.userSelect =
-        elementStyle.msUserSelect =
-          '';
+      elementStyle.webkitUserSelect = elementStyle.userSelect = elementStyle.msUserSelect =
+        '';
     }
 
     // Hammer applies `-webkit-user-drag: none` on all elements by default,
@@ -519,8 +519,9 @@ export class OuiTooltip implements OnDestroy, CanDisable {
       .withFlexibleDimensions(false)
       .withViewportMargin(8);
 
-    const scrollableAncestors =
-      this._scrollDispatcher.getAncestorScrollContainers(this._elementRef);
+    const scrollableAncestors = this._scrollDispatcher.getAncestorScrollContainers(
+      this._elementRef
+    );
 
     strategy.withScrollableContainers(scrollableAncestors);
 
