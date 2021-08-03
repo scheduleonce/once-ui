@@ -17,8 +17,8 @@ export class OuiDialogRef<T, R = any> {
   componentInstance: T;
 
   /** Whether the user is allowed to close the dialog. */
-  disableClose: boolean | undefined =
-    this._containerInstance._config.disableClose;
+  disableClose: boolean | undefined = this._containerInstance._config
+    .disableClose;
 
   /** Subject for notifying the user that the dialog has finished opening. */
   private readonly _afterOpened = new Subject<void>();

@@ -34,8 +34,9 @@ export class OuiFormFieldBase {
  *
  * @docs-private
  */
-export const _OuiFormFieldMixinBase: typeof OuiFormFieldBase =
-  mixinColor(OuiFormFieldBase);
+export const _OuiFormFieldMixinBase: typeof OuiFormFieldBase = mixinColor(
+  OuiFormFieldBase
+);
 
 /** Possible appearance styles for the form field. */
 export type OuiFormFieldAppearance = 'standard' | 'underline';
@@ -52,10 +53,9 @@ export interface OuiFormFieldDefaultOptions {
  * Injection token that can be used to configure the
  * default options for all form field within an app.
  */
-export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
-  new InjectionToken<OuiFormFieldDefaultOptions>(
-    'OUI_FORM_FIELD_DEFAULT_OPTIONS'
-  );
+export const OUI_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken<OuiFormFieldDefaultOptions>(
+  'OUI_FORM_FIELD_DEFAULT_OPTIONS'
+);
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
@@ -79,8 +79,7 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
 })
 export class OuiFormField
   extends _OuiFormFieldMixinBase
-  implements AfterContentInit, AfterContentChecked, OnDestroy
-{
+  implements AfterContentInit, AfterContentChecked, OnDestroy {
   private _destroyed = new Subject<void>();
   @Input() color: ThemePalette;
   /** The form-field appearance style. */

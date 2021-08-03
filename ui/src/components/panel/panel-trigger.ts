@@ -255,8 +255,9 @@ export class OuiPanelTrigger implements OnDestroy {
   private _setLargeWidth() {
     const imageTag = this._overlayRef.overlayElement.querySelector('img');
     if (imageTag) {
-      const content: HTMLDivElement =
-        this._overlayRef.overlayElement.querySelector('.oui-panel-content');
+      const content: HTMLDivElement = this._overlayRef.overlayElement.querySelector(
+        '.oui-panel-content'
+      );
       content.classList.add('oui-panel-content-large');
     }
   }
@@ -295,8 +296,9 @@ export class OuiPanelTrigger implements OnDestroy {
 
   /** Moves the focus inside the focus trap. */
   public _trapFocus() {
-    const element: HTMLDivElement =
-      this._overlayRef.overlayElement.querySelector('.oui-panel-content');
+    const element: HTMLDivElement = this._overlayRef.overlayElement.querySelector(
+      '.oui-panel-content'
+    );
 
     if (!this._focusTrap) {
       this._focusTrap = this._focusTrapFactory.create(element);
