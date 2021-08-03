@@ -305,8 +305,9 @@ export class OuiRadioButtonBase {
   constructor(public _elementRef: ElementRef) {}
 }
 
-export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase =
-  mixinColor(OuiRadioButtonBase);
+export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase = mixinColor(
+  OuiRadioButtonBase
+);
 
 @Component({
   selector: 'oui-radio-button',
@@ -332,8 +333,7 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase =
 })
 export class OuiRadioButton
   extends OuiRadioButtonMixinBase
-  implements OnInit, AfterViewInit, OnDestroy
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   private _uniqueId = `oui-radio-${++nextUniqueId}`;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   /**

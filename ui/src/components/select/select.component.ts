@@ -214,8 +214,7 @@ export class OuiSelect
     CanDisable,
     HasTabIndex,
     OuiFormFieldControl<any>,
-    CanUpdateErrorState
-{
+    CanUpdateErrorState {
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 

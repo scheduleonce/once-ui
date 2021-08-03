@@ -153,8 +153,9 @@ describe('OuiIcon', () => {
   it('should apply class based on color attribute', () => {
     const fixture = TestBed.createComponent(IconWithColor);
     const testComponent = fixture.componentInstance;
-    const ouiIconElement =
-      fixture.debugElement.nativeElement.querySelector('oui-icon');
+    const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
+      'oui-icon'
+    );
     testComponent.iconName = 'home';
     testComponent.iconColor = 'primary';
     fixture.detectChanges();
@@ -166,8 +167,9 @@ describe('OuiIcon', () => {
 
   it('should mark oui-icon as aria-hidden by default', () => {
     const fixture = TestBed.createComponent(IconWithLigature);
-    const iconElement =
-      fixture.debugElement.nativeElement.querySelector('oui-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'oui-icon'
+    );
     expect(iconElement.getAttribute('aria-hidden')).toBe(
       'true',
       'Expected the oui-icon element has aria-hidden="true" by default'
@@ -176,8 +178,9 @@ describe('OuiIcon', () => {
 
   it('should apply inline styling', () => {
     const fixture = TestBed.createComponent(InlineIcon);
-    const iconElement =
-      fixture.debugElement.nativeElement.querySelector('oui-icon');
+    const iconElement = fixture.debugElement.nativeElement.querySelector(
+      'oui-icon'
+    );
     expect(iconElement.classList.contains('oui-icon-inline')).toBeFalsy(
       'Expected the oui-icon element to not include the inline styling class'
     );
@@ -197,8 +200,9 @@ describe('OuiIcon', () => {
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       const testComponent = fixture.componentInstance;
-      const ouiIconElement =
-        fixture.debugElement.nativeElement.querySelector('oui-icon');
+      const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
+        'oui-icon'
+      );
 
       testComponent.iconName = 'left-arrow';
       fixture.detectChanges();
@@ -238,8 +242,9 @@ describe('OuiIcon', () => {
 
       const fixture = TestBed.createComponent(SvgIconWithUserContent);
       const testComponent = fixture.componentInstance;
-      const iconElement =
-        fixture.debugElement.nativeElement.querySelector('oui-icon');
+      const iconElement = fixture.debugElement.nativeElement.querySelector(
+        'oui-icon'
+      );
 
       testComponent.iconName = 'fido';
       fixture.detectChanges();
@@ -267,8 +272,9 @@ describe('OuiIcon', () => {
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       const testComponent = fixture.componentInstance;
-      const iconElement =
-        fixture.debugElement.nativeElement.querySelector('oui-icon');
+      const iconElement = fixture.debugElement.nativeElement.querySelector(
+        'oui-icon'
+      );
 
       testComponent.iconName = 'fluffy';
       fixture.detectChanges();

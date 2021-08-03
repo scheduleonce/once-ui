@@ -276,8 +276,9 @@ describe('OuiInput without forms', () => {
       const fixture = createComponent(OuiInputTextareaWithBindings);
       fixture.detectChanges();
 
-      const textarea: HTMLTextAreaElement =
-        fixture.nativeElement.querySelector('textarea');
+      const textarea: HTMLTextAreaElement = fixture.nativeElement.querySelector(
+        'textarea'
+      );
       expect(textarea).not.toBeNull();
     })
   );
@@ -319,9 +320,8 @@ describe('OuiInput with forms', () => {
       const fixture = createComponent(OuiInputWithFormControl);
       fixture.detectChanges();
 
-      const formFieldEl = fixture.debugElement.query(
-        By.css('.oui-form-field')
-      ).nativeElement;
+      const formFieldEl = fixture.debugElement.query(By.css('.oui-form-field'))
+        .nativeElement;
       const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
 
       expect(formFieldEl.classList).not.toContain(

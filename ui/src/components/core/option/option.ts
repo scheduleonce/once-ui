@@ -50,8 +50,9 @@ export interface OuiOptionParentComponent {
 /**
  * Injection token used to provide the parent component to options.
  */
-export const OUI_OPTION_PARENT_COMPONENT =
-  new InjectionToken<OuiOptionParentComponent>('OUI_OPTION_PARENT_COMPONENT');
+export const OUI_OPTION_PARENT_COMPONENT = new InjectionToken<OuiOptionParentComponent>(
+  'OUI_OPTION_PARENT_COMPONENT'
+);
 
 /**
  * Single option inside of a `<oui-select>` element.

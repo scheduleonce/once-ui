@@ -87,8 +87,9 @@ describe('OuiProgressBar', () => {
   });
 
   it('should set the color class on the oui-progress-bar', () => {
-    const progressBarWithColorfixture =
-      TestBed.createComponent(ProgressBarWithColor);
+    const progressBarWithColorfixture = TestBed.createComponent(
+      ProgressBarWithColor
+    );
     progressBarWithColorfixture.detectChanges();
 
     const testElement = progressBarWithColorfixture.debugElement.query(
