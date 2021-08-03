@@ -56,11 +56,13 @@ export interface OuiMenuDefaultOptions {
 }
 
 /** Injection token to be used to override the default options for `oui-menu`. */
-export const OUI_MENU_DEFAULT_OPTIONS =
-  new InjectionToken<OuiMenuDefaultOptions>('oui-menu-default-options', {
+export const OUI_MENU_DEFAULT_OPTIONS = new InjectionToken<OuiMenuDefaultOptions>(
+  'oui-menu-default-options',
+  {
     providedIn: 'root',
     factory: OUI_MENU_DEFAULT_OPTIONS_FACTORY,
-  });
+  }
+);
 
 /** @docs-private */
 export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
@@ -82,8 +84,7 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   providers: [{ provide: OUI_MENU_PANEL, useExisting: OuiMenu }],
 })
 export class OuiMenu
-  implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy
-{
+  implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy {
   private _keyManager: FocusKeyManager<OuiMenuItem>;
   private _xPosition: MenuPositionX = this._defaultOptions.xPosition;
   private _yPosition: MenuPositionY = this._defaultOptions.yPosition;
@@ -197,8 +198,9 @@ export class OuiMenu
 
   /** Event emitted when the menu is closed. */
   @Output()
-  readonly closed: EventEmitter<void | 'click' | 'keydown' | 'tab'> =
-    new EventEmitter<void | 'click' | 'keydown' | 'tab'>();
+  readonly closed: EventEmitter<
+    void | 'click' | 'keydown' | 'tab'
+  > = new EventEmitter<void | 'click' | 'keydown' | 'tab'>();
 
   /**
    * Event emitted when the menu is closed.

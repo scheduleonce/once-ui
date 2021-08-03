@@ -11,8 +11,9 @@ import { mixinColor } from '../core';
 export class OuiProgressBarBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _OuiProgressBarMixinBase: typeof OuiProgressBarBase =
-  mixinColor(OuiProgressBarBase);
+export const _OuiProgressBarMixinBase: typeof OuiProgressBarBase = mixinColor(
+  OuiProgressBarBase
+);
 
 /** Possible mode for a progress spinner. */
 export type ProgressBarMode = 'determinate' | 'indeterminate';

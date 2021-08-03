@@ -517,9 +517,8 @@ describe('Checkbox', () => {
       fixture = createComponent(CheckboxWithTabindexAttr);
       fixture.detectChanges();
 
-      const checkbox = fixture.debugElement.query(
-        By.directive(Checkbox)
-      ).nativeElement;
+      const checkbox = fixture.debugElement.query(By.directive(Checkbox))
+        .nativeElement;
       expect(checkbox.getAttribute('tabindex')).toBeFalsy();
     });
   });
