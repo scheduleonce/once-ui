@@ -5,6 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.6] - 2021-08-10
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-42218`](https://scheduleonce.atlassian.net/browse/ONCEHUB-42218) tests are breaking with oncehub/ui new version 5.0.3
+- [`ONCEHUB-40350`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40350) Storybook container spacing issues
+- [`ONCEHUB-39903`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39903) Date picker is not showing calendar in storybook
+- [`ONCEHUB-40349`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40349) Storybook full page reload between Canvas and Docs sections
+
 ## [5.0.6-beta.2] - 2021-08-06
 
 ### Added
