@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.7-beta.5] - 2021-08-31
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-45387`](https://scheduleonce.atlassian.net/browse/ONCEHUB-45387) CVE-2021-23343 vulnerability found in package path-parse in project once-ui
+
 ## [5.0.6] - 2021-08-10
 
 ### Added
