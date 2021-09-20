@@ -148,7 +148,7 @@ export class TooltipComponent {
   private _closeOnInteraction = false;
 
   /** Subject for notifying that the tooltip has been hidden from the view */
-  private readonly _onHide: Subject<any> = new Subject();
+  private readonly _onHide: Subject<void> = new Subject();
 
   /** Stream that emits whether the user has a handset-sized display.  */
   _isHandset: Observable<BreakpointState> = this._breakpointObserver.observe(

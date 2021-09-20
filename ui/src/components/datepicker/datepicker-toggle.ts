@@ -15,7 +15,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { OuiButton } from '../button/button';
-import { merge, of as observableOf, Subscription } from 'rxjs';
+import { merge, Observable, of as observableOf, Subscription } from 'rxjs';
 import { OuiDatepicker } from './datepicker';
 import { OuiDatepickerIntl } from './datepicker-intl';
 
@@ -121,8 +121,8 @@ export class OuiDatepickerToggle<D>
     this._stateChanges.unsubscribe();
     this._stateChanges = merge(
       this._intl.changes,
-      datepickerDisabled,
-      inputDisabled,
+      datepickerDisabled as Observable<void>,
+      inputDisabled as Observable<void>,
       datepickerToggled
     ).subscribe(() => this._changeDetectorRef.markForCheck());
   }
