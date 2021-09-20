@@ -811,7 +811,7 @@ describe('OuiMenu', () => {
   }));
 
   it('should close the menu when using the CloseScrollStrategy', fakeAsync(() => {
-    const scrolledSubject = new Subject();
+    const scrolledSubject: Subject<void> = new Subject();
     const fixture = createComponent(
       SimpleMenu,
       [

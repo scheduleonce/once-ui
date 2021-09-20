@@ -118,6 +118,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   /** Event emitted when the option is selected or deselected. */
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   @Output()
+  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
   readonly onSelectionChange = new EventEmitter<OuiOptionSelectionChange>();
 
   /** Emits when the state of the option changes and any parents have to be notified. */

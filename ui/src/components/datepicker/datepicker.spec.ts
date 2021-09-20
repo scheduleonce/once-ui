@@ -592,7 +592,7 @@ describe('OuiDatepicker', () => {
           oldOverlayContainer.ngOnDestroy();
           TestBed.resetTestingModule();
 
-          const scrolledSubject = new Subject();
+          const scrolledSubject: Subject<void> = new Subject();
 
           // Stub out a `CloseScrollStrategy` so we can trigger a detachment via the `OverlayRef`.
           fixture = createComponent(

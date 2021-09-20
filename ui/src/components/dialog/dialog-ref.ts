@@ -151,7 +151,7 @@ export class OuiDialogRef<T, R = any> {
    * @param width New width of the dialog.
    * @param height New height of the dialog.
    */
-  updateSize(width: string = '', height: string = ''): this {
+  updateSize(width = '', height = ''): this {
     this._getPositionStrategy()
       // eslint-disable-next-line
       .width(width)

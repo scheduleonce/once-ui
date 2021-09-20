@@ -256,6 +256,11 @@ describe('OuiSort', () => {
           OuiSortableMissingIdApp,
           OuiSortableInvalidDirection,
         ],
+        providers: [
+          {
+            
+          }
+        ],
       }).compileComponents();
     })
   );

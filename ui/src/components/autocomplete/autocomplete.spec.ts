@@ -1735,7 +1735,7 @@ describe('OuiAutocomplete', () => {
     }));
 
     it('should reposition the panel on scroll', () => {
-      const scrolledSubject = new Subject();
+      const scrolledSubject: Subject<void> = new Subject();
       const spacer = document.createElement('div');
       const fixture = createComponent(SimpleAutocomplete, [
         {
@@ -2390,7 +2390,7 @@ describe('OuiAutocomplete', () => {
     }));
 
     it('should reset correctly when closed programmatically', fakeAsync(() => {
-      const scrolledSubject = new Subject();
+      const scrolledSubject: Subject<void> = new Subject();
       const fixture = createComponent(SimpleAutocomplete, [
         {
           provide: ScrollDispatcher,
