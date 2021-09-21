@@ -6,13 +6,11 @@
     ]
   },
   "exclude": [
-    "../src/test.ts",
-    "../src/**/*.spec.ts",
-    "../projects/**/*.spec.ts"
+    "../ui/src/test.ts",
+    "../ui/src/components/**/*.spec.ts"
   ],
   "include": [
-    "../src/**/*",
-    "../projects/**/*"
+    "../ui/src/components/**/*"
   ],
   "files": [
     "./typings.d.ts"
