@@ -93,7 +93,8 @@ interface OuiSortHeaderColumnDef {
 })
 export class OuiSortHeader
   extends _OuiSortHeaderMixinBase
-  implements CanDisable, OuiSortable, OnDestroy, OnInit {
+  implements CanDisable, OuiSortable, OnDestroy, OnInit
+{
   private _rerenderSubscription: Subscription;
 
   /**

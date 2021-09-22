@@ -13,8 +13,8 @@ import {
 // Boilerplate for applying mixins to OuiOptgroup.
 /** @docs-private */
 export class OuiOptgroupBase {}
-export const _OuiOptgroupMixinBase: CanDisableCtor &
-  typeof OuiOptgroupBase = mixinDisabled(OuiOptgroupBase);
+export const _OuiOptgroupMixinBase: CanDisableCtor & typeof OuiOptgroupBase =
+  mixinDisabled(OuiOptgroupBase);
 
 // Counter for unique group ids.
 let _uniqueOptgroupIdCounter = 0;

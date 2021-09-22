@@ -29,7 +29,13 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { asapScheduler, merge, Observable, of as observableOf, Subscription } from 'rxjs';
+import {
+  asapScheduler,
+  merge,
+  Observable,
+  of as observableOf,
+  Subscription,
+} from 'rxjs';
 import { delay, filter } from 'rxjs/operators';
 import { OuiMenu } from './menu-directive';
 import { throwOuiMenuMissingError } from './menu-errors';

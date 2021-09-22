@@ -504,7 +504,8 @@ describe('OuiDatepicker', () => {
       });
 
       it('should attach popup to native input', () => {
-        const attachToRef = testComponent.datepickerInput.getConnectedOverlayOrigin();
+        const attachToRef =
+          testComponent.datepickerInput.getConnectedOverlayOrigin();
         expect(attachToRef.nativeElement.tagName.toLowerCase()).toBe(
           'input',
           'popup should be attached to native input'
@@ -512,8 +513,9 @@ describe('OuiDatepicker', () => {
       });
 
       it('input should aria-owns calendar after opened in non-touch mode', fakeAsync(() => {
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
+        const inputEl = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
         testComponent.datepicker.open();
@@ -534,8 +536,9 @@ describe('OuiDatepicker', () => {
         testComponent.touch = true;
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
+        const inputEl = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
         testComponent.datepicker.open();
@@ -570,9 +573,8 @@ describe('OuiDatepicker', () => {
         fixture.detectChanges();
 
         const spy = jasmine.createSpy('close event spy');
-        const subscription = testComponent.datepicker.closedStream.subscribe(
-          spy
-        );
+        const subscription =
+          testComponent.datepicker.closedStream.subscribe(spy);
         const backdrop = document.querySelector(
           '.cdk-overlay-backdrop'
         )! as HTMLElement;
@@ -835,8 +837,9 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should mark input dirty after date selected', fakeAsync(() => {
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
+        const inputEl = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
 
         expect(inputEl.classList).toContain('ng-pristine');
 
@@ -849,8 +852,9 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should not mark dirty after model change', fakeAsync(() => {
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
+        const inputEl = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
 
         expect(inputEl.classList).toContain('ng-pristine');
 
@@ -863,8 +867,9 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should mark input touched on calendar selection', fakeAsync(() => {
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
+        const inputEl = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
 
         expect(inputEl.classList).toContain('ng-untouched');
 
@@ -945,8 +950,9 @@ describe('OuiDatepicker', () => {
       });
 
       it('should set the `button` type on the trigger to prevent form submissions', () => {
-        const toggle = fixture.debugElement.query(By.css('button'))
-          .nativeElement;
+        const toggle = fixture.debugElement.query(
+          By.css('button')
+        ).nativeElement;
         expect(toggle.getAttribute('type')).toBe('button');
       });
 
@@ -956,8 +962,9 @@ describe('OuiDatepicker', () => {
       });
 
       it('should restore focus to the toggle after the calendar is closed', () => {
-        const toggle = fixture.debugElement.query(By.css('button'))
-          .nativeElement;
+        const toggle = fixture.debugElement.query(
+          By.css('button')
+        ).nativeElement;
 
         fixture.componentInstance.touchUI = false;
         fixture.detectChanges();
@@ -991,8 +998,9 @@ describe('OuiDatepicker', () => {
       it('should re-render when the i18n labels change', inject(
         [OuiDatepickerIntl],
         (intl: OuiDatepickerIntl) => {
-          const toggle = fixture.debugElement.query(By.css('button'))
-            .nativeElement;
+          const toggle = fixture.debugElement.query(
+            By.css('button')
+          ).nativeElement;
 
           intl.openCalendarLabel = 'Open the calendar, perhaps?';
           intl.changes.next();

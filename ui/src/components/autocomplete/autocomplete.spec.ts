@@ -846,7 +846,8 @@ describe('OuiAutocomplete', () => {
     });
 
     it('should not emit the `opened` event when no options are being shown', () => {
-      fixture.componentInstance.filteredStates = fixture.componentInstance.states = [];
+      fixture.componentInstance.filteredStates =
+        fixture.componentInstance.states = [];
       fixture.detectChanges();
 
       fixture.componentInstance.trigger.openPanel();
@@ -882,7 +883,8 @@ describe('OuiAutocomplete', () => {
     });
 
     it('should not emit the `closed` event when no options were shown', () => {
-      fixture.componentInstance.filteredStates = fixture.componentInstance.states = [];
+      fixture.componentInstance.filteredStates =
+        fixture.componentInstance.states = [];
       fixture.detectChanges();
 
       fixture.componentInstance.trigger.openPanel();
@@ -1888,15 +1890,15 @@ describe('OuiAutocomplete', () => {
         'the panel is open',
       fakeAsync(() => {
         const fixture = createComponent(SimpleAutocomplete);
-        fixture.componentInstance.states = fixture.componentInstance.states.slice(
-          0,
-          1
-        );
-        fixture.componentInstance.filteredStates = fixture.componentInstance.states.slice();
+        fixture.componentInstance.states =
+          fixture.componentInstance.states.slice(0, 1);
+        fixture.componentInstance.filteredStates =
+          fixture.componentInstance.states.slice();
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(By.css('input'))
-          .nativeElement;
+        const inputEl = fixture.debugElement.query(
+          By.css('input')
+        ).nativeElement;
         const inputReference = fixture.debugElement.query(
           By.css('.oui-form-field-flex')
         ).nativeElement;
@@ -2029,7 +2031,8 @@ describe('OuiAutocomplete', () => {
     }));
 
     it('should be able to preselect the first option', fakeAsync(() => {
-      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption = true;
+      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption =
+        true;
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
@@ -2047,7 +2050,8 @@ describe('OuiAutocomplete', () => {
         'Expected no active descendant on init.'
       );
 
-      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption = true;
+      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption =
+        true;
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
@@ -2096,9 +2100,8 @@ describe('OuiAutocomplete', () => {
 
       expect(fixture.componentInstance.trigger.autocomplete).toBeFalsy();
       expect(() => {
-        subscription = fixture.componentInstance.trigger.optionSelections.subscribe(
-          spy
-        );
+        subscription =
+          fixture.componentInstance.trigger.optionSelections.subscribe(spy);
       }).not.toThrow();
 
       fixture.detectChanges();
@@ -2119,8 +2122,9 @@ describe('OuiAutocomplete', () => {
     }));
 
     xit('should reposition the panel when the amount of options changes', fakeAsync(() => {
-      const formField = fixture.debugElement.query(By.css('.oui-form-field'))
-        .nativeElement;
+      const formField = fixture.debugElement.query(
+        By.css('.oui-form-field')
+      ).nativeElement;
       const inputReference = formField.querySelector('.oui-form-field-flex');
       const input = inputReference.querySelector('input');
 
@@ -2185,9 +2189,8 @@ describe('OuiAutocomplete', () => {
 
       trigger = fixture.componentInstance.trigger;
       closingActionSpy = jasmine.createSpy('closing action listener');
-      closingActionsSub = trigger.panelClosingActions.subscribe(
-        closingActionSpy
-      );
+      closingActionsSub =
+        trigger.panelClosingActions.subscribe(closingActionSpy);
     }));
 
     afterEach(() => {
@@ -2375,9 +2378,8 @@ describe('OuiAutocomplete', () => {
       tick();
       fixture.detectChanges();
 
-      const autocomplete = fixture.debugElement.nativeElement.querySelector(
-        'oui-autocomplete'
-      );
+      const autocomplete =
+        fixture.debugElement.nativeElement.querySelector('oui-autocomplete');
       const panel = overlayContainerElement.querySelector(
         '.oui-autocomplete-panel'
       )!;
@@ -2472,8 +2474,9 @@ describe('OuiAutocomplete', () => {
     const overlayPane = overlayContainerElement.querySelector(
       '.cdk-overlay-pane'
     ) as HTMLElement;
-    const input = widthFixture.debugElement.query(By.css('input'))
-      .nativeElement;
+    const input = widthFixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
 
     expect(Math.ceil(parseFloat(overlayPane.style.width as string))).toBe(300);
 

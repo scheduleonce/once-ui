@@ -1493,9 +1493,9 @@ describe('OuiMenu', () => {
           'Expected backdrop to be beneath all of the menus'
         );
 
-        (overlay.querySelector(
-          '.cdk-overlay-backdrop'
-        )! as HTMLElement).click();
+        (
+          overlay.querySelector('.cdk-overlay-backdrop')! as HTMLElement
+        ).click();
         fixture.detectChanges();
         tick(500);
 
