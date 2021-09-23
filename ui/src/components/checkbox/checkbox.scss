@@ -1,3 +1,4 @@
+@use 'sass:math';
 $_oui-checkbox-mark-path-length: 22.910259;
 $_oui-checkbox-indeterminate-checked-easing-function: cubic-bezier(
   0.14,
@@ -14,7 +15,7 @@ $oui-checkbox-border-disable: #e4e4e4;
 $oui-checkbox-stoke-disable: #9b9b9b;
 $_oui-checkbox-item-spacing: $oui-toggle-padding;
 $oui-checkbox-disable-background: #f9f9f9;
-$_oui-checkbox-mark-stroke-size: 3 / 15 * $oui-checkbox-size !default;
+$_oui-checkbox-mark-stroke-size: math.div(3, 15) * $oui-checkbox-size !default;
 $oui-linear-out-slow-in-timing-function: cubic-bezier(0, 0, 0.2, 0.1) !default;
 $oui-fast-out-linear-in-timing-function: cubic-bezier(0.4, 0, 1, 1) !default;
 $oui-checkbox-transition-duration: 90ms;

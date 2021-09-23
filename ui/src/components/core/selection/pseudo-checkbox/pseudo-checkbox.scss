@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../../checkbox/checkbox.scss';
 
 // The width/height of the checkbox element.
@@ -48,11 +49,15 @@ $_oui-pseudo-checkmark-size: $oui-checkbox-size -
 }
 
 .oui-pseudo-checkbox-checked::after {
-  top: ($oui-checkbox-size / 2) - ($_oui-pseudo-checkmark-size / 4) -
-    ($oui-checkbox-size / 10) - $oui-checkbox-border-width;
-  left: $_oui-pseudo-checkbox-padding - $oui-checkbox-border-width / 2;
+  top: math.div($oui-checkbox-size, 2) -
+    math.div($_oui-pseudo-checkmark-size, 4) - math.div($oui-checkbox-size, 10) -
+    $oui-checkbox-border-width;
+  left: $_oui-pseudo-checkbox-padding - math.div($oui-checkbox-border-width, 2);
   width: $_oui-pseudo-checkmark-size;
-  height: ($_oui-pseudo-checkmark-size - $oui-checkbox-border-width) / 2;
+  height: math.div(
+    ($_oui-pseudo-checkmark-size - $oui-checkbox-border-width),
+    2
+  );
   border-left: $oui-checkbox-border-width * 2 solid #333;
   transform: rotate(-45deg);
   opacity: 1;
