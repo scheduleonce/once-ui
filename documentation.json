@@ -42396,21 +42396,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\n  production: true,\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "environments/environment.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: false,\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: true,\n}"
             },
             {
                 "name": "EXPORTED_DECLARATIONS",
@@ -42576,6 +42576,16 @@
                 "name": "nextUniqueId",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "ui/src/components/select/select.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "number",
+                "defaultValue": "0"
+            },
+            {
+                "name": "nextUniqueId",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "ui/src/components/radio/radio.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -42587,16 +42597,6 @@
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "ui/src/components/slide-toggle/slide-toggle.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "number",
-                "defaultValue": "0"
-            },
-            {
-                "name": "nextUniqueId",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "ui/src/components/select/select.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "number",
@@ -46716,18 +46716,6 @@
                     "description": "<p>Counter used to generate unique IDs for dialog elements.</p>\n"
                 }
             ],
-            "environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\n  production: true,\n}"
-                }
-            ],
             "environments/environment.ts": [
                 {
                     "name": "environment",
@@ -46738,6 +46726,18 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: false,\n}"
+                }
+            ],
+            "environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true,\n}"
                 }
             ],
             "ui/src/components/table/table-module.ts": [
