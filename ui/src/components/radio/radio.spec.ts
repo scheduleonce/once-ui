@@ -192,9 +192,8 @@ describe('OuiRadio', () => {
         groupDebugElement = fixture.debugElement.query(
           By.directive(OuiRadioGroup)
         );
-        groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
-          OuiRadioGroup
-        );
+        groupInstance =
+          groupDebugElement.injector.get<OuiRadioGroup>(OuiRadioGroup);
 
         radioDebugElements = fixture.debugElement.queryAll(
           By.directive(OuiRadioButton)
@@ -484,9 +483,8 @@ describe('OuiRadio', () => {
       groupDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioGroup)
       );
-      groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
-        OuiRadioGroup
-      );
+      groupInstance =
+        groupDebugElement.injector.get<OuiRadioGroup>(OuiRadioGroup);
       groupNgModel = groupDebugElement.injector.get<NgModel>(NgModel);
 
       radioDebugElements = fixture.debugElement.queryAll(
@@ -581,9 +579,8 @@ describe('OuiRadio', () => {
       groupDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioGroup)
       );
-      groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
-        OuiRadioGroup
-      );
+      groupInstance =
+        groupDebugElement.injector.get<OuiRadioGroup>(OuiRadioGroup);
     });
 
     it('should toggle the disabled state', () => {
@@ -615,12 +612,10 @@ describe('OuiRadio', () => {
       const radioDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioButton)
       );
-      radioInstance = radioDebugElement.injector.get<OuiRadioButton>(
-        OuiRadioButton
-      );
-      radioNativeElement = radioDebugElement.nativeElement.querySelector(
-        'input'
-      );
+      radioInstance =
+        radioDebugElement.injector.get<OuiRadioButton>(OuiRadioButton);
+      radioNativeElement =
+        radioDebugElement.nativeElement.querySelector('input');
     });
 
     it('should toggle the disabled state', () => {
@@ -801,9 +796,8 @@ describe('OuiRadio', () => {
     });
 
     it('should not add the "name" attribute if it is not passed in', () => {
-      const radio = fixture.debugElement.nativeElement.querySelector(
-        '#nameless input'
-      );
+      const radio =
+        fixture.debugElement.nativeElement.querySelector('#nameless input');
       expect(radio.hasAttribute('name')).toBe(false);
     });
   });
@@ -864,9 +858,8 @@ describe('OuiRadio', () => {
         groupDebugElement = fixture.debugElement.query(
           By.directive(OuiRadioGroup)
         );
-        groupInstance = groupDebugElement.injector.get<OuiRadioGroup>(
-          OuiRadioGroup
-        );
+        groupInstance =
+          groupDebugElement.injector.get<OuiRadioGroup>(OuiRadioGroup);
         radioDebugElements = fixture.debugElement.queryAll(
           By.directive(OuiRadioButton)
         );
