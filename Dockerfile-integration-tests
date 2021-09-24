@@ -1,0 +1,12 @@
+FROM selenium/node-chrome-debug:3.141.59
+
+User root
+
+RUN sudo apt-get update &&\
+    sudo apt-get -y install curl &&\
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash - &&\
+    sudo apt-get -y install nodejs &&\
+    sudo ln -s /usr/bin/nodejs /usr/local/bin/node
+
+RUN node -v
+
