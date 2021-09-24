@@ -1,4 +1,3 @@
-@use 'sass:math';
 @import '../style/menu-common';
 @import '../style/vendor-prefixes';
 
@@ -69,7 +68,7 @@
 }
 
 .oui-option-pseudo-checkbox {
-  $margin: math.div($oui-menu-side-padding, 2);
+  $margin: $oui-menu-side-padding / 2;
   margin-right: $margin;
 
   [dir='rtl'] & {
