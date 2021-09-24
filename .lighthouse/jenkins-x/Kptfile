@@ -1,0 +1,11 @@
+apiVersion: kpt.dev/v1alpha1
+kind: Kptfile
+metadata:
+    name: jenkins-x
+upstream:
+    type: git
+    git:
+        commit: 1868ebe93952d1aa242083fd0270cb31cad11cff
+        repo: https://github.com/scheduleonce/jx3-pipeline-catalog
+        directory: /packs/sonf/.lighthouse/jenkins-x
+        ref: master
