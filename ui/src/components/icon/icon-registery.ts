@@ -182,7 +182,7 @@ export class OuiIconRegistry {
    * @param name
    * @param namespace
    */
-  getNamedSvgIcon(name, namespace: string = ''): Observable<SVGElement> {
+  getNamedSvgIcon(name, namespace = ''): Observable<SVGElement> {
     // Return (copy of) cached icon if possible.
     const key = iconKey(namespace, name);
     const config = this._svgIconConfigs.get(key);

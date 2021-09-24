@@ -811,7 +811,7 @@ describe('OuiMenu', () => {
   }));
 
   it('should close the menu when using the CloseScrollStrategy', fakeAsync(() => {
-    const scrolledSubject = new Subject();
+    const scrolledSubject: Subject<void> = new Subject();
     const fixture = createComponent(
       SimpleMenu,
       [
@@ -1493,9 +1493,9 @@ describe('OuiMenu', () => {
           'Expected backdrop to be beneath all of the menus'
         );
 
-        (overlay.querySelector(
-          '.cdk-overlay-backdrop'
-        )! as HTMLElement).click();
+        (
+          overlay.querySelector('.cdk-overlay-backdrop')! as HTMLElement
+        ).click();
         fixture.detectChanges();
         tick(500);
 
