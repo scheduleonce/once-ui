@@ -7,7 +7,7 @@
   },
   "exclude": [
     "../ui/src/test.ts",
-    "../ui/src/components/**/*.spec.ts",
+    "../ui/src/components/**/*.spec.ts"
   ],
   "include": [
     "../ui/src/components/**/*"
