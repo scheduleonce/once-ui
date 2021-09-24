@@ -1275,7 +1275,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -1332,7 +1332,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -5027,7 +5027,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -5084,7 +5084,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-43d8462bebcf14ed002fdf4fb86edb38-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -42396,21 +42396,21 @@
                 "name": "environment",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "environments/environment.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\n  production: false,\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "environments/environment.prod.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  production: true,\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: false,\n}"
             },
             {
                 "name": "EXPORTED_DECLARATIONS",
@@ -46716,18 +46716,6 @@
                     "description": "<p>Counter used to generate unique IDs for dialog elements.</p>\n"
                 }
             ],
-            "environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\n  production: false,\n}"
-                }
-            ],
             "environments/environment.prod.ts": [
                 {
                     "name": "environment",
@@ -46738,6 +46726,18 @@
                     "deprecationMessage": "",
                     "type": "object",
                     "defaultValue": "{\n  production: true,\n}"
+                }
+            ],
+            "environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false,\n}"
                 }
             ],
             "ui/src/components/table/table-module.ts": [
