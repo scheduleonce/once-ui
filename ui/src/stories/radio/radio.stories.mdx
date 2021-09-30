@@ -38,7 +38,7 @@ All radio-buttons with the same name comprise a set from which only one may be s
         declarations: [],
       },
       template: `<oui-radio-group 
-                (change)="changed($event)" 
+                (click)="changed($event)" 
                 [disabled]="disabled" 
                 [labelPosition]="position">
                 <oui-radio-button 
@@ -55,7 +55,7 @@ All radio-buttons with the same name comprise a set from which only one may be s
             </oui-radio-group>`,
       props: {
         color: select('color', COLORS, COLORS[0]),
-        changed: action('change'),
+        changed: action('click'),
         position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
         disabled: boolean('disabled', false),
       },
