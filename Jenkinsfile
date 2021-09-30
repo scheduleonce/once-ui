@@ -14,8 +14,9 @@ node {
         stage('Test') {
             env.NODE_ENV = "test"
             print "Environment will be : ${env.NODE_ENV}"
-            def nodeHome = tool 'node:12.20.1'
-            env.PATH = "${env.PATH}:${nodeHome}/bin"
+            env.NODEJS_HOME = tool 'node:12.20.1'
+            print "NODEJS_HOME will be : ${env.NODEJS_HOME}"
+            env.PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
                 sh "npm ci"
                 sh "npm run prettier"
                 sh "npm run lint"

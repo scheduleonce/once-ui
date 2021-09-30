@@ -34,9 +34,8 @@ export class OuiCheckboxBase {
   constructor(public _elementRef: ElementRef) {}
 }
 
-export const OuiCheckboxMixinBase: typeof OuiCheckboxBase = mixinColor(
-  OuiCheckboxBase
-);
+export const OuiCheckboxMixinBase: typeof OuiCheckboxBase =
+  mixinColor(OuiCheckboxBase);
 
 /**
  * Represents the different states that require custom transitions between them.
@@ -87,7 +86,8 @@ export enum TransitionCheckState {
 })
 export class Checkbox
   extends OuiCheckboxMixinBase
-  implements ControlValueAccessor, HasTabIndex, OnDestroy {
+  implements ControlValueAccessor, HasTabIndex, OnDestroy
+{
   /**
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
    * take precedence so this may be omitted.
@@ -269,10 +269,8 @@ export class Checkbox
       element.classList.remove(this._currentAnimationClass);
     }
 
-    this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(
-      oldState,
-      newState
-    );
+    this._currentAnimationClass =
+      this._getAnimationClassForCheckStateTransition(oldState, newState);
     this._currentCheckState = newState;
 
     if (this._currentAnimationClass.length > 0) {

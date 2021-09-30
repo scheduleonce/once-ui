@@ -1,7 +1,8 @@
-import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { OuiButtonModule, OuiDialog, OuiDialogModule } from '../../components';
 import { action } from '@storybook/addon-actions';
-import { boolean } from '@storybook/addon-knobs';
+import { select, boolean } from '@storybook/addon-knobs';
+import { THEME } from '../const';
 import { OuiDialogStorybook } from './dialog.component';
 
 <Meta title="Dialog" />
@@ -13,6 +14,7 @@ Service to open Once UI Design modal dialogs. See: https://github.com/scheduleon
 <Canvas>
   <Story
     name="regular"
+    height="300px"
     parameters={{
       docs: {
         source: {
@@ -27,8 +29,9 @@ Service to open Once UI Design modal dialogs. See: https://github.com/scheduleon
         schemas: [],
         declarations: [OuiDialogStorybook],
       },
-      template: `<oui-dialog-storybook [disabled]="disabled" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
+      template: `<oui-dialog-storybook [disabled]="disabled" ngClass="{{theme}}" (click)="click($event)" (close)="close($event)"></oui-dialog-storybook>`,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         click: action('clicked'),
         close: action('closed'),
         disabled: boolean('disabled', false),

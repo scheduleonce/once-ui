@@ -1,4 +1,4 @@
-import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import {
   OuiSelectModule,
   OuiFormFieldModule,
@@ -8,7 +8,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { array, boolean, text, object, select } from '@storybook/addon-knobs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { APPEARANCE } from '../const';
+import { APPEARANCE, THEME } from '../const';
 
 <Meta title="FORM FIELD/Select" />
 
@@ -23,6 +23,7 @@ Regular Select
 <Canvas>
   <Story
     name="Regular"
+    height="350px"
     parameters={{
       docs: {
         source: {
@@ -50,7 +51,7 @@ Regular Select
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
           <oui-option *ngFor="let food of foods" [value]="food">
             {{food}}
           </oui-option>
@@ -59,6 +60,7 @@ Regular Select
     </div>
     `,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         foods: array('foods', [
           'Pizza',
           'Burgers',
@@ -87,6 +89,7 @@ Multi select:
 <Canvas>
   <Story
     name="Multi select"
+    height="300px"
     parameters={{
       docs: {
         source: {
@@ -105,7 +108,7 @@ Multi select:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
           <oui-option *ngFor="let food of foods" [value]="food">
             {{food}}
           </oui-option>
@@ -114,6 +117,7 @@ Multi select:
     </div>
     `,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
         placeholder: text('placeholder', 'Favorite food'),
         disabled: boolean('disabled', false),
@@ -139,6 +143,7 @@ Groups:
 <Canvas>
   <Story
     name="Groups"
+    height="350px"
     parameters={{
       docs: {
         source: {
@@ -160,7 +165,7 @@ Groups:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select ngClass="{{theme}}" (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
           <oui-option>-- None --</oui-option>
           <oui-optgroup *ngFor="let group of foodGroups" [label]="group.name">
             <oui-option *ngFor="let food of group.foods" [value]="food">
@@ -172,6 +177,7 @@ Groups:
     </div>
     `,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         foodGroups: object('foodGroups', [
           {
             name: 'Fruit',
@@ -218,6 +224,7 @@ Search options:
 <Canvas>
   <Story
     name="Search options"
+    height="300px"
     parameters={{
       docs: {
         source: {
@@ -237,7 +244,7 @@ Search options:
       template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
             {{food}}
@@ -253,6 +260,7 @@ Search options:
     </div>
     `,
       props: {
+        theme: select('theme', THEME, THEME[0]),
         foods: array('foods', ['Pizza', 'Burgers', 'Steak', 'Tacos']),
         placeholder: text('placeholder', 'Favorite food'),
         disabled: boolean('disabled', false),

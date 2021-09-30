@@ -5,6 +5,125 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.0] - 2021-09-303
+
+### Added
+
+- NA
+
+### Changed
+
+- [ONCEHUB-46515] Update the once-ui to angular 12
+
+## [5.0.7-beta.6] - 2021-09-23
+
+### Added
+
+- NA
+
+### Changed
+
+- [ONCEHUB-46515] Update the once-ui to angular 12
+
+### Removed
+
+- NA
+
+### Fixed
+
+## [5.0.7-beta.5] - 2021-08-31
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-45387`](https://scheduleonce.atlassian.net/browse/ONCEHUB-45387) CVE-2021-23343 vulnerability found in package path-parse in project once-ui
+
+## [5.0.6] - 2021-08-10
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-42218`](https://scheduleonce.atlassian.net/browse/ONCEHUB-42218) tests are breaking with oncehub/ui new version 5.0.3
+- [`ONCEHUB-40350`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40350) Storybook container spacing issues
+- [`ONCEHUB-39903`](https://scheduleonce.atlassian.net/browse/ONCEHUB-39903) Date picker is not showing calendar in storybook
+- [`ONCEHUB-40349`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40349) Storybook full page reload between Canvas and Docs sections
+
+## [5.0.6-beta.2] - 2021-08-06
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-45081`](https://scheduleonce.atlassian.net/browse/ONCEHUB-45081) CVE-2021-32803 vulnerability found in package tar in project once-ui
+
+## [5.0.6-beta.1] - 2021-08-03
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-42218`](https://scheduleonce.atlassian.net/browse/ONCEHUB-42218) Fix once-ui breaking build and storybook build
+
+## [5.0.6-beta.0] - 2021-06-22
+
+### Added
+
+- NA
+
+### Changed
+
+- NA
+
+### Removed
+
+- NA
+
+### Fixed
+
+- [`ONCEHUB-42218`](https://scheduleonce.atlassian.net/browse/ONCEHUB-40350) Storybook container spacing issues
+
 ## [5.0.5] - 2021-05-31
 
 ### Added
