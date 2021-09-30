@@ -10,7 +10,7 @@ import { OuiIconRegistry } from '../../components';
       (click)="clicked()"
       [color]="color"
     >
-      <oui-icon [svgIcon]="icon" [color]="color"></oui-icon>{{ text }}
+      <oui-icon svgIcon="configuration" [color]="color"></oui-icon>{{ text }}
     </button>
   `,
 })
@@ -28,7 +28,7 @@ export class OuiIconButtonStorybook {
 
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://d1azc1qln24ryf.cloudfront.net/135790/oncehub-20/symbol-defs.svg?hn1bl5'
+        'https://d1azc1qln24ryf.cloudfront.net/135790/oncehub-20/symbol-defs.svg?10k0w6'
       )
     );
   }

@@ -3,6 +3,7 @@ import { OuiSlideToggle } from '../../components';
 import { action } from '@storybook/addon-actions';
 import { select, boolean } from '@storybook/addon-knobs';
 import { COLORS } from '../const';
+import { OuiSlideToggleModule } from '../../components';
 
 <Meta title="SlideToggle" />
 
@@ -22,11 +23,17 @@ import { COLORS } from '../const';
     }}
   >
     {{
-      component: OuiSlideToggle,
+      moduleMetadata: {
+        imports: [OuiSlideToggleModule],
+        schemas: [],
+        declarations: [],
+      },
+      template: `<oui-slide-toggle color="primary" (click)="change($event)"></oui-slide-toggle>`,
       props: {
         checked: boolean('checked', true),
         disabled: boolean('disabled', false),
         color: select('color', COLORS, COLORS[0]),
+        change: action('click'),
       },
     }}
   </Story>
