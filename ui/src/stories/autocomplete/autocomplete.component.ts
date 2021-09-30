@@ -25,7 +25,7 @@ export const _filter = (opt: string[], value: string): string[] => {
     <oui-autocomplete
       (closed)="closed()"
       (opened)="opened()"
-      (optionSelected)="optionSelected($event)"
+      (click)="optionSelected($event)"
       [autoActiveFirstOption]="autoActiveFirstOption"
       #auto="ouiAutocomplete"
     >
@@ -85,7 +85,7 @@ export class OuiAutocompleteStorybook implements OnInit {
       <oui-autocomplete
         (closed)="closed()"
         (opened)="opened()"
-        (optionSelected)="optionSelected($event)"
+        (click)="optionSelected($event)"
         #autoGroup="ouiAutocomplete"
         class="autocomplete-group"
         [autoActiveFirstOption]="autoActiveFirstOption"
