@@ -150,11 +150,11 @@ $oui-menu-line-height: 22px;
 .oui-menu-icon-hover {
   display: inline-block;
   margin: 0;
-  &:hover{
+  &:hover {
     @include oui-menu-icon-hover();
   }
 }
-.oui-menu-icon-hover{
+.oui-menu-icon-hover {
   @include oui-menu-icon-hover();
 }
 .oui-menu-icon-container.oui-menu-icon-vertical {
