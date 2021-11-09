@@ -135,7 +135,6 @@ $oui-menu-line-height: 22px;
   transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
     background-color 0.2s cubic-bezier(0.35, 0, 0.25, 1);
   cursor: pointer;
-  padding: 2px;
 }
 
 .oui-menu-icon-container {
@@ -151,11 +150,11 @@ $oui-menu-line-height: 22px;
 .oui-menu-icon-hover {
   display: inline-block;
   margin: 0;
-  &:hover svg {
+  &:hover{
     @include oui-menu-icon-hover();
   }
 }
-.oui-menu-icon-hover svg {
+.oui-menu-icon-hover{
   @include oui-menu-icon-hover();
 }
 .oui-menu-icon-container.oui-menu-icon-vertical {
