@@ -263,36 +263,38 @@ This component can be used if someone want to have the search input field inside
 
 ## Properties
 
-| Name                                                         | Description                                                                                                                  |
-| ------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------ |
-| @Input('aria-label') ariaLabel: string                       | Aria label of the select. If not specified, the placeholder will be used as label.                                           |
-| @Input('aria-labelledby') ariaLabelledby: string             | Input that can be used to specify the aria-labelledby attribute.                                                             |
-| @Input() disabled: boolean                                   | Whether the component is disabled.                                                                                           |
-| @Input() errorStateMatcher: ErrorStateMatcher                | Object used to control when error messages are shown.                                                                        |
-| @Input() id: string                                          | Unique id of the element.                                                                                                    |
-| @Input() multiple: boolean                                   | Whether the user should be allowed to select multiple options.                                                               |
-| @Input() panelClass: string                                  | Classes to be passed to the select panel. Supports the same syntax as ngClass.                                               |
-| @Input() placeholder: string                                 | Placeholder to be shown if no value has been selected.                                                                       |
-| @Input() required: boolean                                   | Whether the component is required.                                                                                           |
-| @Input() value: any                                          | Value of the select control.                                                                                                 |
-| @Input() large: boolean                                      | Set max height of oui-select to 392px. Default is 272px.                                                                     |
-| @Output() openedChange: EventEmitter`<boolean>`              | Event emitted when the select panel has been toggled.                                                                        |
-| @Output() selectionChange: EventEmitter`<OuiSelectChange>`   | Event emitted when the selected value has been changed by the user.                                                          |
-| autofilled: boolean                                          | Whether the input is currently in an autofilled state. If property is not present on the control it is assumed to be false.  |
-| controlType: 'oui-select'                                    | A name for this control that can be used by oui-form-field.                                                                  |
-| empty: boolean                                               | Whether the select has a value.                                                                                              |
-| errorState: boolean                                          | Whether the control is in an error state.                                                                                    |
-| focused: boolean                                             | Whether the select is focused.                                                                                               |
-| optionGroups: QueryList<OuiOptgroup>                         | All of the defined groups of options.                                                                                        |
-| optionSelectionChanges: Observable<OuiOptionSelectionChange> | Combined stream of all of the child options' change events.                                                                  |
-| options: QueryList<OuiOption>                                | All of the defined select options.                                                                                           |
-| overlayDir: CdkConnectedOverlay                              | Overlay pane containing the options.                                                                                         |
-| panel: ElementRef                                            | Panel containing the select options.                                                                                         |
-| panelOpen: boolean                                           | Whether or not the overlay panel is open.                                                                                    |
-| selected: OuiOption                                          | OuiOption[]                                                                                                                  | The currently selected option. |
-| stateChanges: Observable`<void>`                             | Stream that emits whenever the state of the control changes such that the parent OuiFormField needs to run change detection. |
-| trigger: ElementRef                                          | Trigger that opens the select.                                                                                               |
-| triggerValue: string                                         | The value displayed in the trigger.                                                                                          |
+| Name | Description |
+| ---- | ------------|  
+| @Input('aria-label') ariaLabel: string | Aria label of the select. If not specified, the placeholder will be used as label.| 
+| @Input('aria-labelledby') ariaLabelledby: string | Input that can be used to specify the aria-labelledby attribute. | 
+| @Input() disabled: boolean | Whether the component is disabled. | 
+| @Input() errorStateMatcher: ErrorStateMatcher | Object used to control when error messages are shown. | 
+| @Input() id: string | Unique id of the element. | 
+| @Input() multiple: boolean | Whether the user should be allowed to select multiple options. | 
+| @Input() panelClass: string | Classes to be passed to the select panel. Supports the same syntax as ngClass. |
+| @Input() placeholder: string | Placeholder to be shown if no value has been selected. | 
+| @Input() required: boolean | Whether the component is required. | 
+| @Input() value: any | Value of the select control. | 
+| @Input() large: boolean | Set max height of oui-select to 392px. Default is 272px. | 
+| @Output() openedChange: EventEmitter<boolean> | Event emitted when the select panel has been toggled. | 
+| @Output() selectionChange: EventEmitter<OuiSelectChange> | Event emitted when the selected value has been changed by the user. | 
+| autofilled: boolean | Whether the input is currently in an autofilled state. If property is not present on the control it is assumed to be false. | 
+| controlType: 'oui-select' | A name for this control that can be used by oui-form-field. | 
+| empty: boolean | Whether the select has a value. | 
+| errorState: boolean | Whether the control is in an error state. | 
+| focused: boolean | Whether the select is focused. | 
+| optionGroups: QueryList | All of the defined groups of options. | 
+| optionSelectionChanges: Observable | Combined stream of all of the child options' change events. | 
+| options: QueryList | All of the defined select options. | 
+| overlayDir: CdkConnectedOverlay | Overlay pane containing the options. | 
+| panel: ElementRef | Panel containing the select options. | 
+| panelOpen: boolean | Whether or not the overlay panel is open. | 
+| selected: OuiOption | OuiOption[] | The currently selected option. | 
+| stateChanges: Observable<void> | Stream that emits whenever the state of the control changes such that the parent OuiFormField needs to run change detection. | 
+| trigger: ElementRef | Trigger that opens the select. | 
+| triggerValue: string | The value displayed in the trigger. |
+
+
 
 ## Methods
 
