@@ -141,6 +141,7 @@ export class OuiPanelTrigger implements OnDestroy {
     const keyCode = event.keyCode;
     if (keyCode === SPACE) {
       this.openPanel();
+      this._trapFocus();
       event.preventDefault();
       // On tab it will focus on the element itself
       this._currentFocusElement = event.target as HTMLElement;
@@ -164,7 +165,6 @@ export class OuiPanelTrigger implements OnDestroy {
     this._closeSubscription = this._panelClosingActions().subscribe(() => {
       this.closePanel('mouserHover');
     });
-    this._trapFocus();
     this._setIsPanelOpen(true);
   }
 
