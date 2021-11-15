@@ -104,8 +104,10 @@ oui-panel-icon {
   line-height: 1;
   padding-bottom: 2px;
   cursor: default;
+  pointer-events: none;
   &:focus {
     outline: none;
+    pointer-events: all;
     opacity: 1;
   }
   svg {
