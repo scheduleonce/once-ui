@@ -1,4 +1,3 @@
-
 import {
   CDK_TABLE_TEMPLATE,
   CdkTable,
@@ -7,7 +6,12 @@ import {
   _COALESCED_STYLE_SCHEDULER,
   STICKY_POSITIONING_LISTENER,
 } from '@angular/cdk/table';
-import {ChangeDetectionStrategy, Component, Directive, ViewEncapsulation} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Directive,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   _DisposeViewRepeaterStrategy,
   _RecycleViewRepeaterStrategy,
@@ -20,7 +24,12 @@ import {
  */
 @Directive({
   selector: 'oui-table[recycleRows], table[oui-table][recycleRows]',
-  providers: [{provide: _VIEW_REPEATER_STRATEGY, useClass: _RecycleViewRepeaterStrategy}],
+  providers: [
+    {
+      provide: _VIEW_REPEATER_STRATEGY,
+      useClass: _RecycleViewRepeaterStrategy,
+    },
+  ],
 })
 export class MatRecycleRows {}
 
@@ -34,18 +43,21 @@ export class MatRecycleRows {}
   styleUrls: ['table.scss'],
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
-    'class': 'oui-table',
+    class: 'oui-table',
     '[class.oui-table-fixed-layout]': 'fixedLayout',
   },
   providers: [
     // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
     //  is only included in the build if used.
-    {provide: _VIEW_REPEATER_STRATEGY, useClass: _DisposeViewRepeaterStrategy},
-    {provide: CdkTable, useExisting: OuiTable},
-    {provide: CDK_TABLE, useExisting: OuiTable},
-    {provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler},
+    {
+      provide: _VIEW_REPEATER_STRATEGY,
+      useClass: _DisposeViewRepeaterStrategy,
+    },
+    { provide: CdkTable, useExisting: OuiTable },
+    { provide: CDK_TABLE, useExisting: OuiTable },
+    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
     // Prevent nested tables from seeing this table's StickyPositioningListener.
-    {provide: STICKY_POSITIONING_LISTENER, useValue: null},
+    { provide: STICKY_POSITIONING_LISTENER, useValue: null },
   ],
   encapsulation: ViewEncapsulation.None,
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
