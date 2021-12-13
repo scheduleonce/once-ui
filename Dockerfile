@@ -1,4 +1,4 @@
-FROM node:12.22.6-alpine3.12 AS build
+FROM node:16.13.1-alpine3.14 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN npm install
