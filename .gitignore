@@ -50,6 +50,7 @@ testem.log
 /typings
 /coverage
 /reports
+/.angular
 
 # System Files
 .DS_Store
