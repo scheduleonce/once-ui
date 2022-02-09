@@ -16,10 +16,6 @@ node('helm-pod') {
       container('helm'){
         stage('Test') {
             env.NODE_ENV = "test"
-            print "Environment will be : ${env.NODE_ENV}"
-            env.NODEJS_HOME = tool 'node:12.20.1'
-            print "NODEJS_HOME will be : ${env.NODEJS_HOME}"
-            env.PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
                 sh "npm ci"
                 sh "npm run prettier"
                 sh "npm run lint"
@@ -27,7 +23,7 @@ node('helm-pod') {
                 testReports = true
         }
       }
-      container('helm'){
+      container('dind'){
         stage('Docker Image Build') {
           println environment
           def registry_url = "http://dockeronce.azurecr.io/" // Docker Hub
