@@ -1,6 +1,6 @@
 def testReports = false
 //stage 'Build'
-node('helm-pod') {
+node('once-ui-pod') {
     try {
         def branchName = env.CHANGE_TARGET
         if (branchName == null) {
@@ -8,12 +8,12 @@ node('helm-pod') {
         }
         def parseChannelAndEnv = getEnvironment(branchName)
         def environment = parseChannelAndEnv[0]
-      container('helm'){
+      container('once-ui'){
         stage('Checkout') {
             checkout scm
         }
       }
-      container('helm'){
+      container('once-ui'){
         stage('Test') {
             env.NODE_ENV = "test"
                 sh "npm ci"
@@ -23,7 +23,7 @@ node('helm-pod') {
                 testReports = true
         }
       }
-      container('dind'){
+      container('once-ui'){
         stage('Docker Image Build') {
           println environment
           def registry_url = "http://dockeronce.azurecr.io/" // Docker Hub
