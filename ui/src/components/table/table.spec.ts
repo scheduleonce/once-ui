@@ -409,10 +409,10 @@ function getActualTableContent(tableElement: Element): string[][] {
   );
 }
 
-function expectTableToMatchContent(tableElement: Element, expected: any[]) {
+function expectTableToMatchContent(tableElement: Element, expected: (string|number)[][]) {
   const missedExpectations: string[] = [];
-  function checkCellContent(actualCell: string, expectedCell: string) {
-    if (actualCell !== expectedCell) {
+  function checkCellContent(actualCell: string, expectedCell: number | string) {
+    if (actualCell !== expectedCell.toString()) {
       missedExpectations.push(
         `Expected cell contents to be ${expectedCell} but was ${actualCell}`
       );
@@ -479,7 +479,7 @@ describe('OuiTable', () => {
       const fixture = TestBed.createComponent(OuiTableApp);
       fixture.detectChanges();
 
-      const tableElement = fixture.nativeElement.querySelector('.oui-table')!;
+      const tableElement = fixture.nativeElement.querySelector('.oui-table')! as HTMLElement;
       const data = fixture.componentInstance.dataSource!.data;
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],
@@ -495,7 +495,7 @@ describe('OuiTable', () => {
       const fixture = TestBed.createComponent(OuiTableWithWhenRowApp);
       fixture.detectChanges();
 
-      const tableElement = fixture.nativeElement.querySelector('.oui-table');
+      const tableElement = fixture.nativeElement.querySelector('.oui-table') as HTMLElement;
       expectTableToMatchContent(tableElement, [
         ['Column A'],
         ['a_1'],
@@ -511,7 +511,7 @@ describe('OuiTable', () => {
       fixture.componentInstance.multiTemplateDataRows = true;
       fixture.detectChanges();
 
-      const tableElement = fixture.nativeElement.querySelector('.oui-table');
+      const tableElement = fixture.nativeElement.querySelector('.oui-table') as HTMLElement;
       expectTableToMatchContent(tableElement, [
         ['Column A'],
         ['a_1'],
@@ -528,7 +528,7 @@ describe('OuiTable', () => {
     const fixture = TestBed.createComponent(NativeHtmlTableApp);
     fixture.detectChanges();
 
-    const tableElement = fixture.nativeElement.querySelector('table');
+    const tableElement = fixture.nativeElement.querySelector('table') as HTMLElement;
     const data = fixture.componentInstance.dataSource!.data;
     expectTableToMatchContent(tableElement, [
       ['Column A', 'Column B', 'Column C'],
@@ -543,7 +543,7 @@ describe('OuiTable', () => {
     const fixture = TestBed.createComponent(OuiTableWithSortApp);
     fixture.detectChanges();
 
-    const tableElement = fixture.nativeElement.querySelector('.oui-table')!;
+    const tableElement = fixture.nativeElement.querySelector('.oui-table')! as HTMLElement;
     const data = fixture.componentInstance.dataSource!.data;
     expectTableToMatchContent(tableElement, [
       ['Column A', 'Column B', 'Column C'],
@@ -557,7 +557,7 @@ describe('OuiTable', () => {
     const fixture = TestBed.createComponent(OuiTableWithPaginatorApp);
     fixture.detectChanges();
 
-    const tableElement = fixture.nativeElement.querySelector('.oui-table')!;
+    const tableElement = fixture.nativeElement.querySelector('.oui-table')! as HTMLElement;
     const data = fixture.componentInstance.dataSource!.data;
     expectTableToMatchContent(tableElement, [
       ['Column A', 'Column B', 'Column C'],

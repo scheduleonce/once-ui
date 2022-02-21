@@ -4,6 +4,7 @@ import {
   Output,
   EventEmitter,
   Input,
+  TemplateRef,
 } from '@angular/core';
 import { OuiDialog } from '../../components';
 
@@ -58,9 +59,9 @@ export class OuiDialogStorybook {
   readonly close: EventEmitter<string> = new EventEmitter<string>();
   @Input() disabled = false;
   @ViewChild('dialogTemplate')
-  dialogTemplate;
+  dialogTemplate: TemplateRef<unknown>;
   constructor(private dialog: OuiDialog) {}
-  openDialog(e) {
+  openDialog(e?: string) {
     const dialogRef = this.dialog.open(this.dialogTemplate);
     dialogRef.afterClosed().subscribe(() => {
       this.close.emit(e);

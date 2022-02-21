@@ -704,7 +704,7 @@ function createKeyboardEvent(keyCode: any, target?: Element, key?: any) {
     target: { get: () => target },
   });
 
-  return event;
+  return event as Event;
 }
 
 /** Shorthand to dispatch a keyboard event with a specified key code. */
@@ -716,6 +716,7 @@ function dispatchKeyboardEvent(
 ): KeyboardEvent {
   return dispatchEvent(
     node,
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     createKeyboardEvent(type, keyCode, target)
   ) as KeyboardEvent;
 }
@@ -1191,7 +1192,7 @@ describe('OuiSelect', () => {
         it('should not change the aria-activedescendant using the horizontal arrow keys', fakeAsync(() => {
           const host = fixture.debugElement.query(
             By.css('oui-select')
-          ).nativeElement;
+          ).nativeElement as HTMLElement;
 
           fixture.componentInstance.select.open();
           fixture.detectChanges();
@@ -1401,8 +1402,9 @@ describe('OuiSelect', () => {
         'should not consider itself as blurred if the trigger loses focus while the ' +
           'panel is still open',
         fakeAsync(() => {
-          const selectElement =
-            fixture.nativeElement.querySelector('.oui-select');
+          const selectElement = fixture.nativeElement.querySelector(
+            '.oui-select'
+          ) as HTMLElement;
           const selectInstance = fixture.componentInstance.select;
 
           dispatchFakeEvent(selectElement, 'focus');
@@ -1805,7 +1807,7 @@ describe('OuiSelect', () => {
         fixture.detectChanges();
         const trigger = fixture.debugElement.query(
           By.css('.oui-select-trigger')
-        ).nativeElement;
+        ).nativeElement as HTMLElement;
         expect(getComputedStyle(trigger).getPropertyValue('cursor')).toEqual(
           'default',
           `Expected cursor to be default arrow on disabled control.`
@@ -1933,9 +1935,8 @@ describe('OuiSelect', () => {
       flush();
 
       fixture.detectChanges();
-      const trigger = fixture.debugElement.query(
-        By.css('.oui-select-trigger')
-      ).nativeElement;
+      const trigger = fixture.debugElement.query(By.css('.oui-select-trigger'))
+        .nativeElement as HTMLElement;
       expect(getComputedStyle(trigger).getPropertyValue('cursor')).toEqual(
         'default',
         `Expected cursor to be default arrow on disabled control.`
@@ -2373,7 +2374,7 @@ describe('OuiSelect', () => {
       );
 
       dispatchFakeEvent(
-        fixture.debugElement.query(By.css('form')).nativeElement,
+        fixture.debugElement.query(By.css('form')).nativeElement as HTMLElement,
         'submit'
       );
       fixture.detectChanges();
@@ -2818,8 +2819,9 @@ describe('OuiSelect', () => {
 
     it('should not restore focus to the host element when clicking outside', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectWithoutForms);
-      const select =
-        fixture.debugElement.nativeElement.querySelector('oui-select');
+      const select = fixture.debugElement.nativeElement.querySelector(
+        'oui-select'
+      ) as HTMLElement;
 
       fixture.detectChanges();
       fixture.debugElement
@@ -2828,10 +2830,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
       flush();
 
-      expect(document.activeElement).toBe(
-        select,
-        'Expected trigger to be focused.'
-      );
+      expect(document.activeElement)
+        .withContext('Expected trigger to be focused.')
+        .toBe(select);
 
       select.blur(); // Blur manually since the programmatic click might not do it.
       (
@@ -3209,7 +3210,9 @@ describe('OuiSelect', () => {
     }));
 
     it('should select all options when pressing ctrl + a', () => {
-      const selectElement = fixture.nativeElement.querySelector('oui-select');
+      const selectElement = fixture.nativeElement.querySelector(
+        'oui-select'
+      ) as HTMLElement;
       const options = fixture.componentInstance.options.toArray();
 
       expect(testInstance.control.value).toBeFalsy();
@@ -3237,7 +3240,9 @@ describe('OuiSelect', () => {
     });
 
     it('should skip disabled options when using ctrl + a', () => {
-      const selectElement = fixture.nativeElement.querySelector('oui-select');
+      const selectElement = fixture.nativeElement.querySelector(
+        'oui-select'
+      ) as HTMLElement;
       const options = fixture.componentInstance.options.toArray();
 
       for (let i = 0; i < 3; i++) {
@@ -3264,7 +3269,9 @@ describe('OuiSelect', () => {
     });
 
     it('should select all options when pressing ctrl + a when some options are selected', () => {
-      const selectElement = fixture.nativeElement.querySelector('oui-select');
+      const selectElement = fixture.nativeElement.querySelector(
+        'oui-select'
+      ) as HTMLElement;
       const options = fixture.componentInstance.options.toArray();
 
       options[0].select();
@@ -3295,7 +3302,9 @@ describe('OuiSelect', () => {
     });
 
     it('should deselect all options with ctrl + a if all options are selected', () => {
-      const selectElement = fixture.nativeElement.querySelector('oui-select');
+      const selectElement = fixture.nativeElement.querySelector(
+        'oui-select'
+      ) as HTMLElement;
       const options = fixture.componentInstance.options.toArray();
 
       options.forEach((option) => option.select());

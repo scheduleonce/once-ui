@@ -236,7 +236,7 @@ export abstract class DateAdapter<D> {
    *     deserialized into a null date (e.g. the empty string), or an invalid date.
    */
   deserialize(value: any): D | null {
-    if (value == null || (this.isDateInstance(value) && this.isValid(value))) {
+    if (value == null || (this.isDateInstance(value) && this.isValid(value as any as D))) {
       return value;
     }
     return this.invalid();

@@ -27,6 +27,7 @@ export function mixinTabIndex<T extends Constructor<CanDisable>>(
     }
 
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
     }
   };

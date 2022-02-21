@@ -515,7 +515,7 @@ describe('OuiDatepicker', () => {
       it('input should aria-owns calendar after opened in non-touch mode', fakeAsync(() => {
         const inputEl = fixture.debugElement.query(
           By.css('input')
-        ).nativeElement;
+        ).nativeElement as HTMLElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
         testComponent.datepicker.open();
@@ -538,7 +538,7 @@ describe('OuiDatepicker', () => {
 
         const inputEl = fixture.debugElement.query(
           By.css('input')
-        ).nativeElement;
+        ).nativeElement as HTMLElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
         testComponent.datepicker.open();
@@ -964,15 +964,14 @@ describe('OuiDatepicker', () => {
       it('should restore focus to the toggle after the calendar is closed', () => {
         const toggle = fixture.debugElement.query(
           By.css('button')
-        ).nativeElement;
+        ).nativeElement as HTMLElement;
 
         fixture.componentInstance.touchUI = false;
         fixture.detectChanges();
 
         toggle.focus();
-        expect(document.activeElement).toBe(
-          toggle,
-          'Expected toggle to be focused.'
+        expect(document.activeElement).withContext('Expected toggle to be focused.').toBe(
+          toggle
         );
 
         fixture.componentInstance.datepicker.open();
@@ -1087,7 +1086,7 @@ describe('OuiDatepicker', () => {
 
         const host = fixture.nativeElement.querySelector(
           '.oui-datepicker-toggle'
-        );
+        ) as HTMLElement;
         const button = host.querySelector('button');
 
         expect(document.activeElement).not.toBe(button);

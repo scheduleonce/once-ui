@@ -18,7 +18,7 @@ export function createFakeEvent(
 /** Shorthand to dispatch a fake event on a specified node. */
 export function dispatchFakeEvent(
   node: Node | Window,
-  type: any,
+  type: string,
   canBubble?: boolean
 ): Event {
   return dispatchEvent(node, createFakeEvent(type, canBubble));
@@ -27,8 +27,8 @@ export function dispatchFakeEvent(
 /** Shorthand to dispatch a keyboard event with a specified key code. */
 export function dispatchKeyboardEvent(
   node: Node,
-  type: any,
-  keyCode: any,
+  type: string,
+  keyCode: number,
   target?: Element
 ): KeyboardEvent {
   return dispatchEvent(
@@ -112,7 +112,7 @@ export function createKeyboardEvent(
     return originalPreventDefault.apply(this, args);
   };
 
-  return event;
+  return event as Event;
 }
 /**
  * Gets a RegExp used to detect an angular wrapped error message.

@@ -56,7 +56,7 @@ export class OuiPseudoCheckbox implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
   constructor(
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone,
     @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string

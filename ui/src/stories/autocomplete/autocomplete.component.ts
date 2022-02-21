@@ -103,7 +103,7 @@ export class OuiAutocompleteStorybook implements OnInit {
   `,
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {
-  @Input() stateGroups: any[];
+  @Input() stateGroups: StateGroup[];
   @Input()
   set disabled(value: boolean) {
     if (value) {
@@ -123,7 +123,7 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
       .get('stateGroup')!
       .valueChanges.pipe(
         startWith(''),
-        map((value) => this._filterGroup(value))
+        map((value: string) => this._filterGroup(value))
       );
   }
 

@@ -86,19 +86,19 @@ export class OuiDatepickerStorybook implements OnChanges {
     }
   }
 
-  closed(e) {
+  closed(e?: string) {
     this._closed.emit(e);
   }
-  monthSelected(e) {
+  monthSelected(e?: string) {
     this._monthSelected.emit(e);
   }
-  datepickeropened(e) {
+  datepickeropened(e?: string) {
     this._opened.emit(e);
   }
-  yearSelected(e) {
+  yearSelected(e?: string) {
     this._yearSelected.emit(e);
   }
-  dateChange(e) {
+  dateChange(e?: string) {
     this._dateChange.emit(e);
   }
 }
@@ -165,19 +165,19 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
       (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
     }
   }
-  closed(e) {
+  closed(e?: string) {
     this._closed.emit(e);
   }
-  monthSelected(e) {
+  monthSelected(e?: string) {
     this._monthSelected.emit(e);
   }
-  datepickeropened(e) {
+  datepickeropened(e?: string) {
     this._opened.emit(e);
   }
-  yearSelected(e) {
+  yearSelected(e?: string) {
     this._yearSelected.emit(e);
   }
-  dateChange(e) {
+  dateChange(e?: string) {
     this._dateChange.emit(e);
   }
 }

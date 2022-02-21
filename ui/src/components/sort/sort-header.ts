@@ -147,7 +147,7 @@ export class OuiSortHeader
   constructor(
     public _intl: OuiSortHeaderIntl,
     changeDetectorRef: ChangeDetectorRef,
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     protected _differs: IterableDiffers,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone,

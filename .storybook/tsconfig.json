@@ -10,7 +10,8 @@
     "../ui/src/components/**/*.spec.ts"
   ],
   "include": [
-    "../ui/src/components/**/*"
+    "../ui/src/components/**/*",
+    "../ui/src/stories/**/*"
   ],
   "files": [
     "./typings.d.ts"

@@ -295,10 +295,11 @@ export class OuiDialog implements OnDestroy {
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       dialogContainer.attachTemplatePortal(
-        new TemplatePortal<T>(componentOrTemplateRef, null!, <any>{
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        new TemplatePortal<T>(componentOrTemplateRef, null!, {
           $implicit: config.data,
           dialogRef,
-        })
+        } as any)
       );
     } else {
       const injector = this._createInjector<T>(
