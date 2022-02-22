@@ -1190,9 +1190,8 @@ describe('OuiSelect', () => {
         }));
 
         it('should not change the aria-activedescendant using the horizontal arrow keys', fakeAsync(() => {
-          const host = fixture.debugElement.query(
-            By.css('oui-select')
-          ).nativeElement as HTMLElement;
+          const host = fixture.debugElement.query(By.css('oui-select'))
+            .nativeElement as HTMLElement;
 
           fixture.componentInstance.select.open();
           fixture.detectChanges();
