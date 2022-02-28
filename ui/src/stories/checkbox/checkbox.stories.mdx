@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { OuiCheckboxModule } from '../../components';
 import { action } from '@storybook/addon-actions';
-import { select, boolean } from '@storybook/addon-knobs';
 import { LABELPOSITION, COLORS } from '../const';
 
 <Meta title="Checkbox" />
@@ -20,8 +19,24 @@ Supports all of the functionality of an HTML5 checkbox, and exposes a similar AP
         },
       },
     }}
+    args={{
+      color: COLORS[0],
+      labelPosition: LABELPOSITION[1],
+      disabled: false,
+      checked: false,
+    }}
+    argTypes={{
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
+      },
+      labelPosition: {
+        options: LABELPOSITION,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiCheckboxModule],
         schemas: [],
@@ -37,13 +52,10 @@ Supports all of the functionality of an HTML5 checkbox, and exposes a similar AP
                 I'm a checkbox
               </oui-checkbox>`,
       props: {
-        color: select('color', COLORS, COLORS[0]),
+        ...props,
         changed: action('click'),
-        position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
-        disabled: boolean('disabled', false),
-        checked: boolean('checked', false),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 

@@ -19,7 +19,7 @@
     "package": "npm run build && npm run bundle-styles && npm run npm-pack",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "build-storybook": "npm run docs:json && build-storybook",
-    "storybook-css": "sass --output-style compressed  ui/src/components/core/theming/prebuilt -o ui/src/stories/styles/themes",
+    "storybook-css": "sass ui/src/components/core/theming/prebuilt:ui/src/stories/styles/themes",
     "storybook": "npm run docs:json && start-storybook -p 6006",
     "deploy-storybook": "npm run storybook-css && storybook-to-ghpages -o out"
   },

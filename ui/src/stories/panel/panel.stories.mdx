@@ -5,7 +5,6 @@ import {
   OuiButtonModule,
   OuiPanel,
 } from '../../components';
-import { select, number, text } from '@storybook/addon-knobs';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { OuiPanelStorybook } from './panel.component';
 import { OuiPanelWithImageStorybook } from './panel.component';
@@ -45,8 +44,23 @@ Regular Panel
         },
       },
     }}
+    args={{
+      xPosition: 'before',
+      yPosition: 'above',
+      width: 300,
+    }}
+    argTypes={{
+      xPosition: {
+        options: ['before', 'after'],
+        control: { type: 'select' },
+      },
+      yPosition: {
+        options: ['above', 'below'],
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [
           OuiIconModule,
@@ -62,12 +76,8 @@ Regular Panel
   [yPosition]="yPosition"
   [width]="width">
             </oui-panel-storybook>`,
-      props: {
-        xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosotion', ['above', 'below'], 'above'),
-        width: text('width', '300'),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 
@@ -99,8 +109,22 @@ With Image Panel:
         },
       },
     }}
+    args={{
+      xPosition: 'before',
+      yPosition: 'above',
+    }}
+    argTypes={{
+      xPosition: {
+        options: ['before', 'after'],
+        control: { type: 'select' },
+      },
+      yPosition: {
+        options: ['above', 'below'],
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [
           OuiIconModule,
@@ -115,11 +139,8 @@ With Image Panel:
     [xPosition]="xPosition"
     [yPosition]="yPosition">
               </oui-panel-with-image-storybook>`,
-      props: {
-        xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosotion', ['above', 'below'], 'above'),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 

@@ -153,8 +153,9 @@ describe('OuiIcon', () => {
   it('should apply class based on color attribute', () => {
     const fixture = TestBed.createComponent(IconWithColor);
     const testComponent = fixture.componentInstance;
-    const ouiIconElement =
-      fixture.debugElement.nativeElement.querySelector('oui-icon') as HTMLElement;
+    const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
+      'oui-icon'
+    ) as HTMLElement;
     testComponent.iconName = 'home';
     testComponent.iconColor = 'primary';
     fixture.detectChanges();
@@ -197,8 +198,9 @@ describe('OuiIcon', () => {
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       const testComponent = fixture.componentInstance;
-      const ouiIconElement =
-        fixture.debugElement.nativeElement.querySelector('oui-icon') as SVGElement;
+      const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
+        'oui-icon'
+      ) as SVGElement;
 
       testComponent.iconName = 'left-arrow';
       fixture.detectChanges();
@@ -267,8 +269,9 @@ describe('OuiIcon', () => {
 
       const fixture = TestBed.createComponent(IconFromSvgName);
       const testComponent = fixture.componentInstance;
-      const iconElement =
-        fixture.debugElement.nativeElement.querySelector('oui-icon') as SVGElement;
+      const iconElement = fixture.debugElement.nativeElement.querySelector(
+        'oui-icon'
+      ) as SVGElement;
 
       testComponent.iconName = 'fluffy';
       fixture.detectChanges();

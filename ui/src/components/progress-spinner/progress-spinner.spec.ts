@@ -128,7 +128,9 @@ describe('OuiProgressSpinner', () => {
       By.css('oui-progress-spinner')
     ).nativeElement as HTMLElement;
     const svgElement =
-      progressSpinnerDiameterFixture.nativeElement.querySelector('svg') as HTMLElement;
+      progressSpinnerDiameterFixture.nativeElement.querySelector(
+        'svg'
+      ) as HTMLElement;
 
     progressSpinnerDiameterFixture.componentInstance.diameter = 32;
     progressSpinnerDiameterFixture.detectChanges();

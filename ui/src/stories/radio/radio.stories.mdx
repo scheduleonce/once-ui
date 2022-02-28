@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { OuiRadioModule, OuiRadioButton } from '../../components';
 import { action } from '@storybook/addon-actions';
-import { select, boolean } from '@storybook/addon-knobs';
 import { LABELPOSITION, COLORS } from '../const';
 
 <Meta title="Radio" />
@@ -30,8 +29,23 @@ All radio-buttons with the same name comprise a set from which only one may be s
         },
       },
     }}
+    args={{
+      color: COLORS[0],
+      position: LABELPOSITION[1],
+      disabled: false,
+    }}
+    argTypes={{
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
+      },
+      position: {
+        options: LABELPOSITION,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [OuiRadioModule],
         schemas: [],
@@ -54,12 +68,10 @@ All radio-buttons with the same name comprise a set from which only one may be s
                 </oui-radio-button>
             </oui-radio-group>`,
       props: {
-        color: select('color', COLORS, COLORS[0]),
+        ...props,
         changed: action('click'),
-        position: select('labelPosition', LABELPOSITION, LABELPOSITION[1]),
-        disabled: boolean('disabled', false),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 

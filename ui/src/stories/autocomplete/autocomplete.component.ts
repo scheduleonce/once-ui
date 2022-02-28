@@ -50,7 +50,9 @@ export class OuiAutocompleteStorybook implements OnInit {
       this.myControl.enable();
     }
   }
-  constructor() {}
+  constructor() {
+    console.log('Dadasdsad');
+  }
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string>(''),
