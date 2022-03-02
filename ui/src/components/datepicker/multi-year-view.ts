@@ -316,8 +316,8 @@ export class OuiMultiYearView<D> implements AfterContentInit {
    */
   private _getValidDateOrNull(obj: any): D | null {
     return this._dateAdapter.isDateInstance(obj) &&
-      this._dateAdapter.isValid(obj)
-      ? obj
+      this._dateAdapter.isValid(obj as any as D)
+      ? (obj as any as D)
       : null;
   }
 

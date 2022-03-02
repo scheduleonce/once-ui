@@ -14,25 +14,6 @@
           "options": {
             "tsConfig": "ui/tsconfig.lib.json",
             "project": "ui/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "environments/environment.ts",
-                  "with": "environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "tsConfig": "ui/tsconfig.lib.prod.json",
-              "vendorChunk": false,
-              "buildOptimizer": true
-            }
           }
         },
         "test": {

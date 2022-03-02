@@ -7,7 +7,6 @@ import {
 } from '../../components';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { action } from '@storybook/addon-actions';
-import { select, boolean } from '@storybook/addon-knobs';
 import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
 import { OuiMenuStorybook, OuiNestedMenuStorybook } from './menu.component';
 
@@ -50,8 +49,24 @@ Default Menu with single list:
         },
       },
     }}
+    args={{
+      xPosition: 'before',
+      yPosition: 'above',
+      vertical:  false,
+      hasBackdrop:  true,
+    }}
+    argTypes={{
+      xPosition: {
+        options: ['before', 'after'],
+        control: { type: 'select' },
+      },
+      yPosition: {
+        options: ['above', 'below'],
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
         schemas: [],
@@ -67,14 +82,11 @@ Default Menu with single list:
           >
           </oui-menu-storybook>`,
       props: {
-        xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosition', ['above', 'below'], 'above'),
-        vertical: boolean('vertical', false),
+        ...props,
         menuOpened: action('menuOpened'),
-        hasBackdrop: boolean('hasBackdrop', true),
         menuClosed: action('menuClosed'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 

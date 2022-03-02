@@ -66,7 +66,7 @@ export class OuiMenuStorybook {
   opened() {
     this._opened.emit();
   }
-  closed(e) {
+  closed(e: string) {
     this._closed.emit(e);
   }
 }
@@ -132,7 +132,7 @@ export class OuiNestedMenuStorybook {
   opened() {
     this._opened.emit();
   }
-  closed(e) {
+  closed(e: string) {
     this._closed.emit(e);
   }
 }
