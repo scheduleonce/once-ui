@@ -1,5 +1,4 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
-import { select, number, text } from '@storybook/addon-knobs';
 import { OuiProgressSpinner } from '../../components/progress-spinner/progress-spinner';
 import { COLORS } from '../const';
 
@@ -29,15 +28,22 @@ Determinate Progress spinner:
         },
       },
     }}
-  >
-    {{
-      component: OuiProgressSpinner,
-      props: {
-        color: select('color', COLORS, COLORS[0]),
-        strokeWidth: text('strokeWidth', '1'),
-        value: text('value', '60'),
+    args={{
+      color: COLORS[0],
+      strokeWidth: 1,
+      value: 60,
+    }}
+    argTypes={{
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
       },
     }}
+  >
+    {props => ({
+      component: OuiProgressSpinner,
+      props,
+    })}
   </Story>
 </Canvas>
 
@@ -53,14 +59,21 @@ Indeterminate Progress spinner:
         },
       },
     }}
-  >
-    {{
-      component: OuiProgressSpinner,
-      props: {
-        color: select('color', COLORS, COLORS[0]),
-        strokeWidth: text('strokeWidth', '1'),
+    args={{
+      color: COLORS[0],
+      strokeWidth: 1,
+    }}
+    argTypes={{
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
       },
     }}
+  >
+    {props => ({
+      component: OuiProgressSpinner,
+      props,
+    })}
   </Story>
 </Canvas>
 

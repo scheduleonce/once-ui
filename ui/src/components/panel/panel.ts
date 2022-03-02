@@ -172,7 +172,7 @@ export class OuiPanelIcon implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   tabIndex: any;
   constructor(
-    private _elementRef: ElementRef,
+    private _elementRef: ElementRef<HTMLElement>,
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer,
     private _focusMonitor: FocusMonitor,

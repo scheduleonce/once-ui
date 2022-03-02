@@ -295,7 +295,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
     private _dialog: OuiDialog,
     private _overlay: Overlay,
     private _ngZone: NgZone,
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     private _viewContainerRef: ViewContainerRef,
     @Inject(OUI_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
@@ -549,7 +549,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
    */
   private _getValidDateOrNull(obj: any): D | null {
     return this._dateAdapter.isDateInstance(obj) &&
-      this._dateAdapter.isValid(obj)
+      this._dateAdapter.isValid(obj as any as D)
       ? obj
       : null;
   }

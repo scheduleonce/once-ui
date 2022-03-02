@@ -192,7 +192,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     if (typeof value === 'number') {
       return new Date(value);
     }
-    return value ? new Date(Date.parse(value)) : null;
+    return value ? new Date(Date.parse(value as string)) : null;
   }
 
   format(date: Date, displayFormat: Object): string {
@@ -213,6 +213,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
 
       displayFormat = { ...displayFormat, timeZone: 'utc' };
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
       return this._stripDirectionalityCharacters(this._format(dtf, date));
     }
@@ -286,7 +287,7 @@ export class NativeDateAdapter extends DateAdapter<Date> {
     return super.deserialize(value);
   }
 
-  isDateInstance(obj: any) {
+  isDateInstance(obj: any): boolean {
     return obj instanceof Date;
   }
 

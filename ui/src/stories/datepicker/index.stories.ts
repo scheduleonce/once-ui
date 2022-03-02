@@ -1,12 +1,7 @@
 import { action } from '@storybook/addon-actions';
-import { date, select, boolean } from '@storybook/addon-knobs';
 import { COLORS, APPEARANCE } from '../const';
 import { OuiDatepickerModule } from '../../components/datepicker';
-import {
-  OuiFormFieldModule,
-  OuiInputModule,
-  OuiDatepicker,
-} from '../../components';
+import { OuiFormFieldModule, OuiInputModule } from '../../components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   OuiDaterangepickerStorybook,
@@ -28,10 +23,9 @@ function getDate(day: number, month: number, year: number) {
 }
 export default {
   title: 'Form Field/Datepicker',
-  component: OuiDatepicker,
 };
 
-export const Regular = () => ({
+export const Regular = (props) => ({
   moduleMetadata: {
     imports: [
       OuiDatepickerModule,
@@ -57,33 +51,42 @@ export const Regular = () => ({
     (_yearSelected)="yearSelected($event)"
     (_dateChange)="dateChange($event)"></oui-datepicker-storybook>`,
   props: {
+    ...props,
     closed: action('closed'),
     monthSelected: action('monthSelected'),
     datepickeropened: action('opened'),
     yearSelected: action('yearSelected'),
     dateChange: action('dateChange'),
-    color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
-    startView: select(
-      'start-view',
-      START_VIEWS,
-      START_VIEWS[0],
-      'OuiDatepicker'
-    ),
-    opened: boolean('opened', false, 'OuiDatepicker'),
-    disabled: boolean('disabled', false, 'OuiDatepicker'),
-    minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
-    maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
-    value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
-    appearance: select(
-      'appearance',
-      APPEARANCE,
-      APPEARANCE[0],
-      'OuiDatepickerInput'
-    ),
   },
 });
 
-export const Custom_Format = () => ({
+Regular.args = {
+  color: COLORS[0],
+  startView: START_VIEWS[0],
+  opened: false,
+  disabled: false,
+  minDate: CURRENT_DATE,
+  maxDate: MAX_DATE,
+  value: CURRENT_DATE.toISOString(),
+  appearance: APPEARANCE[0],
+};
+
+Regular.argTypes = {
+  color: {
+    options: COLORS,
+    control: { type: 'select' },
+  },
+  startView: {
+    options: START_VIEWS,
+    control: { type: 'select' },
+  },
+  appearance: {
+    options: APPEARANCE,
+    control: { type: 'select' },
+  },
+};
+
+export const Custom_Format = (props) => ({
   moduleMetadata: {
     imports: [
       OuiDatepickerModule,
@@ -110,33 +113,42 @@ export const Custom_Format = () => ({
     (_yearSelected)="yearSelected($event)"
     (_dateChange)="dateChange($event)"></oui-datepicker-custom-storybook>`,
   props: {
+    ...props,
     closed: action('closed'),
     monthSelected: action('monthSelected'),
     datepickeropened: action('opened'),
     yearSelected: action('yearSelected'),
     dateChange: action('dateChange'),
-    color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
-    startView: select(
-      'start-view',
-      START_VIEWS,
-      START_VIEWS[0],
-      'OuiDatepicker'
-    ),
-    opened: boolean('opened', false, 'OuiDatepicker'),
-    disabled: boolean('disabled', false, 'OuiDatepicker'),
-    minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
-    maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
-    value: date('value', CURRENT_DATE, 'OuiDatepickerInput'),
-    appearance: select(
-      'appearance',
-      APPEARANCE,
-      APPEARANCE[1],
-      'OuiDatepickerInput'
-    ),
   },
 });
 
-export const Daterange_Picker = () => ({
+Custom_Format.args = {
+  color: COLORS[0],
+  startView: 'start-view',
+  opened: false,
+  disabled: false,
+  minDate: CURRENT_DATE,
+  maxDate: MAX_DATE,
+  value: CURRENT_DATE,
+  appearance: APPEARANCE[0],
+};
+
+Custom_Format.argTypes = {
+  color: {
+    options: COLORS,
+    control: { type: 'select' },
+  },
+  startView: {
+    options: START_VIEWS,
+    control: { type: 'select' },
+  },
+  appearance: {
+    options: APPEARANCE,
+    control: { type: 'select' },
+  },
+};
+
+export const Daterange_Picker = (props) => ({
   moduleMetadata: {
     imports: [
       OuiDatepickerModule,
@@ -161,26 +173,35 @@ export const Daterange_Picker = () => ({
       (_yearSelected)="yearSelected($event)"
       (_dateChange)="dateChange($event)"></oui-daterangepicker-storybook>`,
   props: {
+    ...props,
     closed: action('closed'),
     monthSelected: action('monthSelected'),
     datepickeropened: action('opened'),
     yearSelected: action('yearSelected'),
     dateChange: action('dateChange'),
-    color: select('color', COLORS, COLORS[0], 'OuiDatepicker'),
-    startView: select(
-      'start-view',
-      START_VIEWS,
-      START_VIEWS[0],
-      'OuiDatepicker'
-    ),
-    disabled: boolean('disabled', false, 'OuiDatepicker'),
-    minDate: date('minDate', CURRENT_DATE, 'OuiDatepickerInput'),
-    maxDate: date('maxDate', MAX_DATE, 'OuiDatepickerInput'),
-    appearance: select(
-      'appearance',
-      APPEARANCE,
-      APPEARANCE[0],
-      'OuiDatepickerInput'
-    ),
   },
 });
+
+Daterange_Picker.args = {
+  color: COLORS[0],
+  startView: 'start-view',
+  disabled: false,
+  minDate: CURRENT_DATE,
+  maxDate: MAX_DATE,
+  appearance: APPEARANCE[0],
+};
+
+Daterange_Picker.argTypes = {
+  color: {
+    options: COLORS,
+    control: { type: 'select' },
+  },
+  startView: {
+    options: START_VIEWS,
+    control: { type: 'select' },
+  },
+  appearance: {
+    options: APPEARANCE,
+    control: { type: 'select' },
+  },
+};

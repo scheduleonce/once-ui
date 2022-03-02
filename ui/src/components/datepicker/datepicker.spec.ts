@@ -513,9 +513,8 @@ describe('OuiDatepicker', () => {
       });
 
       it('input should aria-owns calendar after opened in non-touch mode', fakeAsync(() => {
-        const inputEl = fixture.debugElement.query(
-          By.css('input')
-        ).nativeElement;
+        const inputEl = fixture.debugElement.query(By.css('input'))
+          .nativeElement as HTMLElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
         testComponent.datepicker.open();
@@ -536,9 +535,8 @@ describe('OuiDatepicker', () => {
         testComponent.touch = true;
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(
-          By.css('input')
-        ).nativeElement;
+        const inputEl = fixture.debugElement.query(By.css('input'))
+          .nativeElement as HTMLElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
         testComponent.datepicker.open();
@@ -962,18 +960,16 @@ describe('OuiDatepicker', () => {
       });
 
       it('should restore focus to the toggle after the calendar is closed', () => {
-        const toggle = fixture.debugElement.query(
-          By.css('button')
-        ).nativeElement;
+        const toggle = fixture.debugElement.query(By.css('button'))
+          .nativeElement as HTMLElement;
 
         fixture.componentInstance.touchUI = false;
         fixture.detectChanges();
 
         toggle.focus();
-        expect(document.activeElement).toBe(
-          toggle,
-          'Expected toggle to be focused.'
-        );
+        expect(document.activeElement)
+          .withContext('Expected toggle to be focused.')
+          .toBe(toggle);
 
         fixture.componentInstance.datepicker.open();
         fixture.detectChanges();
@@ -1087,7 +1083,7 @@ describe('OuiDatepicker', () => {
 
         const host = fixture.nativeElement.querySelector(
           '.oui-datepicker-toggle'
-        );
+        ) as HTMLElement;
         const button = host.querySelector('button');
 
         expect(document.activeElement).not.toBe(button);

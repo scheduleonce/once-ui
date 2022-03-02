@@ -3,7 +3,6 @@ import {
   OuiScrollbarModule,
   Scrollbar,
 } from '../../components/scrollbar/scrollbar-module';
-import { text, number, boolean, array } from '@storybook/addon-knobs';
 import { DUMMY_TEXT, COUNTRY_LIST } from '../const';
 import { OuiScrollbarTextStorybook } from './scrollbar.component';
 import { OuiScrollbarListStorybook } from './scrollbar.component';
@@ -31,8 +30,13 @@ All radio-buttons with the same name comprise a set from which only one may be s
         },
       },
     }}
+    args={{
+      height: 350,
+      large: false,
+      text: DUMMY_TEXT,
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiScrollbarModule],
         schemas: [],
@@ -42,12 +46,8 @@ All radio-buttons with the same name comprise a set from which only one may be s
         [large]="large"
         [height]="height"
         [text]="text"></oui-scrollbar-text-storybook>`,
-      props: {
-        large: boolean('large', false),
-        height: text('height', '350'),
-        text: text('text', DUMMY_TEXT),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 
@@ -84,8 +84,13 @@ All radio-buttons with the same name comprise a set from which only one may be s
         },
       },
     }}
+    args={{
+      height: 350,
+      large: false,
+      items: COUNTRY_LIST,
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiScrollbarModule],
         schemas: [],
@@ -95,12 +100,8 @@ All radio-buttons with the same name comprise a set from which only one may be s
   [large]="large"
   [height]="height"
   [items]="items"></oui-scrollbar-list-storybook>`,
-      props: {
-        large: boolean('large', false),
-        height: number('height', '350'),
-        items: array('items', COUNTRY_LIST),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 

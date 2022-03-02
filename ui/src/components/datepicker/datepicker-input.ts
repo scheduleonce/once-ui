@@ -431,7 +431,7 @@ export class OuiDatepickerInput<D>
    */
   private _getValidDateOrNull(obj: any): D | null {
     return this._dateAdapter.isDateInstance(obj) &&
-      this._dateAdapter.isValid(obj)
+      this._dateAdapter.isValid(obj as any as D)
       ? obj
       : null;
   }

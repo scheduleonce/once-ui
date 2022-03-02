@@ -200,7 +200,7 @@ export class OuiAutocomplete implements AfterContentInit {
   }
 
   /** Emits the `select` event. */
-  _emitSelectEvent(option): void {
+  _emitSelectEvent(option: OuiOption): void {
     const event = new OuiAutocompleteSelectedEvent(this, option);
     this.optionSelected.emit(event);
   }
