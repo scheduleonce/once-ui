@@ -1275,7 +1275,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-580ee0a7b20205a9a254ecdee0415b7ce9e54a74d14ff8d10fa37da58071ef2db085fe3853d8028904b812d92bc860acfd192fd9a9674b5c7df92443c5f25880",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -1332,7 +1332,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-580ee0a7b20205a9a254ecdee0415b7ce9e54a74d14ff8d10fa37da58071ef2db085fe3853d8028904b812d92bc860acfd192fd9a9674b5c7df92443c5f25880-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -5027,7 +5027,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-580ee0a7b20205a9a254ecdee0415b7ce9e54a74d14ff8d10fa37da58071ef2db085fe3853d8028904b812d92bc860acfd192fd9a9674b5c7df92443c5f25880",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -5084,7 +5084,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-580ee0a7b20205a9a254ecdee0415b7ce9e54a74d14ff8d10fa37da58071ef2db085fe3853d8028904b812d92bc860acfd192fd9a9674b5c7df92443c5f25880-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "properties": [],
             "methods": [
                 {
@@ -25794,7 +25794,7 @@
         },
         {
             "name": "OuiDialogHeaderArticle",
-            "id": "component-OuiDialogHeaderArticle-4c5d8cb794ce2091937eb4ba504351b486d5a89c92a54ad2f3dd97a0a2a183caa83e298a99eae85fcde8c0a630d680ec98c1ab764323a209b8ec838331d1f6fe",
+            "id": "directive-OuiDialogHeader-4c5d8cb794ce2091937eb4ba504351b486d5a89c92a54ad2f3dd97a0a2a183caa83e298a99eae85fcde8c0a630d680ec98c1ab764323a209b8ec838331d1f6fe",
             "file": "ui/src/components/dialog/dialog-content.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -25941,7 +25941,7 @@
         },
         {
             "name": "OuiDialogHeaderClose",
-            "id": "component-OuiDialogHeaderClose-4c5d8cb794ce2091937eb4ba504351b486d5a89c92a54ad2f3dd97a0a2a183caa83e298a99eae85fcde8c0a630d680ec98c1ab764323a209b8ec838331d1f6fe",
+            "id": "directive-OuiDialogHeader-4c5d8cb794ce2091937eb4ba504351b486d5a89c92a54ad2f3dd97a0a2a183caa83e298a99eae85fcde8c0a630d680ec98c1ab764323a209b8ec838331d1f6fe",
             "file": "ui/src/components/dialog/dialog-content.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -26088,7 +26088,7 @@
         },
         {
             "name": "OuiDialogHeaderVideo",
-            "id": "component-OuiDialogHeaderVideo-4c5d8cb794ce2091937eb4ba504351b486d5a89c92a54ad2f3dd97a0a2a183caa83e298a99eae85fcde8c0a630d680ec98c1ab764323a209b8ec838331d1f6fe",
+            "id": "directive-OuiDialogHeader-4c5d8cb794ce2091937eb4ba504351b486d5a89c92a54ad2f3dd97a0a2a183caa83e298a99eae85fcde8c0a630d680ec98c1ab764323a209b8ec838331d1f6fe",
             "file": "ui/src/components/dialog/dialog-content.ts",
             "encapsulation": [],
             "entryComponents": [],
