@@ -6,7 +6,6 @@ import {
 } from '../../components';
 import { action } from '@storybook/addon-actions';
 import { THEME } from '../const';
-import { text, boolean, number, select } from '@storybook/addon-knobs';
 
 <Meta title="FORM FIELD/Textarea" />
 
@@ -28,8 +27,20 @@ Regular Input field
         },
       },
     }}
+    args={{
+      rows: 2,
+      theme: THEME[0],
+      disabled: false,
+      placeholder: 'Type here',
+    }}
+    argTypes={{
+      theme: {
+        options: THEME,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [OuiFormFieldModule, OuiInputModule],
         schemas: [],
@@ -37,14 +48,11 @@ Regular Input field
       },
       template: `<oui-form-field ngClass="{{theme}}"> <textarea [disabled]="disabled" [rows]="rows" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder"></textarea> </oui-form-field>`,
       props: {
-        theme: select('theme', THEME, THEME[0]),
-        disabled: boolean('disabled', false),
-        placeholder: text('placeholder', 'Type Here'),
-        rows: number('rows', 2),
+        ...props,
         focused: action('focus'),
         blured: action('blur'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 

@@ -78,7 +78,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     private _focusTrapFactory: ConfigurableFocusTrapFactory,
     public _config: OuiDialogConfig,
     public elementRef: ElementRef<HTMLElement>,
-    @Optional() @Inject(DOCUMENT) private _document: any
+    @Optional() @Inject(DOCUMENT) private _document: Document
   ) {
     super();
   }
@@ -144,7 +144,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
       toFocus &&
       typeof toFocus.focus === 'function'
     ) {
-      const activeElement = this._document.activeElement;
+      const activeElement = this._document.activeElement as HTMLElement;
       const element = this.elementRef.nativeElement;
       if (
         !activeElement ||
@@ -185,7 +185,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
 
   /** Only return when there is focus inside the dialog */
   private _containsFocus() {
-    const element = this.elementRef.nativeElement;
+    const element = this.elementRef.nativeElement as HTMLElement;
     const activeElement = this._document.activeElement;
     return element === activeElement || element.contains(activeElement);
   }

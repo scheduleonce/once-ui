@@ -32,7 +32,7 @@ export const OUI_SLIDE_TOGGLE_VALUE_ACCESSOR: any = {
 };
 
 export class OuiSlideToggleBase {
-  constructor(public _elementRef: ElementRef) {}
+  constructor(public _elementRef: ElementRef<HTMLElement>) {}
 }
 export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
   mixinColor(OuiSlideToggleBase);
@@ -91,12 +91,12 @@ export class OuiSlideToggle
   @Output('state-change')
   change = new EventEmitter();
 
-  wrapper: ElementRef;
+  wrapper: ElementRef<HTMLElement>;
 
   private onChange = (_: any) => {};
   private onTouched = () => {};
   constructor(
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
     private _changeDetectorRef: ChangeDetectorRef,

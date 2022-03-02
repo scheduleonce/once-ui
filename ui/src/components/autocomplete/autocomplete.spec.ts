@@ -105,7 +105,7 @@ class SimpleAutocomplete implements OnDestroy {
 
   constructor() {
     this.filteredStates = this.states;
-    this.valueSub = this.stateCtrl.valueChanges.subscribe((val) => {
+    this.valueSub = this.stateCtrl.valueChanges.subscribe((val: string) => {
       this.filteredStates = val
         ? this.states.filter((s) => s.name.match(new RegExp(val, 'gi')))
         : this.states;
@@ -188,7 +188,7 @@ class AutocompleteWithoutForms {
     this.filteredStates = this.states.slice();
   }
 
-  onInput(value: any) {
+  onInput(value: string) {
     this.filteredStates = this.states.filter((s) =>
       new RegExp(value, 'gi').test(s)
     );
@@ -222,7 +222,7 @@ class AutocompleteWithNgModel {
     this.filteredStates = this.states.slice();
   }
 
-  onInput(value: any) {
+  onInput(value: string) {
     this.filteredStates = this.states.filter((s) =>
       new RegExp(value, 'gi').test(s)
     );
@@ -1662,7 +1662,7 @@ describe('OuiAutocomplete', () => {
 
       const panel = fixture.debugElement.query(
         By.css('.oui-autocomplete-panel')
-      ).nativeElement;
+      ).nativeElement as HTMLElement;
 
       expect(input.getAttribute('aria-owns')).toBe(
         panel.getAttribute('id'),
@@ -1716,7 +1716,7 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
       const inputReference = fixture.debugElement.query(
         By.css('.oui-form-field-flex')
-      ).nativeElement;
+      ).nativeElement as HTMLElement;
 
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
@@ -1750,7 +1750,7 @@ describe('OuiAutocomplete', () => {
 
       const inputReference = fixture.debugElement.query(
         By.css('.oui-form-field-flex')
-      ).nativeElement;
+      ).nativeElement as HTMLElement;
       spacer.style.height = '1000px';
       document.body.appendChild(spacer);
 
@@ -1765,10 +1765,11 @@ describe('OuiAutocomplete', () => {
       const panel = overlayContainerElement.querySelector('.cdk-overlay-pane')!;
       const panelTop = panel.getBoundingClientRect().top;
 
-      expect(Math.floor(inputBottom)).toEqual(
-        Math.floor(panelTop),
-        'Expected panel top to match input bottom after scrolling.'
-      );
+      expect(Math.floor(inputBottom))
+        .withContext(
+          'Expected panel top to match input bottom after scrolling.'
+        )
+        .toEqual(Math.floor(panelTop));
 
       document.body.removeChild(spacer);
       window.scroll(0, 0);
@@ -1779,7 +1780,7 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
       const inputReference = fixture.debugElement.query(
         By.css('.oui-form-field-flex')
-      ).nativeElement;
+      ).nativeElement as HTMLElement;
 
       // Push the autocomplete trigger down so it won't have room to open "below"
       inputReference.style.bottom = '0';
@@ -1857,7 +1858,7 @@ describe('OuiAutocomplete', () => {
       const input = fixture.debugElement.query(By.css('input')).nativeElement;
       const inputReference = fixture.debugElement.query(
         By.css('.oui-form-field-flex')
-      ).nativeElement;
+      ).nativeElement as HTMLElement;
 
       // Push the autocomplete trigger down so it won't have room to open "below"
       inputReference.style.bottom = '0';
@@ -1896,12 +1897,11 @@ describe('OuiAutocomplete', () => {
           fixture.componentInstance.states.slice();
         fixture.detectChanges();
 
-        const inputEl = fixture.debugElement.query(
-          By.css('input')
-        ).nativeElement;
+        const inputEl = fixture.debugElement.query(By.css('input'))
+          .nativeElement as HTMLElement;
         const inputReference = fixture.debugElement.query(
           By.css('.oui-form-field-flex')
-        ).nativeElement;
+        ).nativeElement as HTMLElement;
 
         // Push the element down so it has a little bit of space, but not enough to render.
         inputReference.style.bottom = '75px';
@@ -2125,8 +2125,10 @@ describe('OuiAutocomplete', () => {
       const formField = fixture.debugElement.query(
         By.css('.oui-form-field')
       ).nativeElement;
-      const inputReference = formField.querySelector('.oui-form-field-flex');
-      const input = inputReference.querySelector('input');
+      const inputReference = formField.querySelector(
+        '.oui-form-field-flex'
+      ) as HTMLElement;
+      const input = inputReference.querySelector('input') as HTMLInputElement;
 
       formField.style.bottom = '100px';
       formField.style.position = 'fixed';
@@ -2639,10 +2641,10 @@ describe('OuiAutocomplete', () => {
 
     const overlayRect = overlayContainerElement
       .querySelector('.cdk-overlay-pane')!
-      .getBoundingClientRect();
+      .getBoundingClientRect() as DOMRect;
     const originRect = fixture.nativeElement
       .querySelector('.origin')
-      .getBoundingClientRect();
+      .getBoundingClientRect() as DOMRect;
 
     expect(Math.floor(overlayRect.top)).toBe(
       Math.floor(originRect.bottom),
@@ -2674,12 +2676,13 @@ describe('OuiAutocomplete', () => {
       .getBoundingClientRect();
     const originRect = fixture.nativeElement
       .querySelector('.origin')
-      .getBoundingClientRect();
+      .getBoundingClientRect() as DOMRect;
 
-    expect(Math.floor(overlayRect.top)).toBe(
-      Math.floor(originRect.bottom),
-      'Expected autocomplete panel to align with the bottom of the new origin.'
-    );
+    expect(Math.floor(overlayRect.top))
+      .withContext(
+        'Expected autocomplete panel to align with the bottom of the new origin.'
+      )
+      .toBe(Math.floor(originRect.bottom));
   });
 
   it('should be able to re-type the same value when it is reset while open', fakeAsync(() => {

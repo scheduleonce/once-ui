@@ -142,7 +142,7 @@ export class Checkbox
 
   /** Event emitted when the checkbox's `checked` value changes. */
   @Output()
-  readonly change: EventEmitter<string> = new EventEmitter<string>();
+  readonly change: EventEmitter<OuiCheckboxChange> = new EventEmitter<OuiCheckboxChange>();
 
   /** The native `<input type="checkbox">` element */
   @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;
@@ -186,9 +186,9 @@ export class Checkbox
     }
   }
 
-  private _disabled: any = false;
+  private _disabled = false;
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
-  private _currentAnimationClass: any = '';
+  private _currentAnimationClass = '';
 
   /**
    * Implemented as part of HasTabIndex.
@@ -196,7 +196,7 @@ export class Checkbox
   tabIndex: any;
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    public _elementRef: ElementRef,
+    public _elementRef: ElementRef<HTMLElement>,
     private _ngZone: NgZone,
     private _focusMonitor: FocusMonitor,
     @Attribute('tabindex') tabIndex: string
@@ -293,7 +293,7 @@ export class Checkbox
   }
 
   private _emitChangeEvent() {
-    const event: any = new OuiCheckboxChange();
+    const event = new OuiCheckboxChange();
     event.source = this;
     event.checked = this.checked;
     this._controlValueAccessorChangeFn(this.checked);

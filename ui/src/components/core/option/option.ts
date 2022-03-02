@@ -126,7 +126,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   constructor(
     private _element: ElementRef<HTMLElement>,
     private _changeDetectorRef: ChangeDetectorRef,
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone,
     @Optional()

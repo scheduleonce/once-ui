@@ -62,6 +62,7 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(
     }
 
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
     }
   };

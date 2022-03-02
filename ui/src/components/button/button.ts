@@ -73,7 +73,7 @@ export class OuiButton
 {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   constructor(
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     public _cdr: ChangeDetectorRef,
     private _ngZone: NgZone
@@ -147,7 +147,7 @@ export class OuiAnchor extends OuiButton {
   /** Tabindex of the button. */
   @Input() tabIndex: number;
   constructor(
-    elementRef: ElementRef,
+    elementRef: ElementRef<HTMLElement>,
     focusMonitor: FocusMonitor,
     _cdr: ChangeDetectorRef,
     _ngZone: NgZone

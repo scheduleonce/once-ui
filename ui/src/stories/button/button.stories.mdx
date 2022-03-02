@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { OuiButtonModule, OuiButton, OuiIconModule } from '../../components';
 import { action } from '@storybook/addon-actions';
-import { select, text, number, boolean } from '@storybook/addon-knobs';
 import { COLORS, THEME } from '../const';
 import { OuiIconButtonStorybook } from './button.component';
 
@@ -25,22 +24,32 @@ Regular button:
         source: { code: `<button oui-button color="primary">Primary</button>` },
       },
     }}
+    args={{
+      theme: THEME[0],
+      color: COLORS[0],
+      disabled: false,
+      text: 'This is a button',
+    }}
+    argTypes={{
+      theme: {
+        options: THEME,
+        control: { type: 'select' },
+      },
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
         declarations: [],
       },
       template: `<button oui-button [disabled]="disabled" (click)="clicked()" [color]="color" ngClass="{{theme}}">{{text}}</button>`,
-      props: {
-        theme: select('theme', THEME, THEME[0]),
-        color: select('color', COLORS, COLORS[0]),
-        disabled: boolean('disabled', false),
-        text: text('text', 'This is a button'),
-        clicked: action('click'),
-      },
-    }}
+      props: { ...props, clicked: action('click') },
+    })}
   </Story>
 </Canvas>
 
@@ -56,20 +65,20 @@ Link button:
         },
       },
     }}
+    args={{
+      disabled: false,
+      text: 'This is a button',
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
         declarations: [],
       },
       template: `<button oui-link-button [disabled]="disabled" (click)="clicked()">{{text}}</button>`,
-      props: {
-        disabled: boolean('disabled', false),
-        text: text('text', 'This is a button'),
-        clicked: action('click'),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 
@@ -85,8 +94,24 @@ Ghost button:
         },
       },
     }}
+    args={{
+      theme: THEME[0],
+      color: COLORS[0],
+      disabled: false,
+      text: 'This is a button',
+    }}
+    argTypes={{
+      theme: {
+        options: THEME,
+        control: { type: 'select' },
+      },
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
@@ -94,13 +119,10 @@ Ghost button:
       },
       template: `<button oui-ghost-button [disabled]="disabled" ngClass="{{theme}}" (click)="clicked()" [color]="color">{{text}}</button>`,
       props: {
-        theme: select('theme', THEME, THEME[0]),
-        color: select('color', COLORS, COLORS[0]),
-        disabled: boolean('disabled', false),
-        text: text('text', 'This is a button'),
+        ...props,
         clicked: action('click'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 
@@ -116,8 +138,24 @@ Progress button:
         },
       },
     }}
+    args={{
+      theme: THEME[0],
+      color: COLORS[0],
+      disabled: false,
+      text: 'This is a button',
+    }}
+    argTypes={{
+      theme: {
+        options: THEME,
+        control: { type: 'select' },
+      },
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [OuiButtonModule],
         schemas: [],
@@ -128,27 +166,24 @@ Progress button:
                   oui-button
                   progress
                   [color]="color"
-                  [disabled]="isDisable"
+                  [disabled]="disabled"
                   ngClass="{{theme}}"
                   (click)="clicked();progressButtonClick(progressButton)">
                   button
                 </button>`,
-      props: {
-        theme: select('theme', THEME, THEME[0]),
-        color: select('color', COLORS, COLORS[0]),
-        isDisable: boolean('disabled', false),
-        text: text('text', 'This is a button'),
+      props:  {
+        ...props,
         clicked: action('click'),
         progressButtonClick: function (progressButton) {
           progressButton.setToProgress();
           action('set to progress', progressButton);
           setTimeout(() => {
-            this.isDisable = false;
+            this.disabled = false;
             progressButton.setToDone();
           }, 1000);
         },
       },
-    }}
+    })}
   </Story>
 </Canvas>
 
@@ -164,8 +199,18 @@ Icon button:
         },
       },
     }}
+    args={{
+      color: COLORS[0],
+      icon: 'configuration',
+    }}
+    argTypes={{
+      color: {
+        options: COLORS,
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [OuiButtonModule, OuiIconModule],
         schemas: [],
@@ -173,11 +218,10 @@ Icon button:
       },
       component: OuiIconButtonStorybook,
       props: {
-        color: select('color', COLORS, COLORS[0]),
+        ...props,
         clicked: action('click'),
-        icon: text('icon', 'configuration'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 

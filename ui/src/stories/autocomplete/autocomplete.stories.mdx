@@ -1,6 +1,5 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { action } from '@storybook/addon-actions';
-import { select, boolean, object } from '@storybook/addon-knobs';
 import { STATEGROUPS, OPTIONS } from './const';
 import { APPEARANCE } from '../const';
 import {
@@ -30,19 +29,34 @@ Regular Input field
     parameters={{
       docs: {
         source: {
-          code: `<oui-form-field>
-  <input oui-input [ouiAutocomplete]="auto" />
-</oui-form-field>
-<oui-autocomplete #auto="ouiAutocomplete">
-  <oui-option *ngFor="let option of options" [value]="option">
-    {{ option }}
-  </oui-option>
-</oui-autocomplete>`,
+          code: `
+          <oui-form-field>
+            <input oui-input [ouiAutocomplete]="auto" />
+          </oui-form-field>
+          <oui-autocomplete #auto="ouiAutocomplete">
+            <oui-option *ngFor="let option of options" [value]="option">
+              {{ option }}
+            </oui-option>
+          </oui-autocomplete>`,
         },
       },
     }}
+    args={{
+      options: OPTIONS,
+      appearance: 'standard',
+      autoActiveFirstOption: false,
+    }}
+    argTypes={{
+      options: {
+        control: { type: 'object' },
+      },
+      appearance: {
+        options: ['standard', 'underline'],
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {(props) => ({
       moduleMetadata: {
         imports: [
           OuiFormFieldModule,
@@ -56,15 +70,11 @@ Regular Input field
       },
       component: OuiAutocompleteStorybook,
       props: {
-        appearance: select('appearance', ['standard', 'underline'], 'standard'),
-        options: object('options', OPTIONS),
-        autoActiveFirstOption: boolean('autoActiveFirstOption', false),
-        closed: action('closed'),
-        disabled: boolean('disabled', false),
+        ...props,
         opened: action('opened'),
         optionSelected: action('optionSelected'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 
@@ -77,19 +87,36 @@ With Group
     parameters={{
       docs: {
         source: {
-          code: `<oui-form-field>
-  <input oui-input [ouiAutocomplete]="auto" />
-</oui-form-field>
-<oui-autocomplete #auto="ouiAutocomplete">
-  <oui-option *ngFor="let option of options" [value]="option">
-    {{ option }}
-  </oui-option>
-</oui-autocomplete>`,
+          code: `
+            <oui-form-field>
+              <input oui-input [ouiAutocomplete]="auto" />
+            </oui-form-field>
+            <oui-autocomplete #auto="ouiAutocomplete">
+              <oui-option *ngFor="let option of options" [value]="option">
+                {{ option }}
+              </oui-option>
+            </oui-autocomplete>`,
         },
+      },
+      component: OuiAutocompleteGroupStorybook,
+    }}
+    args={{
+      disabled: false,
+      appearance: 'standard',
+      stateGroups: STATEGROUPS,
+      autoActiveFirstOption: false,
+    }}
+    argTypes={{
+      stateGroups: {
+        control: { type: 'object' },
+      },
+      appearance: {
+        options: ['standard', 'underline'],
+        control: { type: 'select' },
       },
     }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [
           OuiFormFieldModule,
@@ -101,17 +128,13 @@ With Group
         schemas: [],
         declarations: [OuiAutocompleteGroupStorybook],
       },
-      component: OuiAutocompleteGroupStorybook,
       props: {
-        appearance: select('appearance', APPEARANCE, APPEARANCE[0]),
-        stateGroups: object('options', STATEGROUPS),
-        autoActiveFirstOption: boolean('autoActiveFirstOption', false),
+        ...props,
         closed: action('closed'),
-        disabled: boolean('disabled', false),
         opened: action('opened'),
         optionSelected: action('optionSelected'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 
