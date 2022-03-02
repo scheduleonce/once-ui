@@ -13,5 +13,8 @@
   "dependencies": {
     "tslib": "^2.1.0"
   },
-  "homepage": "https://github.com/scheduleonce/once-ui#readme"
+  "homepage": "https://github.com/scheduleonce/once-ui#readme",
+  "exports": {
+    "./prebuilt-themes/*": "./prebuilt-themes/*.scss"
+  }
 }

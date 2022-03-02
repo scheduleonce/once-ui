@@ -116,8 +116,24 @@ Nested Menu:
         },
       },
     }}
+    args={{
+      xPosition: 'before',
+      yPosition: 'above',
+      vertical:  false,
+      hasBackdrop:  true,
+    }}
+    argTypes={{
+      xPosition: {
+        options: ['before', 'after'],
+        control: { type: 'select' },
+      },
+      yPosition: {
+        options: ['above', 'below'],
+        control: { type: 'select' },
+      },
+    }}
   >
-    {{
+    {props=>({
       moduleMetadata: {
         imports: [OuiIconModule, OuiButtonModule, OuiMenuModule, OverlayModule],
         schemas: [],
@@ -133,14 +149,11 @@ Nested Menu:
           >
           </oui-nested-menu-storybook>`,
       props: {
-        xPosition: select('xPosition', ['before', 'after'], 'before'),
-        yPosition: select('yPosition', ['above', 'below'], 'above'),
-        vertical: boolean('vertical', false),
+        ...props,
         menuOpened: action('menuOpened'),
-        hasBackdrop: boolean('hasBackdrop', true),
         menuClosed: action('menuClosed'),
       },
-    }}
+    })}
   </Story>
 </Canvas>
 
