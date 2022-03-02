@@ -107,7 +107,7 @@ export class OuiFooterRow extends CdkFooterRow {}
 export class OuiRow extends CdkRow implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   constructor(
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     protected _differs: IterableDiffers,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone

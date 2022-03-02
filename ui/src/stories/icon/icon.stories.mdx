@@ -1,7 +1,6 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import { OuiIconModule, Icon } from '../../components';
 import { action } from '@storybook/addon-actions';
-import { select, text, number } from '@storybook/addon-knobs';
 import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
 import { OuiiconStorybook } from './icon.component';
 
@@ -25,8 +24,19 @@ Icon with Default color:
         },
       },
     }}
+    args={{
+      size: 20,
+      icon: 'calendar',
+    }}
+    argTypes={{
+      size: {
+        control: {
+          type: 'number'
+        }
+      }
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [OuiIconModule],
         schemas: [],
@@ -36,10 +46,8 @@ Icon with Default color:
                 [icon]="icon" 
                 [size]="size">
                 </oui-icon-storybook>`,
-      props: {
-        icon: text('icon', 'calendar'),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 
@@ -55,8 +63,24 @@ You can change size and use specific colors on `Icon` component by using css:
         },
       },
     }}
+    args={{
+      size: 20,
+      color: COLORS[0],
+      icon: 'configuration',
+    }}
+    argTypes={{
+      color: {
+        options: ICON_COLORS,
+        control: { type: 'select' },
+      },
+      size: {
+        control: {
+          type: 'number'
+        }
+      }
+    }}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [OuiIconModule],
         schemas: [],
@@ -67,12 +91,8 @@ You can change size and use specific colors on `Icon` component by using css:
                 [icon]="icon" 
                 [size]="size">
                 </oui-icon-storybook>`,
-      props: {
-        color: select('color', ICON_COLORS, ICON_COLORS[0]),
-        icon: text('icon', 'configuration'),
-        size: number('size', 20),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 

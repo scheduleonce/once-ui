@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 @import '../core/style/menu-common';
 @import '../core/style/list-common';
 @import '../core/style/variables';
@@ -176,8 +178,8 @@ $gray-color: #eee;
   @include oui-truncate-line();
   display: inline-block;
   width: 100%;
-  transition: color $swift-ease-out-duration $swift-ease-out-duration / 3
-    $swift-ease-out-timing-function;
+  transition: color $swift-ease-out-duration
+    math.div($swift-ease-out-duration, 3) $swift-ease-out-timing-function;
   color: #333;
   ._oui-animation-noopable & {
     transition: none;

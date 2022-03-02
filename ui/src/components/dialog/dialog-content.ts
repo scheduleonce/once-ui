@@ -99,7 +99,7 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone
   ) {
@@ -135,7 +135,7 @@ export class OuiDialogHeaderVideo implements OnDestroy {
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone
   ) {
@@ -171,7 +171,7 @@ export class OuiDialogHeaderClose implements OnDestroy {
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef,
+    protected elementRef: ElementRef<HTMLElement>,
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone
   ) {

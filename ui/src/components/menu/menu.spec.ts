@@ -670,7 +670,7 @@ describe('OuiMenu', () => {
     fixture.componentInstance.trigger.openMenu();
 
     const panel = overlayContainerElement.querySelector('.oui-menu-panel')!;
-    const event = createKeyboardEvent('keydown', ESCAPE);
+    const event: Event = createKeyboardEvent('keydown', ESCAPE);
 
     dispatchEvent(panel, event);
     fixture.detectChanges();
@@ -1340,7 +1340,7 @@ describe('OuiMenu', () => {
 
         const items = fixture.debugElement.queryAll(By.directive(OuiMenuItem));
 
-        dispatchFakeEvent(items[0].nativeElement, 'mouseenter');
+        dispatchFakeEvent(items[0].nativeElement as HTMLElement, 'mouseenter');
         fixture.detectChanges();
         tick(500);
 

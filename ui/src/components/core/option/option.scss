@@ -68,7 +68,7 @@
 }
 
 .oui-option-pseudo-checkbox {
-  $margin: $oui-menu-side-padding / 2;
+  $margin: $oui-menu-side-padding * 0.5;
   margin-right: $margin;
 
   [dir='rtl'] & {
