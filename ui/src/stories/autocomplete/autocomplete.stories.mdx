@@ -107,9 +107,6 @@ With Group
       autoActiveFirstOption: false,
     }}
     argTypes={{
-      stateGroups: {
-        control: { type: 'object' },
-      },
       appearance: {
         options: ['standard', 'underline'],
         control: { type: 'select' },
@@ -117,7 +114,7 @@ With Group
     }}
   >
     {props => ({
-      moduleMetadata: {
+     moduleMetadata: {
         imports: [
           OuiFormFieldModule,
           OuiInputModule,
@@ -126,8 +123,9 @@ With Group
           ReactiveFormsModule,
         ],
         schemas: [],
-        declarations: [OuiAutocompleteGroupStorybook],
+        declarations: [OuiAutocompleteStorybook],
       },
+      component: OuiAutocompleteGroupStorybook,
       props: {
         ...props,
         closed: action('closed'),

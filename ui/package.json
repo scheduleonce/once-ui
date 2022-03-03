@@ -15,6 +15,11 @@
   },
   "homepage": "https://github.com/scheduleonce/once-ui#readme",
   "exports": {
-    "./prebuilt-themes/*": "./prebuilt-themes/*.scss"
+    "./prebuilt-themes/chatonce.scss": "./prebuilt-themes/chatonce.scss",
+    "./prebuilt-themes/oncehub.scss": "./prebuilt-themes/oncehub.scss",
+    "./prebuilt-themes/inviteonce.scss": "./prebuilt-themes/inviteonce.scss",
+    "./prebuilt-themes/scheduleonce.scss": "./prebuilt-themes/scheduleonce.scss",
+    "./themes/once-ui-theme-blue.css": "./themes/once-ui-theme-blue.css",
+    "./themes/once-ui-theme-green.css": "./themes/once-ui-theme-green.css"
   }
 }

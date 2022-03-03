@@ -50,9 +50,6 @@ export class OuiAutocompleteStorybook implements OnInit {
       this.myControl.enable();
     }
   }
-  constructor() {
-    console.log('Dadasdsad');
-  }
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string>(''),
@@ -121,6 +118,7 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
 
   constructor(private fb: FormBuilder) {}
   ngOnInit() {
+    console.log(this.stateGroups);
     this.stateGroupOptions = this.stateForm
       .get('stateGroup')!
       .valueChanges.pipe(
