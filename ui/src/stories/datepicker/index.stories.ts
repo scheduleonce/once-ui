@@ -124,7 +124,7 @@ export const Custom_Format = (props) => ({
 
 Custom_Format.args = {
   color: COLORS[0],
-  startView: 'start-view',
+  startView: START_VIEWS[0],
   opened: false,
   disabled: false,
   minDate: CURRENT_DATE,
@@ -184,7 +184,7 @@ export const Daterange_Picker = (props) => ({
 
 Daterange_Picker.args = {
   color: COLORS[0],
-  startView: 'start-view',
+  startView: START_VIEWS[0],
   disabled: false,
   minDate: CURRENT_DATE,
   maxDate: MAX_DATE,
