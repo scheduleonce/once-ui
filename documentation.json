@@ -1116,12 +1116,12 @@
         },
         {
             "name": "StateGroup",
-            "id": "interface-StateGroup-ece5b3590f4a40774659afa44a607a1299648fb9945dfb793fd28af8d67c5255e5334c7f1b0d236f138b303a184c0ebbc1559bf066706d7bb0db03bafe468a85",
+            "id": "interface-StateGroup-041d09421802fa3445a5ae0eb0f94ba9f4328bff821494064872898902769226c4dd8e97796b07a53335fd26fb715d6118a9e262a6037f4affcb280101d51f69",
             "file": "ui/src/stories/autocomplete/autocomplete.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Input, Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { FormControl, FormBuilder, FormGroup } from '@angular/forms';\nimport { startWith, map } from 'rxjs/operators';\n\nexport interface StateGroup {\n  letter: string;\n  names: string[];\n}\nexport const _filter = (opt: string[], value: string): string[] => {\n  const filterValue = value.toLowerCase();\n\n  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);\n};\n\n@Component({\n  selector: 'oui-autocomplete-storybook',\n  template: `\n    <oui-form-field\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input [formControl]=\"myControl\" oui-input [ouiAutocomplete]=\"auto\" />\n    </oui-form-field>\n    <oui-autocomplete\n      (closed)=\"closed()\"\n      (opened)=\"opened()\"\n      (click)=\"optionSelected($event)\"\n      [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      #auto=\"ouiAutocomplete\"\n    >\n      <oui-option\n        *ngFor=\"let option of filteredOptions | async\"\n        [value]=\"option\"\n      >\n        {{ option }}\n      </oui-option>\n    </oui-autocomplete>\n  `,\n})\nexport class OuiAutocompleteStorybook implements OnInit {\n  filteredOptions: Observable<any[]>;\n  myControl = new FormControl();\n  @Input() options: any[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.myControl.disable();\n    } else {\n      this.myControl.enable();\n    }\n  }\n  constructor() {\n    console.log('Dadasdsad');\n  }\n  ngOnInit() {\n    this.filteredOptions = this.myControl.valueChanges.pipe(\n      startWith<string>(''),\n      map((value) => (typeof value === 'string' ? value : value)),\n      map((option) => (option ? this._filter(option) : this.options.slice()))\n    );\n  }\n  private _filter(option): string[] {\n    const filterValue = option.toLowerCase();\n\n    return this.options.filter(\n      // eslint-disable-next-line no-shadow\n      (option) => option.toLowerCase().indexOf(filterValue) === 0\n    );\n  }\n}\n\n@Component({\n  selector: 'oui-autocomplete-group-storybook',\n  template: `\n    <oui-form-field\n      [formGroup]=\"stateForm\"\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input\n        type=\"text\"\n        formControlName=\"stateGroup\"\n        oui-input\n        [ouiAutocomplete]=\"autoGroup\"\n      />\n      <oui-autocomplete\n        (closed)=\"closed()\"\n        (opened)=\"opened()\"\n        (click)=\"optionSelected($event)\"\n        #autoGroup=\"ouiAutocomplete\"\n        class=\"autocomplete-group\"\n        [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      >\n        <oui-optgroup\n          *ngFor=\"let group of stateGroupOptions | async\"\n          [label]=\"group.letter\"\n        >\n          <oui-option *ngFor=\"let name of group.names\" [value]=\"name\">\n            {{ name }}\n          </oui-option>\n        </oui-optgroup>\n      </oui-autocomplete>\n    </oui-form-field>\n  `,\n})\nexport class OuiAutocompleteGroupStorybook implements OnInit {\n  @Input() stateGroups: StateGroup[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.stateForm.get('stateGroup')!.disable();\n    } else {\n      this.stateForm.get('stateGroup')!.enable();\n    }\n  }\n  stateForm: FormGroup = this.fb.group({\n    stateGroup: '',\n  });\n  stateGroupOptions: Observable<StateGroup[]>;\n\n  constructor(private fb: FormBuilder) {}\n  ngOnInit() {\n    this.stateGroupOptions = this.stateForm\n      .get('stateGroup')!\n      .valueChanges.pipe(\n        startWith(''),\n        map((value: string) => this._filterGroup(value))\n      );\n  }\n\n  private _filterGroup(value: string): StateGroup[] {\n    if (value) {\n      return this.stateGroups\n        .map((group) => ({\n          letter: group.letter,\n          names: _filter(group.names, value),\n        }))\n        .filter((group) => group.names.length > 0);\n    }\n\n    return this.stateGroups;\n  }\n}\n",
+            "sourceCode": "import { Input, Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { FormControl, FormBuilder, FormGroup } from '@angular/forms';\nimport { startWith, map } from 'rxjs/operators';\n\nexport interface StateGroup {\n  letter: string;\n  names: string[];\n}\nexport const _filter = (opt: string[], value: string): string[] => {\n  const filterValue = value.toLowerCase();\n\n  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);\n};\n\n@Component({\n  selector: 'oui-autocomplete-storybook',\n  template: `\n    <oui-form-field\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input [formControl]=\"myControl\" oui-input [ouiAutocomplete]=\"auto\" />\n    </oui-form-field>\n    <oui-autocomplete\n      (closed)=\"closed()\"\n      (opened)=\"opened()\"\n      (click)=\"optionSelected($event)\"\n      [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      #auto=\"ouiAutocomplete\"\n    >\n      <oui-option\n        *ngFor=\"let option of filteredOptions | async\"\n        [value]=\"option\"\n      >\n        {{ option }}\n      </oui-option>\n    </oui-autocomplete>\n  `,\n})\nexport class OuiAutocompleteStorybook implements OnInit {\n  filteredOptions: Observable<any[]>;\n  myControl = new FormControl();\n  @Input() options: any[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.myControl.disable();\n    } else {\n      this.myControl.enable();\n    }\n  }\n  ngOnInit() {\n    this.filteredOptions = this.myControl.valueChanges.pipe(\n      startWith<string>(''),\n      map((value) => (typeof value === 'string' ? value : value)),\n      map((option) => (option ? this._filter(option) : this.options.slice()))\n    );\n  }\n  private _filter(option): string[] {\n    const filterValue = option.toLowerCase();\n\n    return this.options.filter(\n      // eslint-disable-next-line no-shadow\n      (option) => option.toLowerCase().indexOf(filterValue) === 0\n    );\n  }\n}\n\n@Component({\n  selector: 'oui-autocomplete-group-storybook',\n  template: `\n    <oui-form-field\n      [formGroup]=\"stateForm\"\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input\n        type=\"text\"\n        formControlName=\"stateGroup\"\n        oui-input\n        [ouiAutocomplete]=\"autoGroup\"\n      />\n      <oui-autocomplete\n        (closed)=\"closed()\"\n        (opened)=\"opened()\"\n        (click)=\"optionSelected($event)\"\n        #autoGroup=\"ouiAutocomplete\"\n        class=\"autocomplete-group\"\n        [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      >\n        <oui-optgroup\n          *ngFor=\"let group of stateGroupOptions | async\"\n          [label]=\"group.letter\"\n        >\n          <oui-option *ngFor=\"let name of group.names\" [value]=\"name\">\n            {{ name }}\n          </oui-option>\n        </oui-optgroup>\n      </oui-autocomplete>\n    </oui-form-field>\n  `,\n})\nexport class OuiAutocompleteGroupStorybook implements OnInit {\n  @Input() stateGroups: StateGroup[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.stateForm.get('stateGroup')!.disable();\n    } else {\n      this.stateForm.get('stateGroup')!.enable();\n    }\n  }\n  stateForm: FormGroup = this.fb.group({\n    stateGroup: '',\n  });\n  stateGroupOptions: Observable<StateGroup[]>;\n\n  constructor(private fb: FormBuilder) {}\n  ngOnInit() {\n    console.log(this.stateGroups);\n    this.stateGroupOptions = this.stateForm\n      .get('stateGroup')!\n      .valueChanges.pipe(\n        startWith(''),\n        map((value: string) => this._filterGroup(value))\n      );\n  }\n\n  private _filterGroup(value: string): StateGroup[] {\n    if (value) {\n      return this.stateGroups\n        .map((group) => ({\n          letter: group.letter,\n          names: _filter(group.names, value),\n        }))\n        .filter((group) => group.names.length > 0);\n    }\n\n    return this.stateGroups;\n  }\n}\n",
             "properties": [
                 {
                     "name": "letter",
@@ -20765,7 +20765,7 @@
         },
         {
             "name": "OuiAutocompleteGroupStorybook",
-            "id": "component-OuiAutocompleteGroupStorybook-ece5b3590f4a40774659afa44a607a1299648fb9945dfb793fd28af8d67c5255e5334c7f1b0d236f138b303a184c0ebbc1559bf066706d7bb0db03bafe468a85",
+            "id": "component-OuiAutocompleteGroupStorybook-041d09421802fa3445a5ae0eb0f94ba9f4328bff821494064872898902769226c4dd8e97796b07a53335fd26fb715d6118a9e262a6037f4affcb280101d51f69",
             "file": "ui/src/stories/autocomplete/autocomplete.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -20783,7 +20783,7 @@
                     "name": "disabled",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 110,
+                    "line": 107,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -20791,7 +20791,7 @@
                     "name": "stateGroups",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 108,
+                    "line": 105,
                     "type": "StateGroup[]",
                     "decorators": []
                 }
@@ -20806,7 +20806,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 117
+                    "line": 114
                 },
                 {
                     "name": "stateGroupOptions",
@@ -20815,7 +20815,7 @@
                     "type": "Observable<StateGroup[]>",
                     "optional": false,
                     "description": "",
-                    "line": 120
+                    "line": 117
                 }
             ],
             "methodsClass": [
@@ -20832,7 +20832,7 @@
                     "optional": false,
                     "returnType": "StateGroup[]",
                     "typeParameters": [],
-                    "line": 132,
+                    "line": 130,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -20856,7 +20856,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 123,
+                    "line": 120,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -20868,7 +20868,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Input, Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { FormControl, FormBuilder, FormGroup } from '@angular/forms';\nimport { startWith, map } from 'rxjs/operators';\n\nexport interface StateGroup {\n  letter: string;\n  names: string[];\n}\nexport const _filter = (opt: string[], value: string): string[] => {\n  const filterValue = value.toLowerCase();\n\n  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);\n};\n\n@Component({\n  selector: 'oui-autocomplete-storybook',\n  template: `\n    <oui-form-field\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input [formControl]=\"myControl\" oui-input [ouiAutocomplete]=\"auto\" />\n    </oui-form-field>\n    <oui-autocomplete\n      (closed)=\"closed()\"\n      (opened)=\"opened()\"\n      (click)=\"optionSelected($event)\"\n      [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      #auto=\"ouiAutocomplete\"\n    >\n      <oui-option\n        *ngFor=\"let option of filteredOptions | async\"\n        [value]=\"option\"\n      >\n        {{ option }}\n      </oui-option>\n    </oui-autocomplete>\n  `,\n})\nexport class OuiAutocompleteStorybook implements OnInit {\n  filteredOptions: Observable<any[]>;\n  myControl = new FormControl();\n  @Input() options: any[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.myControl.disable();\n    } else {\n      this.myControl.enable();\n    }\n  }\n  constructor() {\n    console.log('Dadasdsad');\n  }\n  ngOnInit() {\n    this.filteredOptions = this.myControl.valueChanges.pipe(\n      startWith<string>(''),\n      map((value) => (typeof value === 'string' ? value : value)),\n      map((option) => (option ? this._filter(option) : this.options.slice()))\n    );\n  }\n  private _filter(option): string[] {\n    const filterValue = option.toLowerCase();\n\n    return this.options.filter(\n      // eslint-disable-next-line no-shadow\n      (option) => option.toLowerCase().indexOf(filterValue) === 0\n    );\n  }\n}\n\n@Component({\n  selector: 'oui-autocomplete-group-storybook',\n  template: `\n    <oui-form-field\n      [formGroup]=\"stateForm\"\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input\n        type=\"text\"\n        formControlName=\"stateGroup\"\n        oui-input\n        [ouiAutocomplete]=\"autoGroup\"\n      />\n      <oui-autocomplete\n        (closed)=\"closed()\"\n        (opened)=\"opened()\"\n        (click)=\"optionSelected($event)\"\n        #autoGroup=\"ouiAutocomplete\"\n        class=\"autocomplete-group\"\n        [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      >\n        <oui-optgroup\n          *ngFor=\"let group of stateGroupOptions | async\"\n          [label]=\"group.letter\"\n        >\n          <oui-option *ngFor=\"let name of group.names\" [value]=\"name\">\n            {{ name }}\n          </oui-option>\n        </oui-optgroup>\n      </oui-autocomplete>\n    </oui-form-field>\n  `,\n})\nexport class OuiAutocompleteGroupStorybook implements OnInit {\n  @Input() stateGroups: StateGroup[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.stateForm.get('stateGroup')!.disable();\n    } else {\n      this.stateForm.get('stateGroup')!.enable();\n    }\n  }\n  stateForm: FormGroup = this.fb.group({\n    stateGroup: '',\n  });\n  stateGroupOptions: Observable<StateGroup[]>;\n\n  constructor(private fb: FormBuilder) {}\n  ngOnInit() {\n    this.stateGroupOptions = this.stateForm\n      .get('stateGroup')!\n      .valueChanges.pipe(\n        startWith(''),\n        map((value: string) => this._filterGroup(value))\n      );\n  }\n\n  private _filterGroup(value: string): StateGroup[] {\n    if (value) {\n      return this.stateGroups\n        .map((group) => ({\n          letter: group.letter,\n          names: _filter(group.names, value),\n        }))\n        .filter((group) => group.names.length > 0);\n    }\n\n    return this.stateGroups;\n  }\n}\n",
+            "sourceCode": "import { Input, Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { FormControl, FormBuilder, FormGroup } from '@angular/forms';\nimport { startWith, map } from 'rxjs/operators';\n\nexport interface StateGroup {\n  letter: string;\n  names: string[];\n}\nexport const _filter = (opt: string[], value: string): string[] => {\n  const filterValue = value.toLowerCase();\n\n  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);\n};\n\n@Component({\n  selector: 'oui-autocomplete-storybook',\n  template: `\n    <oui-form-field\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input [formControl]=\"myControl\" oui-input [ouiAutocomplete]=\"auto\" />\n    </oui-form-field>\n    <oui-autocomplete\n      (closed)=\"closed()\"\n      (opened)=\"opened()\"\n      (click)=\"optionSelected($event)\"\n      [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      #auto=\"ouiAutocomplete\"\n    >\n      <oui-option\n        *ngFor=\"let option of filteredOptions | async\"\n        [value]=\"option\"\n      >\n        {{ option }}\n      </oui-option>\n    </oui-autocomplete>\n  `,\n})\nexport class OuiAutocompleteStorybook implements OnInit {\n  filteredOptions: Observable<any[]>;\n  myControl = new FormControl();\n  @Input() options: any[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.myControl.disable();\n    } else {\n      this.myControl.enable();\n    }\n  }\n  ngOnInit() {\n    this.filteredOptions = this.myControl.valueChanges.pipe(\n      startWith<string>(''),\n      map((value) => (typeof value === 'string' ? value : value)),\n      map((option) => (option ? this._filter(option) : this.options.slice()))\n    );\n  }\n  private _filter(option): string[] {\n    const filterValue = option.toLowerCase();\n\n    return this.options.filter(\n      // eslint-disable-next-line no-shadow\n      (option) => option.toLowerCase().indexOf(filterValue) === 0\n    );\n  }\n}\n\n@Component({\n  selector: 'oui-autocomplete-group-storybook',\n  template: `\n    <oui-form-field\n      [formGroup]=\"stateForm\"\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input\n        type=\"text\"\n        formControlName=\"stateGroup\"\n        oui-input\n        [ouiAutocomplete]=\"autoGroup\"\n      />\n      <oui-autocomplete\n        (closed)=\"closed()\"\n        (opened)=\"opened()\"\n        (click)=\"optionSelected($event)\"\n        #autoGroup=\"ouiAutocomplete\"\n        class=\"autocomplete-group\"\n        [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      >\n        <oui-optgroup\n          *ngFor=\"let group of stateGroupOptions | async\"\n          [label]=\"group.letter\"\n        >\n          <oui-option *ngFor=\"let name of group.names\" [value]=\"name\">\n            {{ name }}\n          </oui-option>\n        </oui-optgroup>\n      </oui-autocomplete>\n    </oui-form-field>\n  `,\n})\nexport class OuiAutocompleteGroupStorybook implements OnInit {\n  @Input() stateGroups: StateGroup[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.stateForm.get('stateGroup')!.disable();\n    } else {\n      this.stateForm.get('stateGroup')!.enable();\n    }\n  }\n  stateForm: FormGroup = this.fb.group({\n    stateGroup: '',\n  });\n  stateGroupOptions: Observable<StateGroup[]>;\n\n  constructor(private fb: FormBuilder) {}\n  ngOnInit() {\n    console.log(this.stateGroups);\n    this.stateGroupOptions = this.stateForm\n      .get('stateGroup')!\n      .valueChanges.pipe(\n        startWith(''),\n        map((value: string) => this._filterGroup(value))\n      );\n  }\n\n  private _filterGroup(value: string): StateGroup[] {\n    if (value) {\n      return this.stateGroups\n        .map((group) => ({\n          letter: group.letter,\n          names: _filter(group.names, value),\n        }))\n        .filter((group) => group.names.length > 0);\n    }\n\n    return this.stateGroups;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -20885,7 +20885,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 120,
+                "line": 117,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -20918,7 +20918,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 110,
+                        "line": 107,
                         "jsdoctags": [
                             {
                                 "name": "value",
@@ -20936,7 +20936,7 @@
         },
         {
             "name": "OuiAutocompleteStorybook",
-            "id": "component-OuiAutocompleteStorybook-ece5b3590f4a40774659afa44a607a1299648fb9945dfb793fd28af8d67c5255e5334c7f1b0d236f138b303a184c0ebbc1559bf066706d7bb0db03bafe468a85",
+            "id": "component-OuiAutocompleteStorybook-041d09421802fa3445a5ae0eb0f94ba9f4328bff821494064872898902769226c4dd8e97796b07a53335fd26fb715d6118a9e262a6037f4affcb280101d51f69",
             "file": "ui/src/stories/autocomplete/autocomplete.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -21003,7 +21003,7 @@
                     "optional": false,
                     "returnType": "string[]",
                     "typeParameters": [],
-                    "line": 63,
+                    "line": 60,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -21027,7 +21027,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 56,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -21039,18 +21039,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Input, Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { FormControl, FormBuilder, FormGroup } from '@angular/forms';\nimport { startWith, map } from 'rxjs/operators';\n\nexport interface StateGroup {\n  letter: string;\n  names: string[];\n}\nexport const _filter = (opt: string[], value: string): string[] => {\n  const filterValue = value.toLowerCase();\n\n  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);\n};\n\n@Component({\n  selector: 'oui-autocomplete-storybook',\n  template: `\n    <oui-form-field\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input [formControl]=\"myControl\" oui-input [ouiAutocomplete]=\"auto\" />\n    </oui-form-field>\n    <oui-autocomplete\n      (closed)=\"closed()\"\n      (opened)=\"opened()\"\n      (click)=\"optionSelected($event)\"\n      [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      #auto=\"ouiAutocomplete\"\n    >\n      <oui-option\n        *ngFor=\"let option of filteredOptions | async\"\n        [value]=\"option\"\n      >\n        {{ option }}\n      </oui-option>\n    </oui-autocomplete>\n  `,\n})\nexport class OuiAutocompleteStorybook implements OnInit {\n  filteredOptions: Observable<any[]>;\n  myControl = new FormControl();\n  @Input() options: any[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.myControl.disable();\n    } else {\n      this.myControl.enable();\n    }\n  }\n  constructor() {\n    console.log('Dadasdsad');\n  }\n  ngOnInit() {\n    this.filteredOptions = this.myControl.valueChanges.pipe(\n      startWith<string>(''),\n      map((value) => (typeof value === 'string' ? value : value)),\n      map((option) => (option ? this._filter(option) : this.options.slice()))\n    );\n  }\n  private _filter(option): string[] {\n    const filterValue = option.toLowerCase();\n\n    return this.options.filter(\n      // eslint-disable-next-line no-shadow\n      (option) => option.toLowerCase().indexOf(filterValue) === 0\n    );\n  }\n}\n\n@Component({\n  selector: 'oui-autocomplete-group-storybook',\n  template: `\n    <oui-form-field\n      [formGroup]=\"stateForm\"\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input\n        type=\"text\"\n        formControlName=\"stateGroup\"\n        oui-input\n        [ouiAutocomplete]=\"autoGroup\"\n      />\n      <oui-autocomplete\n        (closed)=\"closed()\"\n        (opened)=\"opened()\"\n        (click)=\"optionSelected($event)\"\n        #autoGroup=\"ouiAutocomplete\"\n        class=\"autocomplete-group\"\n        [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      >\n        <oui-optgroup\n          *ngFor=\"let group of stateGroupOptions | async\"\n          [label]=\"group.letter\"\n        >\n          <oui-option *ngFor=\"let name of group.names\" [value]=\"name\">\n            {{ name }}\n          </oui-option>\n        </oui-optgroup>\n      </oui-autocomplete>\n    </oui-form-field>\n  `,\n})\nexport class OuiAutocompleteGroupStorybook implements OnInit {\n  @Input() stateGroups: StateGroup[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.stateForm.get('stateGroup')!.disable();\n    } else {\n      this.stateForm.get('stateGroup')!.enable();\n    }\n  }\n  stateForm: FormGroup = this.fb.group({\n    stateGroup: '',\n  });\n  stateGroupOptions: Observable<StateGroup[]>;\n\n  constructor(private fb: FormBuilder) {}\n  ngOnInit() {\n    this.stateGroupOptions = this.stateForm\n      .get('stateGroup')!\n      .valueChanges.pipe(\n        startWith(''),\n        map((value: string) => this._filterGroup(value))\n      );\n  }\n\n  private _filterGroup(value: string): StateGroup[] {\n    if (value) {\n      return this.stateGroups\n        .map((group) => ({\n          letter: group.letter,\n          names: _filter(group.names, value),\n        }))\n        .filter((group) => group.names.length > 0);\n    }\n\n    return this.stateGroups;\n  }\n}\n",
+            "sourceCode": "import { Input, Component, OnInit } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { FormControl, FormBuilder, FormGroup } from '@angular/forms';\nimport { startWith, map } from 'rxjs/operators';\n\nexport interface StateGroup {\n  letter: string;\n  names: string[];\n}\nexport const _filter = (opt: string[], value: string): string[] => {\n  const filterValue = value.toLowerCase();\n\n  return opt.filter((item) => item.toLowerCase().indexOf(filterValue) === 0);\n};\n\n@Component({\n  selector: 'oui-autocomplete-storybook',\n  template: `\n    <oui-form-field\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input [formControl]=\"myControl\" oui-input [ouiAutocomplete]=\"auto\" />\n    </oui-form-field>\n    <oui-autocomplete\n      (closed)=\"closed()\"\n      (opened)=\"opened()\"\n      (click)=\"optionSelected($event)\"\n      [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      #auto=\"ouiAutocomplete\"\n    >\n      <oui-option\n        *ngFor=\"let option of filteredOptions | async\"\n        [value]=\"option\"\n      >\n        {{ option }}\n      </oui-option>\n    </oui-autocomplete>\n  `,\n})\nexport class OuiAutocompleteStorybook implements OnInit {\n  filteredOptions: Observable<any[]>;\n  myControl = new FormControl();\n  @Input() options: any[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.myControl.disable();\n    } else {\n      this.myControl.enable();\n    }\n  }\n  ngOnInit() {\n    this.filteredOptions = this.myControl.valueChanges.pipe(\n      startWith<string>(''),\n      map((value) => (typeof value === 'string' ? value : value)),\n      map((option) => (option ? this._filter(option) : this.options.slice()))\n    );\n  }\n  private _filter(option): string[] {\n    const filterValue = option.toLowerCase();\n\n    return this.options.filter(\n      // eslint-disable-next-line no-shadow\n      (option) => option.toLowerCase().indexOf(filterValue) === 0\n    );\n  }\n}\n\n@Component({\n  selector: 'oui-autocomplete-group-storybook',\n  template: `\n    <oui-form-field\n      [formGroup]=\"stateForm\"\n      [appearance]=\"appearance\"\n      style=\"max-width:300px;display:block;\"\n    >\n      <input\n        type=\"text\"\n        formControlName=\"stateGroup\"\n        oui-input\n        [ouiAutocomplete]=\"autoGroup\"\n      />\n      <oui-autocomplete\n        (closed)=\"closed()\"\n        (opened)=\"opened()\"\n        (click)=\"optionSelected($event)\"\n        #autoGroup=\"ouiAutocomplete\"\n        class=\"autocomplete-group\"\n        [autoActiveFirstOption]=\"autoActiveFirstOption\"\n      >\n        <oui-optgroup\n          *ngFor=\"let group of stateGroupOptions | async\"\n          [label]=\"group.letter\"\n        >\n          <oui-option *ngFor=\"let name of group.names\" [value]=\"name\">\n            {{ name }}\n          </oui-option>\n        </oui-optgroup>\n      </oui-autocomplete>\n    </oui-form-field>\n  `,\n})\nexport class OuiAutocompleteGroupStorybook implements OnInit {\n  @Input() stateGroups: StateGroup[];\n  @Input()\n  set disabled(value: boolean) {\n    if (value) {\n      this.stateForm.get('stateGroup')!.disable();\n    } else {\n      this.stateForm.get('stateGroup')!.enable();\n    }\n  }\n  stateForm: FormGroup = this.fb.group({\n    stateGroup: '',\n  });\n  stateGroupOptions: Observable<StateGroup[]>;\n\n  constructor(private fb: FormBuilder) {}\n  ngOnInit() {\n    console.log(this.stateGroups);\n    this.stateGroupOptions = this.stateForm\n      .get('stateGroup')!\n      .valueChanges.pipe(\n        startWith(''),\n        map((value: string) => this._filterGroup(value))\n      );\n  }\n\n  private _filterGroup(value: string): StateGroup[] {\n    if (value) {\n      return this.stateGroups\n        .map((group) => ({\n          letter: group.letter,\n          names: _filter(group.names, value),\n        }))\n        .filter((group) => group.names.length > 0);\n    }\n\n    return this.stateGroups;\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
-            "constructorObj": {
-                "name": "constructor",
-                "description": "",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "args": [],
-                "line": 52
-            },
             "implements": [
                 "OnInit"
             ],
@@ -53227,7 +53219,7 @@
                 "linktype": "component",
                 "name": "OuiAutocompleteStorybook",
                 "coveragePercent": 0,
-                "coverageCount": "0/8",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
