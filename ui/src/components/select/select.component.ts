@@ -222,6 +222,9 @@ export class OuiSelect
   /** Whether filling out the select is required in the form. */
   private _required = false;
 
+  /** Whether filling out the select is required in the form. */
+  private _actionItems = false;
+
   /** The scroll position of the overlay panel, calculated to center the selected option. */
   private _scrollTop = 0;
 
@@ -450,7 +453,7 @@ export class OuiSelect
     this._required = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
-
+ 
   /** Whether the user should be allowed to select multiple options. */
   @Input()
   get multiple(): boolean {
@@ -462,6 +465,18 @@ export class OuiSelect
     }
 
     this._multiple = coerceBooleanProperty(value);
+  }
+
+  /** Whether the action items are required. */
+  @Input()
+  get actionItems(): boolean {
+    return this._actionItems;
+  }
+  set actionItems(value: boolean) {
+    if (this._multiple) {
+      this._actionItems = coerceBooleanProperty(value);
+      this.stateChanges.next();
+    }
   }
 
   /** Whether to center the active option over the trigger. */
@@ -1234,14 +1249,18 @@ export class OuiSelect
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
     const containerWidth = this._elementRef.nativeElement.offsetWidth;
     ouiSelectPanel.style.width = `${containerWidth}px`;
-    if (this._document.querySelector('.oui-select-search-inner')) {
-      this.scrollCalc();
+    const searchQueryString = '.oui-select-search-inner';
+    if (this._document.querySelector(searchQueryString)) {
+      this.scrollCalc(searchQueryString);
+    }
+    const actionItemsQueryString ='.oui-select-action-items';
+    if (this._document.querySelector(actionItemsQueryString)) {
+      this.scrollCalc(actionItemsQueryString);
     }
   }
-
-  scrollCalc() {
+  scrollCalc(selectQueryString:string) {
     const searchInput = this._document.querySelector(
-      '.oui-select-search-inner'
+      selectQueryString
     );
     const outter = this._document.querySelector('.oui-select-panel');
     let inner = this._document.querySelector('.oui-option');
