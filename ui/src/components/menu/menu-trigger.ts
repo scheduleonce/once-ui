@@ -243,7 +243,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   }
 
   /** Closes the menu. */
-  closeMenu(event?): void {
+  closeMenu(event?: 'click' | 'keydown' | 'tab'): void {
     this.menu.close.emit(event);
   }
 

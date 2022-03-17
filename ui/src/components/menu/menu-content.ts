@@ -31,7 +31,7 @@ export class OuiMenuContent implements OnDestroy {
     private _appRef: ApplicationRef,
     private _injector: Injector,
     private _viewContainerRef: ViewContainerRef,
-    @Inject(DOCUMENT) private _document: any
+    @Inject(DOCUMENT) private _document: Document
   ) {}
 
   /**

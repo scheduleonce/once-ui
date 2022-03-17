@@ -528,7 +528,7 @@ export class OuiSelect
     @Self() @Optional() public ngControl: NgControl,
     @Attribute('tabindex') tabIndex: string,
     @Optional() @Inject(DOCUMENT) private _document: any,
-    public _elementRef: ElementRef,
+    public _elementRef: ElementRef<HTMLElement>,
     public _ouiIconRegistry: OuiIconRegistry,
     private _domSanitizer: DomSanitizer
   ) {

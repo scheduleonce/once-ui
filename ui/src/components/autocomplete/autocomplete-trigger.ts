@@ -240,7 +240,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     private _formField: OuiFormField,
     @Optional()
     @Inject(DOCUMENT)
-    private _document: any,
+    private _document: Document,
     // @breaking-change 8.0.0 Make `_viewportRuler` required.
     private _viewportRuler?: ViewportRuler
   ) {

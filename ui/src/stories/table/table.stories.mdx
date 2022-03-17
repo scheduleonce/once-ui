@@ -9,7 +9,6 @@ import {
   OuiTable,
 } from '../../components';
 
-import { object, number } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NAMES, COLORS, USERINFODATASOURCE } from './const';
 import {
@@ -39,8 +38,9 @@ Regular Table:
         },
       },
     }}
+    args={{pageSize: 10}}
   >
-    {{
+    {props => ({
       moduleMetadata: {
         imports: [
           OuiTableModule,
@@ -54,10 +54,8 @@ Regular Table:
         declarations: [OuiTableStorybook],
       },
       template: `<oui-table-storybook [pageSize]="pageSize"></oui-table-storybook>`,
-      props: {
-        pageSize: number('pageSize', 10),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 
@@ -74,8 +72,11 @@ Custom Table:
         },
       },
     }}
+    args={{
+      data: USERINFODATASOURCE,
+    }}
   >
-    {{
+    {props=> ({
       moduleMetadata: {
         imports: [
           OuiTableModule,
@@ -89,10 +90,8 @@ Custom Table:
         declarations: [OuiTableCustomStorybook],
       },
       template: `<oui-table-custom-storybook [users]="data"></oui-table-custom-storybook>`,
-      props: {
-        data: object('data', USERINFODATASOURCE),
-      },
-    }}
+      props,
+    })}
   </Story>
 </Canvas>
 

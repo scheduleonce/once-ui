@@ -42,6 +42,7 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
     }
 
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
       this._cdr = args[1];
       this._progress = null;

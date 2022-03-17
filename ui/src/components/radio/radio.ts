@@ -302,7 +302,7 @@ export class OuiRadioButtonBase {
   // defined to properly work.
   // disabled: boolean;
 
-  constructor(public _elementRef: ElementRef) {}
+  constructor(public _elementRef: ElementRef<HTMLElement>) {}
 }
 
 export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase =
@@ -484,7 +484,7 @@ export class OuiRadioButton
 
   constructor(
     @Optional() radioGroup: OuiRadioGroup,
-    elementRef: ElementRef,
+    elementRef: ElementRef<HTMLElement>,
     private _changeDetector: ChangeDetectorRef,
     private _focusMonitor: FocusMonitor,
     private _radioDispatcher: UniqueSelectionDispatcher,

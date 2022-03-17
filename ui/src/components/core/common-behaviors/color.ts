@@ -45,6 +45,7 @@ export function mixinColor<T extends Constructor<HasElementRef>>(
     }
 
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
       // Set the default color that can be specified from the mixin.
       this.color = defaultColor;
