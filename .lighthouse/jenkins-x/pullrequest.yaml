@@ -278,7 +278,7 @@ spec:
           image: dockeronce.azurecr.io/jenkins/once-ui:latest
           name: check-lint
         - args:
-          - env.NODE_ENV = "test" && npm run test
+          - export NODE_ENV="test" && npm run test
           command:
           - /bin/sh
           - -c
