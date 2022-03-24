@@ -257,12 +257,12 @@ spec:
           name: pr-version
           resources: {}
         - args:
-          - node -v && npm run clean && npm install && npm run build
+          - node -v && npm ci
           command:
           - /bin/sh
           - -c
           image: dockeronce.azurecr.io/jenkins/once-ui:latest
-          name: ts-build
+          name: install-packages
         volumes:
         - emptyDir: {}
           name: workspace-volume
