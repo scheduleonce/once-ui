@@ -263,6 +263,20 @@ spec:
           - -c
           image: dockeronce.azurecr.io/jenkins/once-ui:latest
           name: install-packages
+        - args:
+          - npm run prettier
+          command:
+          - /bin/sh
+          - -c
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: check-prettier
+        - args:
+          - npm run lint
+          command:
+          - /bin/sh
+          - -c
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: check-lint
         volumes:
         - emptyDir: {}
           name: workspace-volume
