@@ -256,6 +256,13 @@ spec:
           image: ghcr.io/jenkins-x/builder-go
           name: pr-version
           resources: {}
+        - args:
+          - node -v && npm run clean && npm install && npm run build
+          command:
+          - /bin/sh
+          - -c
+          image: docker pull dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: ts-build
         volumes:
         - emptyDir: {}
           name: workspace-volume
