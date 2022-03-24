@@ -277,6 +277,13 @@ spec:
           - -c
           image: dockeronce.azurecr.io/jenkins/once-ui:latest
           name: check-lint
+        - args:
+          - npm run test
+          command:
+          - /bin/sh
+          - -c
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: unit-tests
         volumes:
         - emptyDir: {}
           name: workspace-volume
