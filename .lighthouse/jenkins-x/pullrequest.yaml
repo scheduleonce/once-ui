@@ -261,7 +261,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: docker pull dockeronce.azurecr.io/jenkins/once-ui:latest
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
           name: ts-build
         volumes:
         - emptyDir: {}
