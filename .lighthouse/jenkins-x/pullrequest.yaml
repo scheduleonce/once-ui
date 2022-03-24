@@ -205,6 +205,14 @@ spec:
           name: git-clone
           resources: {}
           workingDir: /workspace
+        - args:
+          - '[ -d /builder/home ] || mkdir -p /builder && ln -s /tekton/home /builder/home'
+          command:
+          - /bin/sh
+          - -c
+          image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
+          name: setup-builder-home
+          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
