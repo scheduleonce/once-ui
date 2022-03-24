@@ -229,6 +229,33 @@ spec:
           image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
           name: git-merge
           resources: {}
+        - args:
+          - -c
+          - |
+            /bin/bash <<'EOF'
+            # Script to evaluate image tag.
+            branchName=$PULL_BASE_REF
+            echo "eval tag script for $branchName branch..."
+            teamBranchReg="team\/.*"
+            storyBranchReg=".*\/story\/.*"
+            if [[ $branchName =~ $teamBranchReg ]]; then
+              tag=$(echo $branchName | sed 's/team\//''/g' )
+            elif [[ $branchName =~ $storyBranchReg ]]; then
+              tag=$(echo $branchName | sed 's/\/.*/''/g' )
+            elif [[ $branchName == "master" ]]; then
+              tag="prod"
+            elif [[ $branchName == "qa" || $branchName == "staging-app2" ]]; then
+              tag=$branchName
+            else
+              tag="${branchName//\//'-'}"
+            fi
+            echo $tag > VERSION
+            EOF
+          command:
+          - /bin/sh
+          image: ghcr.io/jenkins-x/builder-go
+          name: pr-version
+          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
