@@ -233,23 +233,7 @@ spec:
           - -c
           - |
             /bin/bash <<'EOF'
-            # Script to evaluate image tag.
-            branchName=$PULL_BASE_REF
-            echo "eval tag script for $branchName branch..."
-            teamBranchReg="team\/.*"
-            storyBranchReg=".*\/story\/.*"
-            if [[ $branchName =~ $teamBranchReg ]]; then
-              tag=$(echo $branchName | sed 's/team\//''/g' )
-            elif [[ $branchName =~ $storyBranchReg ]]; then
-              tag=$(echo $branchName | sed 's/\/.*/''/g' )
-            elif [[ $branchName == "master" ]]; then
-              tag="prod"
-            elif [[ $branchName == "qa" || $branchName == "staging-app2" ]]; then
-              tag=$branchName
-            else
-              tag="${branchName//\//'-'}"
-            fi
-            echo $tag > VERSION
+            echo "qa" > VERSION
             EOF
           command:
           - /bin/sh
@@ -284,6 +268,15 @@ spec:
           - -c
           image: dockeronce.azurecr.io/jenkins/once-ui:latest
           name: unit-tests
+        - args:
+          - echo "Pushing image $DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
+            && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}
+          command:
+          - /busybox/sh
+          - -c
+          image: gcr.io/kaniko-project/executor:debug-v0.24.0
+          name: docker-build
+          resources: {} 
         volumes:
         - emptyDir: {}
           name: workspace-volume
