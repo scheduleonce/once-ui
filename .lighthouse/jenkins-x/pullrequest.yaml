@@ -213,6 +213,22 @@ spec:
           image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
           name: setup-builder-home
           resources: {}
+        - args:
+          - step
+          - git
+          - merge
+          - --verbose
+          - --baseSHA
+          - $(params.PULL_BASE_SHA)
+          - --sha
+          - $(params.PULL_PULL_SHA)
+          - --baseBranch
+          - $(params.PULL_BASE_REF)
+          command:
+          - jx
+          image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
+          name: git-merge
+          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
