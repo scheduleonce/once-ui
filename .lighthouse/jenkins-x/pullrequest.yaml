@@ -7,8 +7,8 @@ metadata:
     build: "1"
     jenkins.io/pipelineType: build
     owner: jenkins-x-quickstarts
-    repository: once-ui
-  name: once-ui-pr
+    repository: node-http
+  name: onceui-pr
 spec:
   pipelineSpec:
     params:
@@ -56,7 +56,7 @@ spec:
       name: REPO_URL
       type: string
     tasks:
-    - name: once-ui-pr
+    - name: onceui-pr
       params:
       - name: BUILD_ID
         value: $(params.BUILD_ID)
@@ -191,7 +191,7 @@ spec:
             NC='\033[0m' # No Color
             mergeDisabled=$(cat "/merge-disabled/MERGE_DISABLED")
             if [[ $(params.PULL_BASE_REF) == "qa" && $mergeDisabled == "true" ]]; then
-              echo -e "\n ${RED}Merge is temporarly disabled for $(params.PULL_BASE_REF) branch...Please close/reopen the PR's once merge is enabled...${NC}"
+                echo -e "\n ${RED}Merge is temporarly disabled for $(params.PULL_BASE_REF) branch...Please close/reopen the PR's once merge is enabled...${NC}"
               exit 1;
             fi
           image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
@@ -233,23 +233,7 @@ spec:
           - -c
           - |
             /bin/bash <<'EOF'
-            # Script to evaluate image tag.
-            branchName=$PULL_BASE_REF
-            echo "eval tag script for $branchName branch..."
-            teamBranchReg="team\/.*"
-            storyBranchReg=".*\/story\/.*"
-            if [[ $branchName =~ $teamBranchReg ]]; then
-              tag=$(echo $branchName | sed 's/team\//''/g' )
-            elif [[ $branchName =~ $storyBranchReg ]]; then
-              tag=$(echo $branchName | sed 's/\/.*/''/g' )
-            elif [[ $branchName == "master" ]]; then
-              tag="prod"
-            elif [[ $branchName == "qa" || $branchName == "staging-app2" ]]; then
-              tag=$branchName
-            else
-              tag="${branchName//\//'-'}"
-            fi
-            echo $tag > VERSION
+            echo "qa" > VERSION
             EOF
           command:
           - /bin/sh
@@ -257,53 +241,42 @@ spec:
           name: pr-version
           resources: {}
         - args:
-          - node -v && npm run clean && npm install && npm run build
+          - node -v && npm ci
           command:
           - /bin/sh
           - -c
-          image: onceinternal.azurecr.io/jenkins/once-ui:latest
-          name: ts-build
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: install-packages
         - args:
-          - npm ci
+          - npm run prettier
           command:
           - /bin/sh
           - -c
-          image: onceinternal.azurecr.io/jenkins/once-ui:latest
-          name: install dependencies
-          resources: {}  
-        - args:
-          - npm run test:prettier
-          command:
-          - /bin/sh
-          - -c
-          image: onceinternal.azurecr.io/jenkins/once-ui:latest
-          name: test-prettier
-          resources: {}
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: check-prettier
         - args:
           - npm run lint
           command:
           - /bin/sh
           - -c
-          image: onceinternal.azurecr.io/jenkins/once-ui:latest
-          name: test-lint
-          resources: {}
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: check-lint
         - args:
-          - npm run test
+          - export NODE_ENV="test" && npm run test
           command:
           - /bin/sh
           - -c
-          image: onceinternal.azurecr.io/jenkins/once-ui:latest
-          name: test-unit
-          resources: {}  
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          name: unit-tests
         - args:
-          - echo "Pushing image $DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-            && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}
+          - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
+            && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}
           command:
           - /busybox/sh
           - -c
           image: gcr.io/kaniko-project/executor:debug-v0.24.0
           name: docker-build
-          resources: {}         
+          resources: {} 
         volumes:
         - emptyDir: {}
           name: workspace-volume
