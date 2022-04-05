@@ -187,6 +187,9 @@ spec:
           - mountPath: /etc/qa-cd-cred
             name: qa-cd-cred
             readOnly: true
+          - mountPath: /etc/npm-cred
+            name: npm-cred
+            readOnly: true
           workingDir: /workspace/source
         steps:
         - script: |
@@ -262,6 +265,14 @@ spec:
           image: gcr.io/kaniko-project/executor:debug-v0.24.0
           name: docker-build
           resources: {}
+        - args:
+          - sh deploy.sh
+          command:
+          - /bin/sh
+          - -c
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
+          name: package-build-publish
+          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
@@ -274,6 +285,9 @@ spec:
         - name: qa-cd-cred
           secret:
             secretName: qa-cd-cred
+        - name: npm-cred
+          secret:
+            secretName: npm-cred
   podTemplate:
     ImagePullSecrets:
     - name: tekton-container-registry-auth
