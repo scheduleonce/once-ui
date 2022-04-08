@@ -14,5 +14,6 @@ spec:
     context: "release"
     source: "release.yaml"
     branches:
+    - ^(master)$
     - ^(qa)$
     - ^(team\/.+)$

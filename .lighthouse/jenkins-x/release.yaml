@@ -187,6 +187,9 @@ spec:
           - mountPath: /etc/qa-cd-cred
             name: qa-cd-cred
             readOnly: true
+          - mountPath: /etc/npm-cred
+            name: npm-cred
+            readOnly: true
           workingDir: /workspace/source
         steps:
         - script: |
@@ -238,23 +241,7 @@ spec:
           - -c
           - |
             /bin/bash <<'EOF'
-            # Script to evaluate image tag.
-            branchName=$PULL_BASE_REF
-            echo "eval tag script for $branchName branch..."
-            teamBranchReg="team\/.*"
-            storyBranchReg=".*\/story\/.*"
-            if [[ $branchName =~ $teamBranchReg ]]; then
-              tag=$(echo $branchName | sed 's/team\//''/g' )
-            elif [[ $branchName =~ $storyBranchReg ]]; then
-              tag=$(echo $branchName | sed 's/\/.*/''/g' )
-            elif [[ $branchName == "master" ]]; then
-              tag="prod"
-            elif [[ $branchName == "qa" || $branchName == "staging-app2" ]]; then
-              tag=$branchName
-            else
-              tag="${branchName//\//'-'}"
-            fi
-            echo $tag > VERSION
+            echo "qa" > VERSION
             EOF
           command:
           - /bin/sh
@@ -270,13 +257,21 @@ spec:
           name: setup-builder-home
           resources: {}
         - args:
-          - echo "Pushing image $DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-latest..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-            && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-latest
+          - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
+            && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)
           command:
           - /busybox/sh
           - -c
           image: gcr.io/kaniko-project/executor:debug-v0.24.0
           name: docker-build
+          resources: {}
+        - args:
+          - sh deploy.sh
+          command:
+          - /bin/sh
+          - -c
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
+          name: package-build-publish
           resources: {}
         volumes:
         - emptyDir: {}
@@ -290,6 +285,9 @@ spec:
         - name: qa-cd-cred
           secret:
             secretName: qa-cd-cred
+        - name: npm-cred
+          secret:
+            secretName: npm-cred
   podTemplate:
     ImagePullSecrets:
     - name: tekton-container-registry-auth

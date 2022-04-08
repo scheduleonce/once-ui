@@ -2,7 +2,7 @@
 
 [![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-We are building and maintaining UI components and tools that will help you to build up your own custom components with a lot of customizing options.
+We are building and maintaining UI components and tools that will help you to build up your own custom components with a lot of customizing options..
 
 ## How to install?
 
