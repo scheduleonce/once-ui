@@ -66,30 +66,28 @@ describe('OuiMonthView', () => {
   let dir: { value: Direction };
   console.log(dir);
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [OuiNativeDateModule],
-        declarations: [
-          OuiCalendarBody,
-          OuiMonthView,
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiNativeDateModule],
+      declarations: [
+        OuiCalendarBody,
+        OuiMonthView,
 
-          // Test components.
-          StandardMonthView,
-          MonthViewWithDateFilter,
-          MonthViewWithDateClass,
-        ],
-        providers: [
-          {
-            provide: Directionality,
-            useFactory: () => (dir = { value: 'ltr' }),
-          },
-        ],
-      });
+        // Test components.
+        StandardMonthView,
+        MonthViewWithDateFilter,
+        MonthViewWithDateClass,
+      ],
+      providers: [
+        {
+          provide: Directionality,
+          useFactory: () => (dir = { value: 'ltr' }),
+        },
+      ],
+    });
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   describe('standard month view', () => {
     let fixture: ComponentFixture<StandardMonthView>;
