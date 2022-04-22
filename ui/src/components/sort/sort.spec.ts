@@ -238,27 +238,25 @@ describe('OuiSort', () => {
 
   let component: SimpleOuiSortApp;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [
-          OuiSortModule,
-          OuiTableModule,
-          CdkTableModule,
-          NoopAnimationsModule,
-        ],
-        declarations: [
-          SimpleOuiSortApp,
-          CdkTableOuiSortApp,
-          OuiTableOuiSortApp,
-          OuiSortHeaderMissingOuiSortApp,
-          OuiSortDuplicateOuiSortableIdsApp,
-          OuiSortableMissingIdApp,
-          OuiSortableInvalidDirection,
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [
+        OuiSortModule,
+        OuiTableModule,
+        CdkTableModule,
+        NoopAnimationsModule,
+      ],
+      declarations: [
+        SimpleOuiSortApp,
+        CdkTableOuiSortApp,
+        OuiTableOuiSortApp,
+        OuiSortHeaderMissingOuiSortApp,
+        OuiSortDuplicateOuiSortableIdsApp,
+        OuiSortableMissingIdApp,
+        OuiSortableInvalidDirection,
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SimpleOuiSortApp);

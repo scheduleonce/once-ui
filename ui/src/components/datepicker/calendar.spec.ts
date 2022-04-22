@@ -118,27 +118,25 @@ export class MockNgZone extends NgZone {
 describe('OuiCalendar', () => {
   let zone: MockNgZone;
   console.log(zone);
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [OuiNativeDateModule, OuiDatepickerModule],
-        declarations: [
-          // Test components.
-          StandardCalendar,
-          CalendarWithMinMax,
-          CalendarWithDateFilter,
-          CalendarWithSelectableMinDate,
-        ],
-        providers: [
-          OuiDatepickerIntl,
-          { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
-          { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
-        ],
-      });
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiNativeDateModule, OuiDatepickerModule],
+      declarations: [
+        // Test components.
+        StandardCalendar,
+        CalendarWithMinMax,
+        CalendarWithDateFilter,
+        CalendarWithSelectableMinDate,
+      ],
+      providers: [
+        OuiDatepickerIntl,
+        { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
+        { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
+      ],
+    });
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   describe('standard calendar', () => {
     let fixture: ComponentFixture<StandardCalendar>;
