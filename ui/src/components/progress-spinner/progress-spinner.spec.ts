@@ -33,18 +33,16 @@ describe('OuiProgressSpinner', () => {
   let basicProgressSpinnerFixture: ComponentFixture<BasicProgressSpinner>;
   let progressSpinnerDiameterFixture: ComponentFixture<ProgressSpinnerCustomDiameter>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          OuiProgressSpinner,
-          BasicProgressSpinner,
-          ProgressSpinnerCustomDiameter,
-          ProgressSpinnerWithColor,
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        OuiProgressSpinner,
+        BasicProgressSpinner,
+        ProgressSpinnerCustomDiameter,
+        ProgressSpinnerWithColor,
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiProgressSpinner);

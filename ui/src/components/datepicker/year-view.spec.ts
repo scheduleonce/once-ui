@@ -60,29 +60,27 @@ describe('OuiYearView', () => {
   let dir: { value: Direction };
   console.log(dir);
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [OuiNativeDateModule],
-        declarations: [
-          OuiCalendarBody,
-          OuiYearView,
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiNativeDateModule],
+      declarations: [
+        OuiCalendarBody,
+        OuiYearView,
 
-          // Test components.
-          StandardYearView,
-          YearViewWithDateFilter,
-        ],
-        providers: [
-          {
-            provide: Directionality,
-            useFactory: () => (dir = { value: 'ltr' }),
-          },
-        ],
-      });
+        // Test components.
+        StandardYearView,
+        YearViewWithDateFilter,
+      ],
+      providers: [
+        {
+          provide: Directionality,
+          useFactory: () => (dir = { value: 'ltr' }),
+        },
+      ],
+    });
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   describe('standard year view', () => {
     let fixture: ComponentFixture<StandardYearView>;
