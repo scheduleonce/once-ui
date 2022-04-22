@@ -55,29 +55,27 @@ describe('OuiMultiYearView', () => {
   let dir: { value: Direction };
   console.log(dir);
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [OuiNativeDateModule],
-        declarations: [
-          OuiCalendarBody,
-          OuiMultiYearView,
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiNativeDateModule],
+      declarations: [
+        OuiCalendarBody,
+        OuiMultiYearView,
 
-          // Test components.
-          StandardMultiYearView,
-          MultiYearViewWithDateFilter,
-        ],
-        providers: [
-          {
-            provide: Directionality,
-            useFactory: () => (dir = { value: 'ltr' }),
-          },
-        ],
-      });
+        // Test components.
+        StandardMultiYearView,
+        MultiYearViewWithDateFilter,
+      ],
+      providers: [
+        {
+          provide: Directionality,
+          useFactory: () => (dir = { value: 'ltr' }),
+        },
+      ],
+    });
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   describe('standard multi-year view', () => {
     let fixture: ComponentFixture<StandardMultiYearView>;

@@ -51,20 +51,18 @@ function createCell(value: number, cellClasses?: OuiCalendarCellCssClasses) {
 }
 
 describe('OuiCalendarBody', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [
-          OuiCalendarBody,
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [
+        OuiCalendarBody,
 
-          // Test components.
-          StandardCalendarBody,
-        ],
-      });
+        // Test components.
+        StandardCalendarBody,
+      ],
+    });
 
-      TestBed.compileComponents();
-    })
-  );
+    TestBed.compileComponents();
+  }));
 
   describe('standard calendar body', () => {
     let fixture: ComponentFixture<StandardCalendarBody>;

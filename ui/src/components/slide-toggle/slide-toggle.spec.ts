@@ -6,13 +6,11 @@ describe('OuiSlideToggle', () => {
   let component: OuiSlideToggle;
   let fixture: ComponentFixture<OuiSlideToggle>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OuiSlideToggle],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [OuiSlideToggle],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiSlideToggle);

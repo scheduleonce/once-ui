@@ -24,13 +24,11 @@ describe('OuiProgressBar', () => {
   let fixture: ComponentFixture<OuiProgressBar>;
   let BasicProgressBarFixture: ComponentFixture<BasicProgressBar>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [OuiProgressBar, BasicProgressBar, ProgressBarWithColor],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [OuiProgressBar, BasicProgressBar, ProgressBarWithColor],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiProgressBar);

@@ -90,20 +90,18 @@ describe('OuiPaginator', () => {
   let component: OuiPaginatorApp;
   let paginator: OuiPaginator;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [OuiPaginatorModule, NoopAnimationsModule],
-        declarations: [
-          OuiPaginatorApp,
-          OuiPaginatorWithoutOptionsApp,
-          OuiPaginatorWithoutInputsApp,
-          OuiPaginatorWithStringValues,
-        ],
-        providers: [OuiPaginatorIntl],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      imports: [OuiPaginatorModule, NoopAnimationsModule],
+      declarations: [
+        OuiPaginatorApp,
+        OuiPaginatorWithoutOptionsApp,
+        OuiPaginatorWithoutInputsApp,
+        OuiPaginatorWithStringValues,
+      ],
+      providers: [OuiPaginatorIntl],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiPaginatorApp);
