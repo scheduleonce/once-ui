@@ -1,9 +1,10 @@
 {
   "name": "oncehub-ui",
-  "version": "7.0.3",
+  "version": "7.0.4-beta.2",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
+    "postbuild": "gulp copy",
     "test": "ng test ui",
     "lint": "ng lint ui --format stylish",
     "prettier": "prettier --list-different \"**/*.{ts,js,css,scss,md,html}\"",
@@ -70,6 +71,7 @@
     "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jsdoc": "37.9.1",
     "eslint-plugin-prefer-arrow": "1.2.3",
+    "gulp": "4.0.2",
     "jasmine-core": "4.1.0",
     "jasmine-spec-reporter": "7.0.0",
     "karma": "6.3.19",
