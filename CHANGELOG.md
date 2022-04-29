@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.4] - 2022-04-29
+
+### Added
+
+- NA
+
+### Changed
+
+- [ONCEHUB-54109] CVE-2021-3803 vulnerability found in package nth-check in project once-ui
+- [ONCEHUB-53688] CVE-2021-43138 vulnerability found in package async in project once-ui
+- [ONCEHUB-53848] CVE-2021-43138 vulnerability found in package async in project once-ui
+
 ## [7.0.3] - 2022-04-08
 
 ### Added
