@@ -1,6 +1,6 @@
 def testReports = false
 //stage 'Build'
-node {
+node('once-ui-pod') {
     try {
         def branchName = env.CHANGE_TARGET
         if (branchName == null) {
@@ -8,25 +8,26 @@ node {
         }
         def parseChannelAndEnv = getEnvironment(branchName)
         def environment = parseChannelAndEnv[0]
+      container('once-ui'){
         stage('Checkout') {
             checkout scm
         }
+      }
+      container('once-ui'){
         stage('Test') {
             env.NODE_ENV = "test"
-            print "Environment will be : ${env.NODE_ENV}"
-            env.NODEJS_HOME = tool 'node:12.20.1'
-            print "NODEJS_HOME will be : ${env.NODEJS_HOME}"
-            env.PATH = "${env.NODEJS_HOME}/bin:${env.PATH}"
                 sh "npm ci"
                 sh "npm run prettier"
                 sh "npm run lint"
                 sh "npm run test"
                 testReports = true
         }
+      }
+      container('once-ui'){
         stage('Docker Image Build') {
           println environment
           def registry_url = "http://dockeronce.azurecr.io/" // Docker Hub
-          def docker_creds_id = "b7a7c427-8138-44ca-ad6a-aaeac3059151" // name of the Jenkins Credentials ID
+          def docker_creds_id = "dockeronce" // name of the Jenkins Credentials ID
           if( environment!= null ) {
             docker.withRegistry("${registry_url}", "${docker_creds_id}") {
               echo "Building docker image with docker.build(once-ui:qa)"
@@ -37,6 +38,7 @@ node {
             }
           }
         }
+      }
     } catch (e) {
         currentBuild.result = "FAILED"
         throw e
