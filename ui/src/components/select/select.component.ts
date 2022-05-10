@@ -216,6 +216,10 @@ export class OuiSelect
     OuiFormFieldControl<any>,
     CanUpdateErrorState
 {
+  /**Holds previous selected values */
+  private _previousValues = [];
+  /**Done button disabled until dropdown is dirty */
+  disableDoneButton = true;
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
@@ -398,6 +402,10 @@ export class OuiSelect
   @Output()
   readonly selectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
 
+/** Event emitted when the selected value has been changed and saved by the user. */
+  @Output()
+  readonly saveSelectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
+
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
@@ -467,7 +475,7 @@ export class OuiSelect
     this._multiple = coerceBooleanProperty(value);
   }
 
-  /** Whether the action items are required. */
+  /** Whether the action items are required and use saveSelectionChange instead of selectionChange. */
   @Input()
   get actionItems(): boolean {
     return this._actionItems;
@@ -962,6 +970,7 @@ export class OuiSelect
       this._setSelectionByValue(
         this.ngControl ? this.ngControl.value : this._value
       );
+      this._previousValues = this.ngControl ? this.ngControl.value : this._value
     });
   }
 
@@ -1105,10 +1114,21 @@ export class OuiSelect
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-
+    this.disableDoneButton = false;
     this.stateChanges.next();
   }
-
+  discardRecentChanges() {
+    this.value = this._previousValues;
+    this._setSelectionByValue(this.value);
+    this.disableDoneButton = true;
+    this.close();
+  }
+  doneRecentChanges(){
+    this._previousValues = this.value;
+    this.disableDoneButton = true;
+    this.saveSelectionChange.emit(this.value as OuiSelectChange);
+    this.close();
+  }
   /** Sorts the selected values in the selected based on their order in the panel. */
   private _sortValues() {
     if (this.multiple) {
