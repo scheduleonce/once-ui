@@ -16,7 +16,7 @@ import { OuiButtonModule } from '../button/button-module';
     OuiInputModule,
     CommonModule,
     OuiIconModule,
-    OuiButtonModule
+    OuiButtonModule,
   ],
   exports: [
     OuiOptionModule,

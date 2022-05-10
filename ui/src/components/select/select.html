@@ -50,6 +50,23 @@
     [class.oui-select-large]="large"
   >
     <ng-content></ng-content>
-    <div *ngIf="actionItems" class="oui-select-action-wrapper"><div class="oui-select-action-items"><button oui-link-button color="primary" (click)="discardRecentChanges()">Cancel</button><button oui-button color="primary" [disabled]="disableDoneButton" (click)="doneRecentChanges()">Done</button></div></div>
+    <div *ngIf="actionItems" class="oui-select-action-wrapper">
+      <div class="oui-select-action-items">
+        <button
+          oui-link-button
+          color="primary"
+          (click)="discardRecentChanges()"
+        >
+          Cancel</button
+        ><button
+          oui-button
+          color="primary"
+          [disabled]="disableDoneButton"
+          (click)="doneRecentChanges()"
+        >
+          Done
+        </button>
+      </div>
+    </div>
   </div>
 </ng-template>

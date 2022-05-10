@@ -402,7 +402,7 @@ export class OuiSelect
   @Output()
   readonly selectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
 
-/** Event emitted when the selected value has been changed and saved by the user. */
+  /** Event emitted when the selected value has been changed and saved by the user. */
   @Output()
   readonly saveSelectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
 
@@ -461,7 +461,7 @@ export class OuiSelect
     this._required = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
- 
+
   /** Whether the user should be allowed to select multiple options. */
   @Input()
   get multiple(): boolean {
@@ -970,7 +970,9 @@ export class OuiSelect
       this._setSelectionByValue(
         this.ngControl ? this.ngControl.value : this._value
       );
-      this._previousValues = this.ngControl ? this.ngControl.value : this._value
+      this._previousValues = this.ngControl
+        ? this.ngControl.value
+        : this._value;
     });
   }
 
@@ -1123,7 +1125,7 @@ export class OuiSelect
     this.disableDoneButton = true;
     this.close();
   }
-  doneRecentChanges(){
+  doneRecentChanges() {
     this._previousValues = this.value;
     this.disableDoneButton = true;
     this.saveSelectionChange.emit(this.value as OuiSelectChange);
@@ -1273,15 +1275,13 @@ export class OuiSelect
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
     }
-    const actionItemsQueryString ='.oui-select-action-items';
+    const actionItemsQueryString = '.oui-select-action-items';
     if (this._document.querySelector(actionItemsQueryString)) {
       this.scrollCalc(actionItemsQueryString);
     }
   }
-  scrollCalc(selectQueryString:string) {
-    const searchInput = this._document.querySelector(
-      selectQueryString
-    );
+  scrollCalc(selectQueryString: string) {
+    const searchInput = this._document.querySelector(selectQueryString);
     const outter = this._document.querySelector('.oui-select-panel');
     let inner = this._document.querySelector('.oui-option');
     if (inner === null) {
