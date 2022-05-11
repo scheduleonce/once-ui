@@ -1128,7 +1128,7 @@ export class OuiSelect
   doneRecentChanges() {
     this._previousValues = this.value;
     this.disableDoneButton = true;
-    this.saveSelectionChange.emit(this.value as OuiSelectChange);
+    this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
   /** Sorts the selected values in the selected based on their order in the panel. */
