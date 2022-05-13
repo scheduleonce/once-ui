@@ -216,8 +216,8 @@ export class OuiSelect
     OuiFormFieldControl<any>,
     CanUpdateErrorState
 {
-  /**Holds previous selected values */
-  private _previousValues = [];
+  /**Holds selected values after done */
+  @Input() savedValues = [];
   /**Done button disabled until dropdown is dirty */
   disableDoneButton = true;
   /** Whether or not the overlay panel is open. */
@@ -970,7 +970,7 @@ export class OuiSelect
       this._setSelectionByValue(
         this.ngControl ? this.ngControl.value : this._value
       );
-      this._previousValues = this.ngControl
+      this.savedValues = this.ngControl
         ? this.ngControl.value
         : this._value;
     });
@@ -1120,13 +1120,13 @@ export class OuiSelect
     this.stateChanges.next();
   }
   discardRecentChanges() {
-    this.value = this._previousValues;
+    this.value = this.savedValues;
     this._setSelectionByValue(this.value);
     this.disableDoneButton = true;
     this.close();
   }
   doneRecentChanges() {
-    this._previousValues = this.value;
+    this.savedValues = this.value;
     this.disableDoneButton = true;
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
