@@ -104,16 +104,18 @@ export class OuiSelectSearchComponent
       this.onChange(value);
     }
   }
-
   ngAfterViewChecked() {
-    if (this._document.querySelector('.oui-select-search-inner')) {
-      this.scrollCalc();
+    const searchQueryString = '.oui-select-search-inner';
+    if (this._document.querySelector(searchQueryString)) {
+      this.scrollCalc(searchQueryString);
+    }
+    const actionItemsQueryString = '.oui-select-action-items';
+    if (this._document.querySelector(actionItemsQueryString)) {
+      this.scrollCalc(actionItemsQueryString);
     }
   }
-  scrollCalc() {
-    const searchInput = this._document.querySelector(
-      '.oui-select-search-inner'
-    );
+  scrollCalc(selectQueryString: string) {
+    const searchInput = this._document.querySelector(selectQueryString);
     const outter = this._document.querySelector('.oui-select-panel');
     let inner = this._document.querySelector('.oui-option');
     if (inner === null) {
