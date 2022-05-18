@@ -315,9 +315,13 @@ oui-select-search {
 .oui-select-disabled .oui-select-placeholder {
   color: #9b9b9b;
 }
-.oui-select-action-wrapper{height: 60px;display: block;margin-top: 10px;}
+.oui-select-action-wrapper {
+  height: 60px;
+  display: block;
+  margin-top: 10px;
+}
 
-.oui-select-action-items{
+.oui-select-action-items {
   position: absolute;
   background: #fff;
   bottom: 1px;
