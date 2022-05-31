@@ -109,7 +109,7 @@ Multi select:
       docs: {
         source: {
           code: `<oui-form-field>
-  <oui-select large placeholder="Favorite food" multiple>
+  <oui-select large placeholder="Favorite food" multiple actionItems>
     <oui-option *ngFor="let food of foods" [value]="food">
       {{food array}}
     </oui-option>
@@ -156,7 +156,7 @@ Multi select:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple [disabled]="disabled">
+        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [disabled]="disabled">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -288,7 +288,7 @@ Search options:
       docs: {
         source: {
           code: `<oui-form-field>
-  <oui-select large placeholder="Favorite food" multiple>
+  <oui-select large placeholder="Favorite food" multiple actionItems>
     <oui-select-search [(ngModel)]="keyword"></oui-select-search>
     <oui-option *ngFor="let food of (foods | filterOptions: keyword)" [value]="food">
       {{food array}}
@@ -332,7 +332,7 @@ Search options:
       },
     }}
   >
-    {props => ({
+    {(props) => ({
       template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">

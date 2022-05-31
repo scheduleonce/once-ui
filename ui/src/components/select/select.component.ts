@@ -216,11 +216,18 @@ export class OuiSelect
     OuiFormFieldControl<any>,
     CanUpdateErrorState
 {
+  /**Holds selected values after done */
+  @Input() savedValues = [];
+  /**Done button disabled until dropdown is dirty */
+  disableDoneButton = true;
   /** Whether or not the overlay panel is open. */
   private _panelOpen = false;
 
   /** Whether filling out the select is required in the form. */
   private _required = false;
+
+  /** Whether filling out the select is required in the form. */
+  private _actionItems = false;
 
   /** The scroll position of the overlay panel, calculated to center the selected option. */
   private _scrollTop = 0;
@@ -395,6 +402,10 @@ export class OuiSelect
   @Output()
   readonly selectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
 
+  /** Event emitted when the selected value has been changed and saved by the user. */
+  @Output()
+  readonly saveSelectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
+
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
@@ -462,6 +473,18 @@ export class OuiSelect
     }
 
     this._multiple = coerceBooleanProperty(value);
+  }
+
+  /** Whether the action items are required and use saveSelectionChange instead of selectionChange. */
+  @Input()
+  get actionItems(): boolean {
+    return this._actionItems;
+  }
+  set actionItems(value: boolean) {
+    if (this._multiple) {
+      this._actionItems = coerceBooleanProperty(value);
+      this.stateChanges.next();
+    }
   }
 
   /** Whether to center the active option over the trigger. */
@@ -947,6 +970,7 @@ export class OuiSelect
       this._setSelectionByValue(
         this.ngControl ? this.ngControl.value : this._value
       );
+      this.savedValues = this.ngControl ? this.ngControl.value : this._value;
     });
   }
 
@@ -1090,10 +1114,21 @@ export class OuiSelect
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-
+    this.disableDoneButton = false;
     this.stateChanges.next();
   }
-
+  discardRecentChanges() {
+    this.value = this.savedValues;
+    this._setSelectionByValue(this.value);
+    this.disableDoneButton = true;
+    this.close();
+  }
+  doneRecentChanges() {
+    this.savedValues = this.value;
+    this.disableDoneButton = true;
+    this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
+    this.close();
+  }
   /** Sorts the selected values in the selected based on their order in the panel. */
   private _sortValues() {
     if (this.multiple) {
@@ -1234,15 +1269,17 @@ export class OuiSelect
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
     const containerWidth = this._elementRef.nativeElement.offsetWidth;
     ouiSelectPanel.style.width = `${containerWidth}px`;
-    if (this._document.querySelector('.oui-select-search-inner')) {
-      this.scrollCalc();
+    const searchQueryString = '.oui-select-search-inner';
+    if (this._document.querySelector(searchQueryString)) {
+      this.scrollCalc(searchQueryString);
+    }
+    const actionItemsQueryString = '.oui-select-action-items';
+    if (this._document.querySelector(actionItemsQueryString)) {
+      this.scrollCalc(actionItemsQueryString);
     }
   }
-
-  scrollCalc() {
-    const searchInput = this._document.querySelector(
-      '.oui-select-search-inner'
-    );
+  scrollCalc(selectQueryString: string) {
+    const searchInput = this._document.querySelector(selectQueryString);
     const outter = this._document.querySelector('.oui-select-panel');
     let inner = this._document.querySelector('.oui-option');
     if (inner === null) {
