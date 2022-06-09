@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.6] - 2022-06-09
+
+### Added
+
+- NA
+
+### Changed
+
+- [ONCEHUB-54525] Once UI - Updated node version and alpine version.
+
 ## [7.0.5] - 2022-04-29
 
 ### Added
@@ -13,7 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- [ONCEHUB-46511] Once UI - Enhance drop down with new functionality (added cancel and done buttons for multiSelect by passing actionItems in oui-selecct)
+- [ONCEHUB-46511] Once UI - Enhance drop down with new functionality (added cancel and done buttons for multiSelect by passing actionItems in oui-select)
 
 ## [7.0.4] - 2022-04-29
 
