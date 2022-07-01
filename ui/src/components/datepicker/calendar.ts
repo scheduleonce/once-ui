@@ -333,10 +333,16 @@ export class OuiCalendarHeader<D> {
 
   /** The label for the current calendar view. */
   get periodButtonText(): string {
-    if (
-      this.calendar.currentView === 'month' ||
-      this.calendar.currentView === 'year'
-    ) {
+    if (this.calendar.currentView === 'month') {
+      return (
+        this._dateAdapter.getMonthNames('short')[
+          this._dateAdapter.getMonth(this.calendar.activeDate)
+        ] +
+        ' ' +
+        this._dateAdapter.getYearName(this.calendar.activeDate)
+      );
+    }
+    if (this.calendar.currentView === 'year') {
       return this._dateAdapter.getYearName(this.calendar.activeDate);
     }
     const activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
