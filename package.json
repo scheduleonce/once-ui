@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "7.0.6",
+  "version": "7.0.7",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
