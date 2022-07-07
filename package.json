@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "7.0.7",
+  "version": "7.0.8",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -16,7 +16,7 @@
     "compile-scss-blue": "sass ./dist/ui/themes/once-ui-theme-blue.scss ./dist/ui/themes/once-ui-theme-blue.css && rimraf ./dist/ui/themes/once-ui-theme-blue.scss",
     "compile-scss-green": "sass ./dist/ui/themes/once-ui-theme-green.scss ./dist/ui/themes/once-ui-theme-green.css && rimraf -f ./dist/ui/themes/once-ui-theme-green.scss",
     "npm-pack": "cd dist/ui && npm pack",
-    "package": "npm run build && npm run bundle-styles && npm run npm-pack",
+    "package": "npm run build && cp README.md dist/ui/ && npm run bundle-styles && npm run npm-pack",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "build-storybook": "npm run docs:json && build-storybook",
     "storybook-css": "sass ui/src/components/core/theming/prebuilt:ui/src/stories/styles/themes",
