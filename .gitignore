@@ -6,6 +6,7 @@
 /out-tsc
 /out
 /ui/src/stories/themes
+/ui/node_modules
 /storybook-static
 /documentation.json
 # Only exists if Bazel was run
