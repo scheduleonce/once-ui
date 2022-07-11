@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- parse-path vulnerability fixed.
+- parse-url vulnerability fixed.
 
 ## [7.0.8] - 2022-07-06
 
