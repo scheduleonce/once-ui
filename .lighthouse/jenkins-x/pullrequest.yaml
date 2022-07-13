@@ -196,6 +196,27 @@ spec:
             fi
           image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
           name: check-merge-disabled
+        - script: |
+            #!/usr/bin/env bash
+            CHANGE_BRANCH='staging-app2'
+            if [[ $CHANGE_BRANCH == $PULL_BASE_REF  ]]; then 
+                mkdir clean_merge_test 
+                cd clean_merge_test
+                git clone "https://github.com/scheduleonce/once-ui"
+                cd once-ui
+                git checkout $CHANGE_BRANCH
+                git checkout qa
+                git config  user.email ${GIT_AUTHOR_NAME:-so-integrations}
+                git config  user.name ${GIT_AUTHOR_EMAIL:-so-integrations@oncehub.com}
+                echo "Merging $CHANGE_BRANCH into qa"
+                git merge --no-commit --no-ff $CHANGE_BRANCH
+                if [ $? = 1 ]; then
+                  echo "Please merge code to QA branch first"
+                  exit 1
+                fi
+            fi
+          image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
+          name: check-clean-merge-to-qa  
         - args:
           - -c
           - 'mkdir -p $HOME; git config --global --add user.name ${GIT_AUTHOR_NAME:-so-integrations}; git config --global --add user.email ${GIT_AUTHOR_EMAIL:-so-integrations@oncehub.com}; git config --global credential.helper store; git clone $(params.REPO_URL) $(params.subdirectory); echo cloned url: $(params.REPO_URL) to dir: $(params.subdirectory);'
