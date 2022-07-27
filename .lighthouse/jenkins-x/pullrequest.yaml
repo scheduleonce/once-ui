@@ -198,17 +198,6 @@ spec:
           name: check-merge-disabled
         - script: |
             #!/usr/bin/env bash
-            RED='\033[0;31m'
-            NC='\033[0m' # No Color
-            mergeDisabled=$(cat "/merge-disabled/MERGE_DISABLED")
-            if [[ $(params.PULL_BASE_REF) == "qa" && $mergeDisabled == "true" ]]; then
-                echo -e "\n ${RED}Merge is temporarly disabled for $(params.PULL_BASE_REF) branch...Please close/reopen the PR's once merge is enabled...${NC}"
-              exit 1;
-            fi
-          image: ghcr.io/jenkins-x/builder-jx:2.1.155-779
-          name: check-merge-disabled
-        - script: |
-            #!/usr/bin/env bash
             TARGET_BRANCH='staging-app2'
             if [[ $TARGET_BRANCH == $PULL_BASE_REF  ]]; then 
                 mkdir clean_merge_test 
