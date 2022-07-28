@@ -1,4 +1,4 @@
-FROM dockeronce.azurecr.io/node:16.15.0-alpine3.15 AS build
+FROM dockeronce.azurecr.io/node:16.16.0-alpine3.16 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN npm install
