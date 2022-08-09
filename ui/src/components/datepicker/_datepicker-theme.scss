@@ -137,18 +137,18 @@ $oui-datepicker-input-padding: 7px 9px !important;
     background-color: transparent;
     cursor: pointer;
     &::placeholder {
-      color: $form-field-placeholder-color;
+      color: #666;
       opacity: 1; /* Firefox */
     }
 
     &:-ms-input-placeholder {
       /* Internet Explorer 10-11 */
-      color: $form-field-placeholder-color;
+      color: #666;
     }
 
     &::-ms-input-placeholder {
       /* Microsoft Edge */
-      color: $form-field-placeholder-color;
+      color: #666;
     }
   }
 
