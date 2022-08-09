@@ -112,8 +112,9 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
     outline: 0 none;
   }
   &.cdk-keyboard-focused {
-    outline: -webkit-focus-ring-color auto 1px !important;
+    outline: solid 1px #006bb1 !important;
     text-decoration: underline;
+    border-radius: 5px;
   }
 }
 
