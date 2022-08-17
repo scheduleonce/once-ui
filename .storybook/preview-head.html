@@ -336,7 +336,7 @@
     box-sizing: border-box;
     font-size: 14px;
     height: 40px;
-    line-height: 19px;
+    line-height: 22px;
     background: #fff;
     font-weight: 400;
     transition: border 0.5s;
@@ -678,29 +678,40 @@
     color: red;
   }
   .oui-form-field-infix .oui-datepicker-input:disabled {
-    border-color: #9c9c9c;
+    border-color: #c8c8c8;
     background-color: transparent !important;
     cursor: pointer;
   }
   .oui-form-field-infix .oui-datepicker-input:disabled::placeholder {
-    color: #333;
+    color: #666;
     opacity: 1;
   }
   .oui-form-field-infix .oui-datepicker-input:disabled:-ms-input-placeholder {
-    color: #333;
+    color: #666;
   }
   .oui-form-field-infix .oui-datepicker-input:disabled::-ms-input-placeholder {
-    color: #333;
+    color: #666;
   }
-  input.oui-datepicker-disabled {
-    opacity: 0.3;
+  .oui-form-field-infix
+    .oui-datepicker-input.oui-datepicker-disabled:disabled::placeholder {
+    color: #9b9b9b !important;
+  }
+  .oui-form-field-infix .oui-datepicker-input:disabled.oui-datepicker-disabled {
+    color: #9b9b9b !important;
+    border-color: #e4e4e4 !important;
+    background-color: #f9f9f9 !important;
     cursor: default !important;
   }
-  .oui-datepicker-disabled svg {
-    color: #9b9b9b;
+  .oui-form-field-infix
+    .oui-datepicker-toggle.oui-datepicker-disabled
+    .oui-icon-button
+    .oui-datepicker-toggle-default-icon {
+    color: #9b9b9b !important;
     cursor: default !important;
   }
-  .oui-datepicker-disabled button {
-    cursor: default;
+  .oui-form-field-infix
+    .oui-datepicker-input:disabled.oui-datepicker-disabled
+    button {
+    cursor: default !important;
   }
 </style>
