@@ -2,7 +2,6 @@
   <div class="oui-paginator-container">
     <div class="oui-paginator-range-actions">
       <button
-        oui-button
         class="oui-paginator-navigation-first"
         (click)="firstPage()"
         [attr.aria-label]="_intl.firstPageLabel"
@@ -10,7 +9,6 @@
         [disabled]="_previousButtonsDisabled()"
       ></button>
       <button
-        oui-button
         class="oui-paginator-navigation-previous"
         (click)="previousPage()"
         [attr.aria-label]="_intl.previousPageLabel"
@@ -19,7 +17,6 @@
       ></button>
       <div class="oui-paginator-current-page">{{ getCurrentPage() }}</div>
       <button
-        oui-button
         class="oui-paginator-navigation-next"
         (click)="nextPage()"
         [attr.aria-label]="_intl.nextPageLabel"
@@ -27,7 +24,6 @@
         [disabled]="_nextButtonsDisabled()"
       ></button>
       <button
-        oui-button
         class="oui-paginator-navigation-last"
         (click)="lastPage()"
         [attr.aria-label]="_intl.lastPageLabel"
