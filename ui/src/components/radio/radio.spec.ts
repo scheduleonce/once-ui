@@ -6,7 +6,7 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
-  FormControl,
+  UntypedFormControl,
   FormsModule,
   NgModel,
   ReactiveFormsModule,
@@ -110,7 +110,7 @@ class DisableableRadioButton {
   `,
 })
 class RadioGroupWithFormControl {
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
 }
 
 @Component({
