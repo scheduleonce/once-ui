@@ -400,11 +400,13 @@ export class OuiSelect
 
   /** Event emitted when the selected value has been changed by the user. */
   @Output()
-  readonly selectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
+  readonly selectionChange: EventEmitter<OuiSelectChange> =
+    new EventEmitter<OuiSelectChange>();
 
   /** Event emitted when the selected value has been changed and saved by the user. */
   @Output()
-  readonly saveSelectionChange: EventEmitter<OuiSelectChange> = new EventEmitter<OuiSelectChange>();
+  readonly saveSelectionChange: EventEmitter<OuiSelectChange> =
+    new EventEmitter<OuiSelectChange>();
 
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;

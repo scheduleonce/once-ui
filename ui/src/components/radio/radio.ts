@@ -76,7 +76,8 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
    * a radio button (the same behavior as `<input type-"radio">`).
    */
   @Output()
-  readonly change: EventEmitter<OuiRadioChange> = new EventEmitter<OuiRadioChange>();
+  readonly change: EventEmitter<OuiRadioChange> =
+    new EventEmitter<OuiRadioChange>();
 
   /** Child radio buttons. */
   @ContentChildren(forwardRef(() => OuiRadioButton), { descendants: true })
@@ -454,7 +455,8 @@ export class OuiRadioButton
    * the radio button (the same behavior as `<input type-"radio">`).
    */
   @Output()
-  readonly change: EventEmitter<OuiRadioChange> = new EventEmitter<OuiRadioChange>();
+  readonly change: EventEmitter<OuiRadioChange> =
+    new EventEmitter<OuiRadioChange>();
 
   /** The native `<input type=radio>` element */
   @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;

@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormGroupDirective, NgForm, FormControl } from '@angular/forms';
+import { FormGroupDirective, NgForm, UntypedFormControl } from '@angular/forms';
 
 /** Provider that defines how form controls behave with regards to displaying error messages. */
 @Injectable({ providedIn: 'root' })
 export class ErrorStateMatcher {
   isErrorState(
-    control: FormControl | null,
+    control: UntypedFormControl | null,
     form: FormGroupDirective | NgForm | null
   ): boolean {
     return !!(
@@ -20,7 +20,7 @@ export class ErrorStateMatcher {
 @Injectable()
 export class ShowOnDirtyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
-    control: FormControl | null,
+    control: UntypedFormControl | null,
     form: FormGroupDirective | NgForm | null
   ): boolean {
     return !!(

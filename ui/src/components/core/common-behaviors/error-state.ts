@@ -1,5 +1,5 @@
 import {
-  FormControl,
+  UntypedFormControl,
   FormGroupDirective,
   NgControl,
   NgForm,
@@ -51,7 +51,7 @@ export function mixinErrorState<T extends Constructor<HasErrorState>>(
       const parent = this._parentFormGroup || this._parentForm;
       const matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
       const control = this.ngControl
-        ? (this.ngControl.control as FormControl)
+        ? (this.ngControl.control as UntypedFormControl)
         : null;
       const newState = matcher.isErrorState(control, parent);
 
