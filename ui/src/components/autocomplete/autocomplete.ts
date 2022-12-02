@@ -130,7 +130,8 @@ export class OuiAutocomplete implements AfterContentInit {
 
   /** Event that is emitted whenever an option from the list is selected. */
   @Output()
-  readonly optionSelected: EventEmitter<OuiAutocompleteSelectedEvent> = new EventEmitter<OuiAutocompleteSelectedEvent>();
+  readonly optionSelected: EventEmitter<OuiAutocompleteSelectedEvent> =
+    new EventEmitter<OuiAutocompleteSelectedEvent>();
 
   /** Event that is emitted when the autocomplete panel is opened. */
   @Output()
