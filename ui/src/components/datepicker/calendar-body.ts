@@ -82,7 +82,8 @@ export class OuiCalendarBody implements OnChanges {
 
   /** Emits when a new value is selected. */
   @Output()
-  readonly selectedValueChange: EventEmitter<number> = new EventEmitter<number>();
+  readonly selectedValueChange: EventEmitter<number> =
+    new EventEmitter<number>();
 
   /** The number of blank cells to put at the beginning for the first row. */
   _firstRowOffset: number;
