@@ -27,7 +27,8 @@ $oui-icon-spacing: 2px !default;
   }
   &:hover,
   &[class^='cdk'],
-  &[class$='focused'] {
+  &.cdk-keyboard-focused,
+  &.cdk-program-focused {
     background: rgba(200, 200, 200, 0.4);
     border-radius: $oui-icon-spacing;
     transition: opacity 0.2s cubic-bezier(0.35, 0, 0.25, 1),
