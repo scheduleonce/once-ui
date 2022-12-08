@@ -1,0 +1,5 @@
+@forward 'tabs-theme' hide color, density, theme, typography;
+@forward 'tabs-theme' as oui-mdc-tabs-* hide $oui-mdc-tabs-mdc-tab-icon-color-active,
+$oui-mdc-tabs-mdc-tab-text-label-color-active, $oui-mdc-tabs-mdc-tab-text-label-color-default,
+oui-mdc-tabs-background, oui-mdc-tabs-palette-styles;
+

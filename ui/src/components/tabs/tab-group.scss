@@ -1,0 +1,45 @@
+@use '../core/style/private';
+@use '../core/style/variables';
+@use './tabs-common';
+
+@include tabs-common.structural-styles;
+
+.oui-mdc-tab {
+  @include tabs-common.tab;
+
+  // Note that we only want to target direct descendant tabs.
+  .oui-mdc-tab-group.oui-mdc-tab-group-stretch-tabs > .oui-mdc-tab-header & {
+    flex-grow: 1;
+  }
+}
+
+// MDC doesn't support disabled tabs so we need to improvise.
+.oui-mdc-tab-disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.oui-mdc-tab-group {
+  display: flex;
+  flex-direction: column;
+
+  // Fixes pagination issues inside flex containers (see #23157).
+  max-width: 100%;
+
+  &.oui-mdc-tab-group-inverted-header {
+    flex-direction: column-reverse;
+
+    .mdc-tab-indicator__content--underline {
+      align-self: flex-start;
+    }
+  }
+}
+
+// The bottom section of the view; contains the tab bodies
+.oui-mdc-tab-body-wrapper {
+  @include private.private-animation-noop();
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  transition: height tabs-common.$oui-tab-animation-duration variables.$ease-in-out-curve-function;
+}
