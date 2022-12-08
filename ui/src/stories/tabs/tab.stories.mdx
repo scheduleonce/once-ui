@@ -1,0 +1,39 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
+import { OuiTabModule } from '../../components';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { action } from '@storybook/addon-actions';
+import { TabStorybook } from './tab.component';
+
+<Meta title="Tab" />
+
+# Tab
+
+The `oui-tab` provides a tab view. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/tooltip/README.md
+
+<Canvas>
+  <Story
+    name="regular"
+    height="300px"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-tab></oui-tab>`,
+        },
+      },
+    }}
+  >
+    {props => ({
+      moduleMetadata: {
+        imports: [OuiTabModule],
+        schemas: [],
+        declarations: [TabStorybook],
+      },
+      template: `<oui-tab-storybook></oui-tab-storybook>`,
+      props
+    })}
+  </Story>
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-tooltip
+
+<ArgsTable of={OuiTabModule} />
