@@ -8,7 +8,7 @@
 
 import {CommonModule} from '@angular/common';
 import {NgModule} from '@angular/core';
-import {MatCommonModule, MatRippleModule} from '@angular/material/core';
+// import {MatCommonModule, MatRippleModule} from '@angular/material/core';
 import {PortalModule} from '@angular/cdk/portal';
 import {ObserversModule} from '@angular/cdk/observers';
 import {A11yModule} from '@angular/cdk/a11y';
@@ -24,14 +24,14 @@ import {OuiTabNav, OuiTabNavPanel, OuiTabLink} from './tab-nav-bar/tab-nav-bar';
 @NgModule({
   imports: [
     CommonModule,
-    MatCommonModule,
+    // MatCommonModule,
     PortalModule,
-    MatRippleModule,
+    // MatRippleModule,
     ObserversModule,
     A11yModule,
   ],
   exports: [
-    MatCommonModule,
+    // MatCommonModule,
     OuiTabContent,
     OuiTabLabel,
     OuiTab,
@@ -56,4 +56,4 @@ import {OuiTabNav, OuiTabNavPanel, OuiTabLink} from './tab-nav-bar/tab-nav-bar';
     OuiTabHeader,
   ],
 })
-export class MatTabsModule {}
+export class OuiTabsModule {}

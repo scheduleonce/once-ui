@@ -3,7 +3,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 @Component({
   selector: 'oui-tab-storybook',
-  template: `Hiiii<oui-tab></oui-tab>`,
+  template: `<oui-tab-group>
+  <oui-tab label="First"> Content 1 </oui-tab>
+  <oui-tab label="Second"> Content 2 </oui-tab>
+  <oui-tab label="Third"> Content 3 </oui-tab>
+</oui-tab-group>`,
 })
 export class TabStorybook {
   constructor(

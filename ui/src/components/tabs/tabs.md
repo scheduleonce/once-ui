@@ -70,7 +70,7 @@ with the `ouiTabContent` attribute.
 
 ### Label alignment
 If you want to align the tab labels in the center or towards the end of the container, you can
-do so using the `[mat-align-tabs]` attribute.
+do so using the `[oui-align-tabs]` attribute.
 
  <!-- example({"example": "tab-group-align",
                "file": "tab-group-align-example.html",

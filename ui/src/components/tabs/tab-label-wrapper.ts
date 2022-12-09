@@ -8,7 +8,7 @@
 
 import {Directive, ElementRef} from '@angular/core';
 import {OuiInkBarItem, mixinInkBarItem} from './ink-bar';
-import {CanDisable, mixinDisabled} from '@angular/material/core';
+import {CanDisable, mixinDisabled} from '../core';
 
 // Boilerplate for applying mixins to OuiTabLabelWrapper.
 /** @docs-private */
@@ -26,7 +26,7 @@ export class _OuiTabLabelWrapperBase extends _OuiTabLabelWrapperMixinBase implem
 
   /** Sets focus on the wrapper element */
   focus(): void {
-    this.elementRef.nativeElement.focus();
+    this.elementRef?.nativeElement.focus();
   }
 
   getOffsetLeft(): number {

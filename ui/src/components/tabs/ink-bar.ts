@@ -163,7 +163,7 @@ export function mixinInkBarItem<
      * the ink bar should fit to content.
      */
     private _appendInkBarElement() {
-      if (!this._inkBarElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+      if (!this._inkBarElement) {
         throw Error('Ink bar element has not been created and cannot be appended');
       }
 
@@ -171,7 +171,7 @@ export function mixinInkBarItem<
         ? this.elementRef.nativeElement.querySelector('.mdc-tab__content')
         : this.elementRef.nativeElement;
 
-      if (!parentElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+      if (!parentElement) {
         throw Error('Missing element to host the ink bar');
       }
 

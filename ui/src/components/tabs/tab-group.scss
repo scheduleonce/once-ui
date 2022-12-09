@@ -1,4 +1,3 @@
-@use '../core/style/private';
 @use '../core/style/variables';
 @use './tabs-common';
 
@@ -38,7 +37,6 @@
 
 // The bottom section of the view; contains the tab bodies
 .oui-mdc-tab-body-wrapper {
-  @include private.private-animation-noop();
   position: relative;
   overflow: hidden;
   display: flex;

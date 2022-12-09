@@ -312,7 +312,7 @@ export abstract class OuiPaginatedTabHeader
   }
 
   ngOnDestroy() {
-    this._keyManager?.destroy();
+    // Look later this._keyManager?.destroy();
     this._destroyed.next();
     this._destroyed.complete();
     this._stopScrolling.complete();

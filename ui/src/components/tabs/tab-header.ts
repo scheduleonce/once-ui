@@ -82,7 +82,7 @@ export abstract class _OuiTabHeaderBase
 @Component({
   selector: 'oui-tab-header',
   templateUrl: 'tab-header.html',
-  styleUrls: ['tab-header.css'],
+  styleUrls: ['tab-header.scss'],
   inputs: ['selectedIndex'],
   outputs: ['selectFocusedIndex', 'indexFocused'],
   encapsulation: ViewEncapsulation.None,

@@ -29,17 +29,11 @@ import {
 import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
 import {
   CanDisable,
-  CanDisableRipple,
   HasTabIndex,
-  OUI_RIPPLE_GLOBAL_OPTIONS,
   mixinDisabled,
-  mixinDisableRipple,
   mixinTabIndex,
-  RippleConfig,
-  RippleGlobalOptions,
-  RippleTarget,
   ThemePalette,
-} from '@angular/material/core';
+} from '../../core';
 import {FocusableOption, FocusMonitor} from '@angular/cdk/a11y';
 import {Directionality} from '@angular/cdk/bidi';
 import {ViewportRuler} from '@angular/cdk/scrolling';
@@ -166,7 +160,7 @@ export abstract class _OuiTabNavBase
 }
 
 // Boilerplate for applying mixins to OuiTabLink.
-const _OuiTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(class {})));
+const _OuiTabLinkMixinBase = mixinTabIndex(mixinDisabled(class {}));
 
 /** Base class with all of the `OuiTabLink` functionality. */
 @Directive()
@@ -176,9 +170,7 @@ export class _OuiTabLinkBase
     AfterViewInit,
     OnDestroy,
     CanDisable,
-    CanDisableRipple,
     HasTabIndex,
-    RippleTarget,
     FocusableOption
 {
   /** Whether the tab link is active or not. */
@@ -200,23 +192,13 @@ export class _OuiTabLinkBase
   }
 
   /**
-   * Ripple configuration for ripples that are launched on pointer down. The ripple config
-   * is set to the global ripple options since we don't have any configurable options for
-   * the tab link ripples.
-   * @docs-private
-   */
-  rippleConfig: RippleConfig & RippleGlobalOptions;
-
-  /**
    * Whether ripples are disabled on interaction.
    * @docs-private
    */
   get rippleDisabled(): boolean {
     return (
       this.disabled ||
-      this.disableRipple ||
-      this._tabNavBar.disableRipple ||
-      !!this.rippleConfig.disabled
+      this._tabNavBar.disableRipple
     );
   }
 
@@ -226,19 +208,13 @@ export class _OuiTabLinkBase
   constructor(
     private _tabNavBar: _OuiTabNavBase,
     /** @docs-private */ public elementRef: ElementRef,
-    @Optional() @Inject(OUI_RIPPLE_GLOBAL_OPTIONS) globalRippleOptions: RippleGlobalOptions | null,
     @Attribute('tabindex') tabIndex: string,
-    private _focusMonitor: FocusMonitor,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    private _focusMonitor: FocusMonitor
   ) {
     super();
 
-    this.rippleConfig = globalRippleOptions || {};
+    
     this.tabIndex = parseInt(tabIndex) || 0;
-
-    if (animationMode === 'NoopAnimations') {
-      this.rippleConfig.animation = {enterDuration: 0, exitDuration: 0};
-    }
   }
 
   /** Focuses the tab link. */
@@ -308,7 +284,7 @@ const _OuiTabLinkBaseWithInkBarItem = mixinInkBarItem(_OuiTabLinkBase);
   exportAs: 'ouiTabNavBar, ouiTabNav',
   inputs: ['color'],
   templateUrl: 'tab-nav-bar.html',
-  styleUrls: ['tab-nav-bar.css'],
+  styleUrls: ['tab-nav-bar.scss'],
   host: {
     '[attr.role]': '_getRole()',
     'class': 'oui-mdc-tab-nav-bar oui-mdc-tab-header',
@@ -381,7 +357,7 @@ export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, After
   }
 
   override ngAfterViewInit() {
-    if (!this.tabPanel && (typeof ngDevMode === 'undefined' || ngDevMode)) {
+    if (!this.tabPanel) {
       throw new Error('A oui-tab-nav-panel must be specified via [tabPanel].');
     }
   }
@@ -397,7 +373,7 @@ export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, After
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'tab-link.html',
-  styleUrls: ['tab-link.css'],
+  styleUrls: ['tab-link.scss'],
   host: {
     'class': 'mdc-tab oui-mdc-tab-link mat-mdc-focus-indicator',
     '[attr.aria-controls]': '_getAriaControls()',
@@ -419,12 +395,10 @@ export class OuiTabLink extends _OuiTabLinkBaseWithInkBarItem implements OuiInkB
   constructor(
     tabNavBar: OuiTabNav,
     elementRef: ElementRef,
-    @Optional() @Inject(OUI_RIPPLE_GLOBAL_OPTIONS) globalRippleOptions: RippleGlobalOptions | null,
     @Attribute('tabindex') tabIndex: string,
     focusMonitor: FocusMonitor,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
   ) {
-    super(tabNavBar, elementRef, globalRippleOptions, tabIndex, focusMonitor, animationMode);
+    super(tabNavBar, elementRef, tabIndex, focusMonitor);
 
     tabNavBar._fitInkBarToContent.pipe(takeUntil(this._destroyed)).subscribe(fitInkBarToContent => {
       this.fitInkBarToContent = fitInkBarToContent;

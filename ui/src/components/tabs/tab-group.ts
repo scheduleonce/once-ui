@@ -36,11 +36,11 @@ import {
 } from '@angular/cdk/coercion';
 import {
   CanColor,
-  CanDisableRipple,
+  CanDisable,
   mixinColor,
-  mixinDisableRipple,
+  mixinDisabled,
   ThemePalette,
-} from '@angular/material/core';
+} from '../core';
 import {merge, Subscription} from 'rxjs';
 import {OUI_TABS_CONFIG, OuiTabsConfig} from './tab-config';
 import {startWith} from 'rxjs/operators';
@@ -52,7 +52,7 @@ let nextId = 0;
 // Boilerplate for applying mixins to OuiTabGroup.
 /** @docs-private */
 const _OuiTabGroupMixinBase = mixinColor(
-  mixinDisableRipple(
+  mixinDisabled(
     class {
       constructor(public _elementRef: ElementRef) {}
     },
@@ -77,7 +77,7 @@ export type OuiTabHeaderPosition = 'above' | 'below';
 @Directive()
 export abstract class _OuiTabGroupBase
   extends _OuiTabGroupMixinBase
-  implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple
+  implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisable
 {
   /**
    * All tabs inside the tab group. This includes tabs that belong to groups that are nested
@@ -512,7 +512,7 @@ export abstract class _OuiTabGroupBase
   selector: 'oui-tab-group',
   exportAs: 'ouiTabGroup',
   templateUrl: 'tab-group.html',
-  styleUrls: ['tab-group.css'],
+  styleUrls: ['tab-group.scss'],
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,

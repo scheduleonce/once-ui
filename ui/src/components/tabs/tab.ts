@@ -26,7 +26,7 @@ import {
 } from '@angular/core';
 import {OuiTabContent} from './tab-content';
 import {OUI_TAB, OuiTabLabel} from './tab-label';
-import {CanDisable, mixinDisabled} from '@angular/material/core';
+import {CanDisable, mixinDisabled} from '../core';
 import {TemplatePortal} from '@angular/cdk/portal';
 import {Subject} from 'rxjs';
 
