@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.19] - 2022-12-06
+
+- [ONCEHUB-60478](https://scheduleonce.atlassian.net/browse/ONCEHUB-60478) Focus on our shared components buttons - is staying on focus state even after the action is done.
+
+## [7.0.18] - 2022-11-30
+
+- [ONCEHUB-60185](https://scheduleonce.atlassian.net/browse/ONCEHUB-60185) Update Node version to latest security update v16.18.1-alpine3.16.
+
+## [7.0.17] - 2022-11-23
+
+### Fixed
+
+- [ONCEHUB-60453](https://scheduleonce.atlassian.net/browse/ONCEHUB-60453) CVE-2022-41940 vulnerability found in package engine.io
+- [ONCEHUB-60332](https://scheduleonce.atlassian.net/browse/ONCEHUB-60332) CVE-2022-41713 vulnerability found in package deep-object-diff
+
 ## [7.0.16] - 2022-11-01
 
 ### Fixed
