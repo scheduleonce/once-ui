@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.20] - 2022-12-13
+
+- [ONCEHUB-60839](https://scheduleonce.atlassian.net/browse/ONCEHUB-60839) CVE-2022-38900 vulnerability found in package decode-uri-component
+
 ## [7.0.19] - 2022-12-06
 
 - [ONCEHUB-60478](https://scheduleonce.atlassian.net/browse/ONCEHUB-60478) Focus on our shared components buttons - is staying on focus state even after the action is done.
