@@ -24,11 +24,11 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import {OuiTabContent} from './tab-content';
-import {OUI_TAB, OuiTabLabel} from './tab-label';
-import {CanDisable, mixinDisabled} from '@angularmaterial/core';
-import {TemplatePortal} from '@angular/cdk/portal';
-import {Subject} from 'rxjs';
+import { OuiTabContent } from './tab-content';
+import { OUI_TAB, OuiTabLabel } from './tab-label';
+import { CanDisable, mixinDisabled } from '../core';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
 
 // Boilerplate for applying mixins to OuiTab.
 /** @docs-private */
@@ -55,7 +55,7 @@ export class _OuiTabBase
   _explicitContent: TemplateRef<any>;
 
   /** Template inside the OuiTab view that contains an `<ng-content>`. */
-  @ViewChild(TemplateRef, {static: true}) _implicitContent: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
   /** Plain text label for the tab, used when there is no template label. */
   @Input('label') textLabel: string = '';
@@ -111,13 +111,16 @@ export class _OuiTabBase
 
   constructor(
     private _viewContainerRef: ViewContainerRef,
-    @Inject(OUI_TAB_GROUP) @Optional() public _closestTabGroup: any,
+    @Inject(OUI_TAB_GROUP) @Optional() public _closestTabGroup: any
   ) {
     super();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
+    if (
+      changes.hasOwnProperty('textLabel') ||
+      changes.hasOwnProperty('disabled')
+    ) {
       this._stateChanges.next();
     }
   }
@@ -129,7 +132,7 @@ export class _OuiTabBase
   ngOnInit(): void {
     this._contentPortal = new TemplatePortal(
       this._explicitContent || this._implicitContent,
-      this._viewContainerRef,
+      this._viewContainerRef
     );
   }
 
@@ -162,13 +165,13 @@ export class _OuiTabBase
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiTab',
-  providers: [{provide: OUI_TAB, useExisting: OuiTab}],
+  providers: [{ provide: OUI_TAB, useExisting: OuiTab }],
 })
 export class OuiTab extends _OuiTabBase {
   /**
    * Template provided in the tab content that will be used if present, used to enable lazy-loading
    */
-  @ContentChild(OuiTabContent, {read: TemplateRef, static: true})
+  @ContentChild(OuiTabContent, { read: TemplateRef, static: true })
   override _explicitContent: TemplateRef<any>;
 
   /** Content for the tab label given by `<ng-template oui-tab-label>`. */

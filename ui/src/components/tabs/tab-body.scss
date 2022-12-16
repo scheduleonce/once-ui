@@ -1,9 +1,9 @@
-@use '../core/style/layout-common';
+// @use '../core/style/layout-common';
 
 // Wraps each tab body. We need to add these styles ourselves,
 // because MDC only provides styling for the tab header.
 .oui-mdc-tab-body {
-  @include layout-common.fill();
+  // @include layout-common.fill();
   display: block;
   overflow: hidden;
   outline: 0;
@@ -19,7 +19,8 @@
     flex-grow: 1;
   }
 
-  .oui-mdc-tab-group.oui-mdc-tab-group-dynamic-height &.oui-mdc-tab-body-active {
+  .oui-mdc-tab-group.oui-mdc-tab-group-dynamic-height
+    &.oui-mdc-tab-body-active {
     overflow-y: hidden;
   }
 }

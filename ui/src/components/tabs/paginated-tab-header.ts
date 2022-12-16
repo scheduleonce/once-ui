@@ -21,16 +21,16 @@ import {
   Inject,
   Input,
 } from '@angular/core';
-import {Direction, Directionality} from '@angular/cdk/bidi';
+import { Direction, Directionality } from '@angular/cdk/bidi';
 import {
   BooleanInput,
   coerceBooleanProperty,
   coerceNumberProperty,
   NumberInput,
 } from '@angular/cdk/coercion';
-import {ViewportRuler} from '@angular/cdk/scrolling';
-import {FocusKeyManager, FocusableOption} from '@angular/cdk/a11y';
-import {ENTER, SPACE, hasModifierKey} from '@angular/cdk/keycodes';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
+import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
 import {
   merge,
   of as observableOf,
@@ -41,9 +41,19 @@ import {
   timer,
   fromEvent,
 } from 'rxjs';
-import {take, switchMap, startWith, skip, takeUntil, filter} from 'rxjs/operators';
-import {Platform, normalizePassiveListenerOptions} from '@angular/cdk/platform';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
+import {
+  take,
+  switchMap,
+  startWith,
+  skip,
+  takeUntil,
+  filter,
+} from 'rxjs/operators';
+import {
+  Platform,
+  normalizePassiveListenerOptions,
+} from '@angular/cdk/platform';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
 /** Config used to bind passive event listeners */
 const passiveEventListenerOptions = normalizePassiveListenerOptions({
@@ -76,7 +86,9 @@ const HEADER_SCROLL_DELAY = 650;
 const HEADER_SCROLL_INTERVAL = 100;
 
 /** Item inside a paginated tab header. */
-export type OuiPaginatedTabHeaderItem = FocusableOption & {elementRef: ElementRef};
+export type OuiPaginatedTabHeaderItem = FocusableOption & {
+  elementRef: ElementRef;
+};
 
 /**
  * Base class for a tab header that supported pagination.
@@ -87,7 +99,10 @@ export abstract class OuiPaginatedTabHeader
   implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy
 {
   abstract _items: QueryList<OuiPaginatedTabHeaderItem>;
-  abstract _inkBar: {hide: () => void; alignToElement: (element: HTMLElement) => void};
+  abstract _inkBar: {
+    hide: () => void;
+    alignToElement: (element: HTMLElement) => void;
+  };
   abstract _tabListContainer: ElementRef<HTMLElement>;
   abstract _tabList: ElementRef<HTMLElement>;
   abstract _tabListInner: ElementRef<HTMLElement>;
@@ -162,7 +177,8 @@ export abstract class OuiPaginatedTabHeader
   private _selectedIndex: number = 0;
 
   /** Event emitted when the option is selected. */
-  readonly selectFocusedIndex: EventEmitter<number> = new EventEmitter<number>();
+  readonly selectFocusedIndex: EventEmitter<number> =
+    new EventEmitter<number>();
 
   /** Event emitted when a label is focused. */
   readonly indexFocused: EventEmitter<number> = new EventEmitter<number>();
@@ -174,7 +190,7 @@ export abstract class OuiPaginatedTabHeader
     @Optional() private _dir: Directionality,
     private _ngZone: NgZone,
     private _platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
   ) {
     // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
     _ngZone.runOutsideAngular(() => {
@@ -191,13 +207,21 @@ export abstract class OuiPaginatedTabHeader
 
   ngAfterViewInit() {
     // We need to handle these events manually, because we want to bind passive event listeners.
-    fromEvent(this._previousPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
+    fromEvent(
+      this._previousPaginator.nativeElement,
+      'touchstart',
+      passiveEventListenerOptions
+    )
       .pipe(takeUntil(this._destroyed))
       .subscribe(() => {
         this._handlePaginatorPress('before');
       });
 
-    fromEvent(this._nextPaginator.nativeElement, 'touchstart', passiveEventListenerOptions)
+    fromEvent(
+      this._nextPaginator.nativeElement,
+      'touchstart',
+      passiveEventListenerOptions
+    )
       .pipe(takeUntil(this._destroyed))
       .subscribe(() => {
         this._handlePaginatorPress('after');
@@ -212,7 +236,9 @@ export abstract class OuiPaginatedTabHeader
       this._alignInkBarToSelectedTab();
     };
 
-    this._keyManager = new FocusKeyManager<OuiPaginatedTabHeaderItem>(this._items)
+    this._keyManager = new FocusKeyManager<OuiPaginatedTabHeaderItem>(
+      this._items
+    )
       .withHorizontalOrientation(this._getLayoutDirection())
       .withHomeAndEnd()
       .withWrap();
@@ -238,7 +264,7 @@ export abstract class OuiPaginatedTabHeader
             // Clamp the scroll distance, because it can change with the number of tabs.
             this._scrollDistance = Math.max(
               0,
-              Math.min(this._getMaxScrollDistance(), this._scrollDistance),
+              Math.min(this._getMaxScrollDistance(), this._scrollDistance)
             );
             realign();
           });
@@ -249,7 +275,7 @@ export abstract class OuiPaginatedTabHeader
     // If there is a change in the focus key manager we need to emit the `indexFocused`
     // event in order to provide a public event that notifies about focus changes. Also we realign
     // the tabs container by scrolling the new focused tab into the visible section.
-    this._keyManager.change.subscribe(newFocusIndex => {
+    this._keyManager.change.subscribe((newFocusIndex) => {
       this.indexFocused.emit(newFocusIndex);
       this._setTabFocus(newFocusIndex);
     });
@@ -267,20 +293,26 @@ export abstract class OuiPaginatedTabHeader
         (tabItems: QueryList<OuiPaginatedTabHeaderItem>) =>
           new Observable((observer: Observer<ResizeObserverEntry[]>) =>
             this._ngZone.runOutsideAngular(() => {
-              const resizeObserver = new ResizeObserver(entries => observer.next(entries));
-              tabItems.forEach(item => resizeObserver.observe(item.elementRef.nativeElement));
+              const resizeObserver = new ResizeObserver((entries) =>
+                observer.next(entries)
+              );
+              tabItems.forEach((item) =>
+                resizeObserver.observe(item.elementRef.nativeElement)
+              );
               return () => {
                 resizeObserver.disconnect();
               };
-            }),
-          ),
+            })
+          )
       ),
       // Skip the first emit since the resize observer emits when an item
       // is observed for new items when the tab is already inserted
       skip(1),
       // Skip emissions where all the elements are invisible since we don't want
       // the header to try and re-render with invalid measurements. See #25574.
-      filter(entries => entries.some(e => e.contentRect.width > 0 && e.contentRect.height > 0)),
+      filter((entries) =>
+        entries.some((e) => e.contentRect.width > 0 && e.contentRect.height > 0)
+      )
     );
   }
 
@@ -312,7 +344,6 @@ export abstract class OuiPaginatedTabHeader
   }
 
   ngOnDestroy() {
-    this._keyManager?.destroy();
     this._destroyed.next();
     this._destroyed.complete();
     this._stopScrolling.complete();
@@ -380,7 +411,11 @@ export abstract class OuiPaginatedTabHeader
 
   /** When the focus index is set, we must manually send focus to the correct label */
   set focusIndex(value: number) {
-    if (!this._isValidIndex(value) || this.focusIndex === value || !this._keyManager) {
+    if (
+      !this._isValidIndex(value) ||
+      this.focusIndex === value ||
+      !this._keyManager
+    ) {
       return;
     }
 
@@ -421,7 +456,8 @@ export abstract class OuiPaginatedTabHeader
       if (dir == 'ltr') {
         containerEl.scrollLeft = 0;
       } else {
-        containerEl.scrollLeft = containerEl.scrollWidth - containerEl.offsetWidth;
+        containerEl.scrollLeft =
+          containerEl.scrollWidth - containerEl.offsetWidth;
       }
     }
   }
@@ -438,7 +474,8 @@ export abstract class OuiPaginatedTabHeader
     }
 
     const scrollDistance = this.scrollDistance;
-    const translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
+    const translateX =
+      this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
 
     // Don't use `translate3d` here because we don't want to create a new layer. A new layer
     // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
@@ -446,7 +483,9 @@ export abstract class OuiPaginatedTabHeader
     // See: https://github.com/angular/components/issues/10276
     // We round the `transform` here, because transforms with sub-pixel precision cause some
     // browsers to blur the content of the element.
-    this._tabList.nativeElement.style.transform = `translateX(${Math.round(translateX)}px)`;
+    this._tabList.nativeElement.style.transform = `translateX(${Math.round(
+      translateX
+    )}px)`;
 
     // Setting the `transform` on IE will change the scroll offset of the parent, causing the
     // position to be thrown off in some cases. We have to reset it ourselves to ensure that
@@ -499,7 +538,9 @@ export abstract class OuiPaginatedTabHeader
       return;
     }
 
-    const selectedLabel = this._items ? this._items.toArray()[labelIndex] : null;
+    const selectedLabel = this._items
+      ? this._items.toArray()[labelIndex]
+      : null;
 
     if (!selectedLabel) {
       return;
@@ -507,7 +548,7 @@ export abstract class OuiPaginatedTabHeader
 
     // The view length is the visible width of the tab labels.
     const viewLength = this._tabListContainer.nativeElement.offsetWidth;
-    const {offsetLeft, offsetWidth} = selectedLabel.elementRef.nativeElement;
+    const { offsetLeft, offsetWidth } = selectedLabel.elementRef.nativeElement;
 
     let labelBeforePos: number, labelAfterPos: number;
     if (this._getLayoutDirection() == 'ltr') {
@@ -523,10 +564,12 @@ export abstract class OuiPaginatedTabHeader
 
     if (labelBeforePos < beforeVisiblePos) {
       // Scroll header to move label to the before direction
-      this.scrollDistance -= beforeVisiblePos - labelBeforePos + EXAGGERATED_OVERSCROLL;
+      this.scrollDistance -=
+        beforeVisiblePos - labelBeforePos + EXAGGERATED_OVERSCROLL;
     } else if (labelAfterPos > afterVisiblePos) {
       // Scroll header to move label to the after direction
-      this.scrollDistance += labelAfterPos - afterVisiblePos + EXAGGERATED_OVERSCROLL;
+      this.scrollDistance +=
+        labelAfterPos - afterVisiblePos + EXAGGERATED_OVERSCROLL;
     }
   }
 
@@ -543,7 +586,8 @@ export abstract class OuiPaginatedTabHeader
       this._showPaginationControls = false;
     } else {
       const isEnabled =
-        this._tabListInner.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+        this._tabListInner.nativeElement.scrollWidth >
+        this._elementRef.nativeElement.offsetWidth;
 
       if (!isEnabled) {
         this.scrollDistance = 0;
@@ -572,7 +616,8 @@ export abstract class OuiPaginatedTabHeader
     } else {
       // Check if the pagination arrows should be activated.
       this._disableScrollBefore = this.scrollDistance == 0;
-      this._disableScrollAfter = this.scrollDistance == this._getMaxScrollDistance();
+      this._disableScrollAfter =
+        this.scrollDistance == this._getMaxScrollDistance();
       this._changeDetectorRef.markForCheck();
     }
   }
@@ -593,8 +638,12 @@ export abstract class OuiPaginatedTabHeader
   /** Tells the ink-bar to align itself to the current label wrapper */
   _alignInkBarToSelectedTab(): void {
     const selectedItem =
-      this._items && this._items.length ? this._items.toArray()[this.selectedIndex] : null;
-    const selectedLabelWrapper = selectedItem ? selectedItem.elementRef.nativeElement : null;
+      this._items && this._items.length
+        ? this._items.toArray()[this.selectedIndex]
+        : null;
+    const selectedLabelWrapper = selectedItem
+      ? selectedItem.elementRef.nativeElement
+      : null;
 
     if (selectedLabelWrapper) {
       this._inkBar.alignToElement(selectedLabelWrapper);
@@ -628,7 +677,7 @@ export abstract class OuiPaginatedTabHeader
       // Keep the timer going until something tells it to stop or the component is destroyed.
       .pipe(takeUntil(merge(this._stopScrolling, this._destroyed)))
       .subscribe(() => {
-        const {maxScrollDistance, distance} = this._scrollHeader(direction);
+        const { maxScrollDistance, distance } = this._scrollHeader(direction);
 
         // Stop the timer if we've reached the start or the end.
         if (distance === 0 || distance >= maxScrollDistance) {
@@ -644,7 +693,7 @@ export abstract class OuiPaginatedTabHeader
    */
   private _scrollTo(position: number) {
     if (this.disablePagination) {
-      return {maxScrollDistance: 0, distance: 0};
+      return { maxScrollDistance: 0, distance: 0 };
     }
 
     const maxScrollDistance = this._getMaxScrollDistance();
@@ -655,6 +704,6 @@ export abstract class OuiPaginatedTabHeader
     this._scrollDistanceChanged = true;
     this._checkScrollingControls();
 
-    return {maxScrollDistance, distance: this._scrollDistance};
+    return { maxScrollDistance, distance: this._scrollDistance };
   }
 }

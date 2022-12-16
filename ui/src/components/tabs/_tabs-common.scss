@@ -1,20 +1,10 @@
-@use '../core/mdc-helpers/mdc-helpers';
 @use '../core/style/vendor-prefixes';
-@use '@material/ripple' as mdc-ripple;
-@use '@material/tab' as mdc-tab;
-@use '@material/tab-indicator' as mdc-tab-indicator;
 @use 'sass:map';
-
 
 $oui-tab-animation-duration: 500ms !default;
 
 // Combines the various structural styles we need for the tab group and tab nav bar.
 @mixin structural-styles {
-  @include mdc-helpers.disable-mdc-fallback-declarations {
-    @include mdc-tab.static-styles($query: mdc-helpers.$mdc-base-styles-query);
-    @include mdc-tab-indicator.core-styles($query: mdc-helpers.$mdc-base-styles-query);
-  }
-
   .oui-mdc-tab-ripple {
     position: absolute;
     top: 0;
@@ -26,11 +16,9 @@ $oui-tab-animation-duration: 500ms !default;
 }
 
 @mixin tab {
-  &.mdc-tab {
-    // This is usually included by MDC's tab bar, however we don't
-    // use it because we implement our own pagination.
-    @include mdc-tab.height(mdc-tab.$height, mdc-helpers.$mdc-base-styles-query);
+  -webkit-tap-highlight-color: transparent;
 
+  &.mdc-tab {
     // MDC's tabs stretch to fit the header by default, whereas stretching on our current ones
     // is an opt-in behavior. Also technically we don't need to combine the two classes, but
     // we need the extra specificity to avoid issues with CSS insertion order.
@@ -51,27 +39,10 @@ $oui-tab-animation-duration: 500ms !default;
     pointer-events: none;
   }
 
-  // Required for `fitInkBarToContent` to work. This used to be included with MDC's `without-ripple`
-  // mixin, but that no longer appears to be the case with `static-styles`. Since the latter is
-  // ~10kb smaller, we include this one extra style ourselves.
-  .mdc-tab__content {
-    @include mdc-tab-indicator.surface;
-  }
-
-  // We need to handle the hover and focus indication ourselves, because we don't use MDC's ripple.
-  &:hover .mdc-tab__ripple::before {
-    opacity: map.get(mdc-ripple.$dark-ink-opacities, hover);
-  }
-
-  &.cdk-program-focused,
-  &.cdk-keyboard-focused {
-    .mdc-tab__ripple::before {
-      opacity: map.get(mdc-ripple.$dark-ink-opacities, focus);
-    }
-  }
-
-  .oui-ripple-element {
-    opacity: map.get(mdc-ripple.$dark-ink-opacities, press);
+  // We support projecting icons into the tab. These styles ensure that they're centered.
+  .mdc-tab__text-label {
+    display: inline-flex;
+    align-items: center;
   }
 }
 
@@ -104,10 +75,6 @@ $oui-tab-animation-duration: 500ms !default;
 
     &::-moz-focus-inner {
       border: 0;
-    }
-
-    .oui-ripple-element {
-      opacity: map.get(mdc-ripple.$dark-ink-opacities, press);
     }
 
     .oui-mdc-tab-header-pagination-controls-enabled & {
@@ -177,7 +144,7 @@ $oui-tab-animation-duration: 500ms !default;
 
   // We need to set the parent here explicitly, in order to prevent the alignment
   // from any parent tab groups from propagating down to the children when nesting.
-  // Note that these are used as inputs so they shouldn't be changed to `oui-mdc-`.
+  // Note that these are used as inputs so they shouldn't be changed to `mat-mdc-`.
   [oui-align-tabs='center'] > #{$parent} & {
     justify-content: center;
   }
@@ -193,4 +160,59 @@ $oui-tab-animation-duration: 500ms !default;
   flex-grow: 1;
   overflow: hidden;
   z-index: 1;
+}
+
+@mixin paginated-tab-header-with-background($header-selector) {
+  // TODO(crisbeto): the class is repeated here to ensure the specificity is high enough.
+  // We should be able to remove it once the tabs are switched to the new theming API.
+  &.oui-tabs-with-background.oui-tabs-with-background {
+    // Note that these selectors target direct descendants so
+    // that the styles don't apply to any nested tab groups.
+    > #{$header-selector},
+    > .oui-mdc-tab-header-pagination {
+      // Set background color for the tab group
+      background-color: var(
+        --oui-mdc-tab-header-with-background-background-color,
+        transparent
+      );
+    }
+
+    > #{$header-selector} {
+      // Set labels to contrast against background
+      .oui-mdc-tab .mdc-tab__text-label,
+      .oui-mdc-tab-link .mdc-tab__text-label {
+        color: var(
+          --oui-mdc-tab-header-with-background-foreground-color,
+          inherit
+        );
+      }
+
+      .mdc-tab-indicator__content--underline,
+      .oui-mdc-tab-header-pagination-chevron,
+      .mat-mdc-focus-indicator::before {
+        border-color: var(
+          --oui-mdc-tab-header-with-background-foreground-color,
+          inherit
+        );
+      }
+    }
+
+    > #{$header-selector},
+    > .oui-mdc-tab-header-pagination {
+      .mat-ripple-element,
+      .mdc-tab__ripple::before {
+        background-color: var(
+          --oui-mdc-tab-header-with-background-foreground-color,
+          inherit
+        );
+      }
+
+      .oui-mdc-tab-header-pagination-chevron {
+        border-color: var(
+          --oui-mdc-tab-header-with-background-foreground-color,
+          inherit
+        );
+      }
+    }
+  }
 }

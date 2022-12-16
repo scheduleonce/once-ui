@@ -94,10 +94,6 @@ export function mixinInkBarItem<
 
       if (this._fitToContent !== newValue) {
         this._fitToContent = newValue;
-
-        if (this._inkBarElement) {
-          this._appendInkBarElement();
-        }
       }
     }
 
@@ -167,33 +163,12 @@ export function mixinInkBarItem<
         'mdc-tab-indicator__content mdc-tab-indicator__content--underline';
 
       this._inkBarElement.appendChild(this._inkBarContentElement);
-      this._appendInkBarElement();
     }
 
     /**
      * Appends the ink bar to the tab host element or content, depending on whether
      * the ink bar should fit to content.
      */
-    private _appendInkBarElement() {
-      if (
-        !this._inkBarElement &&
-        (typeof ngDevMode === 'undefined' || ngDevMode)
-      ) {
-        throw Error(
-          'Ink bar element has not been created and cannot be appended'
-        );
-      }
-
-      const parentElement = this._fitToContent
-        ? this.elementRef.nativeElement.querySelector('.mdc-tab__content')
-        : this.elementRef.nativeElement;
-
-      if (!parentElement && (typeof ngDevMode === 'undefined' || ngDevMode)) {
-        throw Error('Missing element to host the ink bar');
-      }
-
-      parentElement!.appendChild(this._inkBarElement!);
-    }
   };
 }
 

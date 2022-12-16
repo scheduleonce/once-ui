@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Directive, ElementRef} from '@angular/core';
-import {OuiInkBarItem, mixinInkBarItem} from './ink-bar';
-import {CanDisable, mixinDisabled} from '@angular/material/core';
+import { Directive, ElementRef } from '@angular/core';
+import { OuiInkBarItem, mixinInkBarItem } from './ink-bar';
+import { CanDisable, mixinDisabled } from '../core';
 
 // Boilerplate for applying mixins to MatTabLabelWrapper.
 /** @docs-private */
@@ -19,7 +19,10 @@ const _OuiTabLabelWrapperMixinBase = mixinDisabled(class {});
  * @docs-private
  */
 @Directive()
-export class _OuiTabLabelWrapperBase extends _OuiTabLabelWrapperMixinBase implements CanDisable {
+export class _OuiTabLabelWrapperBase
+  extends _OuiTabLabelWrapperMixinBase
+  implements CanDisable
+{
   constructor(public elementRef: ElementRef) {
     super();
   }
@@ -38,7 +41,9 @@ export class _OuiTabLabelWrapperBase extends _OuiTabLabelWrapperMixinBase implem
   }
 }
 
-const _OuiTabLabelWrapperBaseWithInkBarItem = mixinInkBarItem(_OuiTabLabelWrapperBase);
+const _OuiTabLabelWrapperBaseWithInkBarItem = mixinInkBarItem(
+  _OuiTabLabelWrapperBase
+);
 
 /**
  * Used in the `oui-tab-group` view to display tab labels.

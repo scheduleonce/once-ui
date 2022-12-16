@@ -25,40 +25,26 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
-import {OUI_TAB_GROUP, OuiTab} from './tab';
-import {OuiTabHeader} from './tab-header';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { OUI_TAB_GROUP, OuiTab } from './tab';
+import { OuiTabHeader } from './tab-header';
 import {
   BooleanInput,
   coerceBooleanProperty,
   coerceNumberProperty,
   NumberInput,
 } from '@angular/cdk/coercion';
-import {
-  CanColor,
-  CanDisableRipple,
-  mixinColor,
-  mixinDisableRipple,
-  ThemePalette,
-} from '../core';
-import {merge, Subscription} from 'rxjs';
-import {OUI_TABS_CONFIG, OuiTabsConfig} from './tab-config';
-import {startWith} from 'rxjs/operators';
-import {FocusOrigin} from '@angular/cdk/a11y';
+import { CanColor, ThemePalette } from '../core';
+import { merge, Subscription } from 'rxjs';
+import { OUI_TABS_CONFIG, OuiTabsConfig } from './tab-config';
+import { startWith } from 'rxjs/operators';
+import { FocusOrigin } from '@angular/cdk/a11y';
 
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
 
 // Boilerplate for applying mixins to OuiTabGroup.
 /** @docs-private */
-const _OuiTabGroupMixinBase = mixinColor(
-  mixinDisableRipple(
-    class {
-      constructor(public _elementRef: ElementRef) {}
-    },
-  ),
-  'primary',
-);
 
 /** @docs-private */
 export interface OuiTabGroupBaseHeader {
@@ -76,8 +62,7 @@ export type OuiTabHeaderPosition = 'above' | 'below';
  */
 @Directive()
 export abstract class _OuiTabGroupBase
-  extends _OuiTabGroupMixinBase
-  implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple
+  implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor
 {
   /**
    * All tabs inside the tab group. This includes tabs that belong to groups that are nested
@@ -140,7 +125,9 @@ export abstract class _OuiTabGroupBase
   }
 
   set animationDuration(value: NumberInput) {
-    this._animationDuration = /^\d+$/.test(value + '') ? value + 'ms' : (value as string);
+    this._animationDuration = /^\d+$/.test(value + '')
+      ? value + 'ms'
+      : (value as string);
   }
 
   private _animationDuration: string;
@@ -214,14 +201,16 @@ export abstract class _OuiTabGroupBase
   private _backgroundColor: ThemePalette;
 
   /** Output to enable support for two-way binding on `[(selectedIndex)]` */
-  @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() readonly selectedIndexChange: EventEmitter<number> =
+    new EventEmitter<number>();
 
   /** Event emitted when focus has changed within a tab group. */
   @Output() readonly focusChange: EventEmitter<OuiTabChangeEvent> =
     new EventEmitter<OuiTabChangeEvent>();
 
   /** Event emitted when the body animation has completed */
-  @Output() readonly animationDone: EventEmitter<void> = new EventEmitter<void>();
+  @Output() readonly animationDone: EventEmitter<void> =
+    new EventEmitter<void>();
 
   /** Event emitted when the tab selection has changed. */
   @Output() readonly selectedTabChange: EventEmitter<OuiTabChangeEvent> =
@@ -230,24 +219,29 @@ export abstract class _OuiTabGroupBase
   private _groupId: number;
 
   constructor(
-    elementRef: ElementRef,
+    _elementRef: ElementRef,
     protected _changeDetectorRef: ChangeDetectorRef,
     @Inject(OUI_TABS_CONFIG) @Optional() defaultConfig?: OuiTabsConfig,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
   ) {
-    super(elementRef);
+    this._elementRef;
     this._groupId = nextId++;
     this.animationDuration =
-      defaultConfig && defaultConfig.animationDuration ? defaultConfig.animationDuration : '500ms';
+      defaultConfig && defaultConfig.animationDuration
+        ? defaultConfig.animationDuration
+        : '500ms';
     this.disablePagination =
       defaultConfig && defaultConfig.disablePagination != null
         ? defaultConfig.disablePagination
         : false;
     this.dynamicHeight =
-      defaultConfig && defaultConfig.dynamicHeight != null ? defaultConfig.dynamicHeight : false;
+      defaultConfig && defaultConfig.dynamicHeight != null
+        ? defaultConfig.dynamicHeight
+        : false;
     this.contentTabIndex = defaultConfig?.contentTabIndex ?? null;
     this.preserveContent = !!defaultConfig?.preserveContent;
   }
+  color: ThemePalette;
 
   /**
    * After the content is checked, this component knows what tabs have been defined
@@ -258,7 +252,9 @@ export abstract class _OuiTabGroupBase
   ngAfterContentChecked() {
     // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
     // the amount of tabs changes before the actual change detection runs.
-    const indexToSelect = (this._indexToSelect = this._clampTabIndex(this._indexToSelect));
+    const indexToSelect = (this._indexToSelect = this._clampTabIndex(
+      this._indexToSelect
+    ));
 
     // If there is a change in selected index, emit a change event. Should not trigger if
     // the selected index has not yet been initialized.
@@ -276,7 +272,9 @@ export abstract class _OuiTabGroupBase
       // Changing these values after change detection has run
       // since the checked content may contain references to them.
       Promise.resolve().then(() => {
-        this._tabs.forEach((tab, index) => (tab.isActive = index === indexToSelect));
+        this._tabs.forEach(
+          (tab, index) => (tab.isActive = index === indexToSelect)
+        );
 
         if (!isFirstRun) {
           this.selectedIndexChange.emit(indexToSelect);
@@ -352,14 +350,16 @@ export abstract class _OuiTabGroupBase
     // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
     // some that are inside of nested tab groups. We filter them out manually by checking that
     // the closest group to the tab is the current one.
-    this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe((tabs: QueryList<OuiTab>) => {
-      this._tabs.reset(
-        tabs.filter(tab => {
-          return tab._closestTabGroup === this || !tab._closestTabGroup;
-        }),
-      );
-      this._tabs.notifyOnChanges();
-    });
+    this._allTabs.changes
+      .pipe(startWith(this._allTabs))
+      .subscribe((tabs: QueryList<OuiTab>) => {
+        this._tabs.reset(
+          tabs.filter((tab) => {
+            return tab._closestTabGroup === this || !tab._closestTabGroup;
+          })
+        );
+        this._tabs.notifyOnChanges();
+      });
   }
 
   ngOnDestroy() {
@@ -425,9 +425,9 @@ export abstract class _OuiTabGroupBase
       this._tabLabelSubscription.unsubscribe();
     }
 
-    this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._stateChanges)).subscribe(() =>
-      this._changeDetectorRef.markForCheck(),
-    );
+    this._tabLabelSubscription = merge(
+      ...this._tabs.map((tab) => tab._stateChanges)
+    ).subscribe(() => this._changeDetectorRef.markForCheck());
   }
 
   /** Clamps the given index to the bounds of 0 and the tabs length. */
@@ -513,7 +513,7 @@ export abstract class _OuiTabGroupBase
   selector: 'oui-tab-group',
   exportAs: 'ouiTabGroup',
   templateUrl: 'tab-group.html',
-  styleUrls: ['tab-group.css'],
+  styleUrls: ['tab-group.scss'],
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
@@ -525,14 +525,14 @@ export abstract class _OuiTabGroupBase
     },
   ],
   host: {
-    'class': 'oui-mdc-tab-group',
+    class: 'oui-mdc-tab-group',
     '[class.oui-mdc-tab-group-dynamic-height]': 'dynamicHeight',
     '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
     '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
   },
 })
 export class OuiTabGroup extends _OuiTabGroupBase {
-  @ContentChildren(OuiTab, {descendants: true}) _allTabs: QueryList<OuiTab>;
+  @ContentChildren(OuiTab, { descendants: true }) _allTabs: QueryList<OuiTab>;
   @ViewChild('tabBodyWrapper') _tabBodyWrapper: ElementRef;
   @ViewChild('tabHeader') _tabHeader: OuiTabHeader;
 
@@ -561,7 +561,7 @@ export class OuiTabGroup extends _OuiTabGroupBase {
     elementRef: ElementRef,
     changeDetectorRef: ChangeDetectorRef,
     @Inject(OUI_TABS_CONFIG) @Optional() defaultConfig?: OuiTabsConfig,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
   ) {
     super(elementRef, changeDetectorRef, defaultConfig, animationMode);
     this.fitInkBarToContent =

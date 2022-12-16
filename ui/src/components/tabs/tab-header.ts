@@ -25,14 +25,14 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {ViewportRuler} from '@angular/cdk/scrolling';
-import {Platform} from '@angular/cdk/platform';
-import {Directionality} from '@angular/cdk/bidi';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
-import {OuiTabLabelWrapper} from './tab-label-wrapper';
-import {OuiInkBar} from './ink-bar';
-import {OuiPaginatedTabHeader} from './paginated-tab-header';
-import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { Platform } from '@angular/cdk/platform';
+import { Directionality } from '@angular/cdk/bidi';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { OuiTabLabelWrapper } from './tab-label-wrapper';
+import { OuiInkBar } from './ink-bar';
+import { OuiPaginatedTabHeader } from './paginated-tab-header';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * Base class with all of the `OuiTabHeader` functionality.
@@ -62,9 +62,17 @@ export abstract class _OuiTabHeaderBase
     @Optional() dir: Directionality,
     ngZone: NgZone,
     platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
   ) {
-    super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+    super(
+      elementRef,
+      changeDetectorRef,
+      viewportRuler,
+      dir,
+      ngZone,
+      platform,
+      animationMode
+    );
   }
 
   protected _itemSelected(event: KeyboardEvent) {
@@ -82,23 +90,29 @@ export abstract class _OuiTabHeaderBase
 @Component({
   selector: 'oui-tab-header',
   templateUrl: 'tab-header.html',
-  styleUrls: ['tab-header.css'],
+  styleUrls: ['tab-header.scss'],
   inputs: ['selectedIndex'],
   outputs: ['selectFocusedIndex', 'indexFocused'],
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
   host: {
-    'class': 'oui-mdc-tab-header',
-    '[class.oui-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+    class: 'oui-mdc-tab-header',
+    '[class.oui-mdc-tab-header-pagination-controls-enabled]':
+      '_showPaginationControls',
     '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
   },
 })
-export class OuiTabHeader extends _OuiTabHeaderBase implements AfterContentInit {
-  @ContentChildren(OuiTabLabelWrapper, {descendants: false}) _items: QueryList<OuiTabLabelWrapper>;
-  @ViewChild('tabListContainer', {static: true}) _tabListContainer: ElementRef;
-  @ViewChild('tabList', {static: true}) _tabList: ElementRef;
-  @ViewChild('tabListInner', {static: true}) _tabListInner: ElementRef;
+export class OuiTabHeader
+  extends _OuiTabHeaderBase
+  implements AfterContentInit
+{
+  @ContentChildren(OuiTabLabelWrapper, { descendants: false })
+  _items: QueryList<OuiTabLabelWrapper>;
+  @ViewChild('tabListContainer', { static: true })
+  _tabListContainer: ElementRef;
+  @ViewChild('tabList', { static: true }) _tabList: ElementRef;
+  @ViewChild('tabListInner', { static: true }) _tabListInner: ElementRef;
   @ViewChild('nextPaginator') _nextPaginator: ElementRef<HTMLElement>;
   @ViewChild('previousPaginator') _previousPaginator: ElementRef<HTMLElement>;
   _inkBar: OuiInkBar;
@@ -110,9 +124,17 @@ export class OuiTabHeader extends _OuiTabHeaderBase implements AfterContentInit 
     @Optional() dir: Directionality,
     ngZone: NgZone,
     platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
   ) {
-    super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+    super(
+      elementRef,
+      changeDetectorRef,
+      viewportRuler,
+      dir,
+      ngZone,
+      platform,
+      animationMode
+    );
   }
 
   override ngAfterContentInit() {

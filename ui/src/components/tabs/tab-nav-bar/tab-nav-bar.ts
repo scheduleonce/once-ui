@@ -26,31 +26,28 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import {
   CanDisable,
-  CanDisableRipple,
   HasTabIndex,
-  OUI_RIPPLE_GLOBAL_OPTIONS,
   mixinDisabled,
-  mixinDisableRipple,
   mixinTabIndex,
-  RippleConfig,
-  RippleGlobalOptions,
-  RippleTarget,
   ThemePalette,
-} from '@angular/material/core';
-import {FocusableOption, FocusMonitor} from '@angular/cdk/a11y';
-import {Directionality} from '@angular/cdk/bidi';
-import {ViewportRuler} from '@angular/cdk/scrolling';
-import {Platform} from '@angular/cdk/platform';
-import {OuiInkBar, OuiInkBarItem, mixinInkBarItem} from '../ink-bar';
-import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
-import {BehaviorSubject, Subject} from 'rxjs';
-import {startWith, takeUntil} from 'rxjs/operators';
-import {SPACE} from '@angular/cdk/keycodes';
-import {OUI_TABS_CONFIG, OuiTabsConfig} from '../tab-config';
-import {OuiPaginatedTabHeader, OuiPaginatedTabHeaderItem} from '../paginated-tab-header';
+} from '../../core';
+import { FocusableOption, FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { Platform } from '@angular/cdk/platform';
+import { OuiInkBar, OuiInkBarItem, mixinInkBarItem } from '../ink-bar';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { startWith, takeUntil } from 'rxjs/operators';
+import { SPACE } from '@angular/cdk/keycodes';
+import { OUI_TABS_CONFIG, OuiTabsConfig } from '../tab-config';
+import {
+  OuiPaginatedTabHeader,
+  OuiPaginatedTabHeaderItem,
+} from '../paginated-tab-header';
 
 // Increasing integer for generating unique ids for tab nav components.
 let nextUniqueId = 0;
@@ -65,7 +62,9 @@ export abstract class _OuiTabNavBase
   implements AfterContentChecked, AfterContentInit, OnDestroy
 {
   /** Query list of all tab links of the tab navigation. */
-  abstract override _items: QueryList<OuiPaginatedTabHeaderItem & {active: boolean; id: string}>;
+  abstract override _items: QueryList<
+    OuiPaginatedTabHeaderItem & { active: boolean; id: string }
+  >;
 
   /** Background color of the tab nav. */
   @Input()
@@ -115,9 +114,17 @@ export abstract class _OuiTabNavBase
     changeDetectorRef: ChangeDetectorRef,
     viewportRuler: ViewportRuler,
     platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
   ) {
-    super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+    super(
+      elementRef,
+      changeDetectorRef,
+      viewportRuler,
+      dir,
+      ngZone,
+      platform,
+      animationMode
+    );
   }
 
   protected _itemSelected() {
@@ -127,9 +134,11 @@ export abstract class _OuiTabNavBase
   override ngAfterContentInit() {
     // We need this to run before the `changes` subscription in parent to ensure that the
     // selectedIndex is up-to-date by the time the super class starts looking for it.
-    this._items.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
-      this.updateActiveLink();
-    });
+    this._items.changes
+      .pipe(startWith(null), takeUntil(this._destroyed))
+      .subscribe(() => {
+        this.updateActiveLink();
+      });
 
     super.ngAfterContentInit();
   }
@@ -161,25 +170,20 @@ export abstract class _OuiTabNavBase
   }
 
   _getRole(): string | null {
-    return this.tabPanel ? 'tablist' : this._elementRef.nativeElement.getAttribute('role');
+    return this.tabPanel
+      ? 'tablist'
+      : this._elementRef.nativeElement.getAttribute('role');
   }
 }
 
 // Boilerplate for applying mixins to OuiTabLink.
-const _OuiTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(class {})));
+const _OuiTabLinkMixinBase = mixinTabIndex(mixinDisabled(class {}));
 
 /** Base class with all of the `OuiTabLink` functionality. */
 @Directive()
 export class _OuiTabLinkBase
   extends _OuiTabLinkMixinBase
-  implements
-    AfterViewInit,
-    OnDestroy,
-    CanDisable,
-    CanDisableRipple,
-    HasTabIndex,
-    RippleTarget,
-    FocusableOption
+  implements AfterViewInit, OnDestroy, CanDisable, HasTabIndex, FocusableOption
 {
   /** Whether the tab link is active or not. */
   protected _isActive: boolean = false;
@@ -205,20 +209,11 @@ export class _OuiTabLinkBase
    * the tab link ripples.
    * @docs-private
    */
-  rippleConfig: RippleConfig & RippleGlobalOptions;
 
   /**
    * Whether ripples are disabled on interaction.
    * @docs-private
    */
-  get rippleDisabled(): boolean {
-    return (
-      this.disabled ||
-      this.disableRipple ||
-      this._tabNavBar.disableRipple ||
-      !!this.rippleConfig.disabled
-    );
-  }
 
   /** Unique id for the tab. */
   @Input() id = `oui-tab-link-${nextUniqueId++}`;
@@ -226,19 +221,12 @@ export class _OuiTabLinkBase
   constructor(
     private _tabNavBar: _OuiTabNavBase,
     /** @docs-private */ public elementRef: ElementRef,
-    @Optional() @Inject(OUI_RIPPLE_GLOBAL_OPTIONS) globalRippleOptions: RippleGlobalOptions | null,
     @Attribute('tabindex') tabIndex: string,
-    private _focusMonitor: FocusMonitor,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    private _focusMonitor: FocusMonitor
   ) {
     super();
 
-    this.rippleConfig = globalRippleOptions || {};
     this.tabIndex = parseInt(tabIndex) || 0;
-
-    if (animationMode === 'NoopAnimations') {
-      this.rippleConfig.animation = {enterDuration: 0, exitDuration: 0};
-    }
   }
 
   /** Focuses the tab link. */
@@ -285,7 +273,9 @@ export class _OuiTabLinkBase
   }
 
   _getRole(): string | null {
-    return this._tabNavBar.tabPanel ? 'tab' : this.elementRef.nativeElement.getAttribute('role');
+    return this._tabNavBar.tabPanel
+      ? 'tab'
+      : this.elementRef.nativeElement.getAttribute('role');
   }
 
   _getTabIndex(): number {
@@ -305,26 +295,30 @@ const _OuiTabLinkBaseWithInkBarItem = mixinInkBarItem(_OuiTabLinkBase);
  */
 @Component({
   selector: '[oui-tab-nav-bar]',
-  exportAs: 'matTabNavBar, matTabNav',
+  exportAs: 'ouiTabNavBar, ouiTabNav',
   inputs: ['color'],
   templateUrl: 'tab-nav-bar.html',
-  styleUrls: ['tab-nav-bar.css'],
+  styleUrls: ['tab-nav-bar.scss'],
   host: {
     '[attr.role]': '_getRole()',
-    'class': 'oui-mdc-tab-nav-bar oui-mdc-tab-header',
-    '[class.oui-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+    class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header',
+    '[class.oui-mdc-tab-header-pagination-controls-enabled]':
+      '_showPaginationControls',
     '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
     '[class.oui-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
     '[class.oui-primary]': 'color !== "warn" && color !== "accent"',
     '[class.oui-accent]': 'color === "accent"',
     '[class.oui-warn]': 'color === "warn"',
-    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
+    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
   },
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
 })
-export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, AfterViewInit {
+export class OuiTabNav
+  extends _OuiTabNavBase
+  implements AfterContentInit, AfterViewInit
+{
   /** Whether the ink bar should fit its width to the size of the tab label content. */
   @Input()
   get fitInkBarToContent(): boolean {
@@ -346,10 +340,12 @@ export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, After
   }
   private _stretchTabs = true;
 
-  @ContentChildren(forwardRef(() => OuiTabLink), {descendants: true}) _items: QueryList<OuiTabLink>;
-  @ViewChild('tabListContainer', {static: true}) _tabListContainer: ElementRef;
-  @ViewChild('tabList', {static: true}) _tabList: ElementRef;
-  @ViewChild('tabListInner', {static: true}) _tabListInner: ElementRef;
+  @ContentChildren(forwardRef(() => OuiTabLink), { descendants: true })
+  _items: QueryList<OuiTabLink>;
+  @ViewChild('tabListContainer', { static: true })
+  _tabListContainer: ElementRef;
+  @ViewChild('tabList', { static: true }) _tabList: ElementRef;
+  @ViewChild('tabListInner', { static: true }) _tabListInner: ElementRef;
   @ViewChild('nextPaginator') _nextPaginator: ElementRef<HTMLElement>;
   @ViewChild('previousPaginator') _previousPaginator: ElementRef<HTMLElement>;
   _inkBar: OuiInkBar;
@@ -362,9 +358,17 @@ export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, After
     viewportRuler: ViewportRuler,
     platform: Platform,
     @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
-    @Optional() @Inject(OUI_TABS_CONFIG) defaultConfig?: OuiTabsConfig,
+    @Optional() @Inject(OUI_TABS_CONFIG) defaultConfig?: OuiTabsConfig
   ) {
-    super(elementRef, dir, ngZone, changeDetectorRef, viewportRuler, platform, animationMode);
+    super(
+      elementRef,
+      dir,
+      ngZone,
+      changeDetectorRef,
+      viewportRuler,
+      platform,
+      animationMode
+    );
     this.disablePagination =
       defaultConfig && defaultConfig.disablePagination != null
         ? defaultConfig.disablePagination
@@ -379,22 +383,21 @@ export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, After
     this._inkBar = new OuiInkBar(this._items);
     super.ngAfterContentInit();
   }
-
 }
 
 /**
  * Link inside of a `oui-tab-nav-bar`.
  */
 @Component({
-  selector: '[oui-tab-link], [matTabLink]',
-  exportAs: 'matTabLink',
+  selector: '[oui-tab-link], [ouiTabLink]',
+  exportAs: 'ouiTabLink',
   inputs: ['disabled', 'disableRipple', 'tabIndex', 'active', 'id'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'tab-link.html',
-  styleUrls: ['tab-link.css'],
+  styleUrls: ['tab-link.scss'],
   host: {
-    'class': 'mdc-tab oui-mdc-tab-link oui-mdc-focus-indicator',
+    class: 'mdc-tab oui-mdc-tab-link oui-mdc-focus-indicator',
     '[attr.aria-controls]': '_getAriaControls()',
     '[attr.aria-current]': '_getAriaCurrent()',
     '[attr.aria-disabled]': 'disabled',
@@ -408,22 +411,25 @@ export class OuiTabNav extends _OuiTabNavBase implements AfterContentInit, After
     '(keydown)': '_handleKeydown($event)',
   },
 })
-export class OuiTabLink extends _OuiTabLinkBaseWithInkBarItem implements OuiInkBarItem, OnDestroy {
+export class OuiTabLink
+  extends _OuiTabLinkBaseWithInkBarItem
+  implements OuiInkBarItem, OnDestroy
+{
   private readonly _destroyed = new Subject<void>();
 
   constructor(
     tabNavBar: OuiTabNav,
     elementRef: ElementRef,
-    @Optional() @Inject(OUI_RIPPLE_GLOBAL_OPTIONS) globalRippleOptions: RippleGlobalOptions | null,
     @Attribute('tabindex') tabIndex: string,
-    focusMonitor: FocusMonitor,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    focusMonitor: FocusMonitor
   ) {
-    super(tabNavBar, elementRef, globalRippleOptions, tabIndex, focusMonitor, animationMode);
+    super(tabNavBar, elementRef, tabIndex, focusMonitor);
 
-    tabNavBar._fitInkBarToContent.pipe(takeUntil(this._destroyed)).subscribe(fitInkBarToContent => {
-      this.fitInkBarToContent = fitInkBarToContent;
-    });
+    tabNavBar._fitInkBarToContent
+      .pipe(takeUntil(this._destroyed))
+      .subscribe((fitInkBarToContent) => {
+        this.fitInkBarToContent = fitInkBarToContent;
+      });
   }
 
   override ngOnDestroy() {
@@ -438,13 +444,13 @@ export class OuiTabLink extends _OuiTabLinkBaseWithInkBarItem implements OuiInkB
  */
 @Component({
   selector: 'oui-tab-nav-panel',
-  exportAs: 'matTabNavPanel',
+  exportAs: 'ouiTabNavPanel',
   template: '<ng-content></ng-content>',
   host: {
     '[attr.aria-labelledby]': '_activeTabId',
     '[attr.id]': 'id',
-    'class': 'oui-mdc-tab-nav-panel',
-    'role': 'tabpanel',
+    class: 'oui-mdc-tab-nav-panel',
+    role: 'tabpanel',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,

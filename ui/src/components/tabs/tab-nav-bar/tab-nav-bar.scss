@@ -4,9 +4,17 @@
 @include tabs-common.paginated-tab-header;
 
 .oui-mdc-tab-links {
-  @include tabs-common.paginated-tab-header-item-wrapper('.oui-mdc-tab-link-container');
+  @include tabs-common.paginated-tab-header-item-wrapper(
+    '.oui-mdc-tab-link-container'
+  );
 }
 
 .oui-mdc-tab-link-container {
   @include tabs-common.paginated-tab-header-container;
+}
+
+.oui-mdc-tab-nav-bar {
+  @include tabs-common.paginated-tab-header-with-background(
+    '.oui-mdc-tab-link-container'
+  );
 }

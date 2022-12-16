@@ -7,7 +7,7 @@
  */
 
 export * from './module';
-export {ScrollDirection, OuiPaginatedTabHeader} from './paginated-tab-header';
+export { ScrollDirection, OuiPaginatedTabHeader } from './paginated-tab-header';
 export {
   OuiTabBodyPortal,
   OuiTabBody,
@@ -15,18 +15,18 @@ export {
   OuiTabBodyOriginState,
   _OuiTabBodyBase,
 } from './tab-body';
-export {OuiTabsConfig, OUI_TABS_CONFIG} from '../tabs/tab-config';
-export {OuiTabContent, OUI_TAB_CONTENT} from './tab-content';
-export {OuiTabLabel, OUI_TAB, OUI_TAB_LABEL} from './tab-label';
-export {OuiTabLabelWrapper} from './tab-label-wrapper';
-export {OuiTab, OUI_TAB_GROUP, _OuiTabBase} from '../tabs';
+export { OuiTabsConfig, OUI_TABS_CONFIG } from '../tabs/tab-config';
+export { OuiTabContent, OUI_TAB_CONTENT } from './tab-content';
+export { OuiTabLabel, OUI_TAB, OUI_TAB_LABEL } from './tab-label';
+export { OuiTabLabelWrapper } from './tab-label-wrapper';
+export { OuiTab, OUI_TAB_GROUP, _OuiTabBase } from '../tabs/tab';
 export {
   OuiInkBar,
   _OuiInkBarPositioner,
   _OUI_INK_BAR_POSITIONER_FACTORY,
   _OUI_INK_BAR_POSITIONER,
 } from './ink-bar';
-export {OuiTabHeader, _OuiTabHeaderBase} from './tab-header';
+export { OuiTabHeader, _OuiTabHeaderBase } from './tab-header';
 export {
   OuiTabGroup,
   OuiTabChangeEvent,
@@ -41,4 +41,4 @@ export {
   _OuiTabNavBase,
   _OuiTabLinkBase,
 } from './tab-nav-bar/tab-nav-bar';
-export {_OuiTabLabelWrapperBase} from './tab-label-wrapper';
+export { _OuiTabLabelWrapperBase } from './tab-label-wrapper';
