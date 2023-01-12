@@ -21,8 +21,7 @@
     "build-storybook": "npm run docs:json && build-storybook",
     "storybook-css": "sass ui/src/components/core/theming/prebuilt:ui/src/stories/styles/themes",
     "storybook": "npm run docs:json && start-storybook -p 6006",
-    "deploy-storybook": "npm run storybook-css && storybook-to-ghpages -o out",
-    "update": "ng update @angular/core@14 @angular/cli@14"
+    "deploy-storybook": "npm run storybook-css && storybook-to-ghpages -o out"
   },
   "private": true,
   "dependencies": {
@@ -43,7 +42,7 @@
     "zone.js": "0.12.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "14.2.10",
+    "@angular-devkit/build-angular": "^14.2.10",
     "@angular-eslint/builder": "15.1.0",
     "@angular-eslint/eslint-plugin": "15.1.0",
     "@angular-eslint/eslint-plugin-template": "15.1.0",
