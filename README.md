@@ -96,3 +96,4 @@ The prerelease builds (1.0.1-beta.0, 1.0.1-beta.1, etc.) are prepared based on c
 # Browser Support
 
 We supports the most recent versions of all the major browsers: Chrome, Firefox, Safari and IE11/edge.
+
