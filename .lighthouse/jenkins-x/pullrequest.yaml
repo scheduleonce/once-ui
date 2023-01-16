@@ -290,7 +290,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
+          image: dockeronce.azurecr.io/jenkins/once-ui:latest
           name: unit-tests
         - args:
           - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
