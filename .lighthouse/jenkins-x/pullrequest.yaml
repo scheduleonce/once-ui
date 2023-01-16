@@ -269,28 +269,28 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: install-packages
         - args:
           - npm run prettier
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: check-prettier
         - args:
           - npm run lint
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: check-lint
         - args:
           - export NODE_ENV="test" && npm run test
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/jenkins/once-ui:latest
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: unit-tests
         - args:
           - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
