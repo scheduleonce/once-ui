@@ -971,6 +971,7 @@ export class OuiSelect
         this.ngControl ? this.ngControl.value : this._value
       );
       this.savedValues = this.ngControl ? this.ngControl.value : this._value;
+      this._highlightFirstFilteredOption();
     });
   }
 
@@ -1179,6 +1180,20 @@ export class OuiSelect
         this._keyManager.setFirstItemActive();
       } else {
         this._keyManager.setActiveItem(this._selectionModel.selected[0]);
+      }
+    }
+  }
+
+  /**
+   * Highlights the first of the filtered options if no element is currently highlighted
+   */
+  private _highlightFirstFilteredOption(): void {
+    if (this._keyManager) {
+      const activeElement = this._keyManager.activeItem?._getHostElement();
+      // activeElement is not part of DOM if there is no parent element
+      if (!activeElement || !activeElement.parentElement) {
+        // highlight first element if there is no active element or active element is not part of DOM
+        this._keyManager.setFirstItemActive();
       }
     }
   }
