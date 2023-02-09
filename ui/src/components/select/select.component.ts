@@ -664,7 +664,7 @@ export class OuiSelect
     this._panelOpen = true;
     this._keyManager.withHorizontalOrientation(null);
 
-    this._highlightCorrectOption();
+    this._highlightFirstFilteredOption();
     this._changeDetectorRef.markForCheck();
     this.openedChange.emit(true);
     this._elementRef.nativeElement.classList.add(
@@ -971,6 +971,7 @@ export class OuiSelect
         this.ngControl ? this.ngControl.value : this._value
       );
       this.savedValues = this.ngControl ? this.ngControl.value : this._value;
+      this._highlightFirstFilteredOption();
     });
   }
 
@@ -1170,15 +1171,15 @@ export class OuiSelect
   }
 
   /**
-   * Highlights the selected item. If no option is selected, it will highlight
-   * the first item instead.
+   * Highlights the first of the filtered options if no element is currently highlighted
    */
-  private _highlightCorrectOption(): void {
+  private _highlightFirstFilteredOption(): void {
     if (this._keyManager) {
-      if (this.empty) {
+      const activeElement = this._keyManager.activeItem?._getHostElement();
+      // activeElement is not part of DOM if there is no parent element
+      if (!activeElement || !activeElement.parentElement) {
+        // highlight first element if there is no active element or active element is not part of DOM
         this._keyManager.setFirstItemActive();
-      } else {
-        this._keyManager.setActiveItem(this._selectionModel.selected[0]);
       }
     }
   }
