@@ -269,21 +269,21 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v18.13.0
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: install-packages
         - args:
           - npm run prettier
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v18.13.0
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: check-prettier
         - args:
           - npm run lint
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v18.13.0
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
           name: check-lint
         - args:
           - export NODE_ENV="test" && npm run test
