@@ -2,7 +2,6 @@ FROM dockeronce.azurecr.io/node:18.13.0-alpine3.17 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN npm install
-RUN npm install -g npm@latest
 RUN npm run build-storybook
 
 FROM nginx:alpine
