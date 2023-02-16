@@ -52,13 +52,13 @@
     <ng-content></ng-content>
     <div *ngIf="actionItems" class="oui-select-action-wrapper">
       <div class="oui-select-action-items">
-        <button
+        <button #ddCancelButton
           oui-link-button
           color="primary"
           (click)="discardRecentChanges()"
         >
           Cancel</button
-        ><button
+        ><button #ddDoneButton
           oui-button
           color="primary"
           [disabled]="disableDoneButton"

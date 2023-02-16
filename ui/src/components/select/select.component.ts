@@ -13,6 +13,7 @@ import {
   SPACE,
   UP_ARROW,
   hasModifierKey,
+  TAB,
 } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -312,11 +313,16 @@ export class OuiSelect
   /** Trigger that opens the select. */
   @ViewChild('trigger') trigger: ElementRef;
 
+  /** Trigger that opens the select. */
+  @ViewChild('ddCancelButton', { read: ElementRef }) ddCancelButton: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
+
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
   private _value: any;
-
   /**
    * Function used to sort the values in a select in multiple mode.
    * Follows the same logic as `Array.prototype.sort`.
@@ -807,12 +813,34 @@ export class OuiSelect
     }
   }
 
+  /*On Tab key press select the buttons at the bottom if actionItems is enabled*/
+  private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
+    !focused ? (!doneDisabled && !this.ddDoneButton.nativeElement.classList.contains('cdk-focused')
+    ? this.ddDoneButton.nativeElement.focus()
+    : this.ddCancelButton.nativeElement.focus())
+    : (focused && doneDisabled ? this.close(): this.ddDoneButton.nativeElement.focus());
+  }
+
   /** Handles keyboard events when the selected is open. */
-  private _handleOpenKeydown(event: KeyboardEvent): void {
+  // eslint-disable-next-line complexity
+  private _handleOpenKeydown(event: KeyboardEvent): void {    
     const keyCode = event.keyCode;
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
     const manager = this._keyManager;
-
+    /*Handles TAB press when panel is open to focus the cancel || done button */
+    const isTabKey = event.code === 'Tab';
+    const doneDisabled: boolean = this.ddDoneButton?.nativeElement['disabled'];
+    const cancelFocused: boolean = this.ddCancelButton?.nativeElement.classList.contains('cdk-focused');
+    if(isTabKey) {
+      if(this.multiple){
+      event.preventDefault();
+      event.stopPropagation();
+      manager.setActiveItem(-1);
+      this.tabKeySelection(cancelFocused, doneDisabled);
+      } else{
+        this.close();
+      }
+    }
     // Check if search input field is present in select box
     const searchField = <HTMLInputElement>event.target;
     /** There is search field inside the list **/
@@ -846,7 +874,8 @@ export class OuiSelect
     } else if (this._multiple && keyCode === A && event.ctrlKey) {
       event.preventDefault();
       this.handleCtrlKey();
-    } else {
+    } else if ((keyCode !== TAB || !this.multiple) && !(keyCode === ENTER || keyCode === SPACE)) {
+      this.focus();
       this.handleScrolling(manager, event, isArrowKey, keyCode);
     }
   }
