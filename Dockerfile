@@ -1,5 +1,4 @@
 FROM dockeronce.azurecr.io/node:16.19.0-alpine3.16 AS build
-WORKDIR /app/website
 COPY . /app/website
 RUN npm install
 RUN npm run build-storybook
