@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.22] - 2023-01-30
+
+- [ONCEHUB-62122](https://scheduleonce.atlassian.net/browse/ONCEHUB-62122) Fix multi select checkbox same as oui-checkbox
+
 ## [7.0.21] - 2023-01-04
 
 - [ONCEHUB-62022](https://scheduleonce.atlassian.net/browse/ONCEHUB-62022) CVE-2022-46175 vulnerability found in package json5 in project once-ui
