@@ -51,8 +51,8 @@ $_oui-pseudo-checkmark-size: $oui-checkbox-size -
   top: ($oui-checkbox-size * 0.5) - ($_oui-pseudo-checkmark-size * 0.25) -
     ($oui-checkbox-size * 0.1) - $oui-checkbox-border-width;
   left: $_oui-pseudo-checkbox-padding - $oui-checkbox-border-width * 0.5;
-  width: $_oui-pseudo-checkmark-size;
-  height: ($_oui-pseudo-checkmark-size - $oui-checkbox-border-width) * 0.5;
+  width: 10px;
+  height: 6px;
   border-left: $oui-checkbox-border-width * 2 solid #333;
   transform: rotate(-45deg);
   opacity: 1;
