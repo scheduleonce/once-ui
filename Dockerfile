@@ -1,8 +1,8 @@
-FROM dockeronce.azurecr.io/node:18.13.0-alpine3.17 AS build
+FROM dockeronce.azurecr.io/node:16.19.0-alpine3.16 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN npm install
-RUN npm run build-storybook
+RUN chown root:root . && npm run build-storybook
 
 FROM nginx:alpine
 COPY --from=build /app/website/storybook-static/ /var/www
