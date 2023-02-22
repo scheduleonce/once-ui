@@ -265,7 +265,7 @@ spec:
           name: pr-version
           resources: {}
         - args:
-          - node -v && npm ci
+          - chown root:root . && node -v && npm ci
           command:
           - /bin/sh
           - -c
