@@ -257,7 +257,7 @@ spec:
           name: setup-builder-home
           resources: {}
         - args:
-          - chown root:root . && echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
+          - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
             && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)
           command:
           - /busybox/sh
