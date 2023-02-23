@@ -6,7 +6,7 @@ npm whoami
 npm --version
 node --version
 npm i
-npm run package
+chown root:root . && npm run package
 filename="$(npm pack --dry-run | tail -n 1)"
 echo "$1"
 
