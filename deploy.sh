@@ -3,8 +3,6 @@ set -e
 
 node package-deploy/npm-login.js $(cat "/etc/npm-cred/NPM_AUTH_TOKEN")
 npm whoami
-npm --version
-node --version
 npm i
 chown root:root . && npm run package
 filename="$(npm pack --dry-run | tail -n 1)"
