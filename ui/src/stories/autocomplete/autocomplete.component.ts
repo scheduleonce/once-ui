@@ -49,6 +49,7 @@ export class OuiAutocompleteStorybook implements OnInit {
     } else {
       this.myControl.enable();
     }
+
   }
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -59,7 +60,6 @@ export class OuiAutocompleteStorybook implements OnInit {
   }
   private _filter(option): string[] {
     const filterValue = option.toLowerCase();
-
     return this.options.filter(
       // eslint-disable-next-line no-shadow
       (option) => option.toLowerCase().indexOf(filterValue) === 0
