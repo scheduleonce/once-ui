@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.22] - 2023-01-30
 
+- [ONCEHUB-60511](https://scheduleonce.atlassian.net/browse/ONCEHUB-60511) Updated to angular 14.x
+
+## [7.0.22] - 2023-01-30
+
 - [ONCEHUB-62122](https://scheduleonce.atlassian.net/browse/ONCEHUB-62122) Fix multi select checkbox same as oui-checkbox
 
 ## [7.0.21] - 2023-01-04
