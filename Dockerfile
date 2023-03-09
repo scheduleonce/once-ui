@@ -1,6 +1,7 @@
 FROM dockeronce.azurecr.io/node:16.19.0-alpine3.16 AS build
 WORKDIR /app/website
 COPY . /app/website
+RUN chown root:root . 
 RUN npm install
 RUN chown root:root . && npm run build-storybook
 
