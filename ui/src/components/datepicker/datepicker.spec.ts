@@ -15,7 +15,11 @@ import {
   inject,
   TestBed,
 } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import {
   OUI_DATE_LOCALE,
   OuiNativeDateModule,
@@ -150,7 +154,7 @@ class DatepickerWithNgModel {
   `,
 })
 class DatepickerWithFormControl {
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
   @ViewChild(OuiDatepickerInput)
   datepickerInput: OuiDatepickerInput<Date>;

@@ -27,8 +27,8 @@ import {
   waitForAsync,
 } from '@angular/core/testing';
 import {
-  FormControl,
-  FormGroup,
+  UntypedFormControl,
+  UntypedFormGroup,
   FormGroupDirective,
   FormsModule,
   ReactiveFormsModule,
@@ -92,7 +92,7 @@ class BasicSelect {
     { value: 'pasta-6', viewValue: 'Pasta' },
     { value: 'sushi-7', viewValue: 'Sushi' },
   ];
-  control = new FormControl();
+  control = new UntypedFormControl();
   isRequired: boolean;
   heightAbove = 0;
   heightBelow = 0;
@@ -192,7 +192,7 @@ class SelectWithChangeEvent {
 })
 class SelectInitWithoutOptions {
   foods: any[];
-  control = new FormControl('pizza-1');
+  control = new UntypedFormControl('pizza-1');
 
   @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
@@ -225,7 +225,7 @@ class BasicSelectOnPush {
     { value: 'pizza-1', viewValue: 'Pizza' },
     { value: 'tacos-2', viewValue: 'Tacos' },
   ];
-  control = new FormControl();
+  control = new UntypedFormControl();
 }
 
 @Component({
@@ -247,7 +247,7 @@ class BasicSelectOnPushPreselected {
     { value: 'pizza-1', viewValue: 'Pizza' },
     { value: 'tacos-2', viewValue: 'Tacos' },
   ];
-  control = new FormControl('pizza-1');
+  control = new UntypedFormControl('pizza-1');
 }
 
 @Component({
@@ -278,7 +278,7 @@ class MultiSelect {
     { value: 'pasta-6', viewValue: 'Pasta' },
     { value: 'sushi-7', viewValue: 'Sushi' },
   ];
-  control = new FormControl();
+  control = new UntypedFormControl();
 
   @ViewChild(OuiSelect) select: OuiSelect;
   @ViewChildren(OuiOption) options: QueryList<OuiOption>;
@@ -352,7 +352,7 @@ class ResetValuesSelect {
     { viewValue: 'Undefined' },
     { value: null, viewValue: 'Null' },
   ];
-  control = new FormControl();
+  control = new UntypedFormControl();
 
   @ViewChild(OuiSelect) select: OuiSelect;
 }
@@ -380,7 +380,7 @@ class ResetValuesSelect {
   `,
 })
 class SelectWithGroups {
-  control = new FormControl();
+  control = new UntypedFormControl();
   pokemonTypes = [
     {
       name: 'Grass',
@@ -437,7 +437,7 @@ class SelectWithGroups {
   `,
 })
 class SelectWithGroupsAndNgContainer {
-  control = new FormControl();
+  control = new UntypedFormControl();
   pokemonTypes = [
     {
       name: 'Grass',
@@ -477,8 +477,8 @@ class SelectInsideFormGroup {
   @ViewChild(FormGroupDirective)
   formGroupDirective: FormGroupDirective;
   @ViewChild(OuiSelect) select: OuiSelect;
-  formControl = new FormControl('', Validators.required);
-  formGroup = new FormGroup({
+  formControl = new UntypedFormControl('', Validators.required);
+  formGroup = new UntypedFormGroup({
     food: this.formControl,
   });
 }
@@ -572,7 +572,7 @@ class SelectWithCustomTrigger {
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },
   ];
-  control = new FormControl();
+  control = new UntypedFormControl();
 }
 
 @Component({
@@ -646,7 +646,7 @@ class NgModelCompareWithSelect {
 })
 class CustomErrorBehaviorSelect {
   @ViewChild(OuiSelect) select: OuiSelect;
-  control = new FormControl();
+  control = new UntypedFormControl();
   foods: any[] = [
     { value: 'steak-0', viewValue: 'Steak' },
     { value: 'pizza-1', viewValue: 'Pizza' },

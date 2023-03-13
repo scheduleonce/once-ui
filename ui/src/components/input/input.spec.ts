@@ -1,6 +1,10 @@
 import { PlatformModule } from '@angular/cdk/platform';
 import { Component, Type, Provider, ViewChild } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormControl,
+  FormsModule,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -48,7 +52,7 @@ class OuiInputWithType {
   `,
 })
 class OuiInputWithFormControl {
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
 }
 
 @Component({
