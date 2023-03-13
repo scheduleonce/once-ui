@@ -1,6 +1,10 @@
 import { Input, Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { FormControl, FormBuilder, FormGroup } from '@angular/forms';
+import {
+  UntypedFormControl,
+  UntypedFormBuilder,
+  UntypedFormGroup,
+} from '@angular/forms';
 import { startWith, map } from 'rxjs/operators';
 
 export interface StateGroup {
@@ -40,7 +44,7 @@ export const _filter = (opt: string[], value: string): string[] => {
 })
 export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
-  myControl = new FormControl();
+  myControl = new UntypedFormControl();
   @Input() options: any[];
   @Input()
   set disabled(value: boolean) {
@@ -111,12 +115,12 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
       this.stateForm.get('stateGroup')!.enable();
     }
   }
-  stateForm: FormGroup = this.fb.group({
+  stateForm: UntypedFormGroup = this.fb.group({
     stateGroup: '',
   });
   stateGroupOptions: Observable<StateGroup[]>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
   ngOnInit() {
     console.log(this.stateGroups);
     this.stateGroupOptions = this.stateForm
