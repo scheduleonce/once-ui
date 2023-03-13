@@ -142,7 +142,8 @@ export class Checkbox
 
   /** Event emitted when the checkbox's `checked` value changes. */
   @Output()
-  readonly change: EventEmitter<OuiCheckboxChange> = new EventEmitter<OuiCheckboxChange>();
+  readonly change: EventEmitter<OuiCheckboxChange> =
+    new EventEmitter<OuiCheckboxChange>();
 
   /** The native `<input type="checkbox">` element */
   @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;
