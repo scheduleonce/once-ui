@@ -6,7 +6,7 @@ import {
   flushMicrotasks,
 } from '@angular/core/testing';
 import {
-  FormControl,
+  UntypedFormControl,
   FormsModule,
   NgModel,
   ReactiveFormsModule,
@@ -119,7 +119,7 @@ class CheckboxWithNameAttribute {}
   template: ` <oui-checkbox [formControl]="formControl"></oui-checkbox> `,
 })
 class CheckboxWithFormControl {
-  formControl = new FormControl();
+  formControl = new UntypedFormControl();
 }
 
 /** Test component without label */
