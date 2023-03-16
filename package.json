@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "7.0.23",
+  "version": "7.0.24",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -39,7 +39,7 @@
     "core-js": "3.26.1",
     "rxjs": "7.5.7",
     "tslib": "2.4.1",
-    "zone.js": "0.11.4"
+    "zone.js": "^0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.10",

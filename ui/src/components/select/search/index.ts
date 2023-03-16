@@ -38,6 +38,8 @@ export class OuiSelectSearchComponent
   /** Subject that emits when the component has been destroyed. */
   private _onDestroy = new Subject<void>();
 
+  @Input('aria-label') ariaLabel = 'Type to filter';
+
   /** Label of the search placeholder */
   @Input() placeholderLabel = '';
 
