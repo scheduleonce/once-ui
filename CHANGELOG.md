@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [ONCEHUB-63483](https://scheduleonce.atlassian.net/browse/ONCEHUB-63483) When the user name is entered in the search text field entered username is not able to select the checkbox for the second click of the enter button.
 
-## [7.0.23] - 2023-01-30
+## [7.0.23] - 2023-03-13
 
 - [ONCEHUB-60511](https://scheduleonce.atlassian.net/browse/ONCEHUB-60511) Updated to angular 14.x
 
