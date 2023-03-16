@@ -5,6 +5,7 @@
       class="oui-select-search-input"
       #searchSelectInput
       (input)="onInputChange($event.target.value)"
+      [attr.aria-label]="ariaLabel"
       [placeholder]="placeholderLabel"
     />
   </oui-form-field>
