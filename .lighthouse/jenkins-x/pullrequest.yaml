@@ -172,8 +172,8 @@ spec:
           name: ""
           resources:
             requests:
-              cpu: 400m
-              memory: 512Mi
+              cpu: 100m
+              memory: 250Mi
           volumeMounts:
           - mountPath: /home/jenkins
             name: workspace-volume
