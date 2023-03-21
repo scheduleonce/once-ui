@@ -666,7 +666,7 @@ export class OuiSelect
     this._panelOpen = true;
     this._keyManager.withHorizontalOrientation(null);
 
-    this._highlightFirstFilteredOption();
+    this._highlightCorrectOption();
     this._changeDetectorRef.markForCheck();
     this.openedChange.emit(true);
     this._elementRef.nativeElement.classList.add(
@@ -973,7 +973,9 @@ export class OuiSelect
         this.ngControl ? this.ngControl.value : this._value
       );
       this.savedValues = this.ngControl ? this.ngControl.value : this._value;
-      this._highlightFirstFilteredOption();
+      if (this.multiple) {
+        this._highlightFirstFilteredOption();
+      }
     });
   }
 
@@ -1170,6 +1172,22 @@ export class OuiSelect
   /** Records option IDs to pass to the aria-owns property. */
   private _setOptionIds() {
     this._optionIds = this.options.map((option) => option.id).join(' ');
+  }
+
+  /**
+   * Highlights the selected item. If no option is selected, it will highlight
+   * the first item instead.
+   */
+  private _highlightCorrectOption(): void {
+    if (this.multiple) {
+      this._highlightFirstFilteredOption();
+    } else if (this._keyManager) {
+      if (this.empty) {
+        this._keyManager.setFirstItemActive();
+      } else {
+        this._keyManager.setActiveItem(this._selectionModel.selected[0]);
+      }
+    }
   }
 
   /**
