@@ -114,7 +114,8 @@ export class OuiMonthView<D> implements AfterContentInit {
 
   /** Emits when a new date is selected. */
   @Output()
-  readonly selectedChange: EventEmitter<D | null> = new EventEmitter<D | null>();
+  readonly selectedChange: EventEmitter<D | null> =
+    new EventEmitter<D | null>();
 
   /** Emits when any date is selected. */
   @Output()
