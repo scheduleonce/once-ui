@@ -286,7 +286,7 @@ spec:
           image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v18.13.0
           name: check-lint
         - args:
-          - export NODE_ENV="test" CHROME_BIN=/usr/bin/google-chrome && npm run test
+          - export NODE_ENV="test" && export CHROME_BIN=/usr/local/bin/my-chrome-build && npm run test
           command:
           - /bin/sh
           - -c
