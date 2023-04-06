@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.0.22] - 2023-01-30
+## [7.0.25] - 2023-03-21
+
+- [ONCEHUB-65275](https://scheduleonce.atlassian.net/browse/ONCEHUB-65725) Interactions are getting auto populated when we create bot/form from scratch or template and save button is getting enabled in a scenario.
+
+## [7.0.24] - 2023-03-16
+
+- [ONCEHUB-63483](https://scheduleonce.atlassian.net/browse/ONCEHUB-63483) When the user name is entered in the search text field entered username is not able to select the checkbox for the second click of the enter button.
+
+## [7.0.23] - 2023-03-13
 
 - [ONCEHUB-60511](https://scheduleonce.atlassian.net/browse/ONCEHUB-60511) Updated to angular 14.x
 
