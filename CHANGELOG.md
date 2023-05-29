@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.26] - 2023-05-29
+
+- [ONCEHUB-68163,ONCEHUB-67384,ONCEHUB-68131] Security vulnerability fix
+
 ## [7.0.25] - 2023-03-21
 
 - [ONCEHUB-65275](https://scheduleonce.atlassian.net/browse/ONCEHUB-65725) Interactions are getting auto populated when we create bot/form from scratch or template and save button is getting enabled in a scenario.
