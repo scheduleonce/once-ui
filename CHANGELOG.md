@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.26] - 2023-05-29
 
-- [ONCEHUB-68163,ONCEHUB-67384,ONCEHUB-68131] Security vulnerability fix 
+- [ONCEHUB-68163,ONCEHUB-67384,ONCEHUB-68131] Security vulnerability fix
 
 ## [7.0.25] - 2023-03-21
 
