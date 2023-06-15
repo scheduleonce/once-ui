@@ -1150,7 +1150,7 @@
     "injectables": [
         {
             "name": "DialogScrollStrategy",
-            "id": "injectable-DialogScrollStrategy-7534ab3a6da248901ee91f8f2e3a243089ab320197068f583686a196e777ec042789bf18276a9b4ceca24eee2781c7b1fccdeffa5d9ca4879123782fdc7f0133",
+            "id": "injectable-DialogScrollStrategy-d4826474846cdee58f267bae670146c13a9bf58f121d29ed02ad5e9eb2399bfed4a730161e1499e771acae805aad22e574fb51f0be3cf440aee849c6cedb4617",
             "file": "ui/src/components/dialog/dialog-scroll-strategy.ts",
             "properties": [
                 {
@@ -1169,7 +1169,7 @@
                     "name": "_overlayRef",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "OverlayReference",
+                    "type": "OverlayRef",
                     "optional": false,
                     "description": "",
                     "line": 14,
@@ -1209,7 +1209,7 @@
                     "args": [
                         {
                             "name": "overlayRef",
-                            "type": "OverlayReference",
+                            "type": "OverlayRef",
                             "deprecated": false,
                             "deprecationMessage": ""
                         }
@@ -1225,7 +1225,7 @@
                     "jsdoctags": [
                         {
                             "name": "overlayRef",
-                            "type": "OverlayReference",
+                            "type": "OverlayRef",
                             "deprecated": false,
                             "deprecationMessage": "",
                             "tagName": {
@@ -1261,7 +1261,7 @@
             "deprecationMessage": "",
             "description": "<p>Scroll strategy that scrolls only overflowed dialog (prevent inner scroll)</p>\n",
             "rawdescription": "\nScroll strategy that scrolls only overflowed dialog (prevent inner scroll)",
-            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { ScrollStrategy } from '@angular/cdk/overlay';\r\nimport { OverlayReference } from '@angular/cdk/overlay/overlay-reference';\r\n\r\n/** Scroll strategy that scrolls only overflowed dialog (prevent inner scroll) */\r\n@Injectable()\r\nexport class DialogScrollStrategy implements ScrollStrategy {\r\n  private _document: Document;\r\n  private _overlayRef: OverlayReference;\r\n  private _previousBodyOverflow: string;\r\n\r\n  constructor() {\r\n    this._document = document;\r\n  }\r\n  /** Attaches this scroll strategy to an overlay. */\r\n  attach(overlayRef: OverlayReference) {\r\n    this._overlayRef = overlayRef;\r\n  }\r\n  /** scroll only dialog overlay */\r\n  enable() {\r\n    this._setOverlayStyle();\r\n    const body = this._document.body;\r\n    this._previousBodyOverflow = body.style.overflow;\r\n    body.style.overflow = 'hidden';\r\n  }\r\n\r\n  disable() {\r\n    const body = this._document.body;\r\n    body.style.overflow = this._previousBodyOverflow;\r\n  }\r\n\r\n  private _setOverlayStyle() {\r\n    this._overlayRef.hostElement.style.pointerEvents = 'auto';\r\n    this._overlayRef.hostElement.style.position = 'fixed';\r\n    this._overlayRef.hostElement.style.overflow = 'auto';\r\n  }\r\n}\r\n",
+            "sourceCode": "import { Injectable } from '@angular/core';\r\nimport { ScrollStrategy } from '@angular/cdk/overlay';\r\nimport { OverlayRef } from '@angular/cdk/overlay';\r\n\r\n/** Scroll strategy that scrolls only overflowed dialog (prevent inner scroll) */\r\n@Injectable()\r\nexport class DialogScrollStrategy implements ScrollStrategy {\r\n  private _document: Document;\r\n  private _overlayRef: OverlayRef;\r\n  private _previousBodyOverflow: string;\r\n\r\n  constructor() {\r\n    this._document = document;\r\n  }\r\n  /** Attaches this scroll strategy to an overlay. */\r\n  attach(overlayRef: OverlayRef) {\r\n    this._overlayRef = overlayRef;\r\n  }\r\n  /** scroll only dialog overlay */\r\n  enable() {\r\n    this._setOverlayStyle();\r\n    const body = this._document.body;\r\n    this._previousBodyOverflow = body.style.overflow;\r\n    body.style.overflow = 'hidden';\r\n  }\r\n\r\n  disable() {\r\n    const body = this._document.body;\r\n    body.style.overflow = this._previousBodyOverflow;\r\n  }\r\n\r\n  private _setOverlayStyle() {\r\n    this._overlayRef.hostElement.style.pointerEvents = 'auto';\r\n    this._overlayRef.hostElement.style.position = 'fixed';\r\n    this._overlayRef.hostElement.style.overflow = 'auto';\r\n  }\r\n}\r\n",
             "constructorObj": {
                 "name": "constructor",
                 "description": "",
@@ -25798,7 +25798,7 @@
         },
         {
             "name": "OuiDialogHeaderArticle",
-            "id": "directive-OuiDialogHeader-21f12d9c1a536f543ca0b2382133ab9c7d8281d8279da860ce9e216e5628d8177bee88c4cb99e329b63128f545080dc9b92f03edac8ce76301d884b2180759e5",
+            "id": "component-OuiDialogHeaderArticle-21f12d9c1a536f543ca0b2382133ab9c7d8281d8279da860ce9e216e5628d8177bee88c4cb99e329b63128f545080dc9b92f03edac8ce76301d884b2180759e5",
             "file": "ui/src/components/dialog/dialog-content.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -25945,7 +25945,7 @@
         },
         {
             "name": "OuiDialogHeaderClose",
-            "id": "directive-OuiDialogHeader-21f12d9c1a536f543ca0b2382133ab9c7d8281d8279da860ce9e216e5628d8177bee88c4cb99e329b63128f545080dc9b92f03edac8ce76301d884b2180759e5",
+            "id": "component-OuiDialogHeaderClose-21f12d9c1a536f543ca0b2382133ab9c7d8281d8279da860ce9e216e5628d8177bee88c4cb99e329b63128f545080dc9b92f03edac8ce76301d884b2180759e5",
             "file": "ui/src/components/dialog/dialog-content.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -26092,7 +26092,7 @@
         },
         {
             "name": "OuiDialogHeaderVideo",
-            "id": "directive-OuiDialogHeader-21f12d9c1a536f543ca0b2382133ab9c7d8281d8279da860ce9e216e5628d8177bee88c4cb99e329b63128f545080dc9b92f03edac8ce76301d884b2180759e5",
+            "id": "component-OuiDialogHeaderVideo-21f12d9c1a536f543ca0b2382133ab9c7d8281d8279da860ce9e216e5628d8177bee88c4cb99e329b63128f545080dc9b92f03edac8ce76301d884b2180759e5",
             "file": "ui/src/components/dialog/dialog-content.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -42884,26 +42884,6 @@
                 "defaultValue": "`Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`"
             },
             {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "environments/environment.prod.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  production: true,\r\n}"
-            },
-            {
-                "name": "environment",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "environments/environment.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "object",
-                "defaultValue": "{\r\n  production: false,\r\n}"
-            },
-            {
                 "name": "EXPORTED_DECLARATIONS",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -47177,30 +47157,6 @@
                     "description": "<p>Counter used to generate unique IDs for dialog elements.</p>\n"
                 }
             ],
-            "environments/environment.prod.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.prod.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: true,\r\n}"
-                }
-            ],
-            "environments/environment.ts": [
-                {
-                    "name": "environment",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "environments/environment.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "object",
-                    "defaultValue": "{\r\n  production: false,\r\n}"
-                }
-            ],
             "ui/src/components/table/table-module.ts": [
                 {
                     "name": "EXPORTED_DECLARATIONS",
@@ -50339,29 +50295,9 @@
     },
     "routes": [],
     "coverage": {
-        "count": 46,
+        "count": 47,
         "status": "medium",
         "files": [
-            {
-                "filePath": "environments/environment.prod.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "environment",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "environments/environment.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "environment",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
             {
                 "filePath": "ui/src/components/autocomplete/autocomplete-origin.ts",
                 "type": "directive",
