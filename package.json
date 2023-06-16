@@ -53,6 +53,7 @@
     "@angular/language-service": "15.2.9",
     "@babel/core": "7.20.5",
     "@compodoc/compodoc": "1.1.19",
+    "@mdx-js/react": "^2.3.0",
     "@storybook/addon-actions": "6.5.13",
     "@storybook/addon-controls": "6.5.13",
     "@storybook/addon-essentials": "6.5.13",
