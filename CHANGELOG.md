@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.28] - 2023-07-24
+
+- [ONCEHUB-70415] Security vulnerability fix
+
+## [7.0.27] - 2023-05-29
+
+- [ONCEHUB-68163,ONCEHUB-67384,ONCEHUB-68131] Security vulnerability fix
+
+## [7.0.25] - 2023-03-21
+
+- [ONCEHUB-65275](https://scheduleonce.atlassian.net/browse/ONCEHUB-65725) Interactions are getting auto populated when we create bot/form from scratch or template and save button is getting enabled in a scenario.
+
+## [7.0.24] - 2023-03-16
+
+- [ONCEHUB-63483](https://scheduleonce.atlassian.net/browse/ONCEHUB-63483) When the user name is entered in the search text field entered username is not able to select the checkbox for the second click of the enter button.
+
+## [7.0.23] - 2023-03-13
+
+- [ONCEHUB-60511](https://scheduleonce.atlassian.net/browse/ONCEHUB-60511) Updated to angular 14.x
+
+## [7.0.22] - 2023-01-30
+
+- [ONCEHUB-62122](https://scheduleonce.atlassian.net/browse/ONCEHUB-62122) Fix multi select checkbox same as oui-checkbox
+
+## [7.0.21] - 2023-01-04
+
+- [ONCEHUB-62022](https://scheduleonce.atlassian.net/browse/ONCEHUB-62022) CVE-2022-46175 vulnerability found in package json5 in project once-ui
+
+## [7.0.20] - 2022-12-13
+
+- [ONCEHUB-60839](https://scheduleonce.atlassian.net/browse/ONCEHUB-60839) CVE-2022-38900 vulnerability found in package decode-uri-component
+
 ## [7.0.19] - 2022-12-06
 
 - [ONCEHUB-60478](https://scheduleonce.atlassian.net/browse/ONCEHUB-60478) Focus on our shared components buttons - is staying on focus state even after the action is done.
