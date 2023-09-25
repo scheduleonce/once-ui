@@ -262,7 +262,7 @@ spec:
           command:
           - /busybox/sh
           - -c
-          image: gcr.io/kaniko-project/executor:debug-v0.24.0
+          image: gcr.io/kaniko-project/executor:v1.9.1-debug
           name: docker-build
           resources: {}
         - args:
