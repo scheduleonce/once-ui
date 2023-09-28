@@ -824,20 +824,26 @@ export class OuiSelect
     if (!focused) {
       if (!doneDisabled && !doneButtonRef.classList.contains('cdk-focused')) {
         doneButtonRef.focus();
-      } else if(doneDisabled && !cancelButtonRef.classList.contains('cdk-focused')){
+      } else if (
+        doneDisabled &&
+        !cancelButtonRef.classList.contains('cdk-focused')
+      ) {
         cancelButtonRef.focus();
-      } else{
+      } else {
         cancelButtonRef.focus();
       }
     } else {
-      if(doneDisabled && cancelButtonRef.classList.contains('cdk-focused')){
+      if (doneDisabled && cancelButtonRef.classList.contains('cdk-focused')) {
         this.close();
-      } else if(!doneDisabled && cancelButtonRef.classList.contains('cdk-focused')){
+      } else if (
+        !doneDisabled &&
+        cancelButtonRef.classList.contains('cdk-focused')
+      ) {
         searchInput.focus();
-      } else{
-        cancelButtonRef.focus();  
+      } else {
+        cancelButtonRef.focus();
       }
-    } 
+    }
   }
   /** Handles TAB press when panel is open to focus the cancel || done button */
   tabbedKeyMethod(event: KeyboardEvent) {
