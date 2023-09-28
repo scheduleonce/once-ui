@@ -815,20 +815,34 @@ export class OuiSelect
     }
   }
 
-  /** On Tab key press select the buttons at the bottom if actionItems is enabled*/
+  /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
+    const searchQueryString = '.oui-select-search-input';
+    const searchInput = this._document.querySelector(searchQueryString);
     const doneButtonRef = this.ddDoneButton.nativeElement;
     const cancelButtonRef = this.ddCancelButton.nativeElement;
     if (!focused) {
       if (!doneDisabled && !doneButtonRef.classList.contains('cdk-focused')) {
         doneButtonRef.focus();
+      } else if (
+        doneDisabled &&
+        !cancelButtonRef.classList.contains('cdk-focused')
+      ) {
+        cancelButtonRef.focus();
       } else {
         cancelButtonRef.focus();
       }
-    } else if (focused && doneDisabled) {
-      this.close();
     } else {
-      doneButtonRef.focus();
+      if (doneDisabled && cancelButtonRef.classList.contains('cdk-focused')) {
+        this.close();
+      } else if (
+        !doneDisabled &&
+        cancelButtonRef.classList.contains('cdk-focused')
+      ) {
+        searchInput.focus();
+      } else {
+        cancelButtonRef.focus();
+      }
     }
   }
   /** Handles TAB press when panel is open to focus the cancel || done button */
