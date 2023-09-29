@@ -4,8 +4,7 @@
  **/
 
 import { Injectable } from '@angular/core';
-import { ScrollStrategy } from '@angular/cdk/overlay';
-import { OverlayRef } from '@angular/cdk/overlay';
+import { ScrollStrategy, OverlayRef } from '@angular/cdk/overlay';
 
 /** Scroll strategy that scrolls only overflowed dialog (prevent inner scroll) */
 @Injectable()
