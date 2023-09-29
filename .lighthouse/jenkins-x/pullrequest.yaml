@@ -290,7 +290,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.16.0
+          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.17.0
           name: unit-tests
         - args:
           - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
@@ -298,7 +298,7 @@ spec:
           command:
           - /busybox/sh
           - -c
-          image: gcr.io/kaniko-project/executor:debug-v0.24.0
+          image: gcr.io/kaniko-project/executor:v1.9.1-debug
           name: docker-build
           resources: {} 
         volumes:
