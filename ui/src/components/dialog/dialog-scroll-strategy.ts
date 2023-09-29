@@ -4,21 +4,20 @@
  **/
 
 import { Injectable } from '@angular/core';
-import { ScrollStrategy } from '@angular/cdk/overlay';
-import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
+import { ScrollStrategy, OverlayRef } from '@angular/cdk/overlay';
 
 /** Scroll strategy that scrolls only overflowed dialog (prevent inner scroll) */
 @Injectable()
 export class DialogScrollStrategy implements ScrollStrategy {
   private _document: Document;
-  private _overlayRef: OverlayReference;
+  private _overlayRef: OverlayRef;
   private _previousBodyOverflow: string;
 
   constructor() {
     this._document = document;
   }
   /** Attaches this scroll strategy to an overlay. */
-  attach(overlayRef: OverlayReference) {
+  attach(overlayRef: OverlayRef) {
     this._overlayRef = overlayRef;
   }
   /** scroll only dialog overlay */
