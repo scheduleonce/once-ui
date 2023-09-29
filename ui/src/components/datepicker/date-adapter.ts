@@ -1,4 +1,4 @@
-import { inject, InjectionToken, LOCALE_ID } from '@angular/core';
+import { inject, Injectable, InjectionToken, LOCALE_ID } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 /** InjectionToken for datepicker that can be used to override default locale code. */
@@ -24,6 +24,7 @@ export const OUI_DATE_LOCALE_PROVIDER = {
 };
 
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */
+@Injectable()
 export abstract class DateAdapter<D> {
   /** The locale to use for all dates. */
   protected locale: any;
