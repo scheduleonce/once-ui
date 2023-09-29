@@ -323,7 +323,7 @@ export class OuiSelect
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
   private _value: any;
-  
+
   /**
    * Function used to sort the values in a select in multiple mode.
    * Follows the same logic as `Array.prototype.sort`.
