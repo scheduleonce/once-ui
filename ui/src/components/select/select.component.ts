@@ -840,7 +840,11 @@ export class OuiSelect
         !doneDisabled &&
         cancelButtonRef.classList.contains('cdk-focused')
       ) {
-        searchInput.focus();
+        if (this.isSearchFieldPresent) {
+          searchInput.focus();
+        } else {
+          doneButtonRef.focus();
+        }
       } else {
         cancelButtonRef.focus();
       }
@@ -993,7 +997,7 @@ export class OuiSelect
    */
   _onBlur() {
     this._focused = false;
-    this.isSearchFieldPresent = false;
+    // this.isSearchFieldPresent = false;
 
     if (!this.disabled && !this.panelOpen) {
       this._onTouched();
