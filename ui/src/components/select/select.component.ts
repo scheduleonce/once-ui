@@ -13,6 +13,7 @@ import {
   SPACE,
   UP_ARROW,
   hasModifierKey,
+  TAB,
 } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -311,6 +312,12 @@ export class OuiSelect
 
   /** Trigger that opens the select. */
   @ViewChild('trigger') trigger: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('ddCancelButton', { read: ElementRef }) ddCancelButton: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
 
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
@@ -895,11 +902,32 @@ export class OuiSelect
         return;
       }
     }
+  }
+  /**Home || End keys pressed */
+  homeOrEndPressed(
+    keyCode: number,
+    manager: ActiveDescendantKeyManager<OuiOption>
+  ) {
+    keyCode === HOME
+      ? manager.setFirstItemActive()
+      : manager.setLastItemActive();
+  }
+  /** Handles keyboard events when the selected is open. */
+  private _handleOpenKeydown(event: KeyboardEvent): void {
+    const keyCode = event.keyCode;
+    const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
+    const manager = this._keyManager;
+    const normalNavigationCheck =
+      (keyCode !== TAB || !this.multiple) &&
+      !(keyCode === ENTER || keyCode === SPACE);
+    // Handles TAB press when panel is open to focus the cancel || done button
+    this.tabbedKeyMethod(event);
+    // Check if search input field is present in select box
+    this.searchFieldCheck(keyCode);
+
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
-      keyCode === HOME
-        ? manager.setFirstItemActive()
-        : manager.setLastItemActive();
+      this.homeOrEndPressed(keyCode, manager);
     } else if (isArrowKey && event.altKey) {
       // Close the select on ALT + arrow key to match the native <select>
       event.preventDefault();
@@ -914,7 +942,9 @@ export class OuiSelect
     } else if (this._multiple && keyCode === A && event.ctrlKey) {
       event.preventDefault();
       this.handleCtrlKey();
-    } else {
+    } else if (normalNavigationCheck) {
+      // Check for non multiple select dropdown that the key pressed is not Tab, Space, Enter
+      if (!this.isSearchFieldPresent) this.focus();
       this.handleScrolling(manager, event, isArrowKey, keyCode);
     }
   }
@@ -987,7 +1017,7 @@ export class OuiSelect
    */
   _onBlur() {
     this._focused = false;
-    this.isSearchFieldPresent = false;
+    // this.isSearchFieldPresent = false;
 
     if (!this.disabled && !this.panelOpen) {
       this._onTouched();
