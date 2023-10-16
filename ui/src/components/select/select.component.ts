@@ -815,7 +815,6 @@ export class OuiSelect
       }
     }
   }
-
   /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
     const searchQueryString = '.oui-select-search-input';
@@ -868,21 +867,6 @@ export class OuiSelect
       }
     }
   }
-  /** Check if search input field is present in select box */
-  searchFieldCheck(keyCode: number) {
-    const searchField = <HTMLInputElement>event.target;
-    // There is search field inside the list
-    if (
-      searchField &&
-      searchField.tagName &&
-      searchField.tagName.toLowerCase() === 'input'
-    ) {
-      this.isSearchFieldPresent = true;
-      if (keyCode === SPACE) {
-        return;
-      }
-    }
-  }
   /**Home || End keys pressed */
   homeOrEndPressed(
     keyCode: number,
@@ -891,6 +875,15 @@ export class OuiSelect
     keyCode === HOME
       ? manager.setFirstItemActive()
       : manager.setLastItemActive();
+  }
+  /** Check if search input field is present in select box */
+  searchCheck() {
+    const searchField = <HTMLInputElement>event.target;
+    return (
+      searchField &&
+      searchField.tagName &&
+      searchField.tagName.toLowerCase() === 'input'
+    );
   }
   /** Handles keyboard events when the selected is open. */
   private _handleOpenKeydown(event: KeyboardEvent): void {
@@ -902,8 +895,13 @@ export class OuiSelect
       !(keyCode === ENTER || keyCode === SPACE);
     // Handles TAB press when panel is open to focus the cancel || done button
     this.tabbedKeyMethod(event);
-    // Check if search input field is present in select box
-    this.searchFieldCheck(keyCode);
+    // There is search field inside the list
+    if (this.searchCheck()) {
+      this.isSearchFieldPresent = true;
+      if (keyCode === SPACE) {
+        return;
+      }
+    }
 
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
