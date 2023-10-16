@@ -868,21 +868,6 @@ export class OuiSelect
       }
     }
   }
-  /** Check if search input field is present in select box */
-  searchFieldCheck(keyCode: number) {
-    const searchField = <HTMLInputElement>event.target;
-    // There is search field inside the list
-    if (
-      searchField &&
-      searchField.tagName &&
-      searchField.tagName.toLowerCase() === 'input'
-    ) {
-      this.isSearchFieldPresent = true;
-      if (keyCode === SPACE) {
-        return;
-      }
-    }
-  }
   /**Home || End keys pressed */
   homeOrEndPressed(
     keyCode: number,
@@ -892,19 +877,34 @@ export class OuiSelect
       ? manager.setFirstItemActive()
       : manager.setLastItemActive();
   }
+
+  /** Check if search input field is present in select box */
+  searchCheck() {
+    const searchField = <HTMLInputElement>event.target;
+    return (
+      searchField &&
+      searchField.tagName &&
+      searchField.tagName.toLowerCase() === 'input'
+    );
+  }
+
   /** Handles keyboard events when the selected is open. */
   private _handleOpenKeydown(event: KeyboardEvent): void {
     const keyCode = event.keyCode;
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
     const manager = this._keyManager;
+    // Handles TAB press when panel is open to focus the cancel || done button
+    this.tabbedKeyMethod(event);
     const normalNavigationCheck =
       (keyCode !== TAB || !this.multiple) &&
       !(keyCode === ENTER || keyCode === SPACE);
-    // Handles TAB press when panel is open to focus the cancel || done button
-    this.tabbedKeyMethod(event);
-    // Check if search input field is present in select box
-    this.searchFieldCheck(keyCode);
-
+    // There is search field inside the list
+    if (this.searchCheck()) {
+      this.isSearchFieldPresent = true;
+      if (keyCode === SPACE) {
+        return;
+      }
+    }
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
       this.homeOrEndPressed(keyCode, manager);
