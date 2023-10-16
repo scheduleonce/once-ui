@@ -13,6 +13,7 @@ import {
   SPACE,
   UP_ARROW,
   hasModifierKey,
+  TAB,
 } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -311,6 +312,12 @@ export class OuiSelect
 
   /** Trigger that opens the select. */
   @ViewChild('trigger') trigger: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('ddCancelButton', { read: ElementRef }) ddCancelButton: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
 
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
@@ -808,6 +815,74 @@ export class OuiSelect
       }
     }
   }
+
+  /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
+  private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
+    const searchQueryString = '.oui-select-search-input';
+    const searchInput = this._document.querySelector(searchQueryString);
+    const doneButtonRef = this.ddDoneButton.nativeElement;
+    const cancelButtonRef = this.ddCancelButton.nativeElement;
+    if (!focused) {
+      if (!doneDisabled && !doneButtonRef.classList.contains('cdk-focused')) {
+        doneButtonRef.focus();
+      } else if (
+        doneDisabled &&
+        !cancelButtonRef.classList.contains('cdk-focused')
+      ) {
+        cancelButtonRef.focus();
+      } else {
+        cancelButtonRef.focus();
+      }
+    } else {
+      if (doneDisabled && cancelButtonRef.classList.contains('cdk-focused')) {
+        this.close();
+      } else if (
+        !doneDisabled &&
+        cancelButtonRef.classList.contains('cdk-focused')
+      ) {
+        if (this.isSearchFieldPresent) {
+          searchInput.focus();
+        } else {
+          doneButtonRef.focus();
+        }
+      } else {
+        cancelButtonRef.focus();
+      }
+    }
+  }
+  /** Handles TAB press when panel is open to focus the cancel || done button */
+  tabbedKeyMethod(event: KeyboardEvent) {
+    const manager = this._keyManager;
+    const isTabKey = event.code === 'Tab';
+    const doneDisabled: boolean = this.ddDoneButton?.nativeElement['disabled'];
+    const cancelFocused: boolean =
+      this.ddCancelButton?.nativeElement.classList.contains('cdk-focused');
+    if (isTabKey) {
+      if (this.multiple) {
+        event.preventDefault();
+        event.stopPropagation();
+        manager.setActiveItem(-1);
+        this.tabKeySelection(cancelFocused, doneDisabled);
+      } else {
+        this.close();
+      }
+    }
+  }
+  /** Check if search input field is present in select box */
+  searchFieldCheck(keyCode: number) {
+    const searchField = <HTMLInputElement>event.target;
+    // There is search field inside the list
+    if (
+      searchField &&
+      searchField.tagName &&
+      searchField.tagName.toLowerCase() === 'input'
+    ) {
+      this.isSearchFieldPresent = true;
+      if (keyCode === SPACE) {
+        return;
+      }
+    }
+  }
   /**Home || End keys pressed */
   homeOrEndPressed(
     keyCode: number,
@@ -822,23 +897,17 @@ export class OuiSelect
     const keyCode = event.keyCode;
     const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
     const manager = this._keyManager;
-    const searchField = <HTMLInputElement>event.target;
-    // There is search field inside the list
-    if (
-      searchField &&
-      searchField.tagName &&
-      searchField.tagName.toLowerCase() === 'input'
-    ) {
-      this.isSearchFieldPresent = true;
-      if (keyCode === SPACE) {
-        return;
-      }
-    }
+    const normalNavigationCheck =
+      (keyCode !== TAB || !this.multiple) &&
+      !(keyCode === ENTER || keyCode === SPACE);
+    // Handles TAB press when panel is open to focus the cancel || done button
+    this.tabbedKeyMethod(event);
+    // Check if search input field is present in select box
+    this.searchFieldCheck(keyCode);
+
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
-      keyCode === HOME
-        ? manager.setFirstItemActive()
-        : manager.setLastItemActive();
+      this.homeOrEndPressed(keyCode, manager);
     } else if (isArrowKey && event.altKey) {
       // Close the select on ALT + arrow key to match the native <select>
       event.preventDefault();
@@ -853,7 +922,9 @@ export class OuiSelect
     } else if (this._multiple && keyCode === A && event.ctrlKey) {
       event.preventDefault();
       this.handleCtrlKey();
-    } else {
+    } else if (normalNavigationCheck) {
+      // Check for non multiple select dropdown that the key pressed is not Tab, Space, Enter
+      if (!this.isSearchFieldPresent) this.focus();
       this.handleScrolling(manager, event, isArrowKey, keyCode);
     }
   }
@@ -926,7 +997,7 @@ export class OuiSelect
    */
   _onBlur() {
     this._focused = false;
-    this.isSearchFieldPresent = false;
+    // this.isSearchFieldPresent = false;
 
     if (!this.disabled && !this.panelOpen) {
       this._onTouched();
