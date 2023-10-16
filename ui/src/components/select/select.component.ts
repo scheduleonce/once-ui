@@ -902,28 +902,6 @@ export class OuiSelect
         return;
       }
     }
-  }
-  /**Home || End keys pressed */
-  homeOrEndPressed(
-    keyCode: number,
-    manager: ActiveDescendantKeyManager<OuiOption>
-  ) {
-    keyCode === HOME
-      ? manager.setFirstItemActive()
-      : manager.setLastItemActive();
-  }
-  /** Handles keyboard events when the selected is open. */
-  private _handleOpenKeydown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
-    const isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
-    const manager = this._keyManager;
-    const normalNavigationCheck =
-      (keyCode !== TAB || !this.multiple) &&
-      !(keyCode === ENTER || keyCode === SPACE);
-    // Handles TAB press when panel is open to focus the cancel || done button
-    this.tabbedKeyMethod(event);
-    // Check if search input field is present in select box
-    this.searchFieldCheck(keyCode);
 
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
