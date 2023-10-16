@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [ONCEHUB-73533](https://scheduleonce.atlassian.net/browse/ONCEHUB-73533) In searchInput by pressing space key user was not able to add space between words, In this latest version this issue will be fixed.
 
+## [7.0.31] - 2023-10-04
+
+- [ONCEHUB-73149](https://scheduleonce.atlassian.net/browse/ONCEHUB-73149) Spacing issue on oui-scrollbar when scrollbar is not visible.
+
 ## [7.0.30] - 2023-10-04
 
 - [ONCEHUB-62187](https://scheduleonce.atlassian.net/browse/ONCEHUB-62187) Added accessibility in multiselect dropdown for actionItems(Cancel button & Done button). By Tab key user can navigate through actionItems and search bar.
