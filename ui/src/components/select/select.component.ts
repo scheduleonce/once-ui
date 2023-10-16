@@ -13,7 +13,6 @@ import {
   SPACE,
   UP_ARROW,
   hasModifierKey,
-  TAB,
 } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
@@ -312,12 +311,6 @@ export class OuiSelect
 
   /** Trigger that opens the select. */
   @ViewChild('trigger') trigger: ElementRef;
-
-  /** Trigger that opens the select. */
-  @ViewChild('ddCancelButton', { read: ElementRef }) ddCancelButton: ElementRef;
-
-  /** Trigger that opens the select. */
-  @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
 
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
@@ -815,7 +808,6 @@ export class OuiSelect
       }
     }
   }
-
   /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
     const searchQueryString = '.oui-select-search-input';
@@ -905,7 +897,9 @@ export class OuiSelect
     }
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
-      this.homeOrEndPressed(keyCode, manager);
+      keyCode === HOME
+        ? manager.setFirstItemActive()
+        : manager.setLastItemActive();
     } else if (isArrowKey && event.altKey) {
       // Close the select on ALT + arrow key to match the native <select>
       event.preventDefault();
@@ -920,9 +914,7 @@ export class OuiSelect
     } else if (this._multiple && keyCode === A && event.ctrlKey) {
       event.preventDefault();
       this.handleCtrlKey();
-    } else if (normalNavigationCheck) {
-      // Check for non multiple select dropdown that the key pressed is not Tab, Space, Enter
-      if (!this.isSearchFieldPresent) this.focus();
+    } else {
       this.handleScrolling(manager, event, isArrowKey, keyCode);
     }
   }
@@ -995,7 +987,7 @@ export class OuiSelect
    */
   _onBlur() {
     this._focused = false;
-    // this.isSearchFieldPresent = false;
+    this.isSearchFieldPresent = false;
 
     if (!this.disabled && !this.panelOpen) {
       this._onTouched();
