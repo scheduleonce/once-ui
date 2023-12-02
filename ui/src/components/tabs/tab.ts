@@ -70,7 +70,7 @@ export class MatTab extends _MatTabMixinBase implements CanDisable, OnInit, OnCh
     return this._templateLabel;
   }
   set templateLabel(value: MatTabLabel) {
-    console.log(value)
+    console.log('value', value)
     this._setTemplateLabelInput(value);
   }
 
@@ -129,15 +129,16 @@ export class MatTab extends _MatTabMixinBase implements CanDisable, OnInit, OnCh
    */
   position: number | null = null;
 
+  
   /**
    * The initial relatively index origin of the tab if it was created and selected after there
    * was already a selected tab. Provides context of what position the tab should originate from.
-   */
-  origin: number | null = null;
-
-  /**
-   * Whether the tab is currently active.
-   */
+  */
+ origin: number | null = null;
+ 
+ /**
+  * Whether the tab is currently active.
+ */
   isActive = false;
 
   @ViewChild('tab1') _tab1: ElementRef;

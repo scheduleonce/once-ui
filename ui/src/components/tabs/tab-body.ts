@@ -160,6 +160,7 @@ export class MatTabBody implements OnInit, OnDestroy {
 
   /** Whether the tab's content should be kept in the DOM while it's off-screen. */
   @Input() preserveContent: boolean = false;
+  _content2: any;
 
   /** The shifted index position of the tab body, where zero represents the active center tab. */
   @Input()
@@ -209,6 +210,7 @@ export class MatTabBody implements OnInit, OnDestroy {
       this._position = this._computePositionFromOrigin(this.origin);
     }
     console.log('sssssssss', this._content)
+    this._content2 = this._content ? this._content : '';
   }
 
   ngOnDestroy() {

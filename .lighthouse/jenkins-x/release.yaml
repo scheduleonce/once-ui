@@ -262,7 +262,7 @@ spec:
           command:
           - /busybox/sh
           - -c
-          image: gcr.io/kaniko-project/executor:debug-v0.24.0
+          image: gcr.io/kaniko-project/executor:v1.9.1-debug
           name: docker-build
           resources: {}
         - args:
@@ -270,7 +270,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
+          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.16.0
           name: package-build-publish
           resources: {}
         volumes:

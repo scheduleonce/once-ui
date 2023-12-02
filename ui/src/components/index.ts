@@ -17,5 +17,6 @@ export * from './progress-bar/public-api';
 export * from './panel/public-api';
 export * from './select/public-api';
 export * from './slide-toggle/public-api';
+export * from './scrollbar/public-api';
 export * from './card/public-api';
 export * from './tabs/public-api';

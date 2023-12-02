@@ -17,6 +17,20 @@
     position: relative;
 }
 
+.mat-mdc-tab-body {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+  flex-basis: 100%;
+  &.mat-mdc-tab-body-active {
+    display: block;
+  }
+}
+
 .mdc-tab__content {
     display: flex;
     align-items: center;
@@ -52,5 +66,5 @@
   position: relative;
   overflow: hidden;
   display: flex;
-//   transition: height tabs-common.$mat-tab-animation-duration variables.$ease-in-out-curve-function;
+  min-height: 400px;
 }

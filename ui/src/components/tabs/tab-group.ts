@@ -404,6 +404,7 @@ export class MatTabGroup
 
       this._changeDetectorRef.markForCheck();
     });
+    console.log('_tabs final', this._tabs, this._allTabs);
   }
 
   /** Listens to changes in all of the tabs. */
@@ -413,10 +414,11 @@ export class MatTabGroup
     // the closest group to the tab is the current one.
     // console.log("_subscribeToAllTabChanges", this._allTabs)
     this.getHTMLText = this._allTabs['_results'][0].givenText;
+    console.log('this.getHTMLText', this.getHTMLText);
     this.updatedTabHTML = this.getHTMLText;
-    this._allTabs['_results'].forEach((tabData)=>{
-      this._tabs.myKey = tabData.givenText;
-    })
+    // this._allTabs['_results'].forEach((tabData)=>{
+    //   this._tabs.myKey = tabData.givenText;
+    // })
     this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe((tabs: QueryList<MatTab>) => {
       this._tabs.reset(
         tabs.filter(tab => {

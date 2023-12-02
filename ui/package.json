@@ -1,6 +1,6 @@
 {
   "name": "@oncehub/ui",
-  "version": "7.0.30",
+  "version": "7.0.32-beta.1",
   "description": "Oncehub UI",
   "peerDependencies": {},
   "repository": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/scheduleonce/once-ui/issues"
   },
   "dependencies": {
-    "tslib": "^2.1.0"
+    "tslib": "^2.4.0"
   },
   "homepage": "https://github.com/scheduleonce/once-ui#readme",
   "exports": {
