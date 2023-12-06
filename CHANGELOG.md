@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [7.0.34] - 2023-12-06
+
+- [ONCEHUB-74291](https://scheduleonce.atlassian.net/browse/ONCEHUB-74291) Updated scroll bar styles for oui-scrollbar.
+
 ## [7.0.33] - 2023-11-06
 
 - [ONCEHUB-73754](https://scheduleonce.atlassian.net/browse/ONCEHUB-73754) Resolved multiple vulnerabilities and upgraded base node image.
