@@ -1,12 +1,12 @@
 .oui-scrollbar-container::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 .oui-scrollbar-container::-webkit-scrollbar-track {
   display: none;
 }
 .oui-scrollbar-container::-webkit-scrollbar-thumb {
   background-color: #ccc !important;
-  border: 3px #fff solid;
+  border: 2px #fff solid;
   border-radius: 15px;
 }
 .oui-scrollbar-container-large::-webkit-scrollbar {
