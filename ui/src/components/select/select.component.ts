@@ -1367,6 +1367,7 @@ export class OuiSelect
     const searchQueryString = '.oui-select-search-inner';
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
+      this.isSearchFieldPresent = true;
     }
   }
   scrollCalc(selectQueryString: string) {
@@ -1406,7 +1407,13 @@ export class OuiSelect
       index + labelCount,
       SELECT_OPTION_HEIGHT,
       scrollTop,
-      SELECT_PANEL_HEIGHT
+      this.actionItems && this.isSearchFieldPresent && labelCount
+        ? SELECT_PANEL_HEIGHT - (50 + labelCount * 19)
+        : (this.actionItems && this.isSearchFieldPresent && !labelCount) ||
+          (this.actionItems && !this.isSearchFieldPresent && labelCount) ||
+          (!this.actionItems && this.isSearchFieldPresent && labelCount)
+        ? SELECT_PANEL_HEIGHT - 50
+        : SELECT_PANEL_HEIGHT
     );
     this._setScrollTop(newScrollPosition);
   }
