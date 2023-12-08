@@ -141,7 +141,6 @@ $gray-color: #eee;
   &.action-item {
     padding-bottom: 56px;
   }
-  .oui-optgroup-label,
   .oui-option {
     line-height: $oui-select-item-height;
     height: $oui-select-item-height;
@@ -171,6 +170,10 @@ $gray-color: #eee;
   }
   .oui-optgroup-label {
     font-weight: 700;
+    display: block;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: $oui-select-item-height;
   }
 }
 
