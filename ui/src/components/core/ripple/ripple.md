@@ -22,11 +22,11 @@ and calling its `launch` method.
 By default ripples will fade in on interaction with the directive's host element.
 In some situations, developers may want to show ripples on interaction with *some other* element,
 but still want to have the ripples placed in another location. This can be done by specifying
-the `matRippleTrigger` option that expects a reference to an `HTMLElement`.
+the `ouiRippleTrigger` option that expects a reference to an `HTMLElement`.
 
 ```html
 <div>
-  <div matRipple [matRippleTrigger]="trigger" class="my-ripple-container">
+  <div matRipple [ouiRippleTrigger]="trigger" class="my-ripple-container">
     <!-- This is the ripple container, but not the trigger element for ripples. -->
   </div>
 

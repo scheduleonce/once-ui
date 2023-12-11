@@ -20,7 +20,7 @@
 // NOTE: Currently this mixin should only be used with components that do not
 // have any projected content.
 @mixin private-animation-noop() {
-  &._mat-animation-noopable {
+  &._oui-animation-noopable {
     // Use !important here since we don't know what context this mixin will
     // be included in and MDC can have some really specific selectors.
     transition: none !important;

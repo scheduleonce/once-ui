@@ -2,7 +2,7 @@
 
 // Wraps each tab body. We need to add these styles ourselves,
 // because MDC only provides styling for the tab header.
-.mat-mdc-tab-body {
+.oui-mdc-tab-body {
   top: 0;
   left: 0;
   right: 0;
@@ -12,7 +12,7 @@
   overflow: hidden;
   flex-basis: 100%;
 
-  &.mat-mdc-tab-body-active {
+  &.oui-mdc-tab-body-active {
     position: relative;
     overflow-x: hidden;
     overflow-y: auto;
@@ -21,16 +21,16 @@
     display: block;
   }
 
-  .mat-mdc-tab-group.mat-mdc-tab-group-dynamic-height &.mat-mdc-tab-body-active {
+  .oui-mdc-tab-group.oui-mdc-tab-group-dynamic-height &.oui-mdc-tab-body-active {
     overflow-y: hidden;
   }
 }
 
-.mat-mdc-tab-body-content {
+.oui-mdc-tab-body-content {
   height: 100%;
   overflow: auto;
 
-  .mat-mdc-tab-group-dynamic-height & {
+  .oui-mdc-tab-group-dynamic-height & {
     overflow: hidden;
   }
 

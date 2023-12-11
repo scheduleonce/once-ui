@@ -22,7 +22,7 @@ If a tab's label is only text then the simple tab-group API can be used.
 <!-- example({"example": "tab-group-basic",
               "file": "tab-group-basic-example.html"}) -->
 
-For more complex labels, add a template with the `mat-tab-label` directive inside the `mat-tab`.
+For more complex labels, add a template with the `oui-tab-label` directive inside the `oui-tab`.
 
 <!-- example({"example": "tab-group-custom-label",
               "file": "tab-group-custom-label-example.html",
@@ -39,17 +39,17 @@ change this, set the `dynamicHeight` input to true. The tab body will animate it
                "region": "dynamic-height"}) -->
 
 ### Tabs and navigation
-While `<mat-tab-group>` is used to switch between views within a single route, `<nav mat-tab-nav-bar>`
+While `<oui-tab-group>` is used to switch between views within a single route, `<nav oui-tab-nav-bar>`
 provides a tab-like UI for navigating between routes.
 
  <!-- example({"example": "tab-nav-bar-basic",
                "file": "tab-nav-bar-basic-example.html",
-               "region": "mat-tab-nav"}) -->
+               "region": "oui-tab-nav"}) -->
 
-The `mat-tab-nav-bar` is not tied to any particular router; it works with normal `<a>` elements and
+The `oui-tab-nav-bar` is not tied to any particular router; it works with normal `<a>` elements and
 uses the `active` property to determine which tab is currently active. The corresponding
-`<router-outlet>` must be wrapped in an `<mat-tab-nav-panel>` component and should typically be
-placed relatively close to the `mat-tab-nav-bar` (see [Accessibility](#accessibility)).
+`<router-outlet>` must be wrapped in an `<oui-tab-nav-panel>` component and should typically be
+placed relatively close to the `oui-tab-nav-bar` (see [Accessibility](#accessibility)).
 
 ### Lazy Loading
 By default, the tab contents are eagerly loaded. Eagerly loaded tabs
@@ -62,11 +62,11 @@ rely on DOM calculations during initialization, it is advised
 to lazy load the tab's content.
 
 Tab contents can be lazy loaded by declaring the body in a `ng-template`
-with the `matTabContent` attribute.
+with the `OuiTabContent` attribute.
 
  <!-- example({"example": "tab-group-lazy-loaded",
                "file": "tab-group-lazy-loaded-example.html",
-               "region": "mat-tab-content"}) -->
+               "region": "oui-tab-content"}) -->
 
 ### Label alignment
 If you want to align the tab labels in the center or towards the end of the container, you can
@@ -86,7 +86,7 @@ duration can be configured globally using the `MAT_TABS_CONFIG` injection token.
                "region": "slow-animation-duration"}) -->
 
 ### Keeping the tab content inside the DOM while it's off-screen
-By default the `<mat-tab-group>` will remove the content of off-screen tabs from the DOM until they
+By default the `<oui-tab-group>` will remove the content of off-screen tabs from the DOM until they
 come into the view. This is optimal for most cases since it keeps the DOM size smaller, but it
 isn't great for others like when a tab has an `<audio>` or `<video>` element, because the content
 will be re-initialized whenever the user navigates to the tab. If you want to keep the content of
@@ -95,13 +95,13 @@ off-screen tabs in the DOM, you can set the `preserveContent` input to `true`.
 <!-- example(tab-group-preserve-content) -->
 
 ### Accessibility
-`MatTabGroup` and `MatTabNavBar` both implement the
+`ouiTabGroup` and `MatTabNavBar` both implement the
 [ARIA Tabs design pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel). Both components
 compose `tablist`, `tab`, and `tabpanel` elements with handling for keyboard inputs and focus
 management.
 
-When using `MatTabNavBar`, you should place the `<mat-tab-nav-panel>` component relatively close to
-if not immediately adjacent to the `<nav mat-tab-nav-bar>` component so that it's easy for screen
+When using `MatTabNavBar`, you should place the `<oui-tab-nav-panel>` component relatively close to
+if not immediately adjacent to the `<nav oui-tab-nav-bar>` component so that it's easy for screen
 reader users to identify the association.
 
 #### Labels
@@ -113,7 +113,7 @@ When using `MatTabNavGroup`, always specify a label for the `<nav>` element.
 
 #### Keyboard interaction
 
-`MatTabGroup` and `MatTabNavBar` both implement the following keyboard interactions:
+`ouiTabGroup` and `MatTabNavBar` both implement the following keyboard interactions:
 
 | Shortcut             | Action                     |
 |----------------------|----------------------------|

@@ -133,7 +133,7 @@ export class RippleRenderer implements EventListenerObject {
     const enterDuration = animationConfig.enterDuration;
 
     const ripple = document.createElement('div');
-    ripple.classList.add('mat-ripple-element');
+    ripple.classList.add('oui-ripple-element');
 
     ripple.style.left = `${offsetX - radius}px`;
     ripple.style.top = `${offsetY - radius}px`;

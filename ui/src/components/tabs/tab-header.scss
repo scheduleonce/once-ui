@@ -4,15 +4,15 @@
 
 @include tabs-common.paginated-tab-header;
 
-.mat-mdc-tab-label-container {
+.oui-mdc-tab-label-container {
   @include tabs-common.paginated-tab-header-container;
 }
 
-.mat-mdc-tab-labels {
-  @include tabs-common.paginated-tab-header-item-wrapper('.mat-mdc-tab-header');
+.oui-mdc-tab-labels {
+  @include tabs-common.paginated-tab-header-item-wrapper('.oui-mdc-tab-header');
 }
 
-.mat-mdc-tab {
+.oui-mdc-tab {
   // For the tab element, default inset/offset values are necessary to ensure that
   // the focus indicator is sufficiently contrastive and renders appropriately.
   &::before {

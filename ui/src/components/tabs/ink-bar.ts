@@ -32,7 +32,7 @@ const NO_TRANSITION_CLASS = 'mdc-tab-indicator--no-transition';
  * Abstraction around the MDC tab indicator that acts as the tab header's ink bar.
  * @docs-private
  */
-export class MatInkBar {
+export class OuiInkBar {
   /** Item to which the ink bar is aligned currently. */
   private _currentItem: MatInkBarItem | undefined;
 
@@ -187,7 +187,7 @@ export function mixinInkBarItem<
 }
 
 /**
- * Interface for a MatInkBar positioner method, defining the positioning and width of the ink
+ * Interface for a OuiInkBar positioner method, defining the positioning and width of the ink
  * bar in a set of tabs.
  */
 export interface _MatInkBarPositioner {
@@ -195,7 +195,7 @@ export interface _MatInkBarPositioner {
 }
 
 /**
- * The default positioner function for the MatInkBar.
+ * The default positioner function for the OuiInkBar.
  * @docs-private
  */
 export function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner {
@@ -207,7 +207,7 @@ export function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner {
   return method;
 }
 
-/** Injection token for the MatInkBar's Positioner. */
+/** Injection token for the OuiInkBar's Positioner. */
 export const _MAT_INK_BAR_POSITIONER = new InjectionToken<_MatInkBarPositioner>(
   'MatInkBarPositioner',
   {

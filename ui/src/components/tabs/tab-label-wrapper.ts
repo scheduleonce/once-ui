@@ -10,9 +10,9 @@ import {Directive, ElementRef} from '@angular/core';
 import {mixinInkBarItem} from './ink-bar';
 import {CanDisable, mixinDisabled} from '../core';
 
-// Boilerplate for applying mixins to MatTabLabelWrapper.
+// Boilerplate for applying mixins to ouiTabLabelWrapper.
 /** @docs-private */
-const _MatTabLabelWrapperMixinBase = mixinInkBarItem(
+const _OuiTabLabelWrapperMixinBase = mixinInkBarItem(
   mixinDisabled(
     class {
       elementRef: ElementRef;
@@ -21,18 +21,18 @@ const _MatTabLabelWrapperMixinBase = mixinInkBarItem(
 );
 
 /**
- * Used in the `mat-tab-group` view to display tab labels.
+ * Used in the `oui-tab-group` view to display tab labels.
  * @docs-private
  */
 @Directive({
-  selector: '[matTabLabelWrapper]',
+  selector: '[ouiTabLabelWrapper]',
   inputs: ['disabled', 'fitInkBarToContent'],
   host: {
-    '[class.mat-mdc-tab-disabled]': 'disabled',
+    '[class.oui-mdc-tab-disabled]': 'disabled',
     '[attr.aria-disabled]': '!!disabled',
   },
 })
-export class MatTabLabelWrapper extends _MatTabLabelWrapperMixinBase implements CanDisable {
+export class ouiTabLabelWrapper extends _OuiTabLabelWrapperMixinBase implements CanDisable {
   constructor(override elementRef: ElementRef) {
     super();
   }

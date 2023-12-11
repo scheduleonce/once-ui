@@ -17,28 +17,28 @@ import {
 import {CdkPortal} from '@angular/cdk/portal';
 
 /**
- * Injection token that can be used to reference instances of `MatTabLabel`. It serves as
- * alternative token to the actual `MatTabLabel` class which could cause unnecessary
+ * Injection token that can be used to reference instances of `OuiTabLabel`. It serves as
+ * alternative token to the actual `OuiTabLabel` class which could cause unnecessary
  * retention of the class and its directive metadata.
  */
-export const MAT_TAB_LABEL = new InjectionToken<MatTabLabel>('MatTabLabel');
+export const OUI_TAB_LABEL = new InjectionToken<OuiTabLabel>('OuiTabLabel');
 
 /**
  * Used to provide a tab label to a tab without causing a circular dependency.
  * @docs-private
  */
-export const MAT_TAB = new InjectionToken<any>('MAT_TAB');
+export const OUI_TAB = new InjectionToken<any>('OUI_TAB');
 
 /** Used to flag tab labels for use with the portal directive */
 @Directive({
-  selector: '[mat-tab-label], [matTabLabel]',
-  providers: [{provide: MAT_TAB_LABEL, useExisting: MatTabLabel}],
+  selector: '[oui-tab-label], [OuiTabLabel]',
+  providers: [{provide: OUI_TAB_LABEL, useExisting: OuiTabLabel}],
 })
-export class MatTabLabel extends CdkPortal {
+export class OuiTabLabel extends CdkPortal {
   constructor(
     templateRef: TemplateRef<any>,
     viewContainerRef: ViewContainerRef,
-    @Inject(MAT_TAB) @Optional() public _closestTab: any,
+    @Inject(OUI_TAB) @Optional() public _closestTab: any,
   ) {
     super(templateRef, viewContainerRef);
   }

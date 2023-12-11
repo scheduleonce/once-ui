@@ -110,12 +110,12 @@ describe('MDC-based MatTabNavBar', () => {
     it('should mark disabled links', () => {
       const tabLinkElement = fixture.debugElement.query(By.css('a')).nativeElement;
 
-      expect(tabLinkElement.classList).not.toContain('mat-mdc-tab-disabled');
+      expect(tabLinkElement.classList).not.toContain('oui-mdc-tab-disabled');
 
       fixture.componentInstance.disabled = true;
       fixture.detectChanges();
 
-      expect(tabLinkElement.classList).toContain('mat-mdc-tab-disabled');
+      expect(tabLinkElement.classList).toContain('oui-mdc-tab-disabled');
     });
 
     it('should prevent default keyboard actions on disabled links', () => {
@@ -215,14 +215,14 @@ describe('MDC-based MatTabNavBar', () => {
     let fixture: ComponentFixture<TabLinkWithNgIf> = TestBed.createComponent(TabLinkWithNgIf);
     fixture.detectChanges();
 
-    let link = fixture.debugElement.nativeElement.querySelector('.mat-mdc-tab-link');
+    let link = fixture.debugElement.nativeElement.querySelector('.oui-mdc-tab-link');
 
     fixture.componentInstance.isDestroyed = true;
     fixture.detectChanges();
 
     dispatchMouseEvent(link, 'mousedown');
 
-    expect(link.querySelector('.mat-ripple-element'))
+    expect(link.querySelector('.oui-ripple-element'))
       .withContext('Expected no ripple to be created when ripple target is destroyed.')
       .toBeFalsy();
   });
@@ -247,16 +247,16 @@ describe('MDC-based MatTabNavBar', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     fixture.detectChanges();
 
-    const tabBar = fixture.nativeElement.querySelector('.mat-mdc-tab-nav-bar')!;
+    const tabBar = fixture.nativeElement.querySelector('.oui-mdc-tab-nav-bar')!;
     expect(tabBar.getAttribute('role')).toBe('tablist');
 
-    const tabLinks = fixture.nativeElement.querySelectorAll('.mat-mdc-tab-link');
+    const tabLinks = fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
 
     expect(tabLinks[0].getAttribute('role')).toBe('tab');
     expect(tabLinks[1].getAttribute('role')).toBe('tab');
     expect(tabLinks[2].getAttribute('role')).toBe('tab');
 
-    const tabPanel = fixture.nativeElement.querySelector('.mat-mdc-tab-nav-panel')!;
+    const tabPanel = fixture.nativeElement.querySelector('.oui-mdc-tab-nav-panel')!;
     expect(tabPanel.getAttribute('role')).toBe('tabpanel');
   });
 
@@ -264,7 +264,7 @@ describe('MDC-based MatTabNavBar', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     fixture.detectChanges();
 
-    const tabLinks = fixture.nativeElement.querySelectorAll('.mat-mdc-tab-link');
+    const tabLinks = fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
     expect(tabLinks[0].tabIndex).toBe(0);
     expect(tabLinks[1].tabIndex).toBe(-1);
     expect(tabLinks[2].tabIndex).toBe(-1);
@@ -281,7 +281,7 @@ describe('MDC-based MatTabNavBar', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     fixture.detectChanges();
 
-    const tabLinks = fixture.nativeElement.querySelectorAll('.mat-mdc-tab-link');
+    const tabLinks = fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
     expect(tabLinks[0].getAttribute('aria-controls')).toBe('tab-panel');
     expect(tabLinks[1].getAttribute('aria-controls')).toBe('tab-panel');
     expect(tabLinks[2].getAttribute('aria-controls')).toBe('tab-panel');
@@ -291,7 +291,7 @@ describe('MDC-based MatTabNavBar', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     fixture.detectChanges();
 
-    const tabLinks = fixture.nativeElement.querySelectorAll('.mat-mdc-tab-link');
+    const tabLinks = fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
     expect(tabLinks[0].getAttribute('aria-current')).toBe(null);
     expect(tabLinks[1].getAttribute('aria-current')).toBe(null);
     expect(tabLinks[2].getAttribute('aria-current')).toBe(null);
@@ -301,7 +301,7 @@ describe('MDC-based MatTabNavBar', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     fixture.detectChanges();
 
-    const tabLinks = fixture.nativeElement.querySelectorAll('.mat-mdc-tab-link');
+    const tabLinks = fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
     expect(tabLinks[0].getAttribute('aria-selected')).toBe('true');
     expect(tabLinks[1].getAttribute('aria-selected')).toBe('false');
     expect(tabLinks[2].getAttribute('aria-selected')).toBe('false');
@@ -318,7 +318,7 @@ describe('MDC-based MatTabNavBar', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     fixture.detectChanges();
 
-    const tabLinks = fixture.nativeElement.querySelectorAll('.mat-mdc-tab-link');
+    const tabLinks = fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
     expect(tabLinks[1].classList.contains('mdc-tab--active')).toBe(false);
 
     dispatchKeyboardEvent(tabLinks[1], 'keydown', SPACE);
@@ -365,12 +365,12 @@ describe('MDC-based MatTabNavBar', () => {
     });
 
     it('should show up for tab link elements on mousedown', () => {
-      const tabLink = fixture.debugElement.nativeElement.querySelector('.mat-mdc-tab-link');
+      const tabLink = fixture.debugElement.nativeElement.querySelector('.oui-mdc-tab-link');
 
       dispatchMouseEvent(tabLink, 'mousedown');
       dispatchMouseEvent(tabLink, 'mouseup');
 
-      expect(tabLink.querySelectorAll('.mat-ripple-element').length)
+      expect(tabLink.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected one ripple to show up if user clicks on tab link.')
         .toBe(1);
     });
@@ -385,7 +385,7 @@ describe('MDC-based MatTabNavBar', () => {
       dispatchMouseEvent(tabLinkElement, 'mousedown');
       dispatchMouseEvent(tabLinkElement, 'mouseup');
 
-      expect(tabLinkElement.querySelectorAll('.mat-ripple-element').length)
+      expect(tabLinkElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripple to show up if ripples are disabled.')
         .toBe(0);
     });
@@ -404,12 +404,12 @@ describe('MDC-based MatTabNavBar', () => {
 
     it('should have a focus indicator', () => {
       const tabLinkNativeElements = [
-        ...fixture.debugElement.nativeElement.querySelectorAll('.mat-mdc-tab-link'),
+        ...fixture.debugElement.nativeElement.querySelectorAll('.oui-mdc-tab-link'),
       ];
 
       expect(
         tabLinkNativeElements.every(element =>
-          element.classList.contains('mat-mdc-focus-indicator'),
+          element.classList.contains('oui-mdc-focus-indicator'),
         ),
       ).toBe(true);
     });
@@ -501,19 +501,19 @@ describe('MatTabNavBar with enabled animations', () => {
     fixture.detectChanges();
     tick();
 
-    const tabNavBar = fixture.nativeElement.querySelector('.mat-mdc-tab-nav-bar');
-    expect(tabNavBar.style.getPropertyValue('--mat-tab-animation-duration')).toBe('500ms');
+    const tabNavBar = fixture.nativeElement.querySelector('.oui-mdc-tab-nav-bar');
+    expect(tabNavBar.style.getPropertyValue('--oui-tab-animation-duration')).toBe('500ms');
   }));
 });
 
 @Component({
   selector: 'test-app',
   template: `
-    <nav mat-tab-nav-bar
+    <nav oui-tab-nav-bar
          [disableRipple]="disableRippleOnBar"
          [fitInkBarToContent]="fitInkBarToContent"
          [tabPanel]="tabPanel">
-      <a mat-tab-link
+      <a oui-tab-link
          *ngFor="let tab of tabs; let index = index"
          [active]="activeIndex === index"
          [disabled]="disabled"
@@ -522,7 +522,7 @@ describe('MatTabNavBar with enabled animations', () => {
         Tab link {{label}}
       </a>
     </nav>
-    <mat-tab-nav-panel #tabPanel id="tab-panel">Tab panel</mat-tab-nav-panel>
+    <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
   `,
 })
 class SimpleTabNavBarTestApp {
@@ -541,10 +541,10 @@ class SimpleTabNavBarTestApp {
 
 @Component({
   template: `
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-      <a mat-tab-link *ngIf="!isDestroyed">Link</a>
+    <nav oui-tab-nav-bar [tabPanel]="tabPanel">
+      <a oui-tab-link *ngIf="!isDestroyed">Link</a>
     </nav>
-    <mat-tab-nav-panel #tabPanel>Tab panel</mat-tab-nav-panel>
+    <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
 })
 class TabLinkWithNgIf {
@@ -553,10 +553,10 @@ class TabLinkWithNgIf {
 
 @Component({
   template: `
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-      <a mat-tab-link *ngFor="let tab of tabs" [active]="false">Tab link {{label}}</a>
+    <nav oui-tab-nav-bar [tabPanel]="tabPanel">
+      <a oui-tab-link *ngFor="let tab of tabs" [active]="false">Tab link {{label}}</a>
     </nav>
-    <mat-tab-nav-panel #tabPanel>Tab panel</mat-tab-nav-panel>
+    <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
 })
 class TabBarWithInactiveTabsOnInit {
@@ -565,10 +565,10 @@ class TabBarWithInactiveTabsOnInit {
 
 @Component({
   template: `
-    <nav [animationDuration]="500" mat-tab-nav-bar [tabPanel]="tabPanel">
-    <a mat-tab-link *ngFor="let link of links">{{link}}</a>
+    <nav [animationDuration]="500" oui-tab-nav-bar [tabPanel]="tabPanel">
+    <a oui-tab-link *ngFor="let link of links">{{link}}</a>
   </nav>
-  <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>,
+  <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
   `,
 })
 class TabsWithCustomAnimationDuration {

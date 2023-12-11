@@ -32,7 +32,7 @@ describe('MatRipple', () => {
 
   /** Flushes the transition of the ripple element inside of the ripple target. */
   function flushTransition() {
-    dispatchFakeEvent(rippleTarget.querySelector('.mat-ripple-element')!, 'transitionend');
+    dispatchFakeEvent(rippleTarget.querySelector('.oui-ripple-element')!, 'transitionend');
   }
 
   beforeEach(() => {
@@ -72,7 +72,7 @@ describe('MatRipple', () => {
       fixture = TestBed.createComponent(BasicRippleContainer);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
       rippleDirective = fixture.componentInstance.ripple;
     });
 
@@ -101,7 +101,7 @@ describe('MatRipple', () => {
       let expectedLeft = elementRect.left + 50 - expectedRadius;
       let expectedTop = elementRect.top + 75 - expectedRadius;
 
-      let ripple = rippleTarget.querySelector('.mat-ripple-element') as HTMLElement;
+      let ripple = rippleTarget.querySelector('.oui-ripple-element') as HTMLElement;
 
       // Note: getBoundingClientRect won't work because there's a transform applied to make the
       // ripple start out tiny.
@@ -115,38 +115,38 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(2);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(2);
     });
 
     it('should launch ripples on touchstart', () => {
       dispatchTouchEvent(rippleTarget, 'touchstart');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchTouchEvent(rippleTarget, 'touchend');
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should clear ripples if the touch sequence is cancelled', () => {
       dispatchTouchEvent(rippleTarget, 'touchstart');
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchTouchEvent(rippleTarget, 'touchcancel');
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should launch multiple ripples for multi-touch', () => {
@@ -164,16 +164,16 @@ describe('MatRipple', () => {
 
       dispatchEvent(rippleTarget, touchEvent);
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(3);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(3);
 
-      const rippleElements = rippleTarget.querySelectorAll('.mat-ripple-element');
+      const rippleElements = rippleTarget.querySelectorAll('.oui-ripple-element');
 
       // Flush the fade-in transition of all three ripples.
       dispatchFakeEvent(rippleElements[0], 'transitionend');
       dispatchFakeEvent(rippleElements[1], 'transitionend');
       dispatchFakeEvent(rippleElements[2], 'transitionend');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(3);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(3);
 
       dispatchTouchEvent(rippleTarget, 'touchend');
 
@@ -182,7 +182,7 @@ describe('MatRipple', () => {
       dispatchFakeEvent(rippleElements[1], 'transitionend');
       dispatchFakeEvent(rippleElements[2], 'transitionend');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should ignore synthetic mouse events after touchstart', () => {
@@ -190,13 +190,13 @@ describe('MatRipple', () => {
       dispatchTouchEvent(rippleTarget, 'mousedown');
 
       flushTransition();
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchTouchEvent(rippleTarget, 'touchend');
 
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should ignore fake mouse events from screen readers', () => {
@@ -205,50 +205,50 @@ describe('MatRipple', () => {
 
       dispatchEvent(rippleTarget, event);
 
-      expect(rippleTarget.querySelector('.mat-ripple-element')).toBeFalsy();
+      expect(rippleTarget.querySelector('.oui-ripple-element')).toBeFalsy();
     });
 
     it('removes ripple after timeout', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // Flush fade-in and fade-out transition.
       flushTransition();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should remove ripples after mouseup', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // Flush the transition of fading in. Also flush the potential fading-out transition in
       // order to make sure that the ripples didn't fade-out before mouseup.
       flushTransition();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchMouseEvent(rippleTarget, 'mouseup');
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('creates ripples when manually triggered', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       rippleDirective.launch(0, 0);
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
     });
 
     it('creates manual ripples with the default ripple config', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       // Calculate the diagonal distance and divide it by two for the center radius.
       let radius = Math.sqrt(TARGET_HEIGHT * TARGET_HEIGHT + TARGET_WIDTH * TARGET_WIDTH) / 2;
@@ -256,7 +256,7 @@ describe('MatRipple', () => {
       rippleDirective.centered = true;
       rippleDirective.launch(0, 0);
 
-      let rippleElement = rippleTarget.querySelector('.mat-ripple-element') as HTMLElement;
+      let rippleElement = rippleTarget.querySelector('.oui-ripple-element') as HTMLElement;
 
       expect(rippleElement).toBeTruthy();
       expect(parseFloat(rippleElement.style.left as string)).toBeCloseTo(
@@ -273,7 +273,7 @@ describe('MatRipple', () => {
       fixture = TestBed.createComponent(RippleContainerWithNgIf);
       fixture.detectChanges();
 
-      rippleTarget = fixture.debugElement.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.debugElement.nativeElement.querySelector('.oui-ripple');
 
       fixture.componentInstance.isDestroyed = true;
       fixture.detectChanges();
@@ -281,7 +281,7 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('does not run events inside the NgZone', () => {
@@ -297,17 +297,17 @@ describe('MatRipple', () => {
 
     it('should only persist the latest ripple on pointer down', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(2);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(2);
 
       // Flush the fade-in transition.
       flushTransition();
       // Flush the fade-out transition.
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
     });
 
     describe('when page is scrolled', () => {
@@ -366,7 +366,7 @@ describe('MatRipple', () => {
         let expectedLeft = left - expectedRadius;
         let expectedTop = top - expectedRadius;
 
-        let ripple = rippleTarget.querySelector('.mat-ripple-element') as HTMLElement;
+        let ripple = rippleTarget.querySelector('.oui-ripple-element') as HTMLElement;
 
         // In the iOS simulator (BrowserStack & SauceLabs), adding the content to the
         // body causes karma's iframe for the test to stretch to fit that content once we attempt to
@@ -392,36 +392,36 @@ describe('MatRipple', () => {
       fixture = TestBed.createComponent(BasicRippleContainer);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
       rippleDirective = fixture.componentInstance.ripple;
     });
 
     it('should allow persistent ripple elements', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       let rippleRef = rippleDirective.launch(0, 0, {persistent: true});
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // Flush the fade-in transition. Additionally flush the potential fade-out transition
       // in order to make sure that the ripple is persistent and won't fade-out.
       flushTransition();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       rippleRef.fadeOut();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should remove ripples that are not done fading in', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       rippleDirective.launch(0, 0);
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // The ripple should still fade in right now. Now by calling `fadeOutAll` the ripple should
       // immediately start fading out. We can verify this by just flushing the current transition
@@ -429,43 +429,43 @@ describe('MatRipple', () => {
       rippleDirective.fadeOutAll();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length)
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripples to be active after calling fadeOutAll.')
         .toBe(0);
     });
 
     it('should properly set ripple states', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       let rippleRef = rippleDirective.launch(0, 0, {persistent: true});
 
       expect(rippleRef.state).toBe(RippleState.FADING_IN);
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       flushTransition();
 
       expect(rippleRef.state).toBe(RippleState.VISIBLE);
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       rippleRef.fadeOut();
 
       expect(rippleRef.state).toBe(RippleState.FADING_OUT);
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       flushTransition();
 
       expect(rippleRef.state).toBe(RippleState.HIDDEN);
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should allow setting a specific animation config for a ripple', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       const rippleRef = rippleDirective.launch(0, 0, {
         animation: {enterDuration: 120, exitDuration: 0},
       });
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // Since we cannot use `fakeAsync`, we manually verify that the element has
       // the specified transition duration.
@@ -475,27 +475,27 @@ describe('MatRipple', () => {
       // properly.
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should allow passing only a configuration', () => {
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       const rippleRef = rippleDirective.launch({persistent: true});
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // Flush the fade-in transition. Additionally flush the potential fade-out transition
       // in order to make sure that the ripple is persistent and won't fade-out.
       flushTransition();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       rippleRef.fadeOut();
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
   });
 
@@ -519,7 +519,7 @@ describe('MatRipple', () => {
       fixture = TestBed.createComponent(testComponent);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
       rippleDirective = fixture.componentInstance.ripple;
     }
 
@@ -529,12 +529,12 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('when disabled should not show any ripples on mousedown', () => {
@@ -543,22 +543,22 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('when disabled should still allow manual ripples', () => {
       createTestComponent({disabled: true});
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       rippleDirective.launch(0, 0);
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
     });
 
     it('should support changing the animation duration', () => {
@@ -568,7 +568,7 @@ describe('MatRipple', () => {
 
       const rippleRef = rippleDirective.launch(0, 0);
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       expect(rippleRef.element.style.transitionDuration).toBe('100ms');
       flushTransition();
@@ -576,7 +576,7 @@ describe('MatRipple', () => {
       expect(rippleRef.element.style.transitionDuration).toBe('150ms');
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should allow ripples to fade out immediately on pointer up', () => {
@@ -587,14 +587,14 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       // Just flush the fade-out duration because we immediately fired the mouseup after the
       // mousedown. This means that the ripple should just fade out, and there shouldn't be an
       // enter animation.
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should not mutate the global options when NoopAnimationsModule is present', () => {
@@ -619,7 +619,7 @@ describe('MatRipple', () => {
       fixture = TestBed.createComponent(BasicRippleContainer);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
       rippleDirective = fixture.componentInstance.ripple;
     });
 
@@ -637,7 +637,7 @@ describe('MatRipple', () => {
       fixture.detectChanges();
 
       controller = fixture.debugElement.componentInstance;
-      rippleTarget = fixture.debugElement.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.debugElement.nativeElement.querySelector('.oui-ripple');
     });
 
     it('sets ripple color', () => {
@@ -649,7 +649,7 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      let ripple = rippleTarget.querySelector('.mat-ripple-element')!;
+      let ripple = rippleTarget.querySelector('.oui-ripple-element')!;
       expect(window.getComputedStyle(ripple).backgroundColor).toBe(backgroundColor);
     });
 
@@ -660,7 +660,7 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       controller.disabled = false;
       fixture.detectChanges();
@@ -668,7 +668,7 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
     });
 
     it('fades out non-persistent ripples when disabled input is set', () => {
@@ -676,7 +676,7 @@ describe('MatRipple', () => {
       controller.ripple.launch(0, 0, {persistent: true});
 
       flushTransition();
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(2);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(2);
 
       spyOn(controller.ripple, 'fadeOutAllNonPersistent').and.callThrough();
       controller.disabled = true;
@@ -685,7 +685,7 @@ describe('MatRipple', () => {
       expect(controller.ripple.fadeOutAllNonPersistent).toHaveBeenCalled();
 
       flushTransition();
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
     });
 
     it('allows specifying custom trigger element', () => {
@@ -696,7 +696,7 @@ describe('MatRipple', () => {
       dispatchMouseEvent(alternateTrigger, 'mousedown');
       dispatchMouseEvent(alternateTrigger, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
 
       // Set the trigger element, and now events should create ripples.
       controller.trigger = alternateTrigger;
@@ -705,7 +705,7 @@ describe('MatRipple', () => {
       dispatchMouseEvent(alternateTrigger, 'mousedown');
       dispatchMouseEvent(alternateTrigger, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
     });
 
     it('expands ripple from center if centered input is set', () => {
@@ -725,7 +725,7 @@ describe('MatRipple', () => {
       let expectedLeft = elementRect.left + elementRect.width / 2 - expectedRadius;
       let expectedTop = elementRect.top + elementRect.height / 2 - expectedRadius;
 
-      let ripple = rippleTarget.querySelector('.mat-ripple-element') as HTMLElement;
+      let ripple = rippleTarget.querySelector('.oui-ripple-element') as HTMLElement;
 
       expect(pxStringToFloat(ripple.style.left)).toBeCloseTo(expectedLeft, 1);
       expect(pxStringToFloat(ripple.style.top)).toBeCloseTo(expectedTop, 1);
@@ -748,7 +748,7 @@ describe('MatRipple', () => {
       let expectedLeft = elementRect.left + 50 - customRadius;
       let expectedTop = elementRect.top + 75 - customRadius;
 
-      let ripple = rippleTarget.querySelector('.mat-ripple-element') as HTMLElement;
+      let ripple = rippleTarget.querySelector('.oui-ripple-element') as HTMLElement;
 
       expect(pxStringToFloat(ripple.style.left)).toBeCloseTo(expectedLeft, 1);
       expect(pxStringToFloat(ripple.style.top)).toBeCloseTo(expectedTop, 1);
@@ -763,9 +763,9 @@ describe('MatRipple', () => {
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
-      const rippleElement = rippleTarget.querySelector('.mat-ripple-element')! as HTMLElement;
+      const rippleElement = rippleTarget.querySelector('.oui-ripple-element')! as HTMLElement;
 
       expect(rippleElement.style.transitionDuration).toBe('120ms');
       flushTransition();
@@ -773,7 +773,7 @@ describe('MatRipple', () => {
       expect(rippleElement.style.transitionDuration).toBe('150ms');
       flushTransition();
 
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
   });
 
@@ -782,39 +782,39 @@ describe('MatRipple', () => {
       fixture = TestBed.createComponent(RippleCssTransitionNone);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchMouseEvent(rippleTarget, 'mouseup');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should handle forcibly disabled animations through CSS `transition-duration: 0ms`', async () => {
       fixture = TestBed.createComponent(RippleCssTransitionDurationZero);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(1);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(1);
 
       dispatchMouseEvent(rippleTarget, 'mouseup');
-      expect(rippleTarget.querySelectorAll('.mat-ripple-element').length).toBe(0);
+      expect(rippleTarget.querySelectorAll('.oui-ripple-element').length).toBe(0);
     });
 
     it('should destroy the ripple if the transition is being canceled due to DOM removal', async () => {
       fixture = TestBed.createComponent(RippleWithDomRemovalOnClick);
       fixture.detectChanges();
 
-      rippleTarget = fixture.nativeElement.querySelector('.mat-ripple');
+      rippleTarget = fixture.nativeElement.querySelector('.oui-ripple');
 
       dispatchMouseEvent(rippleTarget, 'mousedown');
       dispatchMouseEvent(rippleTarget, 'mouseup');
       dispatchMouseEvent(rippleTarget, 'click');
 
-      const fadingRipple = rippleTarget.querySelector('.mat-ripple-element');
+      const fadingRipple = rippleTarget.querySelector('.oui-ripple-element');
       expect(fadingRipple).not.toBe(null);
 
       // The ripple animation is still on-going but the element is now removed from DOM as
@@ -828,7 +828,7 @@ describe('MatRipple', () => {
 
       // There should be no ripple element anymore because the fading-in ripple from
       // before had its animation canceled due the DOM removal.
-      expect(rippleTarget.querySelector('.mat-ripple-element')).toBeNull();
+      expect(rippleTarget.querySelector('.oui-ripple-element')).toBeNull();
     });
   });
 });
@@ -848,10 +848,10 @@ class BasicRippleContainer {
   template: `
     <div id="container" style="position: relative; width:300px; height:200px;"
       matRipple
-      [matRippleTrigger]="trigger"
+      [ouiRippleTrigger]="trigger"
       [matRippleCentered]="centered"
       [matRippleRadius]="radius"
-      [matRippleDisabled]="disabled"
+      [ouiRippleDisabled]="disabled"
       [matRippleAnimation]="animationConfig"
       [matRippleColor]="color">
     </div>

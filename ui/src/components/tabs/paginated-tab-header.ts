@@ -77,7 +77,7 @@ export type MatPaginatedTabHeaderItem = FocusableOption & {elementRef: ElementRe
  * @docs-private
  */
 @Directive()
-export abstract class MatPaginatedTabHeader
+export abstract class OuiPaginatedTabHeader
   implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy
 {
   abstract _items: QueryList<MatPaginatedTabHeaderItem>;

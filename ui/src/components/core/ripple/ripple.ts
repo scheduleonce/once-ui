@@ -46,15 +46,15 @@ export interface RippleGlobalOptions {
 
 /** Injection token that can be used to specify the global ripple options. */
 export const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken<RippleGlobalOptions>(
-  'mat-ripple-global-options',
+  'oui-ripple-global-options',
 );
 
 @Directive({
-  selector: '[mat-ripple], [matRipple]',
+  selector: '[oui-ripple], [matRipple]',
   exportAs: 'matRipple',
   host: {
-    'class': 'mat-ripple',
-    '[class.mat-ripple-unbounded]': 'unbounded',
+    'class': 'oui-ripple',
+    '[class.oui-ripple-unbounded]': 'unbounded',
   },
 })
 export class MatRipple implements OnInit, OnDestroy, RippleTarget {
@@ -88,7 +88,7 @@ export class MatRipple implements OnInit, OnDestroy, RippleTarget {
    * Whether click events will not trigger the ripple. Ripples can be still launched manually
    * by using the `launch()` method.
    */
-  @Input('matRippleDisabled')
+  @Input('ouiRippleDisabled')
   get disabled() {
     return this._disabled;
   }
@@ -105,7 +105,7 @@ export class MatRipple implements OnInit, OnDestroy, RippleTarget {
    * The element that triggers the ripple when click events are received.
    * Defaults to the directive's host element.
    */
-  @Input('matRippleTrigger')
+  @Input('ouiRippleTrigger')
   get trigger() {
     return this._trigger || this._elementRef.nativeElement;
   }

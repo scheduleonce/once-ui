@@ -25,8 +25,8 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
-import {MAT_TAB_GROUP, MatTab} from './tab';
-import {MatTabHeader} from './tab-header';
+import {OUI_TAB_GROUP, OuiTab} from './tab';
+import {OuiTabHeader} from './tab-header';
 import {
   BooleanInput,
   coerceBooleanProperty,
@@ -48,7 +48,7 @@ import {FocusOrigin} from '@angular/cdk/a11y';
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
 
-// Boilerplate for applying mixins to MatTabGroup.
+// Boilerplate for applying mixins to ouiTabGroup.
 /** @docs-private */
 const _MatTabGroupMixinBase = mixinColor(
   mixinDisableRipple(
@@ -75,8 +75,8 @@ export type MatTabHeaderPosition = 'above' | 'below';
  * See: https://material.io/design/components/tabs.html
  */
 @Component({
-  selector: 'mat-tab-group',
-  exportAs: 'matTabGroup',
+  selector: 'oui-tab-group',
+  exportAs: 'ouiTabGroup',
   templateUrl: 'tab-group.html',
   styleUrls: ['tab-group.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -85,20 +85,20 @@ export type MatTabHeaderPosition = 'above' | 'below';
   inputs: ['color', 'disableRipple'],
   providers: [
     {
-      provide: MAT_TAB_GROUP,
-      useExisting: MatTabGroup,
+      provide: OUI_TAB_GROUP,
+      useExisting: ouiTabGroup,
     },
   ],
   host: {
     'ngSkipHydration': '',
-    'class': 'mat-mdc-tab-group oui-tab',
-    '[class.mat-mdc-tab-group-dynamic-height]': 'dynamicHeight',
-    '[class.mat-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
-    '[class.mat-mdc-tab-group-stretch-tabs]': 'stretchTabs',
-    '[style.--mat-tab-animation-duration]': 'animationDuration',
+    'class': 'oui-mdc-tab-group oui-tab',
+    '[class.oui-mdc-tab-group-dynamic-height]': 'dynamicHeight',
+    '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
+    '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
+    '[style.--oui-tab-animation-duration]': 'animationDuration',
   },
 })
-export class MatTabGroup
+export class ouiTabGroup
   extends _MatTabGroupMixinBase
   implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple
 {
@@ -106,12 +106,12 @@ export class MatTabGroup
    * All tabs inside the tab group. This includes tabs that belong to groups that are nested
    * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
    */
-  @ContentChildren(MatTab, {descendants: true}) _allTabs: QueryList<MatTab>;
+  @ContentChildren(OuiTab, {descendants: true}) _allTabs: QueryList<OuiTab>;
   @ViewChild('tabBodyWrapper') _tabBodyWrapper: ElementRef;
-  @ViewChild('tabHeader') _tabHeader: MatTabHeader;
+  @ViewChild('tabHeader') _tabHeader: OuiTabHeader;
 
   /** All of the tabs that belong to the group. */
-  _tabs: QueryList<MatTab> = new QueryList<MatTab>();
+  _tabs: QueryList<OuiTab> = new QueryList<OuiTab>();
 
   /** The tab index that should be selected after the content has been checked. */
   private _indexToSelect: number | null = 0;
@@ -140,7 +140,7 @@ export class MatTabGroup
   private _fitInkBarToContent = false;
 
   /** Whether tabs should be stretched to fill the header. */
-  @Input('mat-stretch-tabs')
+  @Input('oui-stretch-tabs')
   get stretchTabs(): boolean {
     return this._stretchTabs;
   }
@@ -246,10 +246,10 @@ export class MatTabGroup
     // console.log('value value', value);
     const classList: DOMTokenList = this._elementRef.nativeElement.classList;
 
-    classList.remove('mat-tabs-with-background', `mat-background-${this.backgroundColor}`);
+    classList.remove('oui-tabs-with-background', `oui-background-${this.backgroundColor}`);
 
     if (value) {
-      classList.add('mat-tabs-with-background', `mat-background-${value}`);
+      classList.add('oui-tabs-with-background', `oui-background-${value}`);
     }
 
     this._backgroundColor = value;
@@ -343,7 +343,7 @@ export class MatTabGroup
     }
 
     // Setup the position for each tab and optionally setup an origin on the next selected tab.
-    this._tabs.forEach((tab: MatTab, index: number) => {
+    this._tabs.forEach((tab: OuiTab, index: number) => {
       tab.position = index - indexToSelect;
 
       // If there is already a selected tab, then set up an origin for the next selected tab
@@ -376,7 +376,7 @@ export class MatTabGroup
       // console.log('>>>>>>>>>>>>>', indexToSelect, this._selectedIndex)
       if (indexToSelect === this._selectedIndex) {
         const tabs = this._tabs.toArray();
-        let selectedTab: MatTab | undefined;
+        let selectedTab: OuiTab | undefined;
 
         for (let i = 0; i < tabs.length; i++) {
           console.log('tabsi',tabs[i])
@@ -419,7 +419,7 @@ export class MatTabGroup
     // this._allTabs['_results'].forEach((tabData)=>{
     //   this._tabs.myKey = tabData.givenText;
     // })
-    this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe((tabs: QueryList<MatTab>) => {
+    this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe((tabs: QueryList<OuiTab>) => {
       this._tabs.reset(
         tabs.filter(tab => {
           // console.log(tab)
@@ -492,7 +492,7 @@ export class MatTabGroup
 
   /**
    * Subscribes to changes in the tab labels. This is needed, because the @Input for the label is
-   * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
+   * on the OuiTab component, whereas the data binding is inside the ouiTabGroup. In order for the
    * binding to be updated, we need to subscribe to changes in it and trigger change detection
    * manually.
    */
@@ -516,12 +516,12 @@ export class MatTabGroup
 
   /** Returns a unique id for each tab label element */
   _getTabLabelId(i: number): string {
-    return `mat-tab-label-${this._groupId}-${i}`;
+    return `oui-tab-label-${this._groupId}-${i}`;
   }
 
   /** Returns a unique id for each tab content element */
   _getTabContentId(i: number): string {
-    return `mat-tab-content-${this._groupId}-${i}`;
+    return `oui-tab-content-${this._groupId}-${i}`;
   }
 
   /**
@@ -553,7 +553,7 @@ export class MatTabGroup
   }
 
   /** Handle click events, setting new selected index if appropriate. */
-  _handleClick(tab: MatTab, tabHeader: MatTabGroupBaseHeader, index: number) {
+  _handleClick(tab: OuiTab, tabHeader: MatTabGroupBaseHeader, index: number) {
     // console.log("click")
     tabHeader.focusIndex = index;
     this.getHTMLText = this.updatedTabHTML;
@@ -589,6 +589,6 @@ export class MatTabChangeEvent {
   /** Index of the currently-selected tab. */
   index: number;
   /** Reference to the currently-selected tab. */
-  tab: MatTab;
+  tab: OuiTab;
   event: Event;
 }

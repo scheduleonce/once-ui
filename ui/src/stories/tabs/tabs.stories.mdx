@@ -1,14 +1,14 @@
 import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs';
 import {
   MatTabsModule,
-  MatTab
+  OuiTab
 } from '../../components/tabs/module';
 import { MatTabStorybook } from './tabs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { action } from '@storybook/addon-actions';
 import { THEME } from '../const';
 
-<Meta title="MatTab" component={MatTab} />
+<Meta title="OuiTab" component={OuiTab} />
 
 # Card
 
@@ -19,11 +19,11 @@ import { THEME } from '../const';
       docs: {
         source: {
           code: `
-            <mat-tab-group>
-              <mat-tab label="First"> Content 1 </mat-tab>
-              <mat-tab label="Second"> Content 2 </mat-tab>
-              <mat-tab label="Third"> Content 3 </mat-tab>
-            </mat-tab-group>`,
+            <oui-tab-group>
+              <oui-tab label="First"> Content 1 </oui-tab>
+              <oui-tab label="Second"> Content 2 </oui-tab>
+              <oui-tab label="Third"> Content 3 </oui-tab>
+            </oui-tab-group>`,
         },
       },
     }}
@@ -43,7 +43,7 @@ import { THEME } from '../const';
         schemas: [],
         declarations: [MatTabStorybook],
       },
-      template: `<mat-tab-storybook ngClass="{{theme}}"></mat-tab-storybook>`,
+      template: `<oui-tab-storybook ngClass="{{theme}}"></oui-tab-storybook>`,
       props: {...props},
     })}
   </Story>

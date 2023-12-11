@@ -42,7 +42,7 @@ describe('MDC-based MatTabBody', () => {
 
       // It can happen that the `origin` is explicitly set to null through the Angular input
       // binding. This test should ensure that the body does properly such origin value.
-      // The `MatTab` class sets the origin by default to null. See related issue: #12455
+      // The `OuiTab` class sets the origin by default to null. See related issue: #12455
       fixture.componentInstance.origin = null;
       fixture.detectChanges();
 
@@ -188,7 +188,7 @@ describe('MDC-based MatTabBody', () => {
       .compileComponents();
 
     const fixture = TestBed.createComponent(SimpleTabBodyApp);
-    const tabBodyContent = fixture.nativeElement.querySelector('.mat-mdc-tab-body-content');
+    const tabBodyContent = fixture.nativeElement.querySelector('.oui-mdc-tab-body-content');
     const scrollable = fixture.debugElement.query(By.directive(CdkScrollable));
 
     expect(scrollable).toBeTruthy();
@@ -199,7 +199,7 @@ describe('MDC-based MatTabBody', () => {
 @Component({
   template: `
     <ng-template>Tab Body Content</ng-template>
-    <mat-tab-body [content]="content" [position]="position" [origin]="origin"></mat-tab-body>
+    <oui-tab-body [content]="content" [position]="position" [origin]="origin"></oui-tab-body>
   `,
 })
 class SimpleTabBodyApp implements AfterContentInit {

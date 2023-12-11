@@ -43,13 +43,13 @@ import {FocusableOption, FocusMonitor} from '@angular/cdk/a11y';
 import {Directionality} from '@angular/cdk/bidi';
 import {ViewportRuler} from '@angular/cdk/scrolling';
 import {Platform} from '@angular/cdk/platform';
-import {MatInkBar, mixinInkBarItem} from '../ink-bar';
+import {OuiInkBar, mixinInkBarItem} from '../ink-bar';
 import {BooleanInput, coerceBooleanProperty, NumberInput} from '@angular/cdk/coercion';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {startWith, takeUntil} from 'rxjs/operators';
 import {ENTER, SPACE} from '@angular/cdk/keycodes';
 import {MAT_TABS_CONFIG, MatTabsConfig} from '../tab-config';
-import {MatPaginatedTabHeader} from '../paginated-tab-header';
+import {OuiPaginatedTabHeader} from '../paginated-tab-header';
 import { isDevMode } from '@angular/core';
 
 // Increasing integer for generating unique ids for tab nav components.
@@ -60,29 +60,29 @@ let nextUniqueId = 0;
  * Provides anchored navigation with animated ink bar.
  */
 @Component({
-  selector: '[mat-tab-nav-bar]',
+  selector: '[oui-tab-nav-bar]',
   exportAs: 'matTabNavBar, matTabNav',
   inputs: ['color'],
   templateUrl: 'tab-nav-bar.html',
   styleUrls: ['tab-nav-bar.scss'],
   host: {
     '[attr.role]': '_getRole()',
-    'class': 'mat-mdc-tab-nav-bar mat-mdc-tab-header',
-    '[class.mat-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
-    '[class.mat-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-    '[class.mat-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
+    'class': 'oui-mdc-tab-nav-bar oui-mdc-tab-header',
+    '[class.oui-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+    '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+    '[class.oui-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
     '[class.mat-primary]': 'color !== "warn" && color !== "accent"',
     '[class.mat-accent]': 'color === "accent"',
     '[class.mat-warn]': 'color === "warn"',
-    '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
-    '[style.--mat-tab-animation-duration]': 'animationDuration',
+    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
+    '[style.--oui-tab-animation-duration]': 'animationDuration',
   },
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
 })
 export class MatTabNav
-  extends MatPaginatedTabHeader
+  extends OuiPaginatedTabHeader
   implements AfterContentChecked, AfterContentInit, OnDestroy, AfterViewInit
 {
   /** Whether the ink bar should fit its width to the size of the tab label content. */
@@ -97,7 +97,7 @@ export class MatTabNav
   _fitInkBarToContent = new BehaviorSubject(false);
 
   /** Whether tabs should be stretched to fill the header. */
-  @Input('mat-stretch-tabs')
+  @Input('oui-stretch-tabs')
   get stretchTabs(): boolean {
     return this._stretchTabs;
   }
@@ -128,10 +128,10 @@ export class MatTabNav
 
   set backgroundColor(value: ThemePalette) {
     const classList = this._elementRef.nativeElement.classList;
-    classList.remove('mat-tabs-with-background', `mat-background-${this.backgroundColor}`);
+    classList.remove('oui-tabs-with-background', `oui-background-${this.backgroundColor}`);
 
     if (value) {
-      classList.add('mat-tabs-with-background', `mat-background-${value}`);
+      classList.add('oui-tabs-with-background', `oui-background-${value}`);
     }
 
     this._backgroundColor = value;
@@ -159,14 +159,14 @@ export class MatTabNav
    * follows the ARIA link / navigation landmark pattern. If provided, it follows the
    * ARIA tabs design pattern.
    */
-  @Input() tabPanel?: MatTabNavPanel;
+  @Input() tabPanel?: ouiTabNavPanel;
 
   @ViewChild('tabListContainer', {static: true}) _tabListContainer: ElementRef;
   @ViewChild('tabList', {static: true}) _tabList: ElementRef;
   @ViewChild('tabListInner', {static: true}) _tabListInner: ElementRef;
   @ViewChild('nextPaginator') _nextPaginator: ElementRef<HTMLElement>;
   @ViewChild('previousPaginator') _previousPaginator: ElementRef<HTMLElement>;
-  _inkBar: MatInkBar;
+  _inkBar: OuiInkBar;
 
   constructor(
     elementRef: ElementRef,
@@ -197,7 +197,7 @@ export class MatTabNav
   }
 
   override ngAfterContentInit() {
-    this._inkBar = new MatInkBar(this._items);
+    this._inkBar = new OuiInkBar(this._items);
     // We need this to run before the `changes` subscription in parent to ensure that the
     // selectedIndex is up-to-date by the time the super class starts looking for it.
     this._items.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
@@ -209,7 +209,7 @@ export class MatTabNav
 
   override ngAfterViewInit() {
     if (!this.tabPanel && (typeof isDevMode === 'undefined' || isDevMode)) {
-      throw new Error('A mat-tab-nav-panel must be specified via [tabPanel].');
+      throw new Error('A oui-tab-nav-panel must be specified via [tabPanel].');
     }
     super.ngAfterViewInit();
   }
@@ -259,10 +259,10 @@ const _MatTabLinkMixinBase = mixinInkBarItem(
 );
 
 /**
- * Link inside a `mat-tab-nav-bar`.
+ * Link inside a `oui-tab-nav-bar`.
  */
 @Component({
-  selector: '[mat-tab-link], [matTabLink]',
+  selector: '[oui-tab-link], [matTabLink]',
   exportAs: 'matTabLink',
   inputs: ['disabled', 'disableRipple', 'tabIndex', 'active', 'id'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -270,7 +270,7 @@ const _MatTabLinkMixinBase = mixinInkBarItem(
   templateUrl: 'tab-link.html',
   styleUrls: ['tab-link.scss'],
   host: {
-    'class': 'mdc-tab mat-mdc-tab-link mat-mdc-focus-indicator',
+    'class': 'mdc-tab oui-mdc-tab-link oui-mdc-focus-indicator',
     '[attr.aria-controls]': '_getAriaControls()',
     '[attr.aria-current]': '_getAriaCurrent()',
     '[attr.aria-disabled]': 'disabled',
@@ -278,7 +278,7 @@ const _MatTabLinkMixinBase = mixinInkBarItem(
     '[attr.id]': 'id',
     '[attr.tabIndex]': '_getTabIndex()',
     '[attr.role]': '_getRole()',
-    '[class.mat-mdc-tab-disabled]': 'disabled',
+    '[class.oui-mdc-tab-disabled]': 'disabled',
     '[class.mdc-tab--active]': 'active',
     '(focus)': '_handleFocus()',
     '(keydown)': '_handleKeydown($event)',
@@ -337,7 +337,7 @@ export class MatTabLink
   }
 
   /** Unique id for the tab. */
-  @Input() id = `mat-tab-link-${nextUniqueId++}`;
+  @Input() id = `oui-tab-link-${nextUniqueId++}`;
 
   constructor(
     private _tabNavBar: MatTabNav,
@@ -429,21 +429,21 @@ export class MatTabLink
  * Tab panel component associated with MatTabNav.
  */
 @Component({
-  selector: 'mat-tab-nav-panel',
-  exportAs: 'matTabNavPanel',
+  selector: 'oui-tab-nav-panel',
+  exportAs: 'ouiTabNavPanel',
   template: '<ng-content></ng-content>',
   host: {
     '[attr.aria-labelledby]': '_activeTabId',
     '[attr.id]': 'id',
-    'class': 'mat-mdc-tab-nav-panel',
+    'class': 'oui-mdc-tab-nav-panel',
     'role': 'tabpanel',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MatTabNavPanel {
+export class ouiTabNavPanel {
   /** Unique id for the tab panel. */
-  @Input() id = `mat-tab-nav-panel-${nextUniqueId++}`;
+  @Input() id = `oui-tab-nav-panel-${nextUniqueId++}`;
 
   /** Id of the active tab in the nav bar. */
   _activeTabId?: string;

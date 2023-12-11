@@ -1,14 +1,14 @@
-<mat-tab-header #tabHeader
+<oui-tab-header #tabHeader
   [selectedIndex]="selectedIndex || 0"
   [disableRipple]="disableRipple"
   [disablePagination]="disablePagination"
   (indexFocused)="_focusChanged($event)"
   (selectFocusedIndex)="selectedIndex = $event">
 
-  <div class="mdc-tab mat-mdc-tab mat-mdc-focus-indicator"
+  <div class="mdc-tab oui-mdc-tab oui-mdc-focus-indicator"
        #tabNode
        role="tab"
-       matTabLabelWrapper
+       ouiTabLabelWrapper
        cdkMonitorElementFocus
        *ngFor="let tab of _tabs; let i = index"
        [id]="_getTabLabelId(i)"
@@ -31,10 +31,10 @@
     <!-- Needs to be a separate element, because we can't put
          `overflow: hidden` on tab due to the ink bar. -->
     <div
-      class="mat-mdc-tab-ripple"
-      mat-ripple
-      [matRippleTrigger]="tabNode"
-      [matRippleDisabled]="tab.disabled || disableRipple"></div>
+      class="oui-mdc-tab-ripple"
+      oui-ripple
+      [ouiRippleTrigger]="tabNode"
+      [ouiRippleDisabled]="tab.disabled || disableRipple"></div>
 
     <span class="mdc-tab__content">
       <span class="mdc-tab__text-label">
@@ -48,18 +48,18 @@
       </span>
     </span>
   </div>
-</mat-tab-header>
+</oui-tab-header>
 
 <div
-  class="mat-mdc-tab-body-wrapper"
-  [class._mat-animation-noopable]="_animationMode === 'NoopAnimations'"
+  class="oui-mdc-tab-body-wrapper"
+  [class._oui-animation-noopable]="_animationMode === 'NoopAnimations'"
   #tabBodyWrapper>
-  <mat-tab-body role="tabpanel"
+  <oui-tab-body role="tabpanel"
     *ngFor="let tab of _tabs; let i = index"
     [id]="_getTabContentId(i)"
     [attr.tabindex]="(contentTabIndex != null && selectedIndex === i) ? contentTabIndex : null"
     [attr.aria-labelledby]="_getTabLabelId(i)"
-    [class.mat-mdc-tab-body-active]="selectedIndex === i"
+    [class.oui-mdc-tab-body-active]="selectedIndex === i"
     [ngClass]="tab.bodyClass"
     [content]="tab.givenText"
     [position]="tab.position!"
@@ -68,5 +68,5 @@
     [preserveContent]="preserveContent"
     (_onCentered)="_removeTabBodyWrapperHeight()"
     (_onCentering)="_setTabBodyWrapperHeight($event)">
-  </mat-tab-body>
+  </oui-tab-body>
 </div>

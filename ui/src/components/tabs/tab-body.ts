@@ -108,7 +108,7 @@ export type MatTabBodyPositionState =
  * @docs-private
  */
 @Component({
-  selector: 'mat-tab-body',
+  selector: 'oui-tab-body',
   templateUrl: 'tab-body.html',
   // styleUrls: ['tab-body.css'],
   encapsulation: ViewEncapsulation.None,
@@ -116,7 +116,7 @@ export type MatTabBodyPositionState =
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [matTabsAnimations.translateTab],
   host: {
-    'class': 'mat-mdc-tab-body',
+    'class': 'oui-mdc-tab-body',
   },
 })
 export class MatTabBody implements OnInit, OnDestroy {

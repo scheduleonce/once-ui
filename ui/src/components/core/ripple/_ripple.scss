@@ -1,9 +1,9 @@
 @use '@angular/cdk';
 
 @mixin ripple() {
-  // The host element of an mat-ripple directive should always have a position of "absolute" or
+  // The host element of an oui-ripple directive should always have a position of "absolute" or
   // "relative" so that the ripples inside are correctly positioned relatively to the container.
-  .mat-ripple {
+  .oui-ripple {
     overflow: hidden;
 
     // By default, every ripple container should have position: relative in favor of creating an
@@ -20,11 +20,11 @@
     }
   }
 
-  .mat-ripple.mat-ripple-unbounded {
+  .oui-ripple.oui-ripple-unbounded {
     overflow: visible;
   }
 
-  .mat-ripple-element {
+  .oui-ripple-element {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;

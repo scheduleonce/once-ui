@@ -2,11 +2,11 @@
 @use '../tabs-common';
 
 // Wraps each link in the header
-.mat-mdc-tab-link {
+.oui-mdc-tab-link {
   // @include tabs-common.tab;
 
   // Note that we only want to target direct descendant tabs.
-  .mat-mdc-tab-header.mat-mdc-tab-nav-bar-stretch-tabs & {
+  .oui-mdc-tab-header.oui-mdc-tab-nav-bar-stretch-tabs & {
     flex-grow: 1;
   }
 
@@ -18,7 +18,7 @@
 }
 
 // @media (variables.$xsmall) {
-//   .mat-mdc-tab-link {
+//   .oui-mdc-tab-link {
 //     min-width: 72px;
 //   }
 // }

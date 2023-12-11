@@ -13,13 +13,13 @@ import {PortalModule} from '@angular/cdk/portal';
 import {ObserversModule} from '@angular/cdk/observers';
 import {A11yModule} from '@angular/cdk/a11y';
 import {MatTabBodyPortal} from './tab-body';
-import {MatTabContent} from './tab-content';
-import {MatTabLabel} from './tab-label';
-import {MatTabLabelWrapper} from './tab-label-wrapper';
-import {MatTab} from './tab';
-import {MatTabHeader} from './tab-header';
-import {MatTabGroup} from './tab-group';
-import {MatTabNav, MatTabNavPanel, MatTabLink} from './tab-nav-bar/tab-nav-bar';
+import {OuiTabContent} from './tab-content';
+import {OuiTabLabel} from './tab-label';
+import {ouiTabLabelWrapper} from './tab-label-wrapper';
+import {OuiTab} from './tab';
+import {OuiTabHeader} from './tab-header';
+import {ouiTabGroup} from './tab-group';
+import {MatTabNav, ouiTabNavPanel, MatTabLink} from './tab-nav-bar/tab-nav-bar';
 import { MatTabBody } from './tab-body';
 
 @NgModule({
@@ -31,28 +31,28 @@ import { MatTabBody } from './tab-body';
     A11yModule,
   ],
   exports: [
-    MatTabContent,
-    MatTabLabel,
-    MatTab,
-    MatTabGroup,
+    OuiTabContent,
+    OuiTabLabel,
+    OuiTab,
+    ouiTabGroup,
     MatTabNav,
-    MatTabNavPanel,
+    ouiTabNavPanel,
     MatTabLink,
     MatTabBodyPortal,
     MatTabBody
   ],
   declarations: [
-    MatTabContent,
-    MatTabLabel,
-    MatTab,
-    MatTabGroup,
+    OuiTabContent,
+    OuiTabLabel,
+    OuiTab,
+    ouiTabGroup,
     MatTabNav,
-    MatTabNavPanel,
+    ouiTabNavPanel,
     MatTabLink,
 
     // Private directives, should not be exported.
-    MatTabLabelWrapper,
-    MatTabHeader,
+    ouiTabLabelWrapper,
+    OuiTabHeader,
     MatTabBody,
     MatTabBodyPortal,
   ],

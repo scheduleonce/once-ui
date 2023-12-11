@@ -15,14 +15,14 @@ import {CommonModule} from '@angular/common';
 import {Observable} from 'rxjs';
 import {
   MAT_TABS_CONFIG,
-  MatTab,
-  MatTabGroup,
-  MatTabHeader,
+  OuiTab,
+  ouiTabGroup,
+  OuiTabHeader,
   MatTabHeaderPosition,
   MatTabsModule,
 } from './index';
 
-describe('MDC-based MatTabGroup', () => {
+describe('MDC-based ouiTabGroup', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatTabsModule, CommonModule, NoopAnimationsModule],
@@ -62,7 +62,7 @@ describe('MDC-based MatTabGroup', () => {
 
     it('will properly load content on first change detection pass', () => {
       fixture.detectChanges();
-      const tabBodies = element.querySelectorAll('.mat-mdc-tab-body');
+      const tabBodies = element.querySelectorAll('.oui-mdc-tab-body');
       expect(tabBodies[1].querySelectorAll('span').length).toBe(3);
     });
 
@@ -72,12 +72,12 @@ describe('MDC-based MatTabGroup', () => {
       checkSelectedIndex(0, fixture);
 
       // select the second tab
-      let tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      let tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
       tabLabel.nativeElement.click();
       checkSelectedIndex(1, fixture);
 
       // select the third tab
-      tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[2];
+      tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[2];
       tabLabel.nativeElement.click();
       checkSelectedIndex(2, fixture);
     });
@@ -88,7 +88,7 @@ describe('MDC-based MatTabGroup', () => {
 
       fixture.detectChanges();
 
-      let tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      let tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
       tabLabel.nativeElement.click();
       fixture.detectChanges();
       tick();
@@ -118,7 +118,7 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should change tabs based on selectedIndex', fakeAsync(() => {
       let component = fixture.componentInstance;
-      let tabComponent = fixture.debugElement.query(By.css('mat-tab-group')).componentInstance;
+      let tabComponent = fixture.debugElement.query(By.css('oui-tab-group')).componentInstance;
 
       spyOn(component, 'handleSelection').and.callThrough();
 
@@ -135,10 +135,10 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should update tab positions when selected index is changed', () => {
       fixture.detectChanges();
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
-      const tabs: MatTab[] = component._tabs.toArray();
+      const tabs: OuiTab[] = component._tabs.toArray();
 
       expect(tabs[0].position).toBeLessThan(0);
       expect(tabs[1].position).toBe(0);
@@ -161,8 +161,8 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should clamp the selected index to the size of the number of tabs', () => {
       fixture.detectChanges();
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
 
       // Set the index to be negative, expect first tab selected
@@ -189,15 +189,15 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       const testElement = fixture.nativeElement;
-      const tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      const tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
 
-      expect(testElement.querySelectorAll('.mat-ripple-element').length)
+      expect(testElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripples to show up initially.')
         .toBe(0);
 
       dispatchFakeEvent(tabLabel.nativeElement, 'mousedown');
 
-      expect(testElement.querySelectorAll('.mat-ripple-element').length)
+      expect(testElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected one ripple to show up on label mousedown.')
         .toBe(1);
     });
@@ -207,16 +207,16 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       const testElement = fixture.nativeElement;
-      const tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      const tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
 
-      expect(testElement.querySelectorAll('.mat-ripple-element').length)
+      expect(testElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripples to show up initially.')
         .toBe(0);
 
       dispatchFakeEvent(tabLabel.nativeElement, 'mousedown');
       dispatchFakeEvent(tabLabel.nativeElement, 'mouseup');
 
-      expect(testElement.querySelectorAll('.mat-ripple-element').length)
+      expect(testElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripple to show up on label mousedown.')
         .toBe(0);
     });
@@ -244,7 +244,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       spyOn(fixture.componentInstance, 'animationDone');
-      let tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      let tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
       tabLabel.nativeElement.click();
       fixture.detectChanges();
       tick();
@@ -255,7 +255,7 @@ describe('MDC-based MatTabGroup', () => {
     it('should add the proper `aria-setsize` and `aria-posinset`', () => {
       fixture.detectChanges();
 
-      const labels = Array.from(element.querySelectorAll('.mat-mdc-tab'));
+      const labels = Array.from(element.querySelectorAll('.oui-mdc-tab'));
 
       expect(labels.map(label => label.getAttribute('aria-posinset'))).toEqual(['1', '2', '3']);
       expect(labels.every(label => label.getAttribute('aria-setsize') === '3')).toBe(true);
@@ -265,7 +265,7 @@ describe('MDC-based MatTabGroup', () => {
       spyOn(fixture.componentInstance, 'handleFocus');
       fixture.detectChanges();
 
-      const tabLabels = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'));
+      const tabLabels = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'));
 
       expect(fixture.componentInstance.handleFocus).toHaveBeenCalledTimes(0);
 
@@ -282,8 +282,8 @@ describe('MDC-based MatTabGroup', () => {
       spyOn(fixture.componentInstance, 'handleFocus');
       fixture.detectChanges();
 
-      const tabLabels = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'));
-      const tabLabelContainer = fixture.debugElement.query(By.css('.mat-mdc-tab-label-container'))
+      const tabLabels = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'));
+      const tabLabelContainer = fixture.debugElement.query(By.css('.oui-mdc-tab-label-container'))
         .nativeElement as HTMLElement;
 
       expect(fixture.componentInstance.handleFocus).toHaveBeenCalledTimes(0);
@@ -304,8 +304,8 @@ describe('MDC-based MatTabGroup', () => {
     });
 
     it('should clean up the tabs QueryList on destroy', () => {
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       )!.componentInstance;
       const spy = jasmine.createSpy('complete spy');
       const subscription = component._tabs.changes.subscribe({complete: spy});
@@ -318,11 +318,11 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should have a focus indicator', () => {
       const tabLabelNativeElements = [
-        ...fixture.debugElement.nativeElement.querySelectorAll('.mat-mdc-tab'),
+        ...fixture.debugElement.nativeElement.querySelectorAll('.oui-mdc-tab'),
       ];
 
       expect(
-        tabLabelNativeElements.every(el => el.classList.contains('mat-mdc-focus-indicator')),
+        tabLabelNativeElements.every(el => el.classList.contains('oui-mdc-focus-indicator')),
       ).toBe(true);
     });
 
@@ -330,7 +330,7 @@ describe('MDC-based MatTabGroup', () => {
       spyOn(fixture.componentInstance, 'handleFocus');
       fixture.detectChanges();
 
-      const tabLabels = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'));
+      const tabLabels = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'));
 
       expect(fixture.componentInstance.handleFocus).toHaveBeenCalledTimes(0);
 
@@ -349,11 +349,11 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should be able to programmatically focus a particular tab', () => {
       fixture.detectChanges();
-      const tabGroup: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const tabGroup: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
-      const tabHeader: MatTabHeader = fixture.debugElement.query(
-        By.css('mat-tab-header'),
+      const tabHeader: OuiTabHeader = fixture.debugElement.query(
+        By.css('oui-tab-header'),
       ).componentInstance;
 
       expect(tabHeader.focusIndex).not.toBe(3);
@@ -368,7 +368,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture.componentInstance.contentTabIndex = 1;
       fixture.detectChanges();
       const contentElements = Array.from<HTMLElement>(
-        fixture.nativeElement.querySelectorAll('mat-tab-body'),
+        fixture.nativeElement.querySelectorAll('oui-tab-body'),
       );
 
       expect(contentElements.map(e => e.getAttribute('tabindex'))).toEqual([null, '1', null]);
@@ -383,9 +383,9 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       const tabLabels = fixture.debugElement
-        .queryAll(By.css('.mat-mdc-tab'))
+        .queryAll(By.css('.oui-mdc-tab'))
         .map(label => label.nativeElement);
-      const tabLabelContainer = fixture.debugElement.query(By.css('.mat-mdc-tab-label-container'))
+      const tabLabelContainer = fixture.debugElement.query(By.css('.oui-mdc-tab-label-container'))
         .nativeElement as HTMLElement;
 
       expect(tabLabels.map(label => label.getAttribute('tabindex'))).toEqual(['-1', '0', '-1']);
@@ -405,7 +405,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture = TestBed.createComponent(TabGroupWithAriaInputs);
       fixture.detectChanges();
       tick();
-      tab = fixture.nativeElement.querySelector('.mat-mdc-tab');
+      tab = fixture.nativeElement.querySelector('.oui-mdc-tab');
     }));
 
     it('should not set aria-label or aria-labelledby attributes if they are not passed in', () => {
@@ -450,7 +450,7 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should have one disabled tab', () => {
       fixture.detectChanges();
-      const labels = fixture.debugElement.queryAll(By.css('.mat-mdc-tab-disabled'));
+      const labels = fixture.debugElement.queryAll(By.css('.oui-mdc-tab-disabled'));
       expect(labels.length).toBe(1);
       expect(labels[0].nativeElement.getAttribute('aria-disabled')).toBe('true');
     });
@@ -459,7 +459,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       const tabs = fixture.componentInstance.tabs.toArray();
-      let labels = fixture.debugElement.queryAll(By.css('.mat-mdc-tab-disabled'));
+      let labels = fixture.debugElement.queryAll(By.css('.oui-mdc-tab-disabled'));
       expect(tabs[2].disabled).toBe(false);
       expect(labels.length).toBe(1);
       expect(labels[0].nativeElement.getAttribute('aria-disabled')).toBe('true');
@@ -468,7 +468,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       expect(tabs[2].disabled).toBe(true);
-      labels = fixture.debugElement.queryAll(By.css('.mat-mdc-tab-disabled'));
+      labels = fixture.debugElement.queryAll(By.css('.oui-mdc-tab-disabled'));
       expect(labels.length).toBe(2);
       expect(
         labels.every(label => label.nativeElement.getAttribute('aria-disabled') === 'true'),
@@ -487,11 +487,11 @@ describe('MDC-based MatTabGroup', () => {
     }));
 
     it('should be able to add a new tab, select it, and have correct origin position', fakeAsync(() => {
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
 
-      let tabs: MatTab[] = component._tabs.toArray();
+      let tabs: OuiTab[] = component._tabs.toArray();
       expect(tabs[0].origin).toBe(null);
       expect(tabs[1].origin).toBe(0);
       expect(tabs[2].origin).toBe(null);
@@ -519,8 +519,8 @@ describe('MDC-based MatTabGroup', () => {
     }));
 
     it('should update selected index if the last tab removed while selected', fakeAsync(() => {
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
 
       const numberOfTabs = component._tabs.length;
@@ -538,8 +538,8 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should maintain the selected tab if a new tab is added', () => {
       fixture.detectChanges();
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
 
       fixture.componentInstance.selectedIndex = 1;
@@ -558,8 +558,8 @@ describe('MDC-based MatTabGroup', () => {
       fixture.componentInstance.selectedIndex = 1;
       fixture.detectChanges();
 
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
 
       // Remove the first tab that is right before the selected one.
@@ -574,8 +574,8 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should be able to select a new tab after creation', fakeAsync(() => {
       fixture.detectChanges();
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       ).componentInstance;
 
       fixture.componentInstance.tabs.push({label: 'Last tab', content: 'at the end'});
@@ -604,8 +604,8 @@ describe('MDC-based MatTabGroup', () => {
     }));
 
     it('should update the newly-selected tab if the previously-selected tab is replaced', fakeAsync(() => {
-      const component: MatTabGroup = fixture.debugElement.query(
-        By.css('mat-tab-group'),
+      const component: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group'),
       )!.componentInstance;
 
       spyOn(fixture.componentInstance, 'handleSelection');
@@ -636,7 +636,7 @@ describe('MDC-based MatTabGroup', () => {
       tick();
 
       expect(
-        fixture.nativeElement.querySelector('.mat-mdc-tab-header-pagination-controls-enabled'),
+        fixture.nativeElement.querySelector('.oui-mdc-tab-header-pagination-controls-enabled'),
       ).toBeFalsy();
     }));
   });
@@ -647,28 +647,28 @@ describe('MDC-based MatTabGroup', () => {
     it('should show tabs when they are available', fakeAsync(() => {
       fixture = TestBed.createComponent(AsyncTabsTestApp);
 
-      expect(fixture.debugElement.queryAll(By.css('.mat-mdc-tab')).length).toBe(0);
+      expect(fixture.debugElement.queryAll(By.css('.oui-mdc-tab')).length).toBe(0);
 
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
       tick();
 
-      expect(fixture.debugElement.queryAll(By.css('.mat-mdc-tab')).length).toBe(2);
+      expect(fixture.debugElement.queryAll(By.css('.oui-mdc-tab')).length).toBe(2);
     }));
   });
 
   describe('with simple api', () => {
     let fixture: ComponentFixture<TabGroupWithSimpleApi>;
-    let tabGroup: MatTabGroup;
+    let tabGroup: ouiTabGroup;
 
     beforeEach(fakeAsync(() => {
       fixture = TestBed.createComponent(TabGroupWithSimpleApi);
       fixture.detectChanges();
       tick();
 
-      tabGroup = fixture.debugElement.query(By.directive(MatTabGroup))
-        .componentInstance as MatTabGroup;
+      tabGroup = fixture.debugElement.query(By.directive(ouiTabGroup))
+        .componentInstance as ouiTabGroup;
     }));
 
     it('should support a tab-group with the simple api', fakeAsync(() => {
@@ -707,14 +707,14 @@ describe('MDC-based MatTabGroup', () => {
     }));
 
     it('should support setting the header position', () => {
-      let tabGroupNode = fixture.debugElement.query(By.css('mat-tab-group')).nativeElement;
+      let tabGroupNode = fixture.debugElement.query(By.css('oui-tab-group')).nativeElement;
 
-      expect(tabGroupNode.classList).not.toContain('mat-mdc-tab-group-inverted-header');
+      expect(tabGroupNode.classList).not.toContain('oui-mdc-tab-group-inverted-header');
 
       tabGroup.headerPosition = 'below';
       fixture.detectChanges();
 
-      expect(tabGroupNode.classList).toContain('mat-mdc-tab-group-inverted-header');
+      expect(tabGroupNode.classList).toContain('oui-mdc-tab-group-inverted-header');
     });
 
     it('should be able to opt into keeping the inactive tab content in the DOM', fakeAsync(() => {
@@ -734,7 +734,7 @@ describe('MDC-based MatTabGroup', () => {
 
     it('should visibly hide the content of inactive tabs', fakeAsync(() => {
       const contentElements: HTMLElement[] = Array.from(
-        fixture.nativeElement.querySelectorAll('.mat-mdc-tab-body-content'),
+        fixture.nativeElement.querySelectorAll('.oui-mdc-tab-body-content'),
       );
 
       expect(contentElements.map(element => element.style.visibility)).toEqual([
@@ -774,7 +774,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
       tick();
 
-      const secondLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      const secondLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
       secondLabel.nativeElement.click();
       fixture.detectChanges();
       tick();
@@ -798,7 +798,7 @@ describe('MDC-based MatTabGroup', () => {
       expect(fixture.nativeElement.textContent).toContain('pizza is active');
     }));
 
-    it('should not pick up mat-tab-label from a child tab', fakeAsync(() => {
+    it('should not pick up oui-tab-label from a child tab', fakeAsync(() => {
       const fixture = TestBed.createComponent(NestedTabGroupWithLabel);
       fixture.detectChanges();
       tick();
@@ -828,8 +828,8 @@ describe('MDC-based MatTabGroup', () => {
       const groups = fixture.componentInstance.groups.toArray();
 
       expect(groups.length).toBe(2);
-      expect(groups[0]._tabs.map((tab: MatTab) => tab.textLabel)).toEqual(['One', 'Two']);
-      expect(groups[1]._tabs.map((tab: MatTab) => tab.textLabel)).toEqual([
+      expect(groups[0]._tabs.map((tab: OuiTab) => tab.textLabel)).toEqual(['One', 'Two']);
+      expect(groups[1]._tabs.map((tab: OuiTab) => tab.textLabel)).toEqual([
         'Inner tab one',
         'Inner tab two',
       ]);
@@ -842,7 +842,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture.detectChanges();
 
       const tabs = fixture.componentInstance.tabGroup._tabs;
-      expect(tabs.map((tab: MatTab) => tab.textLabel)).toEqual(['One', 'Two']);
+      expect(tabs.map((tab: OuiTab) => tab.textLabel)).toEqual(['One', 'Two']);
     }));
   });
 
@@ -861,7 +861,7 @@ describe('MDC-based MatTabGroup', () => {
       expect(window.scrollY).toBe(250);
 
       // select the second tab
-      let tabLabel = fixture.debugElement.queryAll(By.css('.mat-mdc-tab'))[1];
+      let tabLabel = fixture.debugElement.queryAll(By.css('.oui-mdc-tab'))[1];
       tabLabel.nativeElement.click();
       checkSelectedIndex(1, fixture);
 
@@ -895,7 +895,7 @@ describe('MDC-based MatTabGroup', () => {
       fixture = TestBed.createComponent(TabsWithClassesTestApp);
       fixture.detectChanges();
       labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
-      bodyElements = fixture.debugElement.queryAll(By.css('mat-tab-body'));
+      bodyElements = fixture.debugElement.queryAll(By.css('oui-tab-body'));
     });
 
     it('should apply label/body classes', () => {
@@ -949,20 +949,20 @@ describe('MDC-based MatTabGroup', () => {
   function checkSelectedIndex(expectedIndex: number, fixture: ComponentFixture<any>) {
     fixture.detectChanges();
 
-    let tabComponent: MatTabGroup = fixture.debugElement.query(
-      By.css('mat-tab-group'),
+    let tabComponent: ouiTabGroup = fixture.debugElement.query(
+      By.css('oui-tab-group'),
     ).componentInstance;
     expect(tabComponent.selectedIndex).toBe(expectedIndex);
 
     let tabLabelElement = fixture.debugElement.query(
-      By.css(`.mat-mdc-tab:nth-of-type(${expectedIndex + 1})`),
+      By.css(`.oui-mdc-tab:nth-of-type(${expectedIndex + 1})`),
     ).nativeElement;
     expect(tabLabelElement.classList.contains('mdc-tab--active')).toBe(true);
 
     let tabContentElement = fixture.debugElement.query(
-      By.css(`mat-tab-body:nth-of-type(${expectedIndex + 1})`),
+      By.css(`oui-tab-body:nth-of-type(${expectedIndex + 1})`),
     ).nativeElement;
-    expect(tabContentElement.classList.contains('mat-mdc-tab-body-active')).toBe(true);
+    expect(tabContentElement.classList.contains('oui-mdc-tab-body-active')).toBe(true);
   }
 
   function getSelectedLabel(fixture: ComponentFixture<any>): HTMLElement {
@@ -970,11 +970,11 @@ describe('MDC-based MatTabGroup', () => {
   }
 
   function getSelectedContent(fixture: ComponentFixture<any>): HTMLElement {
-    return fixture.nativeElement.querySelector('.mat-mdc-tab-body-active');
+    return fixture.nativeElement.querySelector('.oui-mdc-tab-body-active');
   }
 });
 
-describe('nested MatTabGroup with enabled animations', () => {
+describe('nested ouiTabGroup with enabled animations', () => {
   beforeEach(fakeAsync(() => {
     TestBed.configureTestingModule({
       imports: [MatTabsModule, BrowserAnimationsModule],
@@ -1005,12 +1005,12 @@ describe('nested MatTabGroup with enabled animations', () => {
     fixture.detectChanges();
     tick();
 
-    const tabGroup = fixture.nativeElement.querySelector('.mat-mdc-tab-group');
-    expect(tabGroup.style.getPropertyValue('--mat-tab-animation-duration')).toBe('500ms');
+    const tabGroup = fixture.nativeElement.querySelector('.oui-mdc-tab-group');
+    expect(tabGroup.style.getPropertyValue('--oui-tab-animation-duration')).toBe('500ms');
   }));
 });
 
-describe('MatTabGroup with ink bar fit to content', () => {
+describe('ouiTabGroup with ink bar fit to content', () => {
   let fixture: ComponentFixture<TabGroupWithInkBarFitToContent>;
 
   beforeEach(fakeAsync(() => {
@@ -1091,7 +1091,7 @@ describe('MatTabNavBar with a default config', () => {
 
 @Component({
   template: `
-    <mat-tab-group class="tab-group"
+    <oui-tab-group class="tab-group"
         [(selectedIndex)]="selectedIndex"
         [headerPosition]="headerPosition"
         [disableRipple]="disableRipple"
@@ -1099,24 +1099,24 @@ describe('MatTabNavBar with a default config', () => {
         (animationDone)="animationDone()"
         (focusChange)="handleFocus($event)"
         (selectedTabChange)="handleSelection($event)">
-      <mat-tab>
-        <ng-template mat-tab-label>Tab One</ng-template>
+      <oui-tab>
+        <ng-template oui-tab-label>Tab One</ng-template>
         Tab one content
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>Tab Two</ng-template>
+      </oui-tab>
+      <oui-tab>
+        <ng-template oui-tab-label>Tab Two</ng-template>
         <span>Tab </span><span>two</span><span>content</span>
-      </mat-tab>
-      <mat-tab>
-        <ng-template mat-tab-label>Tab Three</ng-template>
+      </oui-tab>
+      <oui-tab>
+        <ng-template oui-tab-label>Tab Three</ng-template>
         Tab three content
-      </mat-tab>
-    </mat-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class SimpleTabsTestApp {
-  @ViewChild(MatTabGroup) tabGroup: MatTabGroup;
-  @ViewChildren(MatTab) tabs: QueryList<MatTab>;
+  @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
+  @ViewChildren(OuiTab) tabs: QueryList<OuiTab>;
   selectedIndex: number = 1;
   focusEvent: any;
   selectEvent: any;
@@ -1134,16 +1134,16 @@ class SimpleTabsTestApp {
 
 @Component({
   template: `
-    <mat-tab-group class="tab-group"
+    <oui-tab-group class="tab-group"
         [(selectedIndex)]="selectedIndex"
         (focusChange)="handleFocus($event)"
         (selectedTabChange)="handleSelection($event)"
         [disablePagination]="disablePagination">
-      <mat-tab *ngFor="let tab of tabs">
-        <ng-template mat-tab-label>{{tab.label}}</ng-template>
+      <oui-tab *ngFor="let tab of tabs">
+        <ng-template oui-tab-label>{{tab.label}}</ng-template>
         {{tab.content}}
-      </mat-tab>
-    </mat-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class SimpleDynamicTabsTestApp {
@@ -1166,11 +1166,11 @@ class SimpleDynamicTabsTestApp {
 
 @Component({
   template: `
-    <mat-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
-      <mat-tab *ngFor="let tab of tabs" label="{{tab.label}}">
+    <oui-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
+      <oui-tab *ngFor="let tab of tabs" label="{{tab.label}}">
         {{tab.content}}
-      </mat-tab>
-    </mat-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class BindedTabsTestApp {
@@ -1191,35 +1191,35 @@ class BindedTabsTestApp {
 
 @Component({
   template: `
-    <mat-tab-group class="tab-group">
-      <mat-tab>
-        <ng-template mat-tab-label>Tab One</ng-template>
+    <oui-tab-group class="tab-group">
+      <oui-tab>
+        <ng-template oui-tab-label>Tab One</ng-template>
         Tab one content
-      </mat-tab>
-      <mat-tab disabled>
-        <ng-template mat-tab-label>Tab Two</ng-template>
+      </oui-tab>
+      <oui-tab disabled>
+        <ng-template oui-tab-label>Tab Two</ng-template>
         Tab two content
-      </mat-tab>
-      <mat-tab [disabled]="isDisabled">
-        <ng-template mat-tab-label>Tab Three</ng-template>
+      </oui-tab>
+      <oui-tab [disabled]="isDisabled">
+        <ng-template oui-tab-label>Tab Three</ng-template>
         Tab three content
-      </mat-tab>
-    </mat-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class DisabledTabsTestApp {
-  @ViewChildren(MatTab) tabs: QueryList<MatTab>;
+  @ViewChildren(OuiTab) tabs: QueryList<OuiTab>;
   isDisabled = false;
 }
 
 @Component({
   template: `
-    <mat-tab-group class="tab-group">
-      <mat-tab *ngFor="let tab of tabs | async">
-        <ng-template mat-tab-label>{{ tab.label }}</ng-template>
+    <oui-tab-group class="tab-group">
+      <oui-tab *ngFor="let tab of tabs | async">
+        <ng-template oui-tab-label>{{ tab.label }}</ng-template>
         {{ tab.content }}
-      </mat-tab>
-   </mat-tab-group>
+      </oui-tab>
+   </oui-tab-group>
   `,
 })
 class AsyncTabsTestApp implements OnInit {
@@ -1240,12 +1240,12 @@ class AsyncTabsTestApp implements OnInit {
 
 @Component({
   template: `
-  <mat-tab-group [preserveContent]="preserveContent">
-    <mat-tab label="Junk food"> Pizza, fries </mat-tab>
-    <mat-tab label="Vegetables"> Broccoli, spinach </mat-tab>
-    <mat-tab [label]="otherLabel"> {{otherContent}} </mat-tab>
-    <mat-tab label="Legumes"> <p #legumes>Peanuts</p> </mat-tab>
-  </mat-tab-group>
+  <oui-tab-group [preserveContent]="preserveContent">
+    <oui-tab label="Junk food"> Pizza, fries </oui-tab>
+    <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
+    <oui-tab [label]="otherLabel"> {{otherContent}} </oui-tab>
+    <oui-tab label="Legumes"> <p #legumes>Peanuts</p> </oui-tab>
+  </oui-tab-group>
   `,
 })
 class TabGroupWithSimpleApi {
@@ -1257,43 +1257,43 @@ class TabGroupWithSimpleApi {
 
 @Component({
   template: `
-    <mat-tab-group>
-      <mat-tab label="One">Tab one content</mat-tab>
-      <mat-tab label="Two">
+    <oui-tab-group>
+      <oui-tab label="One">Tab one content</oui-tab>
+      <oui-tab label="Two">
         Tab two content
-         <mat-tab-group [dynamicHeight]="true">
-          <mat-tab label="Inner tab one">Inner content one</mat-tab>
-          <mat-tab label="Inner tab two">Inner content two</mat-tab>
-        </mat-tab-group>
-      </mat-tab>
-    </mat-tab-group>
+         <oui-tab-group [dynamicHeight]="true">
+          <oui-tab label="Inner tab one">Inner content one</oui-tab>
+          <oui-tab label="Inner tab two">Inner content two</oui-tab>
+        </oui-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class NestedTabs {
-  @ViewChildren(MatTabGroup) groups: QueryList<MatTabGroup>;
+  @ViewChildren(ouiTabGroup) groups: QueryList<ouiTabGroup>;
 }
 
 @Component({
   template: `
-    <mat-tab-group>
-      <mat-tab label="One">
+    <oui-tab-group>
+      <oui-tab label="One">
         Eager
-      </mat-tab>
-      <mat-tab label="Two">
-        <ng-template matTabContent>
+      </oui-tab>
+      <oui-tab label="Two">
+        <ng-template OuiTabContent>
           <div class="child">Hi</div>
         </ng-template>
-      </mat-tab>
-    </mat-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class TemplateTabs {}
 
 @Component({
   template: `
-  <mat-tab-group>
-    <mat-tab [aria-label]="ariaLabel" [aria-labelledby]="ariaLabelledby"></mat-tab>
-  </mat-tab-group>
+  <oui-tab-group>
+    <oui-tab [aria-label]="ariaLabel" [aria-labelledby]="ariaLabelledby"></oui-tab>
+  </oui-tab-group>
   `,
 })
 class TabGroupWithAriaInputs {
@@ -1303,10 +1303,10 @@ class TabGroupWithAriaInputs {
 
 @Component({
   template: `
-    <mat-tab-group>
-      <mat-tab label="Junk food" #pizza> Pizza, fries </mat-tab>
-      <mat-tab label="Vegetables"> Broccoli, spinach </mat-tab>
-    </mat-tab-group>
+    <oui-tab-group>
+      <oui-tab label="Junk food" #pizza> Pizza, fries </oui-tab>
+      <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
+    </oui-tab-group>
 
     <div *ngIf="pizza.isActive">pizza is active</div>
   `,
@@ -1315,34 +1315,34 @@ class TabGroupWithIsActiveBinding {}
 
 @Component({
   template: `
-    <mat-tab-group animationDuration="500">
-      <mat-tab label="One">Tab one content</mat-tab>
-      <mat-tab label="Two">Tab two content</mat-tab>
-    </mat-tab-group>
+    <oui-tab-group animationDuration="500">
+      <oui-tab label="One">Tab one content</oui-tab>
+      <oui-tab label="Two">Tab two content</oui-tab>
+    </oui-tab-group>
   `,
 })
 class TabsWithCustomAnimationDuration {}
 
 @Component({
   template: `
-    <mat-tab-group>
+    <oui-tab-group>
       <ng-container [ngSwitch]="true">
-        <mat-tab label="One">Tab one content</mat-tab>
-        <mat-tab label="Two">Tab two content</mat-tab>
+        <oui-tab label="One">Tab one content</oui-tab>
+        <oui-tab label="Two">Tab two content</oui-tab>
       </ng-container>
-    </mat-tab-group>
+    </oui-tab-group>
   `,
 })
 class TabGroupWithIndirectDescendantTabs {
-  @ViewChild(MatTabGroup) tabGroup: MatTabGroup;
+  @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
 }
 
 @Component({
   template: `
-    <mat-tab-group [fitInkBarToContent]="fitInkBarToContent">
-      <mat-tab label="One">Tab one content</mat-tab>
-      <mat-tab label="Two">Tab two content</mat-tab>
-    </mat-tab-group>
+    <oui-tab-group [fitInkBarToContent]="fitInkBarToContent">
+      <oui-tab label="One">Tab one content</oui-tab>
+      <oui-tab label="Two">Tab two content</oui-tab>
+    </oui-tab-group>
   `,
 })
 class TabGroupWithInkBarFitToContent {
@@ -1354,53 +1354,53 @@ class TabGroupWithInkBarFitToContent {
     <div style="height: 300px; background-color: aqua">
       Top Content here
     </div>
-    <mat-tab-group>
+    <oui-tab-group>
       <ng-container>
-        <mat-tab label="One">
+        <oui-tab label="One">
           <div style="height: 3000px; background-color: red"></div>
-        </mat-tab>
-        <mat-tab label="Two">
+        </oui-tab>
+        <oui-tab label="Two">
           <div style="height: 3000px; background-color: green"></div>
-        </mat-tab>
+        </oui-tab>
       </ng-container>
-    </mat-tab-group>
+    </oui-tab-group>
   `,
 })
 class TabGroupWithSpaceAbove {
-  @ViewChild(MatTabGroup) tabGroup: MatTabGroup;
+  @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
 }
 
 @Component({
   template: `
-    <mat-tab-group>
-      <mat-tab label="Parent 1">
-        <mat-tab-group>
-          <mat-tab label="Child 1">Content 1</mat-tab>
-          <mat-tab>
-            <ng-template mat-tab-label>Child 2</ng-template>
+    <oui-tab-group>
+      <oui-tab label="Parent 1">
+        <oui-tab-group>
+          <oui-tab label="Child 1">Content 1</oui-tab>
+          <oui-tab>
+            <ng-template oui-tab-label>Child 2</ng-template>
             Content 2
-          </mat-tab>
-          <mat-tab label="Child 3">Child 3</mat-tab>
-        </mat-tab-group>
-      </mat-tab>
-      <mat-tab label="Parent 2">Parent 2</mat-tab>
-      <mat-tab label="Parent 3">Parent 3</mat-tab>
-    </mat-tab-group>
+          </oui-tab>
+          <oui-tab label="Child 3">Child 3</oui-tab>
+        </oui-tab-group>
+      </oui-tab>
+      <oui-tab label="Parent 2">Parent 2</oui-tab>
+      <oui-tab label="Parent 3">Parent 3</oui-tab>
+    </oui-tab-group>
   `,
 })
 class NestedTabGroupWithLabel {}
 
 @Component({
   template: `
-    <mat-tab-group class="tab-group">
-      <mat-tab label="Tab One" [labelClass]="labelClassList" [bodyClass]="bodyClassList">
+    <oui-tab-group class="tab-group">
+      <oui-tab label="Tab One" [labelClass]="labelClassList" [bodyClass]="bodyClassList">
         Tab one content
-      </mat-tab>
-      <mat-tab label="Tab Two" labelClass="hardcoded-label-class"
+      </oui-tab>
+      <oui-tab label="Tab Two" labelClass="hardcoded-label-class"
                bodyClass="hardcoded-body-class">
         Tab two content
-      </mat-tab>
-    </mat-tab-group>
+      </oui-tab>
+    </oui-tab-group>
   `,
 })
 class TabsWithClassesTestApp {

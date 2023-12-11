@@ -1,33 +1,14 @@
-// @use '../core/ripple' as mdc-ripple;
-// @use '@material/tab' as mdc-tab;
-// @use '@material/tab-indicator' as mdc-tab-indicator;
-// @use '@material/tab-indicator/tab-indicator-theme' as mdc-tab-indicator-theme;
-// @use '@material/tab/tab-theme' as mdc-tab-theme;
-// @use '@material/theme/custom-properties' as mdc-custom-properties;
-// @use '../core/mdc-helpers/mdc-helpers';
-// @use '../core/style/vendor-prefixes';
-// @use '../core/tokens/m2/mdc/tab-indicator' as tokens-mdc-tab-indicator;
-// @use '../core/tokens/m2/mdc/tab' as tokens-mdc-tab;
-// @use '../core/tokens/m2/mat/tab-header' as tokens-mat-tab-header;
-// @use '../core/tokens/m2/mat/tab-header-with-background' as tokens-mat-tab-header-with-background;
-// @use '../core/tokens/token-utils';
 @use 'sass:map';
 @use './tabs-theme';
 
 
-$mat-tab-animation-duration: 500ms !default;
+$oui-tab-animation-duration: 500ms !default;
 
 // Combines the various structural styles we need for the tab group and tab nav bar.
 @mixin structural-styles {
-//   @include mdc-custom-properties.configure(
-//     $emit-fallback-values: false,
-//     $emit-fallback-vars: false
-//   ) {
-//     @include mdc-tab.static-styles($query: mdc-helpers.$mdc-base-styles-query);
-//     @include mdc-tab-indicator.static-styles($query: mdc-helpers.$mdc-base-styles-query);
-//   }
 
-  .mat-mdc-tab-ripple {
+
+  .oui-mdc-tab-ripple {
     position: absolute;
     top: 0;
     left: 0;
@@ -115,8 +96,8 @@ $mat-tab-animation-duration: 500ms !default;
   }
 
 //   @include token-utils.use-tokens(
-//     tokens-mat-tab-header.$prefix,
-//     tokens-mat-tab-header.get-token-slots()
+//     tokens-oui-tab-header.$prefix,
+//     tokens-oui-tab-header.get-token-slots()
 //   ) {
 //     // @include token-utils.create-token-slot(font-family, label-text-font);
 //     // @include token-utils.create-token-slot(font-size, label-text-size);
@@ -138,7 +119,7 @@ $mat-tab-animation-duration: 500ms !default;
 //       }
 
 //       .mdc-tab__ripple::before,
-//       .mat-ripple-element {
+//       .oui-ripple-element {
 //         @include token-utils.create-token-slot(background-color, active-ripple-color);
 //       }
 
@@ -164,7 +145,7 @@ $mat-tab-animation-duration: 500ms !default;
 //     }
 //   }
 
-  &.mat-mdc-tab-disabled {
+  &.oui-mdc-tab-disabled {
     // MDC doesn't support disabled tabs so we need to improvise.
     opacity: 0.4;
 
@@ -172,7 +153,7 @@ $mat-tab-animation-duration: 500ms !default;
     // preventing the default action through JS, because we can't prevent the action reliably
     // due to other directives potentially registering their events earlier. This shouldn't cause
     // the user to click through, because we always have a header behind the tab. Furthermore, this
-    // saves us some CSS, because we don't have to add `:not(.mat-mdc-tab-disabled)` to all the
+    // saves us some CSS, because we don't have to add `:not(.oui-mdc-tab-disabled)` to all the
     // hover and focus selectors.
     pointer-events: none;
 
@@ -182,11 +163,11 @@ $mat-tab-animation-duration: 500ms !default;
     }
 
     // @include token-utils.use-tokens(
-    //   tokens-mat-tab-header.$prefix,
-    //   tokens-mat-tab-header.get-token-slots()
+    //   tokens-oui-tab-header.$prefix,
+    //   tokens-oui-tab-header.get-token-slots()
     // ) {
     //   .mdc-tab__ripple::before,
-    //   .mat-ripple-element {
+    //   .oui-ripple-element {
     //     @include token-utils.create-token-slot(background-color, disabled-ripple-color);
     //   }
     // }
@@ -206,8 +187,8 @@ $mat-tab-animation-duration: 500ms !default;
     pointer-events: none;
 
     // @include token-utils.use-tokens(
-    //   tokens-mat-tab-header.$prefix,
-    //   tokens-mat-tab-header.get-token-slots()
+    //   tokens-oui-tab-header.$prefix,
+    //   tokens-oui-tab-header.get-token-slots()
     // ) {
     //   @include token-utils.create-token-slot(background-color, inactive-ripple-color);
     // }
@@ -215,8 +196,8 @@ $mat-tab-animation-duration: 500ms !default;
 
   .mdc-tab__text-label {
     // @include token-utils.use-tokens(
-    //   tokens-mat-tab-header.$prefix,
-    //   tokens-mat-tab-header.get-token-slots()
+    //   tokens-oui-tab-header.$prefix,
+    //   tokens-oui-tab-header.get-token-slots()
     // ) {
     //   @include token-utils.create-token-slot(color, inactive-label-text-color);
     // }
@@ -249,22 +230,22 @@ $mat-tab-animation-duration: 500ms !default;
     }
   }
 
-  .mat-ripple-element {
+  .oui-ripple-element {
     // opacity: map.get(mdc-ripple.$dark-ink-opacities, press);
 
     // @include token-utils.use-tokens(
-    //   tokens-mat-tab-header.$prefix,
-    //   tokens-mat-tab-header.get-token-slots()
+    //   tokens-oui-tab-header.$prefix,
+    //   tokens-oui-tab-header.get-token-slots()
     // ) {
     //   @include token-utils.create-token-slot(background-color, inactive-ripple-color);
     // }
   }
 }
 
-// Structural styles for a tab header. Used by both `mat-tab-header` and `mat-tab-nav-bar`.
+// Structural styles for a tab header. Used by both `oui-tab-header` and `oui-tab-nav-bar`.
 // We need this styles on top of MDC's, because MDC doesn't support pagination like ours.
 @mixin paginated-tab-header {
-  .mat-mdc-tab-header {
+  .oui-mdc-tab-header {
     display: flex;
     overflow: hidden;
     position: relative;
@@ -274,7 +255,7 @@ $mat-tab-animation-duration: 500ms !default;
     // @include mdc-tab-indicator-theme.theme(tokens-mdc-tab-indicator.get-unthemable-tokens());
     // @include mdc-tab-theme.secondary-navigation-tab-theme(tokens-mdc-tab.get-unthemable-tokens());
     // @include token-utils.create-token-values(
-    //   tokens-mat-tab-header.$prefix, tokens-mat-tab-header.get-unthemable-tokens());
+    //   tokens-oui-tab-header.$prefix, tokens-oui-tab-header.get-unthemable-tokens());
   }
 
   .mdc-tab-indicator .mdc-tab-indicator__content {
@@ -293,11 +274,11 @@ $mat-tab-animation-duration: 500ms !default;
     z-index: 1;
   }
 
-  .mat-mdc-tab:not(.mdc-tab--stacked) {
+  .oui-mdc-tab:not(.mdc-tab--stacked) {
     height: 48px;
   }
 
-  .mat-mdc-tab-header-pagination {
+  .oui-mdc-tab-header-pagination {
     // @include vendor-prefixes.user-select(none);
     position: relative;
     display: none;
@@ -318,60 +299,60 @@ $mat-tab-animation-duration: 500ms !default;
       border: 0;
     }
 
-    .mat-ripple-element {
+    .oui-ripple-element {
     //   opacity: map.get(mdc-ripple.$dark-ink-opacities, press);
 
     //   @include token-utils.use-tokens(
-    //     tokens-mat-tab-header.$prefix,
-    //     tokens-mat-tab-header.get-token-slots()
+    //     tokens-oui-tab-header.$prefix,
+    //     tokens-oui-tab-header.get-token-slots()
     //   ) {
     //     @include token-utils.create-token-slot(background-color, inactive-ripple-color);
     //   }
     }
 
-    .mat-mdc-tab-header-pagination-controls-enabled & {
+    .oui-mdc-tab-header-pagination-controls-enabled & {
       display: flex;
     }
   }
 
   // The pagination control that is displayed on the left side of the tab header.
-  .mat-mdc-tab-header-pagination-before,
-  .mat-mdc-tab-header-rtl .mat-mdc-tab-header-pagination-after {
+  .oui-mdc-tab-header-pagination-before,
+  .oui-mdc-tab-header-rtl .oui-mdc-tab-header-pagination-after {
     padding-left: 4px;
-    .mat-mdc-tab-header-pagination-chevron {
+    .oui-mdc-tab-header-pagination-chevron {
       transform: rotate(-135deg);
     }
   }
 
   // The pagination control that is displayed on the right side of the tab header.
-  .mat-mdc-tab-header-rtl .mat-mdc-tab-header-pagination-before,
-  .mat-mdc-tab-header-pagination-after {
+  .oui-mdc-tab-header-rtl .oui-mdc-tab-header-pagination-before,
+  .oui-mdc-tab-header-pagination-after {
     padding-right: 4px;
-    .mat-mdc-tab-header-pagination-chevron {
+    .oui-mdc-tab-header-pagination-chevron {
       transform: rotate(45deg);
     }
   }
 
-  .mat-mdc-tab-header-pagination-chevron {
+  .oui-mdc-tab-header-pagination-chevron {
     border-style: solid;
     border-width: 2px 2px 0 0;
     height: 8px;
     width: 8px;
 
     // @include token-utils.use-tokens(
-    //   tokens-mat-tab-header.$prefix,
-    //   tokens-mat-tab-header.get-token-slots()
+    //   tokens-oui-tab-header.$prefix,
+    //   tokens-oui-tab-header.get-token-slots()
     // ) {
     //   @include token-utils.create-token-slot(border-color, pagination-icon-color);
     // }
   }
 
-  .mat-mdc-tab-header-pagination-disabled {
+  .oui-mdc-tab-header-pagination-disabled {
     box-shadow: none;
     cursor: default;
     pointer-events: none;
 
-    .mat-mdc-tab-header-pagination-chevron {
+    .oui-mdc-tab-header-pagination-chevron {
       opacity: 0.4;
     }
   }
@@ -397,19 +378,19 @@ $mat-tab-animation-duration: 500ms !default;
     // border-color: $background;
   }
 
-  .mat-mdc-tab-list {
+  .oui-mdc-tab-list {
     flex-grow: 1;
     position: relative;
     transition: transform 500ms cubic-bezier(0.35, 0, 0.25, 1);
 
-    ._mat-animation-noopable & {
+    ._oui-animation-noopable & {
       transition: none;
     }
   }
 
   // The `span` is in the selector in order to increase the specificity, ensuring
   // that it's always higher than the selector that declares the transition.
-  ._mat-animation-noopable {
+  ._oui-animation-noopable {
     span.mdc-tab-indicator__content,
     span.mdc-tab__text-label {
       transition: none;
@@ -421,17 +402,6 @@ $mat-tab-animation-duration: 500ms !default;
 @mixin paginated-tab-header-item-wrapper($parent) {
   display: flex;
   flex: 1 0 auto;
-
-  // We need to set the parent here explicitly, in order to prevent the alignment
-  // from any parent tab groups from propagating down to the children when nesting.
-  // Note that these are used as inputs so they shouldn't be changed to `mat-mdc-`.
-  [mat-align-tabs='center'] > #{$parent} & {
-    justify-content: center;
-  }
-
-  [mat-align-tabs='end'] > #{$parent} & {
-    justify-content: flex-end;
-  }
 }
 
 // Structural styles for the element that wraps the paginated container's content.
@@ -442,73 +412,6 @@ $mat-tab-animation-duration: 500ms !default;
   z-index: 1;
 }
 
-.mat-mdc-tab .mdc-tab-indicator__content--underline {
-  // @include oui-input-base();
-}
-
 /*common properties in all inputs*/
 @mixin oui-input-base {
-}
-
-@mixin paginated-tab-header-with-background($header-selector, $tab-selector) {
-  &.mat-tabs-with-background {
-    // @include token-utils.create-token-values(
-    //   tokens-mat-tab-header-with-background.$prefix,
-    //   tokens-mat-tab-header-with-background.get-unthemable-tokens()
-    // );
-
-    // @include token-utils.use-tokens(
-    //   tokens-mat-tab-header-with-background.$prefix,
-    //   tokens-mat-tab-header-with-background.get-token-slots()
-    // ) {
-    //   // Note that these selectors target direct descendants so
-    //   // that the styles don't apply to any nested tab groups.
-    //   > #{$header-selector}, > .mat-mdc-tab-header-pagination {
-    //     // Set background color for the tab group
-    //     @include token-utils.create-token-slot(background-color, background-color);
-    //   }
-
-    //   // Note: this is only scoped to primary, because the legacy tabs had the incorrect behavior
-    //   // where setting both a background and `mat-accent` would add the background, but keep
-    //   // accent on the selected tab. There are some internal apps whose design depends on this now
-    //   // so we have to replicate it here.
-    //   &.mat-primary > #{$header-selector} {
-    //     // Set labels to contrast against background
-    //     #{$tab-selector} .mdc-tab__text-label {
-    //       @include token-utils.create-token-slot(color, foreground-color);
-    //     }
-
-    //     .mdc-tab-indicator__content--underline {
-    //       @include token-utils.create-token-slot(border-color, foreground-color);
-    //     }
-    //   }
-
-    //   &:not(.mat-primary) > #{$header-selector} {
-    //     #{$tab-selector}:not(.mdc-tab--active) {
-    //       .mdc-tab__text-label {
-    //         @include token-utils.create-token-slot(color, foreground-color);
-    //       }
-
-    //       .mdc-tab-indicator__content--underline {
-    //         @include token-utils.create-token-slot(border-color, foreground-color);
-    //       }
-    //     }
-    //   }
-
-    //   > #{$header-selector}, > .mat-mdc-tab-header-pagination {
-    //     .mat-mdc-tab-header-pagination-chevron,
-    //     .mat-mdc-focus-indicator::before {
-    //       @include token-utils.create-token-slot(border-color, foreground-color);
-    //     }
-
-    //     .mat-ripple-element, .mdc-tab__ripple::before {
-    //       @include token-utils.create-token-slot(background-color, foreground-color);
-    //     }
-
-    //     .mat-mdc-tab-header-pagination-chevron {
-    //       @include token-utils.create-token-slot(color, foreground-color);
-    //     }
-    //   }
-    // }
-  }
 }

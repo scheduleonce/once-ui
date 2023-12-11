@@ -21,18 +21,18 @@ import {
 } from '@angular/core/testing';
 import {MatRippleModule} from '../core';
 import {By} from '@angular/platform-browser';
-import {MatTabHeader} from './tab-header';
-import {MatTabLabelWrapper} from './tab-label-wrapper';
+import {OuiTabHeader} from './tab-header';
+import {ouiTabLabelWrapper} from './tab-label-wrapper';
 import {ObserversModule, MutationObserverFactory} from '@angular/cdk/observers';
 
-describe('MDC-based MatTabHeader', () => {
+describe('MDC-based OuiTabHeader', () => {
   let fixture: ComponentFixture<SimpleTabHeaderApp>;
   let appComponent: SimpleTabHeaderApp;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule, PortalModule, MatRippleModule, ScrollingModule, ObserversModule],
-      declarations: [MatTabHeader, MatTabLabelWrapper, SimpleTabHeaderApp],
+      declarations: [OuiTabHeader, ouiTabLabelWrapper, SimpleTabHeaderApp],
       providers: [ViewportRuler],
     });
 
@@ -285,17 +285,17 @@ describe('MDC-based MatTabHeader', () => {
         expect(appComponent.tabHeader._showPaginationControls).toBe(true);
 
         const buttonAfter = fixture.debugElement.query(
-          By.css('.mat-mdc-tab-header-pagination-after'),
+          By.css('.oui-mdc-tab-header-pagination-after'),
         );
 
-        expect(fixture.nativeElement.querySelectorAll('.mat-ripple-element').length)
+        expect(fixture.nativeElement.querySelectorAll('.oui-ripple-element').length)
           .withContext('Expected no ripple to show up initially.')
           .toBe(0);
 
         dispatchFakeEvent(buttonAfter.nativeElement, 'mousedown');
         dispatchFakeEvent(buttonAfter.nativeElement, 'mouseup');
 
-        expect(fixture.nativeElement.querySelectorAll('.mat-ripple-element').length)
+        expect(fixture.nativeElement.querySelectorAll('.oui-ripple-element').length)
           .withContext('Expected one ripple to show up after mousedown')
           .toBe(1);
       });
@@ -308,17 +308,17 @@ describe('MDC-based MatTabHeader', () => {
         expect(appComponent.tabHeader._showPaginationControls).toBe(true);
 
         const buttonAfter = fixture.debugElement.query(
-          By.css('.mat-mdc-tab-header-pagination-after'),
+          By.css('.oui-mdc-tab-header-pagination-after'),
         );
 
-        expect(fixture.nativeElement.querySelectorAll('.mat-ripple-element').length)
+        expect(fixture.nativeElement.querySelectorAll('.oui-ripple-element').length)
           .withContext('Expected no ripple to show up initially.')
           .toBe(0);
 
         dispatchFakeEvent(buttonAfter.nativeElement, 'mousedown');
         dispatchFakeEvent(buttonAfter.nativeElement, 'mouseup');
 
-        expect(fixture.nativeElement.querySelectorAll('.mat-ripple-element').length)
+        expect(fixture.nativeElement.querySelectorAll('.oui-ripple-element').length)
           .withContext('Expected no ripple to show up after mousedown')
           .toBe(0);
       });
@@ -377,7 +377,7 @@ describe('MDC-based MatTabHeader', () => {
     describe('scrolling when holding paginator', () => {
       let nextButton: HTMLElement;
       let prevButton: HTMLElement;
-      let header: MatTabHeader;
+      let header: OuiTabHeader;
       let headerElement: HTMLElement;
 
       beforeEach(() => {
@@ -388,10 +388,10 @@ describe('MDC-based MatTabHeader', () => {
         fixture.componentInstance.addTabsForScrolling(50);
         fixture.detectChanges();
 
-        nextButton = fixture.nativeElement.querySelector('.mat-mdc-tab-header-pagination-after');
-        prevButton = fixture.nativeElement.querySelector('.mat-mdc-tab-header-pagination-before');
+        nextButton = fixture.nativeElement.querySelector('.oui-mdc-tab-header-pagination-after');
+        prevButton = fixture.nativeElement.querySelector('.oui-mdc-tab-header-pagination-before');
         header = fixture.componentInstance.tabHeader;
-        headerElement = fixture.nativeElement.querySelector('.mat-mdc-tab-header');
+        headerElement = fixture.nativeElement.querySelector('.oui-mdc-tab-header');
       });
 
       it('should scroll towards the end while holding down the next button using a mouse', fakeAsync(() => {
@@ -689,12 +689,12 @@ describe('MDC-based MatTabHeader', () => {
       fixture.detectChanges();
 
       const tabHeaderElement: HTMLElement =
-        fixture.nativeElement.querySelector('.mat-mdc-tab-header');
+        fixture.nativeElement.querySelector('.oui-mdc-tab-header');
       const labels = Array.from<HTMLElement>(
         fixture.nativeElement.querySelectorAll('.label-content'),
       );
       const extraText = new Array(100).fill('w').join();
-      const enabledClass = 'mat-mdc-tab-header-pagination-controls-enabled';
+      const enabledClass = 'oui-mdc-tab-header-pagination-controls-enabled';
 
       expect(tabHeaderElement.classList).not.toContain(enabledClass);
 
@@ -719,17 +719,17 @@ interface Tab {
 @Component({
   template: `
   <div [dir]="dir">
-    <mat-tab-header [selectedIndex]="selectedIndex" [disableRipple]="disableRipple"
+    <oui-tab-header [selectedIndex]="selectedIndex" [disableRipple]="disableRipple"
                (indexFocused)="focusedIndex = $event"
                (selectFocusedIndex)="selectedIndex = $event"
                [disablePagination]="disablePagination">
-      <div matTabLabelWrapper class="label-content" style="min-width: 30px; width: 30px"
+      <div ouiTabLabelWrapper class="label-content" style="min-width: 30px; width: 30px"
            *ngFor="let tab of tabs; let i = index"
            [disabled]="!!tab.disabled"
            (click)="selectedIndex = i">
          {{tab.label}}
       </div>
-    </mat-tab-header>
+    </oui-tab-header>
   </div>
   `,
   styles: [
@@ -749,7 +749,7 @@ class SimpleTabHeaderApp {
   dir: Direction = 'ltr';
   disablePagination: boolean;
 
-  @ViewChild(MatTabHeader, {static: true}) tabHeader: MatTabHeader;
+  @ViewChild(OuiTabHeader, {static: true}) tabHeader: OuiTabHeader;
 
   constructor() {
     this.tabs[this.disabledTabIndex].disabled = true;
