@@ -226,7 +226,7 @@ export class OuiPanelTrigger implements OnDestroy {
   private _subscribeToPositions(
     position: FlexibleConnectedPositionStrategy
   ): void {
-    if (this.panel.setPositionClasses) {
+    if (this.panel?.setPositionClasses) {
       position.positionChanges.subscribe((change) => {
         const posX: PanelPositionX =
           change.connectionPair.overlayX === 'start' ? 'after' : 'before';
