@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.36] - 2023-12-18
 
-- [ONCEHUB-74291](https://scheduleonce.atlassian.net/browse/ONCEHUB-75540) fix Added a null check for solving the console error issue on adding users.
+- [ONCEHUB-74291](https://scheduleonce.atlassian.net/browse/ONCEHUB-75540) fix Added a null check on panel-trigger.
 
 ## [7.0.35] - 2023-12-12
 
