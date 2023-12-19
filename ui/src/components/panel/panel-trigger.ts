@@ -246,8 +246,8 @@ export class OuiPanelTrigger implements OnDestroy {
    */
   private _setPosition(positionStrategy: FlexibleConnectedPositionStrategy) {
     const panelPositions = new PanelFlexiblePosition(
-      this.panel.xPosition,
-      this.panel.yPosition
+      this.panel?.xPosition,
+      this.panel?.yPosition
     );
     positionStrategy.withPositions(panelPositions.getPosition());
   }
