@@ -8,7 +8,7 @@
   @include tabs-common.paginated-tab-header-container;
 }
 
-.oui-mdc-tab-labels {
+.oui-tab-labels-container {
   @include tabs-common.paginated-tab-header-item-wrapper('.oui-mdc-tab-header');
 }
 

@@ -43,9 +43,9 @@
       border-color: map-get($warn, darker);
     }
   }
-  &.oui-primary[disabled],
-  &.oui-accent[disabled],
-  &.oui-warn[disabled] {
-    border-color: map-get($background, disabled-button);
-  }
+  // &.oui-primary[disabled],
+  // &.oui-accent[disabled],
+  // &.oui-warn[disabled] {
+  //   border-color: map-get($background, disabled-button);
+  // }
 }
