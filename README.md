@@ -50,13 +50,9 @@ To run storybook locally:
 npm run storybook
 ```
 
-To deploy storybook (only master branch) to Github pages:
+Storybook is automatically deployed using [Github Actions](.github/workflows/deploy-storybook.yml) to Github Pages when pushing to main.
 
-```sh
-npm run deploy-storybook
-```
-
-The deployed Storybook will be available at
+After that it will be available at
 
 > https://scheduleonce.github.io/once-ui
 
