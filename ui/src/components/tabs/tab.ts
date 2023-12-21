@@ -24,12 +24,11 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import {OuiTabContent} from './tab-content';
-import {OUI_TAB, OuiTabLabel} from './tab-label';
-import {CanDisable, mixinColor} from '../core';
-import {TemplatePortal} from '@angular/cdk/portal';
-import {Subject} from 'rxjs';
-
+import { OuiTabContent } from './tab-content';
+import { OUI_TAB, OuiTabLabel } from './tab-label';
+import { CanDisable, mixinColor } from '../core';
+import { TemplatePortal } from '@angular/cdk/portal';
+import { Subject } from 'rxjs';
 
 export class OuiTabsBase {
   constructor(public _elementRef: ElementRef) {}
@@ -54,14 +53,18 @@ const DEFAULT_COLOR = 'primary';
   // the inlined template of `OuiTab` isn't duplicated, however the template is small enough
   // that creating the extra class will generate more code than just duplicating the template.
   templateUrl: 'tab.html',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
-  // tslint:disable-next-line:validate-decorators
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   changeDetection: ChangeDetectionStrategy.Default,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'OuiTab',
-  providers: [{provide: OUI_TAB, useExisting: OuiTab}],
+  providers: [{ provide: OUI_TAB, useExisting: OuiTab }],
 })
-export class OuiTab extends _OuiTabMixinBase implements CanDisable, OnInit, OnChanges, OnDestroy {
+export class OuiTab
+  extends _OuiTabMixinBase
+  implements CanDisable, OnInit, OnChanges, OnDestroy
+{
   /** Content for the tab label given by `<ng-template oui-tab-label>`. */
   private _templateLabel: OuiTabLabel;
   disabled: any;
@@ -70,24 +73,24 @@ export class OuiTab extends _OuiTabMixinBase implements CanDisable, OnInit, OnCh
     return this._templateLabel;
   }
   set templateLabel(value: OuiTabLabel) {
-    console.log('value', value)
+    console.log('value', value);
     this._setTemplateLabelInput(value);
   }
 
   /**
    * Template provided in the tab content that will be used if present, used to enable lazy-loading
    */
-  @ContentChild(OuiTabContent, {read: TemplateRef, static: true})
+  @ContentChild(OuiTabContent, { read: TemplateRef, static: true })
   // We need an initializer here to avoid a TS error. The value will be set in `ngAfterViewInit`.
   private _explicitContent: TemplateRef<any> = undefined!;
 
   /** Template inside the OuiTab view that contains an `<ng-content>`. */
-  @ViewChild(TemplateRef, {static: true}) _implicitContent: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
   /** Plain text label for the tab, used when there is no template label. */
-  @Input('label') textLabel: string = '';
+  @Input('label') textLabel = '';
 
-  @Input('text') givenText: string = '';
+  @Input('text') givenText = '';
 
   /** Aria label for the tab. */
   @Input('aria-label') ariaLabel: string;
@@ -129,16 +132,15 @@ export class OuiTab extends _OuiTabMixinBase implements CanDisable, OnInit, OnCh
    */
   position: number | null = null;
 
-  
   /**
    * The initial relatively index origin of the tab if it was created and selected after there
    * was already a selected tab. Provides context of what position the tab should originate from.
-  */
- origin: number | null = null;
- 
- /**
-  * Whether the tab is currently active.
- */
+   */
+  origin: number | null = null;
+
+  /**
+   * Whether the tab is currently active.
+   */
   isActive = false;
 
   @ViewChild('tab1') _tab1: ElementRef;
@@ -152,24 +154,24 @@ export class OuiTab extends _OuiTabMixinBase implements CanDisable, OnInit, OnCh
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
+    if (
+      Object.prototype.hasOwnProperty.call(changes, 'textLabel') ||
+      Object.prototype.hasOwnProperty.call(changes, 'disabled')
+    ) {
       this._stateChanges.next();
     }
-    if (changes.hasOwnProperty('_tab2') || changes.hasOwnProperty('disabled')) {
+    if (
+      Object.prototype.hasOwnProperty.call(changes, '_tab2') ||
+      Object.prototype.hasOwnProperty.call(changes, 'disabled')
+    ) {
       this._stateChanges.next();
     }
   }
 
   addThemeColor() {
-    console.log('sssssss123', this.color)
     if (!this.color) {
       this.color = DEFAULT_COLOR;
     }
-    console.log('after', this.color)
-  }
-
-  ngAfterViewInit() {
-    console.log("this._tab1.nativeElement.innerText;", this._tab1);
   }
 
   ngOnDestroy(): void {
@@ -179,7 +181,8 @@ export class OuiTab extends _OuiTabMixinBase implements CanDisable, OnInit, OnCh
   ngOnInit(): void {
     this._contentPortal = new TemplatePortal(
       this._explicitContent || this._implicitContent,
-      this._viewContainerRef, this._tab1
+      this._viewContainerRef,
+      this._tab1
     );
     console.log('_tab1', this._contentPortal);
   }

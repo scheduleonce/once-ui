@@ -14,14 +14,14 @@ export const enum RippleState {
   HIDDEN,
 }
 
-export type RippleConfig = {
+export interface RippleConfig {
   color?: string;
   centered?: boolean;
   radius?: number;
   persistent?: boolean;
   animation?: RippleAnimationConfig;
   terminateOnPointerUp?: boolean;
-};
+}
 
 /**
  * Interface that describes the configuration for the animation of a ripple.
@@ -42,13 +42,13 @@ export class RippleRef {
   state: RippleState = RippleState.HIDDEN;
 
   constructor(
-    private _renderer: {fadeOutRipple(ref: RippleRef): void},
+    private _renderer: { fadeOutRipple(ref: RippleRef): void },
     /** Reference to the ripple HTML element. */
     public element: HTMLElement,
     /** Ripple configuration used for the ripple. */
     public config: RippleConfig,
     /* Whether animations are forcibly disabled for ripples through CSS. */
-    public _animationForciblyDisabledThroughCss = false,
+    public _animationForciblyDisabledThroughCss = false
   ) {}
 
   /** Fades out the ripple element. */

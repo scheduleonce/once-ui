@@ -6,10 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
-import {ElementRef, InjectionToken, OnDestroy, OnInit, QueryList} from '@angular/core';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import {
+  ElementRef,
+  InjectionToken,
+  OnDestroy,
+  OnInit,
+  QueryList,
+} from '@angular/core';
 import { isDevMode } from '@angular/core';
-
 
 /**
  * Item inside a tab header relative to which the ink bar can be aligned.
@@ -40,12 +45,14 @@ export class OuiInkBar {
 
   /** Hides the ink bar. */
   hide() {
-    this._items.forEach(item => item.deactivateInkBar());
+    this._items.forEach((item) => item.deactivateInkBar());
   }
 
   /** Aligns the ink bar to a DOM node. */
   alignToElement(element: HTMLElement) {
-    const correspondingItem = this._items.find(item => item.elementRef.nativeElement === element);
+    const correspondingItem = this._items.find(
+      (item) => item.elementRef.nativeElement === element
+    );
     const currentItem = this._currentItem;
 
     if (correspondingItem === currentItem) {
@@ -55,7 +62,8 @@ export class OuiInkBar {
     currentItem?.deactivateInkBar();
 
     if (correspondingItem) {
-      const clientRect = currentItem?.elementRef.nativeElement.getBoundingClientRect?.();
+      const clientRect =
+        currentItem?.elementRef.nativeElement.getBoundingClientRect?.();
 
       // The ink bar won't animate unless we give it the `ClientRect` of the previous item.
       correspondingItem.activateInkBar(clientRect);
@@ -71,10 +79,11 @@ export class OuiInkBar {
  * @docs-private
  */
 export function mixinInkBarItem<
-  T extends new (...args: any[]) => {elementRef: ElementRef<HTMLElement>},
+  T extends new (...args: any[]) => { elementRef: ElementRef<HTMLElement> }
 >(base: T): T & (new (...args: any[]) => MatInkBarItem) {
   return class extends base {
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
     }
 
@@ -118,12 +127,14 @@ export function mixinInkBarItem<
 
       // Calculate the dimensions based on the dimensions of the previous indicator
       const currentClientRect = element.getBoundingClientRect();
-      const widthDelta = previousIndicatorClientRect.width / currentClientRect.width;
-      const xPosition = previousIndicatorClientRect.left - currentClientRect.left;
+      const widthDelta =
+        previousIndicatorClientRect.width / currentClientRect.width;
+      const xPosition =
+        previousIndicatorClientRect.left - currentClientRect.left;
       element.classList.add(NO_TRANSITION_CLASS);
       this._inkBarContentElement.style.setProperty(
         'transform',
-        `translateX(${xPosition}px) scaleX(${widthDelta})`,
+        `translateX(${xPosition}px) scaleX(${widthDelta})`
       );
 
       // Force repaint before updating classes and transform to ensure the transform properly takes effect
@@ -152,7 +163,8 @@ export function mixinInkBarItem<
 
     /** Creates and appends the ink bar element. */
     private _createInkBarElement() {
-      const documentNode = this.elementRef.nativeElement.ownerDocument || document;
+      const documentNode =
+        this.elementRef.nativeElement.ownerDocument || document;
       this._inkBarElement = documentNode.createElement('span');
       this._inkBarContentElement = documentNode.createElement('span');
 
@@ -169,8 +181,13 @@ export function mixinInkBarItem<
      * the ink bar should fit to content.
      */
     private _appendInkBarElement() {
-      if (!this._inkBarElement && (typeof isDevMode === 'undefined' || isDevMode)) {
-        throw Error('Ink bar element has not been created and cannot be appended');
+      if (
+        !this._inkBarElement &&
+        (typeof isDevMode === 'undefined' || isDevMode)
+      ) {
+        throw Error(
+          'Ink bar element has not been created and cannot be appended'
+        );
       }
 
       const parentElement = this._fitToContent
@@ -190,17 +207,19 @@ export function mixinInkBarItem<
  * Interface for a OuiInkBar positioner method, defining the positioning and width of the ink
  * bar in a set of tabs.
  */
-export interface _MatInkBarPositioner {
-  (element: HTMLElement): {left: string; width: string};
+export interface _OuiInkBarPositioner {
+  (element: HTMLElement): { left: string; width: string };
 }
 
 /**
  * The default positioner function for the OuiInkBar.
  * @docs-private
  */
-export function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner {
+export function _OUI_INK_BAR_POSITIONER_FACTORY(): _OuiInkBarPositioner {
   const method = (element: HTMLElement) => ({
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     left: element ? (element.offsetLeft || 0) + 'px' : '0',
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     width: element ? (element.offsetWidth || 0) + 'px' : '0',
   });
 
@@ -208,10 +227,10 @@ export function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner {
 }
 
 /** Injection token for the OuiInkBar's Positioner. */
-export const _MAT_INK_BAR_POSITIONER = new InjectionToken<_MatInkBarPositioner>(
+export const _OUI_INK_BAR_POSITIONER = new InjectionToken<_OuiInkBarPositioner>(
   'MatInkBarPositioner',
   {
     providedIn: 'root',
-    factory: _MAT_INK_BAR_POSITIONER_FACTORY,
-  },
+    factory: _OUI_INK_BAR_POSITIONER_FACTORY,
+  }
 );

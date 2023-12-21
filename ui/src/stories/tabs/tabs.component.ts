@@ -12,6 +12,6 @@ import { Component } from '@angular/core';
     </oui-tab-group>
   `,
 })
-export class MatTabStorybook {
+export class OuiTabStorybook {
   constructor() {}
 }

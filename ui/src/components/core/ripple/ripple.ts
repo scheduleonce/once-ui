@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {Platform} from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import {
   Directive,
   ElementRef,
@@ -18,11 +18,11 @@ import {
   OnInit,
   Optional,
 } from '@angular/core';
-import {RippleAnimationConfig, RippleConfig, RippleRef} from './ripple-ref';
-import {RippleRenderer, RippleTarget} from './ripple-renderer';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
+import { RippleAnimationConfig, RippleConfig, RippleRef } from './ripple-ref';
+import { RippleRenderer, RippleTarget } from './ripple-renderer';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 
-/** Configurable options for `matRipple`. */
+/** Configurable options for `OuiRipple`. */
 export interface RippleGlobalOptions {
   /**
    * Whether ripples should be disabled. Ripples can be still launched manually by using
@@ -33,7 +33,7 @@ export interface RippleGlobalOptions {
   /**
    * Default configuration for the animation duration of the ripples. There are two phases with
    * different durations for the ripples: `enter` and `leave`. The durations will be overwritten
-   * by the value of `matRippleAnimation` or if the `NoopAnimationsModule` is included.
+   * by the value of `OuiRippleAnimation` or if the `NoopAnimationsModule` is included.
    */
   animation?: RippleAnimationConfig;
 
@@ -45,44 +45,44 @@ export interface RippleGlobalOptions {
 }
 
 /** Injection token that can be used to specify the global ripple options. */
-export const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken<RippleGlobalOptions>(
-  'oui-ripple-global-options',
-);
+export const MAT_RIPPLE_GLOBAL_OPTIONS =
+  new InjectionToken<RippleGlobalOptions>('oui-ripple-global-options');
 
 @Directive({
-  selector: '[oui-ripple], [matRipple]',
-  exportAs: 'matRipple',
+  selector: '[oui-ripple], [OuiRipple]',
+  exportAs: 'OuiRipple',
+  // eslint-disable-next-line
   host: {
-    'class': 'oui-ripple',
+    class: 'oui-ripple',
     '[class.oui-ripple-unbounded]': 'unbounded',
   },
 })
-export class MatRipple implements OnInit, OnDestroy, RippleTarget {
+export class OuiRipple implements OnInit, OnDestroy, RippleTarget {
   /** Custom color for all ripples. */
-  @Input('matRippleColor') color: string;
+  @Input('OuiRippleColor') color: string;
 
   /** Whether the ripples should be visible outside the component's bounds. */
-  @Input('matRippleUnbounded') unbounded: boolean;
+  @Input('OuiRippleUnbounded') unbounded: boolean;
 
   /**
    * Whether the ripple always originates from the center of the host element's bounds, rather
    * than originating from the location of the click event.
    */
-  @Input('matRippleCentered') centered: boolean;
+  @Input('OuiRippleCentered') centered: boolean;
 
   /**
    * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
    * will be the distance from the center of the ripple to the furthest corner of the host element's
    * bounding rectangle.
    */
-  @Input('matRippleRadius') radius: number = 0;
+  @Input('OuiRippleRadius') radius = 0;
 
   /**
    * Configuration for the ripple animation. Allows modifying the enter and exit animation
    * duration of the ripples. The animation durations will be overwritten if the
    * `NoopAnimationsModule` is being used.
    */
-  @Input('matRippleAnimation') animation: RippleAnimationConfig;
+  @Input('OuiRippleAnimation') animation: RippleAnimationConfig;
 
   /**
    * Whether click events will not trigger the ripple. Ripples can be still launched manually
@@ -99,7 +99,7 @@ export class MatRipple implements OnInit, OnDestroy, RippleTarget {
     this._disabled = value;
     this._setupTriggerEventsIfEnabled();
   }
-  private _disabled: boolean = false;
+  private _disabled = false;
 
   /**
    * The element that triggers the ripple when click events are received.
@@ -122,17 +122,24 @@ export class MatRipple implements OnInit, OnDestroy, RippleTarget {
   private _globalOptions: RippleGlobalOptions;
 
   /** @docs-private Whether ripple directive is initialized and the input bindings are set. */
-  _isInitialized: boolean = false;
+  _isInitialized = false;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
     ngZone: NgZone,
     platform: Platform,
-    @Optional() @Inject(MAT_RIPPLE_GLOBAL_OPTIONS) globalOptions?: RippleGlobalOptions,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) private _animationMode?: string,
+    @Optional()
+    @Inject(MAT_RIPPLE_GLOBAL_OPTIONS)
+    globalOptions?: RippleGlobalOptions,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) private _animationMode?: string
   ) {
     this._globalOptions = globalOptions || {};
-    this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
+    this._rippleRenderer = new RippleRenderer(
+      this,
+      ngZone,
+      _elementRef,
+      platform
+    );
   }
 
   ngOnInit() {
@@ -165,7 +172,9 @@ export class MatRipple implements OnInit, OnDestroy, RippleTarget {
       color: this.color,
       animation: {
         ...this._globalOptions.animation,
-        ...(this._animationMode === 'NoopAnimations' ? {enterDuration: 0, exitDuration: 0} : {}),
+        ...(this._animationMode === 'NoopAnimations'
+          ? { enterDuration: 0, exitDuration: 0 }
+          : {}),
         ...this.animation,
       },
       terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
@@ -204,11 +213,21 @@ export class MatRipple implements OnInit, OnDestroy, RippleTarget {
   launch(x: number, y: number, config?: RippleConfig): RippleRef;
 
   /** Launches a manual ripple at the specified coordinated or just by the ripple config. */
-  launch(configOrX: number | RippleConfig, y: number = 0, config?: RippleConfig): RippleRef {
+  launch(
+    configOrX: number | RippleConfig,
+    y = 0,
+    config?: RippleConfig
+  ): RippleRef {
     if (typeof configOrX === 'number') {
-      return this._rippleRenderer.fadeInRipple(configOrX, y, {...this.rippleConfig, ...config});
+      return this._rippleRenderer.fadeInRipple(configOrX, y, {
+        ...this.rippleConfig,
+        ...config,
+      });
     } else {
-      return this._rippleRenderer.fadeInRipple(0, 0, {...this.rippleConfig, ...configOrX});
+      return this._rippleRenderer.fadeInRipple(0, 0, {
+        ...this.rippleConfig,
+        ...configOrX,
+      });
     }
   }
 }

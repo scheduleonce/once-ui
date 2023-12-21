@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {coerceBooleanProperty} from '@angular/cdk/coercion';
-import {AbstractConstructor, Constructor} from './constructor';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { AbstractConstructor, Constructor } from './constructor';
 
 /** @docs-private */
 export interface CanDisableRipple {
@@ -15,15 +15,18 @@ export interface CanDisableRipple {
   disableRipple: boolean;
 }
 
-type CanDisableRippleCtor = Constructor<CanDisableRipple> & AbstractConstructor<CanDisableRipple>;
+type CanDisableRippleCtor = Constructor<CanDisableRipple> &
+  AbstractConstructor<CanDisableRipple>;
 
 /** Mixin to augment a directive with a `disableRipple` property. */
 export function mixinDisableRipple<T extends AbstractConstructor<{}>>(
-  base: T,
+  base: T
 ): CanDisableRippleCtor & T;
-export function mixinDisableRipple<T extends Constructor<{}>>(base: T): CanDisableRippleCtor & T {
+export function mixinDisableRipple<T extends Constructor<{}>>(
+  base: T
+): CanDisableRippleCtor & T {
   return class extends base {
-    private _disableRipple: boolean = false;
+    private _disableRipple = false;
 
     /** Whether the ripple effect is disabled or not. */
     get disableRipple(): boolean {
@@ -34,6 +37,7 @@ export function mixinDisableRipple<T extends Constructor<{}>>(base: T): CanDisab
     }
 
     constructor(...args: any[]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
     }
   };

@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import {InjectionToken} from '@angular/core';
+import { InjectionToken } from '@angular/core';
 
 /** Object that can be used to configure the default options for the tabs module. */
-export interface MatTabsConfig {
+export interface OuiTabsConfig {
   /** Duration for the tab animation. Must be a valid CSS value (e.g. 600ms). */
   animationDuration?: string;
 
@@ -42,4 +42,6 @@ export interface MatTabsConfig {
 }
 
 /** Injection token that can be used to provide the default options the tabs module. */
-export const MAT_TABS_CONFIG = new InjectionToken<MatTabsConfig>('MAT_TABS_CONFIG');
+export const OUI_TABS_CONFIG = new InjectionToken<OuiTabsConfig>(
+  'OUI_TABS_CONFIG'
+);

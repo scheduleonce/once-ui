@@ -6,15 +6,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {HighContrastModeDetector} from '@angular/cdk/a11y';
-import {BidiModule} from '@angular/cdk/bidi';
-import {inject, Inject, InjectionToken, NgModule, Optional} from '@angular/core';
-import {VERSION as CDK_VERSION} from '@angular/cdk';
-import {DOCUMENT} from '@angular/common';
-import {Platform, _isTestEnvironment} from '@angular/cdk/platform';
-import {VERSION} from '../version';
+import { HighContrastModeDetector } from '@angular/cdk/a11y';
+import { BidiModule } from '@angular/cdk/bidi';
+import {
+  inject,
+  Inject,
+  InjectionToken,
+  NgModule,
+  Optional,
+} from '@angular/core';
+import { VERSION as CDK_VERSION } from '@angular/cdk';
+import { DOCUMENT } from '@angular/common';
+import { Platform, _isTestEnvironment } from '@angular/cdk/platform';
+import { VERSION } from '../version';
 import { isDevMode } from '@angular/core';
-
 
 /** @docs-private */
 export function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks {
@@ -22,10 +27,13 @@ export function MATERIAL_SANITY_CHECKS_FACTORY(): SanityChecks {
 }
 
 /** Injection token that configures whether the Material sanity checks are enabled. */
-export const MATERIAL_SANITY_CHECKS = new InjectionToken<SanityChecks>('mat-sanity-checks', {
-  providedIn: 'root',
-  factory: MATERIAL_SANITY_CHECKS_FACTORY,
-});
+export const MATERIAL_SANITY_CHECKS = new InjectionToken<SanityChecks>(
+  'mat-sanity-checks',
+  {
+    providedIn: 'root',
+    factory: MATERIAL_SANITY_CHECKS_FACTORY,
+  }
+);
 
 /**
  * Possible sanity checks that can be enabled. If set to
@@ -44,23 +52,25 @@ export interface GranularSanityChecks {
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
  *
- * This module should be imported to each top-level component module (e.g., MatTabsModule).
+ * This module should be imported to each top-level component module (e.g., OuiTabsModule).
  */
 @NgModule({
   imports: [BidiModule],
   exports: [BidiModule],
 })
-export class MatCommonModule {
+export class OuiCommonModule {
   /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
   private _hasDoneGlobalChecks = false;
 
   constructor(
     highContrastModeDetector: HighContrastModeDetector,
-    @Optional() @Inject(MATERIAL_SANITY_CHECKS) private _sanityChecks: SanityChecks,
-    @Inject(DOCUMENT) private _document: Document,
+    @Optional()
+    @Inject(MATERIAL_SANITY_CHECKS)
+    private _sanityChecks: SanityChecks,
+    @Inject(DOCUMENT) private _document: Document
   ) {
     // While A11yModule also does this, we repeat it here to avoid importing A11yModule
-    // in MatCommonModule.
+    // in OuiCommonModule.
     highContrastModeDetector._applyBodyHighContrastModeCssClasses();
 
     if (!this._hasDoneGlobalChecks) {
@@ -68,7 +78,7 @@ export class MatCommonModule {
 
       if (typeof isDevMode === 'undefined' || isDevMode) {
         // Inject in here so the reference to `Platform` can be removed in production mode.
-        const platform = inject(Platform, {optional: true});
+        const platform = inject(Platform, { optional: true });
 
         if (this._checkIsEnabled('doctype')) {
           _checkDoctypeIsDefined(this._document);
@@ -104,7 +114,7 @@ function _checkDoctypeIsDefined(doc: Document): void {
   if (!doc.doctype) {
     console.warn(
       'Current document does not have a doctype. This may cause ' +
-        'some Angular Material components not to behave as expected.',
+        'some Angular Material components not to behave as expected.'
     );
   }
 }
@@ -130,7 +140,7 @@ function _checkThemeIsPresent(doc: Document, isBrowser: boolean): void {
     console.warn(
       'Could not find Angular Material core theme. Most Material ' +
         'components may not work as expected. For more info refer ' +
-        'to the theming guide: https://material.angular.io/guide/theming',
+        'to the theming guide: https://material.angular.io/guide/theming'
     );
   }
 
@@ -147,7 +157,7 @@ function _checkCdkVersionMatch(): void {
         'the Angular CDK version (' +
         CDK_VERSION.full +
         ').\n' +
-        'Please ensure the versions of these two packages exactly match.',
+        'Please ensure the versions of these two packages exactly match.'
     );
   }
 }

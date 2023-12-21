@@ -1,25 +1,41 @@
-import {Direction, Directionality} from '@angular/cdk/bidi';
-import {PortalModule, TemplatePortal} from '@angular/cdk/portal';
-import {CommonModule} from '@angular/common';
-import {AfterContentInit, Component, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
-import {waitForAsync, ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatRippleModule} from '../core';
-import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {CdkScrollable, ScrollingModule} from '@angular/cdk/scrolling';
-import {MatTabBody, MatTabBodyPortal} from './tab-body';
-import {By} from '@angular/platform-browser';
-import {Subject} from 'rxjs';
+import { Direction, Directionality } from '@angular/cdk/bidi';
+import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import {
+  AfterContentInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { OuiRippleModule } from '../core';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { CdkScrollable, ScrollingModule } from '@angular/cdk/scrolling';
+import { OuiTabBody, OuiTabBodyPortal } from './tab-body';
+import { By } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
 
-describe('MDC-based MatTabBody', () => {
+describe('MDC-based OuiTabBody', () => {
   let dir: Direction = 'ltr';
-  let dirChange: Subject<Direction> = new Subject<Direction>();
+  const dirChange: Subject<Direction> = new Subject<Direction>();
 
   beforeEach(waitForAsync(() => {
     dir = 'ltr';
     TestBed.configureTestingModule({
-      imports: [CommonModule, PortalModule, MatRippleModule, NoopAnimationsModule],
-      declarations: [MatTabBody, MatTabBodyPortal, SimpleTabBodyApp],
-      providers: [{provide: Directionality, useFactory: () => ({value: dir, change: dirChange})}],
+      imports: [
+        CommonModule,
+        PortalModule,
+        OuiRippleModule,
+        NoopAnimationsModule,
+      ],
+      declarations: [OuiTabBody, OuiTabBodyPortal, SimpleTabBodyApp],
+      providers: [
+        {
+          provide: Directionality,
+          useFactory: () => ({ value: dir, change: dirChange }),
+        },
+      ],
     });
 
     TestBed.compileComponents();
@@ -59,7 +75,9 @@ describe('MDC-based MatTabBody', () => {
         fixture.componentInstance.origin = 0;
         fixture.detectChanges();
 
-        expect(fixture.componentInstance.tabBody._position).toBe('left-origin-center');
+        expect(fixture.componentInstance.tabBody._position).toBe(
+          'left-origin-center'
+        );
       });
 
       it('should be right-origin-center position with positive nonzero origin', () => {
@@ -67,7 +85,9 @@ describe('MDC-based MatTabBody', () => {
         fixture.componentInstance.origin = 1;
         fixture.detectChanges();
 
-        expect(fixture.componentInstance.tabBody._position).toBe('right-origin-center');
+        expect(fixture.componentInstance.tabBody._position).toBe(
+          'right-origin-center'
+        );
       });
     });
 
@@ -82,7 +102,9 @@ describe('MDC-based MatTabBody', () => {
         fixture.componentInstance.origin = 0;
         fixture.detectChanges();
 
-        expect(fixture.componentInstance.tabBody._position).toBe('right-origin-center');
+        expect(fixture.componentInstance.tabBody._position).toBe(
+          'right-origin-center'
+        );
       });
 
       it('should be left-origin-center position with positive nonzero origin', () => {
@@ -90,7 +112,9 @@ describe('MDC-based MatTabBody', () => {
         fixture.componentInstance.origin = 1;
         fixture.detectChanges();
 
-        expect(fixture.componentInstance.tabBody._position).toBe('left-origin-center');
+        expect(fixture.componentInstance.tabBody._position).toBe(
+          'left-origin-center'
+        );
       });
     });
   });
@@ -179,16 +203,18 @@ describe('MDC-based MatTabBody', () => {
         imports: [
           CommonModule,
           PortalModule,
-          MatRippleModule,
+          OuiRippleModule,
           NoopAnimationsModule,
           ScrollingModule,
         ],
-        declarations: [MatTabBody, MatTabBodyPortal, SimpleTabBodyApp],
+        declarations: [OuiTabBody, OuiTabBodyPortal, SimpleTabBodyApp],
       })
       .compileComponents();
 
     const fixture = TestBed.createComponent(SimpleTabBodyApp);
-    const tabBodyContent = fixture.nativeElement.querySelector('.oui-mdc-tab-body-content');
+    const tabBodyContent = fixture.nativeElement.querySelector(
+      '.oui-mdc-tab-body-content'
+    );
     const scrollable = fixture.debugElement.query(By.directive(CdkScrollable));
 
     expect(scrollable).toBeTruthy();
@@ -199,7 +225,11 @@ describe('MDC-based MatTabBody', () => {
 @Component({
   template: `
     <ng-template>Tab Body Content</ng-template>
-    <oui-tab-body [content]="content" [position]="position" [origin]="origin"></oui-tab-body>
+    <oui-tab-body
+      [content]="content"
+      [position]="position"
+      [origin]="origin"
+    ></oui-tab-body>
   `,
 })
 class SimpleTabBodyApp implements AfterContentInit {
@@ -207,7 +237,7 @@ class SimpleTabBodyApp implements AfterContentInit {
   position: number;
   origin: number | null;
 
-  @ViewChild(MatTabBody) tabBody: MatTabBody;
+  @ViewChild(OuiTabBody) tabBody: OuiTabBody;
   @ViewChild(TemplateRef) template: TemplateRef<any>;
 
   constructor(private _viewContainerRef: ViewContainerRef) {}

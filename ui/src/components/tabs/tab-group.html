@@ -1,31 +1,34 @@
-<oui-tab-header #tabHeader
+<oui-tab-header
+  #tabHeader
   [selectedIndex]="selectedIndex || 0"
   [disableRipple]="disableRipple"
   [disablePagination]="disablePagination"
   (indexFocused)="_focusChanged($event)"
-  (selectFocusedIndex)="selectedIndex = $event">
-
-  <div class="mdc-tab oui-mdc-tab oui-mdc-focus-indicator"
-       #tabNode
-       role="tab"
-       ouiTabLabelWrapper
-       cdkMonitorElementFocus
-       *ngFor="let tab of _tabs; let i = index"
-       [id]="_getTabLabelId(i)"
-       [attr.tabIndex]="_getTabIndex(i)"
-       [attr.aria-posinset]="i + 1"
-       [attr.aria-setsize]="_tabs.length"
-       [attr.aria-controls]="_getTabContentId(i)"
-       [attr.aria-selected]="selectedIndex === i"
-       [attr.aria-label]="tab.ariaLabel || null"
-       [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
-       [class.mdc-tab--active]="selectedIndex === i"
-       [ngClass]="tab.labelClass"
-       [disabled]="tab.disabled"
-       [fitInkBarToContent]="fitInkBarToContent"
-       (click)="_handleClick(tab, tabHeader, i)"
-       (keyup.enter)="_handleEnter()"
-       (cdkFocusChange)="_tabFocusChanged($event, i)">
+  (selectFocusedIndex)="selectedIndex = $event"
+>
+  <div
+    class="mdc-tab oui-mdc-tab oui-mdc-focus-indicator"
+    #tabNode
+    role="tab"
+    ouiTabLabelWrapper
+    cdkMonitorElementFocus
+    *ngFor="let tab of _tabs; let i = index"
+    [id]="_getTabLabelId(i)"
+    [attr.tabIndex]="_getTabIndex(i)"
+    [attr.aria-posinset]="i + 1"
+    [attr.aria-setsize]="_tabs.length"
+    [attr.aria-controls]="_getTabContentId(i)"
+    [attr.aria-selected]="selectedIndex === i"
+    [attr.aria-label]="tab.ariaLabel || null"
+    [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
+    [class.mdc-tab--active]="selectedIndex === i"
+    [ngClass]="tab.labelClass"
+    [disabled]="tab.disabled"
+    [fitInkBarToContent]="fitInkBarToContent"
+    (click)="_handleClick(tab, tabHeader, i)"
+    (keyup.enter)="_handleEnter()"
+    (cdkFocusChange)="_tabFocusChanged($event, i)"
+  >
     <span class="mdc-tab__ripple"></span>
 
     <!-- Needs to be a separate element, because we can't put
@@ -34,7 +37,8 @@
       class="oui-mdc-tab-ripple"
       oui-ripple
       [ouiRippleTrigger]="tabNode"
-      [ouiRippleDisabled]="tab.disabled || disableRipple"></div>
+      [ouiRippleDisabled]="tab.disabled || disableRipple"
+    ></div>
 
     <span class="mdc-tab__content">
       <span class="mdc-tab__text-label">
@@ -53,11 +57,13 @@
 <div
   class="oui-mdc-tab-body-wrapper"
   [class._oui-animation-noopable]="_animationMode === 'NoopAnimations'"
-  #tabBodyWrapper>
-  <oui-tab-body role="tabpanel"
+  #tabBodyWrapper
+>
+  <oui-tab-body
+    role="tabpanel"
     *ngFor="let tab of _tabs; let i = index"
     [id]="_getTabContentId(i)"
-    [attr.tabindex]="(contentTabIndex != null && selectedIndex === i) ? contentTabIndex : null"
+    [attr.tabindex]="(contentTabIndex !== null && selectedIndex === i) ? contentTabIndex : null"
     [attr.aria-labelledby]="_getTabLabelId(i)"
     [class.oui-mdc-tab-body-active]="selectedIndex === i"
     [ngClass]="tab.bodyClass"
@@ -67,6 +73,7 @@
     [animationDuration]="animationDuration"
     [preserveContent]="preserveContent"
     (_onCentered)="_removeTabBodyWrapperHeight()"
-    (_onCentering)="_setTabBodyWrapperHeight($event)">
+    (_onCentering)="_setTabBodyWrapperHeight($event)"
+  >
   </oui-tab-body>
 </div>

@@ -14,7 +14,7 @@
 }
 
 .oui-mdc-focus-indicator {
-    position: relative;
+  position: relative;
 }
 
 .oui-mdc-tab-body {
@@ -32,19 +32,19 @@
 }
 
 .mdc-tab__content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: inherit;
-    pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+  pointer-events: none;
 }
 
 .oui-mdc-tab.mdc-tab--active .mdc-tab__text-label {
-    color: #333;
+  color: #333;
 }
 
 .oui-mdc-tab-group {
-//   @include tabs-common.paginated-tab-header-with-background('.oui-mdc-tab-header', '.oui-mdc-tab');
+  //   @include tabs-common.paginated-tab-header-with-background('.oui-mdc-tab-header', '.oui-mdc-tab');
   display: flex;
   flex-direction: column;
 
@@ -62,9 +62,9 @@
 
 // The bottom section of the view; contains the tab bodies
 .oui-mdc-tab-body-wrapper {
-//   @include private.private-animation-noop();
+  //   @include private.private-animation-noop();
   position: relative;
   overflow: hidden;
   display: flex;
-  min-height: 400px;
+  min-height: 100px;
 }

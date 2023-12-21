@@ -1,13 +1,10 @@
 @use 'sass:map';
 @use './tabs-theme';
 
-
 $oui-tab-animation-duration: 500ms !default;
 
 // Combines the various structural styles we need for the tab group and tab nav bar.
 @mixin structural-styles {
-
-
   .oui-mdc-tab-ripple {
     position: absolute;
     top: 0;
@@ -43,14 +40,13 @@ $oui-tab-animation-duration: 500ms !default;
   }
 }
 @mixin tab {
-//   @include mdc-custom-properties.configure(
-//     $emit-fallback-values: false,
-//     $emit-fallback-vars: false
-//   ) {
-//     @include mdc-tab-indicator-theme.theme-styles(tokens-mdc-tab-indicator.get-token-slots());
-//     @include mdc-tab-theme.secondary-navigation-tab-theme-styles(tokens-mdc-tab.get-token-slots());
-//   }
-
+  //   @include mdc-custom-properties.configure(
+  //     $emit-fallback-values: false,
+  //     $emit-fallback-vars: false
+  //   ) {
+  //     @include mdc-tab-indicator-theme.theme-styles(tokens-mdc-tab-indicator.get-token-slots());
+  //     @include mdc-tab-theme.secondary-navigation-tab-theme-styles(tokens-mdc-tab.get-token-slots());
+  //   }
 
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
@@ -91,59 +87,60 @@ $oui-tab-animation-duration: 500ms !default;
     z-index: 2;
   }
 
-  .mdc-tab--active .mdc-tab__text-label, .mdc-tab--active .mdc-tab__icon {
+  .mdc-tab--active .mdc-tab__text-label,
+  .mdc-tab--active .mdc-tab__icon {
     transition-delay: 100ms;
   }
 
-//   @include token-utils.use-tokens(
-//     tokens-oui-tab-header.$prefix,
-//     tokens-oui-tab-header.get-token-slots()
-//   ) {
-//     // @include token-utils.create-token-slot(font-family, label-text-font);
-//     // @include token-utils.create-token-slot(font-size, label-text-size);
-//     // @include token-utils.create-token-slot(letter-spacing, label-text-tracking);
-//     // @include token-utils.create-token-slot(line-height, label-text-line-height);
-//     // @include token-utils.create-token-slot(font-weight, label-text-weight);
+  //   @include token-utils.use-tokens(
+  //     tokens-oui-tab-header.$prefix,
+  //     tokens-oui-tab-header.get-token-slots()
+  //   ) {
+  //     // @include token-utils.create-token-slot(font-family, label-text-font);
+  //     // @include token-utils.create-token-slot(font-size, label-text-size);
+  //     // @include token-utils.create-token-slot(letter-spacing, label-text-tracking);
+  //     // @include token-utils.create-token-slot(line-height, label-text-line-height);
+  //     // @include token-utils.create-token-slot(font-weight, label-text-weight);
 
-//     &:hover .mdc-tab__text-label {
-//       @include token-utils.create-token-slot(color, inactive-hover-label-text-color);
-//     }
+  //     &:hover .mdc-tab__text-label {
+  //       @include token-utils.create-token-slot(color, inactive-hover-label-text-color);
+  //     }
 
-//     &:focus .mdc-tab__text-label {
-//       @include token-utils.create-token-slot(color, inactive-focus-label-text-color);
-//     }
+  //     &:focus .mdc-tab__text-label {
+  //       @include token-utils.create-token-slot(color, inactive-focus-label-text-color);
+  //     }
 
-//     &.mdc-tab--active {
-//       .mdc-tab__text-label {
-//         @include token-utils.create-token-slot(color, active-label-text-color);
-//       }
+  //     &.mdc-tab--active {
+  //       .mdc-tab__text-label {
+  //         @include token-utils.create-token-slot(color, active-label-text-color);
+  //       }
 
-//       .mdc-tab__ripple::before,
-//       .oui-ripple-element {
-//         @include token-utils.create-token-slot(background-color, active-ripple-color);
-//       }
+  //       .mdc-tab__ripple::before,
+  //       .oui-ripple-element {
+  //         @include token-utils.create-token-slot(background-color, active-ripple-color);
+  //       }
 
-//       &:hover {
-//         .mdc-tab__text-label {
-//           @include token-utils.create-token-slot(color, active-hover-label-text-color);
-//         }
+  //       &:hover {
+  //         .mdc-tab__text-label {
+  //           @include token-utils.create-token-slot(color, active-hover-label-text-color);
+  //         }
 
-//         .mdc-tab-indicator__content--underline {
-//           @include token-utils.create-token-slot(border-color, active-hover-indicator-color);
-//         }
-//       }
+  //         .mdc-tab-indicator__content--underline {
+  //           @include token-utils.create-token-slot(border-color, active-hover-indicator-color);
+  //         }
+  //       }
 
-//       &:focus {
-//         .mdc-tab__text-label {
-//           @include token-utils.create-token-slot(color, active-focus-label-text-color);
-//         }
+  //       &:focus {
+  //         .mdc-tab__text-label {
+  //           @include token-utils.create-token-slot(color, active-focus-label-text-color);
+  //         }
 
-//         .mdc-tab-indicator__content--underline {
-//           @include token-utils.create-token-slot(border-color, active-focus-indicator-color);
-//         }
-//       }
-//     }
-//   }
+  //         .mdc-tab-indicator__content--underline {
+  //           @include token-utils.create-token-slot(border-color, active-focus-indicator-color);
+  //         }
+  //       }
+  //     }
+  //   }
 
   &.oui-mdc-tab-disabled {
     // MDC doesn't support disabled tabs so we need to improvise.
@@ -226,7 +223,7 @@ $oui-tab-animation-duration: 500ms !default;
   &.cdk-program-focused,
   &.cdk-keyboard-focused {
     .mdc-tab__ripple::before {
-    //   opacity: map.get(mdc-ripple.$dark-ink-opacities, focus);
+      //   opacity: map.get(mdc-ripple.$dark-ink-opacities, focus);
     }
   }
 
@@ -300,14 +297,14 @@ $oui-tab-animation-duration: 500ms !default;
     }
 
     .oui-ripple-element {
-    //   opacity: map.get(mdc-ripple.$dark-ink-opacities, press);
+      //   opacity: map.get(mdc-ripple.$dark-ink-opacities, press);
 
-    //   @include token-utils.use-tokens(
-    //     tokens-oui-tab-header.$prefix,
-    //     tokens-oui-tab-header.get-token-slots()
-    //   ) {
-    //     @include token-utils.create-token-slot(background-color, inactive-ripple-color);
-    //   }
+      //   @include token-utils.use-tokens(
+      //     tokens-oui-tab-header.$prefix,
+      //     tokens-oui-tab-header.get-token-slots()
+      //   ) {
+      //     @include token-utils.create-token-slot(background-color, inactive-ripple-color);
+      //   }
     }
 
     .oui-mdc-tab-header-pagination-controls-enabled & {

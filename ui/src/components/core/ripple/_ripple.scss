@@ -7,7 +7,7 @@
     overflow: hidden;
 
     // By default, every ripple container should have position: relative in favor of creating an
-    // easy API for developers using the MatRipple directive.
+    // easy API for developers using the OuiRipple directive.
     position: relative;
 
     // Promote containers that have ripples to a new layer. We want to target `:not(:empty)`,

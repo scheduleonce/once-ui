@@ -21,7 +21,8 @@
     display: block;
   }
 
-  .oui-mdc-tab-group.oui-mdc-tab-group-dynamic-height &.oui-mdc-tab-body-active {
+  .oui-mdc-tab-group.oui-mdc-tab-group-dynamic-height
+    &.oui-mdc-tab-body-active {
     overflow-y: hidden;
   }
 }

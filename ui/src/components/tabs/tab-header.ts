@@ -24,14 +24,14 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {ViewportRuler} from '@angular/cdk/scrolling';
-import {Platform} from '@angular/cdk/platform';
-import {Directionality} from '@angular/cdk/bidi';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
-import {ouiTabLabelWrapper} from './tab-label-wrapper';
-import {OuiInkBar} from './ink-bar';
-import {OuiPaginatedTabHeader} from './paginated-tab-header';
-import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
+import { ViewportRuler } from '@angular/cdk/scrolling';
+import { Platform } from '@angular/cdk/platform';
+import { Directionality } from '@angular/cdk/bidi';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { ouiTabLabelWrapper } from './tab-label-wrapper';
+import { OuiInkBar } from './ink-bar';
+import { OuiPaginatedTabHeader } from './paginated-tab-header';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
@@ -44,14 +44,18 @@ import {BooleanInput, coerceBooleanProperty} from '@angular/cdk/coercion';
   selector: 'oui-tab-header',
   templateUrl: 'tab-header.html',
   styleUrls: ['tab-header.scss'],
+  // eslint-disable-next-line
   inputs: ['selectedIndex'],
+  // eslint-disable-next-line
   outputs: ['selectFocusedIndex', 'indexFocused'],
   encapsulation: ViewEncapsulation.None,
-  // tslint:disable-next-line:validate-decorators
+  // tslint:disable-next-line
   changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line
   host: {
-    'class': 'oui-mdc-tab-header',
-    '[class.oui-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+    class: 'oui-mdc-tab-header',
+    '[class.oui-mdc-tab-header-pagination-controls-enabled]':
+      '_showPaginationControls',
     '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
   },
 })
@@ -59,10 +63,12 @@ export class OuiTabHeader
   extends OuiPaginatedTabHeader
   implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy
 {
-  @ContentChildren(ouiTabLabelWrapper, {descendants: false}) _items: QueryList<ouiTabLabelWrapper>;
-  @ViewChild('tabListContainer', {static: true}) _tabListContainer: ElementRef;
-  @ViewChild('tabList', {static: true}) _tabList: ElementRef;
-  @ViewChild('tabListInner', {static: true}) _tabListInner: ElementRef;
+  @ContentChildren(ouiTabLabelWrapper, { descendants: false })
+  _items: QueryList<ouiTabLabelWrapper>;
+  @ViewChild('tabListContainer', { static: true })
+  _tabListContainer: ElementRef;
+  @ViewChild('tabList', { static: true }) _tabList: ElementRef;
+  @ViewChild('tabListInner', { static: true }) _tabListInner: ElementRef;
   @ViewChild('nextPaginator') _nextPaginator: ElementRef<HTMLElement>;
   @ViewChild('previousPaginator') _previousPaginator: ElementRef<HTMLElement>;
   _inkBar: OuiInkBar;
@@ -77,7 +83,7 @@ export class OuiTabHeader
     this._disableRipple = coerceBooleanProperty(value);
   }
 
-  private _disableRipple: boolean = false;
+  private _disableRipple = false;
 
   constructor(
     elementRef: ElementRef,
@@ -86,9 +92,18 @@ export class OuiTabHeader
     @Optional() dir: Directionality,
     ngZone: NgZone,
     platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
   ) {
-    super(elementRef, changeDetectorRef, viewportRuler, dir, ngZone, platform, animationMode);
+    super(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      elementRef,
+      changeDetectorRef,
+      viewportRuler,
+      dir,
+      ngZone,
+      platform,
+      animationMode
+    );
   }
 
   override ngAfterContentInit() {

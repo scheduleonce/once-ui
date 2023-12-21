@@ -6,17 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {NgModule} from '@angular/core';
-import {MatCommonModule} from '../common-behaviors/common-module';
-import {MatRipple} from './ripple';
+import { NgModule } from '@angular/core';
+import { OuiCommonModule } from '../common-behaviors/common-module';
+import { OuiRipple } from './ripple';
 
 export * from './ripple';
 export * from './ripple-ref';
 export * from './ripple-renderer';
 
 @NgModule({
-  imports: [MatCommonModule],
-  exports: [MatRipple, MatCommonModule],
-  declarations: [MatRipple],
+  imports: [OuiCommonModule],
+  exports: [OuiRipple, OuiCommonModule],
+  declarations: [OuiRipple],
 })
-export class MatRippleModule {}
+export class OuiRippleModule {}

@@ -6,27 +6,31 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {CommonModule} from '@angular/common';
-import {NgModule} from '@angular/core';
-import { MatRippleModule} from '../core';
-import {PortalModule} from '@angular/cdk/portal';
-import {ObserversModule} from '@angular/cdk/observers';
-import {A11yModule} from '@angular/cdk/a11y';
-import {MatTabBodyPortal} from './tab-body';
-import {OuiTabContent} from './tab-content';
-import {OuiTabLabel} from './tab-label';
-import {ouiTabLabelWrapper} from './tab-label-wrapper';
-import {OuiTab} from './tab';
-import {OuiTabHeader} from './tab-header';
-import {ouiTabGroup} from './tab-group';
-import {MatTabNav, ouiTabNavPanel, MatTabLink} from './tab-nav-bar/tab-nav-bar';
-import { MatTabBody } from './tab-body';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { OuiRippleModule } from '../core';
+import { PortalModule } from '@angular/cdk/portal';
+import { ObserversModule } from '@angular/cdk/observers';
+import { A11yModule } from '@angular/cdk/a11y';
+import { OuiTabBodyPortal } from './tab-body';
+import { OuiTabContent } from './tab-content';
+import { OuiTabLabel } from './tab-label';
+import { ouiTabLabelWrapper } from './tab-label-wrapper';
+import { OuiTab } from './tab';
+import { OuiTabHeader } from './tab-header';
+import { ouiTabGroup } from './tab-group';
+import {
+  OuiTabNav,
+  ouiTabNavPanel,
+  OuiTabLink,
+} from './tab-nav-bar/tab-nav-bar';
+import { OuiTabBody } from './tab-body';
 
 @NgModule({
   imports: [
     CommonModule,
     PortalModule,
-    MatRippleModule,
+    OuiRippleModule,
     ObserversModule,
     A11yModule,
   ],
@@ -35,26 +39,26 @@ import { MatTabBody } from './tab-body';
     OuiTabLabel,
     OuiTab,
     ouiTabGroup,
-    MatTabNav,
+    OuiTabNav,
     ouiTabNavPanel,
-    MatTabLink,
-    MatTabBodyPortal,
-    MatTabBody
+    OuiTabLink,
+    OuiTabBodyPortal,
+    OuiTabBody,
   ],
   declarations: [
     OuiTabContent,
     OuiTabLabel,
     OuiTab,
     ouiTabGroup,
-    MatTabNav,
+    OuiTabNav,
     ouiTabNavPanel,
-    MatTabLink,
+    OuiTabLink,
 
     // Private directives, should not be exported.
     ouiTabLabelWrapper,
     OuiTabHeader,
-    MatTabBody,
-    MatTabBodyPortal,
+    OuiTabBody,
+    OuiTabBodyPortal,
   ],
 })
-export class MatTabsModule {}
+export class OuiTabsModule {}

@@ -1,4 +1,4 @@
-import {mixinDisableRipple} from './disable-ripple';
+import { mixinDisableRipple } from './disable-ripple';
 
 describe('mixinDisableRipple', () => {
   it('should augment an existing class with a disableRipple property', () => {
@@ -6,13 +6,17 @@ describe('mixinDisableRipple', () => {
     const instance = new classWithMixin();
 
     expect(instance.disableRipple)
-      .withContext('Expected the mixed-into class to have a disable-ripple property')
+      .withContext(
+        'Expected the mixed-into class to have a disable-ripple property'
+      )
       .toBe(false);
 
     instance.disableRipple = true;
 
     expect(instance.disableRipple)
-      .withContext('Expected the mixed-into class to have an updated disable-ripple property')
+      .withContext(
+        'Expected the mixed-into class to have an updated disable-ripple property'
+      )
       .toBe(true);
   });
 
@@ -29,7 +33,9 @@ describe('mixinDisableRipple', () => {
     (instance as any).disableRipple = '';
 
     expect(instance.disableRipple)
-      .withContext('Expected disableRipple to be set to true if an empty string is set as value')
+      .withContext(
+        'Expected disableRipple to be set to true if an empty string is set as value'
+      )
       .toBe(true);
   });
 });

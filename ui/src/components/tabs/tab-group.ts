@@ -24,9 +24,9 @@ import {
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import {ANIMATION_MODULE_TYPE} from '@angular/platform-browser/animations';
-import {OUI_TAB_GROUP, OuiTab} from './tab';
-import {OuiTabHeader} from './tab-header';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
+import { OUI_TAB_GROUP, OuiTab } from './tab';
+import { OuiTabHeader } from './tab-header';
 import {
   BooleanInput,
   coerceBooleanProperty,
@@ -40,34 +40,34 @@ import {
   mixinDisableRipple,
   ThemePalette,
 } from '../core';
-import {merge, Subscription} from 'rxjs';
-import {MAT_TABS_CONFIG, MatTabsConfig} from './tab-config';
-import {startWith} from 'rxjs/operators';
-import {FocusOrigin} from '@angular/cdk/a11y';
+import { merge, Subscription } from 'rxjs';
+import { OUI_TABS_CONFIG, OuiTabsConfig } from './tab-config';
+import { startWith } from 'rxjs/operators';
+import { FocusOrigin } from '@angular/cdk/a11y';
 
 /** Used to generate unique ID's for each tab component */
 let nextId = 0;
 
 // Boilerplate for applying mixins to ouiTabGroup.
 /** @docs-private */
-const _MatTabGroupMixinBase = mixinColor(
+const _OuiTabGroupMixinBase = mixinColor(
   mixinDisableRipple(
     class {
       constructor(public _elementRef: ElementRef) {}
-    },
+    }
   ),
-  'primary',
+  'primary'
 );
 
 /** @docs-private */
-export interface MatTabGroupBaseHeader {
+export interface OuiTabGroupBaseHeader {
   _alignInkBarToSelectedTab(): void;
   updatePagination(): void;
   focusIndex: number;
 }
 
 /** Possible positions for the tab header. */
-export type MatTabHeaderPosition = 'above' | 'below';
+export type OuiTabHeaderPosition = 'above' | 'below';
 
 /**
  * Material design tab-group component. Supports basic tab pairs (label + content) and includes
@@ -82,6 +82,7 @@ export type MatTabHeaderPosition = 'above' | 'below';
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line
   inputs: ['color', 'disableRipple'],
   providers: [
     {
@@ -89,9 +90,10 @@ export type MatTabHeaderPosition = 'above' | 'below';
       useExisting: ouiTabGroup,
     },
   ],
+  // eslint-disable-next-line
   host: {
-    'ngSkipHydration': '',
-    'class': 'oui-mdc-tab-group oui-tab',
+    ngSkipHydration: '',
+    class: 'oui-mdc-tab-group oui-tab',
     '[class.oui-mdc-tab-group-dynamic-height]': 'dynamicHeight',
     '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
     '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
@@ -99,14 +101,19 @@ export type MatTabHeaderPosition = 'above' | 'below';
   },
 })
 export class ouiTabGroup
-  extends _MatTabGroupMixinBase
-  implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple
+  extends _OuiTabGroupMixinBase
+  implements
+    AfterContentInit,
+    AfterContentChecked,
+    OnDestroy,
+    CanColor,
+    CanDisableRipple
 {
   /**
    * All tabs inside the tab group. This includes tabs that belong to groups that are nested
    * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
    */
-  @ContentChildren(OuiTab, {descendants: true}) _allTabs: QueryList<OuiTab>;
+  @ContentChildren(OuiTab, { descendants: true }) _allTabs: QueryList<OuiTab>;
   @ViewChild('tabBodyWrapper') _tabBodyWrapper: ElementRef;
   @ViewChild('tabHeader') _tabHeader: OuiTabHeader;
 
@@ -120,7 +127,7 @@ export class ouiTabGroup
   private _lastFocusedTabIndex: number | null = null;
 
   /** Snapshot of the height of the tab body wrapper before another tab is activated. */
-  private _tabBodyWrapperHeight: number = 0;
+  private _tabBodyWrapperHeight = 0;
 
   /** Subscription to tabs being added/removed. */
   private _tabsSubscription = Subscription.EMPTY;
@@ -159,7 +166,7 @@ export class ouiTabGroup
     this._dynamicHeight = coerceBooleanProperty(value);
   }
 
-  private _dynamicHeight: boolean = false;
+  private _dynamicHeight = false;
 
   /** The index of the active tab. */
   @Input()
@@ -174,7 +181,7 @@ export class ouiTabGroup
   private _selectedIndex: number | null = null;
 
   /** Position of the tab header. */
-  @Input() headerPosition: MatTabHeaderPosition = 'above';
+  @Input() headerPosition: OuiTabHeaderPosition = 'above';
 
   /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
   @Input()
@@ -183,7 +190,10 @@ export class ouiTabGroup
   }
 
   set animationDuration(value: NumberInput) {
-    this._animationDuration = /^\d+$/.test(value + '') ? value + 'ms' : (value as string);
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+    this._animationDuration = /^\d+$/.test(value + '') // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+      ? value + 'ms'
+      : (value as string);
   }
 
   private _animationDuration: string;
@@ -218,7 +228,7 @@ export class ouiTabGroup
     this._disablePagination = coerceBooleanProperty(value);
   }
 
-  private _disablePagination: boolean = false;
+  private _disablePagination = false;
 
   /**
    * By default tabs remove their content from the DOM while it's off-screen.
@@ -234,7 +244,7 @@ export class ouiTabGroup
     this._preserveContent = coerceBooleanProperty(value);
   }
 
-  private _preserveContent: boolean = false;
+  private _preserveContent = false;
 
   /** Background color of the tab group. */
   @Input()
@@ -246,7 +256,10 @@ export class ouiTabGroup
     // console.log('value value', value);
     const classList: DOMTokenList = this._elementRef.nativeElement.classList;
 
-    classList.remove('oui-tabs-with-background', `oui-background-${this.backgroundColor}`);
+    classList.remove(
+      'oui-tabs-with-background',
+      `oui-background-${this.backgroundColor}`
+    );
 
     if (value) {
       classList.add('oui-tabs-with-background', `oui-background-${value}`);
@@ -258,41 +271,46 @@ export class ouiTabGroup
   private _backgroundColor: ThemePalette;
 
   /** Output to enable support for two-way binding on `[(selectedIndex)]` */
-  @Output() readonly selectedIndexChange: EventEmitter<number> = new EventEmitter<number>();
+  @Output() readonly selectedIndexChange: EventEmitter<number> =
+    new EventEmitter<number>();
 
   /** Event emitted when focus has changed within a tab group. */
-  @Output() readonly focusChange: EventEmitter<MatTabChangeEvent> =
-    new EventEmitter<MatTabChangeEvent>();
+  @Output() readonly focusChange: EventEmitter<OuiTabChangeEvent> =
+    new EventEmitter<OuiTabChangeEvent>();
 
   /** Event emitted when the body animation has completed */
-  @Output() readonly animationDone: EventEmitter<void> = new EventEmitter<void>();
+  @Output() readonly animationDone: EventEmitter<void> =
+    new EventEmitter<void>();
 
   /** Event emitted when the tab selection has changed. */
-  @Output() readonly selectedTabChange: EventEmitter<MatTabChangeEvent> =
-    new EventEmitter<MatTabChangeEvent>(true);
+  @Output() readonly selectedTabChange: EventEmitter<OuiTabChangeEvent> =
+    new EventEmitter<OuiTabChangeEvent>(true);
 
   private _groupId: number;
   getHTMLText: any;
   updatedTabHTML: any;
 
-
   constructor(
     elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
-    @Inject(MAT_TABS_CONFIG) @Optional() defaultConfig?: MatTabsConfig,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string,
+    @Inject(OUI_TABS_CONFIG) @Optional() defaultConfig?: OuiTabsConfig,
+    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
   ) {
     super(elementRef);
     // console.log(elementRef)
     this._groupId = nextId++;
     this.animationDuration =
-      defaultConfig && defaultConfig.animationDuration ? defaultConfig.animationDuration : '500ms';
+      defaultConfig && defaultConfig.animationDuration
+        ? defaultConfig.animationDuration
+        : '500ms';
     this.disablePagination =
       defaultConfig && defaultConfig.disablePagination != null
         ? defaultConfig.disablePagination
         : false;
     this.dynamicHeight =
-      defaultConfig && defaultConfig.dynamicHeight != null ? defaultConfig.dynamicHeight : false;
+      defaultConfig && defaultConfig.dynamicHeight != null
+        ? defaultConfig.dynamicHeight
+        : false;
     this.contentTabIndex = defaultConfig?.contentTabIndex ?? null;
     this.preserveContent = !!defaultConfig?.preserveContent;
     // console.log(this.preserveContent)
@@ -301,7 +319,9 @@ export class ouiTabGroup
         ? defaultConfig.fitInkBarToContent
         : false;
     this.stretchTabs =
-      defaultConfig && defaultConfig.stretchTabs != null ? defaultConfig.stretchTabs : true;
+      defaultConfig && defaultConfig.stretchTabs != null
+        ? defaultConfig.stretchTabs
+        : true;
   }
 
   /**
@@ -313,7 +333,9 @@ export class ouiTabGroup
   ngAfterContentChecked() {
     // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
     // the amount of tabs changes before the actual change detection runs.
-    const indexToSelect = (this._indexToSelect = this._clampTabIndex(this._indexToSelect));
+    const indexToSelect = (this._indexToSelect = this._clampTabIndex(
+      this._indexToSelect
+    ));
 
     // If there is a change in selected index, emit a change event. Should not trigger if
     // the selected index has not yet been initialized.
@@ -325,13 +347,16 @@ export class ouiTabGroup
         // Preserve the height so page doesn't scroll up during tab change.
         // Fixes https://stackblitz.com/edit/mat-tabs-scroll-page-top-on-tab-change
         const wrapper = this._tabBodyWrapper.nativeElement;
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         wrapper.style.minHeight = wrapper.clientHeight + 'px';
       }
 
       // Changing these values after change detection has run
       // since the checked content may contain references to them.
       Promise.resolve().then(() => {
-        this._tabs.forEach((tab, index) => (tab.isActive = index === indexToSelect));
+        this._tabs.forEach(
+          (tab, index) => (tab.isActive = index === indexToSelect)
+        );
 
         if (!isFirstRun) {
           this.selectedIndexChange.emit(indexToSelect);
@@ -379,7 +404,7 @@ export class ouiTabGroup
         let selectedTab: OuiTab | undefined;
 
         for (let i = 0; i < tabs.length; i++) {
-          console.log('tabsi',tabs[i])
+          console.log('tabsi', tabs[i]);
           if (tabs[i].isActive) {
             // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
             // event, otherwise the consumer may end up in an infinite loop in some edge cases like
@@ -419,15 +444,17 @@ export class ouiTabGroup
     // this._allTabs['_results'].forEach((tabData)=>{
     //   this._tabs.myKey = tabData.givenText;
     // })
-    this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe((tabs: QueryList<OuiTab>) => {
-      this._tabs.reset(
-        tabs.filter(tab => {
-          // console.log(tab)
-          return tab._closestTabGroup === this || !tab._closestTabGroup;
-        }),
-      );
-      this._tabs.notifyOnChanges();
-    });
+    this._allTabs.changes
+      .pipe(startWith(this._allTabs))
+      .subscribe((tabs: QueryList<OuiTab>) => {
+        this._tabs.reset(
+          tabs.filter((tab) => {
+            // console.log(tab)
+            return tab._closestTabGroup === this || !tab._closestTabGroup;
+          })
+        );
+        this._tabs.notifyOnChanges();
+      });
   }
 
   ngOnDestroy() {
@@ -473,8 +500,8 @@ export class ouiTabGroup
     this.focusChange.emit(this._createChangeEvent(index));
   }
 
-  private _createChangeEvent(index: number): MatTabChangeEvent {
-    const event = new MatTabChangeEvent();
+  private _createChangeEvent(index: number): OuiTabChangeEvent {
+    const event = new OuiTabChangeEvent();
     event.index = index;
     if (this._tabs && this._tabs.length) {
       event.tab = this._tabs.toArray()[index];
@@ -485,7 +512,6 @@ export class ouiTabGroup
     return event;
   }
 
-  
   _handleEnter() {
     this.getHTMLText = this.updatedTabHTML;
   }
@@ -501,9 +527,9 @@ export class ouiTabGroup
       this._tabLabelSubscription.unsubscribe();
     }
 
-    this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._stateChanges)).subscribe(() =>
-      this._changeDetectorRef.markForCheck(),
-    );
+    this._tabLabelSubscription = merge(
+      ...this._tabs.map((tab) => tab._stateChanges)
+    ).subscribe(() => this._changeDetectorRef.markForCheck());
   }
 
   /** Clamps the given index to the bounds of 0 and the tabs length. */
@@ -534,12 +560,13 @@ export class ouiTabGroup
     }
 
     const wrapper: HTMLElement = this._tabBodyWrapper.nativeElement;
-
+    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
     wrapper.style.height = this._tabBodyWrapperHeight + 'px';
 
     // This conditional forces the browser to paint the height so that
     // the animation to the new height can have an origin.
     if (this._tabBodyWrapper.nativeElement.offsetHeight) {
+      // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       wrapper.style.height = tabHeight + 'px';
     }
   }
@@ -553,7 +580,7 @@ export class ouiTabGroup
   }
 
   /** Handle click events, setting new selected index if appropriate. */
-  _handleClick(tab: OuiTab, tabHeader: MatTabGroupBaseHeader, index: number) {
+  _handleClick(tab: OuiTab, tabHeader: OuiTabGroupBaseHeader, index: number) {
     // console.log("click")
     tabHeader.focusIndex = index;
     this.getHTMLText = this.updatedTabHTML;
@@ -585,7 +612,7 @@ export class ouiTabGroup
 }
 
 /** A simple change event emitted on focus or selection changes. */
-export class MatTabChangeEvent {
+export class OuiTabChangeEvent {
   /** Index of the currently-selected tab. */
   index: number;
   /** Reference to the currently-selected tab. */

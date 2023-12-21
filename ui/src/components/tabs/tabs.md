@@ -32,13 +32,14 @@ For more complex labels, add a template with the `oui-tab-label` directive insid
 
 By default, the tab group will not change its height to the height of the currently active tab. To
 change this, set the `dynamicHeight` input to true. The tab body will animate its height according
- to the height of the active tab.
+to the height of the active tab.
 
  <!-- example({"example": "tab-group-dynamic-height",
                "file": "tab-group-dynamic-height-example.html",
                "region": "dynamic-height"}) -->
 
 ### Tabs and navigation
+
 While `<oui-tab-group>` is used to switch between views within a single route, `<nav oui-tab-nav-bar>`
 provides a tab-like UI for navigating between routes.
 
@@ -52,10 +53,10 @@ uses the `active` property to determine which tab is currently active. The corre
 placed relatively close to the `oui-tab-nav-bar` (see [Accessibility](#accessibility)).
 
 ### Lazy Loading
+
 By default, the tab contents are eagerly loaded. Eagerly loaded tabs
 will initialize the child components but not inject them into the DOM
 until the tab is activated.
-
 
 If the tab contains several complex child components or the tab's contents
 rely on DOM calculations during initialization, it is advised
@@ -69,6 +70,7 @@ with the `OuiTabContent` attribute.
                "region": "oui-tab-content"}) -->
 
 ### Label alignment
+
 If you want to align the tab labels in the center or towards the end of the container, you can
 do so using the `[mat-align-tabs]` attribute.
 
@@ -77,15 +79,17 @@ do so using the `[mat-align-tabs]` attribute.
                "region": "align-start"}) -->
 
 ### Controlling the tab animation
+
 You can control the duration of the tabs' animation using the `animationDuration` input. If you
 want to disable the animation completely, you can do so by setting the properties to `0ms`. The
-duration can be configured globally using the `MAT_TABS_CONFIG` injection token.
+duration can be configured globally using the `OUI_TABS_CONFIG` injection token.
 
  <!-- example({"example": "tab-group-animations",
                "file": "tab-group-animations-example.html",
                "region": "slow-animation-duration"}) -->
 
 ### Keeping the tab content inside the DOM while it's off-screen
+
 By default the `<oui-tab-group>` will remove the content of off-screen tabs from the DOM until they
 come into the view. This is optimal for most cases since it keeps the DOM size smaller, but it
 isn't great for others like when a tab has an `<audio>` or `<video>` element, because the content
@@ -95,12 +99,13 @@ off-screen tabs in the DOM, you can set the `preserveContent` input to `true`.
 <!-- example(tab-group-preserve-content) -->
 
 ### Accessibility
-`ouiTabGroup` and `MatTabNavBar` both implement the
+
+`ouiTabGroup` and `OuiTabNavBar` both implement the
 [ARIA Tabs design pattern](https://www.w3.org/TR/wai-aria-practices-1.1/#tabpanel). Both components
 compose `tablist`, `tab`, and `tabpanel` elements with handling for keyboard inputs and focus
 management.
 
-When using `MatTabNavBar`, you should place the `<oui-tab-nav-panel>` component relatively close to
+When using `OuiTabNavBar`, you should place the `<oui-tab-nav-panel>` component relatively close to
 if not immediately adjacent to the `<nav oui-tab-nav-bar>` component so that it's easy for screen
 reader users to identify the association.
 
@@ -109,16 +114,16 @@ reader users to identify the association.
 Always provide an accessible label via `aria-label` or `aria-describedby` for tabs without
 descriptive text content.
 
-When using `MatTabNavGroup`, always specify a label for the `<nav>` element.
+When using `OuiTabNavGroup`, always specify a label for the `<nav>` element.
 
 #### Keyboard interaction
 
-`ouiTabGroup` and `MatTabNavBar` both implement the following keyboard interactions:
+`ouiTabGroup` and `OuiTabNavBar` both implement the following keyboard interactions:
 
-| Shortcut             | Action                     |
-|----------------------|----------------------------|
-| `LEFT_ARROW`         | Move focus to previous tab |
-| `RIGHT_ARROW`        | Move focus to next tab     |
-| `HOME`               | Move focus to first tab    |
-| `END`                | Move focus to last tab     |
-| `SPACE` or `ENTER`   | Switch to focused tab      |
+| Shortcut           | Action                     |
+| ------------------ | -------------------------- |
+| `LEFT_ARROW`       | Move focus to previous tab |
+| `RIGHT_ARROW`      | Move focus to next tab     |
+| `HOME`             | Move focus to first tab    |
+| `END`              | Move focus to last tab     |
+| `SPACE` or `ENTER` | Switch to focused tab      |

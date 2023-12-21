@@ -14,7 +14,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import {CdkPortal} from '@angular/cdk/portal';
+import { CdkPortal } from '@angular/cdk/portal';
 
 /**
  * Injection token that can be used to reference instances of `OuiTabLabel`. It serves as
@@ -32,13 +32,13 @@ export const OUI_TAB = new InjectionToken<any>('OUI_TAB');
 /** Used to flag tab labels for use with the portal directive */
 @Directive({
   selector: '[oui-tab-label], [OuiTabLabel]',
-  providers: [{provide: OUI_TAB_LABEL, useExisting: OuiTabLabel}],
+  providers: [{ provide: OUI_TAB_LABEL, useExisting: OuiTabLabel }],
 })
 export class OuiTabLabel extends CdkPortal {
   constructor(
     templateRef: TemplateRef<any>,
     viewContainerRef: ViewContainerRef,
-    @Inject(OUI_TAB) @Optional() public _closestTab: any,
+    @Inject(OUI_TAB) @Optional() public _closestTab: any
   ) {
     super(templateRef, viewContainerRef);
   }

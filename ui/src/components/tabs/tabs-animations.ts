@@ -18,13 +18,16 @@ import {
  * Animations used by the Material tabs.
  * @docs-private
  */
-export const matTabsAnimations: {
+export const ouiTabsAnimations: {
   readonly translateTab: AnimationTriggerMetadata;
 } = {
   /** Animation translates a tab along the X axis. */
   translateTab: trigger('translateTab', [
     // Transitions to `none` instead of 0, because some browsers might blur the content.
-    state('center, void, left-origin-center, right-origin-center', style({transform: 'none'})),
+    state(
+      'center, void, left-origin-center, right-origin-center',
+      style({ transform: 'none' })
+    ),
 
     // If the tab is either on the left or right, we additionally add a `min-height` of 1px
     // in order to ensure that the element has a height before its state changes. This is
@@ -39,7 +42,7 @@ export const matTabsAnimations: {
         // Normally this is redundant since we detach the content from the DOM, but if the user
         // opted into keeping the content in the DOM, we have to hide it so it isn't focusable.
         visibility: 'hidden',
-      }),
+      })
     ),
     state(
       'right',
@@ -47,19 +50,19 @@ export const matTabsAnimations: {
         transform: 'translate3d(100%, 0, 0)',
         minHeight: '1px',
         visibility: 'hidden',
-      }),
+      })
     ),
 
     transition(
       '* => left, * => right, left => center, right => center',
-      animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'),
+      animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)')
     ),
     transition('void => left-origin-center', [
-      style({transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden'}),
+      style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' }),
       animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'),
     ]),
     transition('void => right-origin-center', [
-      style({transform: 'translate3d(100%, 0, 0)', visibility: 'hidden'}),
+      style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' }),
       animate('{{animationDuration}} cubic-bezier(0.35, 0, 0.25, 1)'),
     ]),
   ]),
