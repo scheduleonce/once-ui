@@ -1,0 +1,48 @@
+@use '../core/style/layout-common';
+
+// Wraps each tab body. We need to add these styles ourselves,
+// because MDC only provides styling for the tab header.
+.oui-mdc-tab-body {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+  flex-basis: 100%;
+
+  &.oui-mdc-tab-body-active {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    flex-grow: 1;
+    display: block;
+  }
+
+  .oui-mdc-tab-group.oui-mdc-tab-group-dynamic-height
+    &.oui-mdc-tab-body-active {
+    overflow-y: hidden;
+  }
+}
+
+.oui-mdc-tab-body-content {
+  height: 100%;
+  overflow: auto;
+
+  .oui-mdc-tab-group-dynamic-height & {
+    overflow: hidden;
+  }
+
+  // Usually the `visibility: hidden` added by the animation is enough to prevent focus from
+  // entering the collapsed content, but children with their own `visibility` can override it.
+  // This is a fallback that completely hides the content when the element becomes hidden.
+  // Note that we can't do this in the animation definition, because the style gets recomputed too
+  // late, breaking the animation because Angular didn't have time to figure out the target height.
+  // This can also be achieved with JS, but it has issues when starting an animation before
+  // the previous one has finished.
+  &[style*='visibility: hidden'] {
+    display: none;
+  }
+}
