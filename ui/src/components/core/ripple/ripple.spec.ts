@@ -1113,4 +1113,3 @@ class RippleWithDomRemovalOnClick {
 function createTouchEvent(_arg0: string) {
   throw new Error('Function not implemented.');
 }
-

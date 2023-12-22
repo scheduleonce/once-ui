@@ -206,7 +206,7 @@ describe('MDC-based ouiTabGroup', () => {
       expect(testElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripples to show up initially.')
         .toBe(0);
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchFakeEvent(tabLabel.nativeElement, 'mousedown');
 
       expect(testElement.querySelectorAll('.oui-ripple-element').length)
@@ -224,8 +224,9 @@ describe('MDC-based ouiTabGroup', () => {
       expect(testElement.querySelectorAll('.oui-ripple-element').length)
         .withContext('Expected no ripples to show up initially.')
         .toBe(0);
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchFakeEvent(tabLabel.nativeElement, 'mousedown');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchFakeEvent(tabLabel.nativeElement, 'mouseup');
 
       expect(testElement.querySelectorAll('.oui-ripple-element').length)
@@ -355,6 +356,7 @@ describe('MDC-based ouiTabGroup', () => {
 
       // In order to verify that the `focusChange` event also fires with the correct
       // index, we focus the second tab before testing the keyboard navigation.
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchFakeEvent(tabLabels[2].nativeElement, 'focus');
       fixture.detectChanges();
       flush();

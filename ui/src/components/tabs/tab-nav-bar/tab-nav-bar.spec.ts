@@ -15,7 +15,11 @@ import { OuiTabsModule } from '../module';
 import { OuiTabLink, OuiTabNav } from './tab-nav-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OUI_TABS_CONFIG } from '../index';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from '../../core/test/utils';
+import {
+  dispatchFakeEvent,
+  dispatchKeyboardEvent,
+  dispatchMouseEvent,
+} from '../../core/test/utils';
 
 describe('MDC-based OuiTabNavBar', () => {
   const dir: Direction = 'ltr';
@@ -158,11 +162,11 @@ describe('MDC-based OuiTabNavBar', () => {
       const link = fixture.debugElement.query(By.css('a')).nativeElement;
       fixture.componentInstance.disabled = true;
       fixture.detectChanges();
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const spaceEvent = dispatchKeyboardEvent(link, 'keydown', SPACE);
       fixture.detectChanges();
       expect(spaceEvent.defaultPrevented).toBe(true);
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const enterEvent = dispatchKeyboardEvent(link, 'keydown', ENTER);
       fixture.detectChanges();
       expect(enterEvent.defaultPrevented).toBe(true);
@@ -233,6 +237,7 @@ describe('MDC-based OuiTabNavBar', () => {
 
     it('should update the focusIndex when a tab receives focus directly', () => {
       const thirdLink = fixture.debugElement.queryAll(By.css('a'))[2];
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchFakeEvent(thirdLink.nativeElement, 'focus');
       fixture.detectChanges();
 
@@ -262,7 +267,7 @@ describe('MDC-based OuiTabNavBar', () => {
 
     fixture.componentInstance.isDestroyed = true;
     fixture.detectChanges();
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     dispatchMouseEvent(link, 'mousedown');
 
     expect(link.querySelector('.oui-ripple-element'))
@@ -373,7 +378,7 @@ describe('MDC-based OuiTabNavBar', () => {
     const tabLinks =
       fixture.nativeElement.querySelectorAll('.oui-mdc-tab-link');
     expect(tabLinks[1].classList.contains('mdc-tab--active')).toBe(false);
-
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     dispatchKeyboardEvent(tabLinks[1], 'keydown', SPACE);
     fixture.detectChanges();
 
@@ -428,8 +433,9 @@ describe('MDC-based OuiTabNavBar', () => {
     it('should show up for tab link elements on mousedown', () => {
       const tabLink =
         fixture.debugElement.nativeElement.querySelector('.oui-mdc-tab-link');
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchMouseEvent(tabLink, 'mousedown');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchMouseEvent(tabLink, 'mouseup');
 
       expect(tabLink.querySelectorAll('.oui-ripple-element').length)
@@ -442,11 +448,12 @@ describe('MDC-based OuiTabNavBar', () => {
     it('should be able to disable ripples on an individual tab link', () => {
       const tabLinkDebug = fixture.debugElement.query(By.css('a'));
       const tabLinkElement = tabLinkDebug.nativeElement;
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       fixture.componentInstance.disableRippleOnLink = true;
       fixture.detectChanges();
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchMouseEvent(tabLinkElement, 'mousedown');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       dispatchMouseEvent(tabLinkElement, 'mouseup');
 
       expect(tabLinkElement.querySelectorAll('.oui-ripple-element').length)
