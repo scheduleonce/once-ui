@@ -4,4 +4,3 @@ export * from './keycodes/index';
 export * from './animation/animation';
 export * from './error/error-options';
 export * from './selection/index';
-export * from './ripple/index';

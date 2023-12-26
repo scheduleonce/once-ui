@@ -7,7 +7,6 @@ import {
   tick,
 } from '@angular/core/testing';
 import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, RippleGlobalOptions } from '../../core';
 import { By } from '@angular/platform-browser';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
@@ -24,7 +23,7 @@ import {
 describe('MDC-based OuiTabNavBar', () => {
   const dir: Direction = 'ltr';
   const dirChange = new Subject();
-  let globalRippleOptions: RippleGlobalOptions;
+  let globalRippleOptions: any;
 
   beforeEach(waitForAsync(() => {
     globalRippleOptions = {};
@@ -37,10 +36,6 @@ describe('MDC-based OuiTabNavBar', () => {
         TabBarWithInactiveTabsOnInit,
       ],
       providers: [
-        {
-          provide: MAT_RIPPLE_GLOBAL_OPTIONS,
-          useFactory: () => globalRippleOptions,
-        },
         {
           provide: Directionality,
           useFactory: () => ({ value: dir, change: dirChange }),

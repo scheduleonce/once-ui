@@ -19,7 +19,6 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { OuiRippleModule } from '../core';
 import { OuiTabHeader } from './tab-header';
 import { ouiTabLabelWrapper } from './tab-label-wrapper';
 import {
@@ -34,13 +33,7 @@ describe('MDC-based OuiTabHeader', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        PortalModule,
-        OuiRippleModule,
-        ScrollingModule,
-        ObserversModule,
-      ],
+      imports: [CommonModule, PortalModule, ScrollingModule, ObserversModule],
       declarations: [OuiTabHeader, ouiTabLabelWrapper, SimpleTabHeaderApp],
       providers: [ViewportRuler],
     });
