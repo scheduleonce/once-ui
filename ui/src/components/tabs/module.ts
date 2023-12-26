@@ -8,7 +8,6 @@
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { OuiRippleModule } from '../core';
 import { PortalModule } from '@angular/cdk/portal';
 import { ObserversModule } from '@angular/cdk/observers';
 import { A11yModule } from '@angular/cdk/a11y';
@@ -27,13 +26,7 @@ import {
 import { OuiTabBody } from './tab-body';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    PortalModule,
-    OuiRippleModule,
-    ObserversModule,
-    A11yModule,
-  ],
+  imports: [CommonModule, PortalModule, ObserversModule, A11yModule],
   exports: [
     OuiTabContent,
     OuiTabLabel,

@@ -9,7 +9,6 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { OuiRippleModule } from '../core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CdkScrollable, ScrollingModule } from '@angular/cdk/scrolling';
 import { OuiTabBody, OuiTabBodyPortal } from './tab-body';
@@ -23,12 +22,7 @@ describe('MDC-based OuiTabBody', () => {
   beforeEach(waitForAsync(() => {
     dir = 'ltr';
     TestBed.configureTestingModule({
-      imports: [
-        CommonModule,
-        PortalModule,
-        OuiRippleModule,
-        NoopAnimationsModule,
-      ],
+      imports: [CommonModule, PortalModule, NoopAnimationsModule],
       declarations: [OuiTabBody, OuiTabBodyPortal, SimpleTabBodyApp],
       providers: [
         {
@@ -203,7 +197,6 @@ describe('MDC-based OuiTabBody', () => {
         imports: [
           CommonModule,
           PortalModule,
-          OuiRippleModule,
           NoopAnimationsModule,
           ScrollingModule,
         ],
