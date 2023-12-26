@@ -253,7 +253,6 @@ export class ouiTabGroup
   }
 
   set backgroundColor(value: ThemePalette) {
-    // console.log('value value', value);
     const classList: DOMTokenList = this._elementRef.nativeElement.classList;
 
     classList.remove(
@@ -297,7 +296,6 @@ export class ouiTabGroup
     @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
   ) {
     super(elementRef);
-    // console.log(elementRef)
     this._groupId = nextId++;
     this.animationDuration =
       defaultConfig && defaultConfig.animationDuration
@@ -313,7 +311,6 @@ export class ouiTabGroup
         : false;
     this.contentTabIndex = defaultConfig?.contentTabIndex ?? null;
     this.preserveContent = !!defaultConfig?.preserveContent;
-    // console.log(this.preserveContent)
     this.fitInkBarToContent =
       defaultConfig && defaultConfig.fitInkBarToContent != null
         ? defaultConfig.fitInkBarToContent
@@ -386,25 +383,20 @@ export class ouiTabGroup
   }
 
   ngAfterContentInit() {
-    // console.log(';;;;;;;;;;;;', this._tabs)
     this._subscribeToAllTabChanges();
     this._subscribeToTabLabels();
-    // console.log(this._tabs)
     // Subscribe to changes in the amount of tabs, in order to be
     // able to re-render the content as new tabs are added or removed.
     this._tabsSubscription = this._tabs.changes.subscribe(() => {
-      // console.log("change")
       const indexToSelect = this._clampTabIndex(this._indexToSelect);
 
       // Maintain the previously-selected tab if a new tab is added or removed and there is no
       // explicit change that selects a different tab.
-      // console.log('>>>>>>>>>>>>>', indexToSelect, this._selectedIndex)
       if (indexToSelect === this._selectedIndex) {
         const tabs = this._tabs.toArray();
         let selectedTab: OuiTab | undefined;
 
         for (let i = 0; i < tabs.length; i++) {
-          console.log('tabsi', tabs[i]);
           if (tabs[i].isActive) {
             // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
             // event, otherwise the consumer may end up in an infinite loop in some edge cases like
@@ -429,7 +421,6 @@ export class ouiTabGroup
 
       this._changeDetectorRef.markForCheck();
     });
-    console.log('_tabs final', this._tabs, this._allTabs);
   }
 
   /** Listens to changes in all of the tabs. */
@@ -437,19 +428,13 @@ export class ouiTabGroup
     // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
     // some that are inside of nested tab groups. We filter them out manually by checking that
     // the closest group to the tab is the current one.
-    // console.log("_subscribeToAllTabChanges", this._allTabs)
     this.getHTMLText = this._allTabs['_results'][0].givenText;
-    console.log('this.getHTMLText', this.getHTMLText);
     this.updatedTabHTML = this.getHTMLText;
-    // this._allTabs['_results'].forEach((tabData)=>{
-    //   this._tabs.myKey = tabData.givenText;
-    // })
     this._allTabs.changes
       .pipe(startWith(this._allTabs))
       .subscribe((tabs: QueryList<OuiTab>) => {
         this._tabs.reset(
           tabs.filter((tab) => {
-            // console.log(tab)
             return tab._closestTabGroup === this || !tab._closestTabGroup;
           })
         );
@@ -505,9 +490,7 @@ export class ouiTabGroup
     event.index = index;
     if (this._tabs && this._tabs.length) {
       event.tab = this._tabs.toArray()[index];
-      // console.log('_createChangeEvent', event, this._tabs);
       this.updatedTabHTML = event.tab.givenText;
-      // console.log(this.updatedTabHTML)
     }
     return event;
   }
@@ -581,26 +564,22 @@ export class ouiTabGroup
 
   /** Handle click events, setting new selected index if appropriate. */
   _handleClick(tab: OuiTab, tabHeader: OuiTabGroupBaseHeader, index: number) {
-    // console.log("click")
     tabHeader.focusIndex = index;
     this.getHTMLText = this.updatedTabHTML;
 
     if (!tab.disabled) {
-      // console.log('ppppppppppp.p')
       this.selectedIndex = index;
     }
   }
 
   /** Retrieves the tabindex for the tab. */
   _getTabIndex(index: number): number {
-    // console.log('get tab index')
     const targetIndex = this._lastFocusedTabIndex ?? this.selectedIndex;
     return index === targetIndex ? 0 : -1;
   }
 
   /** Callback for when the focused state of a tab has changed. */
   _tabFocusChanged(focusOrigin: FocusOrigin, index: number) {
-    // console.log('focusssss', focusOrigin)
     // Mouse/touch focus happens during the `mousedown`/`touchstart` phase which
     // can cause the tab to be moved out from under the pointer, interrupting the
     // click sequence (see #21898). We don't need to scroll the tab into view for

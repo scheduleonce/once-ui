@@ -66,21 +66,6 @@ export class OuiTabBodyPortal
   /** Set initial visibility or set up subscription for changing visibility. */
   override ngOnInit(): void {
     super.ngOnInit();
-
-    console.log('in directive...');
-    // this._centeringSub = this._host._beforeCentering
-    //   .pipe(startWith(this._host._isCenterPosition(this._host._position)))
-    //   .subscribe((isCentering: boolean) => {
-    //     if (isCentering && !this.hasAttached()) {
-    //       this.attach(this._host._content);
-    //     }
-    //   });
-
-    // this._leavingSub = this._host._afterLeavingCenter.subscribe(() => {
-    //   if (!this._host.preserveContent) {
-    //     this.detach();
-    //   }
-    // });
   }
 
   /** Clean up centering subscription. */
@@ -226,7 +211,6 @@ export class OuiTabBody implements OnInit, OnDestroy {
     if (this._position == 'center' && this.origin != null) {
       this._position = this._computePositionFromOrigin(this.origin);
     }
-    console.log('sssssssss', this._content);
     this._content2 = this._content ? this._content : '';
   }
 
