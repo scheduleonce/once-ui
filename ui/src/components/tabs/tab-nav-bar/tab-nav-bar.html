@@ -6,7 +6,6 @@
   type="button"
   oui-ripple
   tabindex="-1"
-  [ouiRippleDisabled]="_disableScrollBefore || disableRipple"
   [class.oui-mdc-tab-header-pagination-disabled]="_disableScrollBefore"
   [disabled]="_disableScrollBefore || null"
   (click)="_handlePaginatorClick('before')"
@@ -39,7 +38,6 @@
   aria-hidden="true"
   type="button"
   oui-ripple
-  [ouiRippleDisabled]="_disableScrollAfter || disableRipple"
   [class.oui-mdc-tab-header-pagination-disabled]="_disableScrollAfter"
   [disabled]="_disableScrollAfter || null"
   tabindex="-1"

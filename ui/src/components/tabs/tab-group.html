@@ -33,12 +33,7 @@
 
     <!-- Needs to be a separate element, because we can't put
          `overflow: hidden` on tab due to the ink bar. -->
-    <div
-      class="oui-mdc-tab-ripple"
-      oui-ripple
-      [ouiRippleTrigger]="tabNode"
-      [ouiRippleDisabled]="tab.disabled || disableRipple"
-    ></div>
+    <div class="oui-mdc-tab-ripple"></div>
 
     <span class="mdc-tab__content">
       <span class="mdc-tab__text-label">
