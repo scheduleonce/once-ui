@@ -147,7 +147,7 @@ $oui-tab-animation-duration: 500ms !default;
     overflow: hidden;
     position: relative;
     flex-shrink: 0;
-    height: 48px;
+    min-height: 48px;
     padding-top: 5px;
     border-bottom: 1px solid #c8c8c8;
   }
@@ -286,4 +286,18 @@ $oui-tab-animation-duration: 500ms !default;
   overflow: hidden;
   z-index: 1;
   justify-content: center;
+}
+
+.oui-tab
+  .oui-tab-labels-container
+  .cdk-focused:not(.mdc-tab--active)
+  .mdc-tab-indicator
+  .mdc-tab-indicator__content,
+.oui-tab
+  .oui-tab-labels-container
+  .oui-mdc-tab:hover:not(.mdc-tab--active)
+  .mdc-tab-indicator
+  .mdc-tab-indicator__content {
+  border-color: #666;
+  opacity: 1;
 }
