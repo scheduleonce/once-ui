@@ -1,0 +1,68 @@
+@use '../core/style/variables';
+@use './tabs-common';
+
+@include tabs-common.structural-styles;
+
+.oui-mdc-tab {
+  @include tabs-common.tab;
+
+  // Note that we only want to target direct descendant tabs.
+  .oui-mdc-tab-group.oui-mdc-tab-group-stretch-tabs > .oui-mdc-tab-header & {
+    flex-grow: 1;
+  }
+}
+
+.oui-mdc-focus-indicator {
+  position: relative;
+}
+
+.oui-mdc-tab-body {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+  display: none;
+  overflow: hidden;
+  flex-basis: 100%;
+  &.oui-mdc-tab-body-active {
+    display: block;
+  }
+}
+
+.mdc-tab__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: inherit;
+  pointer-events: none;
+}
+
+.oui-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #333;
+}
+
+.oui-mdc-tab-group {
+  //   @include tabs-common.paginated-tab-header-with-background('.oui-mdc-tab-header', '.oui-mdc-tab');
+  display: flex;
+  flex-direction: column;
+
+  // Fixes pagination issues inside flex containers (see #23157).
+  max-width: 100%;
+
+  &.oui-mdc-tab-group-inverted-header {
+    flex-direction: column-reverse;
+
+    .mdc-tab-indicator__content--underline {
+      align-self: flex-start;
+    }
+  }
+}
+
+// The bottom section of the view; contains the tab bodies
+.oui-mdc-tab-body-wrapper {
+  //   @include private.private-animation-noop();
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
