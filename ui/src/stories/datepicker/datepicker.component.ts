@@ -254,7 +254,6 @@ export class OuiDaterangepickerStorybook implements OnChanges {
   }
   mindateChange(e: OuiDatepickerInputEvent<Date>) {
     this.minDate = new Date(e.value);
-    console.log(this.minDate);
     if (this.maxDate) {
       this._dateChange.emit({
         min: this.minDate,
@@ -265,7 +264,6 @@ export class OuiDaterangepickerStorybook implements OnChanges {
   }
   maxdateChange(e: OuiDatepickerInputEvent<Date>) {
     this.maxDate = new Date(e.value);
-    console.log(this.maxDate);
     if (this.minDate) {
       this._dateChange.emit({
         min: this.minDate,
