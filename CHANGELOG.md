@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [7.0.36] - 2023-12-28
+
 - [ONCEHUB-60767](https://scheduleonce.atlassian.net/browse/ONCEHUB-60767) Added the tab module and added storybook.
 
 ## [7.0.37] - 2023-12-26
@@ -13,7 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ONCEHUB-73711](https://scheduleonce.atlassian.net/browse/ONCEHUB-73711) fix UI issue for select checkbox.
 
 ## [7.0.36] - 2023-12-18
-
 
 ## [7.0.35] - 2023-12-12
 
