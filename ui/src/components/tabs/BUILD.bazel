@@ -1,0 +1,124 @@
+load(
+    "//tools:defaults.bzl",
+    "markdown_to_html",
+    "ng_module",
+    "ng_test_library",
+    "ng_web_test_suite",
+    "sass_binary",
+    "sass_library",
+)
+
+package(default_visibility = ["//visibility:public"])
+
+ng_module(
+    name = "tabs",
+    srcs = glob(
+        ["**/*.ts"],
+        exclude = ["**/*.spec.ts"],
+    ),
+    assets = [
+        ":tab-body.scss",
+        ":tab-header.scss",
+        ":tab-group.scss",
+        ":tab-nav-bar/tab-nav-bar.scss",
+        ":tab-nav-bar/tab-link.scss",
+    ] + glob(["**/*.html"]),
+    deps = [
+        "//src:dev_mode_types",
+        "//src/cdk/a11y",
+        "//src/cdk/bidi",
+        "//src/cdk/coercion",
+        "//src/cdk/keycodes",
+        "//src/cdk/observers",
+        "//src/cdk/platform",
+        "//src/cdk/portal",
+        "//src/cdk/scrolling",
+        "//src/material/core",
+        "@npm//@angular/animations",
+        "@npm//@angular/common",
+        "@npm//@angular/core",
+    ],
+)
+
+sass_library(
+    name = "tabs_scss_lib",
+    srcs = glob(["**/_*.scss"]),
+    deps = [
+        "//:mdc_sass_lib",
+        "//src/material/core:core_scss_lib",
+    ],
+)
+
+sass_binary(
+    name = "mdc_tab_body_scss",
+    src = "_tab-body.scss",
+    deps = [
+        "//src/material/core:core_scss_lib",
+    ],
+)
+
+sass_binary(
+    name = "mdc_tab_header_scss",
+    src = "tab-header.scss",
+    deps = [":tabs_scss_lib"],
+)
+
+sass_binary(
+    name = "mdc_tab_group_scss",
+    src = "tab-group.scss",
+    deps = [
+        ":tabs_scss_lib",
+    ],
+)
+
+sass_binary(
+    name = "mdc_tab_nav_bar_scss",
+    src = "tab-nav-bar/tab-nav-bar.scss",
+    deps = [":tabs_scss_lib"],
+)
+
+sass_binary(
+    name = "mdc_tab_link_scss",
+    src = "tab-nav-bar/tab-link.scss",
+    deps = [
+        ":tabs_scss_lib",
+    ],
+)
+
+ng_test_library(
+    name = "tabs_tests_lib",
+    srcs = glob(
+        ["**/*.spec.ts"],
+    ),
+    deps = [
+        ":tabs",
+        "//src/cdk/bidi",
+        "//src/cdk/keycodes",
+        "//src/cdk/observers",
+        "//src/cdk/portal",
+        "//src/cdk/scrolling",
+        "//src/cdk/testing/private",
+        "//src/cdk/testing/testbed",
+        "//src/material/core",
+        "@npm//@angular/common",
+        "@npm//@angular/platform-browser",
+        "@npm//rxjs",
+    ],
+)
+
+ng_web_test_suite(
+    name = "unit_tests",
+    deps = [
+        ":tabs_tests_lib",
+    ],
+)
+
+markdown_to_html(
+    name = "overview",
+    srcs = [":tabs.md"],
+)
+
+filegroup(
+    name = "source-files",
+    srcs = glob(["**/*.ts"]),
+)
