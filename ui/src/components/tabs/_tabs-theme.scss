@@ -1,0 +1,46 @@
+@mixin oui-tabs-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+  .oui-tab {
+    @include oui-tabs-theme-palette($theme);
+  }
+}
+/*generating themes for oui-button(Primary buttons)*/
+@mixin oui-tabs-theme-palette($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+  $border-color: map-get($theme, background);
+  &.oui-primary {
+    .mdc-tab-indicator--active {
+      border-color: map-get($primary, default);
+      .mdc-tab-indicator__content--underline {
+        border-color: map-get($primary, default);
+      }
+    }
+    &:hover,
+    &[class^='cdk'],
+    &.cdk-keyboard-focused {
+      border-color: map-get($primary, darker);
+    }
+  }
+  &.oui-accent {
+    border-color: map-get($accent, default);
+    &:hover,
+    &[class^='cdk'],
+    &.cdk-keyboard-focused {
+      border-color: map-get($accent, darker);
+    }
+  }
+  &.oui-warn {
+    border-color: map-get($warn, default);
+    &:hover,
+    &[class^='cdk'],
+    &.cdk-keyboard-focused {
+      border-color: map-get($warn, darker);
+    }
+  }
+}
