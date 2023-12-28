@@ -73,7 +73,6 @@ export class OuiTab
     return this._templateLabel;
   }
   set templateLabel(value: OuiTabLabel) {
-    console.log('value', value);
     this._setTemplateLabelInput(value);
   }
 
@@ -184,7 +183,6 @@ export class OuiTab
       this._viewContainerRef,
       this._tab1
     );
-    console.log('_tab1', this._contentPortal);
   }
 
   /**
