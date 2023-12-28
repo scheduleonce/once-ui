@@ -122,7 +122,6 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
 
   constructor(private fb: UntypedFormBuilder) {}
   ngOnInit() {
-    console.log(this.stateGroups);
     this.stateGroupOptions = this.stateForm
       .get('stateGroup')!
       .valueChanges.pipe(
