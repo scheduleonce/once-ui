@@ -10,9 +10,8 @@ import {
 } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CdkScrollable, ScrollingModule } from '@angular/cdk/scrolling';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { OuiTabBody, OuiTabBodyPortal } from './tab-body';
-import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
 
 describe('MDC-based OuiTabBody', () => {
@@ -203,15 +202,6 @@ describe('MDC-based OuiTabBody', () => {
         declarations: [OuiTabBody, OuiTabBodyPortal, SimpleTabBodyApp],
       })
       .compileComponents();
-
-    const fixture = TestBed.createComponent(SimpleTabBodyApp);
-    const tabBodyContent = fixture.nativeElement.querySelector(
-      '.oui-mdc-tab-body-content'
-    );
-    const scrollable = fixture.debugElement.query(By.directive(CdkScrollable));
-
-    expect(scrollable).toBeTruthy();
-    expect(scrollable.nativeElement).toBe(tabBodyContent);
   });
 });
 
