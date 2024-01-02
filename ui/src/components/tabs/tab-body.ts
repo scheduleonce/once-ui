@@ -156,7 +156,7 @@ export class OuiTabBody implements OnInit, OnDestroy {
 
   /** Whether the tab's content should be kept in the DOM while it's off-screen. */
   @Input() preserveContent = false;
-  _content2: any;
+  _innerContent: any;
 
   /** The shifted index position of the tab body, where zero represents the active center tab. */
   @Input()
@@ -211,7 +211,7 @@ export class OuiTabBody implements OnInit, OnDestroy {
     if (this._position == 'center' && this.origin != null) {
       this._position = this._computePositionFromOrigin(this.origin);
     }
-    this._content2 = this._content ? this._content : '';
+    this._innerContent = this._content ? this._content : '';
   }
 
   ngOnDestroy() {
