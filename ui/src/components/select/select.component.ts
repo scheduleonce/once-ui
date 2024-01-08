@@ -1368,6 +1368,10 @@ export class OuiSelect
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
     }
+    const actionItemsQueryString = '.oui-select-action-items';
+    if (this._document.querySelector(actionItemsQueryString)) {
+      this.scrollCalc(actionItemsQueryString);
+    }
   }
   scrollCalc(selectQueryString: string) {
     const searchInput = this._document.querySelector(selectQueryString);
@@ -1417,8 +1421,7 @@ export class OuiSelect
    */
   _setScrollTop(scrollTop: number): void {
     if (this.panel) {
-      this.panel.nativeElement.querySelector('.oui-select-options').scrollTop =
-        scrollTop;
+      this.panel.nativeElement.scrollTop = scrollTop;
     }
   }
 
