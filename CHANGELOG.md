@@ -11,10 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.36] - 2023-12-18
 
-## [7.0.35] - 2023-12-12
-
-- [ONCEHUB-74291](https://scheduleonce.atlassian.net/browse/ONCEHUB-73711) fix UI and scrollbar issue for oui-select component.
-
 ## [7.0.34] - 2023-12-06
 
 - [ONCEHUB-74291](https://scheduleonce.atlassian.net/browse/ONCEHUB-74291) Updated scroll bar styles for oui-scrollbar.
