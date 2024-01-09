@@ -59,7 +59,6 @@ $oui-tab-animation-duration: 500ms !default;
     margin: 0;
     padding-top: 0;
     padding-bottom: 0;
-    border: none;
     outline: none;
     text-align: center;
     white-space: nowrap;
@@ -71,6 +70,12 @@ $oui-tab-animation-duration: 500ms !default;
     // is an opt-in behavior. Also technically we don't need to combine the two classes, but
     // we need the extra specificity to avoid issues with CSS insertion order.
     flex-grow: 0;
+    border: 1px solid transparent !important;
+    border-bottom: 0 !important;
+    &.cdk-keyboard-focused {
+      border: 1px solid #006bb1 !important;
+      border-bottom: 0 !important;
+    }
   }
 
   .mdc-tab__text-label {
@@ -148,7 +153,7 @@ $oui-tab-animation-duration: 500ms !default;
     position: relative;
     flex-shrink: 0;
     min-height: 48px;
-    padding-top: 4px;
+    padding-top: 0;
     border-bottom: 1px solid #c8c8c8;
   }
 
@@ -169,7 +174,7 @@ $oui-tab-animation-duration: 500ms !default;
   }
 
   .oui-mdc-tab:not(.mdc-tab--stacked) {
-    padding: 16px 0px 10px;
+    padding: 20px 0px 10px;
   }
 
   .oui-mdc-tab-header-pagination {
