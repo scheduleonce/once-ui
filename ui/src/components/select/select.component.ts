@@ -1367,7 +1367,10 @@ export class OuiSelect
     const searchQueryString = '.oui-select-search-inner';
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
-      this.isSearchFieldPresent = true;
+    }
+    const actionItemsQueryString = '.oui-select-action-items';
+    if (this._document.querySelector(actionItemsQueryString)) {
+      this.scrollCalc(actionItemsQueryString);
     }
   }
   scrollCalc(selectQueryString: string) {
@@ -1407,13 +1410,7 @@ export class OuiSelect
       index + labelCount,
       SELECT_OPTION_HEIGHT,
       scrollTop,
-      this.actionItems && this.isSearchFieldPresent && labelCount
-        ? SELECT_PANEL_HEIGHT - (50 + labelCount * 19)
-        : (this.actionItems && this.isSearchFieldPresent && !labelCount) ||
-          (this.actionItems && !this.isSearchFieldPresent && labelCount) ||
-          (!this.actionItems && this.isSearchFieldPresent && labelCount)
-        ? SELECT_PANEL_HEIGHT - 50
-        : SELECT_PANEL_HEIGHT
+      SELECT_PANEL_HEIGHT
     );
     this._setScrollTop(newScrollPosition);
   }
@@ -1424,8 +1421,7 @@ export class OuiSelect
    */
   _setScrollTop(scrollTop: number): void {
     if (this.panel) {
-      this.panel.nativeElement.querySelector('.oui-select-options').scrollTop =
-        scrollTop;
+      this.panel.nativeElement.scrollTop = scrollTop;
     }
   }
 
