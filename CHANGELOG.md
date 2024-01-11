@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [8.0.2] - 2023-01-09
+## [8.0.4] - 2024-01-11
+
+- [ONCEHUB-75441](https://scheduleonce.atlassian.net/browse/ONCEHUB-75441) Addressed vulnerability concerns for multiple dependencies like vite, tough-cookie and xml2js.
+
+## [8.0.2] - 2024-01-09
 
 - [ONCEHUB-73711](https://scheduleonce.atlassian.net/browse/ONCEHUB-73711) revert - fix UI and scrollbar issue for oui-select component.
 
