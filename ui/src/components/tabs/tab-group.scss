@@ -27,6 +27,10 @@
   flex-basis: 100%;
   &.oui-mdc-tab-body-active {
     display: block;
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
   }
 }
 
@@ -63,8 +67,4 @@
   position: relative;
   overflow: hidden;
   display: flex;
-}
-
-.oui-text-height {
-  min-height: 100px;
 }
