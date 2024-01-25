@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [7.0.36] - 2023-12-28
+## [8.0.5] - 2023-01-14
+
+- [ONCEHUB-60767](https://scheduleonce.atlassian.net/browse/ONCEHUB-60767) Fixed an issue related to the spacing in oui-tab
+
+## [8.0.4] - 2024-01-11
+
+- [ONCEHUB-75441](https://scheduleonce.atlassian.net/browse/ONCEHUB-75441) Addressed vulnerability concerns for multiple dependencies like vite, tough-cookie and xml2js.
+
+## [8.0.2] - 2024-01-09
+
+- [ONCEHUB-73711](https://scheduleonce.atlassian.net/browse/ONCEHUB-73711) revert - fix UI and scrollbar issue for oui-select component.
+
+## [8.0.0] - 2023-12-28
 
 - [ONCEHUB-60767](https://scheduleonce.atlassian.net/browse/ONCEHUB-60767) Added the tab module and added storybook.
 
@@ -17,7 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [7.0.35] - 2023-12-12
 
-- [ONCEHUB-74291](https://scheduleonce.atlassian.net/browse/ONCEHUB-73711) fix UI and scrollbar issue for oui-select component.
+- [ONCEHUB-73711](https://scheduleonce.atlassian.net/browse/ONCEHUB-73711) fix UI and scrollbar issue for oui-select component.
 
 ## [7.0.34] - 2023-12-06
 
