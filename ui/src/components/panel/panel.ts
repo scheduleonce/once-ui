@@ -162,7 +162,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 @Component({
   selector: 'oui-panel-icon',
   template:
-    '<oui-icon svgIcon="panel-icon" class="oui-panel-icon" [tabIndex]="tabIndex"></oui-icon>',
+    '<oui-icon svgIcon="panel-icon" aria-label="new label" class="oui-panel-icon" [tabIndex]="-1"></oui-icon>',
   styleUrls: ['panel.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
@@ -179,6 +179,7 @@ export class OuiPanelIcon implements OnDestroy {
     private _ngZone: NgZone,
     @Attribute('tabindex') tabIndex: string
   ) {
+    this._elementRef.nativeElement.setAttribute('tabindex', '0');
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
