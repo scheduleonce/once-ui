@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [8.0.6] - 2023-01-29
+## [8.0.7] - 2024-02-01
+
+- [ONCEHUB-77380](https://scheduleonce.atlassian.net/browse/ONCEHUB-77380) fixed vulnerability found in package vite 
+
+## [8.0.6] - 2024-01-29
 
 - [ONCEHUB-60767](https://scheduleonce.atlassian.net/browse/ONCEHUB-60767) Fixed an padding issue in label in oui-tab
 
-## [8.0.5] - 2023-01-14
+## [8.0.5] - 2024-01-14
 
 - [ONCEHUB-60767](https://scheduleonce.atlassian.net/browse/ONCEHUB-60767) Fixed an issue related to the spacing in oui-tab
 
