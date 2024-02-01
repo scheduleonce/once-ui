@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [8.0.7] - 2024-02-01
 
-- [ONCEHUB-77380](https://scheduleonce.atlassian.net/browse/ONCEHUB-77380) fixed vulnerability found in package vite 
+- [ONCEHUB-77380](https://scheduleonce.atlassian.net/browse/ONCEHUB-77380) fixed vulnerability found in package vite
 
 ## [8.0.6] - 2024-01-29
 
