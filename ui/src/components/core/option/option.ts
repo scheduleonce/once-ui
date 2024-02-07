@@ -200,6 +200,18 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   setActiveStyles(): void {
     if (!this._active) {
       this._active = true;
+      setTimeout((_) => {
+        const focusedElement = document.querySelector(
+          '.oui-active'
+        ) as HTMLElement;
+        const multiSelect = document.querySelector(
+          '.oui-option-pseudo-checkbox'
+        ) as HTMLElement;
+        const ouiSearch = document.querySelector('.oui-select-search-input');
+        if (focusedElement && !multiSelect && !ouiSearch) {
+          focusedElement?.focus();
+        }
+      });
       this._changeDetectorRef.markForCheck();
     }
   }
