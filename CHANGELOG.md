@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.10] - 2023-02-09
+
+- [ONCEHUB-77842](https://scheduleonce.atlassian.net/browse/ONCEHUB-77842) Fixed, on searching the option the focus should scroll to the focused potion.
+
+## [8.0.9] - 2023-02-09
+
+- [ONCEHUB-78061](https://scheduleonce.atlassian.net/browse/ONCEHUB-78061) Fixed the oui-scrollbar look is broken in Chrome 121
+
 ## [8.0.8] - 2023-02-02
 
 - [ONCEHUB-60767](https://scheduleonce.atlassian.net/browse/ONCEHUB-77583) Add accessibility on oui-panel-icon
