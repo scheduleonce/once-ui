@@ -214,9 +214,9 @@ Icon button:
       moduleMetadata: {
         imports: [OuiButtonModule, OuiIconModule],
         schemas: [],
-        declarations: [],
+        declarations: [OuiIconButtonStorybook],
       },
-      component: OuiIconButtonStorybook,
+      template: `<oui-icon-button-storybook></oui-icon-button-storybook>`,
       props: {
         ...props,
         clicked: action('click'),
