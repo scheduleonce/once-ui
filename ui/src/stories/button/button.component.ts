@@ -19,16 +19,9 @@ export class OuiIconButtonStorybook {
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer
   ) {
-    this.ouiIconRegistry.addSvgIcon(
-      `local`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        `/assets/images/v-green.svg`
-      )
-    );
-
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://d1azc1qln24ryf.cloudfront.net/135790/oncehub-20/symbol-defs.svg?10k0w6'
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?81ot1f'
       )
     );
   }
