@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.12] - 2024-02-26
+
+- [orion/vul-scan-22-feb-2024] ip vulnerability has been fixed
+
 ## [8.0.11] - 2024-02-19
 
 - [ONCEHUB-77896](https://scheduleonce.atlassian.net/browse/ONCEHUB-77896) Change "d1azc1qln24ryf.cloudfront.net" to "cdn.icomoon.io"
