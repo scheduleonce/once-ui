@@ -428,7 +428,7 @@ export class ouiTabGroup
     // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
     // some that are inside of nested tab groups. We filter them out manually by checking that
     // the closest group to the tab is the current one.
-    this.getHTMLText = this._allTabs['_results'][0].givenText;
+    this.getHTMLText = this._allTabs['_results'][0].contentWithin;
     this.updatedTabHTML = this.getHTMLText;
     this._allTabs.changes
       .pipe(startWith(this._allTabs))
@@ -490,7 +490,7 @@ export class ouiTabGroup
     event.index = index;
     if (this._tabs && this._tabs.length) {
       event.tab = this._tabs.toArray()[index];
-      this.updatedTabHTML = event.tab.givenText;
+      this.updatedTabHTML = event.tab.contentWithin;
     }
     return event;
   }
