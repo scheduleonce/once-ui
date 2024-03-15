@@ -265,6 +265,19 @@ $oui-tab-animation-duration: 500ms !default;
       transition: none;
     }
   }
+  .oui-mdc-tab-group-stretch-tabs {
+    .oui-mdc-tab-list {
+      width: 100%;
+    }
+    .oui-mdc-tab.mdc-tab {
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 
   // The `span` is in the selector in order to increase the specificity, ensuring
   // that it's always higher than the selector that declares the transition.
