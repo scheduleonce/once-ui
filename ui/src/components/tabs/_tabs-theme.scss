@@ -22,11 +22,6 @@
         border-color: map-get($primary, default);
       }
     }
-    &:hover,
-    &[class^='cdk'],
-    &.cdk-keyboard-focused {
-      border-color: map-get($primary, darker);
-    }
   }
   &.oui-accent {
     border-color: map-get($accent, default);
