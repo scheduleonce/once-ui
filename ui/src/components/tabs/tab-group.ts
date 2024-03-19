@@ -318,7 +318,7 @@ export class ouiTabGroup
     this.stretchTabs =
       defaultConfig && defaultConfig.stretchTabs != null
         ? defaultConfig.stretchTabs
-        : true;
+        : false;
   }
 
   /**
