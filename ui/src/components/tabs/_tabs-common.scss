@@ -16,7 +16,8 @@ $oui-tab-animation-duration: 500ms !default;
 }
 .oui-tab {
   &.oui-primary {
-    .mdc-tab-indicator--active .mdc-tab-indicator__content {
+    .mdc-tab-indicator--active .mdc-tab-indicator__content,
+    .oui-mdc-focus-indicator .mdc-tab-indicator__content {
       border-color: #006bb1;
     }
   }
@@ -24,7 +25,8 @@ $oui-tab-animation-duration: 500ms !default;
 .chatonce {
   .oui-tab {
     &.oui-primary {
-      .mdc-tab-indicator--active .mdc-tab-indicator__content {
+      .mdc-tab-indicator--active .mdc-tab-indicator__content,
+      .oui-mdc-focus-indicator .mdc-tab-indicator__content {
         border-color: #b731a9;
       }
     }
@@ -33,7 +35,8 @@ $oui-tab-animation-duration: 500ms !default;
 .inviteonce {
   .oui-tab {
     &.oui-primary {
-      .mdc-tab-indicator--active .mdc-tab-indicator__content {
+      .mdc-tab-indicator--active .mdc-tab-indicator__content,
+      .oui-mdc-focus-indicator .mdc-tab-indicator__content {
         border-color: #197439;
       }
     }
@@ -155,6 +158,7 @@ $oui-tab-animation-duration: 500ms !default;
     min-height: 48px;
     padding-top: 0;
     border-bottom: 1px solid #c8c8c8;
+    justify-content: center;
   }
 
   .mdc-tab-indicator .mdc-tab-indicator__content {
@@ -253,7 +257,8 @@ $oui-tab-animation-duration: 500ms !default;
     transition: 250ms transform cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .mdc-tab-indicator--active .mdc-tab-indicator__content {
+  .mdc-tab-indicator--active .mdc-tab-indicator__content,
+  .oui-mdc-tab-link.active .mdc-tab-indicator__content {
     opacity: 1;
   }
 
@@ -314,6 +319,16 @@ $oui-tab-animation-duration: 500ms !default;
 .oui-tab
   .oui-tab-labels-container
   .oui-mdc-tab:hover:not(.mdc-tab--active)
+  .mdc-tab-indicator
+  .mdc-tab-indicator__content,
+.oui-tab
+  .oui-mdc-tab-link-container
+  .oui-mdc-tab-link:hover:not(.active)
+  .mdc-tab-indicator
+  .mdc-tab-indicator__content,
+.oui-tab
+  .oui-mdc-tab-link-container
+  .cdk-focused:not(.active)
   .mdc-tab-indicator
   .mdc-tab-indicator__content {
   border-color: #666;
