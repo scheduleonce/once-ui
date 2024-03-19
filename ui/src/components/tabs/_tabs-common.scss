@@ -313,7 +313,7 @@ $oui-tab-animation-duration: 500ms !default;
 
 .oui-tab
   .oui-tab-labels-container
-  .cdk-focused:not(.mdc-tab--active)
+  .cdk-keyboard-focused:not(.mdc-tab--active)
   .mdc-tab-indicator
   .mdc-tab-indicator__content,
 .oui-tab
@@ -328,7 +328,7 @@ $oui-tab-animation-duration: 500ms !default;
   .mdc-tab-indicator__content,
 .oui-tab
   .oui-mdc-tab-link-container
-  .cdk-focused:not(.active)
+  .cdk-keyboard-focused:not(.active)
   .mdc-tab-indicator
   .mdc-tab-indicator__content {
   border-color: #666;

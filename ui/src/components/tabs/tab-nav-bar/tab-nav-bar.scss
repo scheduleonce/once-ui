@@ -1,17 +1,18 @@
-// @use '../tabs-common';
+.oui-mdc-tab-header {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  flex-shrink: 0;
+  min-height: 48px;
+  padding-top: 0;
+  border-bottom: 1px solid #c8c8c8;
+  justify-content: center;
+}
+.mdc-tab-indicator__content {
+  transform-origin: left;
+  opacity: 0;
+}
 
-// @include tabs-common.structural-styles;
-// @include tabs-common.paginated-tab-header;
-
-// .oui-mdc-tab-links {
-//   @include tabs-common.paginated-tab-header-item-wrapper('.oui-mdc-tab-link-container');
-// }
-
-// .oui-mdc-tab-link-container {
-//   @include tabs-common.paginated-tab-header-container;
-// }
-
-// .oui-mdc-tab-nav-bar {
-//   @include tabs-common.paginated-tab-header-with-background('.oui-mdc-tab-link-container',
-//     '.oui-mdc-tab-link');
-// }
+.oui-mdc-tab-link.active .mdc-tab-indicator__content {
+  opacity: 1;
+}
