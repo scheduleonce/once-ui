@@ -34,6 +34,7 @@
     border-bottom: 0 !important;
     padding: 19px 20px 10px;
     display: inline-flex;
+    position: relative;
     &.cdk-keyboard-focused {
       border: 1px solid #006bb1 !important;
       border-bottom: 0 !important;
