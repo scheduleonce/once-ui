@@ -89,7 +89,7 @@ export class OuiTab
   /** Plain text label for the tab, used when there is no template label. */
   @Input('label') textLabel = '';
 
-  @Input('text') givenText = '';
+  contentWithin = '';
 
   /** Aria label for the tab. */
   @Input('aria-label') ariaLabel: string;
@@ -178,6 +178,7 @@ export class OuiTab
   }
 
   ngOnInit(): void {
+    this.contentWithin = this._elementRef.nativeElement.innerHTML;
     this._contentPortal = new TemplatePortal(
       this._explicitContent || this._implicitContent,
       this._viewContainerRef,

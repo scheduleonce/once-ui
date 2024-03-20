@@ -15,16 +15,12 @@
   $warn: map-get($theme, warn);
   $border-color: map-get($theme, background);
   &.oui-primary {
-    .mdc-tab-indicator--active {
+    .mdc-tab-indicator--active,
+    .oui-mdc-tab-link.active {
       border-color: map-get($primary, default);
       .mdc-tab-indicator__content--underline {
         border-color: map-get($primary, default);
       }
-    }
-    &:hover,
-    &[class^='cdk'],
-    &.cdk-keyboard-focused {
-      border-color: map-get($primary, darker);
     }
   }
   &.oui-accent {
