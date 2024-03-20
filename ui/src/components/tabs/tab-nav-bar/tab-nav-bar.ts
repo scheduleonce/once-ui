@@ -50,7 +50,7 @@ import { startWith, takeUntil } from 'rxjs/operators';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { OUI_TABS_CONFIG, OuiTabsConfig } from '../tab-config';
 import { OuiPaginatedTabHeader } from '../paginated-tab-header';
-import { isDevMode } from '@angular/core';
+// import { isDevMode } from '@angular/core';
 
 // Increasing integer for generating unique ids for tab nav components.
 let nextUniqueId = 0;
@@ -70,14 +70,14 @@ let nextUniqueId = 0;
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.role]': '_getRole()',
-    class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header',
+    class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header oui-tab',
     '[class.oui-mdc-tab-header-pagination-controls-enabled]':
       '_showPaginationControls',
     '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
     '[class.oui-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
-    '[class.mat-primary]': 'color !== "warn" && color !== "accent"',
-    '[class.mat-accent]': 'color === "accent"',
-    '[class.mat-warn]': 'color === "warn"',
+    '[class.oui-primary]': 'color !== "warn" && color !== "accent"',
+    '[class.oui-accent]': 'color === "accent"',
+    '[class.oui-warn]': 'color === "warn"',
     '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
     '[style.--oui-tab-animation-duration]': 'animationDuration',
   },
@@ -163,7 +163,7 @@ export class OuiTabNav
   private _disableRipple = false;
 
   /** Theme color of the nav bar. */
-  @Input() color: ThemePalette = 'accent';
+  @Input() color: ThemePalette = 'primary';
 
   /**
    * Associated tab panel controlled by the nav bar. If not provided, then the nav bar
@@ -231,13 +231,6 @@ export class OuiTabNav
     super.ngAfterContentInit();
   }
 
-  override ngAfterViewInit() {
-    if (!this.tabPanel && (typeof isDevMode === 'undefined' || isDevMode)) {
-      throw new Error('A oui-tab-nav-panel must be specified via [tabPanel].');
-    }
-    super.ngAfterViewInit();
-  }
-
   /** Notifies the component that the active link has been changed. */
   updateActiveLink() {
     if (!this._items) {
@@ -292,7 +285,14 @@ const _OuiTabLinkMixinBase = mixinInkBarItem(
   selector: '[oui-tab-link], [OuiTabLink]',
   exportAs: 'OuiTabLink',
   // eslint-disable-next-line
-  inputs: ['disabled', 'disableRipple', 'tabIndex', 'active', 'id'],
+  inputs: [
+    'disabled',
+    'disableRipple',
+    'tabIndex',
+    'active',
+    'id',
+    'routerLink',
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'tab-link.html',
