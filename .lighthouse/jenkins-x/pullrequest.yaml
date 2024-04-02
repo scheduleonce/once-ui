@@ -290,7 +290,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.18.2
+          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.20.0
           name: unit-tests
         - args:
           - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
