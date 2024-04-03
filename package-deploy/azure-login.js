@@ -3,11 +3,12 @@ let path = require('path');
 
 let token = '';
 
-process.argv.forEach(function(val, index, array) {
+process.argv.forEach(function (val, index, array) {
   if (index == 2) token = btoa(val);
 });
 
-let registry = 'https://pkgs.dev.azure.com/oncehub/pkg/_packaging/node_package/npm/registry/';
+let registry =
+  'https://pkgs.dev.azure.com/oncehub/pkg/_packaging/node_package/npm/registry/';
 
 var configPath = '/workspace/source/.npmrc'; // Same as workingDir path in .lighthouse/jenkinsx/release.yaml
 
