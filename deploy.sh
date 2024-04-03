@@ -10,7 +10,6 @@ filename="$(npm pack --dry-run | tail -n 1)"
 
 #for Azure Artifacts
 node package-deploy/azure-login.js $(cat "/etc/azure-artifact-cred/AZURE-ARTIFACT-AUTH-TOKEN")
-npm i
 npm config list
 
 echo "$1"
