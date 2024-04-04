@@ -269,20 +269,20 @@ spec:
           name: docker-build
           resources: {}
         - args:
-          - chown root:root . && sh deploy-azure.sh $PULL_BASE_REF
-          command:
-          - /bin/sh
-          - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
-          name: package-build-publish-azure
-          resources: {}
-        - args:
           - sh deploy-npm.sh $PULL_BASE_REF
           command:
           - /bin/sh
           - -c
           image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.16.0
           name: package-build-publish-npm
+          resources: {}
+        - args:
+          - chown root:root . && sh deploy-azure.sh $PULL_BASE_REF
+          command:
+          - /bin/sh
+          - -c
+          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
+          name: package-build-publish-azure
           resources: {}
         volumes:
         - emptyDir: {}
