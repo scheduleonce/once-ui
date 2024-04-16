@@ -184,6 +184,17 @@ export class OuiDialog implements OnDestroy {
     return this.openDialogs.find((dialog) => dialog.id === id);
   }
 
+  /**
+   * Dynamically adds or removes focus from all open dialog containers.
+   *
+   * @param addFocus Whether to add focus (true) or remove focus (false).
+   */
+  toggleFocus(addFocus: boolean): void {
+    this.openDialogs.forEach((dialogRef) => {
+      dialogRef._containerInstance._toggleFocus(addFocus);
+    });
+  }
+
   ngOnDestroy() {
     // Only close the dialogs at this level on destroy
     // since the parent service may still be active.
