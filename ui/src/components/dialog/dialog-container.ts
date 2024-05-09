@@ -169,7 +169,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   public _toggleFocus(addFocus: boolean): void {
     if (addFocus) {
       console.log('adding focus in dialog');
-      this._trapFocus(); // Add focus
+      this._addFocusTrap(); // Add focus
     } else {
       console.log('removing focus from dialog');
       this._removeFocusTrap(); // Remove focus
