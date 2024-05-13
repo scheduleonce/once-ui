@@ -1394,10 +1394,6 @@ export class OuiSelect
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
     }
-    const actionItemsQueryString = '.oui-select-action-items';
-    if (this._document.querySelector(actionItemsQueryString)) {
-      this.scrollCalc(actionItemsQueryString);
-    }
   }
   scrollCalc(selectQueryString: string) {
     const searchInput = this._document.querySelector(selectQueryString);
@@ -1410,7 +1406,7 @@ export class OuiSelect
     if (scrollbarWidth > 5) {
       searchInput.style.width = `${inner.offsetWidth}px`;
     } else {
-      searchInput.style.width = `calc(100% + 8px)`;
+      searchInput.style.width = '100%';
     }
   }
 
@@ -1431,12 +1427,37 @@ export class OuiSelect
       this.options,
       this.optionGroups
     );
+
+    const optionElement = this._document.querySelector(
+      '.oui-option'
+    ) as HTMLElement;
+    const selectActionWrapperElement = this._document.querySelector(
+      '.oui-select-action-wrapper'
+    ) as HTMLElement;
+    const selectPanelElement = this._document.querySelector(
+      '.oui-select-panel'
+    ) as HTMLElement;
+    const selectSearchBox = this._document.querySelector(
+      '.oui-select-search-inner'
+    ) as HTMLElement;
+    const labelHeight = labelCount ? (labelCount - 1) * 10 : 0;
+    const optionHeight = optionElement?.clientHeight || SELECT_OPTION_HEIGHT;
+    const ouiSelectActionWrapperHeight =
+      selectActionWrapperElement?.clientHeight ?? 0;
+    const selectSearchBoxheight = selectSearchBox?.clientHeight - 10 || 0;
+    const selectPanelHeight =
+      selectPanelElement?.clientHeight -
+        ouiSelectActionWrapperHeight -
+        selectSearchBoxheight -
+        20 -
+        labelHeight || SELECT_PANEL_HEIGHT;
+
     const scrollTop = this._getScrollTop();
     const newScrollPosition = _getOptionScrollPosition(
       index + labelCount,
-      SELECT_OPTION_HEIGHT,
+      optionHeight,
       scrollTop,
-      SELECT_PANEL_HEIGHT
+      selectPanelHeight
     );
     this._setScrollTop(newScrollPosition);
   }
@@ -1447,12 +1468,15 @@ export class OuiSelect
    */
   _setScrollTop(scrollTop: number): void {
     if (this.panel) {
-      this.panel.nativeElement.scrollTop = scrollTop;
+      this.panel.nativeElement.querySelector('.oui-select-options').scrollTop =
+        scrollTop;
     }
   }
 
   /** Returns the panel's scrollTop. */
   _getScrollTop(): number {
-    return this.panel ? this.panel.nativeElement.scrollTop : 0;
+    return this.panel
+      ? this.panel.nativeElement.querySelector('.oui-select-options').scrollTop
+      : 0;
   }
 }

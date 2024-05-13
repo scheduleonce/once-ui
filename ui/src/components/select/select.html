@@ -48,8 +48,11 @@
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
     [class.oui-select-has-a-panel]="panelClass"
     [class.oui-select-large]="large"
+    [class.action-item]="actionItems"
   >
-    <ng-content></ng-content>
+    <div class="oui-select-options">
+      <ng-content></ng-content>
+    </div>
     <div *ngIf="actionItems" class="oui-select-action-wrapper">
       <div class="oui-select-action-items">
         <button
