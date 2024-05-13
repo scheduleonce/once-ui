@@ -237,10 +237,10 @@ export class OuiSelect
   private _placeholder: string;
 
   /** The label displayed on the cancel button of the select in case of multi-select. */
-  private _cancelLabel: string = 'Cancel';
+  private _cancelLabel = 'Cancel';
 
   /** The label displayed on the done button of the select in case of multi-select. */
-  private _doneLabel: string = 'Done';
+  private _doneLabel = 'Done';
 
   /** Whether the component is in multiple selection mode. */
   private _multiple = false;
