@@ -58,7 +58,7 @@
           color="primary"
           (click)="discardRecentChanges()"
         >
-          Cancel</button
+          {{cancelLabel}}</button
         ><button
           #ddDoneButton
           oui-button
@@ -66,7 +66,7 @@
           [disabled]="disableDoneButton"
           (click)="doneRecentChanges()"
         >
-          Done
+          {{doneLabel}}
         </button>
       </div>
     </div>
