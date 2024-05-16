@@ -236,6 +236,12 @@ export class OuiSelect
   /** The placeholder displayed in the trigger of the select. */
   private _placeholder: string;
 
+  /** The label displayed on the cancel button of the select in case of multi-select. */
+  private _cancelLabel = 'Cancel';
+
+  /** The label displayed on the done button of the select in case of multi-select. */
+  private _doneLabel = 'Done';
+
   /** Whether the component is in multiple selection mode. */
   private _multiple = false;
 
@@ -458,6 +464,26 @@ export class OuiSelect
   }
   set placeholder(value: string) {
     this._placeholder = value;
+    this.stateChanges.next();
+  }
+
+  /** In case of multiple the cancelLabel to be shown on cancel action button. */
+  @Input()
+  get cancelLabel(): string {
+    return this._cancelLabel;
+  }
+  set cancelLabel(value: string) {
+    this._cancelLabel = value;
+    this.stateChanges.next();
+  }
+
+  /** In case of multiple the doneLabel to be shown on apply action button. */
+  @Input()
+  get doneLabel(): string {
+    return this._doneLabel;
+  }
+  set doneLabel(value: string) {
+    this._doneLabel = value;
     this.stateChanges.next();
   }
 
