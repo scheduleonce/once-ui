@@ -59,6 +59,7 @@ export const OuiButtonMixinBase: CanDisableCtor &
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[disabled]': 'disabled || null',
+    '[tabindex]': 'tabIndex || 0',
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
