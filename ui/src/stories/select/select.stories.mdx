@@ -137,6 +137,9 @@ Multi select:
         'Biryani',
         'Sweets',
       ],
+      cancelLabel: 'Discard',
+      doneLabel: 'Apply',
+      allowNoSelection: false
     }}
     argTypes={{
       theme: {
@@ -156,7 +159,7 @@ Multi select:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [disabled]="disabled">
+        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [allowNoSelection]="allowNoSelection" [disabled]="disabled" [cancelLabel]="cancelLabel" [doneLabel]="doneLabel">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
