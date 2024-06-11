@@ -1453,10 +1453,7 @@ export class OuiSelect
       this.options,
       this.optionGroups
     );
-
-    const optionElement = this._document.querySelector(
-      '.oui-option'
-    ) as HTMLElement;
+    const selectedOption = manager.activeItem?._getHostElement();
     const selectActionWrapperElement = this._document.querySelector(
       '.oui-select-action-wrapper'
     ) as HTMLElement;
@@ -1466,8 +1463,11 @@ export class OuiSelect
     const selectSearchBox = this._document.querySelector(
       '.oui-select-search-inner'
     ) as HTMLElement;
+    const selectOptionsWrapper = this._document.querySelector(
+      '.oui-select-options-wrapper'
+    ) as HTMLElement;
     const labelHeight = labelCount ? (labelCount - 1) * 10 : 0;
-    const optionHeight = optionElement?.clientHeight || SELECT_OPTION_HEIGHT;
+    const optionHeight = selectedOption?.clientHeight || SELECT_OPTION_HEIGHT;
     const ouiSelectActionWrapperHeight =
       selectActionWrapperElement?.clientHeight ?? 0;
     const selectSearchBoxheight = selectSearchBox?.clientHeight - 10 || 0;
@@ -1477,13 +1477,18 @@ export class OuiSelect
         selectSearchBoxheight -
         20 -
         labelHeight || SELECT_PANEL_HEIGHT;
-
+    const selectOptionsWrapperRect =
+      selectOptionsWrapper.getBoundingClientRect();
+    const selectedOptionRect = selectedOption.getBoundingClientRect();
+    const selectedOptionOffset =
+      selectedOptionRect.top - selectOptionsWrapperRect.top - 10;
     const scrollTop = this._getScrollTop();
     const newScrollPosition = _getOptionScrollPosition(
       index + labelCount,
       optionHeight,
       scrollTop,
-      selectPanelHeight
+      selectPanelHeight,
+      selectedOptionOffset
     );
     this._setScrollTop(newScrollPosition);
   }
