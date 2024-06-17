@@ -1481,9 +1481,9 @@ export class OuiSelect
       selectOptionsWrapper?.getBoundingClientRect();
     const selectedOptionRect = selectedOption?.getBoundingClientRect();
     const selectedOptionOffset =
-      selectedOptionRect.top -
+      selectedOptionRect?.top -
       selectSearchBoxheight -
-      selectOptionsWrapperRect.top -
+      selectOptionsWrapperRect?.top -
       10;
     const scrollTop = this._getScrollTop();
     const newScrollPosition = _getOptionScrollPosition(
