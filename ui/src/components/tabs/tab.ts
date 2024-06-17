@@ -29,6 +29,7 @@ import { OUI_TAB, OuiTabLabel } from './tab-label';
 import { CanDisable, mixinColor } from '../core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class OuiTabsBase {
   constructor(public _elementRef: ElementRef) {}
@@ -86,8 +87,11 @@ export class OuiTab
   /** Template inside the OuiTab view that contains an `<ng-content>`. */
   @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
+  @ViewChild('printSection') printSectionRef: ElementRef;
+
   /** Plain text label for the tab, used when there is no template label. */
   @Input('label') textLabel = '';
+  @Input('title') titleLabel = '';
 
   contentWithin = '';
 
@@ -146,6 +150,7 @@ export class OuiTab
   constructor(
     private _viewContainerRef: ViewContainerRef,
     @Inject(OUI_TAB_GROUP) @Optional() public _closestTabGroup: any,
+    private sanitized: DomSanitizer,
     _elementRef: ElementRef
   ) {
     super(_elementRef);
@@ -178,7 +183,12 @@ export class OuiTab
   }
 
   ngOnInit(): void {
-    this.contentWithin = this._elementRef.nativeElement.innerHTML;
+    setTimeout(() => {
+      this.contentWithin = this.sanitized.bypassSecurityTrustHtml(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        this._elementRef.nativeElement.innerHTML
+      )['changingThisBreaksApplicationSecurity'];
+    });
     this._contentPortal = new TemplatePortal(
       this._explicitContent || this._implicitContent,
       this._viewContainerRef,

@@ -35,6 +35,7 @@ import {
 } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { ouiTabsAnimations } from './tabs-animations';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * The portal host directive for the contents of the tab.
@@ -144,7 +145,7 @@ export class OuiTabBody implements OnInit, OnDestroy {
   @ViewChild(CdkPortalOutlet) _portalHost: CdkPortalOutlet;
 
   /** The tab body content to display. */
-  @Input('content') _content: any;
+  @Input('content') _content: string;
 
   /** Position that will be used when the tab is immediately becoming visible after creation. */
   @Input() origin: number | null;
@@ -168,7 +169,8 @@ export class OuiTabBody implements OnInit, OnDestroy {
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
     @Optional() private _dir: Directionality,
-    changeDetectorRef: ChangeDetectorRef
+    changeDetectorRef: ChangeDetectorRef,
+    private sanitized: DomSanitizer
   ) {
     if (_dir) {
       this._dirChangeSubscription = _dir.change.subscribe((dir: Direction) => {
@@ -211,7 +213,9 @@ export class OuiTabBody implements OnInit, OnDestroy {
     if (this._position == 'center' && this.origin != null) {
       this._position = this._computePositionFromOrigin(this.origin);
     }
-    this._innerContent = this._content ? this._content : '';
+    this._innerContent = this.sanitized.bypassSecurityTrustHtml(
+      this._content ? this._content : ''
+    );
   }
 
   ngOnDestroy() {
