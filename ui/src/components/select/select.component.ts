@@ -1478,8 +1478,8 @@ export class OuiSelect
         20 -
         labelHeight || SELECT_PANEL_HEIGHT;
     const selectOptionsWrapperRect =
-      selectOptionsWrapper.getBoundingClientRect();
-    const selectedOptionRect = selectedOption.getBoundingClientRect();
+      selectOptionsWrapper?.getBoundingClientRect();
+    const selectedOptionRect = selectedOption?.getBoundingClientRect();
     const selectedOptionOffset =
       selectedOptionRect.top -
       selectSearchBoxheight -
