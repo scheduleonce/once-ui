@@ -17,10 +17,12 @@ import {
   // forwardRef,
   Inject,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Optional,
   Output,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
@@ -111,7 +113,7 @@ export type OuiTabBodyPositionState =
     class: 'oui-mdc-tab-body',
   },
 })
-export class OuiTabBody implements OnInit, OnDestroy {
+export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
   private _positionIndex: number;
 
@@ -216,6 +218,15 @@ export class OuiTabBody implements OnInit, OnDestroy {
     this._innerContent = this.sanitized.bypassSecurityTrustHtml(
       this._content ? this._content : ''
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes._content && changes._content.currentValue) {
+      this._innerContent = this.sanitized.bypassSecurityTrustHtml(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        changes._content.currentValue ? changes._content.currentValue : ''
+      );
+    }
   }
 
   ngOnDestroy() {
