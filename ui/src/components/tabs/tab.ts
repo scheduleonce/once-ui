@@ -162,6 +162,12 @@ export class OuiTab
       Object.prototype.hasOwnProperty.call(changes, 'textLabel') ||
       Object.prototype.hasOwnProperty.call(changes, 'disabled')
     ) {
+      setTimeout(() => {
+        this.contentWithin = this.sanitized.bypassSecurityTrustHtml(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          this._elementRef.nativeElement.innerHTML
+        )['changingThisBreaksApplicationSecurity'];
+      });
       this._stateChanges.next();
     }
     if (
