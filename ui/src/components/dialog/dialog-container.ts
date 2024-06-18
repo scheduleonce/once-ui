@@ -162,6 +162,19 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   }
 
   /**
+   * Dynamically adds or removes focus from the dialog container.
+   *
+   * @param addFocus Whether to add focus (true) or remove focus (false).
+   */
+  public _toggleFocus(addFocus: boolean): void {
+    if (addFocus) {
+      this._addFocusTrap(); // Add focus
+    } else {
+      this._removeFocusTrap(); // Remove focus
+    }
+  }
+
+  /**
    * Setting up the focus trap and saves a reference to the element that was focused before the dialog was open.
    */
   private _addFocusTrap() {
@@ -188,5 +201,17 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     const element = this.elementRef.nativeElement as HTMLElement;
     const activeElement = this._document.activeElement;
     return element === activeElement || element.contains(activeElement);
+  }
+
+  /**
+   * Removes the focus trap from the dialog.
+   * This method is called to clean up resources and ensure the dialog no longer traps focus.
+   */
+  private _removeFocusTrap() {
+    if (this._focusTrap) {
+      this._focusTrap.destroy();
+      // Clear the reference to help with garbage collection
+      this._focusTrap = null;
+    }
   }
 }
