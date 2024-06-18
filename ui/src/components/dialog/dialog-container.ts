@@ -205,11 +205,15 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
     return element === activeElement || element.contains(activeElement);
   }
 
+  /**
+   * Removes the focus trap from the dialog.
+   * This method is called to clean up resources and ensure the dialog no longer traps focus.
+   */
   private _removeFocusTrap() {
     if (this._focusTrap) {
       this._focusTrap.destroy();
-      this._focusTrap = null; // Optionally, clear the reference
-      console.log('focus trap removed from dialog');
+      // Clear the reference to help with garbage collection
+      this._focusTrap = null;
     }
   }
 }
