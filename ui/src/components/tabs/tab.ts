@@ -87,11 +87,8 @@ export class OuiTab
   /** Template inside the OuiTab view that contains an `<ng-content>`. */
   @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
-  @ViewChild('printSection') printSectionRef: ElementRef;
-
   /** Plain text label for the tab, used when there is no template label. */
   @Input('label') textLabel = '';
-  @Input('title') titleLabel = '';
 
   contentWithin = '';
 

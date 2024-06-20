@@ -1,15 +1,62 @@
 import { Component } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { OuiIconRegistry } from '../../components';
 
 @Component({
   selector: 'oui-tab-storybook',
   template: `
-    <oui-tab-group oui-stretch-tabs="false" oui-align-tabs="start">
-      <oui-tab label="First1"><h2>Content in tab 1</h2></oui-tab>
-      <oui-tab label="Second"><h2>Content in tab 2</h2></oui-tab>
-      <oui-tab label="Third"><h2>Content in tab 3</h2></oui-tab>
-    </oui-tab-group>
+    <nav oui-tab-nav-bar oui-align-tabs="start">
+      <a
+        oui-tab-link
+        (click)="onTabChange('first')"
+        (keyup.enter)="onTabChange('first')"
+        (keyup.space)="onTabChange('first')"
+        class="hover:tw-no-underline focus:tw-no-underline !tw-pt-[14px]"
+        [ngClass]="{
+          active: selectedTab === 'first'
+        }"
+      >
+        Tab 1
+      </a>
+      <a
+        oui-tab-link
+        (click)="onTabChange('second')"
+        (keyup.enter)="onTabChange('second')"
+        (keyup.space)="onTabChange('second')"
+        class="hover:tw-no-underline focus:tw-no-underline !tw-pt-[14px]"
+        [ngClass]="{
+          active: selectedTab === 'second'
+        }"
+      >
+        Tab 2
+      </a>
+    </nav>
+
+    <ng-container [ngSwitch]="selectedTab">
+      <ng-container *ngSwitchCase="'first'">
+        <oui-icon svgIcon="preview"></oui-icon>
+        First tab selected
+      </ng-container>
+      <ng-container *ngSwitchCase="'second'">
+        Second tab selected
+      </ng-container>
+    </ng-container>
   `,
 })
 export class OuiTabStorybook {
-  constructor() {}
+  selectedTab = 'first';
+  constructor(
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.ouiIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?81ot1f'
+      )
+    );
+  }
+
+  onTabChange(id: string) {
+    this.selectedTab = id;
+  }
 }
