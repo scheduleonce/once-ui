@@ -16,3 +16,10 @@
 .oui-mdc-tab-link.active .mdc-tab-indicator__content {
   opacity: 1;
 }
+
+.oui-mdc-tab-nav-bar[oui-align-tabs='start'] {
+  justify-content: flex-start;
+}
+.oui-mdc-tab-nav-bar[oui-align-tabs='end'] {
+  justify-content: flex-end;
+}

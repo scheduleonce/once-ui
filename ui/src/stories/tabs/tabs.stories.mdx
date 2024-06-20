@@ -3,6 +3,7 @@ import {
   OuiTabsModule,
   OuiTab
 } from '../../components/tabs/module';
+import { OuiIconModule } from '../../components'
 import { OuiTabStorybook } from './tabs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { action } from '@storybook/addon-actions';
@@ -10,7 +11,7 @@ import { THEME } from '../const';
 
 <Meta title="Tab"/>
 
-# Card
+# Tabs
 
 <Canvas>
   <Story
@@ -39,7 +40,7 @@ import { THEME } from '../const';
   >
     {(props) => ({
       moduleMetadata: {
-        imports: [OuiTabsModule, BrowserAnimationsModule],
+        imports: [OuiTabsModule, OuiIconModule, BrowserAnimationsModule],
         schemas: [],
         declarations: [OuiTabStorybook],
       },
