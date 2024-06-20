@@ -111,10 +111,6 @@ export class OuiSelectSearchComponent
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
     }
-    const actionItemsQueryString = '.oui-select-action-items';
-    if (this._document.querySelector(actionItemsQueryString)) {
-      this.scrollCalc(actionItemsQueryString);
-    }
   }
   scrollCalc(selectQueryString: string) {
     const searchInput = this._document.querySelector(selectQueryString);
@@ -127,7 +123,7 @@ export class OuiSelectSearchComponent
     if (scrollbarWidth > 5) {
       searchInput.style.width = `${inner.offsetWidth}px`;
     } else {
-      searchInput.style.width = `calc(100% + 8px)`;
+      searchInput.style.width = '100%';
     }
   }
 
