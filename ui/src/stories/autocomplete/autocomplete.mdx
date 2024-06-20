@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { action } from '@storybook/addon-actions';
+import { STATEGROUPS, OPTIONS } from './const';
+import { APPEARANCE } from '../const';
+import {
+  OuiAutocompleteModule,
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiAutocomplete,
+} from '../../components';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  OuiAutocompleteStorybook,
+  OuiAutocompleteGroupStorybook,
+} from './autocomplete.component';
+import * as AutocompleteStories from './autocomplete.stories';
+
+<Meta of={AutocompleteStories} />
+
+# Autocomplete
+
+The autocomplete is a normal text input enhanced by a panel of suggested options. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/autocomplete/README.md
+
+Regular Input field
+
+<Canvas>
+  <Story of={AutocompleteStories.Regular} />
+</Canvas>
+
+With Group
+
+<Canvas>
+  <Story of={AutocompleteStories.WithGroup} />
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-autocomplete
+
+<Controls />

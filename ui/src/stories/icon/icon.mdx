@@ -1,0 +1,30 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { OuiIconModule, Icon } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
+import { OuiiconStorybook } from './icon.component';
+import * as IconStories from './icon.stories';
+
+<Meta of={IconStories} />
+
+# Icon
+
+OuiIcon component to display an icon. It can be used in the following ways:
+
+Specify the svgIcon input to load an SVG icon from a URL previously registered with the addSvgIcon, addSvgIconSet. Examples: `<oui-icon svgIcon="[name]"></oui-icon> <oui-icon svgIcon="building"></oui-icon>`. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/icon/README.md
+
+Icon with Default color:
+
+<Canvas>
+  <Story of={IconStories.DefaultColor} />
+</Canvas>
+
+You can change size and use specific colors on `Icon` component by using css:
+
+<Canvas>
+  <Story of={IconStories.CustomIcon} />
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-icons
+
+<Controls />

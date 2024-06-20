@@ -1,0 +1,50 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { OuiButtonModule, OuiButton, OuiIconModule } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { COLORS, THEME } from '../const';
+import { OuiIconButtonStorybook } from './button.component';
+import * as ButtonStories from './button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The Once UI buttons are native `<button>` or `<a>` elements with oncehub styling and other utilities.
+
+Native `<button>` or `<a>` elements are always used in order to provide the most straightforward and accessible experience for users. A `<button>` element should be used whenever some action is performed. An `<a>` element should be used whenever the user will navigate to another view. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/button/README.md
+
+There are several `<button>` variants, each applied as an attribute
+
+Regular button:
+
+<Canvas>
+  <Story of={ButtonStories.Regular} />
+</Canvas>
+
+Link button:
+
+<Canvas>
+  <Story of={ButtonStories.Link} />
+</Canvas>
+
+Ghost button:
+
+<Canvas>
+  <Story of={ButtonStories.Ghost} />
+</Canvas>
+
+Progress button:
+
+<Canvas>
+  <Story of={ButtonStories.Progress} />
+</Canvas>
+
+Icon button:
+
+<Canvas>
+  <Story of={ButtonStories.Icon} />
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-button
+
+<Controls />

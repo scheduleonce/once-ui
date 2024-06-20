@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiTooltipModule,
+  OuiIconModule,
+  OuiFormField,
+} from '../../components';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { action } from '@storybook/addon-actions';
+import { TOOLTIPPOSITION, THEME } from '../const';
+import { OuiTooltipStorybook } from './tooltip.component';
+import * as TooltipStories from './tooltip.stories.ts';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+The `oui-tooltip` provides a text label that is displayed when the user hovers over an element. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/tooltip/README.md
+
+<Canvas>
+  <Story of={TooltipStories.Regular} />
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-tooltip
+
+<Controls />

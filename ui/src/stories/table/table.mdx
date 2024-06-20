@@ -1,0 +1,43 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiIconModule,
+  OuiTableModule,
+  OuiPaginatorModule,
+  OuiSortModule,
+  OuiInputModule,
+  OuiTooltipModule,
+  OuiTable,
+} from '../../components';
+import * as TableStories from './table.stories';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NAMES, COLORS, USERINFODATASOURCE } from './const';
+import {
+  OuiTableStorybook,
+  OuiTableCustomStorybook,
+  userData,
+} from './table.component';
+
+<Meta of={TableStories} />
+
+# Table
+
+The `oui-table` provides data table that can be used to display rows of data.
+
+See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/table/README.md
+
+Regular Table:
+
+<Canvas>
+  <Story of={TableStories.Regular} />
+</Canvas>
+
+Custom Table:
+
+<Canvas>
+  <Story of={TableStories.Custom} />
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-table
+
+<Controls />
