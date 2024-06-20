@@ -341,9 +341,10 @@ export function _getOptionScrollPosition(
   optionIndex: number,
   optionHeight: number,
   currentScrollPosition: number,
-  panelHeight: number
+  panelHeight: number,
+  selectedOptionOffset?: number
 ): number {
-  const optionOffset = optionIndex * optionHeight;
+  const optionOffset = selectedOptionOffset || optionIndex * optionHeight;
 
   if (optionOffset < currentScrollPosition) {
     return optionOffset;

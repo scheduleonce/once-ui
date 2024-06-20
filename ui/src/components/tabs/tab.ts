@@ -29,6 +29,7 @@ import { OUI_TAB, OuiTabLabel } from './tab-label';
 import { CanDisable, mixinColor } from '../core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class OuiTabsBase {
   constructor(public _elementRef: ElementRef) {}
@@ -146,6 +147,7 @@ export class OuiTab
   constructor(
     private _viewContainerRef: ViewContainerRef,
     @Inject(OUI_TAB_GROUP) @Optional() public _closestTabGroup: any,
+    private sanitized: DomSanitizer,
     _elementRef: ElementRef
   ) {
     super(_elementRef);
@@ -157,6 +159,12 @@ export class OuiTab
       Object.prototype.hasOwnProperty.call(changes, 'textLabel') ||
       Object.prototype.hasOwnProperty.call(changes, 'disabled')
     ) {
+      setTimeout(() => {
+        this.contentWithin = this.sanitized.bypassSecurityTrustHtml(
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          this._elementRef.nativeElement.innerHTML
+        )['changingThisBreaksApplicationSecurity'];
+      });
       this._stateChanges.next();
     }
     if (
@@ -178,7 +186,12 @@ export class OuiTab
   }
 
   ngOnInit(): void {
-    this.contentWithin = this._elementRef.nativeElement.innerHTML;
+    setTimeout(() => {
+      this.contentWithin = this.sanitized.bypassSecurityTrustHtml(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        this._elementRef.nativeElement.innerHTML
+      )['changingThisBreaksApplicationSecurity'];
+    });
     this._contentPortal = new TemplatePortal(
       this._explicitContent || this._implicitContent,
       this._viewContainerRef,
