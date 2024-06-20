@@ -17,10 +17,12 @@ import {
   // forwardRef,
   Inject,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
   Optional,
   Output,
+  SimpleChanges,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
@@ -35,6 +37,7 @@ import {
 } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { ouiTabsAnimations } from './tabs-animations';
+import { DomSanitizer } from '@angular/platform-browser';
 
 /**
  * The portal host directive for the contents of the tab.
@@ -110,7 +113,7 @@ export type OuiTabBodyPositionState =
     class: 'oui-mdc-tab-body',
   },
 })
-export class OuiTabBody implements OnInit, OnDestroy {
+export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
   private _positionIndex: number;
 
@@ -144,7 +147,7 @@ export class OuiTabBody implements OnInit, OnDestroy {
   @ViewChild(CdkPortalOutlet) _portalHost: CdkPortalOutlet;
 
   /** The tab body content to display. */
-  @Input('content') _content: any;
+  @Input('content') _content: string;
 
   /** Position that will be used when the tab is immediately becoming visible after creation. */
   @Input() origin: number | null;
@@ -168,7 +171,8 @@ export class OuiTabBody implements OnInit, OnDestroy {
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
     @Optional() private _dir: Directionality,
-    changeDetectorRef: ChangeDetectorRef
+    changeDetectorRef: ChangeDetectorRef,
+    private sanitized: DomSanitizer
   ) {
     if (_dir) {
       this._dirChangeSubscription = _dir.change.subscribe((dir: Direction) => {
@@ -211,7 +215,18 @@ export class OuiTabBody implements OnInit, OnDestroy {
     if (this._position == 'center' && this.origin != null) {
       this._position = this._computePositionFromOrigin(this.origin);
     }
-    this._innerContent = this._content ? this._content : '';
+    this._innerContent = this.sanitized.bypassSecurityTrustHtml(
+      this._content ? this._content : ''
+    );
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes._content && changes._content.currentValue) {
+      this._innerContent = this.sanitized.bypassSecurityTrustHtml(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        changes._content.currentValue ? changes._content.currentValue : ''
+      );
+    }
   }
 
   ngOnDestroy() {
