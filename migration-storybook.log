@@ -230,3 +230,237 @@ SyntaxError: .eslintrc.json: Unexpected token / in JSON at position 1027
 │                                                                                                                                                               │
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
+╭───────────────────────────────────────────────────────────────╮
+│                                                               │
+│   Upgrading Storybook from version 0.0.0 to version 8.1.8..   │
+│                                                               │
+╰───────────────────────────────────────────────────────────────╯
+info Checking for upgrade blockers...
+No blockers found.
+
+info Updating dependencies in package.json..
+Installing dependencies...
+
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: '@es-joy/jsdoccomment@0.36.1',
+npm WARN EBADENGINE   required: { node: '^14 || ^16 || ^17 || ^18 || ^19' },
+npm WARN EBADENGINE   current: { node: 'v20.14.0', npm: '10.5.0' }
+npm WARN EBADENGINE }
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'eslint-plugin-jsdoc@39.6.4',
+npm WARN EBADENGINE   required: { node: '^14 || ^16 || ^17 || ^18 || ^19' },
+npm WARN EBADENGINE   current: { node: 'v20.14.0', npm: '10.5.0' }
+npm WARN EBADENGINE }
+
+removed 6 packages, changed 2 packages, and audited 2081 packages in 49s
+
+377 packages are looking for funding
+  run `npm fund` for details
+
+9 vulnerabilities (3 moderate, 5 high, 1 critical)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+Some issues need review, and may require choosing
+a different dependency.
+
+Run `npm audit` for details.
+🔎 checking possible migrations..
+
+🔎 found a 'remove-argtypes-regex' migration:
+╭ Manual migration detected ───────────────────────────────────────────────────────────────────╮
+│                                                                                              │
+│   Attention: We've detected that you're using argTypesRegex:                                 │
+│                                                                                              │
+│   .storybook\preview.js                                                                      │
+│      5 |                                                                                     │
+│      6 | export const parameters = {                                                         │
+│   >  7 |   actions: { argTypesRegex: '^on[A-Z].*' },                                         │
+│        |              ^^^^^^^^^^^^^                                                          │
+│      8 |   controls: {                                                                       │
+│      9 |     matchers: {                                                                     │
+│     10 |       color: /(background|color)$/i,                                                │
+│                                                                                              │
+│   Storybook's play functions let you render your stories interactively.                      │
+│                                                                                              │
+│   In the past, play functions mocked action args implicitly by analyzing the argTypesRegex   │
+│   in your preview.js|ts file.                                                                │
+│                                                                                              │
+│   However, Storybook 8 changes this behavior, and we now recommend using the                 │
+│   (fn) function to mock your component's methods instead.                                    │
+│                                                                                              │
+│   Use the following command to check for implied mocked actions in your play functions:      │
+│   npx storybook migrate find-implicit-spies --glob="**/*.stories.@(js|jsx|ts|tsx)"           │
+│                                                                                              │
+│   Then, refer to our docs to migrate your play functions to Storybook 8:                     │
+│   https://storybook.js.org/docs/8.0/essentials/actions#via-storybooktest-fn-spy-function     │
+│                                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────────────────────╯
+
+√ Select continue once you have made the required changes, or quit to exit the migration process ... quit / continue
+
+🔎 found a 'mdx-to-csf' migration:
+╭ Automigration detected ──────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                      │
+│   We've detected your project has one or more globs in your 'stories' config that matches .stories.mdx files:        │
+│   "../ui/src/stories/**/*.stories.mdx"                                                                               │
+│   "../ui/src/stories/**/*.stories.@(js|jsx|ts|tsx)"                                                                  │
+│                                                                                                                      │
+│   In Storybook 7, we have deprecated defining stories in MDX files, and consequently have changed the suffix to      │
+│   simply .mdx. Since Storybook 8, we have removed the support of story definition in MDX files entirely. Therefore   │
+│   '.stories.mdx' files aren't supported anymore.                                                                     │
+│                                                                                                                      │
+│   Now, since Storybook 8.0, we have removed support for .stories.mdx files.                                          │
+│                                                                                                                      │
+│   We can automatically migrate your 'stories' config to include any .mdx file instead of just .stories.mdx.          │
+│   That would result in the following 'stories' config:                                                               │
+│   "../ui/src/stories/**/*.mdx"                                                                                       │
+│   "../ui/src/stories/**/*.stories.@(js|jsx|ts|tsx)"                                                                  │
+│                                                                                                                      │
+│   Additionally, we will run the 'mdx-to-csf' codemod for you, which tries to transform '*.stories.mdx' files to      │
+│   '*.stories.js' and '*.mdx' files.                                                                                  │
+│                                                                                                                      │
+│   To learn more about this change, see: https://storybook.js.org/docs/migration-guide#storiesmdx-to-mdxcsf           │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+√ Do you want to run the 'mdx-to-csf' migration on your project? ... yes
+✅ Setting 'stories' config:
+[
+  "../ui/src/stories/**/*.mdx",
+  "../ui/src/stories/**/*.stories.@(js|jsx|ts|tsx)"
+]
+√ Please enter the glob for your MDX stories ... ./src/**/*.stories.mdx
+=> Applying mdx-to-csf: 0 files
+=> No matching files for glob: ./src/**/*.stories.mdx
+The migration successfully updated your 'stories' config to include any .mdx file instead of just .stories.mdx.
+
+It also ran the 'mdx-to-csf' codemod to convert your MDX stories to CSF format.
+This codemod is not perfect however, so you may need to manually fix any issues it couldn't handle.
+✅ ran mdx-to-csf migration
+
+🔎 found a 'remove-react-dependency' migration:
+╭ Manual migration detected ───────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                      │
+│   We detected that your project has a dependency for "react" that it might not need.                                 │
+│   Nothing breaks by having it, you can safely ignore this message, if you wish.                                      │
+│                                                                                                                      │
+│   Storybook asked you to add "react" as a direct dependency in the past when upgrading from Storybook 6 to 7.        │
+│   However, since version 8.0, Storybook no longer requires you to provide "react" as a dependency.                   │
+│   Some community addons might still wrongfully list "react" and "react-dom" as required peer dependencies, but       │
+│   since Storybook 7.6 it should not be needed in the majority of cases.                                              │
+│                                                                                                                      │
+│   If you know you are not using React outside of Storybook, it should be safe to remove the "react" and              │
+│   "react-dom" dependencies from your project's package.json.                                                         │
+│   Storybook cannot do this automatically as removing it might break your project, so it should be done manually      │
+│   with care.                                                                                                         │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+
+√ Select continue once you have made the required changes, or quit to exit the migration process ... quit / continue
+
+🔎 found a 'mdx1to3' migration:
+╭ Automigration detected ──────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                      │
+│   We've found 18 '.stories.mdx' files in your project.                                                               │
+│                                                                                                                      │
+│   Storybook has upgraded to MDX3 (https://mdxjs.com/blog/v3/). MDX3 itself doesn't contain disruptive breaking       │
+│   changes, whereas the transition from MDX1 to MDX2 was a significant change.                                        │
+│   We can try to automatically upgrade your MDX files to MDX3 format using some common patterns.                      │
+│                                                                                                                      │
+│   After this install completes, and before you start Storybook, we strongly recommend reading the MDX2 section       │
+│   of the 7.0 migration guide. It contains useful tools for detecting and fixing any remaining issues.                │
+│                                                                                                                      │
+│   https://storybook.js.org/migration-guides/7.0                                                                      │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+√ Do you want to run the 'mdx1to3' migration on your project? ... yes
+🆗 Unmodified checkbox.stories.mdx
+🆗 Unmodified button.stories.mdx
+🆗 Unmodified dialog.stories.mdx
+🆗 Unmodified form-field.stories.mdx
+🆗 Unmodified panel.stories.mdx
+🆗 Unmodified autocomplete.stories.mdx
+🆗 Unmodified menu.stories.mdx
+🆗 Unmodified progress-bar.stories.mdx
+🆗 Unmodified select.stories.mdx
+🆗 Unmodified icon.stories.mdx
+🆗 Unmodified radio.stories.mdx
+🆗 Unmodified slide-toggle.stories.mdx
+🆗 Unmodified progress-spinner.stories.mdx
+🆗 Unmodified table.stories.mdx
+🆗 Unmodified scrollbar.stories.mdx
+🆗 Unmodified tabs.stories.mdx
+🆗 Unmodified tooltip.stories.mdx
+🆗 Unmodified textarea.stories.mdx
+✅ ran mdx1to3 migration
+
+🔎 found a 'upgradeStorybookRelatedDependencies' migration:
+╭ Automigration detected ──────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                      │
+│   You're upgrading to the latest version of Storybook. We recommend upgrading the following packages:                │
+│   - eslint-plugin-storybook: 0.6.13 => 0.8.0                                                                         │
+│                                                                                                                      │
+│   After upgrading, we will run the dedupe command, which could possibly have effects on dependencies that are not    │
+│   Storybook related.                                                                                                 │
+│   see: https://docs.npmjs.com/cli/commands/npm-dedupe                                                                │
+│                                                                                                                      │
+│   Do you want to proceed (upgrade the detected packages)?                                                            │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+√ Do you want to run the 'upgradeStorybookRelatedDependencies' migration on your project? ... no
+
+🔎 found a 'visual-tests-addon' migration:
+╭ Automigration detected ──────────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                      │
+│   New to Storybook 8: Storybook's Visual Tests addon helps you catch unintentional changes/bugs in your stories.     │
+│   The addon is powered by Chromatic, a cloud-based testing tool developed by Storybook's core team.                  │
+│                                                                                                                      │
+│   Learn more: https://storybook.js.org/docs/writing-tests/visual-testing                                             │
+│                                                                                                                      │
+│   Install Visual Tests addon in your project?                                                                        │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+√ Do you want to run the 'visual-tests-addon' migration on your project? ... no
+
+🔎 found a 'autodocs-tags' migration:
+╭ Automigration detected ───────────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                   │
+│   The docs.autodocs setting in .storybook\main.js is deprecated.                                                  │
+│                                                                                                                   │
+│   Learn more: https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#mainjs-docsautodocs-is-deprecated   │
+│                                                                                                                   │
+│   Remove docs.autodocs and update .storybook\preview.js?                                                          │
+│                                                                                                                   │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+√ Do you want to run the 'autodocs-tags' migration on your project? ... yes
+✅ Adding "autodocs" tag to .storybook\preview.js
+✅ Removing "docs.autodocs" from .storybook\main.js
+✅ ran autodocs-tags migration
+
+╭ Migration check ran successfully ────────────────────────────────────────────────────────────────────────────────────╮
+│                                                                                                                      │
+│   Successful migrations:                                                                                             │
+│                                                                                                                      │
+│   mdx-to-csf, mdx1to3, autodocs-tags                                                                                 │
+│                                                                                                                      │
+│   Manual migrations:                                                                                                 │
+│                                                                                                                      │
+│   remove-argtypes-regex, remove-react-dependency                                                                     │
+│                                                                                                                      │
+│   Skipped migrations:                                                                                                │
+│                                                                                                                      │
+│   upgradeStorybookRelatedDependencies, visual-tests-addon                                                            │
+│                                                                                                                      │
+│   ─────────────────────────────────────────────────                                                                  │
+│                                                                                                                      │
+│   If you'd like to run the migrations again, you can do so by running 'npx storybook automigrate'                    │
+│                                                                                                                      │
+│   The automigrations try to migrate common patterns in your project, but might not contain everything needed to      │
+│   migrate to the latest version of Storybook.                                                                        │
+│                                                                                                                      │
+│   Please check the changelog and migration guide for manual migrations and more information:                         │
+│   https://storybook.js.org/docs/8.0/migration-guide                                                                  │
+│   And reach out on Discord if you need help: https://discord.gg/storybook                                            │
+│                                                                                                                      │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯

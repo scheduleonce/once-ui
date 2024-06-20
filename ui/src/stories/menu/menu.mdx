@@ -1,0 +1,38 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiIconModule,
+  OuiButtonModule,
+  OuiMenuModule,
+  OuiMenu,
+} from '../../components';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { action } from '@storybook/addon-actions';
+import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
+import { OuiMenuStorybook, OuiNestedMenuStorybook } from './menu.component';
+import * as MenuStories from './menu.stories';
+
+<Meta of={MenuStories} />
+
+# Menu
+
+Let's define a story for our `Menu` component:
+
+`oui-menu` is a floating panel containing list of options.
+
+The `<oui-menu>` doesn't render anything by itself. The menu is attached to and opened via application of the `ouiMenuTriggerFor` directive. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/menu/README.md
+
+Default Menu with single list:
+
+<Canvas>
+  <Story of={MenuStories.Default} />
+</Canvas>
+
+Nested Menu:
+
+<Canvas>
+  <Story of={MenuStories.NestedMenu} />
+</Canvas>
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-menu
+
+<Controls />

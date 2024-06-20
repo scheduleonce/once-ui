@@ -1,6 +1,6 @@
 module.exports = {
   stories: [
-    '../ui/src/stories/**/*.stories.mdx',
+    '../ui/src/stories/**/*.mdx',
     '../ui/src/stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
   addons: ['@storybook/addon-essentials', '@storybook/addon-mdx-gfm'],
@@ -8,7 +8,5 @@ module.exports = {
     name: '@storybook/angular',
     options: {},
   },
-  docs: {
-    autodocs: true,
-  },
+  docs: {},
 };
