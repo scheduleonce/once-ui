@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [8.0.21] - 2024-06-25
 
 - [ONCEHUB-72726] Update: Added toggle focus for dialog.
+## [8.0.21] - 2024-06-21
+
+- [ONCEHUB-83609](https://scheduleonce.atlassian.net/browse/ONCEHUB-83609) update: package update for ws and puppeteer
 
 ## [8.0.20] - 2024-06-20
 
