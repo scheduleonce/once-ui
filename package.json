@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "8.0.14",
+  "version": "8.0.20",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -42,7 +42,7 @@
     "zone.js": "^0.13.1"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^16.2.12",
+    "@angular-devkit/build-angular": "^16.2.14",
     "@angular-eslint/builder": "15.1.0",
     "@angular-eslint/eslint-plugin": "15.1.0",
     "@angular-eslint/eslint-plugin-template": "15.1.0",
@@ -52,7 +52,7 @@
     "@angular/elements": "16.1.7",
     "@angular/language-service": "16.1.7",
     "@babel/core": "7.20.5",
-    "@compodoc/compodoc": "^1.1.23",
+    "@compodoc/compodoc": "^1.1.25",
     "@storybook/addon-actions": "7.1.0",
     "@storybook/addon-controls": "7.1.0",
     "@storybook/addon-essentials": "7.1.0",
@@ -71,7 +71,7 @@
     "eslint-plugin-jsdoc": "39.6.4",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "^0.6.13",
-    "gulp": "4.0.2",
+    "gulp": "5.0.0",
     "jasmine-core": "4.1.0",
     "jasmine-spec-reporter": "7.0.0",
     "karma": "6.3.19",

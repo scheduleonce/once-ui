@@ -236,8 +236,17 @@ export class OuiSelect
   /** The placeholder displayed in the trigger of the select. */
   private _placeholder: string;
 
+  /** The label displayed on the cancel button of the select in case of multi-select. */
+  private _cancelLabel = 'Cancel';
+
+  /** The label displayed on the done button of the select in case of multi-select. */
+  private _doneLabel = 'Done';
+
   /** Whether the component is in multiple selection mode. */
   private _multiple = false;
+
+  /** In multiple selection mode, enable Done button even in case of no option selected */
+  private _allowNoSelection = false;
 
   /** Search input field **/
   isSearchFieldPresent: boolean;
@@ -461,6 +470,26 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
+  /** In case of multiple the cancelLabel to be shown on cancel action button. */
+  @Input()
+  get cancelLabel(): string {
+    return this._cancelLabel;
+  }
+  set cancelLabel(value: string) {
+    this._cancelLabel = value;
+    this.stateChanges.next();
+  }
+
+  /** In case of multiple the doneLabel to be shown on apply action button. */
+  @Input()
+  get doneLabel(): string {
+    return this._doneLabel;
+  }
+  set doneLabel(value: string) {
+    this._doneLabel = value;
+    this.stateChanges.next();
+  }
+
   /** Whether the component is required. */
   @Input()
   get required(): boolean {
@@ -482,6 +511,15 @@ export class OuiSelect
     }
 
     this._multiple = coerceBooleanProperty(value);
+  }
+
+  /** Whether the user should be allowed to select no option in case of multiple options. */
+  @Input()
+  get allowNoSelection(): boolean {
+    return this._allowNoSelection;
+  }
+  set allowNoSelection(value: boolean) {
+    this._allowNoSelection = coerceBooleanProperty(value);
   }
 
   /** Whether the action items are required and use saveSelectionChange instead of selectionChange. */
@@ -1193,7 +1231,9 @@ export class OuiSelect
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-    this.disableDoneButton = false;
+    if (this.multiple) {
+      this.disableDoneButton = this._isDoneButtonDisabled();
+    }
     this.stateChanges.next();
   }
   discardRecentChanges() {
@@ -1208,6 +1248,18 @@ export class OuiSelect
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
+
+  /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
+  private _isDoneButtonDisabled(): boolean {
+    const selectedItems = (this.selected as OuiOption[]).map(
+      (option) => option.value
+    );
+    if (this.allowNoSelection) {
+      return false;
+    }
+    return selectedItems.length === 0;
+  }
+
   /** Sorts the selected values in the selected based on their order in the panel. */
   private _sortValues() {
     if (this.multiple) {
@@ -1368,10 +1420,6 @@ export class OuiSelect
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);
     }
-    const actionItemsQueryString = '.oui-select-action-items';
-    if (this._document.querySelector(actionItemsQueryString)) {
-      this.scrollCalc(actionItemsQueryString);
-    }
   }
   scrollCalc(selectQueryString: string) {
     const searchInput = this._document.querySelector(selectQueryString);
@@ -1384,7 +1432,7 @@ export class OuiSelect
     if (scrollbarWidth > 5) {
       searchInput.style.width = `${inner.offsetWidth}px`;
     } else {
-      searchInput.style.width = `calc(100% + 8px)`;
+      searchInput.style.width = '100%';
     }
   }
 
@@ -1405,12 +1453,45 @@ export class OuiSelect
       this.options,
       this.optionGroups
     );
+    const selectedOption = manager.activeItem?._getHostElement();
+    const selectActionWrapperElement = this._document.querySelector(
+      '.oui-select-action-wrapper'
+    ) as HTMLElement;
+    const selectPanelElement = this._document.querySelector(
+      '.oui-select-panel'
+    ) as HTMLElement;
+    const selectSearchBox = this._document.querySelector(
+      '.oui-select-search-inner'
+    ) as HTMLElement;
+    const selectOptionsWrapper = this._document.querySelector(
+      '.oui-select-options-wrapper'
+    ) as HTMLElement;
+    const labelHeight = labelCount ? (labelCount - 1) * 10 : 0;
+    const optionHeight = selectedOption?.clientHeight || SELECT_OPTION_HEIGHT;
+    const ouiSelectActionWrapperHeight =
+      selectActionWrapperElement?.clientHeight ?? 0;
+    const selectSearchBoxheight = selectSearchBox?.clientHeight - 10 || 0;
+    const selectPanelHeight =
+      selectPanelElement?.clientHeight -
+        ouiSelectActionWrapperHeight -
+        selectSearchBoxheight -
+        20 -
+        labelHeight || SELECT_PANEL_HEIGHT;
+    const selectOptionsWrapperRect =
+      selectOptionsWrapper?.getBoundingClientRect();
+    const selectedOptionRect = selectedOption?.getBoundingClientRect();
+    const selectedOptionOffset =
+      selectedOptionRect?.top -
+      selectSearchBoxheight -
+      selectOptionsWrapperRect?.top -
+      10;
     const scrollTop = this._getScrollTop();
     const newScrollPosition = _getOptionScrollPosition(
       index + labelCount,
-      SELECT_OPTION_HEIGHT,
+      optionHeight,
       scrollTop,
-      SELECT_PANEL_HEIGHT
+      selectPanelHeight,
+      selectedOptionOffset
     );
     this._setScrollTop(newScrollPosition);
   }
@@ -1421,12 +1502,15 @@ export class OuiSelect
    */
   _setScrollTop(scrollTop: number): void {
     if (this.panel) {
-      this.panel.nativeElement.scrollTop = scrollTop;
+      this.panel.nativeElement.querySelector('.oui-select-options').scrollTop =
+        scrollTop;
     }
   }
 
   /** Returns the panel's scrollTop. */
   _getScrollTop(): number {
-    return this.panel ? this.panel.nativeElement.scrollTop : 0;
+    return this.panel
+      ? this.panel.nativeElement.querySelector('.oui-select-options').scrollTop
+      : 0;
   }
 }

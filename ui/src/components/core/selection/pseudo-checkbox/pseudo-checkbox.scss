@@ -34,12 +34,20 @@ $_oui-pseudo-checkmark-size: $oui-checkbox-size -
 
   // Used to render the checkmark/mixedmark inside of the box.
   &::after {
-    position: absolute;
-    opacity: 0;
     content: '';
-    border-bottom: $oui-checkbox-border-width * 2 solid #333;
-    transition: opacity $oui-checkbox-transition-duration
-      $oui-linear-out-slow-in-timing-function;
+    display: block;
+    position: absolute;
+    box-sizing: border-box;
+    transform: rotate(-45deg);
+    border-bottom: 2px solid #333;
+    border-left: 2px solid #333;
+    top: ($oui-checkbox-size * 0.5) - ($_oui-pseudo-checkmark-size * 0.25) -
+      ($oui-checkbox-size * 0.05) - $oui-checkbox-border-width;
+    left: 2px;
+    width: 10px;
+    height: 5px;
+    transition: opacity 90ms $oui-linear-out-slow-in-timing-function;
+    opacity: 0;
   }
 }
 
@@ -48,12 +56,5 @@ $_oui-pseudo-checkmark-size: $oui-checkbox-size -
 }
 
 .oui-pseudo-checkbox-checked::after {
-  top: ($oui-checkbox-size * 0.5) - ($_oui-pseudo-checkmark-size * 0.25) -
-    ($oui-checkbox-size * 0.1) - $oui-checkbox-border-width;
-  left: $_oui-pseudo-checkbox-padding - $oui-checkbox-border-width * 0.5;
-  width: 10px;
-  height: 6px;
-  border-left: $oui-checkbox-border-width * 2 solid #333;
-  transform: rotate(-45deg);
   opacity: 1;
 }
