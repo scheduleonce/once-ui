@@ -82,6 +82,15 @@ export class OuiDialogRef<T, R = any> {
   }
 
   /**
+   * Dynamically adds or removes focus from all open dialog containers.
+   *
+   * @param addFocus Whether to add focus (true) or remove focus (false).
+   */
+  toggleFocus(addFocus: boolean): void {
+    this._containerInstance._toggleFocus(addFocus);
+  }
+
+  /**
    * Gets an observable that is notified when the dialog is finished opening.
    */
   afterOpened(): Observable<void> {
