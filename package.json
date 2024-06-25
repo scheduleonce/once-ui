@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "8.0.21-beta.0",
+  "version": "8.0.21",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -82,7 +82,7 @@
     "karma-junit-reporter": "2.0.1",
     "ng-packagr": "16.1.0",
     "prettier": "2.8.0",
-    "puppeteer": "22.11.1",
+    "puppeteer": "13.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "3.0.2",
