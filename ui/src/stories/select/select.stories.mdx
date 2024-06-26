@@ -139,7 +139,7 @@ Multi select:
       ],
       cancelLabel: 'Discard',
       doneLabel: 'Apply',
-      allowNoSelection: false
+      allowNoSelection: false,
     }}
     argTypes={{
       theme: {
@@ -234,6 +234,7 @@ Groups:
           options: ['Steak', 'Chicken'],
         },
       ],
+      singleActionLabel: 'Apply',
     }}
     argTypes={{
       theme: {
@@ -253,7 +254,7 @@ Groups:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select ngClass="{{theme}}" (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select ngClass="{{theme}}" (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled" singleActionItem [singleActionLabel]="singleActionLabel">
           <oui-option>-- None --</oui-option>
           <oui-optgroup *ngFor="let group of groups" [label]="group.name">
             <oui-option *ngFor="let option of group.options" [value]="option">
