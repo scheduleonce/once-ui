@@ -230,6 +230,7 @@ export class OuiSelect
   /** Whether filling out the select is required in the form. */
   private _actionItems = false;
 
+  private _singleActionItems = false;
   /** The scroll position of the overlay panel, calculated to center the selected option. */
   private _scrollTop = 0;
 
@@ -241,6 +242,9 @@ export class OuiSelect
 
   /** The label displayed on the done button of the select in case of multi-select. */
   private _doneLabel = 'Done';
+
+  /** The label displayed on the singleSelect and multiSelect of the select as a actionItem. */
+  private _singleActionLabel = 'New action button';
 
   /** Whether the component is in multiple selection mode. */
   private _multiple = false;
@@ -424,6 +428,10 @@ export class OuiSelect
   readonly saveSelectionChange: EventEmitter<OuiSelectChange> =
     new EventEmitter<OuiSelectChange>();
 
+  /** Event emitted when the selected value has been changed by the user. */
+  @Output()
+  readonly singleSelectionChange = new EventEmitter<void>();
+
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
@@ -490,6 +498,16 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
+  /** In case of singleSelect and multiSelect the singleActionLabel to be shown on actionItem. */
+  @Input()
+  get singleActionLabel(): string {
+    return this._singleActionLabel;
+  }
+  set singleActionLabel(value: string) {
+    this._singleActionLabel = value;
+    this.stateChanges.next();
+  }
+
   /** Whether the component is required. */
   @Input()
   get required(): boolean {
@@ -533,7 +551,14 @@ export class OuiSelect
       this.stateChanges.next();
     }
   }
-
+  @Input()
+  get singleActionItem(): boolean {
+    return this._singleActionItems;
+  }
+  set singleActionItem(value: boolean) {
+    this._singleActionItems = coerceBooleanProperty(value);
+    this.stateChanges.next();
+  }
   /** Whether to center the active option over the trigger. */
   @Input()
   get disableOptionCentering(): boolean {
@@ -1248,7 +1273,10 @@ export class OuiSelect
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
-
+  handleSingleActionItemClick() {
+    this.singleSelectionChange.emit();
+    this.close();
+  }
   /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
   private _isDoneButtonDisabled(): boolean {
     const selectedItems = (this.selected as OuiOption[]).map(
