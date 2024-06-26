@@ -878,7 +878,6 @@ export class OuiSelect
       }
     }
   }
-
   /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
     const searchQueryString = '.oui-select-search-input';
@@ -966,6 +965,7 @@ export class OuiSelect
         return;
       }
     }
+
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
       this.homeOrEndPressed(keyCode, manager);
