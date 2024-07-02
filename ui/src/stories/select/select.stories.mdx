@@ -55,6 +55,7 @@ Regular Select
         'Biryani',
         'Sweets',
       ],
+      singleActionLabel: 'apply',
     }}
     argTypes={{
       theme: {
@@ -83,7 +84,7 @@ Regular Select
       template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" singleActionItem [disabled]="disabled">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -137,6 +138,7 @@ Multi select:
         'Biryani',
         'Sweets',
       ],
+      singleActionLabel: 'apply',
       cancelLabel: 'Discard',
       doneLabel: 'Apply',
       allowNoSelection: false,
@@ -159,7 +161,7 @@ Multi select:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [allowNoSelection]="allowNoSelection" [disabled]="disabled" [cancelLabel]="cancelLabel" [doneLabel]="doneLabel">
+        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple singleActionItem [singleActionLabel]="singleActionLabel" [disabled]="disabled">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -255,9 +257,10 @@ Groups:
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
         <oui-select ngClass="{{theme}}" (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled" singleActionItem [singleActionLabel]="singleActionLabel">
+           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option>-- None --</oui-option>
           <oui-optgroup *ngFor="let group of groups" [label]="group.name">
-            <oui-option *ngFor="let option of group.options" [value]="option">
+            <oui-option *ngFor="let option of (group.options | filterOptions: keyword) " [value]="option">
               {{option}}
             </oui-option>
           </oui-optgroup>

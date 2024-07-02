@@ -56,9 +56,13 @@
         <ng-content></ng-content>
       </div>
     </div>
-    <div *ngIf="singleActionItem" class="oui-single-Item-action-wrapper">
-      <div class="oui-select-single-action-items">
-        <button oui-link-button (click)="handleSingleActionItemClick()">
+    <div *ngIf="singleActionItem" class="oui-select-action-wrapper">
+      <div class="oui-select-action-items single-action-items">
+        <button
+          #singleButton
+          oui-link-button
+          (click)="handleSingleActionItemClick()"
+        >
           {{singleActionLabel}}
         </button>
       </div>

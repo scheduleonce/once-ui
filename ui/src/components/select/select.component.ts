@@ -332,6 +332,9 @@ export class OuiSelect
   /** Trigger that opens the select. */
   @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
 
+  /** Trigger that opens the select. */
+  @ViewChild('singleButton', { read: ElementRef }) singleButton: ElementRef;
+
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
 
@@ -879,12 +882,27 @@ export class OuiSelect
     }
   }
 
+  singleTabKeySelection(singleButtonFocused) {
+    const singleButtonRef = this.singleButton
+      ?.nativeElement as HTMLButtonElement;
+    const searchQueryString = '.oui-select-search-input';
+    const searchInput = this._document.querySelector(searchQueryString);
+    if (!singleButtonFocused) {
+      singleButtonRef.focus();
+      console.log(singleButtonRef);
+    } else if (this.isSearchFieldPresent && singleButtonFocused) {
+      searchInput.focus();
+    } else {
+      this.close();
+    }
+  }
+
   /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
     const searchQueryString = '.oui-select-search-input';
     const searchInput = this._document.querySelector(searchQueryString);
-    const doneButtonRef = this.ddDoneButton.nativeElement;
-    const cancelButtonRef = this.ddCancelButton.nativeElement;
+    const doneButtonRef = this.ddDoneButton?.nativeElement;
+    const cancelButtonRef = this.ddCancelButton?.nativeElement;
     if (!focused) {
       if (!doneDisabled && !doneButtonRef.classList.contains('cdk-focused')) {
         doneButtonRef.focus();
@@ -920,12 +938,23 @@ export class OuiSelect
     const doneDisabled: boolean = this.ddDoneButton?.nativeElement['disabled'];
     const cancelFocused: boolean =
       this.ddCancelButton?.nativeElement.classList.contains('cdk-focused');
+    const singleButtonFocused: boolean =
+      this.singleButton?.nativeElement.classList.contains('cdk-focused');
     if (isTabKey) {
       if (this.multiple) {
         event.preventDefault();
         event.stopPropagation();
         manager.setActiveItem(-1);
-        this.tabKeySelection(cancelFocused, doneDisabled);
+        if (this.actionItems) {
+          this.tabKeySelection(cancelFocused, doneDisabled);
+        } else if (this.singleActionItem) {
+          this.singleTabKeySelection(singleButtonFocused);
+        }
+      } else if (!this.multiple && this.singleActionItem) {
+        event.preventDefault();
+        event.stopPropagation();
+        manager.setActiveItem(-1);
+        this.singleTabKeySelection(singleButtonFocused);
       } else {
         this.close();
       }
@@ -1178,8 +1207,10 @@ export class OuiSelect
     this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
       // Restore focus to the trigger before closing. Ensures that the focus
       // position won't be lost if the user got focus into the overlay.
-      this.focus();
-      this.close();
+      if (!this.singleActionItem) {
+        this.focus();
+        this.close();
+      }
     });
 
     this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {
