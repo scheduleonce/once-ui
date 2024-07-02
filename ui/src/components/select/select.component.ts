@@ -889,7 +889,6 @@ export class OuiSelect
     const searchInput = this._document.querySelector(searchQueryString);
     if (!singleButtonFocused) {
       singleButtonRef.focus();
-      console.log(singleButtonRef);
     } else if (this.isSearchFieldPresent && singleButtonFocused) {
       searchInput.focus();
     } else {
@@ -995,6 +994,7 @@ export class OuiSelect
         return;
       }
     }
+
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
       this.homeOrEndPressed(keyCode, manager);
