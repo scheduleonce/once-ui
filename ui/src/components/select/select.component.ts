@@ -888,7 +888,9 @@ export class OuiSelect
     const searchQueryString = '.oui-select-search-input';
     const searchInput = this._document.querySelector(searchQueryString);
     if (!singleButtonFocused) {
-      singleButtonRef.focus();
+      setTimeout(() => {
+        singleButtonRef.focus();
+      });
     } else if (this.isSearchFieldPresent && singleButtonFocused) {
       searchInput.focus();
     } else {
