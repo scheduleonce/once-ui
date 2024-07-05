@@ -585,6 +585,9 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
+  previouslySelectedValue: any;
+  counter = false;
+
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
@@ -693,6 +696,19 @@ export class OuiSelect
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
     this.panelOpen ? this.close() : this.open();
+    const selectedList = [];
+    this.options['_results'].forEach((option) => {
+      if (option._selected) {
+        selectedList.push(option);
+      }
+    });
+    if (this.previouslySelectedValue.length === selectedList.length) {
+      this.previouslySelectedValue.forEach((element, index) => {
+        if (element.value !== selectedList[index]) {
+          this.disableDoneButton = true;
+        }
+      });
+    }
   }
 
   /** Opens the overlay panel. */
@@ -1200,6 +1216,12 @@ export class OuiSelect
 
   /** Invoked when an option is clicked. */
   private _onSelect(option: OuiOption, isUserInput: boolean): void {
+    setTimeout((_) => {
+      if (!this.counter) {
+        this.previouslySelectedValue = this.selected;
+        this.counter = true;
+      }
+    });
     const wasSelected = this._selectionModel.isSelected(option);
 
     if (option.value == null && !this._multiple) {
