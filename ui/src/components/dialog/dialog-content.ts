@@ -87,7 +87,7 @@ export class OuiDialogHeaderAction {
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[oui-dialog-header-article], [ouiDialogHeaderArticle]',
-  template: '<oui-icon svgIcon="article-icon"></oui-icon>',
+  template: '<oui-icon svgIcon="help-library"></oui-icon>',
   exportAs: 'ouiDialogHeaderArticle',
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
@@ -103,9 +103,10 @@ export class OuiDialogHeaderArticle implements OnDestroy {
     private _focusMonitor: FocusMonitor,
     private _ngZone: NgZone
   ) {
-    this.ouiIconRegistry.addSvgIconLiteral(
-      `article-icon`,
-      this.domSanitizer.bypassSecurityTrustHtml(ICONS.ARTICLE_ICON)
+    this.ouiIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?5df5gz'
+      )
     );
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
