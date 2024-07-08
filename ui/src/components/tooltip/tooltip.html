@@ -1,4 +1,7 @@
-<div class="oui-tooltip-wrapper">
+<div
+  class="oui-tooltip-wrapper"
+  *ngIf="_visibility === 'visible' && message && message.length"
+>
   <div
     class="oui-tooltip"
     [ngClass]="tooltipClass"
