@@ -1,6 +1,6 @@
 <div
   class="oui-tooltip-wrapper"
-  *ngIf="_visibility === 'visible' && message && message.length"
+  [hidden]="!(_visibility === 'visible' && message && message.length)"
 >
   <div
     class="oui-tooltip"
