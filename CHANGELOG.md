@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [8.0.23] - 2024-07-08
 
-- [ONCEHUB-82598](https://scheduleonce.atlassian.net/browse/ONCEHUB-82598) fix: Occasionally, when hovering over elements that contain ouiToolTips, an unusual box appears.
+- [ONCEHUB-83691](https://scheduleonce.atlassian.net/browse/ONCEHUB-83691) update: package update for additional information icon in the same place across the platform.
 
 ## [8.0.22] - 2024-06-28
 
