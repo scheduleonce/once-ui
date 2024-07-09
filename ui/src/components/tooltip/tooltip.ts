@@ -165,9 +165,7 @@ export class TooltipComponent {
    */
   show(): void {
     // Cancel the delayed hide if it is scheduled
-    console.log('show');
     if (this._hideTimeoutId) {
-      console.log('show timeout');
       clearTimeout(this._hideTimeoutId);
       this._hideTimeoutId = null;
     }
@@ -191,9 +189,7 @@ export class TooltipComponent {
    */
   hide(): void {
     // Cancel the delayed show if it is scheduled
-    console.log('hide');
     if (this._showTimeoutId) {
-      console.log('hide timeout');
       clearTimeout(this._showTimeoutId);
       this._showTimeoutId = null;
     }
@@ -217,12 +213,10 @@ export class TooltipComponent {
   }
 
   _animationStart() {
-    console.log('this is animationstart component');
     this._closeOnInteraction = false;
   }
 
   _animationDone(event: AnimationEvent): void {
-    console.log('this is animationDone component');
     const toState = event.toState as TooltipVisibility;
 
     if (toState === 'hidden' && !this.isVisible()) {
@@ -485,6 +479,11 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   hide(): void {
     if (this._tooltipInstance) {
       this._tooltipInstance.hide();
+    } else {
+      if (this._overlayRef) {
+        this._overlayRef.dispose();
+        this._overlayRef = null;
+      }
     }
   }
 
@@ -565,7 +564,8 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   /** Detaches the currently-attached tooltip. */
   private _detach() {
     if (this._overlayRef && this._overlayRef.hasAttached()) {
-      this._overlayRef.detach();
+      this._overlayRef.dispose();
+      this._overlayRef = null;
     }
 
     this._tooltipInstance = null;
