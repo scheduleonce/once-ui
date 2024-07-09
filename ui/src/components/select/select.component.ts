@@ -692,19 +692,17 @@ export class OuiSelect
     this._destroy.complete();
     this.stateChanges.complete();
   }
-
+  selectedList = [];
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
     this.panelOpen ? this.close() : this.open();
-    const selectedList = [];
-    this.options['_results'].forEach((option) => {
-      if (option._selected) {
-        selectedList.push(option);
-      }
-    });
-    if (this.previouslySelectedValue.length === selectedList.length) {
+
+    this.selectedList = this.options['_results'];
+    if (this.previouslySelectedValue.length === this.selectedList.length) {
       this.previouslySelectedValue.forEach((element, index) => {
-        if (element.value !== selectedList[index]) {
+        if (element.value !== this.selectedList[index].value) {
+          this.disableDoneButton = false;
+        } else {
           this.disableDoneButton = true;
         }
       });
@@ -802,7 +800,7 @@ export class OuiSelect
   }
 
   /** The currently selected option. */
-  get selected(): OuiOption | OuiOption[] {
+  get selected(): any | any[] {
     return this.multiple
       ? this._selectionModel.selected
       : this._selectionModel.selected[0];
@@ -1223,7 +1221,6 @@ export class OuiSelect
       }
     });
     const wasSelected = this._selectionModel.isSelected(option);
-
     if (option.value == null && !this._multiple) {
       option.deselect();
       this._selectionModel.clear();
@@ -1232,7 +1229,7 @@ export class OuiSelect
       option.selected
         ? this._selectionModel.select(option)
         : this._selectionModel.deselect(option);
-
+      // this.selectedList.push(option)
       if (isUserInput) {
         this._keyManager.setActiveItem(option);
       }
@@ -1267,6 +1264,7 @@ export class OuiSelect
   doneRecentChanges() {
     this.savedValues = this.value;
     this.disableDoneButton = true;
+    this.previouslySelectedValue = this.selected;
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
@@ -1278,6 +1276,9 @@ export class OuiSelect
     );
     if (this.allowNoSelection) {
       return false;
+    }
+    if (this.previouslySelectedValue.length === selectedItems.length) {
+      return true;
     }
     return selectedItems.length === 0;
   }
