@@ -115,6 +115,7 @@ $gray-color: #eee;
   -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
   overflow-x: hidden;
   padding-bottom: 0;
+  position: relative;
   border: 1px solid #c8c8c8;
   background-color: #ffffff;
   max-height: 272px;
@@ -124,12 +125,22 @@ $gray-color: #eee;
   font-family: 'Open Sans', Helvetica, Arial, sans-serif;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12);
-  padding-top: 10px;
   border-top: 0;
-  &.oui-select-input-outer {
-    padding-top: 0;
+  .oui-select-options {
+    -webkit-overflow-scrolling: touch; // for momentum scroll on mobile
+    overflow-x: hidden;
+    height: 100%;
+    padding-top: 10px;
+    box-sizing: border-box;
   }
-  .oui-optgroup-label,
+  &.oui-select-input-outer {
+    .oui-select-options {
+      padding-top: 0;
+    }
+  }
+  &.action-item {
+    padding-bottom: 56px;
+  }
   .oui-option {
     line-height: $oui-select-item-height;
     height: $oui-select-item-height;
@@ -159,6 +170,10 @@ $gray-color: #eee;
   }
   .oui-optgroup-label {
     font-weight: 700;
+    display: block;
+    padding: 0 10px;
+    font-size: 14px;
+    line-height: $oui-select-item-height;
   }
 }
 
@@ -316,20 +331,27 @@ oui-select-search {
   color: #9b9b9b;
 }
 .oui-select-action-wrapper {
-  height: 60px;
+  height: 56px;
+  box-sizing: border-box;
+  background: #fff;
   display: block;
-  margin-top: 10px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
 }
 
 .oui-select-action-items {
   position: absolute;
+  border-top: 1px solid #ddd;
+  height: 100%;
+  padding: 10px;
   background: #fff;
   bottom: 1px;
-  border-top: 1px solid #ddd;
-  padding: 12px 10px;
   z-index: 100;
   box-sizing: border-box;
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }

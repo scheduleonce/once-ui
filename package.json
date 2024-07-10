@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "8.0.17",
+  "version": "8.0.22",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -52,7 +52,7 @@
     "@angular/elements": "16.1.7",
     "@angular/language-service": "16.1.7",
     "@babel/core": "7.20.5",
-    "@compodoc/compodoc": "^1.1.23",
+    "@compodoc/compodoc": "^1.1.25",
     "@storybook/addon-actions": "7.1.0",
     "@storybook/addon-controls": "7.1.0",
     "@storybook/addon-essentials": "7.1.0",
@@ -82,7 +82,7 @@
     "karma-junit-reporter": "2.0.1",
     "ng-packagr": "16.1.0",
     "prettier": "2.8.0",
-    "puppeteer": "13.6.0",
+    "puppeteer": "22.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "3.0.2",

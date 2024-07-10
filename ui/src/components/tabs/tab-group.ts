@@ -363,7 +363,6 @@ export class ouiTabGroup
         }
       });
     }
-
     // Setup the position for each tab and optionally setup an origin on the next selected tab.
     this._tabs.forEach((tab: OuiTab, index: number) => {
       tab.position = index - indexToSelect;
@@ -383,8 +382,10 @@ export class ouiTabGroup
   }
 
   ngAfterContentInit() {
-    this._subscribeToAllTabChanges();
-    this._subscribeToTabLabels();
+    setTimeout(() => {
+      this._subscribeToAllTabChanges();
+      this._subscribeToTabLabels();
+    });
     // Subscribe to changes in the amount of tabs, in order to be
     // able to re-render the content as new tabs are added or removed.
     this._tabsSubscription = this._tabs.changes.subscribe(() => {
