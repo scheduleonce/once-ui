@@ -1277,7 +1277,7 @@ export class OuiSelect
     if (this.allowNoSelection) {
       return false;
     }
-    if (this.previouslySelectedValue.length === selectedItems.length) {
+    if (this.previouslySelectedValue?.length === selectedItems?.length) {
       return true;
     }
     return selectedItems.length === 0;
