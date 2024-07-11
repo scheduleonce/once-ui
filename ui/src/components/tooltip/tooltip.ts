@@ -479,6 +479,11 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   hide(): void {
     if (this._tooltipInstance) {
       this._tooltipInstance.hide();
+    } else {
+      if (this._overlayRef) {
+        this._overlayRef.dispose();
+        this._overlayRef = null;
+      }
     }
   }
 
@@ -559,7 +564,8 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   /** Detaches the currently-attached tooltip. */
   private _detach() {
     if (this._overlayRef && this._overlayRef.hasAttached()) {
-      this._overlayRef.detach();
+      this._overlayRef.dispose();
+      this._overlayRef = null;
     }
 
     this._tooltipInstance = null;
