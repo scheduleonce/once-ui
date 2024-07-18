@@ -49,10 +49,22 @@
     [class.oui-select-has-a-panel]="panelClass"
     [class.oui-select-large]="large"
     [class.action-item]="actionItems"
+    [class.single-action-item]="singleActionItem"
   >
     <div class="oui-select-options">
       <div class="oui-select-options-wrapper">
         <ng-content></ng-content>
+      </div>
+    </div>
+    <div *ngIf="singleActionItem" class="oui-select-action-wrapper">
+      <div class="oui-select-action-items single-action-items">
+        <button
+          #singleButton
+          oui-link-button
+          (click)="handleSingleActionItemClick()"
+        >
+          {{singleActionLabel}}
+        </button>
       </div>
     </div>
     <div *ngIf="actionItems" class="oui-select-action-wrapper">
