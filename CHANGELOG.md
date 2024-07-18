@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.27] - 2024-07-18
+
+- [ONCEHUB-83190](https://scheduleonce.atlassian.net/browse/ONCEHUB-83190) Feat: Create singleActionItem bar for singleSelect and multiSelect.
+
+## [8.0.26] - 2024-07-17
+
+- [ONCEHUB-84773](https://scheduleonce.atlassian.net/browse/ONCEHUB-84773) fix: Tabs ui design-shared oui component- fix the color of the not selected.
+
 ## [8.0.25] - 2024-07-08
 
 - [ONCEHUB-82598](https://scheduleonce.atlassian.net/browse/ONCEHUB-82598) fix: Occasionally, when hovering over elements that contain ouiToolTips, an unusual box appears.
