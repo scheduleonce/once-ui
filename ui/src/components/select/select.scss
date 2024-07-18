@@ -135,10 +135,11 @@ $gray-color: #eee;
   }
   &.oui-select-input-outer {
     .oui-select-options {
-      padding-top: 0;
+      padding-top: 0px;
     }
   }
-  &.action-item {
+  &.action-item,
+  &.single-action-item {
     padding-bottom: 56px;
   }
   .oui-option {
@@ -354,4 +355,22 @@ oui-select-search {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  &.single-action-items {
+    padding: 10px 0px !important;
+    button {
+      width: 100%;
+      padding: 0px 10px !important;
+      text-align: left;
+      font-size: 14px;
+      color: #333333 !important;
+      border-radius: 0px;
+      line-height: 40px;
+      &:hover,
+      &:focus {
+        background-color: #eeeeee;
+        box-shadow: none !important;
+        text-decoration: none !important;
+      }
+    }
+  }
 }
