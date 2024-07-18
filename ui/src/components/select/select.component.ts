@@ -229,8 +229,8 @@ export class OuiSelect
 
   /** Whether filling out the select is required in the form. */
   private _actionItems = false;
-
   private _singleActionItems = false;
+
   /** The scroll position of the overlay panel, calculated to center the selected option. */
   private _scrollTop = 0;
 
@@ -431,7 +431,7 @@ export class OuiSelect
   readonly saveSelectionChange: EventEmitter<OuiSelectChange> =
     new EventEmitter<OuiSelectChange>();
 
-  /** Event emitted when the selected value has been changed by the user. */
+  /** Can pass any method to be triggered on singleActionItem click. */
   @Output()
   readonly singleSelectionChange = new EventEmitter<void>();
 
@@ -554,6 +554,7 @@ export class OuiSelect
       this.stateChanges.next();
     }
   }
+
   @Input()
   get singleActionItem(): boolean {
     return this._singleActionItems;
@@ -562,6 +563,7 @@ export class OuiSelect
     this._singleActionItems = coerceBooleanProperty(value);
     this.stateChanges.next();
   }
+
   /** Whether to center the active option over the trigger. */
   @Input()
   get disableOptionCentering(): boolean {
@@ -882,6 +884,7 @@ export class OuiSelect
     }
   }
 
+  /** On Tab key press select the buttons at the bottom if singleActionItem is enabled*/
   singleTabKeySelection(singleButtonFocused) {
     const singleButtonRef = this.singleButton
       ?.nativeElement as HTMLButtonElement;
@@ -996,7 +999,6 @@ export class OuiSelect
         return;
       }
     }
-
     if (keyCode === HOME || keyCode === END) {
       event.preventDefault();
       this.homeOrEndPressed(keyCode, manager);
@@ -1306,10 +1308,12 @@ export class OuiSelect
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
+
   handleSingleActionItemClick() {
     this.singleSelectionChange.emit();
     this.close();
   }
+
   /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
   private _isDoneButtonDisabled(): boolean {
     const selectedItems = (this.selected as OuiOption[]).map(

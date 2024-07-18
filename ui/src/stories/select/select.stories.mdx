@@ -55,6 +55,88 @@ Regular Select
         'Biryani',
         'Sweets',
       ],
+    }}
+    argTypes={{
+      theme: {
+        options: THEME,
+        control: { type: 'select' },
+      },
+      appearance: {
+        options: ['standard', 'underline'],
+        control: { type: 'select' },
+      },
+      options: {
+        control: { type: 'object' },
+      },
+    }}
+  >
+    {(props) => ({
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule,
+        ],
+      },
+      template: `
+    <div style="width: 213px;">
+      <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+          <oui-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+      props: {
+        ...props,
+        onChange: action('change'),
+      },
+    })}
+  </Story>
+</Canvas>
+
+Regular Select with singleActionItem:
+
+<Canvas>
+  <Story
+    name="Regular with singleActionItem"
+    height="350px"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+  <oui-select large placeholder="Favorite food" singleActionItems>
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
+        },
+      },
+    }}
+    args={{
+      large: false,
+      theme: THEME[0],
+      disabled: false,
+      appearance: APPEARANCE[0],
+      placeholder: 'Favorite food',
+      options: [
+        'Pizza',
+        'Burgers',
+        'Steak',
+        'Tacos',
+        'Pasta',
+        'Fries',
+        'Momos',
+        'Kababs',
+        'Rolls',
+        'Biryani',
+        'Sweets',
+      ],
       singleActionLabel: 'apply',
     }}
     argTypes={{
@@ -100,7 +182,90 @@ Regular Select
   </Story>
 </Canvas>
 
-Multi select with actionItems:
+Multi select with singleActionItem:
+
+<Canvas>
+  <Story
+    name="Multi select with singleActionItem"
+    height="300px"
+    parameters={{
+      docs: {
+        source: {
+          code: `<oui-form-field>
+  <oui-select large placeholder="Favorite food" multiple singleActionItems>
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
+        },
+      },
+    }}
+    args={{
+      large: false,
+      theme: THEME[0],
+      disabled: false,
+      appearance: APPEARANCE[0],
+      placeholder: 'Favorite food',
+      options: [
+        'Pizza',
+        'Burgers',
+        'Steak',
+        'Tacos',
+        'Pasta',
+        'Fries',
+        'Momos',
+        'Kababs',
+        'Rolls',
+        'Biryani',
+        'Sweets',
+      ],
+      singleActionLabel: 'apply',
+    }}
+    argTypes={{
+      theme: {
+        options: THEME,
+        control: { type: 'select' },
+      },
+      appearance: {
+        options: ['standard', 'underline'],
+        control: { type: 'select' },
+      },
+      options: {
+        control: { type: 'object' },
+      },
+    }}
+  >
+    {(props) => ({
+      template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple singleActionItem [singleActionLabel]="singleActionLabel" [allowNoSelection]="allowNoSelection" [disabled]="disabled">
+          <oui-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+      props: {
+        ...props,
+        onChange: action('change'),
+      },
+      moduleMetadata: {
+        imports: [
+          OuiFormFieldModule,
+          OuiInputModule,
+          OuiSelectModule,
+          FormsModule,
+          ReactiveFormsModule,
+        ],
+      },
+    })}
+  </Story>
+</Canvas>
+
+Multi select:
 
 <Canvas>
   <Story
@@ -160,91 +325,7 @@ Multi select with actionItems:
       template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [cancelLabel]="cancelLabel" [doneLabel]="doneLabel" [disabled]="disabled">
-          <oui-option *ngFor="let option of options" [value]="option">
-            {{option}}
-          </oui-option>
-        </oui-select>
-      </oui-form-field>
-    </div>
-    `,
-      props: {
-        ...props,
-        onChange: action('change'),
-      },
-      moduleMetadata: {
-        imports: [
-          OuiFormFieldModule,
-          OuiInputModule,
-          OuiSelectModule,
-          FormsModule,
-          ReactiveFormsModule,
-        ],
-      },
-    })}
-  </Story>
-</Canvas>
-
-Multi select with singleActionItems:
-
-<Canvas>
-  <Story
-    name="Single action multi select"
-    height="300px"
-    parameters={{
-      docs: {
-        source: {
-          code: `<oui-form-field>
-  <oui-select large placeholder="Favorite food" multiple singleActionItems>
-    <oui-option *ngFor="let food of foods" [value]="food">
-      {{food array}}
-    </oui-option>
-  </oui-select>
-</oui-form-field>`,
-        },
-      },
-    }}
-    args={{
-      large: false,
-      theme: THEME[0],
-      disabled: false,
-      appearance: APPEARANCE[0],
-      placeholder: 'Favorite food',
-      options: [
-        'Pizza',
-        'Burgers',
-        'Steak',
-        'Tacos',
-        'Pasta',
-        'Fries',
-        'Momos',
-        'Kababs',
-        'Rolls',
-        'Biryani',
-        'Sweets',
-      ],
-      singleActionLabel: 'apply',
-      allowNoSelection: false,
-    }}
-    argTypes={{
-      theme: {
-        options: THEME,
-        control: { type: 'select' },
-      },
-      appearance: {
-        options: ['standard', 'underline'],
-        control: { type: 'select' },
-      },
-      options: {
-        control: { type: 'object' },
-      },
-    }}
-  >
-    {(props) => ({
-      template: `
-    <div style="width: 213px;">
-    <oui-form-field [appearance]="appearance">
-        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple singleActionItem [singleActionLabel]="singleActionLabel" [disabled]="disabled">
+        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [allowNoSelection]="allowNoSelection" [disabled]="disabled" [cancelLabel]="cancelLabel" [doneLabel]="doneLabel">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
