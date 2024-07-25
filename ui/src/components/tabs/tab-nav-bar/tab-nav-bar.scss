@@ -23,3 +23,12 @@
 .oui-mdc-tab-nav-bar[oui-align-tabs='end'] {
   justify-content: flex-end;
 }
+
+.oui-mdc-tab-nav-bar[oui-stretch-tabs] {
+  .oui-mdc-tab-links {
+    display: flex;
+  }
+  .oui-mdc-tab-link-container {
+    width: 100%;
+  }
+}
