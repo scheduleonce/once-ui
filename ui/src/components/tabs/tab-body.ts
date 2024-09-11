@@ -248,7 +248,7 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   }
 
   /** Whether the provided position state is considered center, regardless of origin. */
-  _isCenterPosition(position: OuiTabBodyPositionState | string): boolean {
+  _isCenterPosition(position: OuiTabBodyPositionState): boolean {
     return (
       position == 'center' ||
       position == 'left-origin-center' ||

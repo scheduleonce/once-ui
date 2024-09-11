@@ -43,10 +43,10 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.1.0",
-    "@angular-eslint/builder": "15.1.0",
-    "@angular-eslint/eslint-plugin": "15.1.0",
-    "@angular-eslint/eslint-plugin-template": "15.1.0",
-    "@angular-eslint/template-parser": "15.1.0",
+    "@angular-eslint/builder": "18.1.0",
+    "@angular-eslint/eslint-plugin": "^18.3.0",
+    "@angular-eslint/eslint-plugin-template": "^18.3.0",
+    "@angular-eslint/template-parser": "18.1.0",
     "@angular/cli": "18.1.0",
     "@angular/compiler-cli": "18.1.0",
     "@angular/elements": "18.1.0",
@@ -62,13 +62,13 @@
     "@storybook/storybook-deployer": "2.8.16",
     "@types/jasmine": "4.3.0",
     "@types/node": "18.11.9",
-    "@typescript-eslint/eslint-plugin": "5.45.0",
-    "@typescript-eslint/parser": "5.45.0",
+    "@typescript-eslint/eslint-plugin": "^8.5.0",
+    "@typescript-eslint/parser": "^8.5.0",
     "@webcomponents/custom-elements": "1.5.1",
     "babel-loader": "9.1.0",
-    "eslint": "8.28.0",
-    "eslint-plugin-import": "2.26.0",
-    "eslint-plugin-jsdoc": "39.6.4",
+    "eslint": "^9.10.0",
+    "eslint-plugin-import": "2.29.1",
+    "eslint-plugin-jsdoc": "50.2.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "^0.6.13",
     "gulp": "5.0.0",
@@ -90,6 +90,6 @@
     "scss-bundle": "3.1.2",
     "storybook": "^7.1.0",
     "ts-node": "10.7.0",
-    "typescript": "5.4.5"
+    "typescript": "^5.6.2"
   }
 }
