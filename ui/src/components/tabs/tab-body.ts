@@ -248,7 +248,8 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   }
 
   /** Whether the provided position state is considered center, regardless of origin. */
-  _isCenterPosition(position: OuiTabBodyPositionState): boolean {
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  _isCenterPosition(position: OuiTabBodyPositionState | string): boolean {
     return (
       position == 'center' ||
       position == 'left-origin-center' ||
