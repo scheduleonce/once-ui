@@ -39,7 +39,7 @@
     "core-js": "3.26.1",
     "rxjs": "7.5.7",
     "tslib": "2.4.1",
-    "zone.js": "^0.13.1"
+    "zone.js": "^0.14.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "18.2.1",
@@ -80,7 +80,7 @@
     "karma-jasmine": "4.0.1",
     "karma-jasmine-html-reporter": "1.7.0",
     "karma-junit-reporter": "2.0.1",
-    "ng-packagr": "16.1.0",
+    "ng-packagr": "18.1.0",
     "prettier": "2.8.0",
     "puppeteer": "22.11.1",
     "react": "^18.2.0",
@@ -90,7 +90,6 @@
     "scss-bundle": "3.1.2",
     "storybook": "^7.1.0",
     "ts-node": "10.7.0",
-    "typescript": "5.1.6"
+    "typescript": "5.4.5"
   }
 }
-
