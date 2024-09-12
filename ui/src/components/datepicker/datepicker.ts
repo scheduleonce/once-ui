@@ -234,7 +234,11 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
     return this._opened;
   }
   set opened(value: boolean) {
-    value ? this.open() : this.close();
+    if (value) {
+      this.open();
+    } else {
+      this.close();
+    }
   }
   private _opened = false;
 
@@ -374,7 +378,11 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       this._focusedElementBeforeOpen = this._document.activeElement;
     }
 
-    this.touchUi ? this._openAsDialog() : this._openAsPopup();
+    if (this.touchUi) {
+      this._openAsDialog();
+    } else {
+      this._openAsPopup();
+    }
     this._opened = true;
     // add input focus here
     this._datepickerInput.focus();
