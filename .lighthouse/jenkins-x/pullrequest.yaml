@@ -279,7 +279,7 @@ spec:
           image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v20.14.0
           name: check-prettier
         - args:
-          - npm run lint
+          - node --trace-warnings ./node_modules/.bin/npm run lint
           command:
           - /bin/sh
           - -c
