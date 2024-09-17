@@ -35,8 +35,7 @@ export const DefaultColor = {
     icon: 'calendar',
   },
 
-  argTypes: {
-  },
+  argTypes: {},
 };
 
 export const CustomIcon = {

@@ -9,10 +9,7 @@ import {
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { USERINFODATASOURCE } from './const';
-import {
-  OuiTableStorybook,
-  OuiTableCustomStorybook,
-} from './table.component';
+import { OuiTableStorybook, OuiTableCustomStorybook } from './table.component';
 
 export default {
   title: 'Table',

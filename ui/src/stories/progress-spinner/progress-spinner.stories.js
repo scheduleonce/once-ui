@@ -13,7 +13,7 @@ export const Determinate = {
       declarations: [],
     },
     template: `<oui-progress-spinner [color]=color [value]=value [strokeWidth]=strokeWidth [diameter]=diameter ></oui-progress-spinner>`,
-    props
+    props,
   }),
 
   name: 'Determinate',
@@ -30,7 +30,7 @@ export const Determinate = {
     color: COLORS[0],
     strokeWidth: 2,
     value: 60,
-    diameter: 20, 
+    diameter: 20,
   },
 
   argTypes: {
@@ -68,7 +68,7 @@ export const Indeterminate = {
   args: {
     color: COLORS[0],
     strokeWidth: 2,
-    diameter: 20, 
+    diameter: 20,
   },
 
   argTypes: {
