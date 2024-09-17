@@ -15,9 +15,8 @@ export const Regular = {
     },
 
     template: `<oui-checkbox
-                class="example-margin"
                 [checked]="checked"
-                [labelPosition]="position"
+                [labelPosition]=labelPosition
                 (click)="changed($event)"
                 [disabled]="disabled"
                 [color]="color">

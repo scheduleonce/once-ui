@@ -1,6 +1,5 @@
-import { OuiIconModule, Icon } from '../../components';
-import { action } from '@storybook/addon-actions';
-import { LABELPOSITION, COLORS, ICON_COLORS } from '../const';
+import { OuiIconModule } from '../../components';
+import { COLORS, ICON_COLORS } from '../const';
 import { OuiiconStorybook } from './icon.component';
 
 export default {
@@ -16,8 +15,7 @@ export const DefaultColor = {
     },
 
     template: `<oui-icon-storybook 
-                [icon]="icon" 
-                [size]="size">
+                [icon]="icon" >
                 </oui-icon-storybook>`,
 
     props,
@@ -34,16 +32,10 @@ export const DefaultColor = {
   },
 
   args: {
-    size: 20,
     icon: 'calendar',
   },
 
   argTypes: {
-    size: {
-      control: {
-        type: 'number',
-      },
-    },
   },
 };
 
@@ -56,7 +48,7 @@ export const CustomIcon = {
     },
 
     template: `<oui-icon-storybook 
-                [color]="color" 
+                [color]=color 
                 [icon]="icon" 
                 [size]="size">
                 </oui-icon-storybook>`,

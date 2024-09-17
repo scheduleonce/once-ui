@@ -18,30 +18,28 @@ import * as SelectStories from './select.stories';
 
 To add options to the select, add elements to the `<oui-select>`. Each `<oui-option>` has a value property that can be used to set the value that will be selected if the user chooses this option. The content of the `<oui-option>` is what will be shown to the user. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/select/README.md
 
+Stackblitz demo link : https://stackblitz.com/edit/oui-select-box
+
 Regular Select
 
-<Canvas>
-  <Story of={SelectStories.Regular} />
-</Canvas>
+<Canvas of={SelectStories.Regular} />
+
+<Controls of={SelectStories.Regular} />
 
 Multi select:
 
-<Canvas>
-  <Story of={SelectStories.MultiSelect} />
-</Canvas>
+<Canvas of={SelectStories.MultiSelect} />
+
+<Controls of={SelectStories.MultiSelect} />
 
 Groups:
 
-<Canvas>
-  <Story of={SelectStories.Groups} />
-</Canvas>
+<Canvas of={SelectStories.Groups} />
+
+<Controls of={SelectStories.Groups} />
 
 Search options:
 
-<Canvas>
-  <Story of={SelectStories.SearchOptions} />
-</Canvas>
+<Canvas of={SelectStories.SearchOptions} />
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-select-box
-
-<Controls />
+<Controls of={SelectStories.SearchOptions} />

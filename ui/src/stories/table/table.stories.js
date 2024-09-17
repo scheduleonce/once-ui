@@ -5,15 +5,13 @@ import {
   OuiSortModule,
   OuiInputModule,
   OuiTooltipModule,
-  OuiTable,
 } from '../../components';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NAMES, COLORS, USERINFODATASOURCE } from './const';
+import { USERINFODATASOURCE } from './const';
 import {
   OuiTableStorybook,
   OuiTableCustomStorybook,
-  userData,
 } from './table.component';
 
 export default {

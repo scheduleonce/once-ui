@@ -1,4 +1,3 @@
-import { OuiSlideToggle } from '../../components';
 import { action } from '@storybook/addon-actions';
 import { COLORS } from '../const';
 import { OuiSlideToggleModule } from '../../components';

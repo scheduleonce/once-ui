@@ -21,18 +21,16 @@ import * as AutocompleteStories from './autocomplete.stories';
 
 The autocomplete is a normal text input enhanced by a panel of suggested options. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/autocomplete/README.md
 
+Stackblitz demo link : https://stackblitz.com/edit/oui-autocomplete
+
 Regular Input field
 
-<Canvas>
-  <Story of={AutocompleteStories.Regular} />
-</Canvas>
+<Canvas of={AutocompleteStories.Regular} />
+
+<Controls of={AutocompleteStories.Regular} />
 
 With Group
 
-<Canvas>
-  <Story of={AutocompleteStories.WithGroup} />
-</Canvas>
+<Canvas of={AutocompleteStories.WithGroup} />
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-autocomplete
-
-<Controls />
+<Controls of={AutocompleteStories.WithGroup} />

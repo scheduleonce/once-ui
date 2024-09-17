@@ -1,4 +1,4 @@
-import { OuiProgressBar } from '../../components/progress-bar/progress-bar';
+import { OuiProgressBar, OuiProgressBarModule } from '../../components';
 import { COLORS } from '../const';
 
 export default {
@@ -7,7 +7,12 @@ export default {
 
 export const Determinate = {
   render: (props) => ({
-    component: OuiProgressBar,
+    moduleMetadata: {
+      imports: [OuiProgressBarModule],
+      schemas: [],
+      declarations: [],
+    },
+    template: `<oui-progress-bar [color]=color [strokeWidth]=strokeWidth [value]=value></oui-progress-bar>`,
     props,
   }),
 
@@ -40,7 +45,12 @@ export const Determinate = {
 
 export const Indeterminate = {
   render: (props) => ({
-    component: OuiProgressBar,
+    moduleMetadata: {
+      imports: [OuiProgressBarModule],
+      schemas: [],
+      declarations: [],
+    },
+    template: `<oui-progress-bar [color]=color [strokeWidth]=strokeWidth></oui-progress-bar>`,
     props,
   }),
 

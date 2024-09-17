@@ -21,18 +21,16 @@ Let's define a story for our `Menu` component:
 
 The `<oui-menu>` doesn't render anything by itself. The menu is attached to and opened via application of the `ouiMenuTriggerFor` directive. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/menu/README.md
 
+Stackblitz demo link : https://stackblitz.com/edit/oui-menu
+
 Default Menu with single list:
 
-<Canvas>
-  <Story of={MenuStories.Default} />
-</Canvas>
+<Canvas of={MenuStories.Default} />
+
+<Controls of={MenuStories.Default} />
 
 Nested Menu:
 
-<Canvas>
-  <Story of={MenuStories.NestedMenu} />
-</Canvas>
+<Canvas of={MenuStories.NestedMenu} />
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-menu
-
-<Controls />
+<Controls of={MenuStories.NestedMenu} />

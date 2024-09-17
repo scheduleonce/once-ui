@@ -1,4 +1,4 @@
-import { OuiProgressSpinner } from '../../components/progress-spinner/progress-spinner';
+import { OuiProgressSpinnerModule } from '../../components';
 import { COLORS } from '../const';
 
 export default {
@@ -7,8 +7,13 @@ export default {
 
 export const Determinate = {
   render: (props) => ({
-    component: OuiProgressSpinner,
-    props,
+    moduleMetadata: {
+      imports: [OuiProgressSpinnerModule],
+      schemas: [],
+      declarations: [],
+    },
+    template: `<oui-progress-spinner [color]=color [value]=value [strokeWidth]=strokeWidth [diameter]=diameter ></oui-progress-spinner>`,
+    props
   }),
 
   name: 'Determinate',
@@ -16,15 +21,16 @@ export const Determinate = {
   parameters: {
     docs: {
       source: {
-        code: `<oui-progress-spinner color="primary" value="60"></oui-progress-spinner>`,
+        code: `<oui-progress-spinner color="primary|accent|warn" value="1-100" strokeWidth='2' diameter='20' ></oui-progress-spinner>`,
       },
     },
   },
 
   args: {
     color: COLORS[0],
-    strokeWidth: 1,
+    strokeWidth: 2,
     value: 60,
+    diameter: 20, 
   },
 
   argTypes: {
@@ -40,7 +46,12 @@ export const Determinate = {
 
 export const Indeterminate = {
   render: (props) => ({
-    component: OuiProgressSpinner,
+    moduleMetadata: {
+      imports: [OuiProgressSpinnerModule],
+      schemas: [],
+      declarations: [],
+    },
+    template: `<oui-progress-spinner [color]=color [strokeWidth]=strokeWidth [diameter]=diameter></oui-progress-spinner>`,
     props,
   }),
 
@@ -49,14 +60,15 @@ export const Indeterminate = {
   parameters: {
     docs: {
       source: {
-        code: `<oui-progress-spinner color="primary"></oui-progress-spinner>`,
+        code: `<oui-progress-spinner color="primary|accent|warn" strokeWidth='2' diameter='20' ></oui-progress-spinner>`,
       },
     },
   },
 
   args: {
     color: COLORS[0],
-    strokeWidth: 1,
+    strokeWidth: 2,
+    diameter: 20, 
   },
 
   argTypes: {

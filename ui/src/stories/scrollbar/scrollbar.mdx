@@ -16,12 +16,14 @@ The `oui-scrollbar` provides a custom scrollbar to the inner content of element 
 
 All radio-buttons with the same name comprise a set from which only one may be selected at a time. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/radio/README.md
 
-<Canvas>
-  <Story of={ScrollbarStories.Regular} />
-</Canvas>
+Regular data scrollbar:
 
-<Canvas>
-  <Story of={ScrollbarStories.List} />
-</Canvas>
+<Canvas of={ScrollbarStories.Regular} />
 
-<Controls />
+<Controls of={ScrollbarStories.Regular} />
+
+List data scrollbar:
+
+<Canvas of={ScrollbarStories.List} />
+
+<Controls of={ScrollbarStories.List} />

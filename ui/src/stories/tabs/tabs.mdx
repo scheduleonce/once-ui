@@ -1,8 +1,5 @@
 import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
-import {
-  OuiTabsModule,
-  OuiTab
-} from '../../components/tabs/module';
+import { OuiTabsModule, OuiTab } from '../../components/tabs/module';
 import { OuiTabStorybook } from './tabs.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { action } from '@storybook/addon-actions';
@@ -13,8 +10,6 @@ import * as TabsStories from './tabs.stories';
 
 # Card
 
-<Canvas>
-  <Story of={TabsStories.Regular} />
-</Canvas>
+<Canvas of={TabsStories.Regular} />
 
-<Controls />
+<Controls of={TabsStories.Regular} />

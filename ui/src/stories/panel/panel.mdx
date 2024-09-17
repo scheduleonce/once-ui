@@ -18,18 +18,16 @@ import * as PanelStories from './panel.stories';
 
 The `<oui-panel>` doesn't render anything by itself. The panel is attached to and opened via application of the `ouiPanelTriggerFor` directive. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/panel/README.md
 
+Stackblitz demo link : https://stackblitz.com/edit/oui-panel
+
 Regular Panel
 
-<Canvas>
-  <Story of={PanelStories.Regular} />
-</Canvas>
+<Canvas of={PanelStories.Regular} />
+
+<Controls of={PanelStories.Regular} />
 
 With Image Panel:
 
-<Canvas>
-  <Story of={PanelStories.WithImage} />
-</Canvas>
+<Canvas of={PanelStories.WithImage} />
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-panel
-
-<Controls />
+<Controls of={PanelStories.WithImage} />

@@ -179,7 +179,7 @@ export const Progress = {
   parameters: {
     docs: {
       source: {
-        code: `<button #progressButton oui-button [progress]="['Discard','Discarding...','Discarded']"></button>`,
+        code: `<button #progressButton oui-button [progress]="['Save','Saving...','Saved']"></button>`,
       },
     },
   },
@@ -218,7 +218,7 @@ export const Icon = {
       declarations: [OuiIconButtonStorybook],
     },
 
-    template: `<oui-icon-button-storybook></oui-icon-button-storybook>`,
+    template: `<oui-icon-button-storybook [color]=color [disabled]=disabled ></oui-icon-button-storybook>`,
 
     props: {
       ...props,
@@ -239,6 +239,7 @@ export const Icon = {
   args: {
     color: COLORS[0],
     icon: 'configuration',
+    disabled: false,
   },
 
   argTypes: {

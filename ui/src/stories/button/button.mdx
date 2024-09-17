@@ -13,38 +13,36 @@ The Once UI buttons are native `<button>` or `<a>` elements with oncehub styling
 
 Native `<button>` or `<a>` elements are always used in order to provide the most straightforward and accessible experience for users. A `<button>` element should be used whenever some action is performed. An `<a>` element should be used whenever the user will navigate to another view. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/button/README.md
 
+Stackblitz demo link : https://stackblitz.com/edit/oui-button
+
 There are several `<button>` variants, each applied as an attribute
 
 Regular button:
 
-<Canvas>
-  <Story of={ButtonStories.Regular} />
-</Canvas>
+<Canvas of={ButtonStories.Regular} />
+
+<Controls of={ButtonStories.Regular} />
 
 Link button:
 
-<Canvas>
-  <Story of={ButtonStories.Link} />
-</Canvas>
+<Canvas of={ButtonStories.Link} />
+
+<Controls of={ButtonStories.Link} />
 
 Ghost button:
 
-<Canvas>
-  <Story of={ButtonStories.Ghost} />
-</Canvas>
+<Canvas of={ButtonStories.Ghost} />
+
+<Controls of={ButtonStories.Ghost} />
 
 Progress button:
 
-<Canvas>
-  <Story of={ButtonStories.Progress} />
-</Canvas>
+<Canvas of={ButtonStories.Progress} />
+
+<Controls of={ButtonStories.Progress} />
 
 Icon button:
 
-<Canvas>
-  <Story of={ButtonStories.Icon} />
-</Canvas>
+<Canvas of={ButtonStories.Icon} />
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-button
-
-<Controls />
+<Controls of={ButtonStories.Icon} />

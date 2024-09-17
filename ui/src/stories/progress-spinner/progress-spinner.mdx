@@ -17,18 +17,16 @@ Indeterminate: `<oui-progress-spinner color="primary|accent|warn" value="1 to 10
 
 See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/progress-spinner/README.md
 
+Stackblitz demo link : https://stackblitz.com/edit/oui-progress-spinner
+
 Determinate Progress spinner:
 
-<Canvas>
-  <Story of={ProgressSpinnerStories.Determinate} />
-</Canvas>
+<Canvas of={ProgressSpinnerStories.Determinate} />
+
+<Controls of={ProgressSpinnerStories.Determinate} />
 
 Indeterminate Progress spinner:
 
-<Canvas>
-  <Story of={ProgressSpinnerStories.Indeterminate} />
-</Canvas>
+<Canvas of={ProgressSpinnerStories.Indeterminate} />
 
-Stackblitz demo link : https://stackblitz.com/edit/oui-progress-spinner
-
-<Controls />
+<Controls of={ProgressSpinnerStories.Indeterminate} />

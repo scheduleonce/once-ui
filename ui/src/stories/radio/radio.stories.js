@@ -43,14 +43,14 @@ export const Regular = {
     docs: {
       source: {
         code: `
-<oui-radio-group name="enabled1" value="Winter">
-  <oui-radio-button value="Winter"> 
-    Winter 
-  </oui-radio-button>
-  <oui-radio-button value="Summer"> 
-    Summer 
-  </oui-radio-button>
-</oui-radio-group>`,
+        <oui-radio-group name="enabled1" value="Winter">
+          <oui-radio-button value="Winter"> 
+            Winter 
+          </oui-radio-button>
+          <oui-radio-button value="Summer"> 
+            Summer 
+          </oui-radio-button>
+        </oui-radio-group>`,
       },
     },
   },

@@ -27,10 +27,16 @@ export const Regular = {
         FormsModule,
         ReactiveFormsModule,
       ],
-
       schemas: [],
       declarations: [OuiAutocompleteStorybook],
     },
+    
+    template: `<oui-autocomplete-storybook 
+        [appearance]=appearance 
+        [autoActiveFirstOption]=autoActiveFirstOption 
+        [options]=options
+        [disabled]=disabled>
+        </oui-autocomplete-storybook>`, 
 
     component: OuiAutocompleteStorybook,
 
@@ -95,8 +101,15 @@ export const WithGroup = {
       ],
 
       schemas: [],
-      declarations: [OuiAutocompleteStorybook],
+      declarations: [OuiAutocompleteGroupStorybook],
     },
+    
+    template: `<oui-autocomplete-group-storybook 
+        [appearance]=appearance 
+        [autoActiveFirstOption]=autoActiveFirstOption 
+        [stateGroups]=stateGroups
+        [disabled]=disabled >
+        </oui-autocomplete-group-storybook>`, 
 
     component: OuiAutocompleteGroupStorybook,
 

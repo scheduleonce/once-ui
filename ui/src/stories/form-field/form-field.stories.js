@@ -15,7 +15,15 @@ export const Regular = {
       declarations: [],
     },
 
-    template: `<oui-form-field [appearance]="appearance" ngClass={{theme}}> <input [disabled]="disabled" (blur)="blured()" (focus)="focused()" [type]="type" oui-input [placeholder]="placeholder" /> </oui-form-field>`,
+    template: `<oui-form-field [appearance]="appearance" ngClass={{theme}}> 
+                <input 
+                [disabled]="disabled" 
+                (blur)="blured()" 
+                (focus)="focused()" 
+                [value]="type" 
+                oui-input 
+                [placeholder]="placeholder" /> 
+                </oui-form-field>`,
 
     props: {
       ...props,
@@ -30,8 +38,8 @@ export const Regular = {
     docs: {
       source: {
         code: `<oui-form-field>
-  <input oui-input type="text" placeholder="Type here" >
-</oui-form-field>`,
+                <input oui-input type="text" placeholder="Type here" >
+                </oui-form-field>`,
       },
     },
   },
