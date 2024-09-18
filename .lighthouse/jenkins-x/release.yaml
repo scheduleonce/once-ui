@@ -190,9 +190,6 @@ spec:
           - mountPath: /etc/npm-cred
             name: npm-cred
             readOnly: true
-          - mountPath: /etc/azure-artifact-cred
-            name: azure-artifact-cred
-            readOnly: true
           workingDir: /workspace/source
         steps:
         - script: |
@@ -269,20 +266,12 @@ spec:
           name: docker-build
           resources: {}
         - args:
-          - sh deploy-npm.sh $PULL_BASE_REF
+          - sh deploy.sh $PULL_BASE_REF
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v18.16.0
-          name: package-build-publish-npm
-          resources: {}
-        - args:
-          - chown root:root . && sh deploy-azure.sh $PULL_BASE_REF
-          command:
-          - /bin/sh
-          - -c
-          image: dockeronce.azurecr.io/cloudbees/nodejs:sonf-v16-latest
-          name: package-build-publish-azure
+          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v20.14.0
+          name: package-build-publish
           resources: {}
         volumes:
         - emptyDir: {}
@@ -299,9 +288,6 @@ spec:
         - name: npm-cred
           secret:
             secretName: npm-cred
-        - name: azure-artifact-cred
-          secret:
-            secretName: azure-artifact-cred
   podTemplate:
     ImagePullSecrets:
     - name: tekton-container-registry-auth

@@ -66,19 +66,21 @@ $green-tick-icon: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0
 }
 /*common properties in all buttons*/
 @mixin oui-button-base {
-  font-size: $font-size;
-  border-radius: $border-radius;
-  letter-spacing: $letter-spacing;
-  padding: $padding;
-  line-height: $line-height;
-  min-height: $min-height;
-  min-width: $min-width;
-  font-weight: $font-semi-bold;
-  cursor: $cursor;
-  border: $border;
-  background: transparent;
-  text-decoration: $text-decoration;
-  text-align: $text-align-center;
+  & {
+    font-size: $font-size;
+    border-radius: $border-radius;
+    letter-spacing: $letter-spacing;
+    padding: $padding;
+    line-height: $line-height;
+    min-height: $min-height;
+    min-width: $min-width;
+    font-weight: $font-semi-bold;
+    cursor: $cursor;
+    border: $border;
+    background: transparent;
+    text-decoration: $text-decoration;
+    text-align: $text-align-center;
+  }
   &[disabled] {
     cursor: $disabled-cursor;
   }

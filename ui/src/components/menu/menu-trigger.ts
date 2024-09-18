@@ -316,7 +316,11 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   // set state rather than toggle to support triggers sharing a menu
   private _setIsMenuOpen(isOpen: boolean): void {
     this._menuOpen = isOpen;
-    this._menuOpen ? this.menuOpened.emit() : this.menuClosed.emit();
+    if (this._menuOpen) {
+      this.menuOpened.emit();
+    } else {
+      this.menuClosed.emit();
+    }
 
     if (this.triggersSubmenu()) {
       this._menuItemInstance._highlighted = isOpen;
