@@ -1,0 +1,33 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiIconModule,
+  OuiPanelModule,
+  OuiButtonModule,
+  OuiPanel,
+} from '../../components';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { OuiPanelStorybook } from './panel.component';
+import { OuiPanelWithImageStorybook } from './panel.component';
+import * as PanelStories from './panel.stories';
+
+<Meta of={PanelStories} />
+
+# Panel
+
+`oui-panel` is a floating panel which can contain other elements. It also provide default information icon that can be used as component `oui-panel-icon`.
+
+The `<oui-panel>` doesn't render anything by itself. The panel is attached to and opened via application of the `ouiPanelTriggerFor` directive. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/panel/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-panel
+
+Regular Panel
+
+<Canvas of={PanelStories.Regular} />
+
+<Controls of={PanelStories.Regular} />
+
+With Image Panel:
+
+<Canvas of={PanelStories.WithImage} />
+
+<Controls of={PanelStories.WithImage} />

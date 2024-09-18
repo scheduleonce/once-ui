@@ -1,0 +1,25 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiFormField,
+} from '../../components';
+import { action } from '@storybook/addon-actions';
+import { THEME } from '../const';
+import * as TextareaStories from './textarea.stories';
+
+<Meta of={TextareaStories} />
+
+# Textarea
+
+`ouiInput` is a directive that allows native `<input>` and `<textarea>` elements to work with `<oui-form-field>`. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/input/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-textarea
+
+Regular Input field
+
+<Canvas>
+  <Story of={TextareaStories.Regular} />
+</Canvas>
+
+<Controls of={TextareaStories.Regular} />

@@ -489,7 +489,11 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
   /** Shows/hides the tooltip */
   toggle(): void {
-    this._isTooltipVisible() ? this.hide() : this.show();
+    if (this._isTooltipVisible()) {
+      this.hide();
+    } else {
+      this.show();
+    }
   }
 
   /** Returns true if the tooltip is currently visible to the user */
