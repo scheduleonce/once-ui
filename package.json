@@ -1,10 +1,6 @@
 {
   "name": "oncehub-ui",
-<<<<<<< HEAD
   "version": "8.0.31",
-=======
-  "version": "8.0.31-beta.1",
->>>>>>> dcf59be20c45d392c74600d85a77e9817b573c79
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -75,11 +71,7 @@
     "eslint-plugin-import": "2.29.1",
     "eslint-plugin-jsdoc": "50.2.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
-<<<<<<< HEAD
-    "eslint-plugin-storybook": "^0.6.13",    
-=======
     "eslint-plugin-storybook": "^0.8.0",
->>>>>>> dcf59be20c45d392c74600d85a77e9817b573c79
     "gulp": "5.0.0",
     "jasmine-core": "4.1.0",
     "jasmine-spec-reporter": "7.0.0",
