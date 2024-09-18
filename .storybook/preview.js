@@ -13,3 +13,4 @@ export const parameters = {
   },
   docs: { inlineStories: true },
 };
+// export const tags = ['autodocs'];
