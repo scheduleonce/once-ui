@@ -1,0 +1,19 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { OuiRadioModule, OuiRadioButton } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { LABELPOSITION, COLORS } from '../const';
+import * as RadioStories from './radio.stories';
+
+<Meta of={RadioStories} />
+
+# Radio
+
+`<oui-radio>` provides the same functionality as a native `<input type="radio">` enhanced with design styling and animations.
+
+All radio-buttons with the same name comprise a set from which only one may be selected at a time. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/radio/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-radio-button
+
+<Canvas of={RadioStories.Regular} />
+
+<Controls of={RadioStories.Regular} />

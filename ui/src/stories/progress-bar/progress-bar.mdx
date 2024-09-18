@@ -1,0 +1,32 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { OuiProgressBar } from '../../components/progress-bar/progress-bar';
+import { COLORS } from '../const';
+import * as ProgressBarStories from './progress-bar.stories';
+
+<Meta of={ProgressBarStories} />
+
+# ProgressBar
+
+`<oui-progress-bar>` is a horizontal progress-bar for indicating progress and activity.
+
+Example:
+
+Determinate: `<oui-progress-bar color="primary|accent|warn"></oui-progress-bar>`
+
+Indeterminate: `<oui-progress-bar color="primary|accent|warn" value="1 to 100"></oui-progress-bar>`
+
+See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/progress-bar/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-progress-bar
+
+Determinate Progress Bar:
+
+<Canvas of={ProgressBarStories.Determinate} />
+
+<Controls of={ProgressBarStories.Determinate} />
+
+Indeterminate Progress Bar:
+
+<Canvas of={ProgressBarStories.Indeterminate} />
+
+<Controls of={ProgressBarStories.Indeterminate} />
