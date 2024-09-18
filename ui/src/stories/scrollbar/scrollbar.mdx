@@ -1,0 +1,29 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiScrollbarModule,
+  Scrollbar,
+} from '../../components/scrollbar/scrollbar-module';
+import { DUMMY_TEXT, COUNTRY_LIST } from '../const';
+import { OuiScrollbarTextStorybook } from './scrollbar.component';
+import { OuiScrollbarListStorybook } from './scrollbar.component';
+import * as ScrollbarStories from './scrollbar.stories';
+
+<Meta of={ScrollbarStories} />
+
+# Scrollbar
+
+The `oui-scrollbar` provides a custom scrollbar to the inner content of element it has been applied on.
+
+All radio-buttons with the same name comprise a set from which only one may be selected at a time. See https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/radio/README.md
+
+Regular data scrollbar:
+
+<Canvas of={ScrollbarStories.Regular} />
+
+<Controls of={ScrollbarStories.Regular} />
+
+List data scrollbar:
+
+<Canvas of={ScrollbarStories.List} />
+
+<Controls of={ScrollbarStories.List} />
