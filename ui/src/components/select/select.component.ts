@@ -722,7 +722,11 @@ export class OuiSelect
 
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
-    this.panelOpen ? this.close() : this.open();
+    if (this.panelOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
   }
 
   /** Opens the overlay panel. */
@@ -848,9 +852,11 @@ export class OuiSelect
   /** Handles all keydown events on the select. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      this.panelOpen
-        ? this._handleOpenKeydown(event)
-        : this._handleClosedKeydown(event);
+      if (this.panelOpen) {
+        this._handleOpenKeydown(event);
+      } else {
+        this._handleClosedKeydown(event);
+      }
     }
   }
 
@@ -874,9 +880,11 @@ export class OuiSelect
       this.open();
     } else if (!this.multiple) {
       if (keyCode === HOME || keyCode === END) {
-        keyCode === HOME
-          ? manager.setFirstItemActive()
-          : manager.setLastItemActive();
+        if (keyCode === HOME) {
+          manager.setFirstItemActive();
+        } else {
+          manager.setLastItemActive();
+        }
         event.preventDefault();
       } else {
         manager.onKeydown(event);
@@ -969,9 +977,11 @@ export class OuiSelect
     keyCode: number,
     manager: ActiveDescendantKeyManager<OuiOption>
   ) {
-    keyCode === HOME
-      ? manager.setFirstItemActive()
-      : manager.setLastItemActive();
+    if (keyCode === HOME) {
+      manager.setFirstItemActive();
+    } else {
+      manager.setLastItemActive();
+    }
   }
   /** Check if search input field is present in select box */
   searchCheck() {
@@ -1033,7 +1043,11 @@ export class OuiSelect
 
     this.options.forEach((option) => {
       if (!option.disabled) {
-        hasDeselectedOptions ? option.select() : option.deselect();
+        if (hasDeselectedOptions) {
+          option.select();
+        } else {
+          option.deselect();
+        }
       }
     });
   }
@@ -1153,7 +1167,7 @@ export class OuiSelect
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  private _setSelectionByValue(value: any | any[]): void {
+  private _setSelectionByValue(value: any): void {
     if (this.multiple && value) {
       if (!Array.isArray(value)) {
         throw getOuiSelectNonArrayValueError();
@@ -1267,9 +1281,11 @@ export class OuiSelect
       this._selectionModel.clear();
       this._propagateChanges(option.value);
     } else {
-      option.selected
-        ? this._selectionModel.select(option)
-        : this._selectionModel.deselect(option);
+      if (option.selected) {
+        this._selectionModel.select(option);
+      } else {
+        this._selectionModel.deselect(option);
+      }
 
       if (isUserInput) {
         this._keyManager.setActiveItem(option);
