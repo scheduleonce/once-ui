@@ -134,17 +134,21 @@ export class OuiDialogRef<T, R = any> {
     const strategy = this._getPositionStrategy();
 
     if (position && (position.left || position.right)) {
-      position.left
-        ? strategy.left(position.left)
-        : strategy.right(position.right);
+      if (position.left) {
+        strategy.left(position.left);
+      } else {
+        strategy.right(position.right);
+      }
     } else {
       strategy.centerHorizontally();
     }
 
     if (position && (position.top || position.bottom)) {
-      position.top
-        ? strategy.top(position.top)
-        : strategy.bottom(position.bottom);
+      if (position.top) {
+        strategy.top(position.top);
+      } else {
+        strategy.bottom(position.bottom);
+      }
     } else {
       strategy.centerVertically();
     }
