@@ -104,7 +104,7 @@ export class Checkbox
    * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
    */
   @Input('aria-labelledby')
-  ariaLabelledby: any | null = null;
+  ariaLabelledby: any = null;
 
   private _uniqueId: any = `oui-checkbox-${++nextUniqueId}`;
 

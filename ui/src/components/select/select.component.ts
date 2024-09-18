@@ -615,9 +615,6 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
-  previouslySelectedValue: any;
-  counter = false;
-
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _ngZone: NgZone,
@@ -722,20 +719,13 @@ export class OuiSelect
     this._destroy.complete();
     this.stateChanges.complete();
   }
-  selectedList = [];
+
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
-    this.panelOpen ? this.close() : this.open();
-
-    this.selectedList = this.options['_results'];
-    if (this.previouslySelectedValue.length === this.selectedList.length) {
-      this.previouslySelectedValue.forEach((element, index) => {
-        if (element.value !== this.selectedList[index].value) {
-          this.disableDoneButton = false;
-        } else {
-          this.disableDoneButton = true;
-        }
-      });
+    if (this.panelOpen) {
+      this.close();
+    } else {
+      this.open();
     }
   }
 
@@ -830,7 +820,7 @@ export class OuiSelect
   }
 
   /** The currently selected option. */
-  get selected(): any | any[] {
+  get selected(): OuiOption | OuiOption[] {
     return this.multiple
       ? this._selectionModel.selected
       : this._selectionModel.selected[0];
@@ -862,9 +852,11 @@ export class OuiSelect
   /** Handles all keydown events on the select. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      this.panelOpen
-        ? this._handleOpenKeydown(event)
-        : this._handleClosedKeydown(event);
+      if (this.panelOpen) {
+        this._handleOpenKeydown(event);
+      } else {
+        this._handleClosedKeydown(event);
+      }
     }
   }
 
@@ -888,9 +880,11 @@ export class OuiSelect
       this.open();
     } else if (!this.multiple) {
       if (keyCode === HOME || keyCode === END) {
-        keyCode === HOME
-          ? manager.setFirstItemActive()
-          : manager.setLastItemActive();
+        if (keyCode === HOME) {
+          manager.setFirstItemActive();
+        } else {
+          manager.setLastItemActive();
+        }
         event.preventDefault();
       } else {
         manager.onKeydown(event);
@@ -983,9 +977,11 @@ export class OuiSelect
     keyCode: number,
     manager: ActiveDescendantKeyManager<OuiOption>
   ) {
-    keyCode === HOME
-      ? manager.setFirstItemActive()
-      : manager.setLastItemActive();
+    if (keyCode === HOME) {
+      manager.setFirstItemActive();
+    } else {
+      manager.setLastItemActive();
+    }
   }
   /** Check if search input field is present in select box */
   searchCheck() {
@@ -1047,7 +1043,11 @@ export class OuiSelect
 
     this.options.forEach((option) => {
       if (!option.disabled) {
-        hasDeselectedOptions ? option.select() : option.deselect();
+        if (hasDeselectedOptions) {
+          option.select();
+        } else {
+          option.deselect();
+        }
       }
     });
   }
@@ -1167,7 +1167,7 @@ export class OuiSelect
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  private _setSelectionByValue(value: any | any[]): void {
+  private _setSelectionByValue(value: any): void {
     if (this.multiple && value) {
       if (!Array.isArray(value)) {
         throw getOuiSelectNonArrayValueError();
@@ -1274,22 +1274,19 @@ export class OuiSelect
 
   /** Invoked when an option is clicked. */
   private _onSelect(option: OuiOption, isUserInput: boolean): void {
-    setTimeout((_) => {
-      if (!this.counter) {
-        this.previouslySelectedValue = this.selected;
-        this.counter = true;
-      }
-    });
     const wasSelected = this._selectionModel.isSelected(option);
+
     if (option.value == null && !this._multiple) {
       option.deselect();
       this._selectionModel.clear();
       this._propagateChanges(option.value);
     } else {
-      option.selected
-        ? this._selectionModel.select(option)
-        : this._selectionModel.deselect(option);
-      // this.selectedList.push(option)
+      if (option.selected) {
+        this._selectionModel.select(option);
+      } else {
+        this._selectionModel.deselect(option);
+      }
+
       if (isUserInput) {
         this._keyManager.setActiveItem(option);
       }
@@ -1324,7 +1321,6 @@ export class OuiSelect
   doneRecentChanges() {
     this.savedValues = this.value;
     this.disableDoneButton = true;
-    this.previouslySelectedValue = this.selected;
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
@@ -1341,9 +1337,6 @@ export class OuiSelect
     );
     if (this.allowNoSelection) {
       return false;
-    }
-    if (this.previouslySelectedValue?.length === selectedItems?.length) {
-      return true;
     }
     return selectedItems.length === 0;
   }

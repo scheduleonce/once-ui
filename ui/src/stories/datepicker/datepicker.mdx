@@ -1,0 +1,39 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { action } from '@storybook/addon-actions';
+import { COLORS, APPEARANCE } from '../const';
+import { OuiDatepickerModule } from '../../components/datepicker';
+import { OuiFormFieldModule, OuiInputModule } from '../../components';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  OuiDaterangepickerStorybook,
+  OuiDatepickerStorybook,
+  OuiDatepickerCustomStorybook,
+} from './datepicker.component';
+import * as datepickerStories from './index.stories.ts';
+
+<Meta of={datepickerStories} />
+
+# Datepicker
+
+The datepicker allows users to enter a date either through text input, or by choosing a date from the calendar. It is made up of several components and directives that work together.
+See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/datepicker/README.md
+
+Stackblitz demo link: https://stackblitz.com/edit/oui-datepicker
+
+Regular Datepicker
+
+<Canvas of={datepickerStories.Regular} />
+
+<Controls of={datepickerStories.Regular} />
+
+Custom Format
+
+<Canvas of={datepickerStories.Custom_Format} />
+
+<Controls of={datepickerStories.Custom_Format} />
+
+Daterange Picker
+
+<Canvas of={datepickerStories.Daterange_Picker} />
+
+<Controls of={datepickerStories.Daterange_Picker} />

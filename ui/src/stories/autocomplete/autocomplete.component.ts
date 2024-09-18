@@ -46,6 +46,8 @@ export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
   myControl = new UntypedFormControl();
   @Input() options: any[];
+  @Input() appearance: string;
+  @Input() autoActiveFirstOption: boolean;
   @Input()
   set disabled(value: boolean) {
     if (value) {
@@ -107,6 +109,8 @@ export class OuiAutocompleteStorybook implements OnInit {
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {
   @Input() stateGroups: StateGroup[];
+  @Input() appearance: string;
+  @Input() autoActiveFirstOption: boolean;
   @Input()
   set disabled(value: boolean) {
     if (value) {
