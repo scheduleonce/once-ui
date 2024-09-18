@@ -23,7 +23,7 @@ $oui-menu-icon-margin: 16px !default;
   @include oui-truncate-line();
 
   // Needs to be a block for the ellipsis to work.
-  display: block;
+  // display: block;
   line-height: $oui-menu-item-height;
   height: $oui-menu-item-height;
   padding: 0 $oui-menu-side-padding;

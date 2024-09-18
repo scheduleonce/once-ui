@@ -11,7 +11,6 @@
 }
 
 .oui-option {
-  @include oui-menu-item-base();
   position: relative;
   cursor: pointer;
   outline: none;
@@ -21,6 +20,7 @@
   box-sizing: border-box;
   align-items: center;
   -webkit-tap-highlight-color: transparent;
+  @include oui-menu-item-base();
 
   &[aria-disabled='true'] {
     @include user-select(none);
