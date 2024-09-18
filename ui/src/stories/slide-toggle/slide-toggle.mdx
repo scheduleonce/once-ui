@@ -1,0 +1,18 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { OuiSlideToggle } from '../../components';
+import { action } from '@storybook/addon-actions';
+import { COLORS } from '../const';
+import { OuiSlideToggleModule } from '../../components';
+import * as SlideToggleStories from './slide-toggle.stories';
+
+<Meta of={SlideToggleStories} />
+
+# SlideToggle
+
+`<oui-slide-toggle>` is an on/off control that can be toggled via clicking. The slide-toggle behaves similarly to a checkbox. A `<oui-slide-toggle>` element should be used whenever some toggle action is performed. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/slide-toggle/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-checkbox
+
+<Canvas of={SlideToggleStories.Regular} />
+
+<Controls of={SlideToggleStories.Regular} />
