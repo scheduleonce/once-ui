@@ -106,6 +106,198 @@ export const Regular = {
   },
 };
 
+export const RegularSelectWithSingleActionItem = {
+  render: (props) => ({
+    template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" singleActionItem [disabled]="disabled">
+          <oui-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+
+    props: {
+      ...props,
+      onChange: action('change'),
+    },
+
+    moduleMetadata: {
+      imports: [
+        OuiFormFieldModule,
+        OuiInputModule,
+        OuiSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+    },
+  }),
+
+  name: 'Regular select with single Action',
+  height: '300px',
+
+  parameters: {
+    docs: {
+      source: {
+        code: `<oui-form-field>
+  <oui-select large placeholder="Favorite food" multiple actionItems>
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
+      },
+    },
+  },
+
+  args: {
+    large: false,
+    theme: THEME[0],
+    disabled: false,
+    appearance: APPEARANCE[0],
+    placeholder: 'Favorite food',
+
+    options: [
+      'Pizza',
+      'Burgers',
+      'Steak',
+      'Tacos',
+      'Pasta',
+      'Fries',
+      'Momos',
+      'Kababs',
+      'Rolls',
+      'Biryani',
+      'Sweets',
+    ],
+
+    singleActionLabel: 'Apply',
+  },
+
+  argTypes: {
+    theme: {
+      options: THEME,
+
+      control: {
+        type: 'select',
+      },
+    },
+
+    appearance: {
+      options: ['standard', 'underline'],
+
+      control: {
+        type: 'select',
+      },
+    },
+
+    options: {
+      control: {
+        type: 'object',
+      },
+    },
+  },
+};
+
+export const MultiSelectWithSingleActionItem = {
+  render: (props) => ({
+    template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" multiple singleActionItem [disabled]="disabled">
+          <oui-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+
+    props: {
+      ...props,
+      onChange: action('change'),
+    },
+
+    moduleMetadata: {
+      imports: [
+        OuiFormFieldModule,
+        OuiInputModule,
+        OuiSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+    },
+  }),
+
+  name: 'Multi select with single Action',
+  height: '300px',
+
+  parameters: {
+    docs: {
+      source: {
+        code: `<oui-form-field>
+  <oui-select large placeholder="Favorite food" multiple actionItems>
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
+      },
+    },
+  },
+
+  args: {
+    large: false,
+    theme: THEME[0],
+    disabled: false,
+    appearance: APPEARANCE[0],
+    placeholder: 'Favorite food',
+
+    options: [
+      'Pizza',
+      'Burgers',
+      'Steak',
+      'Tacos',
+      'Pasta',
+      'Fries',
+      'Momos',
+      'Kababs',
+      'Rolls',
+      'Biryani',
+      'Sweets',
+    ],
+
+    singleActionLabel: 'Apply',
+  },
+
+  argTypes: {
+    theme: {
+      options: THEME,
+
+      control: {
+        type: 'select',
+      },
+    },
+
+    appearance: {
+      options: ['standard', 'underline'],
+
+      control: {
+        type: 'select',
+      },
+    },
+
+    options: {
+      control: {
+        type: 'object',
+      },
+    },
+  },
+};
+
 export const MultiSelect = {
   render: (props) => ({
     template: `
