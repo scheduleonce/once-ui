@@ -229,6 +229,7 @@ export class OuiSelect
 
   /** Whether filling out the select is required in the form. */
   private _actionItems = false;
+  private _singleActionItems = false;
 
   /** The scroll position of the overlay panel, calculated to center the selected option. */
   private _scrollTop = 0;
@@ -241,6 +242,9 @@ export class OuiSelect
 
   /** The label displayed on the done button of the select in case of multi-select. */
   private _doneLabel = 'Done';
+
+  /** The label displayed on the singleSelect and multiSelect of the select as a actionItem. */
+  private _singleActionLabel = 'New action button';
 
   /** Whether the component is in multiple selection mode. */
   private _multiple = false;
@@ -327,6 +331,9 @@ export class OuiSelect
 
   /** Trigger that opens the select. */
   @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('singleButton', { read: ElementRef }) singleButton: ElementRef;
 
   /** Panel containing the select options. */
   @ViewChild('panel', { read: ElementRef }) panel: ElementRef;
@@ -424,6 +431,10 @@ export class OuiSelect
   readonly saveSelectionChange: EventEmitter<OuiSelectChange> =
     new EventEmitter<OuiSelectChange>();
 
+  /** Can pass any method to be triggered on singleActionItem click. */
+  @Output()
+  readonly singleSelectionChange = new EventEmitter<void>();
+
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
@@ -490,6 +501,16 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
+  /** In case of singleSelect and multiSelect the singleActionLabel to be shown on actionItem. */
+  @Input()
+  get singleActionLabel(): string {
+    return this._singleActionLabel;
+  }
+  set singleActionLabel(value: string) {
+    this._singleActionLabel = value;
+    this.stateChanges.next();
+  }
+
   /** Whether the component is required. */
   @Input()
   get required(): boolean {
@@ -532,6 +553,15 @@ export class OuiSelect
       this._actionItems = coerceBooleanProperty(value);
       this.stateChanges.next();
     }
+  }
+
+  @Input()
+  get singleActionItem(): boolean {
+    return this._singleActionItems;
+  }
+  set singleActionItem(value: boolean) {
+    this._singleActionItems = coerceBooleanProperty(value);
+    this.stateChanges.next();
   }
 
   /** Whether to center the active option over the trigger. */
@@ -695,17 +725,10 @@ export class OuiSelect
   selectedList = [];
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
-    this.panelOpen ? this.close() : this.open();
-
-    this.selectedList = this.options['_results'];
-    if (this.previouslySelectedValue.length === this.selectedList.length) {
-      this.previouslySelectedValue.forEach((element, index) => {
-        if (element.value !== this.selectedList[index].value) {
-          this.disableDoneButton = false;
-        } else {
-          this.disableDoneButton = true;
-        }
-      });
+    if (this.panelOpen) {
+      this.close();
+    } else {
+      this.open();
     }
   }
 
@@ -832,9 +855,11 @@ export class OuiSelect
   /** Handles all keydown events on the select. */
   _handleKeydown(event: KeyboardEvent): void {
     if (!this.disabled) {
-      this.panelOpen
-        ? this._handleOpenKeydown(event)
-        : this._handleClosedKeydown(event);
+      if (this.panelOpen) {
+        this._handleOpenKeydown(event);
+      } else {
+        this._handleClosedKeydown(event);
+      }
     }
   }
 
@@ -858,9 +883,11 @@ export class OuiSelect
       this.open();
     } else if (!this.multiple) {
       if (keyCode === HOME || keyCode === END) {
-        keyCode === HOME
-          ? manager.setFirstItemActive()
-          : manager.setLastItemActive();
+        if (keyCode === HOME) {
+          manager.setFirstItemActive();
+        } else {
+          manager.setLastItemActive();
+        }
         event.preventDefault();
       } else {
         manager.onKeydown(event);
@@ -868,12 +895,29 @@ export class OuiSelect
     }
   }
 
+  /** On Tab key press select the buttons at the bottom if singleActionItem is enabled*/
+  singleTabKeySelection(singleButtonFocused) {
+    const singleButtonRef = this.singleButton
+      ?.nativeElement as HTMLButtonElement;
+    const searchQueryString = '.oui-select-search-input';
+    const searchInput = this._document.querySelector(searchQueryString);
+    if (!singleButtonFocused) {
+      setTimeout(() => {
+        singleButtonRef.focus();
+      });
+    } else if (this.isSearchFieldPresent && singleButtonFocused) {
+      searchInput.focus();
+    } else {
+      this.close();
+    }
+  }
+
   /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
     const searchQueryString = '.oui-select-search-input';
     const searchInput = this._document.querySelector(searchQueryString);
-    const doneButtonRef = this.ddDoneButton.nativeElement;
-    const cancelButtonRef = this.ddCancelButton.nativeElement;
+    const doneButtonRef = this.ddDoneButton?.nativeElement;
+    const cancelButtonRef = this.ddCancelButton?.nativeElement;
     if (!focused) {
       if (!doneDisabled && !doneButtonRef.classList.contains('cdk-focused')) {
         doneButtonRef.focus();
@@ -909,12 +953,23 @@ export class OuiSelect
     const doneDisabled: boolean = this.ddDoneButton?.nativeElement['disabled'];
     const cancelFocused: boolean =
       this.ddCancelButton?.nativeElement.classList.contains('cdk-focused');
+    const singleButtonFocused: boolean =
+      this.singleButton?.nativeElement.classList.contains('cdk-focused');
     if (isTabKey) {
       if (this.multiple) {
         event.preventDefault();
         event.stopPropagation();
         manager.setActiveItem(-1);
-        this.tabKeySelection(cancelFocused, doneDisabled);
+        if (this.actionItems) {
+          this.tabKeySelection(cancelFocused, doneDisabled);
+        } else if (this.singleActionItem) {
+          this.singleTabKeySelection(singleButtonFocused);
+        }
+      } else if (!this.multiple && this.singleActionItem) {
+        event.preventDefault();
+        event.stopPropagation();
+        manager.setActiveItem(-1);
+        this.singleTabKeySelection(singleButtonFocused);
       } else {
         this.close();
       }
@@ -925,9 +980,11 @@ export class OuiSelect
     keyCode: number,
     manager: ActiveDescendantKeyManager<OuiOption>
   ) {
-    keyCode === HOME
-      ? manager.setFirstItemActive()
-      : manager.setLastItemActive();
+    if (keyCode === HOME) {
+      manager.setFirstItemActive();
+    } else {
+      manager.setLastItemActive();
+    }
   }
   /** Check if search input field is present in select box */
   searchCheck() {
@@ -989,7 +1046,11 @@ export class OuiSelect
 
     this.options.forEach((option) => {
       if (!option.disabled) {
-        hasDeselectedOptions ? option.select() : option.deselect();
+        if (hasDeselectedOptions) {
+          option.select();
+        } else {
+          option.deselect();
+        }
       }
     });
   }
@@ -1109,7 +1170,7 @@ export class OuiSelect
    * Sets the selected option based on a value. If no option can be
    * found with the designated value, the select trigger is cleared.
    */
-  private _setSelectionByValue(value: any | any[]): void {
+  private _setSelectionByValue(value: any): void {
     if (this.multiple && value) {
       if (!Array.isArray(value)) {
         throw getOuiSelectNonArrayValueError();
@@ -1167,8 +1228,10 @@ export class OuiSelect
     this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
       // Restore focus to the trigger before closing. Ensures that the focus
       // position won't be lost if the user got focus into the overlay.
-      this.focus();
-      this.close();
+      if (!this.singleActionItem) {
+        this.focus();
+        this.close();
+      }
     });
 
     this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {
@@ -1226,10 +1289,12 @@ export class OuiSelect
       this._selectionModel.clear();
       this._propagateChanges(option.value);
     } else {
-      option.selected
-        ? this._selectionModel.select(option)
-        : this._selectionModel.deselect(option);
-      // this.selectedList.push(option)
+      if (option.selected) {
+        this._selectionModel.select(option);
+      } else {
+        this._selectionModel.deselect(option);
+      }
+
       if (isUserInput) {
         this._keyManager.setActiveItem(option);
       }
@@ -1266,6 +1331,11 @@ export class OuiSelect
     this.disableDoneButton = true;
     this.previouslySelectedValue = this.selected;
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
+    this.close();
+  }
+
+  handleSingleActionItemClick() {
+    this.singleSelectionChange.emit();
     this.close();
   }
 

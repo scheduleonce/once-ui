@@ -5,6 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.33] - 2024-09-20
+
+- [ONCEHUB-87445](https://scheduleonce.atlassian.net/browse/ONCEHUB-87445) fix: Adding Single and multi select with single action option in storybook.
+
+## [8.0.32] - 2024-09-20
+
+- [ONCEHUB-87445](https://scheduleonce.atlassian.net/browse/ONCEHUB-87445) fix: Update storybook in once-ui to version 8.x.
+
+## [8.0.30] - 2024-09-05
+
+- [ONCEHUB-83076](https://scheduleonce.atlassian.net/issues/ONCEHUB-87251) fix: Vulnerability in package webpack.
+
+## [8.0.29] - 2024-08-07
+
+- [ONCEHUB-83076](https://scheduleonce.atlassian.net/browse/ONCEHUB-83076) fix: Vulnerability in package ip.
+
+## [8.0.28] - 2024-07-25
+
+- [ONCEHUB-85443](https://scheduleonce.atlassian.net/browse/ONCEHUB-85443) fix: Tabs stretch issue.
+
+## [8.0.27] - 2024-07-18
+
+- [ONCEHUB-83190](https://scheduleonce.atlassian.net/browse/ONCEHUB-83190) Feat: Create singleActionItem bar for singleSelect and multiSelect.
+
+## [8.0.26] - 2024-07-17
+
+- [ONCEHUB-84773](https://scheduleonce.atlassian.net/browse/ONCEHUB-84773) fix: Tabs ui design-shared oui component- fix the color of the not selected.
+
+## [8.0.25] - 2024-07-08
+
+- [ONCEHUB-82598](https://scheduleonce.atlassian.net/browse/ONCEHUB-82598) fix: Occasionally, when hovering over elements that contain ouiToolTips, an unusual box appears.
+
+## [8.0.24] - 2024-07-10
+
+- [ONCEHUB-83691](https://scheduleonce.atlassian.net/browse/ONCEHUB-83691) update: change the color of help icon.
+
 ## [8.0.23] - 2024-07-08
 
 - [ONCEHUB-83691](https://scheduleonce.atlassian.net/browse/ONCEHUB-83691) update: package update for additional information icon in the same place across the platform.

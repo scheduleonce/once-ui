@@ -1,0 +1,57 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import {
+  OuiSelectModule,
+  OuiFormFieldModule,
+  OuiInputModule,
+  OuiSelect,
+} from '../../components';
+import { action } from '@storybook/addon-actions';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { APPEARANCE, THEME } from '../const';
+import * as SelectStories from './select.stories';
+
+<Meta of={SelectStories} />
+
+# Select
+
+`<oui-select>` is a form control for selecting a value from a set of options, similar to the native `<select>` element. It is designed to work inside of a `<oui-form-field>` element.
+
+To add options to the select, add elements to the `<oui-select>`. Each `<oui-option>` has a value property that can be used to set the value that will be selected if the user chooses this option. The content of the `<oui-option>` is what will be shown to the user. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/select/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-select-box
+
+Regular Select
+
+<Canvas of={SelectStories.Regular} />
+
+<Controls of={SelectStories.Regular} />
+
+Regular select with single Action:
+
+<Canvas of={SelectStories.RegularSelectWithSingleActionItem} />
+
+<Controls of={SelectStories.RegularSelectWithSingleActionItem} />
+
+Multi select with single Action:
+
+<Canvas of={SelectStories.MultiSelectWithSingleActionItem} />
+
+<Controls of={SelectStories.MultiSelectWithSingleActionItem} />
+
+Multi select:
+
+<Canvas of={SelectStories.MultiSelect} />
+
+<Controls of={SelectStories.MultiSelect} />
+
+Groups:
+
+<Canvas of={SelectStories.Groups} />
+
+<Controls of={SelectStories.Groups} />
+
+Search options:
+
+<Canvas of={SelectStories.SearchOptions} />
+
+<Controls of={SelectStories.SearchOptions} />

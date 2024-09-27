@@ -24,9 +24,11 @@ $oui-menu-line-height: 22px;
 
 /*reset the browser default properties*/
 @mixin oui-button-reset {
-  border: 0 none;
-  background: none;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  & {
+    border: 0 none;
+    background: none;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  }
   &:focus {
     outline: 0 none;
   }
@@ -65,19 +67,21 @@ $oui-menu-line-height: 22px;
 
 @mixin oui-menu-item-base() {
   //white-space: nowrap;
-  font-size: 13px;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  // Needs to be a block for the ellipsis to work.
-  display: block;
-  line-height: $oui-menu-line-height;
-  padding: 0 $oui-menu-side-padding;
-  text-align: left;
-  text-decoration: none; // necessary to reset anchor tags
-  // Required for Edge not to show scrollbars when setting the width manually. See #12112.
-  max-width: 100%;
-  width: 100%;
+  & {
+    font-size: 13px;
+    font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    // Needs to be a block for the ellipsis to work.
+    display: block;
+    line-height: $oui-menu-line-height;
+    padding: 0 $oui-menu-side-padding;
+    text-align: left;
+    text-decoration: none; // necessary to reset anchor tags
+    // Required for Edge not to show scrollbars when setting the width manually. See #12112.
+    max-width: 100%;
+    width: 100%;
+  }
 
   &[disabled] {
     cursor: default;
@@ -100,15 +104,17 @@ $oui-menu-line-height: 22px;
 .oui-menu-item {
   @include oui-button-reset();
   @include oui-menu-item-base();
-  position: relative;
-  padding: 8px 8px;
-  display: block;
-  color: #333;
-  cursor: pointer;
-  position: relative;
-  min-width: $oui-menu-overlay-min-width;
-  max-width: $oui-menu-overlay-max-width;
-  width: 100%;
+  & {
+    position: relative;
+    padding: 8px 8px;
+    display: block;
+    color: #333;
+    cursor: pointer;
+    position: relative;
+    min-width: $oui-menu-overlay-min-width;
+    max-width: $oui-menu-overlay-max-width;
+    width: 100%;
+  }
 
   span {
     display: inline-block;
