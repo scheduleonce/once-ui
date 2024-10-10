@@ -171,7 +171,11 @@ export class OuiPanelTrigger implements OnDestroy {
   // set state rather than toggle to support triggers sharing a panel
   private _setIsPanelOpen(isOpen: boolean): void {
     this._panelOpen = isOpen;
-    this._panelOpen ? this.panelOpened.emit() : this.panelClosed.emit();
+    if (this._panelOpen) {
+      this.panelOpened.emit();
+    } else {
+      this.panelClosed.emit();
+    }
   }
 
   /**

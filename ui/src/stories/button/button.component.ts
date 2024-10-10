@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 @Component({
@@ -15,6 +15,8 @@ import { OuiIconRegistry } from '../../components';
   `,
 })
 export class OuiIconButtonStorybook {
+  @Input() color: string;
+  @Input() disabled: boolean;
   constructor(
     private ouiIconRegistry: OuiIconRegistry,
     private domSanitizer: DomSanitizer

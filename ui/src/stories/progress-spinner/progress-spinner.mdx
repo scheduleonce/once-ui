@@ -1,0 +1,32 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/blocks';
+import { OuiProgressSpinner } from '../../components/progress-spinner/progress-spinner';
+import { COLORS } from '../const';
+import * as ProgressSpinnerStories from './progress-spinner.stories';
+
+<Meta of={ProgressSpinnerStories} />
+
+# ProgressSpinner
+
+`<oui-progress-spinner>` is a circular indicators of progress and activity.
+
+Example:
+
+Determinate: `<oui-progress-spinner color="primary|accent|warn"></oui-progress-spinner>`
+
+Indeterminate: `<oui-progress-spinner color="primary|accent|warn" value="1 to 100"></oui-progress-spinner>`
+
+See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/progress-spinner/README.md
+
+Stackblitz demo link : https://stackblitz.com/edit/oui-progress-spinner
+
+Determinate Progress spinner:
+
+<Canvas of={ProgressSpinnerStories.Determinate} />
+
+<Controls of={ProgressSpinnerStories.Determinate} />
+
+Indeterminate Progress spinner:
+
+<Canvas of={ProgressSpinnerStories.Indeterminate} />
+
+<Controls of={ProgressSpinnerStories.Indeterminate} />
