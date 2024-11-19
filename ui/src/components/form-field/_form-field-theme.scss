@@ -24,6 +24,8 @@ $form-field-transition-border: border 0.5s;
 $oui-error: #ff001f;
 $form-field-textarea-resize: vertical;
 $form-field-textarea-padding: 9px 10px;
+$form-field-input-number-padding-right: 20px;
+
 @mixin oui-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -156,4 +158,52 @@ $form-field-textarea-padding: 9px 10px;
       padding-bottom: 6px;
     }
   }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+.oui-form-field-infix .minus,
+.oui-form-field-infix .plus {
+  position: absolute;
+  right: 7px;
+  width: 16px;
+  height: 12px;
+  border: none;
+  background: $form-field-default-background;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 2px;
+  svg {
+    position: absolute;
+    top: -4px;
+    left: -2px;
+    transform: rotate(-90deg);
+  }
+  &:hover {
+    background: #c8c8c866 !important;
+  }
+}
+
+.oui-form-field-infix button.minus {
+  top: 5px;
+}
+
+.oui-form-field-infix button.plus {
+  bottom: 5px;
+  svg {
+    transform: rotate(90deg);
+  }
+}
+.oui-input[type='number'] {
+  padding-right: $form-field-input-number-padding-right;
 }
