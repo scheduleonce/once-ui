@@ -344,14 +344,18 @@ export class OuiInput
         return button;
       };
 
-      const previousBtn = createButton(
-        'minus',
-        "this.parentNode.querySelector('input[type=number]').stepDown()"
-      );
-      const nextBtn = createButton(
-        'plus',
-        "this.parentNode.querySelector('input[type=number]').stepUp()"
-      );
+      const previousBtn = createButton('minus', '');
+      previousBtn.addEventListener('click', () => {
+        if (elementRef instanceof HTMLInputElement) {
+          this.stepUp(elementRef);
+        }
+      });
+      const nextBtn = createButton('plus', '');
+      nextBtn.addEventListener('click', () => {
+        if (elementRef instanceof HTMLInputElement) {
+          this.stepDown(elementRef);
+        }
+      });
 
       elementRef.parentNode.appendChild(nextBtn);
       elementRef.parentNode.insertBefore(previousBtn, elementRef);
@@ -364,6 +368,14 @@ export class OuiInput
           this.stateChanges.next();
         });
     }
+  }
+
+  stepUp(element: HTMLInputElement) {
+    element.stepUp();
+  }
+
+  stepDown(element: HTMLInputElement) {
+    element.stepDown();
   }
 
   ngOnChanges() {
