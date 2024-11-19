@@ -5,6 +5,7 @@ import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
 import { OuiFormFieldModule } from '../form-field/form-field-module';
 import { OuiInput } from './input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { OuiIconModule } from '../icon/icon.module';
 
 @NgModule({
   declarations: [OuiInput],
@@ -13,6 +14,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     TextFieldModule,
     OuiFormFieldModule,
     ReactiveFormsModule,
+    OuiIconModule,
   ],
   exports: [
     TextFieldModule,
