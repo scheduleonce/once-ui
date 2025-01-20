@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.34] - 2025-01-20
+
+- [ONCEHUB-92487](https://scheduleonce.atlassian.net/browse/ONCEHUB-92487) update: package update for ws and puppeteer
+
 ## [8.0.33] - 2024-09-20
 
 - [ONCEHUB-87445](https://scheduleonce.atlassian.net/browse/ONCEHUB-87445) fix: Adding Single and multi select with single action option in storybook.
