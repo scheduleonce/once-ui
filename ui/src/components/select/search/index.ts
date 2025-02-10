@@ -92,7 +92,6 @@ export class OuiSelectSearchComponent
     this.storeInitialValuesIntoPrevious();
   }
   clearInput(): void {
-    debugger;
     this._value = null;
     this._focus();
     this._reset();
