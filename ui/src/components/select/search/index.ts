@@ -49,7 +49,7 @@ export class OuiSelectSearchComponent
   /** Reference to the search input field */
   @ViewChild('searchSelectInput', { read: ElementRef, static: true })
   searchSelectInput: ElementRef;
-  private _value: string;
+  public _value: string;
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
 
