@@ -1158,7 +1158,6 @@ export class OuiSelect
       this._setSelectionByValue(
         this.ngControl ? this.ngControl.value : this._value
       );
-      this.savedValues = this.ngControl ? this.ngControl.value : this._value;
       if (this.multiple) {
         this._highlightFirstFilteredOption();
       }
