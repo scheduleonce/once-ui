@@ -23,9 +23,20 @@ $defaul-color: #c8c8c8;
     );
   }
   .oui-select-search-input {
+    &.right-padding {
+      padding-right: 28px;
+    }
     &:focus {
       border-color: $defaul-color;
     }
+  }
+  .clear-btn {
+    background-color: #fff;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    height: calc(100% - 10px);
+    padding: 8px 4px 0px 4px;
   }
 }
 .oui-select-search-panel {
