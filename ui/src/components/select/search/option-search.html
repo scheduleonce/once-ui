@@ -7,6 +7,17 @@
       (input)="onInputChange($event.target.value)"
       [attr.aria-label]="ariaLabel"
       [placeholder]="placeholderLabel"
+      [ngClass]="{'right-padding': _value?.length}"
     />
+    <div class="clear-btn" *ngIf="_value?.length">
+      <button
+        title="Clear"
+        (click)="clearInput()"
+        aria-label="Clear search"
+        oui-icon-button
+      >
+        <oui-icon svgIcon="x-close-small"></oui-icon>
+      </button>
+    </div>
   </oui-form-field>
 </div>

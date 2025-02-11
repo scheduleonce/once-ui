@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [8.0.36] - 2025-02-11
+
+- [ONCEHUB-91168](https://scheduleonce.atlassian.net/browse/ONCEHUB-91168) Feat: Filter field inside Drop down menu - shared component
+
 ## [8.0.35] - 2025-01-20
 
 - [ONCEHUB-92487](https://scheduleonce.atlassian.net/browse/ONCEHUB-92487) update: outdated package update
