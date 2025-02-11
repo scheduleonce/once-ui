@@ -16,6 +16,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { takeUntil, filter } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { OuiOption } from '../../core/option/option';
+import { OuiIconRegistry } from '../../icon/icon-registery';
+import { DomSanitizer } from '@angular/platform-browser';
+import { ICONS } from '../../core/shared/icons';
 
 @Component({
   selector: 'oui-select-search',
@@ -46,14 +49,26 @@ export class OuiSelectSearchComponent
   /** Reference to the search input field */
   @ViewChild('searchSelectInput', { read: ElementRef, static: true })
   searchSelectInput: ElementRef;
-  private _value: string;
+  public _value: string;
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
 
   constructor(
     @Inject(OuiSelect) public ouiSelect: OuiSelect,
-    @Optional() @Inject(DOCUMENT) private _document: any
-  ) {}
+    @Optional() @Inject(DOCUMENT) private _document: any,
+    private ouiIconRegistry: OuiIconRegistry,
+    private domSanitizer: DomSanitizer
+  ) {
+    this.ouiIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?5df5gz'
+      )
+    );
+    this.ouiIconRegistry.addSvgIconLiteral(
+      `close-icon`,
+      this.domSanitizer.bypassSecurityTrustHtml(ICONS.CLOSE_ICON)
+    );
+  }
   registerOnChange(fn: (value: any) => void) {
     this.onChange = fn;
   }
@@ -76,7 +91,11 @@ export class OuiSelectSearchComponent
     this.initMultipleHandling();
     this.storeInitialValuesIntoPrevious();
   }
-
+  clearInput(): void {
+    this._value = null;
+    this._focus();
+    this._reset();
+  }
   private storeInitialValuesIntoPrevious() {
     this.ouiSelect._openedStream
       .pipe(
