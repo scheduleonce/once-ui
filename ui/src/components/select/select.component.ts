@@ -357,6 +357,9 @@ export class OuiSelect
   @Input('aria-labelledby') ariaLabelledby: string;
   private _large = false;
   _monitorSubscription: any;
+  initialOptions: QueryList<OuiOption>;
+  prevouslySelected: any[] = [];
+  setSelectedOptions: string[] = [];
 
   /** Whether the oui-select is of large size. */
   @Input()
@@ -689,7 +692,10 @@ export class OuiSelect
         event.added.forEach((option) => option.select());
         event.removed.forEach((option) => option.deselect());
       });
-
+    this.initialOptions = this.options;
+    setTimeout((_) => {
+      this._isDoneButtonDisabledInitial();
+    });
     this.options.changes
       .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
@@ -1247,7 +1253,6 @@ export class OuiSelect
   /** Drops current option subscriptions and IDs and resets from scratch. */
   private _resetOptions(): void {
     const changedOrDestroyed = merge(this.options.changes, this._destroy);
-
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
       .subscribe((event) => {
@@ -1273,6 +1278,26 @@ export class OuiSelect
 
   /** Invoked when an option is clicked. */
   private _onSelect(option: OuiOption, isUserInput: boolean): void {
+    if (option?.selected) {
+      this.setSelectedOptions.push(option.id);
+    } else {
+      this.setSelectedOptions = this.setSelectedOptions.filter(
+        (item) => item !== option.id
+      );
+    }
+    if (this.setSelectedOptions.length === this.prevouslySelected.length) {
+      this.disableDoneButton = true;
+      return;
+    }
+    this.setSelectedOptions.forEach((element) => {
+      if (this.prevouslySelected.includes(element)) {
+        this.disableDoneButton = true;
+      } else {
+        this.disableDoneButton = false;
+      }
+    });
+
+    // selectedOptions
     const wasSelected = this._selectionModel.isSelected(option);
 
     if (option.value == null && !this._multiple) {
@@ -1329,8 +1354,7 @@ export class OuiSelect
     this.close();
   }
 
-  /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
-  private _isDoneButtonDisabled(): boolean {
+  _isDoneButtonDisabled() {
     const selectedItems = (this.selected as OuiOption[]).map(
       (option) => option.value
     );
@@ -1338,6 +1362,22 @@ export class OuiSelect
       return false;
     }
     return selectedItems.length === 0;
+  }
+
+  /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
+  private _isDoneButtonDisabledInitial(): any {
+    this.initialOptions.toArray().forEach((element) => {
+      if (element?.selected) {
+        if (!this.prevouslySelected.includes(element.id)) {
+          this.prevouslySelected.push(element.id);
+        }
+      }
+      if (this.setSelectedOptions.length === this.prevouslySelected.length) {
+        this.disableDoneButton = true;
+      } else {
+        this.disableDoneButton = false;
+      }
+    });
   }
 
   /** Sorts the selected values in the selected based on their order in the panel. */
