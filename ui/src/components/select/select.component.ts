@@ -358,7 +358,7 @@ export class OuiSelect
   private _large = false;
   _monitorSubscription: any;
   initialOptions: QueryList<OuiOption>;
-  prevouslySelected: any[] = [];
+  previouslySelected: any[] = [];
   setSelectedOptions: string[] = [];
 
   /** Whether the oui-select is of large size. */
@@ -728,6 +728,7 @@ export class OuiSelect
 
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
+    this.disableDoneButton = true;
     if (this.panelOpen) {
       this.close();
     } else {
@@ -1278,25 +1279,6 @@ export class OuiSelect
 
   /** Invoked when an option is clicked. */
   private _onSelect(option: OuiOption, isUserInput: boolean): void {
-    if (option?.selected) {
-      this.setSelectedOptions.push(option.id);
-    } else {
-      this.setSelectedOptions = this.setSelectedOptions.filter(
-        (item) => item !== option.id
-      );
-    }
-    if (this.setSelectedOptions.length === this.prevouslySelected.length) {
-      this.disableDoneButton = true;
-      return;
-    }
-    this.setSelectedOptions.forEach((element) => {
-      if (this.prevouslySelected.includes(element)) {
-        this.disableDoneButton = true;
-      } else {
-        this.disableDoneButton = false;
-      }
-    });
-
     // selectedOptions
     const wasSelected = this._selectionModel.isSelected(option);
 
@@ -1332,7 +1314,9 @@ export class OuiSelect
       this._propagateChanges();
     }
     if (this.multiple) {
-      this.disableDoneButton = this._isDoneButtonDisabled();
+      setTimeout((_) => {
+        this.disableDoneButton = this._isDoneButtonDisabled();
+      });
     }
     this.stateChanges.next();
   }
@@ -1345,8 +1329,11 @@ export class OuiSelect
   doneRecentChanges() {
     this.savedValues = this.value;
     this.disableDoneButton = true;
-    this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
-    this.close();
+    setTimeout((_) => {
+      this.previouslySelected = [...this.setSelectedOptions];
+      this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
+      this.close();
+    });
   }
 
   handleSingleActionItemClick() {
@@ -1366,18 +1353,7 @@ export class OuiSelect
 
   /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
   private _isDoneButtonDisabledInitial(): any {
-    this.initialOptions.toArray().forEach((element) => {
-      if (element?.selected) {
-        if (!this.prevouslySelected.includes(element.id)) {
-          this.prevouslySelected.push(element.id);
-        }
-      }
-      if (this.setSelectedOptions.length === this.prevouslySelected.length) {
-        this.disableDoneButton = true;
-      } else {
-        this.disableDoneButton = false;
-      }
-    });
+    this.disableDoneButton = true;
   }
 
   /** Sorts the selected values in the selected based on their order in the panel. */
