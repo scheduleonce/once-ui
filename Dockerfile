@@ -1,4 +1,4 @@
-FROM dockeronce.azurecr.io/node:20.18.1-alpine3.20 AS build
+FROM dockeronce.azurecr.io/node:20.18.2-alpine3.21 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN chown root:root . 
