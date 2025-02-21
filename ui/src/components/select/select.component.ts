@@ -1313,10 +1313,16 @@ export class OuiSelect
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-    if (this.multiple) {
-      setTimeout((_) => {
-        this.disableDoneButton = this._isDoneButtonDisabled();
-      });
+    if (Array.isArray(this.selected) && this.selected.length <= 0) {
+      this.disableDoneButton = true;
+    }
+    if (
+      this.multiple &&
+      isUserInput &&
+      Array.isArray(this.selected) &&
+      this.selected.length > 0
+    ) {
+      this.disableDoneButton = this._isDoneButtonDisabled();
     }
     this.stateChanges.next();
   }
