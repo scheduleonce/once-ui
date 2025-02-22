@@ -693,9 +693,6 @@ export class OuiSelect
         event.removed.forEach((option) => option.deselect());
       });
     this.initialOptions = this.options;
-    setTimeout((_) => {
-      this._isDoneButtonDisabledInitial();
-    });
     this.options.changes
       .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
@@ -1335,11 +1332,9 @@ export class OuiSelect
   doneRecentChanges() {
     this.savedValues = this.value;
     this.disableDoneButton = true;
-    setTimeout((_) => {
-      this.previouslySelected = [...this.setSelectedOptions];
-      this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
-      this.close();
-    });
+    this.previouslySelected = [...this.setSelectedOptions];
+    this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
+    this.close();
   }
 
   handleSingleActionItemClick() {
@@ -1355,11 +1350,6 @@ export class OuiSelect
       return false;
     }
     return selectedItems.length === 0;
-  }
-
-  /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
-  private _isDoneButtonDisabledInitial(): any {
-    this.disableDoneButton = true;
   }
 
   /** Sorts the selected values in the selected based on their order in the panel. */
