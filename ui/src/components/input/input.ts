@@ -329,37 +329,6 @@ export class OuiInput
   }
 
   ngOnInit() {
-    const elementRef = this._elementRef.nativeElement;
-    const arrowSvg = `
-      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-      <path d="M10.913 10l-3.913 3.948 1.043 1.052 4.957-5-4.957-5-1.042 1.052z"></path>
-      </svg>`;
-
-    if (elementRef.type === 'number') {
-      const createButton = (className: string, onClick: string) => {
-        const button = document.createElement('button');
-        button.className = className;
-        button.innerHTML = arrowSvg;
-        button.setAttribute('onclick', onClick);
-        return button;
-      };
-
-      const previousBtn = createButton('minus', '');
-      previousBtn.addEventListener('click', () => {
-        if (elementRef instanceof HTMLInputElement) {
-          this.stepUp(elementRef);
-        }
-      });
-      const nextBtn = createButton('plus', '');
-      nextBtn.addEventListener('click', () => {
-        if (elementRef instanceof HTMLInputElement) {
-          this.stepDown(elementRef);
-        }
-      });
-
-      elementRef.parentNode.appendChild(nextBtn);
-      elementRef.parentNode.insertBefore(previousBtn, elementRef);
-    }
     if (this._platform.isBrowser) {
       this._autofillMonitor
         .monitor(this._elementRef.nativeElement)
@@ -368,14 +337,6 @@ export class OuiInput
           this.stateChanges.next();
         });
     }
-  }
-
-  stepUp(element: HTMLInputElement) {
-    element.stepUp();
-  }
-
-  stepDown(element: HTMLInputElement) {
-    element.stepDown();
   }
 
   ngOnChanges() {
