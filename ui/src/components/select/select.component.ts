@@ -357,7 +357,6 @@ export class OuiSelect
   @Input('aria-labelledby') ariaLabelledby: string;
   private _large = false;
   _monitorSubscription: any;
-  initialOptions: QueryList<OuiOption>;
   previouslySelected: any[] = [];
   setSelectedOptions: string[] = [];
 
@@ -692,7 +691,6 @@ export class OuiSelect
         event.added.forEach((option) => option.select());
         event.removed.forEach((option) => option.deselect());
       });
-    this.initialOptions = this.options;
     this.options.changes
       .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
@@ -1276,7 +1274,6 @@ export class OuiSelect
 
   /** Invoked when an option is clicked. */
   private _onSelect(option: OuiOption, isUserInput: boolean): void {
-    // selectedOptions
     const wasSelected = this._selectionModel.isSelected(option);
 
     if (option.value == null && !this._multiple) {
@@ -1342,6 +1339,7 @@ export class OuiSelect
     this.close();
   }
 
+  /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
   _isDoneButtonDisabled() {
     const selectedItems = (this.selected as OuiOption[]).map(
       (option) => option.value
