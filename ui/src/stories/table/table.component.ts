@@ -3,8 +3,8 @@ import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
-  selector: 'oui-table-storybook',
-  template: `
+    selector: 'oui-table-storybook',
+    template: `
     <oui-form-field>
       <input
         (keyup)="applyFilter($event.target.value)"
@@ -31,6 +31,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       <oui-paginator pageSize="{{ pageSize }}"></oui-paginator>
     </div>
   `,
+    standalone: false
 })
 export class OuiTableStorybook implements OnInit, OnChanges {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
@@ -82,8 +83,8 @@ export class OuiTableStorybook implements OnInit, OnChanges {
 }
 
 @Component({
-  selector: 'oui-table-custom-storybook',
-  template: `
+    selector: 'oui-table-custom-storybook',
+    template: `
     <div class="table-container">
       <table oui-table [dataSource]="userInfoDataSource">
         <ng-container ouiColumnDef="Users">
@@ -153,6 +154,7 @@ export class OuiTableStorybook implements OnInit, OnChanges {
       </table>
     </div>
   `,
+    standalone: false
 })
 export class OuiTableCustomStorybook implements OnChanges {
   INTEGRATIONS = {

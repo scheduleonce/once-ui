@@ -5,8 +5,9 @@ import { Directive, ElementRef } from '@angular/core';
  * as a connection point for an autocomplete panel.
  */
 @Directive({
-  selector: '[ouiAutocompleteOrigin]',
-  exportAs: 'ouiAutocompleteOrigin',
+    selector: '[ouiAutocompleteOrigin]',
+    exportAs: 'ouiAutocompleteOrigin',
+    standalone: false
 })
 export class OuiAutocompleteOrigin {
   constructor(

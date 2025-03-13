@@ -57,27 +57,28 @@ export const OUI_OPTION_PARENT_COMPONENT =
  * Single option inside of a `<oui-select>` element.
  */
 @Component({
-  selector: 'oui-option',
-  exportAs: 'ouiOption',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    role: 'option',
-    '[attr.tabindex]': '_getTabIndex()',
-    '[class.oui-selected]': 'selected',
-    '[class.oui-option-multiple]': 'multiple',
-    '[class.oui-active]': 'active',
-    '[id]': 'id',
-    '[attr.aria-selected]': 'selected.toString()',
-    '[attr.aria-disabled]': 'disabled.toString()',
-    '[class.oui-option-disabled]': 'disabled',
-    '(click)': '_selectViaInteraction()',
-    '(keydown)': '_handleKeydown($event)',
-    class: 'oui-option',
-  },
-  styleUrls: ['option.scss'],
-  templateUrl: 'option.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'oui-option',
+    exportAs: 'ouiOption',
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        role: 'option',
+        '[attr.tabindex]': '_getTabIndex()',
+        '[class.oui-selected]': 'selected',
+        '[class.oui-option-multiple]': 'multiple',
+        '[class.oui-active]': 'active',
+        '[id]': 'id',
+        '[attr.aria-selected]': 'selected.toString()',
+        '[attr.aria-disabled]': 'disabled.toString()',
+        '[class.oui-option-disabled]': 'disabled',
+        '(click)': '_selectViaInteraction()',
+        '(keydown)': '_handleKeydown($event)',
+        class: 'oui-option',
+    },
+    styleUrls: ['option.scss'],
+    templateUrl: 'option.html',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class OuiOption implements AfterViewChecked, OnDestroy {
   private _selected = false;

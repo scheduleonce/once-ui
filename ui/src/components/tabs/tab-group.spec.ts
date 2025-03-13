@@ -1210,7 +1210,7 @@ describe('OuiTabNavBar with a default config', () => {
 });
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group
       class="tab-group"
       [(selectedIndex)]="selectedIndex"
@@ -1235,6 +1235,7 @@ describe('OuiTabNavBar with a default config', () => {
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class SimpleTabsTestApp {
   @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
@@ -1255,7 +1256,7 @@ class SimpleTabsTestApp {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group
       class="tab-group"
       [(selectedIndex)]="selectedIndex"
@@ -1269,6 +1270,7 @@ class SimpleTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class SimpleDynamicTabsTestApp {
   tabs = [
@@ -1289,13 +1291,14 @@ class SimpleDynamicTabsTestApp {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
       <oui-tab *ngFor="let tab of tabs" label="{{ tab.label }}">
         {{ tab.content }}
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class BindedTabsTestApp {
   tabs = [
@@ -1314,7 +1317,7 @@ class BindedTabsTestApp {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group class="tab-group">
       <oui-tab>
         <ng-template oui-tab-label>Tab One</ng-template>
@@ -1330,6 +1333,7 @@ class BindedTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class DisabledTabsTestApp {
   @ViewChildren(OuiTab) tabs: QueryList<OuiTab>;
@@ -1337,7 +1341,7 @@ class DisabledTabsTestApp {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group class="tab-group">
       <oui-tab *ngFor="let tab of tabs | async">
         <ng-template oui-tab-label>{{ tab.label }}</ng-template>
@@ -1345,6 +1349,7 @@ class DisabledTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class AsyncTabsTestApp implements OnInit {
   private _tabs = [
@@ -1363,7 +1368,7 @@ class AsyncTabsTestApp implements OnInit {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group [preserveContent]="preserveContent">
       <oui-tab label="Junk food"> Pizza, fries </oui-tab>
       <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
@@ -1371,6 +1376,7 @@ class AsyncTabsTestApp implements OnInit {
       <oui-tab label="Legumes"> <p #legumes>Peanuts</p> </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabGroupWithSimpleApi {
   preserveContent = false;
@@ -1380,7 +1386,7 @@ class TabGroupWithSimpleApi {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group>
       <oui-tab label="One">Tab one content</oui-tab>
       <oui-tab label="Two">
@@ -1392,13 +1398,14 @@ class TabGroupWithSimpleApi {
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class NestedTabs {
   @ViewChildren(ouiTabGroup) groups: QueryList<ouiTabGroup>;
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group>
       <oui-tab label="One"> Eager </oui-tab>
       <oui-tab label="Two">
@@ -1408,11 +1415,12 @@ class NestedTabs {
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TemplateTabs {}
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group>
       <oui-tab
         [aria-label]="ariaLabel"
@@ -1420,6 +1428,7 @@ class TemplateTabs {}
       ></oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabGroupWithAriaInputs {
   ariaLabel: string;
@@ -1427,7 +1436,7 @@ class TabGroupWithAriaInputs {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group>
       <oui-tab label="Junk food" #pizza> Pizza, fries </oui-tab>
       <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
@@ -1435,21 +1444,23 @@ class TabGroupWithAriaInputs {
 
     <div *ngIf="pizza.isActive">pizza is active</div>
   `,
+    standalone: false
 })
 class TabGroupWithIsActiveBinding {}
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group animationDuration="500">
       <oui-tab label="One">Tab one content</oui-tab>
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabsWithCustomAnimationDuration {}
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group>
       <ng-container [ngSwitch]="true">
         <oui-tab label="One">Tab one content</oui-tab>
@@ -1457,25 +1468,27 @@ class TabsWithCustomAnimationDuration {}
       </ng-container>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabGroupWithIndirectDescendantTabs {
   @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group [fitInkBarToContent]="fitInkBarToContent">
       <oui-tab label="One">Tab one content</oui-tab>
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabGroupWithInkBarFitToContent {
   fitInkBarToContent = true;
 }
 
 @Component({
-  template: `
+    template: `
     <div style="height: 300px; background-color: aqua">Top Content here</div>
     <oui-tab-group>
       <ng-container>
@@ -1488,13 +1501,14 @@ class TabGroupWithInkBarFitToContent {
       </ng-container>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabGroupWithSpaceAbove {
   @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
 }
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group>
       <oui-tab label="Parent 1">
         <oui-tab-group>
@@ -1510,11 +1524,12 @@ class TabGroupWithSpaceAbove {
       <oui-tab label="Parent 3">Parent 3</oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class NestedTabGroupWithLabel {}
 
 @Component({
-  template: `
+    template: `
     <oui-tab-group class="tab-group">
       <oui-tab
         label="Tab One"
@@ -1532,6 +1547,7 @@ class NestedTabGroupWithLabel {}
       </oui-tab>
     </oui-tab-group>
   `,
+    standalone: false
 })
 class TabsWithClassesTestApp {
   labelClassList?: string | string[];

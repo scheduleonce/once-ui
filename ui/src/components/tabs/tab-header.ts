@@ -41,23 +41,23 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
  * @docs-private
  */
 @Component({
-  selector: 'oui-tab-header',
-  templateUrl: 'tab-header.html',
-  styleUrls: ['tab-header.scss'],
-  // eslint-disable-next-line
-  inputs: ['selectedIndex'],
-  // eslint-disable-next-line
-  outputs: ['selectFocusedIndex', 'indexFocused'],
-  encapsulation: ViewEncapsulation.None,
-  // tslint:disable-next-line
-  changeDetection: ChangeDetectionStrategy.Default,
-  // eslint-disable-next-line
-  host: {
-    class: 'oui-mdc-tab-header',
-    '[class.oui-mdc-tab-header-pagination-controls-enabled]':
-      '_showPaginationControls',
-    '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-  },
+    selector: 'oui-tab-header',
+    templateUrl: 'tab-header.html',
+    styleUrls: ['tab-header.scss'],
+    // eslint-disable-next-line
+    inputs: ['selectedIndex'],
+    // eslint-disable-next-line
+    outputs: ['selectFocusedIndex', 'indexFocused'],
+    encapsulation: ViewEncapsulation.None,
+    // tslint:disable-next-line
+    changeDetection: ChangeDetectionStrategy.Default,
+    // eslint-disable-next-line
+    host: {
+        class: 'oui-mdc-tab-header',
+        '[class.oui-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
+        '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+    },
+    standalone: false
 })
 export class OuiTabHeader
   extends OuiPaginatedTabHeader

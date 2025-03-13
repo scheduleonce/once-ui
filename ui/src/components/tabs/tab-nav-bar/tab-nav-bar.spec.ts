@@ -589,9 +589,9 @@ describe('OuiTabNavBar with enabled animations', () => {
 });
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: 'test-app',
-  template: `
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: 'test-app',
+    template: `
     <nav
       oui-tab-nav-bar
       [disableRipple]="disableRippleOnBar"
@@ -611,6 +611,7 @@ describe('OuiTabNavBar with enabled animations', () => {
     </nav>
     <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
   `,
+    standalone: false
 })
 class SimpleTabNavBarTestApp {
   @ViewChild(OuiTabNav) tabNavBar: OuiTabNav;
@@ -627,19 +628,20 @@ class SimpleTabNavBarTestApp {
 }
 
 @Component({
-  template: `
+    template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
       <a oui-tab-link *ngIf="!isDestroyed">Link</a>
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
+    standalone: false
 })
 class TabLinkWithNgIf {
   isDestroyed = false;
 }
 
 @Component({
-  template: `
+    template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
       <a oui-tab-link *ngFor="let tab of tabs" [active]="false"
         >Tab link {{ label }}</a
@@ -647,18 +649,20 @@ class TabLinkWithNgIf {
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
+    standalone: false
 })
 class TabBarWithInactiveTabsOnInit {
   tabs = [0, 1, 2];
 }
 
 @Component({
-  template: `
+    template: `
     <nav [animationDuration]="500" oui-tab-nav-bar [tabPanel]="tabPanel">
       <a oui-tab-link *ngFor="let link of links">{{ link }}</a>
     </nav>
     <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
   `,
+    standalone: false
 })
 class TabsWithCustomAnimationDuration {
   links = ['First', 'Second', 'Third'];

@@ -20,12 +20,13 @@ export const NOV = 10;
 export const DEC = 11;
 
 @Component({
-  template: `
+    template: `
     <oui-month-view
       [(activeDate)]="date"
       [(selected)]="selected"
     ></oui-month-view>
   `,
+    standalone: false
 })
 class StandardMonthView {
   date = new Date(2017, JAN, 5);
@@ -33,12 +34,13 @@ class StandardMonthView {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-month-view
       [activeDate]="activeDate"
       [dateFilter]="dateFilter"
     ></oui-month-view>
   `,
+    standalone: false
 })
 class MonthViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -48,12 +50,13 @@ class MonthViewWithDateFilter {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-month-view
       [activeDate]="activeDate"
       [dateClass]="dateClass"
     ></oui-month-view>
   `,
+    standalone: false
 })
 class MonthViewWithDateClass {
   activeDate = new Date(2017, JAN, 1);

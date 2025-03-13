@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'oui-panel-storybook',
-  template: `
+    selector: 'oui-panel-storybook',
+    template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
     <oui-panel
@@ -25,6 +25,7 @@ import { Component, Input } from '@angular/core';
       </p>
     </oui-panel>
   `,
+    standalone: false
 })
 export class OuiPanelStorybook {
   @Input() xPosition = 'before';
@@ -33,8 +34,8 @@ export class OuiPanelStorybook {
   constructor() {}
 }
 @Component({
-  selector: 'oui-panel-with-image-storybook',
-  template: `
+    selector: 'oui-panel-with-image-storybook',
+    template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
     <oui-panel #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
@@ -54,6 +55,7 @@ export class OuiPanelStorybook {
       </p>
     </oui-panel>
   `,
+    standalone: false
 })
 export class OuiPanelWithImageStorybook {
   @Input() xPosition = 'before';

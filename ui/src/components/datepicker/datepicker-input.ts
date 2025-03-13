@@ -65,27 +65,28 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
 
 /** Directive used to connect an input to a OuiDatepicker. */
 @Directive({
-  selector: 'input[ouiDatepicker]',
-  providers: [
-    OUI_DATEPICKER_VALUE_ACCESSOR,
-    OUI_DATEPICKER_VALIDATORS,
-    { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput },
-  ],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    class: 'oui-datepicker-input',
-    '[attr.aria-haspopup]': 'true',
-    '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
-    '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
-    '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
-    '[disabled]': 'disabled',
-    '(input)': '_onInput($event.target.value)',
-    '(change)': '_onChange()',
-    '(blur)': '_onBlur()',
-    '(keydown)': '_onKeydown($event)',
-    '[class.oui-datepicker-disabled]': '_datepickerDisabled',
-  },
-  exportAs: 'ouiDatepickerInput',
+    selector: 'input[ouiDatepicker]',
+    providers: [
+        OUI_DATEPICKER_VALUE_ACCESSOR,
+        OUI_DATEPICKER_VALIDATORS,
+        { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput },
+    ],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        class: 'oui-datepicker-input',
+        '[attr.aria-haspopup]': 'true',
+        '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
+        '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
+        '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
+        '[disabled]': 'disabled',
+        '(input)': '_onInput($event.target.value)',
+        '(change)': '_onChange()',
+        '(blur)': '_onBlur()',
+        '(keydown)': '_onKeydown($event)',
+        '[class.oui-datepicker-disabled]': '_datepickerDisabled',
+    },
+    exportAs: 'ouiDatepickerInput',
+    standalone: false
 })
 export class OuiDatepickerInput<D>
   implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator

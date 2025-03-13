@@ -51,7 +51,7 @@ export const NOV = 10;
 export const DEC = 11;
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker
       #d
@@ -60,6 +60,7 @@ export const DEC = 11;
       [opened]="opened"
     ></oui-datepicker>
   `,
+    standalone: false
 })
 class StandardDatepicker {
   opened = false;
@@ -72,26 +73,29 @@ class StandardDatepicker {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" /><input [ouiDatepicker]="d" /><oui-datepicker
       #d
     ></oui-datepicker>
   `,
+    standalone: false
 })
 class MultiInputDatepicker {}
 
 @Component({
-  template: ` <oui-datepicker #d></oui-datepicker> `,
+    template: ` <oui-datepicker #d></oui-datepicker> `,
+    standalone: false
 })
 class NoInputDatepicker {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker #d [startAt]="startDate"></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithStartAt {
   date = new Date(2020, JAN, 1);
@@ -100,7 +104,7 @@ class DatepickerWithStartAt {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker
       #d
@@ -108,6 +112,7 @@ class DatepickerWithStartAt {
       (monthSelected)="onYearSelection()"
     ></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithStartViewYear {
   date = new Date(2020, JAN, 1);
@@ -117,7 +122,7 @@ class DatepickerWithStartViewYear {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker
       #d
@@ -125,6 +130,7 @@ class DatepickerWithStartViewYear {
       (yearSelected)="onMultiYearSelection()"
     ></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithStartViewMultiYear {
   date = new Date(2020, JAN, 1);
@@ -134,10 +140,11 @@ class DatepickerWithStartViewMultiYear {
 }
 
 @Component({
-  template: `
+    template: `
     <input [(ngModel)]="selected" [ouiDatepicker]="d" />
     <oui-datepicker #d></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithNgModel {
   selected: Date | null = null;
@@ -147,11 +154,12 @@ class DatepickerWithNgModel {
 }
 
 @Component({
-  template: `
+    template: `
     <input [formControl]="formControl" [ouiDatepicker]="d" />
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithFormControl {
   formControl = new UntypedFormControl();
@@ -163,11 +171,12 @@ class DatepickerWithFormControl {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" />
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="touchUI"></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithToggle {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -176,23 +185,25 @@ class DatepickerWithToggle {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" />
     <oui-datepicker-toggle [for]="d">
       <div class="custom-icon" ouiDatepickerToggleIcon></div>
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithCustomIcon {}
 
 @Component({
-  template: `
+    template: `
     <oui-form-field>
       <input oui-input [ouiDatepicker]="d" />
       <oui-datepicker #d></oui-datepicker>
     </oui-form-field>
   `,
+    standalone: false
 })
 class FormFieldDatepicker {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -202,7 +213,7 @@ class FormFieldDatepicker {
 }
 
 @Component({
-  template: `
+    template: `
     <input
       [ouiDatepicker]="d"
       [(ngModel)]="date"
@@ -212,6 +223,7 @@ class FormFieldDatepicker {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithMinAndMaxValidation {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -221,7 +233,7 @@ class DatepickerWithMinAndMaxValidation {
 }
 
 @Component({
-  template: `
+    template: `
     <input
       [ouiDatepicker]="d"
       [(ngModel)]="date"
@@ -230,6 +242,7 @@ class DatepickerWithMinAndMaxValidation {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="true"></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithFilterAndValidation {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -238,10 +251,11 @@ class DatepickerWithFilterAndValidation {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" [(ngModel)]="date" />
     <oui-datepicker #d></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithi18n {
   date: Date | null = new Date(2010, JAN, 1);
@@ -251,10 +265,11 @@ class DatepickerWithi18n {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max" />
     <oui-datepicker #d [startAt]="startAt"></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithISOStrings {
   value = new Date(2017, JUN, 1).toISOString();
@@ -267,7 +282,7 @@ class DatepickerWithISOStrings {
 }
 
 @Component({
-  template: `
+    template: `
     <input [(ngModel)]="selected" [ouiDatepicker]="d" />
     <oui-datepicker
       (opened)="openedSpy()"
@@ -275,6 +290,7 @@ class DatepickerWithISOStrings {
       #d
     ></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithEvents {
   selected: Date | null = null;
@@ -284,30 +300,33 @@ class DatepickerWithEvents {
 }
 
 @Component({
-  template: `
+    template: `
     <input (focus)="d.open()" [ouiDatepicker]="d" />
     <oui-datepicker #d="ouiDatepicker"></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerOpeningOnFocus {
   @ViewChild(OuiDatepicker) datepicker: OuiDatepicker<Date>;
 }
 
 @Component({
-  template: `
+    template: `
     <div class="custom-element">Custom element</div>
     <oui-calendar-header></oui-calendar-header>
   `,
+    standalone: false
 })
 class CustomHeaderForDatepicker {}
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="ch" />
     <oui-datepicker
       #ch
       [calendarHeaderComponent]="customHeaderForDatePicker"
     ></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithCustomHeader {
   @ViewChild('ch') datepicker: OuiDatepicker<Date>;
@@ -315,10 +334,11 @@ class DatepickerWithCustomHeader {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="assignedDatepicker" [value]="date" />
     <oui-datepicker #d [touchUi]="touch"></oui-datepicker>
   `,
+    standalone: false
 })
 class DelayedDatepicker {
   @ViewChild('d') datepicker: OuiDatepicker<Date>;
@@ -329,13 +349,14 @@ class DelayedDatepicker {
 }
 
 @Component({
-  template: `
+    template: `
     <input [ouiDatepicker]="d" />
     <oui-datepicker-toggle tabIndex="7" [for]="d">
       <div class="custom-icon" ouiDatepickerToggleIcon></div>
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+    standalone: false
 })
 class DatepickerWithTabindexOnToggle {}
 

@@ -7,21 +7,25 @@ import { By } from '@angular/platform-browser';
  * Test components
  */
 
-@Component({ template: '<oui-progress-spinner></oui-progress-spinner>' })
+@Component({
+    template: '<oui-progress-spinner></oui-progress-spinner>',
+    standalone: false
+})
 class BasicProgressSpinner {}
 
 @Component({
-  template:
-    '<oui-progress-spinner [diameter]="diameter"></oui-progress-spinner>',
+    template: '<oui-progress-spinner [diameter]="diameter"></oui-progress-spinner>',
+    standalone: false
 })
 class ProgressSpinnerCustomDiameter {
   diameter: number;
 }
 
 @Component({
-  template: `
+    template: `
     <oui-progress-spinner [value]="60" [color]="color"></oui-progress-spinner>
   `,
+    standalone: false
 })
 class ProgressSpinnerWithColor {
   color = 'primary';

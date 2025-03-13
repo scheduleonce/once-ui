@@ -55,10 +55,11 @@ export const _OuiSortMixinBase: HasInitializedCtor &
 
 /** Container for OuiSortables to manage the sort state and provide default sort parameters. */
 @Directive({
-  selector: '[ouiSort]',
-  exportAs: 'ouiSort',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled: ouiSortDisabled'],
+    selector: '[ouiSort]',
+    exportAs: 'ouiSort',
+    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+    inputs: ['disabled: ouiSortDisabled'],
+    standalone: false
 })
 export class OuiSort
   extends _OuiSortMixinBase

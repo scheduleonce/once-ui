@@ -31,8 +31,9 @@ export const OUI_TAB = new InjectionToken<any>('OUI_TAB');
 
 /** Used to flag tab labels for use with the portal directive */
 @Directive({
-  selector: '[oui-tab-label], [OuiTabLabel]',
-  providers: [{ provide: OUI_TAB_LABEL, useExisting: OuiTabLabel }],
+    selector: '[oui-tab-label], [OuiTabLabel]',
+    providers: [{ provide: OUI_TAB_LABEL, useExisting: OuiTabLabel }],
+    standalone: false
 })
 export class OuiTabLabel extends CdkPortal {
   constructor(

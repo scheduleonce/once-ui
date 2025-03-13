@@ -25,26 +25,27 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
  * It exists mostly to set the role attribute.
  */
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: `[oui-menu-item]`,
-  exportAs: 'ouiMenuItem',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    '[attr.role]': 'role',
-    class: 'oui-menu-item',
-    '[class.oui-menu-item-highlighted]': '_highlighted',
-    '[class.oui-menu-item-submenu-trigger]': '_triggersSubmenu',
-    '[attr.tabindex]': '_getTabIndex()',
-    '[attr.aria-disabled]': 'disabled.toString()',
-    '[attr.disabled]': 'disabled || null',
-    '(click)': '_checkDisabled($event)',
-    '(mouseenter)': '_handleMouseEnter()',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  templateUrl: 'menu-item.html',
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: `[oui-menu-item]`,
+    exportAs: 'ouiMenuItem',
+    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+    inputs: ['disabled'],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        '[attr.role]': 'role',
+        class: 'oui-menu-item',
+        '[class.oui-menu-item-highlighted]': '_highlighted',
+        '[class.oui-menu-item-submenu-trigger]': '_triggersSubmenu',
+        '[attr.tabindex]': '_getTabIndex()',
+        '[attr.aria-disabled]': 'disabled.toString()',
+        '[attr.disabled]': 'disabled || null',
+        '(click)': '_checkDisabled($event)',
+        '(mouseenter)': '_handleMouseEnter()',
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    templateUrl: 'menu-item.html',
+    standalone: false
 })
 export class OuiMenuItem
   extends _OuiMenuItemMixinBase

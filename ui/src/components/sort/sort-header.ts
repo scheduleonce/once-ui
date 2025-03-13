@@ -64,32 +64,33 @@ interface OuiSortHeaderColumnDef {
  * column definition.
  */
 @Component({
-  // eslint-disable-next-line
-  selector: '[oui-sort-header]',
-  exportAs: 'ouiSortHeader',
-  templateUrl: 'sort-header.html',
-  styleUrls: ['sort-header.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    '(click)': '_handleClick()',
-    '(mouseenter)': '_setIndicatorHintVisible(true)',
-    '(longpress)': '_setIndicatorHintVisible(true)',
-    '(mouseleave)': '_setIndicatorHintVisible(false)',
-    '[attr.aria-sort]': '_getAriaSortAttribute()',
-    '[class.oui-sort-header-disabled]': '_isDisabled()',
-  },
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled'],
-  animations: [
-    ouiSortAnimations.indicator,
-    ouiSortAnimations.leftPointer,
-    ouiSortAnimations.rightPointer,
-    ouiSortAnimations.arrowOpacity,
-    ouiSortAnimations.arrowPosition,
-    ouiSortAnimations.allowChildren,
-  ],
+    // eslint-disable-next-line
+    selector: '[oui-sort-header]',
+    exportAs: 'ouiSortHeader',
+    templateUrl: 'sort-header.html',
+    styleUrls: ['sort-header.scss'],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        '(click)': '_handleClick()',
+        '(mouseenter)': '_setIndicatorHintVisible(true)',
+        '(longpress)': '_setIndicatorHintVisible(true)',
+        '(mouseleave)': '_setIndicatorHintVisible(false)',
+        '[attr.aria-sort]': '_getAriaSortAttribute()',
+        '[class.oui-sort-header-disabled]': '_isDisabled()',
+    },
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+    inputs: ['disabled'],
+    animations: [
+        ouiSortAnimations.indicator,
+        ouiSortAnimations.leftPointer,
+        ouiSortAnimations.rightPointer,
+        ouiSortAnimations.arrowOpacity,
+        ouiSortAnimations.arrowPosition,
+        ouiSortAnimations.allowChildren,
+    ],
+    standalone: false
 })
 export class OuiSortHeader
   extends _OuiSortHeaderMixinBase

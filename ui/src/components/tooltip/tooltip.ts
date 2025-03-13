@@ -112,20 +112,21 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
  * @docs-private
  */
 @Component({
-  selector: 'oui-tooltip-component',
-  templateUrl: 'tooltip.html',
-  styleUrls: ['tooltip.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [ouiTooltipAnimations.tooltipState],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    // Forces the element to have a layout in IE and Edge. This fixes issues where the element
-    // won't be rendered if the animations are disabled or there is no web animations polyfill.
-    '[style.zoom]': '_visibility === "visible" ? 1 : null',
-    '(body:click)': 'this._handleBodyInteraction()',
-    'aria-hidden': 'true',
-  },
+    selector: 'oui-tooltip-component',
+    templateUrl: 'tooltip.html',
+    styleUrls: ['tooltip.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    animations: [ouiTooltipAnimations.tooltipState],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        // Forces the element to have a layout in IE and Edge. This fixes issues where the element
+        // won't be rendered if the animations are disabled or there is no web animations polyfill.
+        '[style.zoom]': '_visibility === "visible" ? 1 : null',
+        '(body:click)': 'this._handleBodyInteraction()',
+        'aria-hidden': 'true',
+    },
+    standalone: false
 })
 export class TooltipComponent {
   /** Message to display in the tooltip */
@@ -252,16 +253,17 @@ export class TooltipComponent {
  * hiding of a tooltip provided position (defaults to below the element).
  */
 @Directive({
-  selector: '[ouiTooltip]',
-  exportAs: 'ouiTooltip',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    '(longpress)': 'show()',
-    '(keydown)': '_handleKeydown($event)',
-    '(touchend)': '_handleTouchend()',
-    '[attr.tabindex]': 'disabled ? -1 : 0',
-    '[attr.aria-hidden]': 'false',
-  },
+    selector: '[ouiTooltip]',
+    exportAs: 'ouiTooltip',
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        '(longpress)': 'show()',
+        '(keydown)': '_handleKeydown($event)',
+        '(touchend)': '_handleTouchend()',
+        '[attr.tabindex]': 'disabled ? -1 : 0',
+        '[attr.aria-hidden]': 'false',
+    },
+    standalone: false
 })
 export class OuiTooltip implements OnDestroy, CanDisable {
   _overlayRef: OverlayRef | null;

@@ -53,16 +53,17 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  * responsible for toggling the display of the provided panel instance.
  */
 @Directive({
-  selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    'aria-haspopup': 'true',
-    '[attr.aria-expanded]': 'panelOpen || null',
-    '(mouseenter)': '_handleMouseEnter($event)',
-    '(mouseleave)': '_handelMouseLeave($event)',
-    '(keydown)': '_handleKeydown($event)',
-  },
-  exportAs: 'ouiPanelTrigger',
+    selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        'aria-haspopup': 'true',
+        '[attr.aria-expanded]': 'panelOpen || null',
+        '(mouseenter)': '_handleMouseEnter($event)',
+        '(mouseleave)': '_handelMouseLeave($event)',
+        '(keydown)': '_handleKeydown($event)',
+    },
+    exportAs: 'ouiPanelTrigger',
+    standalone: false
 })
 export class OuiPanelTrigger implements OnDestroy {
   private _portal: TemplatePortal;

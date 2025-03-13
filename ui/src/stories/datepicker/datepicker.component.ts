@@ -25,8 +25,8 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
 };
 
 @Component({
-  selector: 'oui-datepicker-storybook',
-  template: `
+    selector: 'oui-datepicker-storybook',
+    template: `
     <div style="max-width: 170px;">
       <oui-form-field [appearance]="appearance">
         <input
@@ -53,6 +53,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
       </oui-form-field>
     </div>
   `,
+    standalone: false
 })
 export class OuiDatepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';
@@ -104,8 +105,8 @@ export class OuiDatepickerStorybook implements OnChanges {
 }
 
 @Component({
-  selector: 'oui-datepicker-custom-storybook',
-  template: `
+    selector: 'oui-datepicker-custom-storybook',
+    template: `
     <div style="max-width: 170px;">
       <oui-form-field [appearance]="appearance">
         <input
@@ -132,7 +133,8 @@ export class OuiDatepickerStorybook implements OnChanges {
       </oui-form-field>
     </div>
   `,
-  providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
+    providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
+    standalone: false
 })
 export class OuiDatepickerCustomStorybook implements OnChanges {
   @Input() appearance = 'standard';
@@ -183,8 +185,8 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
 }
 
 @Component({
-  selector: 'oui-daterangepicker-storybook',
-  template: `
+    selector: 'oui-daterangepicker-storybook',
+    template: `
     <div style="display: inline-flex;">
       <div style="max-width: 170px;">
         <oui-form-field [appearance]="appearance">
@@ -232,6 +234,7 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
       </div>
     </div>
   `,
+    standalone: false
 })
 export class OuiDaterangepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';
