@@ -1,5 +1,6 @@
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import docJson from '../documentation.json';
+import 'zone.js';  // Ensure Zone.js is loaded before Angular
 
 setCompodocJson(docJson);
 
