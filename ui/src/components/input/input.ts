@@ -80,29 +80,30 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 
 /** Directive that allows a native input to work inside a `OuiFormField`. */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: `input[oui-input], textarea[oui-input]`,
-  exportAs: 'ouiInput',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    class: 'oui-input-element',
-    // Native input properties that are overwritten by Angular inputs need to be synced with
-    // the native input element. Otherwise property bindings for those don't work.
-    '[attr.id]': 'id',
-    '[attr.placeholder]': 'placeholder',
-    '[disabled]': 'disabled',
-    '[required]': 'required',
-    '[attr.readonly]': 'readonly && !_isNativeSelect || null',
-    '[attr.aria-describedby]': '_ariaDescribedby || null',
-    '[attr.aria-invalid]': 'errorState',
-    '[attr.aria-required]': 'required.toString()',
-    '(input)': '_onInput()',
-  },
-  providers: [
-    { provide: OuiFormFieldControl, useExisting: OuiInput },
-    NgForm,
-    FormGroupDirective,
-  ],
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: `input[oui-input], textarea[oui-input]`,
+    exportAs: 'ouiInput',
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        class: 'oui-input-element',
+        // Native input properties that are overwritten by Angular inputs need to be synced with
+        // the native input element. Otherwise property bindings for those don't work.
+        '[attr.id]': 'id',
+        '[attr.placeholder]': 'placeholder',
+        '[disabled]': 'disabled',
+        '[required]': 'required',
+        '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+        '[attr.aria-describedby]': '_ariaDescribedby || null',
+        '[attr.aria-invalid]': 'errorState',
+        '[attr.aria-required]': 'required.toString()',
+        '(input)': '_onInput()',
+    },
+    providers: [
+        { provide: OuiFormFieldControl, useExisting: OuiInput },
+        NgForm,
+        FormGroupDirective,
+    ],
+    standalone: false
 })
 export class OuiInput
   extends _OuiInputMixinBase

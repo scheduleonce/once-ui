@@ -39,21 +39,22 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
-  selector: 'oui-slide-toggle',
-  exportAs: 'ouiSlideToggle',
-  templateUrl: 'slide-toggle.html',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    class: 'oui-slide-toggle',
-    '[class.oui-disabled]': 'disabled',
-    '[attr.tabindex]': 'disabled ? null : -1',
-  },
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'tabIndex'],
-  styleUrls: ['./slide-toggle.scss'],
-  providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+    selector: 'oui-slide-toggle',
+    exportAs: 'ouiSlideToggle',
+    templateUrl: 'slide-toggle.html',
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        class: 'oui-slide-toggle',
+        '[class.oui-disabled]': 'disabled',
+        '[attr.tabindex]': 'disabled ? null : -1',
+    },
+    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+    inputs: ['disabled', 'tabIndex'],
+    styleUrls: ['./slide-toggle.scss'],
+    providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class OuiSlideToggle
   extends _OuiSlideToggleMixinBase

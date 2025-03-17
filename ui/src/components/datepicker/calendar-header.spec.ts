@@ -13,7 +13,7 @@ const FEB = 1;
 const DEC = 11;
 
 @Component({
-  template: `
+    template: `
     <oui-calendar
       [startAt]="startDate"
       [(selected)]="selected"
@@ -22,6 +22,7 @@ const DEC = 11;
     >
     </oui-calendar>
   `,
+    standalone: false
 })
 class StandardCalendar {
   selected: Date;

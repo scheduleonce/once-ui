@@ -16,7 +16,8 @@ import { Subject } from 'rxjs';
  * Menu content that will be rendered lazily once the menu is opened.
  */
 @Directive({
-  selector: 'ng-template[ouiMenuContent]',
+    selector: 'ng-template[ouiMenuContent]',
+    standalone: false
 })
 export class OuiMenuContent implements OnDestroy {
   private _portal: TemplatePortal<any>;

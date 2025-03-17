@@ -18,20 +18,21 @@ export const _OuiProgressBarMixinBase: typeof OuiProgressBarBase =
 export type ProgressBarMode = 'determinate' | 'indeterminate';
 
 @Component({
-  templateUrl: './progress-bar.html',
-  selector: 'oui-progress-bar',
-  exportAs: 'OuiProgressBar',
-  styleUrls: ['progress-bar.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    class: 'oui-progress-bar',
-    '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
-    '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
-    '[attr.aria-valuenow]': 'value',
-    '[attr.mode]': 'mode',
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
+    templateUrl: './progress-bar.html',
+    selector: 'oui-progress-bar',
+    exportAs: 'OuiProgressBar',
+    styleUrls: ['progress-bar.scss'],
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        class: 'oui-progress-bar',
+        '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
+        '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
+        '[attr.aria-valuenow]': 'value',
+        '[attr.mode]': 'mode',
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class OuiProgressBar extends _OuiProgressBarMixinBase {
   private _value = 0;

@@ -19,13 +19,14 @@ export const NOV = 10;
 export const DEC = 11;
 
 @Component({
-  template: `
+    template: `
     <oui-year-view
       [(activeDate)]="date"
       [(selected)]="selected"
       (monthSelected)="selectedMonth = $event"
     ></oui-year-view>
   `,
+    standalone: false
 })
 class StandardYearView {
   date = new Date(2017, JAN, 5);
@@ -36,12 +37,13 @@ class StandardYearView {
 }
 
 @Component({
-  template: `
+    template: `
     <oui-year-view
       [activeDate]="activeDate"
       [dateFilter]="dateFilter"
     ></oui-year-view>
   `,
+    standalone: false
 })
 class YearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);

@@ -549,7 +549,7 @@ interface Tab {
 }
 
 @Component({
-  template: `
+    template: `
     <div [dir]="dir">
       <oui-tab-header
         [selectedIndex]="selectedIndex"
@@ -571,13 +571,14 @@ interface Tab {
       </oui-tab-header>
     </div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         width: 130px;
       }
     `,
-  ],
+    ],
+    standalone: false
 })
 class SimpleTabHeaderApp {
   disableRipple = false;

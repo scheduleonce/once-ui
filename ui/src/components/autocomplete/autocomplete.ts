@@ -59,19 +59,20 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
 }
 
 @Component({
-  selector: 'oui-autocomplete',
-  templateUrl: 'autocomplete.html',
-  styleUrls: ['autocomplete.scss'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'ouiAutocomplete',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    class: 'oui-autocomplete',
-  },
-  providers: [
-    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiAutocomplete },
-  ],
+    selector: 'oui-autocomplete',
+    templateUrl: 'autocomplete.html',
+    styleUrls: ['autocomplete.scss'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    exportAs: 'ouiAutocomplete',
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        class: 'oui-autocomplete',
+    },
+    providers: [
+        { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiAutocomplete },
+    ],
+    standalone: false
 })
 export class OuiAutocomplete implements AfterContentInit {
   /** Manages active item in option list based on key events. */

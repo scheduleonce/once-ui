@@ -12,7 +12,8 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
-  template: ` <button ouiTooltip>button</button> `,
+    template: ` <button ouiTooltip>button</button> `,
+    standalone: false
 })
 class TestTooltipComponent {}
 

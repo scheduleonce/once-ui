@@ -104,27 +104,26 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 }
 
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    '[attr.autocomplete]': 'autocompleteAttribute',
-    '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
-    '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
-    '[attr.aria-activedescendant]': 'activeOption?.id',
-    '[attr.aria-expanded]':
-      'autocompleteDisabled ? null : panelOpen.toString()',
-    '[attr.aria-owns]':
-      '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
-    // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
-    // a little earlier. This avoids issues where IE delays the focusing of the input.
-    '(focusin)': '_handleFocus()',
-    '(blur)': '_onTouched()',
-    '(input)': '_handleInput($event)',
-    '(keydown)': '_handleKeydown($event)',
-  },
-  exportAs: 'ouiAutocompleteTrigger',
-  providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR],
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        '[attr.autocomplete]': 'autocompleteAttribute',
+        '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
+        '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
+        '[attr.aria-activedescendant]': 'activeOption?.id',
+        '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
+        '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
+        // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
+        // a little earlier. This avoids issues where IE delays the focusing of the input.
+        '(focusin)': '_handleFocus()',
+        '(blur)': '_onTouched()',
+        '(input)': '_handleInput($event)',
+        '(keydown)': '_handleKeydown($event)',
+    },
+    exportAs: 'ouiAutocompleteTrigger',
+    providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR],
+    standalone: false
 })
 export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _overlayRef: OverlayRef | null;

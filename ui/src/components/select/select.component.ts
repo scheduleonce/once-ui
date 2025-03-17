@@ -161,47 +161,49 @@ export const _OuiSelectMixinBase: CanDisableCtor &
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 @Directive({
-  // eslint-disable-next-line @angular-eslint/directive-selector
-  selector: 'oui-select-trigger',
+    // eslint-disable-next-line @angular-eslint/directive-selector
+    selector: 'oui-select-trigger',
+    standalone: false
 })
 export class OuiSelectTrigger {}
 
 @Component({
-  selector: 'oui-select',
-  exportAs: 'ouiSelect',
-  templateUrl: 'select.html',
-  styleUrls: ['select.scss'],
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'tabIndex'],
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    role: 'listbox',
-    '[attr.id]': 'id',
-    '[attr.tabindex]': 'tabIndex',
-    '[attr.aria-label]': '_getAriaLabel()',
-    '[attr.aria-labelledby]': '_getAriaLabelledby()',
-    '[attr.aria-required]': 'required.toString()',
-    '[attr.aria-disabled]': 'disabled.toString()',
-    '[attr.aria-invalid]': 'errorState',
-    '[attr.aria-owns]': 'panelOpen ? _optionIds : null',
-    '[attr.aria-multiselectable]': 'multiple',
-    '[attr.aria-describedby]': '_ariaDescribedby || null',
-    '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
-    '[class.oui-select-disabled]': 'disabled',
-    '[class.oui-select-invalid]': 'errorState',
-    '[class.oui-select-required]': 'required',
-    '[class.oui-select-empty]': 'empty',
-    class: 'oui-select oui-input',
-    '(keydown)': '_handleKeydown($event)',
-    '(focus)': '_onFocus()',
-    '(blur)': '_onBlur()',
-  },
-  providers: [
-    { provide: OuiFormFieldControl, useExisting: OuiSelect },
-    { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect },
-  ],
+    selector: 'oui-select',
+    exportAs: 'ouiSelect',
+    templateUrl: 'select.html',
+    styleUrls: ['select.scss'],
+    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+    inputs: ['disabled', 'tabIndex'],
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+    host: {
+        role: 'listbox',
+        '[attr.id]': 'id',
+        '[attr.tabindex]': 'tabIndex',
+        '[attr.aria-label]': '_getAriaLabel()',
+        '[attr.aria-labelledby]': '_getAriaLabelledby()',
+        '[attr.aria-required]': 'required.toString()',
+        '[attr.aria-disabled]': 'disabled.toString()',
+        '[attr.aria-invalid]': 'errorState',
+        '[attr.aria-owns]': 'panelOpen ? _optionIds : null',
+        '[attr.aria-multiselectable]': 'multiple',
+        '[attr.aria-describedby]': '_ariaDescribedby || null',
+        '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
+        '[class.oui-select-disabled]': 'disabled',
+        '[class.oui-select-invalid]': 'errorState',
+        '[class.oui-select-required]': 'required',
+        '[class.oui-select-empty]': 'empty',
+        class: 'oui-select oui-input',
+        '(keydown)': '_handleKeydown($event)',
+        '(focus)': '_onFocus()',
+        '(blur)': '_onBlur()',
+    },
+    providers: [
+        { provide: OuiFormFieldControl, useExisting: OuiSelect },
+        { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect },
+    ],
+    standalone: false
 })
 export class OuiSelect
   extends _OuiSelectMixinBase

@@ -3,8 +3,8 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: 'oui-menu-storybook',
-  template: `
+    selector: 'oui-menu-storybook',
+    template: `
     <div style="display:inline-block">
       <oui-menu-icon
         [ouiMenuTriggerFor]="afterAboveMenu"
@@ -35,6 +35,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       </button>
     </oui-menu>
   `,
+    standalone: false
 })
 export class OuiMenuStorybook {
   @Input() xPosition = 'before';
@@ -72,8 +73,8 @@ export class OuiMenuStorybook {
 }
 
 @Component({
-  selector: 'oui-nested-menu-storybook',
-  template: `
+    selector: 'oui-nested-menu-storybook',
+    template: `
     <div style="display:inline-block">
       <oui-menu-icon
         [ouiMenuTriggerFor]="rootMenu"
@@ -102,6 +103,7 @@ export class OuiMenuStorybook {
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
   `,
+    standalone: false
 })
 export class OuiNestedMenuStorybook {
   @Input() xPosition = 'before';
