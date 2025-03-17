@@ -8,16 +8,16 @@ import { By } from '@angular/platform-browser';
  */
 
 @Component({
-    template: '<oui-progress-bar></oui-progress-bar>',
-    standalone: false
+  template: '<oui-progress-bar></oui-progress-bar>',
+  standalone: false,
 })
 class BasicProgressBar {}
 
 @Component({
-    template: `
+  template: `
     <oui-progress-bar [strokeWidth]="4" [color]="color"></oui-progress-bar>
   `,
-    standalone: false
+  standalone: false,
 })
 class ProgressBarWithColor {
   color = 'primary';

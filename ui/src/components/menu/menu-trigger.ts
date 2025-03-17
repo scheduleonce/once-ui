@@ -80,17 +80,17 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
  * responsible for toggling the display of the provided menu instance.
  */
 @Directive({
-    selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        'aria-haspopup': 'true',
-        '[attr.aria-expanded]': 'menuOpen || null',
-        '(mousedown)': '_handleMousedown($event)',
-        '(keydown)': '_handleKeydown($event)',
-        '(click)': '_handleClick($event)',
-    },
-    exportAs: 'ouiMenuTrigger',
-    standalone: false
+  selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    'aria-haspopup': 'true',
+    '[attr.aria-expanded]': 'menuOpen || null',
+    '(mousedown)': '_handleMousedown($event)',
+    '(keydown)': '_handleKeydown($event)',
+    '(click)': '_handleClick($event)',
+  },
+  exportAs: 'ouiMenuTrigger',
+  standalone: false,
 })
 export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _portal: TemplatePortal;

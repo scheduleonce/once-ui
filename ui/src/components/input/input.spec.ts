@@ -18,79 +18,79 @@ import {
 } from '..';
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input oui-input id="test-id" placeholder="test" />
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputWithId {}
 
 @Component({
-    template: `
+  template: `
     <oui-form-field><input oui-input [required]="required" /></oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputWithRequired {
   required: boolean;
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field><input oui-input [type]="type" /></oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputWithType {
   type: string;
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input oui-input placeholder="Hello" [formControl]="formControl" />
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputWithFormControl {
   formControl = new UntypedFormControl();
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field
       ><input oui-input [placeholder]="placeholder"
     /></oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputPlaceholderAttrTestComponent {
   placeholder = '';
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field><input oui-input type="file" /></oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputInvalidTypeTestController {}
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input oui-input type="text" placeholder="Placeholder" />
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputTextTestController {}
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <textarea
         oui-input
@@ -102,7 +102,7 @@ class OuiInputTextTestController {}
       </textarea>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputTextareaWithBindings {
   rows = 4;
@@ -111,28 +111,28 @@ class OuiInputTextareaWithBindings {
 }
 
 @Component({
-    template: ` <oui-form-field><input /></oui-form-field> `,
-    standalone: false
+  template: ` <oui-form-field><input /></oui-form-field> `,
+  standalone: false,
 })
 class OuiInputMissingOuiInputTestController {}
 
 @Component({
-    template: `
+  template: `
     <oui-form-field> <input oui-input *ngIf="renderInput" /> </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputWithNgIf {
   renderInput = true;
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field [appearance]="appearance">
       <input oui-input placeholder="Placeholder" />
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiInputWithAppearance {
   @ViewChild(OuiFormField) formField: OuiFormField;
@@ -140,8 +140,8 @@ class OuiInputWithAppearance {
 }
 
 @Component({
-    template: ` <oui-form-field> <input oui-input /> </oui-form-field> `,
-    standalone: false
+  template: ` <oui-form-field> <input oui-input /> </oui-form-field> `,
+  standalone: false,
 })
 class OuiInputWithoutPlaceholder {}
 

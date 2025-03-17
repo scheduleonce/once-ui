@@ -2,8 +2,8 @@ import { OuiIconRegistry } from '../../components';
 import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
-    selector: 'oui-icon-storybook',
-    template: `
+  selector: 'oui-icon-storybook',
+  template: `
     <oui-icon
       [svgIcon]="icon"
       [size]="size"
@@ -12,7 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       [style.height.px]="size"
     ></oui-icon>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiiconStorybook {
   @Input() icon = 'notification-editor';

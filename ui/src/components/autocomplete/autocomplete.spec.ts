@@ -53,7 +53,7 @@ import {
 import { map, startWith } from 'rxjs/operators';
 
 @Component({
-    template: `
+  template: `
     <oui-form-field [style.width.px]="width">
       <input
         oui-input
@@ -75,7 +75,7 @@ import { map, startWith } from 'rxjs/operators';
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class SimpleAutocomplete implements OnDestroy {
   stateCtrl = new UntypedFormControl();
@@ -127,7 +127,7 @@ class SimpleAutocomplete implements OnDestroy {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field *ngIf="isVisible">
       <input
         oui-input
@@ -145,7 +145,7 @@ class SimpleAutocomplete implements OnDestroy {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class NgIfAutocomplete {
   optionCtrl = new UntypedFormControl();
@@ -170,7 +170,7 @@ class NgIfAutocomplete {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input
         oui-input
@@ -185,7 +185,7 @@ class NgIfAutocomplete {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithoutForms {
   filteredStates: any[];
@@ -203,7 +203,7 @@ class AutocompleteWithoutForms {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input
         oui-input
@@ -219,7 +219,7 @@ class AutocompleteWithoutForms {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithNgModel {
   filteredStates: any[];
@@ -238,7 +238,7 @@ class AutocompleteWithNgModel {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input
         oui-input
@@ -253,7 +253,7 @@ class AutocompleteWithNgModel {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithNumbers {
   selectedNumber: number;
@@ -261,8 +261,8 @@ class AutocompleteWithNumbers {
 }
 
 @Component({
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
     <oui-form-field>
       <input type="text" oui-input [ouiAutocomplete]="auto" />
     </oui-form-field>
@@ -272,7 +272,7 @@ class AutocompleteWithNumbers {
       }}</oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithOnPushDelay implements OnInit {
   @ViewChild(OuiAutocompleteTrigger)
@@ -287,7 +287,7 @@ class AutocompleteWithOnPushDelay implements OnInit {
 }
 
 @Component({
-    template: `
+  template: `
     <input
       placeholder="Choose"
       [ouiAutocomplete]="auto"
@@ -302,7 +302,7 @@ class AutocompleteWithOnPushDelay implements OnInit {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithNativeInput {
   optionCtrl = new UntypedFormControl();
@@ -326,14 +326,14 @@ class AutocompleteWithNativeInput {
 }
 
 @Component({
-    template: `
+  template: `
     <input
       placeholder="Choose"
       [ouiAutocomplete]="auto"
       [formControl]="control"
     />
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithoutPanel {
   @ViewChild(OuiAutocompleteTrigger)
@@ -342,7 +342,7 @@ class AutocompleteWithoutPanel {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input
         oui-input
@@ -359,7 +359,7 @@ class AutocompleteWithoutPanel {
       </oui-optgroup>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithGroups {
   @ViewChild(OuiAutocompleteTrigger)
@@ -382,7 +382,7 @@ class AutocompleteWithGroups {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input
         oui-input
@@ -400,7 +400,7 @@ class AutocompleteWithGroups {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithSelectEvent {
   selectedState: string;
@@ -413,18 +413,18 @@ class AutocompleteWithSelectEvent {
 }
 
 @Component({
-    template: `
+  template: `
     <input [formControl]="formControl" [ouiAutocomplete]="auto" />
     <oui-autocomplete #auto="ouiAutocomplete"></oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class PlainAutocompleteInputWithFormControl {
   formControl = new UntypedFormControl();
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <input
         type="number"
@@ -439,7 +439,7 @@ class PlainAutocompleteInputWithFormControl {
       }}</oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithNumberInputAndNgModel {
   selectedValue: number;
@@ -447,7 +447,7 @@ class AutocompleteWithNumberInputAndNgModel {
 }
 
 @Component({
-    template: `
+  template: `
     <div>
       <oui-form-field>
         <input
@@ -472,7 +472,7 @@ class AutocompleteWithNumberInputAndNgModel {
       }}</oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithDifferentOrigin {
   @ViewChild(OuiAutocompleteTrigger)
@@ -485,7 +485,7 @@ class AutocompleteWithDifferentOrigin {
 }
 
 @Component({
-    template: `
+  template: `
     <input
       autocomplete="changed"
       [(ngModel)]="value"
@@ -493,15 +493,15 @@ class AutocompleteWithDifferentOrigin {
     />
     <oui-autocomplete #auto="ouiAutocomplete"></oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 class AutocompleteWithNativeAutocompleteAttribute {
   value: string;
 }
 
 @Component({
-    template: '<input [ouiAutocomplete]="null" ouiAutocompleteDisabled>',
-    standalone: false
+  template: '<input [ouiAutocomplete]="null" ouiAutocompleteDisabled>',
+  standalone: false,
 })
 class InputWithoutAutocompleteAndDisabled {}
 

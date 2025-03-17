@@ -1,8 +1,8 @@
 import { Input, Component } from '@angular/core';
 
 @Component({
-    selector: 'oui-scrollbar-text-storybook',
-    template: `
+  selector: 'oui-scrollbar-text-storybook',
+  template: `
     <div
       oui-scrollbar
       [oui-scrollbar-large]="large"
@@ -12,7 +12,7 @@ import { Input, Component } from '@angular/core';
       {{ text }}
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiScrollbarTextStorybook {
   @Input() large = false;
@@ -23,8 +23,8 @@ export class OuiScrollbarTextStorybook {
 }
 
 @Component({
-    selector: 'oui-scrollbar-list-storybook',
-    template: `
+  selector: 'oui-scrollbar-list-storybook',
+  template: `
     <div
       oui-scrollbar
       [oui-scrollbar-large]="large"
@@ -36,7 +36,7 @@ export class OuiScrollbarTextStorybook {
       </ul>
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiScrollbarListStorybook {
   @Input() large = false;

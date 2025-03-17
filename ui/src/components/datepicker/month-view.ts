@@ -39,12 +39,12 @@ const DAYS_PER_WEEK = 7;
  * An internal component used to display a single month in the datepicker.
  */
 @Component({
-    selector: 'oui-month-view',
-    templateUrl: 'month-view.html',
-    exportAs: 'ouiMonthView',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-month-view',
+  templateUrl: 'month-view.html',
+  exportAs: 'ouiMonthView',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiMonthView<D> implements AfterContentInit {
   /**

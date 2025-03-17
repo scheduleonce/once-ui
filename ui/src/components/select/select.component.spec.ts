@@ -56,8 +56,8 @@ import {
 } from '../core/test/utils';
 
 @Component({
-    selector: 'oui-basic-select',
-    template: `
+  selector: 'oui-basic-select',
+  template: `
     <div [style.height.px]="heightAbove"></div>
     <oui-form-field>
       <oui-select
@@ -80,7 +80,7 @@ import {
     </oui-form-field>
     <div [style.height.px]="heightBelow"></div>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelect {
   foods: any[] = [
@@ -107,8 +107,8 @@ class BasicSelect {
 }
 
 @Component({
-    selector: 'oui-ng-model-select',
-    template: `
+  selector: 'oui-ng-model-select',
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" ngModel [disabled]="isDisabled">
         <oui-option *ngFor="let food of foods" [value]="food.value"
@@ -117,7 +117,7 @@ class BasicSelect {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class NgModelSelect {
   foods: any[] = [
@@ -132,8 +132,8 @@ class NgModelSelect {
 }
 
 @Component({
-    selector: 'oui-many-selects',
-    template: `
+  selector: 'oui-many-selects',
+  template: `
     <oui-form-field>
       <oui-select placeholder="First">
         <oui-option value="one">one</oui-option>
@@ -147,13 +147,13 @@ class NgModelSelect {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class ManySelects {}
 
 @Component({
-    selector: 'oui-select-with-change-event',
-    template: `
+  selector: 'oui-select-with-change-event',
+  template: `
     <oui-form-field>
       <oui-select (selectionChange)="changeListener($event)">
         <oui-option *ngFor="let food of foods" [value]="food">{{
@@ -162,7 +162,7 @@ class ManySelects {}
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectWithChangeEvent {
   foods: string[] = [
@@ -180,8 +180,8 @@ class SelectWithChangeEvent {
 }
 
 @Component({
-    selector: 'oui-select-init-without-options',
-    template: `
+  selector: 'oui-select-init-without-options',
+  template: `
     <oui-form-field>
       <oui-select
         placeholder="Food I want to eat right now"
@@ -193,7 +193,7 @@ class SelectWithChangeEvent {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectInitWithoutOptions {
   foods: any[];
@@ -212,9 +212,9 @@ class SelectInitWithoutOptions {
 }
 
 @Component({
-    selector: 'oui-basic-select-on-push',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
+  selector: 'oui-basic-select-on-push',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
         <oui-option *ngFor="let food of foods" [value]="food.value">
@@ -223,7 +223,7 @@ class SelectInitWithoutOptions {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectOnPush {
   foods: any[] = [
@@ -235,9 +235,9 @@ class BasicSelectOnPush {
 }
 
 @Component({
-    selector: 'oui-basic-select-on-push-preselected',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    template: `
+  selector: 'oui-basic-select-on-push-preselected',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
         <oui-option *ngFor="let food of foods" [value]="food.value">
@@ -246,7 +246,7 @@ class BasicSelectOnPush {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectOnPushPreselected {
   foods: any[] = [
@@ -258,8 +258,8 @@ class BasicSelectOnPushPreselected {
 }
 
 @Component({
-    selector: 'oui-multi-select',
-    template: `
+  selector: 'oui-multi-select',
+  template: `
     <oui-form-field>
       <oui-select
         multiple
@@ -273,7 +273,7 @@ class BasicSelectOnPushPreselected {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class MultiSelect {
   foods: any[] = [
@@ -294,57 +294,57 @@ class MultiSelect {
 }
 
 @Component({
-    selector: 'oui-select-with-plain-tabindex',
-    template: `
+  selector: 'oui-select-with-plain-tabindex',
+  template: `
     <oui-form-field><oui-select tabindex="5"></oui-select></oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectWithPlainTabindex {}
 
 @Component({
-    selector: 'oui-select-early-sibling-access',
-    template: `
+  selector: 'oui-select-early-sibling-access',
+  template: `
     <oui-form-field>
       <oui-select #select="ouiSelect"></oui-select>
     </oui-form-field>
     <div *ngIf="select.selected"></div>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectEarlyAccessSibling {}
 
 @Component({
-    selector: 'oui-basic-select-initially-hidden',
-    template: `
+  selector: 'oui-basic-select-initially-hidden',
+  template: `
     <oui-form-field>
       <oui-select [style.display]="isVisible ? 'block' : 'none'">
         <oui-option value="value">There are no other options</oui-option>
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectInitiallyHidden {
   isVisible = false;
 }
 
 @Component({
-    selector: 'oui-basic-select-no-placeholder',
-    template: `
+  selector: 'oui-basic-select-no-placeholder',
+  template: `
     <oui-form-field>
       <oui-select>
         <oui-option value="value">There are no other options</oui-option>
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectNoPlaceholder {}
 
 @Component({
-    selector: 'oui-reset-values-select',
-    template: `
+  selector: 'oui-reset-values-select',
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
         <oui-option *ngFor="let food of foods" [value]="food.value">
@@ -354,7 +354,7 @@ class BasicSelectNoPlaceholder {}
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class ResetValuesSelect {
   foods: any[] = [
@@ -371,8 +371,8 @@ class ResetValuesSelect {
 }
 
 @Component({
-    selector: 'oui-select-with-groups',
-    template: `
+  selector: 'oui-select-with-groups',
+  template: `
     <oui-form-field>
       <oui-select placeholder="Pokemon" [formControl]="control">
         <oui-optgroup
@@ -391,7 +391,7 @@ class ResetValuesSelect {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectWithGroups {
   control = new UntypedFormControl();
@@ -435,8 +435,8 @@ class SelectWithGroups {
 }
 
 @Component({
-    selector: 'oui-select-with-groups',
-    template: `
+  selector: 'oui-select-with-groups',
+  template: `
     <oui-form-field>
       <oui-select placeholder="Pokemon" [formControl]="control">
         <oui-optgroup *ngFor="let group of pokemonTypes" [label]="group.name">
@@ -449,7 +449,7 @@ class SelectWithGroups {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectWithGroupsAndNgContainer {
   control = new UntypedFormControl();
@@ -462,21 +462,21 @@ class SelectWithGroupsAndNgContainer {
 }
 
 @Component({
-    template: `
+  template: `
     <form>
       <oui-form-field>
         <oui-select [(ngModel)]="value"></oui-select>
       </oui-form-field>
     </form>
   `,
-    standalone: false
+  standalone: false,
 })
 class InvalidSelectInForm {
   value: any;
 }
 
 @Component({
-    template: `
+  template: `
     <form [formGroup]="formGroup">
       <oui-form-field>
         <oui-select placeholder="Food" formControlName="food">
@@ -488,7 +488,7 @@ class InvalidSelectInForm {
       </oui-form-field>
     </form>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectInsideFormGroup {
   @ViewChild(FormGroupDirective)
@@ -501,7 +501,7 @@ class SelectInsideFormGroup {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFood">
         <oui-option *ngFor="let food of foods" [value]="food.value">
@@ -510,7 +510,7 @@ class SelectInsideFormGroup {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectWithoutForms {
   selectedFood: string | null;
@@ -524,7 +524,7 @@ class BasicSelectWithoutForms {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFood">
         <oui-option *ngFor="let food of foods" [value]="food.value">
@@ -533,7 +533,7 @@ class BasicSelectWithoutForms {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectWithoutFormsPreselected {
   selectedFood = 'pizza-1';
@@ -546,7 +546,7 @@ class BasicSelectWithoutFormsPreselected {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFoods" multiple>
         <oui-option *ngFor="let food of foods" [value]="food.value">
@@ -555,7 +555,7 @@ class BasicSelectWithoutFormsPreselected {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class BasicSelectWithoutFormsMultiple {
   selectedFoods: string[];
@@ -569,8 +569,8 @@ class BasicSelectWithoutFormsMultiple {
 }
 
 @Component({
-    selector: 'oui-select-with-custom-trigger',
-    template: `
+  selector: 'oui-select-with-custom-trigger',
+  template: `
     <oui-form-field>
       <oui-select
         placeholder="Food"
@@ -586,7 +586,7 @@ class BasicSelectWithoutFormsMultiple {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectWithCustomTrigger {
   foods: any[] = [
@@ -597,8 +597,8 @@ class SelectWithCustomTrigger {
 }
 
 @Component({
-    selector: 'oui-ng-model-compare-with',
-    template: `
+  selector: 'oui-ng-model-compare-with',
+  template: `
     <oui-form-field>
       <oui-select
         [(value)]="selectedFood"
@@ -611,7 +611,7 @@ class SelectWithCustomTrigger {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class NgModelCompareWithSelect {
   foods: { value: string; viewValue: string }[] = [
@@ -654,7 +654,7 @@ class NgModelCompareWithSelect {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-select
       placeholder="Food"
       [formControl]="control"
@@ -665,7 +665,7 @@ class NgModelCompareWithSelect {
       </oui-option>
     </oui-select>
   `,
-    standalone: false
+  standalone: false,
 })
 class CustomErrorBehaviorSelect {
   @ViewChild(OuiSelect) select: OuiSelect;
@@ -678,7 +678,7 @@ class CustomErrorBehaviorSelect {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(ngModel)]="selectedFoods">
         <oui-option *ngFor="let food of foods" [value]="food.value"
@@ -687,7 +687,7 @@ class CustomErrorBehaviorSelect {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SingleSelectWithPreselectedArrayValues {
   foods: any[] = [
@@ -703,7 +703,7 @@ class SingleSelectWithPreselectedArrayValues {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-form-field>
       <label>Select a thing</label>
 
@@ -712,7 +712,7 @@ class SingleSelectWithPreselectedArrayValues {
       </oui-select>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 class SelectWithFormFieldLabel {
   placeholder: string;

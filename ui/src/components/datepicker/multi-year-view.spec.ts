@@ -19,14 +19,14 @@ export const OCT = 9;
 export const NOV = 10;
 export const DEC = 11;
 @Component({
-    template: `
+  template: `
     <oui-multi-year-view
       [(activeDate)]="date"
       [(selected)]="selected"
       (yearSelected)="selectedYear = $event"
     ></oui-multi-year-view>
   `,
-    standalone: false
+  standalone: false,
 })
 class StandardMultiYearView {
   date = new Date(2017, JAN, 1);
@@ -38,13 +38,13 @@ class StandardMultiYearView {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-multi-year-view
       [activeDate]="activeDate"
       [dateFilter]="dateFilter"
     ></oui-multi-year-view>
   `,
-    standalone: false
+  standalone: false,
 })
 class MultiYearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);

@@ -75,31 +75,31 @@ export type OuiTabHeaderPosition = 'above' | 'below';
  * See: https://material.io/design/components/tabs.html
  */
 @Component({
-    selector: 'oui-tab-group',
-    exportAs: 'ouiTabGroup',
-    templateUrl: 'tab-group.html',
-    styleUrls: ['tab-group.scss'],
-    encapsulation: ViewEncapsulation.None,
-    // tslint:disable-next-line:validate-decorators
-    changeDetection: ChangeDetectionStrategy.Default,
-    // eslint-disable-next-line
-    inputs: ['color', 'disableRipple'],
-    providers: [
-        {
-            provide: OUI_TAB_GROUP,
-            useExisting: ouiTabGroup,
-        },
-    ],
-    // eslint-disable-next-line
-    host: {
-        ngSkipHydration: '',
-        class: 'oui-mdc-tab-group oui-tab',
-        '[class.oui-mdc-tab-group-dynamic-height]': 'dynamicHeight',
-        '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
-        '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
-        '[style.--oui-tab-animation-duration]': 'animationDuration',
+  selector: 'oui-tab-group',
+  exportAs: 'ouiTabGroup',
+  templateUrl: 'tab-group.html',
+  styleUrls: ['tab-group.scss'],
+  encapsulation: ViewEncapsulation.None,
+  // tslint:disable-next-line:validate-decorators
+  changeDetection: ChangeDetectionStrategy.Default,
+  // eslint-disable-next-line
+  inputs: ['color', 'disableRipple'],
+  providers: [
+    {
+      provide: OUI_TAB_GROUP,
+      useExisting: ouiTabGroup,
     },
-    standalone: false
+  ],
+  // eslint-disable-next-line
+  host: {
+    ngSkipHydration: '',
+    class: 'oui-mdc-tab-group oui-tab',
+    '[class.oui-mdc-tab-group-dynamic-height]': 'dynamicHeight',
+    '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
+    '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
+    '[style.--oui-tab-animation-duration]': 'animationDuration',
+  },
+  standalone: false,
 })
 export class ouiTabGroup
   extends _OuiTabGroupMixinBase

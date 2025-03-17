@@ -54,13 +54,13 @@ export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
 }
 
 @Component({
-    selector: 'oui-panel',
-    templateUrl: 'panel.html',
-    styleUrls: ['panel.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'ouiPanel',
-    standalone: false
+  selector: 'oui-panel',
+  templateUrl: 'panel.html',
+  styleUrls: ['panel.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'ouiPanel',
+  standalone: false,
 })
 export class OuiPanel implements OnInit, OuiPanelOverlay {
   private _xPosition: PanelPositionX = this._defaultOptions.xPosition;
@@ -161,13 +161,14 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 }
 
 @Component({
-    selector: 'oui-panel-icon',
-    template: '<oui-icon svgIcon="panel-icon" class="oui-panel-icon" [tabIndex]="-1"></oui-icon>',
-    styleUrls: ['panel.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'ouiPanelIcon',
-    standalone: false
+  selector: 'oui-panel-icon',
+  template:
+    '<oui-icon svgIcon="panel-icon" class="oui-panel-icon" [tabIndex]="-1"></oui-icon>',
+  styleUrls: ['panel.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'ouiPanelIcon',
+  standalone: false,
 })
 export class OuiPanelIcon implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;

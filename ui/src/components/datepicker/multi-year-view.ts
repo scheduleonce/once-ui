@@ -35,12 +35,12 @@ export const yearsPerRow = 4;
  * An internal component used to display a year selector in the datepicker.
  */
 @Component({
-    selector: 'oui-multi-year-view',
-    templateUrl: 'multi-year-view.html',
-    exportAs: 'ouiMultiYearView',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-multi-year-view',
+  templateUrl: 'multi-year-view.html',
+  exportAs: 'ouiMultiYearView',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiMultiYearView<D> implements AfterContentInit {
   /** The date to display in this multi-year view (everything other than the year is ignored). */

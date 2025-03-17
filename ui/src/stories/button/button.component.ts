@@ -2,8 +2,8 @@ import { Component, Input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 @Component({
-    selector: 'oui-icon-button-storybook',
-    template: `
+  selector: 'oui-icon-button-storybook',
+  template: `
     <button
       oui-icon-button
       [disabled]="disabled"
@@ -13,7 +13,7 @@ import { OuiIconRegistry } from '../../components';
       <oui-icon svgIcon="configuration" [color]="color"></oui-icon>{{ text }}
     </button>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiIconButtonStorybook {
   @Input() color: string;

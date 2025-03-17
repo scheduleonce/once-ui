@@ -59,23 +59,23 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
 `;
 
 @Component({
-    templateUrl: './progress-spinner.html',
-    selector: 'oui-progress-spinner',
-    exportAs: 'OuiProgressSpinner',
-    styleUrls: ['progress-spinner.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-progress-spinner',
-        '[style.width.px]': 'diameter',
-        '[style.height.px]': 'diameter',
-        '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
-        '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
-        '[attr.aria-valuenow]': 'value',
-        '[attr.mode]': 'mode',
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  templateUrl: './progress-spinner.html',
+  selector: 'oui-progress-spinner',
+  exportAs: 'OuiProgressSpinner',
+  styleUrls: ['progress-spinner.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-progress-spinner',
+    '[style.width.px]': 'diameter',
+    '[style.height.px]': 'diameter',
+    '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
+    '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
+    '[attr.aria-valuenow]': 'value',
+    '[attr.mode]': 'mode',
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private static diameters = new Set<number>([BASE_SIZE]);

@@ -21,31 +21,31 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 
 /** Can be used to override the icon of a `ouiDatepickerToggle`. */
 @Directive({
-    selector: '[ouiDatepickerToggleIcon]',
-    standalone: false
+  selector: '[ouiDatepickerToggleIcon]',
+  standalone: false,
 })
 export class OuiDatepickerToggleIcon {}
 
 @Component({
-    selector: 'oui-datepicker-toggle',
-    templateUrl: 'datepicker-toggle.html',
-    styleUrls: ['datepicker-toggle.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-datepicker-toggle',
-        // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
-        // consumer may have provided, while still being able to receive focus.
-        '[attr.tabindex]': '-1',
-        '[class.oui-datepicker-toggle-active]': 'datepicker && datepicker.opened',
-        '[class.oui-accent]': 'datepicker && datepicker.color === "accent"',
-        '[class.oui-warn]': 'datepicker && datepicker.color === "warn"',
-        '(focus)': '_button.focus()',
-        '[class.oui-datepicker-disabled]': 'disabled',
-    },
-    exportAs: 'ouiDatepickerToggle',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-datepicker-toggle',
+  templateUrl: 'datepicker-toggle.html',
+  styleUrls: ['datepicker-toggle.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-datepicker-toggle',
+    // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
+    // consumer may have provided, while still being able to receive focus.
+    '[attr.tabindex]': '-1',
+    '[class.oui-datepicker-toggle-active]': 'datepicker && datepicker.opened',
+    '[class.oui-accent]': 'datepicker && datepicker.color === "accent"',
+    '[class.oui-warn]': 'datepicker && datepicker.color === "warn"',
+    '(focus)': '_button.focus()',
+    '[class.oui-datepicker-disabled]': 'disabled',
+  },
+  exportAs: 'ouiDatepickerToggle',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiDatepickerToggle<D>
   implements AfterContentInit, OnChanges, OnDestroy

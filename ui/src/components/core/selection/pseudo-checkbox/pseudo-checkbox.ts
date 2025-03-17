@@ -35,18 +35,18 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
  * @docs-private
  */
 @Component({
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    selector: 'oui-pseudo-checkbox',
-    styleUrls: ['pseudo-checkbox.scss'],
-    template: '',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-pseudo-checkbox',
-        '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
-        '[class.oui-pseudo-checkbox-disabled]': 'disabled',
-    },
-    standalone: false
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'oui-pseudo-checkbox',
+  styleUrls: ['pseudo-checkbox.scss'],
+  template: '',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-pseudo-checkbox',
+    '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
+    '[class.oui-pseudo-checkbox-disabled]': 'disabled',
+  },
+  standalone: false,
 })
 export class OuiPseudoCheckbox implements OnDestroy {
   /** Display state of the checkbox. */

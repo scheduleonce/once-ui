@@ -206,7 +206,7 @@ describe('MDC-based OuiTabBody', () => {
 });
 
 @Component({
-    template: `
+  template: `
     <ng-template>Tab Body Content</ng-template>
     <oui-tab-body
       [content]="content"
@@ -214,7 +214,7 @@ describe('MDC-based OuiTabBody', () => {
       [origin]="origin"
     ></oui-tab-body>
   `,
-    standalone: false
+  standalone: false,
 })
 class SimpleTabBodyApp implements AfterContentInit {
   content: TemplatePortal;

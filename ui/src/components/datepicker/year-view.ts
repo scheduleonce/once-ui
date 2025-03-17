@@ -33,12 +33,12 @@ import { DateAdapter } from './date-adapter';
  * An internal component used to display a single year in the datepicker.
  */
 @Component({
-    selector: 'oui-year-view',
-    templateUrl: 'year-view.html',
-    exportAs: 'ouiYearView',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-year-view',
+  templateUrl: 'year-view.html',
+  exportAs: 'ouiYearView',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiYearView<D> implements AfterContentInit {
   /** The date to display in this year view (everything other than the year is ignored). */

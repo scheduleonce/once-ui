@@ -59,7 +59,7 @@ class FakeDataSource extends DataSource<TestData> {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table [dataSource]="dataSource">
       <ng-container ouiColumnDef="column_a">
         <oui-header-cell *ouiHeaderCellDef> Column A</oui-header-cell>
@@ -91,7 +91,7 @@ class FakeDataSource extends DataSource<TestData> {
       <oui-footer-row *ouiFooterRowDef="columnsToRender"></oui-footer-row>
     </oui-table>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -101,7 +101,7 @@ class OuiTableApp {
 }
 
 @Component({
-    template: `
+  template: `
     <table oui-table [dataSource]="dataSource">
       <ng-container ouiColumnDef="column_a">
         <th oui-header-cell *ouiHeaderCellDef>Column A</th>
@@ -122,7 +122,7 @@ class OuiTableApp {
       <tr oui-row *ouiRowDef="let row; columns: columnsToRender"></tr>
     </table>
   `,
-    standalone: false
+  standalone: false,
 })
 class NativeHtmlTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -131,7 +131,7 @@ class NativeHtmlTableApp {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table
       [dataSource]="dataSource"
       [multiTemplateDataRows]="multiTemplateDataRows"
@@ -154,7 +154,7 @@ class NativeHtmlTableApp {
       <oui-footer-row *ouiFooterRowDef="['column_a']"></oui-footer-row>
     </oui-table>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiTableWithWhenRowApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -164,7 +164,7 @@ class OuiTableWithWhenRowApp {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table [dataSource]="dataSource" ouiSort>
       <ng-container ouiColumnDef="column_a">
         <oui-header-cell *ouiHeaderCellDef oui-sort-header="a">
@@ -193,7 +193,7 @@ class OuiTableWithWhenRowApp {
 
     <oui-paginator [pageSize]="5"></oui-paginator>
   `,
-    standalone: false
+  standalone: false,
 })
 class ArrayDataSourceOuiTableApp implements AfterViewInit {
   underlyingDataSource = new FakeDataSource();
@@ -225,7 +225,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table [dataSource]="dataSource" ouiSort>
       <ng-container ouiColumnDef="column_a">
         <oui-header-cell *ouiHeaderCellDef oui-sort-header="a">
@@ -248,7 +248,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiTableWithSortApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
@@ -277,7 +277,7 @@ class OuiTableWithSortApp implements OnInit {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table [dataSource]="dataSource">
       <ng-container ouiColumnDef="column_a">
         <oui-header-cell *ouiHeaderCellDef> Column A</oui-header-cell>
@@ -300,7 +300,7 @@ class OuiTableWithSortApp implements OnInit {
 
     <oui-paginator [pageSize]="5"></oui-paginator>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiTableWithPaginatorApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
@@ -329,7 +329,7 @@ class OuiTableWithPaginatorApp implements OnInit {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table [dataSource]="dataSource">
       <ng-container ouiColumnDef="column_a">
         <oui-header-cell *ouiHeaderCellDef>Column A</oui-header-cell>
@@ -342,7 +342,7 @@ class OuiTableWithPaginatorApp implements OnInit {
       </ng-container>
     </oui-table>
   `,
-    standalone: false
+  standalone: false,
 })
 class TableWithNgContainerRow {
   dataSource: FakeDataSource | null = new FakeDataSource();

@@ -9,8 +9,8 @@ import {
 import { OuiDialog } from '../../components';
 
 @Component({
-    selector: 'oui-dialog-storybook',
-    template: `
+  selector: 'oui-dialog-storybook',
+  template: `
     <button oui-button [disabled]="disabled" (click)="openDialog($event)">
       Open
     </button>
@@ -53,7 +53,7 @@ import { OuiDialog } from '../../components';
       </div>
     </ng-template>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiDialogStorybook {
   @Output()

@@ -8,7 +8,7 @@ import {
 import { By } from '@angular/platform-browser';
 
 @Component({
-    template: `
+  template: `
     <table
       oui-calendar-body
       [label]="label"
@@ -21,7 +21,7 @@ import { By } from '@angular/platform-browser';
       (selectedValueChange)="onSelect($event)"
     ></table>
   `,
-    standalone: false
+  standalone: false,
 })
 class StandardCalendarBody {
   label = 'Jan 2017';

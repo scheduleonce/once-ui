@@ -3,8 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 
 @Component({
-    selector: 'oui-tab-storybook',
-    template: `
+  selector: 'oui-tab-storybook',
+  template: `
     <nav oui-tab-nav-bar oui-align-tabs="start">
       <a
         oui-tab-link
@@ -42,7 +42,7 @@ import { OuiIconRegistry } from '../../components';
       </ng-container>
     </ng-container>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiTabStorybook {
   selectedTab = 'first';

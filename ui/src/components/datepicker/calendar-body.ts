@@ -38,20 +38,20 @@ export class OuiCalendarCell {
  * An internal component used to display calendar data in a table.
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: '[oui-calendar-body]',
-    templateUrl: 'calendar-body.html',
-    styleUrls: ['calendar-body.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-calendar-body',
-        role: 'grid',
-        'aria-readonly': 'true',
-    },
-    exportAs: 'ouiCalendarBody',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '[oui-calendar-body]',
+  templateUrl: 'calendar-body.html',
+  styleUrls: ['calendar-body.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-calendar-body',
+    role: 'grid',
+    'aria-readonly': 'true',
+  },
+  exportAs: 'ouiCalendarBody',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiCalendarBody implements OnChanges {
   /** The label for the table. (e.g. "Jan 2017"). */

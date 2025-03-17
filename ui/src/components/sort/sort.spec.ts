@@ -27,7 +27,7 @@ import {
 } from './sort-errors';
 
 @Component({
-    template: `
+  template: `
     <div
       ouiSort
       [ouiSortActive]="active"
@@ -64,7 +64,7 @@ import {
       </div>
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 class SimpleOuiSortApp {
   latestSortEvent: Sort;
@@ -119,7 +119,7 @@ class FakeDataSource extends DataSource<any> {
 }
 
 @Component({
-    template: `
+  template: `
     <cdk-table [dataSource]="dataSource" ouiSort>
       <ng-container cdkColumnDef="column_a">
         <cdk-header-cell
@@ -161,7 +161,7 @@ class FakeDataSource extends DataSource<any> {
       <cdk-row *cdkRowDef="let row; columns: columnsToRender"></cdk-row>
     </cdk-table>
   `,
-    standalone: false
+  standalone: false,
 })
 class CdkTableOuiSortApp {
   @ViewChild(OuiSort) ouiSort: OuiSort;
@@ -171,7 +171,7 @@ class CdkTableOuiSortApp {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-table [dataSource]="dataSource" ouiSort>
       <ng-container ouiColumnDef="column_a">
         <oui-header-cell *ouiHeaderCellDef #sortHeaderA oui-sort-header>
@@ -198,7 +198,7 @@ class CdkTableOuiSortApp {
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiTableOuiSortApp {
   @ViewChild(OuiSort) ouiSort: OuiSort;
@@ -208,35 +208,35 @@ class OuiTableOuiSortApp {
 }
 
 @Component({
-    template: ` <div oui-sort-header="a">A</div> `,
-    standalone: false
+  template: ` <div oui-sort-header="a">A</div> `,
+  standalone: false,
 })
 class OuiSortHeaderMissingOuiSortApp {}
 
 @Component({
-    template: `
+  template: `
     <div ouiSort>
       <div oui-sort-header="duplicateId">A</div>
       <div oui-sort-header="duplicateId">A</div>
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiSortDuplicateOuiSortableIdsApp {}
 
 @Component({
-    template: ` <div ouiSort><div oui-sort-header>A</div></div> `,
-    standalone: false
+  template: ` <div ouiSort><div oui-sort-header>A</div></div> `,
+  standalone: false,
 })
 class OuiSortableMissingIdApp {}
 
 @Component({
-    template: `
+  template: `
     <div ouiSort ouiSortDirection="ascending">
       <div oui-sort-header="a">A</div>
     </div>
   `,
-    standalone: false
+  standalone: false,
 })
 class OuiSortableInvalidDirection {}
 

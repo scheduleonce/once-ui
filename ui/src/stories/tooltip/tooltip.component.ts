@@ -3,8 +3,8 @@ import { Input, Component } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-    selector: 'oui-tooltip-storybook',
-    template: `
+  selector: 'oui-tooltip-storybook',
+  template: `
     <oui-icon
       [svgIcon]="'help-library'"
       [ouiTooltip]="_ouiTooltip"
@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       [ouiTooltipDisabled]="disabled"
     ></oui-icon>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiTooltipStorybook {
   @Input() disabled = false;

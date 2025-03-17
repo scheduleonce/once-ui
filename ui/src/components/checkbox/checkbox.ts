@@ -59,31 +59,31 @@ export enum TransitionCheckState {
  * See: https://github.com/scheduleonce/once-ui/tree/master/ui/src/components/checkbox/README.md
  */
 @Component({
-    selector: 'oui-checkbox',
-    templateUrl: './checkbox.html',
-    styleUrls: ['./checkbox.scss'],
-    exportAs: 'ouiCheckbox',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-checkbox',
-        '[id]': 'id',
-        '[attr.tabindex]': 'null',
-        '[class.oui-checkbox-checked]': 'checked',
-        '[class.oui-checkbox-disabled]': 'disabled',
-        '[class.oui-checkbox-label-before]': 'labelPosition == "before"',
+  selector: 'oui-checkbox',
+  templateUrl: './checkbox.html',
+  styleUrls: ['./checkbox.scss'],
+  exportAs: 'ouiCheckbox',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-checkbox',
+    '[id]': 'id',
+    '[attr.tabindex]': 'null',
+    '[class.oui-checkbox-checked]': 'checked',
+    '[class.oui-checkbox-disabled]': 'disabled',
+    '[class.oui-checkbox-label-before]': 'labelPosition == "before"',
+  },
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['tabIndex', 'color'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => Checkbox),
+      multi: true,
     },
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: ['tabIndex', 'color'],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => Checkbox),
-            multi: true,
-        },
-    ],
-    standalone: false
+  ],
+  standalone: false,
 })
 export class Checkbox
   extends OuiCheckboxMixinBase

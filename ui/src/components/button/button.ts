@@ -52,22 +52,22 @@ export const OuiButtonMixinBase: CanDisableCtor &
  * Once Ui button.
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button], button[oui-icon-button],
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: `button[oui-button], button[oui-ghost-button], button[oui-link-button], button[oui-icon-button],
                button[oui-icon-text-button]`,
-    exportAs: 'ouiButton',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '[disabled]': 'disabled || null',
-        '[tabindex]': 'tabIndex || 0',
-    },
-    templateUrl: 'button.html',
-    styleUrls: ['button.scss'],
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: ['disabled', 'color', 'progress', 'tabIndex'],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  exportAs: 'ouiButton',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    '[disabled]': 'disabled || null',
+    '[tabindex]': 'tabIndex || 0',
+  },
+  templateUrl: 'button.html',
+  styleUrls: ['button.scss'],
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['disabled', 'color', 'progress', 'tabIndex'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiButton
   extends OuiButtonMixinBase
@@ -127,24 +127,24 @@ export class OuiButton
  * Once UI anchor.
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button], a[oui-icon-button],
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: `a[oui-button], a[oui-ghost-button], a[oui-link-button], a[oui-icon-button],
     a[oui-icon-text-button]`,
-    exportAs: 'ouiButton, ouiAnchor',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
-        '[attr.disabled]': 'disabled || null',
-        '[attr.aria-disabled]': 'disabled.toString()',
-        '(click)': '_haltDisabledEvents($event)',
-    },
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: ['disabled', 'color'],
-    templateUrl: 'button.html',
-    styleUrls: ['button.scss'],
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  exportAs: 'ouiButton, ouiAnchor',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
+    '[attr.disabled]': 'disabled || null',
+    '[attr.aria-disabled]': 'disabled.toString()',
+    '(click)': '_haltDisabledEvents($event)',
+  },
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['disabled', 'color'],
+  templateUrl: 'button.html',
+  styleUrls: ['button.scss'],
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiAnchor extends OuiButton {
   /** Tabindex of the button. */

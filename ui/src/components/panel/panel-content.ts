@@ -16,8 +16,8 @@ import { Subject } from 'rxjs';
  * Panel content that will be rendered lazily once the panel is opened.
  */
 @Directive({
-    selector: 'ng-template[ouiPanelContent]',
-    standalone: false
+  selector: 'ng-template[ouiPanelContent]',
+  standalone: false,
 })
 export class OuiPanelContent implements OnDestroy {
   private _portal: TemplatePortal<any>;

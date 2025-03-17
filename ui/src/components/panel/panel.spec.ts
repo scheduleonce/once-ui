@@ -22,15 +22,15 @@ import { OuiIconTestingModule } from '../icon/public-api';
 
 // eslint-disable-next-line @angular-eslint/component-selector
 @Component({
-    selector: 'oui-fake-icon',
-    template: '<ng-content></ng-content>',
-    standalone: false
+  selector: 'oui-fake-icon',
+  template: '<ng-content></ng-content>',
+  standalone: false,
 })
 class FakeIcon {}
 
 // eslint-disable-next-line @angular-eslint/component-selector
 @Component({
-    template: `
+  template: `
     <button [ouiPanelTriggerFor]="panel" #triggerEl>Toggle panel</button>
     <oui-panel #panel>
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
@@ -38,7 +38,7 @@ class FakeIcon {}
       <p>Lorem ipsum dolor sit amet</p>
     </oui-panel>
   `,
-    standalone: false
+  standalone: false,
 })
 class SimplePanel {
   @ViewChild(OuiPanelTrigger) trigger: OuiPanelTrigger;

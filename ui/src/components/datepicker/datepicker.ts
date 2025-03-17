@@ -74,25 +74,25 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
  * future. (e.g. confirmation buttons).
  */
 @Component({
-    selector: 'oui-datepicker-content',
-    templateUrl: 'datepicker-content.html',
-    styleUrls: ['datepicker-content.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-datepicker-content',
-        '[@transformPanel]': '"enter"',
-        '[class.oui-datepicker-content-touch]': 'datepicker.touchUi',
-    },
-    animations: [
-        ouiDatepickerAnimations.transformPanel,
-        ouiDatepickerAnimations.fadeInCalendar,
-    ],
-    exportAs: 'ouiDatepickerContent',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: ['color'],
-    standalone: false
+  selector: 'oui-datepicker-content',
+  templateUrl: 'datepicker-content.html',
+  styleUrls: ['datepicker-content.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-datepicker-content',
+    '[@transformPanel]': '"enter"',
+    '[class.oui-datepicker-content-touch]': 'datepicker.touchUi',
+  },
+  animations: [
+    ouiDatepickerAnimations.transformPanel,
+    ouiDatepickerAnimations.fadeInCalendar,
+  ],
+  exportAs: 'ouiDatepickerContent',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['color'],
+  standalone: false,
 })
 export class OuiDatepickerContent<D>
   extends _OuiDatepickerContentMixinBase
@@ -121,16 +121,16 @@ export class OuiDatepickerContent<D>
 // if angular adds support for `exportAs: '$implicit'` on directives.
 /** Component responsible for managing the datepicker popup/dialog. */
 @Component({
-    selector: 'oui-datepicker',
-    template: '',
-    exportAs: 'ouiDatepicker',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '[class.oui-datepicker-disabled]': 'disabled',
-    },
-    standalone: false
+  selector: 'oui-datepicker',
+  template: '',
+  exportAs: 'ouiDatepicker',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    '[class.oui-datepicker-disabled]': 'disabled',
+  },
+  standalone: false,
 })
 export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _scrollStrategy: () => ScrollStrategy;

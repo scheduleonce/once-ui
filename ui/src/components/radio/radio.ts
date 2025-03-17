@@ -59,16 +59,16 @@ export class OuiRadioGroupBase {}
  * A group of radio buttons. May contain one or more `<oui-radio-button>` elements.
  */
 @Component({
-    selector: 'oui-radio-group',
-    exportAs: 'ouiRadioGroup',
-    template: ` <ng-content></ng-content> `,
-    providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        role: 'radiogroup',
-        class: 'oui-radio-group',
-    },
-    standalone: false
+  selector: 'oui-radio-group',
+  exportAs: 'ouiRadioGroup',
+  template: ` <ng-content></ng-content> `,
+  providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    role: 'radiogroup',
+    class: 'oui-radio-group',
+  },
+  standalone: false,
 })
 export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /**
@@ -311,27 +311,27 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase =
   mixinColor(OuiRadioButtonBase);
 
 @Component({
-    selector: 'oui-radio-button',
-    templateUrl: 'radio.html',
-    styleUrls: ['radio.scss'],
-    encapsulation: ViewEncapsulation.None,
-    exportAs: 'ouiRadioButton',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-radio-button',
-        '[class.oui-radio-checked]': 'checked',
-        '[class.oui-radio-disabled]': 'disabled',
-        '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
-        '[attr.tabindex]': 'null',
-        '[attr.id]': 'id',
-        // Note: under normal conditions focus shouldn't land on this element, however it may be
-        // programmatically set, for example inside of a focus trap, in this case we want to forward
-        // the focus to the native element.
-        '(focus)': '_inputElement.nativeElement.focus()',
-        '(click)': '_fireInputChange()',
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-radio-button',
+  templateUrl: 'radio.html',
+  styleUrls: ['radio.scss'],
+  encapsulation: ViewEncapsulation.None,
+  exportAs: 'ouiRadioButton',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-radio-button',
+    '[class.oui-radio-checked]': 'checked',
+    '[class.oui-radio-disabled]': 'disabled',
+    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
+    '[attr.tabindex]': 'null',
+    '[attr.id]': 'id',
+    // Note: under normal conditions focus shouldn't land on this element, however it may be
+    // programmatically set, for example inside of a focus trap, in this case we want to forward
+    // the focus to the native element.
+    '(focus)': '_inputElement.nativeElement.focus()',
+    '(click)': '_fireInputChange()',
+  },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiRadioButton
   extends OuiRadioButtonMixinBase

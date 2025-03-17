@@ -72,22 +72,22 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
  *    Example: <oui-icon>home</oui-icon> <oui-icon>sun</oui-icon>
  */
 @Component({
-    template: '<ng-content></ng-content>',
-    selector: 'oui-icon',
-    exportAs: 'ouiIcon',
-    styleUrls: ['icon.scss'],
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: ['color'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        role: 'img',
-        class: 'oui-icon',
-        '[class.oui-icon-inline]': 'inline',
-        '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)',
-    },
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  template: '<ng-content></ng-content>',
+  selector: 'oui-icon',
+  exportAs: 'ouiIcon',
+  styleUrls: ['icon.scss'],
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['color'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    role: 'img',
+    class: 'oui-icon',
+    '[class.oui-icon-inline]': 'inline',
+    '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)',
+  },
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   /**

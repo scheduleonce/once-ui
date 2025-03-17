@@ -21,17 +21,17 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ICONS } from '../../core/shared/icons';
 
 @Component({
-    selector: 'oui-select-search',
-    templateUrl: './option-search.html',
-    styleUrls: ['./option-search.scss'],
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => OuiSelectSearchComponent),
-            multi: true,
-        },
-    ],
-    standalone: false
+  selector: 'oui-select-search',
+  templateUrl: './option-search.html',
+  styleUrls: ['./option-search.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => OuiSelectSearchComponent),
+      multi: true,
+    },
+  ],
+  standalone: false,
 })
 export class OuiSelectSearchComponent
   implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy

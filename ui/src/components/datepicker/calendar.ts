@@ -39,17 +39,17 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
  * A calendar that is used as part of the datepicker.
  */
 @Component({
-    selector: 'oui-calendar',
-    templateUrl: 'calendar.html',
-    styleUrls: ['calendar.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-calendar',
-    },
-    exportAs: 'ouiCalendar',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-calendar',
+  templateUrl: 'calendar.html',
+  styleUrls: ['calendar.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-calendar',
+  },
+  exportAs: 'ouiCalendar',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiCalendar<D>
   implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges
@@ -308,12 +308,12 @@ export class OuiCalendar<D>
 
 /** Default header for OuiCalendar */
 @Component({
-    selector: 'oui-calendar-header',
-    templateUrl: 'calendar-header.html',
-    exportAs: 'ouiCalendarHeader',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-calendar-header',
+  templateUrl: 'calendar-header.html',
+  exportAs: 'ouiCalendarHeader',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiCalendarHeader<D> {
   constructor(

@@ -60,30 +60,31 @@ let nextUniqueId = 0;
  * Provides anchored navigation with animated ink bar.
  */
 @Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: '[oui-tab-nav-bar]',
-    exportAs: 'OuiTabNavBar, OuiTabNav',
-    // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-    inputs: ['color'],
-    templateUrl: 'tab-nav-bar.html',
-    styleUrls: ['tab-nav-bar.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '[attr.role]': '_getRole()',
-        class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header oui-tab',
-        '[class.oui-mdc-tab-header-pagination-controls-enabled]': '_showPaginationControls',
-        '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
-        '[class.oui-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
-        '[class.oui-primary]': 'color !== "warn" && color !== "accent"',
-        '[class.oui-accent]': 'color === "accent"',
-        '[class.oui-warn]': 'color === "warn"',
-        '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
-        '[style.--oui-tab-animation-duration]': 'animationDuration',
-    },
-    encapsulation: ViewEncapsulation.None,
-    // tslint:disable-next-line:validate-decorators
-    changeDetection: ChangeDetectionStrategy.Default,
-    standalone: false
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: '[oui-tab-nav-bar]',
+  exportAs: 'OuiTabNavBar, OuiTabNav',
+  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
+  inputs: ['color'],
+  templateUrl: 'tab-nav-bar.html',
+  styleUrls: ['tab-nav-bar.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    '[attr.role]': '_getRole()',
+    class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header oui-tab',
+    '[class.oui-mdc-tab-header-pagination-controls-enabled]':
+      '_showPaginationControls',
+    '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
+    '[class.oui-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
+    '[class.oui-primary]': 'color !== "warn" && color !== "accent"',
+    '[class.oui-accent]': 'color === "accent"',
+    '[class.oui-warn]': 'color === "warn"',
+    '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
+    '[style.--oui-tab-animation-duration]': 'animationDuration',
+  },
+  encapsulation: ViewEncapsulation.None,
+  // tslint:disable-next-line:validate-decorators
+  changeDetection: ChangeDetectionStrategy.Default,
+  standalone: false,
 })
 export class OuiTabNav
   extends OuiPaginatedTabHeader
@@ -281,38 +282,38 @@ const _OuiTabLinkMixinBase = mixinInkBarItem(
  * Link inside a `oui-tab-nav-bar`.
  */
 @Component({
-    // eslint-disable-next-line
-    selector: '[oui-tab-link], [OuiTabLink]',
-    exportAs: 'OuiTabLink',
-    // eslint-disable-next-line
-    inputs: [
-        'disabled',
-        'disableRipple',
-        'tabIndex',
-        'active',
-        'id',
-        'routerLink',
-    ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None,
-    templateUrl: 'tab-link.html',
-    styleUrls: ['tab-link.scss'],
-    // eslint-disable-next-line
-    host: {
-        class: 'mdc-tab oui-mdc-tab-link oui-mdc-focus-indicator',
-        '[attr.aria-controls]': '_getAriaControls()',
-        '[attr.aria-current]': '_getAriaCurrent()',
-        '[attr.aria-disabled]': 'disabled',
-        '[attr.aria-selected]': '_getAriaSelected()',
-        '[attr.id]': 'id',
-        '[attr.tabIndex]': '_getTabIndex()',
-        '[attr.role]': '_getRole()',
-        '[class.oui-mdc-tab-disabled]': 'disabled',
-        '[class.mdc-tab--active]': 'active',
-        '(focus)': '_handleFocus()',
-        '(keydown)': '_handleKeydown($event)',
-    },
-    standalone: false
+  // eslint-disable-next-line
+  selector: '[oui-tab-link], [OuiTabLink]',
+  exportAs: 'OuiTabLink',
+  // eslint-disable-next-line
+  inputs: [
+    'disabled',
+    'disableRipple',
+    'tabIndex',
+    'active',
+    'id',
+    'routerLink',
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  encapsulation: ViewEncapsulation.None,
+  templateUrl: 'tab-link.html',
+  styleUrls: ['tab-link.scss'],
+  // eslint-disable-next-line
+  host: {
+    class: 'mdc-tab oui-mdc-tab-link oui-mdc-focus-indicator',
+    '[attr.aria-controls]': '_getAriaControls()',
+    '[attr.aria-current]': '_getAriaCurrent()',
+    '[attr.aria-disabled]': 'disabled',
+    '[attr.aria-selected]': '_getAriaSelected()',
+    '[attr.id]': 'id',
+    '[attr.tabIndex]': '_getTabIndex()',
+    '[attr.role]': '_getRole()',
+    '[class.oui-mdc-tab-disabled]': 'disabled',
+    '[class.mdc-tab--active]': 'active',
+    '(focus)': '_handleFocus()',
+    '(keydown)': '_handleKeydown($event)',
+  },
+  standalone: false,
 })
 export class OuiTabLink
   extends _OuiTabLinkMixinBase
@@ -447,19 +448,19 @@ export class OuiTabLink
  * Tab panel component associated with OuiTabNav.
  */
 @Component({
-    selector: 'oui-tab-nav-panel',
-    exportAs: 'ouiTabNavPanel',
-    template: '<ng-content></ng-content>',
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        '[attr.aria-labelledby]': '_activeTabId',
-        '[attr.id]': 'id',
-        class: 'oui-mdc-tab-nav-panel',
-        role: 'tabpanel',
-    },
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-tab-nav-panel',
+  exportAs: 'ouiTabNavPanel',
+  template: '<ng-content></ng-content>',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    '[attr.aria-labelledby]': '_activeTabId',
+    '[attr.id]': 'id',
+    class: 'oui-mdc-tab-nav-panel',
+    role: 'tabpanel',
+  },
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ouiTabNavPanel {
   /** Unique id for the tab panel. */

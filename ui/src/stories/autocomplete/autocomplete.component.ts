@@ -18,8 +18,8 @@ export const _filter = (opt: string[], value: string): string[] => {
 };
 
 @Component({
-    selector: 'oui-autocomplete-storybook',
-    template: `
+  selector: 'oui-autocomplete-storybook',
+  template: `
     <oui-form-field
       [appearance]="appearance"
       style="max-width:300px;display:block;"
@@ -41,7 +41,7 @@ export const _filter = (opt: string[], value: string): string[] => {
       </oui-option>
     </oui-autocomplete>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
@@ -75,8 +75,8 @@ export class OuiAutocompleteStorybook implements OnInit {
 }
 
 @Component({
-    selector: 'oui-autocomplete-group-storybook',
-    template: `
+  selector: 'oui-autocomplete-group-storybook',
+  template: `
     <oui-form-field
       [formGroup]="stateForm"
       [appearance]="appearance"
@@ -107,7 +107,7 @@ export class OuiAutocompleteStorybook implements OnInit {
       </oui-autocomplete>
     </oui-form-field>
   `,
-    standalone: false
+  standalone: false,
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {
   @Input() stateGroups: StateGroup[];

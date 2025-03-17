@@ -55,7 +55,7 @@ import {
 } from '../core/test/utils';
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="menu" #triggerEl>Toggle menu</button>
     <oui-menu
       #menu="ouiMenu"
@@ -72,7 +72,7 @@ import {
       <button *ngFor="let item of extraItems" oui-menu-item>{{ item }}</button>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class SimpleMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -85,13 +85,13 @@ class SimpleMenu {
 }
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="menu" #triggerEl>Toggle menu</button>
     <oui-menu [xPosition]="xPosition" [yPosition]="yPosition" #menu="ouiMenu">
       <button oui-menu-item>Positioned Content</button>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class PositionedMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -105,13 +105,13 @@ interface TestableMenu {
   triggerEl: ElementRef<HTMLElement>;
 }
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="menu" #triggerEl>Toggle menu</button>
     <oui-menu [overlapTrigger]="overlapTrigger" #menu="ouiMenu">
       <button oui-menu-item>Not overlapped Content</button>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class OverlapMenu implements TestableMenu {
   @Input() overlapTrigger: boolean;
@@ -120,15 +120,15 @@ class OverlapMenu implements TestableMenu {
 }
 
 @Component({
-    selector: 'oui-custom-menu',
-    template: `
+  selector: 'oui-custom-menu',
+  template: `
     <ng-template>
       Custom Menu header
       <ng-content></ng-content>
     </ng-template>
   `,
-    exportAs: 'ouiCustomMenu',
-    standalone: false
+  exportAs: 'ouiCustomMenu',
+  standalone: false,
 })
 class CustomMenuPanel implements OuiMenuPanel {
   direction: Direction;
@@ -145,20 +145,20 @@ class CustomMenuPanel implements OuiMenuPanel {
 }
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="menu">Toggle menu</button>
     <oui-custom-menu #menu="ouiCustomMenu">
       <button oui-menu-item>Custom Content</button>
     </oui-custom-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class CustomMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
 }
 
 @Component({
-    template: `
+  template: `
     <button
       [ouiMenuTriggerFor]="root"
       #rootTrigger="ouiMenuTrigger"
@@ -215,7 +215,7 @@ class CustomMenu {
       <button oui-menu-item>Twelve</button>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class NestedMenu {
   @ViewChild('root') rootMenu: OuiMenu;
@@ -245,7 +245,7 @@ class NestedMenu {
 }
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="root" #rootTriggerEl>Toggle menu</button>
     <oui-menu #root="ouiMenu">
       <button
@@ -262,7 +262,7 @@ class NestedMenu {
       <button oui-menu-item>Four</button> <button oui-menu-item>Five</button>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class NestedMenuRepeater {
   @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
@@ -273,7 +273,7 @@ class NestedMenuRepeater {
 }
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="root" #rootTriggerEl>Toggle menu</button>
 
     <oui-menu #root="ouiMenu">
@@ -290,21 +290,21 @@ class NestedMenuRepeater {
       </oui-menu>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class SubmenuDeclaredInsideParentMenu {
   @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef;
 }
 
 @Component({
-    selector: 'oui-fake-icon',
-    template: '<ng-content></ng-content>',
-    standalone: false
+  selector: 'oui-fake-icon',
+  template: '<ng-content></ng-content>',
+  standalone: false,
 })
 class FakeIcon {}
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="menu" #triggerEl>Toggle menu</button>
 
     <oui-menu #menu="ouiMenu">
@@ -314,7 +314,7 @@ class FakeIcon {}
       </ng-template>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class SimpleLazyMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -323,7 +323,7 @@ class SimpleLazyMenu {
 }
 
 @Component({
-    template: `
+  template: `
     <button
       [ouiMenuTriggerFor]="menu"
       [ouiMenuTriggerData]="{ label: 'one' }"
@@ -346,7 +346,7 @@ class SimpleLazyMenu {
       </ng-template>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class LazyMenuWithContext {
   @ViewChild('triggerOne') triggerOne: OuiMenuTrigger;
@@ -354,13 +354,13 @@ class LazyMenuWithContext {
 }
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="one">Toggle menu</button>
     <oui-menu #one="ouiMenu"> <button oui-menu-item>One</button> </oui-menu>
 
     <oui-menu #two="ouiMenu"> <button oui-menu-item>Two</button> </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class DynamicPanelMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -369,7 +369,7 @@ class DynamicPanelMenu {
 }
 
 @Component({
-    template: `
+  template: `
     <button [ouiMenuTriggerFor]="menu">Toggle menu</button>
 
     <oui-menu #menu="ouiMenu">
@@ -381,7 +381,7 @@ class DynamicPanelMenu {
       </button>
     </oui-menu>
   `,
-    standalone: false
+  standalone: false,
 })
 class MenuWithCheckboxItems {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;

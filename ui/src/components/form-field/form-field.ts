@@ -59,24 +59,24 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
-    selector: 'oui-form-field',
-    exportAs: 'ouiFormField',
-    templateUrl: 'form-field.html',
-    // OuiInput is a directive and can't have styles, so we need to include its styles here
-    // in form-field-input.css. The OuiInput styles are fairly minimal so it shouldn't be a
-    // big deal for people who aren't using OuiInput.
-    styleUrls: ['form-field.scss'],
-    // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-    host: {
-        class: 'oui-form-field',
-        '[class.oui-focused]': '_control.focused',
-        '[class.oui-disabled]': '_control.disabled',
-        '[class.oui-form-field-appearance-standard]': 'appearance == "standard"',
-        '[class.oui-form-field-appearance-underline]': 'appearance == "underline"',
-    },
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'oui-form-field',
+  exportAs: 'ouiFormField',
+  templateUrl: 'form-field.html',
+  // OuiInput is a directive and can't have styles, so we need to include its styles here
+  // in form-field-input.css. The OuiInput styles are fairly minimal so it shouldn't be a
+  // big deal for people who aren't using OuiInput.
+  styleUrls: ['form-field.scss'],
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'oui-form-field',
+    '[class.oui-focused]': '_control.focused',
+    '[class.oui-disabled]': '_control.disabled',
+    '[class.oui-form-field-appearance-standard]': 'appearance == "standard"',
+    '[class.oui-form-field-appearance-underline]': 'appearance == "underline"',
+  },
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiFormField
   extends _OuiFormFieldMixinBase

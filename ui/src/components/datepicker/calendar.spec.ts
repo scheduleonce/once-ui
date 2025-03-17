@@ -19,7 +19,7 @@ const NOV = 10;
 const DEC = 11;
 
 @Component({
-    template: `
+  template: `
     <oui-calendar
       [startAt]="startDate"
       [(selected)]="selected"
@@ -28,7 +28,7 @@ const DEC = 11;
     >
     </oui-calendar>
   `,
-    standalone: false
+  standalone: false,
 })
 class StandardCalendar {
   selected: Date;
@@ -38,14 +38,14 @@ class StandardCalendar {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-calendar
       [startAt]="startAt"
       [minDate]="minDate"
       [maxDate]="maxDate"
     ></oui-calendar>
   `,
-    standalone: false
+  standalone: false,
 })
 class CalendarWithMinMax {
   startAt: Date;
@@ -54,7 +54,7 @@ class CalendarWithMinMax {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-calendar
       [startAt]="startDate"
       [(selected)]="selected"
@@ -62,7 +62,7 @@ class CalendarWithMinMax {
     >
     </oui-calendar>
   `,
-    standalone: false
+  standalone: false,
 })
 class CalendarWithDateFilter {
   selected: Date;
@@ -74,7 +74,7 @@ class CalendarWithDateFilter {
 }
 
 @Component({
-    template: `
+  template: `
     <oui-calendar
       [startAt]="startAt"
       (selectedChange)="select($event)"
@@ -83,7 +83,7 @@ class CalendarWithDateFilter {
     >
     </oui-calendar>
   `,
-    standalone: false
+  standalone: false,
 })
 class CalendarWithSelectableMinDate {
   startAt = new Date(2018, JUL, 0);
