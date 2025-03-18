@@ -106,7 +106,6 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',

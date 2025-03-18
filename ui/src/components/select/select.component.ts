@@ -176,7 +176,6 @@ export class OuiSelectTrigger {}
   inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'listbox',
     '[attr.id]': 'id',

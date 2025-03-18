@@ -42,7 +42,6 @@ export class OuiCalendarCell {
   selector: '[oui-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-calendar-body',
     role: 'grid',

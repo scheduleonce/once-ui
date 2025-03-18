@@ -81,7 +81,6 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({
  */
 @Directive({
   selector: `[oui-menu-trigger-for], [ouiMenuTriggerFor]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'menuOpen || null',

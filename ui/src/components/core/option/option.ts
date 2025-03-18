@@ -59,7 +59,6 @@ export const OUI_OPTION_PARENT_COMPONENT =
 @Component({
   selector: 'oui-option',
   exportAs: 'ouiOption',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'option',
     '[attr.tabindex]': '_getTabIndex()',

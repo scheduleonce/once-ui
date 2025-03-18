@@ -40,7 +40,6 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   selector: 'oui-pseudo-checkbox',
   styleUrls: ['pseudo-checkbox.scss'],
   template: '',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-pseudo-checkbox',
     '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',

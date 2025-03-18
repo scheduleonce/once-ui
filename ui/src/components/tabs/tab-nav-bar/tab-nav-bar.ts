@@ -67,7 +67,6 @@ let nextUniqueId = 0;
   inputs: ['color'],
   templateUrl: 'tab-nav-bar.html',
   styleUrls: ['tab-nav-bar.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.role]': '_getRole()',
     class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header oui-tab',
@@ -451,7 +450,6 @@ export class OuiTabLink
   selector: 'oui-tab-nav-panel',
   exportAs: 'ouiTabNavPanel',
   template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.aria-labelledby]': '_activeTabId',
     '[attr.id]': 'id',

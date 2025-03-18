@@ -64,7 +64,6 @@ export class OuiRowDef<T> extends CdkRowDef<T> {}
 @Component({
   selector: 'oui-header-row, tr[oui-header-row]',
   template: CDK_ROW_TEMPLATE,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-header-row',
     role: 'row',
@@ -81,7 +80,6 @@ export class OuiHeaderRow extends CdkHeaderRow {}
 @Component({
   selector: 'oui-footer-row, tr[oui-footer-row]',
   template: CDK_ROW_TEMPLATE,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-footer-row',
     role: 'row',
@@ -98,7 +96,6 @@ export class OuiFooterRow extends CdkFooterRow {}
 @Component({
   selector: 'oui-row, tr[oui-row]',
   template: CDK_ROW_TEMPLATE,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-row',
     role: 'row',

@@ -28,7 +28,6 @@ const _OuiTabLabelWrapperMixinBase = mixinInkBarItem(
   selector: '[ouiTabLabelWrapper]',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled', 'fitInkBarToContent'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class.oui-mdc-tab-disabled]': 'disabled',
     '[attr.aria-disabled]': '!!disabled',

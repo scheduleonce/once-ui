@@ -30,7 +30,6 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
   exportAs: 'ouiMenuItem',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.role]': 'role',
     class: 'oui-menu-item',

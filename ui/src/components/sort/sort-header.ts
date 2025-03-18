@@ -69,7 +69,6 @@ interface OuiSortHeaderColumnDef {
   exportAs: 'ouiSortHeader',
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(click)': '_handleClick()',
     '(mouseenter)': '_setIndicatorHintVisible(true)',

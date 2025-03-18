@@ -31,7 +31,6 @@ let _uniqueOptgroupIdCounter = 0;
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
   styleUrls: ['optgroup.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-optgroup',
     role: 'group',

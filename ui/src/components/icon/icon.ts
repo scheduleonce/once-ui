@@ -78,7 +78,6 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   styleUrls: ['icon.scss'],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'img',
     class: 'oui-icon',

@@ -118,7 +118,6 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [ouiTooltipAnimations.tooltipState],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     // Forces the element to have a layout in IE and Edge. This fixes issues where the element
     // won't be rendered if the animations are disabled or there is no web animations polyfill.
@@ -255,7 +254,6 @@ export class TooltipComponent {
 @Directive({
   selector: '[ouiTooltip]',
   exportAs: 'ouiTooltip',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',

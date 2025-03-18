@@ -109,7 +109,6 @@ export type OuiTabBodyPositionState =
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [ouiTabsAnimations.translateTab],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-mdc-tab-body',
   },

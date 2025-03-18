@@ -42,7 +42,6 @@ export class MatRecycleRows {}
   exportAs: 'ouiTable',
   template: CDK_TABLE_TEMPLATE,
   styleUrls: ['table.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-table',
     '[class.oui-table-fixed-layout]': 'fixedLayout',
