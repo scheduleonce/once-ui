@@ -7,6 +7,7 @@ import { Directive, ElementRef } from '@angular/core';
 @Directive({
   selector: '[ouiAutocompleteOrigin]',
   exportAs: 'ouiAutocompleteOrigin',
+  standalone: false,
 })
 export class OuiAutocompleteOrigin {
   constructor(

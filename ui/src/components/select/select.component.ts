@@ -163,6 +163,7 @@ export const _OuiSelectMixinBase: CanDisableCtor &
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: 'oui-select-trigger',
+  standalone: false,
 })
 export class OuiSelectTrigger {}
 
@@ -175,7 +176,6 @@ export class OuiSelectTrigger {}
   inputs: ['disabled', 'tabIndex'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'listbox',
     '[attr.id]': 'id',
@@ -202,6 +202,7 @@ export class OuiSelectTrigger {}
     { provide: OuiFormFieldControl, useExisting: OuiSelect },
     { provide: OUI_OPTION_PARENT_COMPONENT, useExisting: OuiSelect },
   ],
+  standalone: false,
 })
 export class OuiSelect
   extends _OuiSelectMixinBase

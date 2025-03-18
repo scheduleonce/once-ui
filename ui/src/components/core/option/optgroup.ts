@@ -31,7 +31,6 @@ let _uniqueOptgroupIdCounter = 0;
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
   styleUrls: ['optgroup.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-optgroup',
     role: 'group',
@@ -39,6 +38,7 @@ let _uniqueOptgroupIdCounter = 0;
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.aria-labelledby]': '_labelId',
   },
+  standalone: false,
 })
 export class OuiOptgroup extends _OuiOptgroupMixinBase implements CanDisable {
   /** Label for the option group. */
