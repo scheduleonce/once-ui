@@ -357,6 +357,8 @@ export class OuiSelect
   @Input('aria-labelledby') ariaLabelledby: string;
   private _large = false;
   _monitorSubscription: any;
+  previouslySelected: any[] = [];
+  setSelectedOptions: string[] = [];
 
   /** Whether the oui-select is of large size. */
   @Input()
@@ -689,7 +691,6 @@ export class OuiSelect
         event.added.forEach((option) => option.select());
         event.removed.forEach((option) => option.deselect());
       });
-
     this.options.changes
       .pipe(startWith(null), takeUntil(this._destroy))
       .subscribe(() => {
@@ -722,6 +723,7 @@ export class OuiSelect
 
   /** Toggles the overlay panel open or closed. */
   toggle(): void {
+    this.disableDoneButton = true;
     if (this.panelOpen) {
       this.close();
     } else {
@@ -1247,7 +1249,6 @@ export class OuiSelect
   /** Drops current option subscriptions and IDs and resets from scratch. */
   private _resetOptions(): void {
     const changedOrDestroyed = merge(this.options.changes, this._destroy);
-
     this.optionSelectionChanges
       .pipe(takeUntil(changedOrDestroyed))
       .subscribe((event) => {
@@ -1306,7 +1307,15 @@ export class OuiSelect
     if (wasSelected !== this._selectionModel.isSelected(option)) {
       this._propagateChanges();
     }
-    if (this.multiple) {
+    if (Array.isArray(this.selected) && this.selected.length <= 0) {
+      this.disableDoneButton = true;
+    }
+    if (
+      this.multiple &&
+      isUserInput &&
+      Array.isArray(this.selected) &&
+      this.selected.length > 0
+    ) {
       this.disableDoneButton = this._isDoneButtonDisabled();
     }
     this.stateChanges.next();
@@ -1320,6 +1329,7 @@ export class OuiSelect
   doneRecentChanges() {
     this.savedValues = this.value;
     this.disableDoneButton = true;
+    this.previouslySelected = [...this.setSelectedOptions];
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
@@ -1330,7 +1340,7 @@ export class OuiSelect
   }
 
   /** Determine whether the "Done" button should be enabled or disabled based on the selection state */
-  private _isDoneButtonDisabled(): boolean {
+  _isDoneButtonDisabled() {
     const selectedItems = (this.selected as OuiOption[]).map(
       (option) => option.value
     );
