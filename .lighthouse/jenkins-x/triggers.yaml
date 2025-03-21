@@ -17,3 +17,4 @@ spec:
     - ^(master)$
     - ^(qa)$
     - ^(team\/.+)$
+    - ^(staging-app2\/.+)$
