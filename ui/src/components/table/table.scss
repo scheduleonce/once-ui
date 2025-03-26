@@ -75,6 +75,10 @@ oui-row {
   }
 }
 
+td.oui-cell:focus {
+  outline: none; // Removes the focus outline
+}
+
 oui-cell,
 oui-header-cell,
 oui-footer-cell {
