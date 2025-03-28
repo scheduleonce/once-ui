@@ -199,8 +199,8 @@ spec:
         - script: |
             #!/usr/bin/env bash
             TARGET_BRANCH='staging-app2'
-            if [[ $TARGET_BRANCH == $PULL_BASE_REF  ]]; then 
-                mkdir clean_merge_test 
+            if [[ $TARGET_BRANCH == $PULL_BASE_REF  ]]; then
+                mkdir clean_merge_test
                 cd clean_merge_test
                 git clone "https://github.com/scheduleonce/once-ui.git"
                 cd once-ui
@@ -300,7 +300,7 @@ spec:
           - -c
           image: gcr.io/kaniko-project/executor:v1.9.1-debug
           name: docker-build
-          resources: {} 
+          resources: {}
         volumes:
         - emptyDir: {}
           name: workspace-volume
