@@ -110,6 +110,7 @@ export class OuiFooterCell extends CdkFooterCell {
   host: {
     class: 'oui-cell',
     role: 'gridcell',
+    tabindex: '0',
   },
   standalone: false,
 })
