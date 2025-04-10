@@ -25,6 +25,7 @@ import { Component, Input } from '@angular/core';
       </p>
     </oui-panel>
   `,
+  standalone: false,
 })
 export class OuiPanelStorybook {
   @Input() xPosition = 'before';
@@ -54,6 +55,7 @@ export class OuiPanelStorybook {
       </p>
     </oui-panel>
   `,
+  standalone: false,
 })
 export class OuiPanelWithImageStorybook {
   @Input() xPosition = 'before';
