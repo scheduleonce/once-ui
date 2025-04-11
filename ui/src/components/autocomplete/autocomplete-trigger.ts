@@ -106,7 +106,6 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
@@ -125,6 +124,7 @@ export function getOuiAutocompleteMissingPanelError(): Error {
   },
   exportAs: 'ouiAutocompleteTrigger',
   providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _overlayRef: OverlayRef | null;

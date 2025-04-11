@@ -37,6 +37,7 @@ export const FAKE_SVGS = {
  */
 @Component({
   template: ` <oui-icon></oui-icon> `,
+  standalone: false,
 })
 class IconWithLigature {
   iconName = '';
@@ -44,6 +45,7 @@ class IconWithLigature {
 
 @Component({
   template: ` <oui-icon [color]="iconColor"></oui-icon> `,
+  standalone: false,
 })
 class IconWithColor {
   iconName = '';
@@ -52,6 +54,7 @@ class IconWithColor {
 
 @Component({
   template: ` <oui-icon [svgIcon]="iconName"></oui-icon> `,
+  standalone: false,
 })
 class IconFromSvgName {
   iconName: string | undefined = '';
@@ -59,6 +62,7 @@ class IconFromSvgName {
 
 @Component({
   template: ` <oui-icon [svgIcon]="iconName" *ngIf="showIcon"></oui-icon> `,
+  standalone: false,
 })
 class IconWithBindingAndNgIf {
   iconName = 'fluffy';
@@ -67,6 +71,7 @@ class IconWithBindingAndNgIf {
 
 @Component({
   template: ` <oui-icon [inline]="inline"></oui-icon> `,
+  standalone: false,
 })
 class InlineIcon {
   inline = false;
@@ -74,6 +79,7 @@ class InlineIcon {
 
 @Component({
   template: ` <oui-icon [svgIcon]="iconName"><div>Hello</div></oui-icon> `,
+  standalone: false,
 })
 class SvgIconWithUserContent {
   iconName: string | undefined = '';

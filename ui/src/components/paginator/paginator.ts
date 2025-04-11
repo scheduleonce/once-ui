@@ -68,12 +68,12 @@ export const _OuiPaginatorBase: CanDisableCtor &
   styleUrls: ['paginator.scss'],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-paginator',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class OuiPaginator
   extends _OuiPaginatorBase
