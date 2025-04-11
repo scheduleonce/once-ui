@@ -13,6 +13,7 @@ import { OuiIconRegistry } from '../../components';
       <oui-icon svgIcon="configuration" [color]="color"></oui-icon>{{ text }}
     </button>
   `,
+  standalone: false,
 })
 export class OuiIconButtonStorybook {
   @Input() color: string;

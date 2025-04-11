@@ -99,6 +99,7 @@ export type OuiTabHeaderPosition = 'above' | 'below';
     '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
     '[style.--oui-tab-animation-duration]': 'animationDuration',
   },
+  standalone: false,
 })
 export class ouiTabGroup
   extends _OuiTabGroupMixinBase
