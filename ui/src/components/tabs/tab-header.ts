@@ -58,6 +58,7 @@ import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
       '_showPaginationControls',
     '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
   },
+  standalone: false,
 })
 export class OuiTabHeader
   extends OuiPaginatedTabHeader

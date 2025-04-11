@@ -30,6 +30,7 @@ import {
       useClass: _RecycleViewRepeaterStrategy,
     },
   ],
+  standalone: false,
 })
 export class MatRecycleRows {}
 
@@ -41,7 +42,6 @@ export class MatRecycleRows {}
   exportAs: 'ouiTable',
   template: CDK_TABLE_TEMPLATE,
   styleUrls: ['table.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-table',
     '[class.oui-table-fixed-layout]': 'fixedLayout',
@@ -63,6 +63,7 @@ export class MatRecycleRows {}
   // See note on CdkTable for explanation on why this uses the default change detection strategy.
   // eslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: false,
 })
 export class OuiTable<T> extends CdkTable<T> {
   /** Overrides the sticky CSS class set by the `CdkTable`. */

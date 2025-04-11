@@ -53,6 +53,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
       </oui-form-field>
     </div>
   `,
+  standalone: false,
 })
 export class OuiDatepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';
@@ -133,6 +134,7 @@ export class OuiDatepickerStorybook implements OnChanges {
     </div>
   `,
   providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
+  standalone: false,
 })
 export class OuiDatepickerCustomStorybook implements OnChanges {
   @Input() appearance = 'standard';
@@ -232,6 +234,7 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
       </div>
     </div>
   `,
+  standalone: false,
 })
 export class OuiDaterangepickerStorybook implements OnChanges {
   @Input() appearance = 'standard';

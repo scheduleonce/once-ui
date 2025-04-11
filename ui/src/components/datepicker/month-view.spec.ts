@@ -26,6 +26,7 @@ export const DEC = 11;
       [(selected)]="selected"
     ></oui-month-view>
   `,
+  standalone: false,
 })
 class StandardMonthView {
   date = new Date(2017, JAN, 5);
@@ -39,6 +40,7 @@ class StandardMonthView {
       [dateFilter]="dateFilter"
     ></oui-month-view>
   `,
+  standalone: false,
 })
 class MonthViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -54,6 +56,7 @@ class MonthViewWithDateFilter {
       [dateClass]="dateClass"
     ></oui-month-view>
   `,
+  standalone: false,
 })
 class MonthViewWithDateClass {
   activeDate = new Date(2017, JAN, 1);

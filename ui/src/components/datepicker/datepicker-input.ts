@@ -71,7 +71,6 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     OUI_DATEPICKER_VALIDATORS,
     { provide: OUI_INPUT_VALUE_ACCESSOR, useExisting: OuiDatepickerInput },
   ],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',
@@ -86,6 +85,7 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     '[class.oui-datepicker-disabled]': '_datepickerDisabled',
   },
   exportAs: 'ouiDatepickerInput',
+  standalone: false,
 })
 export class OuiDatepickerInput<D>
   implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator
