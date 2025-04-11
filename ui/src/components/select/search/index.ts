@@ -31,6 +31,7 @@ import { ICONS } from '../../core/shared/icons';
       multi: true,
     },
   ],
+  standalone: false,
 })
 export class OuiSelectSearchComponent
   implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy

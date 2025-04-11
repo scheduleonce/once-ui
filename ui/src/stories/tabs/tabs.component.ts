@@ -42,6 +42,7 @@ import { OuiIconRegistry } from '../../components';
       </ng-container>
     </ng-container>
   `,
+  standalone: false,
 })
 export class OuiTabStorybook {
   selectedTab = 'first';
