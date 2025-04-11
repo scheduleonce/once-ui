@@ -578,6 +578,7 @@ interface Tab {
       }
     `,
   ],
+  standalone: false,
 })
 class SimpleTabHeaderApp {
   disableRipple = false;

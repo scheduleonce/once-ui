@@ -35,6 +35,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       </button>
     </oui-menu>
   `,
+  standalone: false,
 })
 export class OuiMenuStorybook {
   @Input() xPosition = 'before';
@@ -102,6 +103,7 @@ export class OuiMenuStorybook {
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 export class OuiNestedMenuStorybook {
   @Input() xPosition = 'before';

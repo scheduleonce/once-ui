@@ -1235,6 +1235,7 @@ describe('OuiTabNavBar with a default config', () => {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class SimpleTabsTestApp {
   @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
@@ -1269,6 +1270,7 @@ class SimpleTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class SimpleDynamicTabsTestApp {
   tabs = [
@@ -1296,6 +1298,7 @@ class SimpleDynamicTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class BindedTabsTestApp {
   tabs = [
@@ -1330,6 +1333,7 @@ class BindedTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class DisabledTabsTestApp {
   @ViewChildren(OuiTab) tabs: QueryList<OuiTab>;
@@ -1345,6 +1349,7 @@ class DisabledTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class AsyncTabsTestApp implements OnInit {
   private _tabs = [
@@ -1371,6 +1376,7 @@ class AsyncTabsTestApp implements OnInit {
       <oui-tab label="Legumes"> <p #legumes>Peanuts</p> </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabGroupWithSimpleApi {
   preserveContent = false;
@@ -1392,6 +1398,7 @@ class TabGroupWithSimpleApi {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class NestedTabs {
   @ViewChildren(ouiTabGroup) groups: QueryList<ouiTabGroup>;
@@ -1408,6 +1415,7 @@ class NestedTabs {
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TemplateTabs {}
 
@@ -1420,6 +1428,7 @@ class TemplateTabs {}
       ></oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabGroupWithAriaInputs {
   ariaLabel: string;
@@ -1435,6 +1444,7 @@ class TabGroupWithAriaInputs {
 
     <div *ngIf="pizza.isActive">pizza is active</div>
   `,
+  standalone: false,
 })
 class TabGroupWithIsActiveBinding {}
 
@@ -1445,6 +1455,7 @@ class TabGroupWithIsActiveBinding {}
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabsWithCustomAnimationDuration {}
 
@@ -1457,6 +1468,7 @@ class TabsWithCustomAnimationDuration {}
       </ng-container>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabGroupWithIndirectDescendantTabs {
   @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
@@ -1469,6 +1481,7 @@ class TabGroupWithIndirectDescendantTabs {
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabGroupWithInkBarFitToContent {
   fitInkBarToContent = true;
@@ -1488,6 +1501,7 @@ class TabGroupWithInkBarFitToContent {
       </ng-container>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabGroupWithSpaceAbove {
   @ViewChild(ouiTabGroup) tabGroup: ouiTabGroup;
@@ -1510,6 +1524,7 @@ class TabGroupWithSpaceAbove {
       <oui-tab label="Parent 3">Parent 3</oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class NestedTabGroupWithLabel {}
 
@@ -1532,6 +1547,7 @@ class NestedTabGroupWithLabel {}
       </oui-tab>
     </oui-tab-group>
   `,
+  standalone: false,
 })
 class TabsWithClassesTestApp {
   labelClassList?: string | string[];

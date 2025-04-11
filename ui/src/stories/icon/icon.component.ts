@@ -12,6 +12,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       [style.height.px]="size"
     ></oui-icon>
   `,
+  standalone: false,
 })
 export class OuiiconStorybook {
   @Input() icon = 'notification-editor';
