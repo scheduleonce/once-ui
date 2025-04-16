@@ -22,11 +22,11 @@ import { ICONS } from '../core/shared/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenuIcon',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(menuOpened)': 'menuOpened()',
     '(menuClosed)': 'menuClosed()',
   },
+  standalone: false,
 })
 export class OuiMenuIcon implements AfterContentInit, OnChanges {
   private _iconDiv: HTMLDivElement;
