@@ -9,7 +9,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: false,
 })
 export class FilterPipe implements PipeTransform {
-  transform(items: any[], searchText: string, field: string): any[] {
+  transform(items: any[], searchText: string, field: string | string[]): any[] {
     if (!items) {
       return [];
     }
@@ -18,15 +18,31 @@ export class FilterPipe implements PipeTransform {
       return items;
     }
     searchText = searchText.trim();
-    return items.filter((it) => {
-      let results;
-      // Support both array and the json object
-      if (it[field]) {
-        results = it[field].toLowerCase().includes(searchText.toLowerCase());
-      } else {
-        results = it.toLowerCase().includes(searchText.toLowerCase());
-      }
-      return results;
-    });
+    let results;
+
+    if (typeof field === 'string') {
+      return items.filter((item) => {
+        // Support both array and the json object
+        if (item[field]) {
+          results = item[field]
+            .toLowerCase()
+            .includes(searchText.toLowerCase());
+        } else {
+          results = item.toLowerCase().includes(searchText.toLowerCase());
+        }
+        return results;
+      });
+    } else {
+      return items.filter((item) => {
+        return field.some((f) => {
+          if (item[f]) {
+            results = item[f].toLowerCase().includes(searchText.toLowerCase());
+          } else {
+            results = item.toLowerCase().includes(searchText.toLowerCase());
+          }
+          return results;
+        });
+      });
+    }
   }
 }
