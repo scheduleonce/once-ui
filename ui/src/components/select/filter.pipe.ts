@@ -17,7 +17,7 @@ export class FilterPipe implements PipeTransform {
     if (!searchText) {
       return items;
     }
-
+    searchText = searchText.trim();
     return items.filter((it) => {
       let results;
       // Support both array and the json object
