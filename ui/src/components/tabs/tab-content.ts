@@ -22,6 +22,7 @@ export const OUI_TAB_CONTENT = new InjectionToken<OuiTabContent>(
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[OuiTabContent]',
   providers: [{ provide: OUI_TAB_CONTENT, useExisting: OuiTabContent }],
+  standalone: false,
 })
 export class OuiTabContent {
   constructor(/** Content for the tab. */ public template: TemplateRef<any>) {}

@@ -36,6 +36,7 @@ import { Checkbox, OuiCheckboxModule } from './public-api';
       </oui-checkbox>
     </div>
   `,
+  standalone: false,
 })
 class SingleCheckbox {
   labelPos = 'after';
@@ -56,6 +57,7 @@ class SingleCheckbox {
       >Be good</oui-checkbox
     >
   `,
+  standalone: false,
 })
 class CheckboxWithNgModel {
   isGood = false;
@@ -68,6 +70,7 @@ class CheckboxWithNgModel {
     <oui-checkbox>Option 1</oui-checkbox>
     <oui-checkbox>Option 2</oui-checkbox>
   `,
+  standalone: false,
 })
 class MultipleCheckboxes {}
 
@@ -77,6 +80,7 @@ class MultipleCheckboxes {}
     <oui-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
     </oui-checkbox>
   `,
+  standalone: false,
 })
 class CheckboxWithTabIndex {
   customTabIndex = 7;
@@ -86,6 +90,7 @@ class CheckboxWithTabIndex {
 /** Simple test component that accesses Checkbox using ViewChild. */
 @Component({
   template: ` <oui-checkbox></oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxUsingViewChild {
   @ViewChild(Checkbox)
@@ -99,24 +104,28 @@ class CheckboxUsingViewChild {
 /** Simple test component with an aria-label set. */
 @Component({
   template: ` <oui-checkbox aria-label="Super effective"></oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxWithAriaLabel {}
 
 /** Simple test component with an aria-label set. */
 @Component({
   template: ` <oui-checkbox aria-labelledby="some-id"></oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxWithAriaLabelledby {}
 
 /** Simple test component with name attribute */
 @Component({
   template: ` <oui-checkbox name="test-name"></oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxWithNameAttribute {}
 
 /** Test component with reactive forms */
 @Component({
   template: ` <oui-checkbox [formControl]="formControl"></oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxWithFormControl {
   formControl = new UntypedFormControl();
@@ -125,6 +134,7 @@ class CheckboxWithFormControl {
 /** Test component without label */
 @Component({
   template: ` <oui-checkbox>{{ label }}</oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxWithoutLabel {
   label: string;
@@ -133,6 +143,7 @@ class CheckboxWithoutLabel {
 /** Test component with the native tabindex attribute. */
 @Component({
   template: ` <oui-checkbox tabindex="5"></oui-checkbox> `,
+  standalone: false,
 })
 class CheckboxWithTabindexAttr {}
 

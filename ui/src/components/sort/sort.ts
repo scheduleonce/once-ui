@@ -59,6 +59,7 @@ export const _OuiSortMixinBase: HasInitializedCtor &
   exportAs: 'ouiSort',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled: ouiSortDisabled'],
+  standalone: false,
 })
 export class OuiSort
   extends _OuiSortMixinBase

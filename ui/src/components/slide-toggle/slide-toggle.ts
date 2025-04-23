@@ -42,7 +42,6 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
   selector: 'oui-slide-toggle',
   exportAs: 'ouiSlideToggle',
   templateUrl: 'slide-toggle.html',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-slide-toggle',
     '[class.oui-disabled]': 'disabled',
@@ -54,6 +53,7 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
   providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class OuiSlideToggle
   extends _OuiSlideToggleMixinBase
