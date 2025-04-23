@@ -35,7 +35,7 @@ export class FilterPipe implements PipeTransform {
     } else {
       return items.filter((item) => {
         return field.some((f) => {
-          if (item[f]) {
+          if (item[f]?.length >= 0) {
             results = item[f].toLowerCase().includes(searchText.toLowerCase());
           } else {
             results = item.toLowerCase().includes(searchText.toLowerCase());
