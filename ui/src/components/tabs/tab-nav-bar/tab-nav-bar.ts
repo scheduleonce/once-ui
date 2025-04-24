@@ -67,7 +67,6 @@ let nextUniqueId = 0;
   inputs: ['color'],
   templateUrl: 'tab-nav-bar.html',
   styleUrls: ['tab-nav-bar.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.role]': '_getRole()',
     class: 'oui-mdc-tab-nav-bar oui-mdc-tab-header oui-tab',
@@ -84,6 +83,7 @@ let nextUniqueId = 0;
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
+  standalone: false,
 })
 export class OuiTabNav
   extends OuiPaginatedTabHeader
@@ -312,6 +312,7 @@ const _OuiTabLinkMixinBase = mixinInkBarItem(
     '(focus)': '_handleFocus()',
     '(keydown)': '_handleKeydown($event)',
   },
+  standalone: false,
 })
 export class OuiTabLink
   extends _OuiTabLinkMixinBase
@@ -449,7 +450,6 @@ export class OuiTabLink
   selector: 'oui-tab-nav-panel',
   exportAs: 'ouiTabNavPanel',
   template: '<ng-content></ng-content>',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.aria-labelledby]': '_activeTabId',
     '[attr.id]': 'id',
@@ -458,6 +458,7 @@ export class OuiTabLink
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ouiTabNavPanel {
   /** Unique id for the tab panel. */

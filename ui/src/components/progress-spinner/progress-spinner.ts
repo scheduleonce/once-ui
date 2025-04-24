@@ -63,7 +63,6 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
   selector: 'oui-progress-spinner',
   exportAs: 'OuiProgressSpinner',
   styleUrls: ['progress-spinner.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-progress-spinner',
     '[style.width.px]': 'diameter',
@@ -75,6 +74,7 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private static diameters = new Set<number>([BASE_SIZE]);

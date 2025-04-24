@@ -24,6 +24,7 @@ import { OuiIconTestingModule } from '../icon/public-api';
 @Component({
   selector: 'oui-fake-icon',
   template: '<ng-content></ng-content>',
+  standalone: false,
 })
 class FakeIcon {}
 
@@ -37,6 +38,7 @@ class FakeIcon {}
       <p>Lorem ipsum dolor sit amet</p>
     </oui-panel>
   `,
+  standalone: false,
 })
 class SimplePanel {
   @ViewChild(OuiPanelTrigger) trigger: OuiPanelTrigger;
