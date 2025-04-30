@@ -21,6 +21,7 @@ import { By } from '@angular/platform-browser';
       (selectedValueChange)="onSelect($event)"
     ></table>
   `,
+  standalone: false,
 })
 class StandardCalendarBody {
   label = 'Jan 2017';

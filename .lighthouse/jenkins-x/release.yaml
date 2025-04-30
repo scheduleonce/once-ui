@@ -266,7 +266,7 @@ spec:
           name: docker-build
           resources: {}
         - args:
-          - sh deploy.sh $PULL_BASE_REF
+          - sh deploy.sh $PULL_BASE_REF || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
           command:
           - /bin/sh
           - -c

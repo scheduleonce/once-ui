@@ -31,6 +31,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       <oui-paginator pageSize="{{ pageSize }}"></oui-paginator>
     </div>
   `,
+  standalone: false,
 })
 export class OuiTableStorybook implements OnInit, OnChanges {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
@@ -153,6 +154,7 @@ export class OuiTableStorybook implements OnInit, OnChanges {
       </table>
     </div>
   `,
+  standalone: false,
 })
 export class OuiTableCustomStorybook implements OnChanges {
   INTEGRATIONS = {
