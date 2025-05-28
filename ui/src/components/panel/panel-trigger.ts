@@ -54,7 +54,6 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 @Directive({
   selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'panelOpen || null',
@@ -63,6 +62,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     '(keydown)': '_handleKeydown($event)',
   },
   exportAs: 'ouiPanelTrigger',
+  standalone: false,
 })
 export class OuiPanelTrigger implements OnDestroy {
   private _portal: TemplatePortal;

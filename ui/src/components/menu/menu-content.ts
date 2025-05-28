@@ -17,6 +17,7 @@ import { Subject } from 'rxjs';
  */
 @Directive({
   selector: 'ng-template[ouiMenuContent]',
+  standalone: false,
 })
 export class OuiMenuContent implements OnDestroy {
   private _portal: TemplatePortal<any>;
