@@ -257,13 +257,64 @@ spec:
           name: setup-builder-home
           resources: {}
         - args:
-          - echo "Pushing image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json
-            && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)
+          - cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --tarPath=/workspace/image.tar --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-latest --no-push
+          command:
+            - /busybox/sh
+            - -c
+          image: gcr.io/kaniko-project/executor:v1.9.1-debug
+          name: docker-build
+          resources: {}
+        - args:
+          - |
+              set -e
+              echo "Scanning image tarball with Trivy..."
+              trivy image --input /workspace/image.tar --exit-code 0
+              scan_exit_code=$?
+              if [ $scan_exit_code -ne 0 ]; then
+                echo "Trivy scan failed. Exiting."
+                exit 1
+              fi
+          command:
+            - /bin/sh
+            - -c
+          image: dockeronce.azurecr.io/trivy:latest
+          name: trivy-scan
+          env:
+            - name: AZURE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: trivy-sp
+                  key: AZURE_CLIENT_ID
+            - name: AZURE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: trivy-sp
+                  key: AZURE_CLIENT_SECRET
+            - name: AZURE_TENANT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: trivy-sp
+                  key: AZURE_TENANT_ID
+            - name: TRIVY_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: trivy-sp
+                  key: AZURE_CLIENT_ID
+            - name: TRIVY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: trivy-sp
+                  key: AZURE_CLIENT_SECRET
+            - name: TRIVY_AUTH_URL
+              value: https://login.microsoftonline.com/$(AZURE_TENANT_ID)/oauth2/token
+          resources: {}
+        - args:
+          - echo "Pushing image $DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-latest..." && cp /tekton/creds-secrets/tekton-container-registry-auth/.dockerconfigjson /kaniko/.docker/config.json && /kaniko/executor $KANIKO_FLAGS --context=/workspace/source --dockerfile=/workspace/source/Dockerfile --destination=$DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-latest
           command:
           - /busybox/sh
           - -c
           image: gcr.io/kaniko-project/executor:v1.9.1-debug
-          name: docker-build
+          name: docker-push
           resources: {}
         - args:
           - sh deploy.sh $PULL_BASE_REF || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
