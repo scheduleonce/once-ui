@@ -304,8 +304,8 @@ spec:
         - args:
           - |
             set -e
-            echo "Scanning image $DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER} with Trivy..."
-            trivy image --exit-code 0 $DOCKER_REGISTRY/$DOCKER_REGISTRY_ORG/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}
+            echo "Scanning image $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER} with Trivy..."
+            trivy image --exit-code 0 $DOCKER_REGISTRY/$REPO_NAME:$(cat VERSION)-PR-${PULL_NUMBER}
             scan_exit_code=$?
             if [ $scan_exit_code -ne 0 ]; then
               echo "Trivy scan failed. Exiting."
