@@ -214,6 +214,7 @@ describe('MDC-based OuiTabBody', () => {
       [origin]="origin"
     ></oui-tab-body>
   `,
+  standalone: false,
 })
 class SimpleTabBodyApp implements AfterContentInit {
   content: TemplatePortal;

@@ -13,6 +13,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   template: ` <button ouiTooltip>button</button> `,
+  standalone: false,
 })
 class TestTooltipComponent {}
 
