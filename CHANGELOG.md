@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [9.0.2] - 2025-06-20
+
+- [ONCEHUB-58683 & ONCEHUB-99063](https://scheduleonce.atlassian.net/browse/ONCEHUB-58683) [ONCE-UI] Remove the unused package @storybook/storybook-deployer
+
 ## [9.0.0] - 2025-04-10
 
 - [ONCEHUB-94991](https://scheduleonce.atlassian.net/browse/ONCEHUB-94991) [ONCE-UI] Upgrade Angular to version 19
