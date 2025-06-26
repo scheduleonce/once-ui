@@ -66,7 +66,6 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
   // in form-field-input.css. The OuiInput styles are fairly minimal so it shouldn't be a
   // big deal for people who aren't using OuiInput.
   styleUrls: ['form-field.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-form-field',
     '[class.oui-focused]': '_control.focused',
@@ -76,6 +75,7 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiFormField
   extends _OuiFormFieldMixinBase

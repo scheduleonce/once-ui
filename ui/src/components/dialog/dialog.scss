@@ -11,6 +11,11 @@ $header-icon-height: 24px;
 .cdk-overlay-pane {
   display: block;
 }
+.cdk-overlay-connected-position-bounding-box {
+  .cdk-overlay-pane {
+    display: flex;
+  }
+}
 * {
   outline: 0 none !important;
 }
