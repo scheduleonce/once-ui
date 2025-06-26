@@ -53,6 +53,20 @@
     "@angular/language-service": "19.2.2",
     "@babel/core": "7.20.5",
     "@compodoc/compodoc": "^1.1.26",
+<<<<<<< HEAD
+    "@storybook/addon-actions": "^8.5.2",
+    "@storybook/addon-controls": "^8.5.2",
+    "@storybook/addon-essentials": "^8.5.2",
+    "@storybook/addon-links": "^8.5.2",
+    "@storybook/addon-mdx-gfm": "^8.5.2",
+    "@storybook/angular": "^8.5.2",
+    "@storybook/blocks": "^8.5.2",
+    "@storybook/storybook-deployer": "2.8.16",
+    "@types/jasmine": "4.3.0",
+    "@types/node": "18.11.9",
+    "@typescript-eslint/eslint-plugin": "^8.22.0",
+    "@typescript-eslint/parser": "^8.22.0",
+=======
     "@storybook/addon-actions": "^8.6.0",
     "@storybook/addon-controls": "^8.6.0",
     "@storybook/addon-essentials": "^8.6.0",
@@ -64,6 +78,7 @@
     "@types/node": "^18.19.80",
     "@typescript-eslint/eslint-plugin": "^8.25.0",
     "@typescript-eslint/parser": "^8.25.0",
+>>>>>>> fa3337ccd0dbbeefdcac9717cae6520999169545
     "@webcomponents/custom-elements": "1.5.1",
     "babel-loader": "9.1.0",
     "eslint": "8.57.0",
@@ -88,7 +103,11 @@
     "rimraf": "3.0.2",
     "sass": "1.50.1",
     "scss-bundle": "3.1.2",
+<<<<<<< HEAD
+    "storybook": "^8.5.2",
+=======
     "storybook": "^8.6.0",
+>>>>>>> fa3337ccd0dbbeefdcac9717cae6520999169545
     "ts-node": "10.7.0",
     "typescript": "5.7"
   }
