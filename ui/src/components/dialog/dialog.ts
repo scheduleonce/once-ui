@@ -132,7 +132,7 @@ export class OuiDialog implements OnDestroy {
   open<T, D = any, R = any>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: OuiDialogConfig<D>
-  ): OuiDialogRef<T, R> {
+  ): any {
     config = _applyConfigDefaults(
       config,
       this._defaultOptions || new OuiDialogConfig()
@@ -143,29 +143,29 @@ export class OuiDialog implements OnDestroy {
         `Dialog with id "${config.id}" exists already. The dialog id must be unique.`
       );
     }
+    setTimeout(() => {
+      const overlayRef = this._createOverlay(config);
+      const dialogContainer = this._attachDialogContainer(overlayRef, config);
+      const dialogRef = this._attachDialogContent<T, R>(
+        componentOrTemplateRef,
+        dialogContainer,
+        overlayRef,
+        config
+      );
+      // If this is the first dialog that we're opening, hide all the non-overlay content.
+      if (!this.openDialogs.length) {
+        this._hideNonDialogContentFromAssistiveTechnology();
+      }
 
-    const overlayRef = this._createOverlay(config);
-    const dialogContainer = this._attachDialogContainer(overlayRef, config);
-    const dialogRef = this._attachDialogContent<T, R>(
-      componentOrTemplateRef,
-      dialogContainer,
-      overlayRef,
-      config
-    );
-
-    // If this is the first dialog that we're opening, hide all the non-overlay content.
-    if (!this.openDialogs.length) {
-      this._hideNonDialogContentFromAssistiveTechnology();
-    }
-
-    this.openDialogs.push(dialogRef);
-    this._dialogCloseSubscription = dialogRef.afterClosed().subscribe(() => {
-      this._removeOpenDialog(dialogRef);
-      dialogRef._containerInstance._restoreFocus();
-    });
-    this.afterOpened.next(dialogRef);
-    dialogRef._containerInstance._trapFocus();
-    return dialogRef;
+      this.openDialogs.push(dialogRef);
+      this._dialogCloseSubscription = dialogRef.afterClosed().subscribe(() => {
+        this._removeOpenDialog(dialogRef);
+        dialogRef._containerInstance._restoreFocus();
+      });
+      this.afterOpened.next(dialogRef);
+      dialogRef._containerInstance._trapFocus();
+      return dialogRef;
+    }, 100);
   }
 
   /**
