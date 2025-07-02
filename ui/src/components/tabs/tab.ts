@@ -49,7 +49,6 @@ const DEFAULT_COLOR = 'primary';
 
 @Component({
   selector: 'oui-tab',
-
   // Note that usually we'd go through a bit more trouble and set up another class so that
   // the inlined template of `OuiTab` isn't duplicated, however the template is small enough
   // that creating the extra class will generate more code than just duplicating the template.
@@ -61,6 +60,7 @@ const DEFAULT_COLOR = 'primary';
   encapsulation: ViewEncapsulation.None,
   exportAs: 'OuiTab',
   providers: [{ provide: OUI_TAB, useExisting: OuiTab }],
+  standalone: false,
 })
 export class OuiTab
   extends _OuiTabMixinBase

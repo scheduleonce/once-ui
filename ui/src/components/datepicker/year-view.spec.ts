@@ -26,6 +26,7 @@ export const DEC = 11;
       (monthSelected)="selectedMonth = $event"
     ></oui-year-view>
   `,
+  standalone: false,
 })
 class StandardYearView {
   date = new Date(2017, JAN, 5);
@@ -42,6 +43,7 @@ class StandardYearView {
       [dateFilter]="dateFilter"
     ></oui-year-view>
   `,
+  standalone: false,
 })
 class YearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);

@@ -22,6 +22,7 @@ const DEC = 11;
     >
     </oui-calendar>
   `,
+  standalone: false,
 })
 class StandardCalendar {
   selected: Date;

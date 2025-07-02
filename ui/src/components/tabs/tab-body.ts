@@ -47,6 +47,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `OuiTabBodyHost`,
+  standalone: false,
 })
 export class OuiTabBodyPortal
   extends CdkPortalOutlet
@@ -108,10 +109,10 @@ export type OuiTabBodyPositionState =
   // tslint:disable-next-line:validate-decorators
   changeDetection: ChangeDetectionStrategy.Default,
   animations: [ouiTabsAnimations.translateTab],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-mdc-tab-body',
   },
+  standalone: false,
 })
 export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
