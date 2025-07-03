@@ -1,4 +1,3 @@
-import { Directionality } from '@angular/cdk/bidi';
 import {
   Overlay,
   OverlayConfig,
@@ -9,7 +8,6 @@ import {
 import {
   ComponentPortal,
   ComponentType,
-  PortalInjector,
   TemplatePortal,
 } from '@angular/cdk/portal';
 import {
@@ -25,7 +23,6 @@ import {
 import {
   defer,
   Observable,
-  of as observableOf,
   Subject,
   Subscription,
 } from 'rxjs';
@@ -110,7 +107,7 @@ export class OuiDialog implements OnDestroy {
   );
 
   constructor(
-    private _overlay: Overlay,
+    @Inject(Overlay) private _overlay: Overlay,
     private _injector: Injector,
     @Optional()
     @Inject(OUI_DIALOG_DEFAULT_OPTIONS)
@@ -118,7 +115,7 @@ export class OuiDialog implements OnDestroy {
     @Optional()
     @SkipSelf()
     private _parentDialog: OuiDialog,
-    private _overlayContainer: OverlayContainer
+    @Inject(OverlayContainer) private _overlayContainer: OverlayContainer
   ) {}
 
   /**
@@ -248,10 +245,12 @@ export class OuiDialog implements OnDestroy {
   ): OuiDialogContainer {
     const userInjector =
       config && config.viewContainerRef && config.viewContainerRef.injector;
-    const injector = new PortalInjector(
-      userInjector || this._injector,
-      new WeakMap([[OuiDialogConfig, config]])
-    );
+    const injector = Injector.create({
+      parent: userInjector || this._injector,
+      providers: [
+        { provide: OuiDialogConfig, useValue: config }
+      ]
+    });
     const containerPortal = new ComponentPortal(
       OuiDialogContainer,
       config.viewContainerRef,
@@ -336,7 +335,7 @@ export class OuiDialog implements OnDestroy {
     config: OuiDialogConfig,
     dialogRef: OuiDialogRef<T>,
     dialogContainer: OuiDialogContainer
-  ): PortalInjector {
+  ): Injector {
     const userInjector =
       config && config.viewContainerRef && config.viewContainerRef.injector;
 
@@ -344,24 +343,16 @@ export class OuiDialog implements OnDestroy {
     // content are created out of the same ViewContainerRef and as such, are siblings for injector
     // purposes. To allow the hierarchy that is expected, the OuiDialogContainer is explicitly
     // added to the injection tokens.
-    const injectionTokens = new WeakMap<any, any>([
-      [OuiDialogContainer, dialogContainer],
-      [OUI_DIALOG_DATA, config.data],
-      [OuiDialogRef, dialogRef],
-    ]);
+    const providers = [
+      { provide: OuiDialogContainer, useValue: dialogContainer },
+      { provide: OUI_DIALOG_DATA, useValue: config.data },
+      { provide: OuiDialogRef, useValue: dialogRef },
+    ];
 
-    if (
-      config.direction &&
-      (!userInjector ||
-        !userInjector.get<Directionality | null>(Directionality, null))
-    ) {
-      injectionTokens.set(Directionality, {
-        value: config.direction,
-        change: observableOf(),
-      });
-    }
-
-    return new PortalInjector(userInjector || this._injector, injectionTokens);
+    return Injector.create({
+      parent: userInjector || this._injector,
+      providers: providers
+    });
   }
 
   /**

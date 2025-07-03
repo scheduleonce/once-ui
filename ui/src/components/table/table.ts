@@ -1,9 +1,6 @@
 import {
-  CDK_TABLE_TEMPLATE,
   CdkTable,
   CDK_TABLE,
-  _CoalescedStyleScheduler,
-  _COALESCED_STYLE_SCHEDULER,
   STICKY_POSITIONING_LISTENER,
 } from '@angular/cdk/table';
 import {
@@ -40,22 +37,16 @@ export class MatRecycleRows {}
 @Component({
   selector: 'oui-table, table[oui-table]',
   exportAs: 'ouiTable',
-  template: CDK_TABLE_TEMPLATE,
+  // Inline the template as CDK_TABLE_TEMPLATE is removed. Use the base CdkTable template logic.
+  template: `<ng-container cdkTable></ng-container>`,
   styleUrls: ['table.scss'],
   host: {
     class: 'oui-table',
     '[class.oui-table-fixed-layout]': 'fixedLayout',
   },
   providers: [
-    // TODO(michaeljamesparsons) Abstract the view repeater strategy to a directive API so this code
-    //  is only included in the build if used.
-    {
-      provide: _VIEW_REPEATER_STRATEGY,
-      useClass: _DisposeViewRepeaterStrategy,
-    },
     { provide: CdkTable, useExisting: OuiTable },
     { provide: CDK_TABLE, useExisting: OuiTable },
-    { provide: _COALESCED_STYLE_SCHEDULER, useClass: _CoalescedStyleScheduler },
     // Prevent nested tables from seeing this table's StickyPositioningListener.
     { provide: STICKY_POSITIONING_LISTENER, useValue: null },
   ],
