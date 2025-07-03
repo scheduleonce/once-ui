@@ -132,7 +132,7 @@ export class OuiDialog implements OnDestroy {
   open<T, D = any, R = any>(
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: OuiDialogConfig<D>
-  ): any {
+  ): OuiDialogRef<T, R> {
     const overlaySelector = document.querySelector(
       '.cdk-overlay-backdrop-showing'
     );
