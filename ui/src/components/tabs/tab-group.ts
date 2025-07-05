@@ -15,14 +15,13 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  Inject,
   Input,
   OnDestroy,
-  Optional,
   Output,
   QueryList,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { OUI_TAB_GROUP, OuiTab } from './tab';
@@ -110,6 +109,9 @@ export class ouiTabGroup
     CanColor,
     CanDisableRipple
 {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  _animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
+
   /**
    * All tabs inside the tab group. This includes tabs that belong to groups that are nested
    * inside the current one. We filter out only the tabs that belong to this group in `_tabs`.
@@ -290,12 +292,12 @@ export class ouiTabGroup
   getHTMLText: any;
   updatedTabHTML: any;
 
-  constructor(
-    elementRef: ElementRef,
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Inject(OUI_TABS_CONFIG) @Optional() defaultConfig?: OuiTabsConfig,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
-  ) {
+  constructor() {
+    const elementRef = inject(ElementRef);
+    const defaultConfig = inject<OuiTabsConfig>(OUI_TABS_CONFIG, {
+      optional: true,
+    });
+
     super(elementRef);
     this._groupId = nextId++;
     this.animationDuration =
@@ -383,10 +385,8 @@ export class ouiTabGroup
   }
 
   ngAfterContentInit() {
-    setTimeout(() => {
-      this._subscribeToAllTabChanges();
-      this._subscribeToTabLabels();
-    });
+    this._subscribeToAllTabChanges();
+    this._subscribeToTabLabels();
     // Subscribe to changes in the amount of tabs, in order to be
     // able to re-render the content as new tabs are added or removed.
     this._tabsSubscription = this._tabs.changes.subscribe(() => {
@@ -430,8 +430,10 @@ export class ouiTabGroup
     // Since we use a query with `descendants: true` to pick up the tabs, we may end up catching
     // some that are inside of nested tab groups. We filter them out manually by checking that
     // the closest group to the tab is the current one.
-    this.getHTMLText = this._allTabs['_results'][0].contentWithin;
-    this.updatedTabHTML = this.getHTMLText;
+    if (this._allTabs?.['_results']?.[0]?.contentWithin) {
+      this.getHTMLText = this._allTabs['_results'][0].contentWithin;
+      this.updatedTabHTML = this.getHTMLText;
+    }
     this._allTabs.changes
       .pipe(startWith(this._allTabs))
       .subscribe((tabs: QueryList<OuiTab>) => {
@@ -492,7 +494,9 @@ export class ouiTabGroup
     event.index = index;
     if (this._tabs && this._tabs.length) {
       event.tab = this._tabs.toArray()[index];
-      this.updatedTabHTML = event.tab.contentWithin;
+      if (event.tab?.contentWithin) {
+        this.updatedTabHTML = event.tab.contentWithin;
+      }
     }
     return event;
   }

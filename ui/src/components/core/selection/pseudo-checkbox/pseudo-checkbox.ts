@@ -3,11 +3,10 @@ import {
   ViewEncapsulation,
   Input,
   ChangeDetectionStrategy,
-  Inject,
-  Optional,
   OnDestroy,
   ElementRef,
   NgZone,
+  inject,
 } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -48,6 +47,11 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   standalone: false,
 })
 export class OuiPseudoCheckbox implements OnDestroy {
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+  _animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
+
   /** Display state of the checkbox. */
   @Input() state: OuiPseudoCheckboxState = 'unchecked';
 
@@ -55,12 +59,7 @@ export class OuiPseudoCheckbox implements OnDestroy {
   @Input() disabled = false;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
-  constructor(
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
-  ) {
+  constructor() {
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
       .subscribe(() => this._ngZone.run(() => {}));

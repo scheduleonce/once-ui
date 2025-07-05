@@ -1,5 +1,5 @@
 import { OuiButtonModule, OuiDialog, OuiDialogModule } from '../../components';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { THEME } from '../const';
 import { OuiDialogStorybook } from './dialog.component';
 

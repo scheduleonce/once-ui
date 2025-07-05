@@ -120,8 +120,9 @@ export class MockNgZone extends NgZone {
 }
 
 describe('OuiCalendar', () => {
+  // @ts-ignore: Used in provider factory below
   let zone: MockNgZone;
-  console.log(zone);
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [OuiNativeDateModule, OuiDatepickerModule],
@@ -521,8 +522,8 @@ describe('OuiCalendar', () => {
     let fixture: ComponentFixture<CalendarWithDateFilter>;
     let testComponent: CalendarWithDateFilter;
     let calendarElement: HTMLElement;
+    // @ts-ignore: Used in beforeEach
     let calendarInstance: OuiCalendar<Date>;
-    console.log(calendarInstance);
 
     beforeEach(() => {
       fixture = TestBed.createComponent(CalendarWithDateFilter);

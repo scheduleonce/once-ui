@@ -9,21 +9,18 @@ import {
   AfterContentChecked,
   AfterContentInit,
   AfterViewInit,
-  Attribute,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
   forwardRef,
-  Inject,
   Input,
-  NgZone,
   OnDestroy,
-  Optional,
   QueryList,
   ViewChild,
   ViewEncapsulation,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import {
@@ -36,9 +33,6 @@ import {
   ThemePalette,
 } from '../../core';
 import { FocusableOption, FocusMonitor } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Platform } from '@angular/cdk/platform';
 import { OuiInkBar, mixinInkBarItem } from '../ink-bar';
 import {
   BooleanInput,
@@ -180,26 +174,12 @@ export class OuiTabNav
   @ViewChild('previousPaginator') _previousPaginator: ElementRef<HTMLElement>;
   _inkBar: OuiInkBar;
 
-  constructor(
-    elementRef: ElementRef,
-    @Optional() dir: Directionality,
-    ngZone: NgZone,
-    changeDetectorRef: ChangeDetectorRef,
-    viewportRuler: ViewportRuler,
-    platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string,
-    @Optional() @Inject(OUI_TABS_CONFIG) defaultConfig?: OuiTabsConfig
-  ) {
-    super(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      elementRef,
-      changeDetectorRef,
-      viewportRuler,
-      dir,
-      ngZone,
-      platform,
-      animationMode
-    );
+  constructor() {
+    const defaultConfig = inject<OuiTabsConfig>(OUI_TABS_CONFIG, {
+      optional: true,
+    });
+
+    super();
     this.disablePagination =
       defaultConfig && defaultConfig.disablePagination != null
         ? defaultConfig.disablePagination
@@ -324,6 +304,9 @@ export class OuiTabLink
     HasTabIndex,
     FocusableOption
 {
+  private _tabNavBar = inject(OuiTabNav);
+  private _focusMonitor = inject(FocusMonitor);
+
   private readonly _destroyed = new Subject<void>();
 
   /** Whether the tab link is active or not. */
@@ -355,15 +338,17 @@ export class OuiTabLink
   /** Unique id for the tab. */
   @Input() id = `oui-tab-link-${nextUniqueId++}`;
 
-  constructor(
-    private _tabNavBar: OuiTabNav,
-    /** @docs-private */
-    override elementRef: ElementRef,
-    @Attribute('tabindex') tabIndex: string,
-    private _focusMonitor: FocusMonitor,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
-  ) {
+  constructor() {
+    const tabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+    const animationMode = inject(ANIMATION_MODULE_TYPE, { optional: true });
+
     super();
+    const _tabNavBar = this._tabNavBar;
+
+    // Inject ElementRef for the mixin
+    this.elementRef = inject(ElementRef);
 
     this.tabIndex = parseInt(tabIndex) || 0;
 
@@ -385,7 +370,9 @@ export class OuiTabLink
 
   ngAfterViewInit() {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    this._focusMonitor.monitor(this.elementRef);
+    if (this.elementRef?.nativeElement) {
+      this._focusMonitor.monitor(this.elementRef);
+    }
   }
 
   override ngOnDestroy() {
@@ -393,13 +380,19 @@ export class OuiTabLink
     this._destroyed.complete();
     super.ngOnDestroy();
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    this._focusMonitor.stopMonitoring(this.elementRef);
+    if (this.elementRef?.nativeElement) {
+      this._focusMonitor.stopMonitoring(this.elementRef);
+    }
   }
 
   _handleFocus() {
     // Since we allow navigation through tabbing in the nav bar, we
     // have to update the focused index whenever the link receives focus.
-    this._tabNavBar.focusIndex = this._tabNavBar._items.toArray().indexOf(this);
+    if (this._tabNavBar?._items) {
+      this._tabNavBar.focusIndex = this._tabNavBar._items
+        .toArray()
+        .indexOf(this);
+    }
   }
 
   _handleKeydown(event: KeyboardEvent) {

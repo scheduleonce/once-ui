@@ -12,6 +12,7 @@ import {
   OnInit,
   Output,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OuiPaginatorIntl } from './paginator-intl';
@@ -79,6 +80,9 @@ export class OuiPaginator
   extends _OuiPaginatorBase
   implements OnInit, OnDestroy, CanDisable, HasInitialized
 {
+  _intl = inject(OuiPaginatorIntl);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+
   private _initialized: boolean;
   private _intlChanges: Subscription;
 
@@ -131,11 +135,10 @@ export class OuiPaginator
   /** Displayed set of page size options. Will be sorted and include current page size. */
   _displayedPageSizeOptions: number;
 
-  constructor(
-    public _intl: OuiPaginatorIntl,
-    private _changeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor() {
     super();
+    const _intl = this._intl;
+
     this._intlChanges = _intl.changes.subscribe(() =>
       this._changeDetectorRef.markForCheck()
     );

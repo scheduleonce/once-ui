@@ -66,8 +66,8 @@ class MonthViewWithDateClass {
 }
 
 describe('OuiMonthView', () => {
+  // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
-  console.log(dir);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -111,8 +111,8 @@ describe('OuiMonthView', () => {
     it('has correct month label', () => {
       const labelEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-label'
-      )!;
-      expect(labelEl.innerHTML.trim()).toBe('Jan');
+      );
+      expect(labelEl?.innerHTML?.trim()).toBe('Jan');
     });
 
     it('has 31 days', () => {
