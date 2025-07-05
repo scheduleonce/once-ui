@@ -848,7 +848,7 @@ describe('OuiRadio', () => {
     });
   });
 
-  fdescribe('group interspersed with other tags', () => {
+  describe('group interspersed with other tags', () => {
     let fixture: ComponentFixture<InterleavedRadioGroup>;
     let groupDebugElement: DebugElement;
     let groupInstance: OuiRadioGroup;

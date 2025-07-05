@@ -6,12 +6,11 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Optional,
   ViewEncapsulation,
-  Inject,
   ElementRef,
   IterableDiffers,
   NgZone,
+  inject,
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
 import { merge, Subscription } from 'rxjs';
@@ -95,6 +94,20 @@ export class OuiSortHeader
   extends _OuiSortHeaderMixinBase
   implements CanDisable, OuiSortable, OnDestroy, OnInit
 {
+  _intl = inject(OuiSortHeaderIntl);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected _differs = inject(IterableDiffers);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+  _sort = inject(OuiSort, { optional: true })!;
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  _columnDef = inject<OuiSortHeaderColumnDef>(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    'OUI_SORT_HEADER_COLUMN_DEF' as any,
+    { optional: true }
+  );
+  private _elementRef = inject(ElementRef);
+
   private _rerenderSubscription: Subscription;
 
   /**
@@ -144,24 +157,18 @@ export class OuiSortHeader
   }
   private _disableClear: boolean;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    public _intl: OuiSortHeaderIntl,
-    changeDetectorRef: ChangeDetectorRef,
-    protected elementRef: ElementRef<HTMLElement>,
-    protected _differs: IterableDiffers,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone,
-    @Optional() public _sort: OuiSort,
-    @Inject('OUI_SORT_HEADER_COLUMN_DEF')
-    @Optional()
-    public _columnDef: OuiSortHeaderColumnDef,
-    private _elementRef: ElementRef
-  ) {
+
+  constructor() {
+    const changeDetectorRef = inject(ChangeDetectorRef);
+
     // Note that we use a string token for the `_columnDef`, because the value is provided both by
     // `once-ui/table` and `cdk/table` and we can't have the CDK depending on once-ui,
     // and we want to avoid having the sort header depending on the CDK table because
     // of this single reference.
     super();
+    const _intl = this._intl;
+    const _sort = this._sort;
+
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
       .subscribe(() => this._ngZone.run(() => {}));

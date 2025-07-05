@@ -11,27 +11,19 @@ import {
   AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
-  Inject,
   Input,
-  NgZone,
   OnDestroy,
-  Optional,
   QueryList,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { Platform } from '@angular/cdk/platform';
-import { Directionality } from '@angular/cdk/bidi';
-import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { ouiTabLabelWrapper } from './tab-label-wrapper';
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { OuiTabLabelWrapper } from './tab-label-wrapper';
 import { OuiInkBar } from './ink-bar';
 import { OuiPaginatedTabHeader } from './paginated-tab-header';
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
@@ -64,8 +56,8 @@ export class OuiTabHeader
   extends OuiPaginatedTabHeader
   implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy
 {
-  @ContentChildren(ouiTabLabelWrapper, { descendants: false })
-  _items: QueryList<ouiTabLabelWrapper>;
+  @ContentChildren(OuiTabLabelWrapper, { descendants: false })
+  _items: QueryList<OuiTabLabelWrapper>;
   @ViewChild('tabListContainer', { static: true })
   _tabListContainer: ElementRef;
   @ViewChild('tabList', { static: true }) _tabList: ElementRef;
@@ -86,25 +78,8 @@ export class OuiTabHeader
 
   private _disableRipple = false;
 
-  constructor(
-    elementRef: ElementRef,
-    changeDetectorRef: ChangeDetectorRef,
-    viewportRuler: ViewportRuler,
-    @Optional() dir: Directionality,
-    ngZone: NgZone,
-    platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) animationMode?: string
-  ) {
-    super(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      elementRef,
-      changeDetectorRef,
-      viewportRuler,
-      dir,
-      ngZone,
-      platform,
-      animationMode
-    );
+  constructor() {
+    super();
   }
 
   override ngAfterContentInit() {

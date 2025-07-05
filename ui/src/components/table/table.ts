@@ -37,8 +37,14 @@ export class MatRecycleRows {}
 @Component({
   selector: 'oui-table, table[oui-table]',
   exportAs: 'ouiTable',
-  // Inline the template as CDK_TABLE_TEMPLATE is removed. Use the base CdkTable template logic.
-  template: `<ng-container cdkTable></ng-container>`,
+  template: `
+    <ng-content select="caption"></ng-content>
+    <ng-content select="colgroup, col"></ng-content>
+    <ng-container headerRowOutlet></ng-container>
+    <ng-container rowOutlet></ng-container>
+    <ng-container noDataRowOutlet></ng-container>
+    <ng-container footerRowOutlet></ng-container>
+  `,
   styleUrls: ['table.scss'],
   host: {
     class: 'oui-table',
