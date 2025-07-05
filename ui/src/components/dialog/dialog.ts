@@ -11,21 +11,14 @@ import {
   TemplatePortal,
 } from '@angular/cdk/portal';
 import {
-  Inject,
   Injectable,
   InjectionToken,
   Injector,
   OnDestroy,
-  Optional,
-  SkipSelf,
   TemplateRef,
+  inject,
 } from '@angular/core';
-import {
-  defer,
-  Observable,
-  Subject,
-  Subscription,
-} from 'rxjs';
+import { defer, Observable, Subject, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { OuiDialogConfig } from './dialog-config';
 import { OuiDialogContainer } from './dialog-container';
@@ -71,6 +64,18 @@ export const OUI_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  */
 @Injectable()
 export class OuiDialog implements OnDestroy {
+  private _overlay = inject<Overlay>(Overlay);
+  private _injector = inject(Injector);
+  private _defaultOptions = inject<OuiDialogConfig>(
+    OUI_DIALOG_DEFAULT_OPTIONS,
+    { optional: true }
+  )!;
+  private _parentDialog = inject(OuiDialog, {
+    optional: true,
+    skipSelf: true,
+  })!;
+  private _overlayContainer = inject<OverlayContainer>(OverlayContainer);
+
   private _openDialogsAtThisLevel: OuiDialogRef<any>[] = [];
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
   private readonly _afterOpenedAtThisLevel = new Subject<OuiDialogRef<any>>();
@@ -106,17 +111,7 @@ export class OuiDialog implements OnDestroy {
       : this._afterAllClosed.pipe(startWith(undefined))
   );
 
-  constructor(
-    @Inject(Overlay) private _overlay: Overlay,
-    private _injector: Injector,
-    @Optional()
-    @Inject(OUI_DIALOG_DEFAULT_OPTIONS)
-    private _defaultOptions: OuiDialogConfig,
-    @Optional()
-    @SkipSelf()
-    private _parentDialog: OuiDialog,
-    @Inject(OverlayContainer) private _overlayContainer: OverlayContainer
-  ) {}
+  constructor() {}
 
   /**
    * Opens a modal dialog containing the given component.
@@ -247,9 +242,7 @@ export class OuiDialog implements OnDestroy {
       config && config.viewContainerRef && config.viewContainerRef.injector;
     const injector = Injector.create({
       parent: userInjector || this._injector,
-      providers: [
-        { provide: OuiDialogConfig, useValue: config }
-      ]
+      providers: [{ provide: OuiDialogConfig, useValue: config }],
     });
     const containerPortal = new ComponentPortal(
       OuiDialogContainer,
@@ -351,7 +344,7 @@ export class OuiDialog implements OnDestroy {
 
     return Injector.create({
       parent: userInjector || this._injector,
-      providers: providers
+      providers: providers,
     });
   }
 

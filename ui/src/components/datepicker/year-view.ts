@@ -16,12 +16,11 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Inject,
   Input,
-  Optional,
   Output,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { OuiCalendarBody, OuiCalendarCell } from './calendar-body';
@@ -41,6 +40,13 @@ import { DateAdapter } from './date-adapter';
   standalone: false,
 })
 export class OuiYearView<D> implements AfterContentInit {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _dateFormats = inject<OuiDateFormats>(OUI_DATE_FORMATS, {
+    optional: true,
+  })!;
+  _dateAdapter = inject<DateAdapter<D>>(DateAdapter, { optional: true })!;
+  private _dir = inject(Directionality, { optional: true });
+
   /** The date to display in this year view (everything other than the year is ignored). */
   @Input()
   get activeDate(): D {
@@ -133,12 +139,7 @@ export class OuiYearView<D> implements AfterContentInit {
    */
   _selectedMonth: number | null;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
-    @Optional() public _dateAdapter: DateAdapter<D>,
-    @Optional() private _dir?: Directionality
-  ) {
+  constructor() {
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }
@@ -257,12 +258,8 @@ export class OuiYearView<D> implements AfterContentInit {
     this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
 
     const monthNames = this._dateAdapter.getMonthNames('short');
-    // First row of months only contains 5 elements so we can fit the year label on the same row.
-    this._months = [
-      [0, 1, 2, 3],
-      [4, 5, 6, 7],
-      [8, 9, 10, 11],
-    ].map((row) =>
+    // First row of months only contains 3 elements so we can fit the year label on the same row.
+    this._months = [[0, 1, 2], [3, 4, 5, 6], [7, 8, 9, 10], [11]].map((row) =>
       row.map((month) => this._createCellForMonth(month, monthNames[month]))
     );
     this._changeDetectorRef.markForCheck();

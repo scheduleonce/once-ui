@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -67,6 +67,8 @@ import {
   standalone: false,
 })
 class SimpleOuiSortApp {
+  elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
   latestSortEvent: Sort;
 
   active: string;
@@ -83,7 +85,7 @@ class SimpleOuiSortApp {
   @ViewChild('overrideDisableClear')
   overrideDisableClear: OuiSortHeader;
 
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
+  constructor() {}
 
   /**
    * Checks expectations for each sort header's view state and arrow direction states. Receives a
