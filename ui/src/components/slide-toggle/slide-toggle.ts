@@ -8,10 +8,11 @@ import {
   ChangeDetectorRef,
   ViewEncapsulation,
   AfterContentInit,
-  Attribute,
   OnDestroy,
   NgZone,
   forwardRef,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { mixinColor } from '../core';
@@ -59,6 +60,11 @@ export class OuiSlideToggle
   extends _OuiSlideToggleMixinBase
   implements AfterContentInit, ControlValueAccessor, OnDestroy
 {
+  protected elementRef: ElementRef<HTMLElement>;
+  private _ngZone = inject(NgZone);
+  private _focusMonitor = inject(FocusMonitor);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+
   private _checked = false;
   tabIndex: any;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
@@ -95,14 +101,16 @@ export class OuiSlideToggle
 
   private onChange = (_: any) => {};
   private onTouched = () => {};
-  constructor(
-    protected elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone,
-    private _focusMonitor: FocusMonitor,
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Attribute('tabindex') tabIndex: string
-  ) {
+
+  constructor() {
+    const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    const tabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+
     super(elementRef);
+    this.elementRef = elementRef;
+
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
