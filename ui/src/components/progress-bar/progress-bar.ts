@@ -22,7 +22,6 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
   selector: 'oui-progress-bar',
   exportAs: 'OuiProgressBar',
   styleUrls: ['progress-bar.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-progress-bar',
     '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
@@ -32,6 +31,7 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
+  standalone: false,
 })
 export class OuiProgressBar extends _OuiProgressBarMixinBase {
   private _value = 0;

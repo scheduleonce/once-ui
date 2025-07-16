@@ -133,6 +133,12 @@ export class OuiDialog implements OnDestroy {
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: OuiDialogConfig<D>
   ): OuiDialogRef<T, R> {
+    const overlaySelector = document.querySelector(
+      '.cdk-overlay-backdrop-showing'
+    );
+    if (overlaySelector) {
+      (overlaySelector as HTMLElement).style.display = 'none';
+    }
     config = _applyConfigDefaults(
       config,
       this._defaultOptions || new OuiDialogConfig()
@@ -143,7 +149,6 @@ export class OuiDialog implements OnDestroy {
         `Dialog with id "${config.id}" exists already. The dialog id must be unique.`
       );
     }
-
     const overlayRef = this._createOverlay(config);
     const dialogContainer = this._attachDialogContainer(overlayRef, config);
     const dialogRef = this._attachDialogContent<T, R>(
@@ -152,7 +157,6 @@ export class OuiDialog implements OnDestroy {
       overlayRef,
       config
     );
-
     // If this is the first dialog that we're opening, hide all the non-overlay content.
     if (!this.openDialogs.length) {
       this._hideNonDialogContentFromAssistiveTechnology();
