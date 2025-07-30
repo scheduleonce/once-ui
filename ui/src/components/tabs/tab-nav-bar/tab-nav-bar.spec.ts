@@ -611,6 +611,7 @@ describe('OuiTabNavBar with enabled animations', () => {
     </nav>
     <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
   `,
+  standalone: false,
 })
 class SimpleTabNavBarTestApp {
   @ViewChild(OuiTabNav) tabNavBar: OuiTabNav;
@@ -633,6 +634,7 @@ class SimpleTabNavBarTestApp {
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
+  standalone: false,
 })
 class TabLinkWithNgIf {
   isDestroyed = false;
@@ -647,6 +649,7 @@ class TabLinkWithNgIf {
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
+  standalone: false,
 })
 class TabBarWithInactiveTabsOnInit {
   tabs = [0, 1, 2];
@@ -659,6 +662,7 @@ class TabBarWithInactiveTabsOnInit {
     </nav>
     <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
   `,
+  standalone: false,
 })
 class TabsWithCustomAnimationDuration {
   links = ['First', 'Second', 'Third'];

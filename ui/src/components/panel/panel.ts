@@ -60,6 +60,7 @@ export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiPanel',
+  standalone: false,
 })
 export class OuiPanel implements OnInit, OuiPanelOverlay {
   private _xPosition: PanelPositionX = this._defaultOptions.xPosition;
@@ -167,6 +168,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiPanelIcon',
+  standalone: false,
 })
 export class OuiPanelIcon implements OnDestroy {
   private _monitorSubscription: Subscription = Subscription.EMPTY;

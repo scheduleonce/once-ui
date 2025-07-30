@@ -53,6 +53,7 @@ import { OuiDialog } from '../../components';
       </div>
     </ng-template>
   `,
+  standalone: false,
 })
 export class OuiDialogStorybook {
   @Output()
