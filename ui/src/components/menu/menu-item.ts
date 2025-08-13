@@ -30,7 +30,6 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
   exportAs: 'ouiMenuItem',
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.role]': 'role',
     class: 'oui-menu-item',
@@ -45,6 +44,7 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'menu-item.html',
+  standalone: false,
 })
 export class OuiMenuItem
   extends _OuiMenuItemMixinBase
