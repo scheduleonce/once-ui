@@ -76,7 +76,6 @@ export class OuiButton
 {
   protected elementRef: ElementRef<HTMLElement>;
   private _focusMonitor = inject(FocusMonitor);
-  _cdr: ChangeDetectorRef;
   private _ngZone = inject(NgZone);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
