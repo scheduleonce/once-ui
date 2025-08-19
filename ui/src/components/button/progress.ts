@@ -36,7 +36,6 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
       }
       setTimeout(() => {
         this._changeStage();
-        // Access _cdr from the base class
         const cdr = (this as any)._cdr as ChangeDetectorRef;
         if (cdr) {
           cdr.detectChanges();
