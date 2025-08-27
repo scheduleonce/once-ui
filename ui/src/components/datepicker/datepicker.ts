@@ -77,7 +77,6 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   selector: 'oui-datepicker-content',
   templateUrl: 'datepicker-content.html',
   styleUrls: ['datepicker-content.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-datepicker-content',
     '[@transformPanel]': '"enter"',
@@ -92,6 +91,7 @@ export const _OuiDatepickerContentMixinBase: CanColorCtor &
   changeDetection: ChangeDetectionStrategy.OnPush,
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['color'],
+  standalone: false,
 })
 export class OuiDatepickerContent<D>
   extends _OuiDatepickerContentMixinBase
@@ -125,10 +125,10 @@ export class OuiDatepickerContent<D>
   exportAs: 'ouiDatepicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class.oui-datepicker-disabled]': 'disabled',
   },
+  standalone: false,
 })
 export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _scrollStrategy: () => ScrollStrategy;
