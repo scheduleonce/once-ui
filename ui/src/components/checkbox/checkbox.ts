@@ -63,7 +63,6 @@ export enum TransitionCheckState {
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.scss'],
   exportAs: 'ouiCheckbox',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-checkbox',
     '[id]': 'id',
@@ -83,6 +82,7 @@ export enum TransitionCheckState {
       multi: true,
     },
   ],
+  standalone: false,
 })
 export class Checkbox
   extends OuiCheckboxMixinBase

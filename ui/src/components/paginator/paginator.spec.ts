@@ -44,6 +44,7 @@ function getLastButton(fixture: ComponentFixture<any>) {
     >
     </oui-paginator>
   `,
+  standalone: false,
 })
 class OuiPaginatorApp {
   pageIndex = 0;
@@ -64,6 +65,7 @@ class OuiPaginatorApp {
 
 @Component({
   template: ` <oui-paginator></oui-paginator> `,
+  standalone: false,
 })
 class OuiPaginatorWithoutInputsApp {
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
@@ -71,6 +73,7 @@ class OuiPaginatorWithoutInputsApp {
 
 @Component({
   template: ` <oui-paginator [pageSize]="10"></oui-paginator> `,
+  standalone: false,
 })
 class OuiPaginatorWithoutOptionsApp {
   @ViewChild(OuiPaginator) paginator: OuiPaginator;
@@ -80,6 +83,7 @@ class OuiPaginatorWithoutOptionsApp {
   template: `
     <oui-paginator pageIndex="0" pageSize="10" length="100"> </oui-paginator>
   `,
+  standalone: false,
 })
 class OuiPaginatorWithStringValues {
   @ViewChild(OuiPaginator) paginator: OuiPaginator;

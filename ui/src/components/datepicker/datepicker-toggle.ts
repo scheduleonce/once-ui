@@ -22,6 +22,7 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 /** Can be used to override the icon of a `ouiDatepickerToggle`. */
 @Directive({
   selector: '[ouiDatepickerToggleIcon]',
+  standalone: false,
 })
 export class OuiDatepickerToggleIcon {}
 
@@ -29,7 +30,6 @@ export class OuiDatepickerToggleIcon {}
   selector: 'oui-datepicker-toggle',
   templateUrl: 'datepicker-toggle.html',
   styleUrls: ['datepicker-toggle.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-datepicker-toggle',
     // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
@@ -44,6 +44,7 @@ export class OuiDatepickerToggleIcon {}
   exportAs: 'ouiDatepickerToggle',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiDatepickerToggle<D>
   implements AfterContentInit, OnChanges, OnDestroy

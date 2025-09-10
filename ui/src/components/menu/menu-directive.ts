@@ -80,6 +80,7 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenu',
   providers: [{ provide: OUI_MENU_PANEL, useExisting: OuiMenu }],
+  standalone: false,
 })
 export class OuiMenu
   implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy
