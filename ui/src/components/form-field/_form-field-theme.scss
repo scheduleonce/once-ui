@@ -24,7 +24,6 @@ $form-field-transition-border: border 0.5s;
 $oui-error: #ff001f;
 $form-field-textarea-resize: vertical;
 $form-field-textarea-padding: 9px 10px;
-
 @mixin oui-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
