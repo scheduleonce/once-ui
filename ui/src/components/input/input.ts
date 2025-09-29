@@ -83,7 +83,6 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[oui-input], textarea[oui-input]`,
   exportAs: 'ouiInput',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-input-element',
     // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -103,6 +102,7 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     NgForm,
     FormGroupDirective,
   ],
+  standalone: false,
 })
 export class OuiInput
   extends _OuiInputMixinBase

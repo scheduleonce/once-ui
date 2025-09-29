@@ -44,6 +44,7 @@ const DAYS_PER_WEEK = 7;
   exportAs: 'ouiMonthView',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiMonthView<D> implements AfterContentInit {
   /**

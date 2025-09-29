@@ -14,11 +14,11 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
   styleUrls: ['scrollbar.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-scrollbar-container',
     '[class.oui-scrollbar-container-large]': 'large',
   },
+  standalone: false,
 })
 export class OuiScrollbar {
   private _large = false;
