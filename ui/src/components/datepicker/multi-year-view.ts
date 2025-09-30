@@ -40,6 +40,7 @@ export const yearsPerRow = 4;
   exportAs: 'ouiMultiYearView',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiMultiYearView<D> implements AfterContentInit {
   /** The date to display in this multi-year view (everything other than the year is ignored). */
