@@ -8,7 +8,6 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  Inject,
   InjectionToken,
   Input,
   Output,
@@ -16,6 +15,7 @@ import {
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 
 import { OUI_OPTION_PARENT_COMPONENT, OuiOption } from '../core/option/option';
@@ -74,6 +74,9 @@ export function OUI_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): OuiAutocompleteDefau
   standalone: false,
 })
 export class OuiAutocomplete implements AfterContentInit {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
   /** Manages active item in option list based on key events. */
   _keyManager: ActiveDescendantKeyManager<OuiOption>;
 
@@ -160,12 +163,11 @@ export class OuiAutocomplete implements AfterContentInit {
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   id: string = `oui-autocomplete-${_uniqueAutocompleteIdCounter++}`;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _elementRef: ElementRef<HTMLElement>,
-    @Inject(OUI_AUTOCOMPLETE_DEFAULT_OPTIONS)
-    defaults: OuiAutocompleteDefaultOptions
-  ) {
+  constructor() {
+    const defaults = inject<OuiAutocompleteDefaultOptions>(
+      OUI_AUTOCOMPLETE_DEFAULT_OPTIONS
+    );
+
     this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
   }
 
