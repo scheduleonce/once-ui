@@ -11,18 +11,17 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  Inject,
   InjectionToken,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   SimpleChanges,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { OuiTabContent } from './tab-content';
 import { OUI_TAB, OuiTabLabel } from './tab-label';
@@ -66,6 +65,10 @@ export class OuiTab
   extends _OuiTabMixinBase
   implements CanDisable, OnInit, OnChanges, OnDestroy
 {
+  private _viewContainerRef = inject(ViewContainerRef);
+  _closestTabGroup = inject(OUI_TAB_GROUP, { optional: true })!;
+  private sanitized = inject(DomSanitizer);
+
   /** Content for the tab label given by `<ng-template oui-tab-label>`. */
   private _templateLabel: OuiTabLabel;
   disabled: any;
@@ -144,12 +147,10 @@ export class OuiTab
   isActive = false;
 
   @ViewChild('tab1') _tab1: ElementRef;
-  constructor(
-    private _viewContainerRef: ViewContainerRef,
-    @Inject(OUI_TAB_GROUP) @Optional() public _closestTabGroup: any,
-    private sanitized: DomSanitizer,
-    _elementRef: ElementRef
-  ) {
+
+  constructor() {
+    const _elementRef = inject(ElementRef);
+
     super(_elementRef);
     this.addThemeColor();
   }

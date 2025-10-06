@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, inject } from '@angular/core';
 import {
   CdkCell,
   CdkCellDef,
@@ -76,7 +76,10 @@ export class OuiColumnDef extends CdkColumnDef {
   standalone: false,
 })
 export class OuiHeaderCell extends CdkHeaderCell {
-  constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>) {
+  constructor() {
+    const columnDef = inject(CdkColumnDef);
+    const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     super(columnDef, elementRef);
     elementRef.nativeElement.classList.add(
       `oui-column-${columnDef.cssClassFriendlyName}`
@@ -95,7 +98,10 @@ export class OuiHeaderCell extends CdkHeaderCell {
   standalone: false,
 })
 export class OuiFooterCell extends CdkFooterCell {
-  constructor(columnDef: CdkColumnDef, elementRef: ElementRef) {
+  constructor() {
+    const columnDef = inject(CdkColumnDef);
+    const elementRef = inject(ElementRef);
+
     super(columnDef, elementRef);
     elementRef.nativeElement.classList.add(
       `oui-column-${columnDef.cssClassFriendlyName}`
@@ -115,7 +121,10 @@ export class OuiFooterCell extends CdkFooterCell {
   standalone: false,
 })
 export class OuiCell extends CdkCell {
-  constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>) {
+  constructor() {
+    const columnDef = inject(CdkColumnDef);
+    const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     super(columnDef, elementRef);
     elementRef.nativeElement.classList.add(
       `oui-column-${columnDef.cssClassFriendlyName}`

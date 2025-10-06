@@ -5,12 +5,11 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  Inject,
   Input,
   OnDestroy,
-  Optional,
   Output,
   AfterViewInit,
+  inject,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -90,6 +89,13 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
 export class OuiDatepickerInput<D>
   implements ControlValueAccessor, OnDestroy, AfterViewInit, Validator
 {
+  private _elementRef = inject<ElementRef<HTMLInputElement>>(ElementRef);
+  _dateAdapter = inject<DateAdapter<D>>(DateAdapter, { optional: true })!;
+  private _dateFormats = inject<OuiDateFormats>(OUI_DATE_FORMATS, {
+    optional: true,
+  })!;
+  private _formField = inject(OuiFormField, { optional: true })!;
+
   private _disabled: boolean;
   /** Emits when a `change` event is fired on this `<input>`. */
   @Output() readonly dateChange: EventEmitter<OuiDatepickerInputEvent<D>> =
@@ -282,12 +288,9 @@ export class OuiDatepickerInput<D>
     this._filterValidator,
   ]);
 
-  constructor(
-    private _elementRef: ElementRef<HTMLInputElement>,
-    @Optional() public _dateAdapter: DateAdapter<D>,
-    @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
-    @Optional() private _formField: OuiFormField
-  ) {
+  constructor() {
+    const _dateAdapter = this._dateAdapter;
+
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }

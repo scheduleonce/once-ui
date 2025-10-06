@@ -59,8 +59,8 @@ class YearViewWithDateFilter {
 }
 
 describe('OuiYearView', () => {
+  // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
-  console.log(dir);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -103,8 +103,8 @@ describe('OuiYearView', () => {
     it('has correct year label', () => {
       const labelEl = yearViewNativeElement.querySelector(
         '.oui-calendar-body-label'
-      )!;
-      expect(labelEl.innerHTML.trim()).toBe('2017');
+      );
+      expect(labelEl?.innerHTML?.trim()).toBe('2017');
     });
 
     it('has 12 months', () => {
