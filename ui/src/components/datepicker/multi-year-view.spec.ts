@@ -54,8 +54,8 @@ class MultiYearViewWithDateFilter {
 }
 
 describe('OuiMultiYearView', () => {
+  // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
-  console.log(dir);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

@@ -51,7 +51,7 @@ export class OuiInkBar {
   /** Aligns the ink bar to a DOM node. */
   alignToElement(element: HTMLElement) {
     const correspondingItem = this._items.find(
-      (item) => item.elementRef.nativeElement === element
+      (item) => item.elementRef?.nativeElement === element
     );
     const currentItem = this._currentItem;
 
@@ -63,7 +63,7 @@ export class OuiInkBar {
 
     if (correspondingItem) {
       const clientRect =
-        currentItem?.elementRef.nativeElement.getBoundingClientRect?.();
+        currentItem?.elementRef?.nativeElement?.getBoundingClientRect?.();
 
       // The ink bar won't animate unless we give it the `ClientRect` of the previous item.
       correspondingItem.activateInkBar(clientRect);
@@ -109,13 +109,13 @@ export function mixinInkBarItem<
 
     /** Aligns the ink bar to the current item. */
     activateInkBar(previousIndicatorClientRect?: ClientRect) {
-      const element = this.elementRef.nativeElement;
+      const element = this.elementRef?.nativeElement;
 
       // Early exit if no indicator is present to handle cases where an indicator
       // may be activated without a prior indicator state
       if (
         !previousIndicatorClientRect ||
-        !element.getBoundingClientRect ||
+        !element?.getBoundingClientRect ||
         !this._inkBarContentElement
       ) {
         element.classList.add(ACTIVE_CLASS);
@@ -147,7 +147,7 @@ export function mixinInkBarItem<
 
     /** Removes the ink bar from the current item. */
     deactivateInkBar() {
-      this.elementRef.nativeElement.classList.remove(ACTIVE_CLASS);
+      this.elementRef?.nativeElement?.classList.remove(ACTIVE_CLASS);
     }
 
     /** Initializes the foundation. */
@@ -164,7 +164,7 @@ export function mixinInkBarItem<
     /** Creates and appends the ink bar element. */
     private _createInkBarElement() {
       const documentNode =
-        this.elementRef.nativeElement.ownerDocument || document;
+        this.elementRef?.nativeElement?.ownerDocument || document;
       this._inkBarElement = documentNode.createElement('span');
       this._inkBarContentElement = documentNode.createElement('span');
 
@@ -191,8 +191,8 @@ export function mixinInkBarItem<
       }
 
       const parentElement = this._fitToContent
-        ? this.elementRef.nativeElement.querySelector('.mdc-tab__content')
-        : this.elementRef.nativeElement;
+        ? this.elementRef?.nativeElement?.querySelector('.mdc-tab__content')
+        : this.elementRef?.nativeElement;
 
       if (!parentElement && (typeof isDevMode === 'undefined' || isDevMode)) {
         throw Error('Missing element to host the ink bar');

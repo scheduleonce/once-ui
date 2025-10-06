@@ -9,6 +9,7 @@ import {
   NgZone,
   OnChanges,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 
@@ -53,6 +54,9 @@ export class OuiCalendarCell {
   standalone: false,
 })
 export class OuiCalendarBody implements OnChanges {
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _ngZone = inject(NgZone);
+
   /** The label for the table. (e.g. "Jan 2017"). */
   @Input() label: string;
 
@@ -94,10 +98,7 @@ export class OuiCalendarBody implements OnChanges {
   /** Width of an individual cell. */
   _cellWidth: string;
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone
-  ) {}
+  constructor() {}
 
   _cellClicked(cell: OuiCalendarCell): void {
     if (cell.enabled) {

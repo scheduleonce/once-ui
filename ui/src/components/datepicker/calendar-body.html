@@ -13,7 +13,9 @@
     [attr.colspan]="_firstRowOffset"
     [style.paddingTop]="_cellPadding"
     [style.paddingBottom]="_cellPadding"
-  ></td>
+  >
+    {{label}}
+  </td>
   <td
     *ngFor="let item of row; let colIndex = index"
     role="gridcell"

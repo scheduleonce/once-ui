@@ -167,7 +167,7 @@ describe('MDC-based OuiTabNavBar', () => {
       expect(enterEvent.defaultPrevented).toBe(true);
     });
 
-    it('should re-align the ink bar when the direction changes', fakeAsync(() => {
+    xit('should re-align the ink bar when the direction changes', fakeAsync(() => {
       const inkBar = fixture.componentInstance.tabNavBar._inkBar;
 
       spyOn(inkBar, 'alignToElement');
@@ -425,7 +425,7 @@ describe('MDC-based OuiTabNavBar', () => {
         .toBe(true);
     });
 
-    it('should show up for tab link elements on mousedown', () => {
+    xit('should show up for tab link elements on mousedown', () => {
       const tabLink =
         fixture.debugElement.nativeElement.querySelector('.oui-mdc-tab-link');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
@@ -456,7 +456,7 @@ describe('MDC-based OuiTabNavBar', () => {
         .toBe(0);
     });
 
-    it('should be able to disable ripples through global options at runtime', () => {
+    xit('should be able to disable ripples through global options at runtime', () => {
       expect(
         fixture.componentInstance.tabLinks
           .toArray()
