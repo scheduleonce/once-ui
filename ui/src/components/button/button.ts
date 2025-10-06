@@ -7,6 +7,7 @@ import {
   ChangeDetectorRef,
   NgZone,
   Input,
+  inject,
 } from '@angular/core';
 import {
   CanDisable,
@@ -38,7 +39,8 @@ const DEFAULT_COLOR = 'primary';
 // Boilerplate for applying mixins to OuiButton.
 /** @docs-private */
 export class OuiButtonBase {
-  constructor(public _elementRef: ElementRef, public _cdr: ChangeDetectorRef) {}
+  public _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  public _cdr = inject(ChangeDetectorRef);
 }
 
 export const OuiButtonMixinBase: CanDisableCtor &
@@ -72,14 +74,16 @@ export class OuiButton
   extends OuiButtonMixinBase
   implements OnDestroy, CanDisable, CanColor, CanProgress
 {
+  protected elementRef: ElementRef<HTMLElement>;
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    public _cdr: ChangeDetectorRef,
-    private _ngZone: NgZone
-  ) {
-    super(elementRef, _cdr);
+
+  constructor() {
+    super();
+    this.elementRef = this._elementRef;
+
     this.addClass();
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
@@ -147,13 +151,9 @@ export class OuiButton
 export class OuiAnchor extends OuiButton {
   /** Tabindex of the button. */
   @Input() tabIndex: number;
-  constructor(
-    elementRef: ElementRef<HTMLElement>,
-    focusMonitor: FocusMonitor,
-    _cdr: ChangeDetectorRef,
-    _ngZone: NgZone
-  ) {
-    super(elementRef, focusMonitor, _cdr, _ngZone);
+
+  constructor() {
+    super();
   }
 
   _haltDisabledEvents(event: Event) {

@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Inject, Injectable, Optional, SecurityContext } from '@angular/core';
+import { Injectable, SecurityContext, inject } from '@angular/core';
 import {
   DomSanitizer,
   SafeResourceUrl,
@@ -94,6 +94,9 @@ class SvgIconConfig {
  */
 @Injectable({ providedIn: 'root' })
 export class OuiIconRegistry {
+  private _httpClient = inject(HttpClient, { optional: true })!;
+  private _sanitizer = inject(DomSanitizer);
+
   private _document: Document;
 
   /**
@@ -110,13 +113,9 @@ export class OuiIconRegistry {
   /** In-progress icon fetches. Used to coalesce multiple requests to the same URL. */
   private _inProgressUrlFetches = new Map<string, Observable<string>>();
 
-  constructor(
-    @Optional() private _httpClient: HttpClient,
-    private _sanitizer: DomSanitizer,
-    @Optional()
-    @Inject(DOCUMENT)
-    document: any
-  ) {
+  constructor() {
+    const document = inject(DOCUMENT, { optional: true })!;
+
     this._document = document;
   }
 
