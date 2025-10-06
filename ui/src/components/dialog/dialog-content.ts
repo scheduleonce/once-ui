@@ -3,12 +3,12 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Optional,
   SimpleChanges,
   ElementRef,
   Component,
   NgZone,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
@@ -95,14 +95,15 @@ export class OuiDialogHeaderAction {
   standalone: false,
 })
 export class OuiDialogHeaderArticle implements OnDestroy {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?5df5gz'
@@ -131,15 +132,15 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   standalone: false,
 })
 export class OuiDialogHeaderVideo implements OnDestroy {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+  constructor() {
     this.ouiIconRegistry.addSvgIconLiteral(
       `video-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.VIDEO_ICON)
@@ -168,14 +169,15 @@ export class OuiDialogHeaderVideo implements OnDestroy {
   standalone: false,
 })
 export class OuiDialogHeaderClose implements OnDestroy {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIconLiteral(
       `close-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.CLOSE_ICON)
@@ -220,6 +222,10 @@ export class OuiDialogHeaderSeparator {
   standalone: false,
 })
 export class OuiDialogClose implements OnInit, OnChanges {
+  dialogRef = inject<OuiDialogRef<any>>(OuiDialogRef, { optional: true })!;
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _dialog = inject(OuiDialog);
+
   /** Screenreader label for the button. */
   @Input('aria-label')
   ariaLabel = 'Close dialog';
@@ -231,11 +237,7 @@ export class OuiDialogClose implements OnInit, OnChanges {
   @Input('ouiDialogClose')
   _ouiDialogClose: any;
 
-  constructor(
-    @Optional() public dialogRef: OuiDialogRef<any>,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _dialog: OuiDialog
-  ) {}
+  constructor() {}
 
   /** Ensures the option is selected when activated from the keyboard. */
   handleKeydown(event: KeyboardEvent): void {
@@ -284,11 +286,11 @@ export class OuiDialogClose implements OnInit, OnChanges {
   standalone: false,
 })
 export class OuiDialogContent implements OnInit {
-  constructor(
-    @Optional() public dialogRef: OuiDialogRef<any>,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _dialog: OuiDialog
-  ) {}
+  dialogRef = inject<OuiDialogRef<any>>(OuiDialogRef, { optional: true })!;
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _dialog = inject(OuiDialog);
+
+  constructor() {}
 
   ngOnInit() {
     if (!this.dialogRef) {

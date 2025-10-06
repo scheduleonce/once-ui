@@ -3,7 +3,7 @@ import {
   OuiInputModule,
   OuiFormField,
 } from '../../components';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { THEME } from '../const';
 
 export default {
