@@ -396,6 +396,106 @@ export const MultiSelect = {
   },
 };
 
+export const MultiSelectWithCustomActionItem = {
+  render: (props) => ({
+    template: `
+    <div style="width: 213px;">
+    <oui-form-field [appearance]="appearance">
+        <oui-select (saveSelectionChange)="onChange($event)" (addCustomActionChange)="onAddCustomAction($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple customActionItem [allowNoSelection]="allowNoSelection" [disabled]="disabled" [cancelLabel]="cancelLabel" [doneLabel]="doneLabel" [customLabel]="customLabel">
+          <oui-option *ngFor="let option of options" [value]="option">
+            {{option}}
+          </oui-option>
+        </oui-select>
+      </oui-form-field>
+    </div>
+    `,
+
+    props: {
+      ...props,
+      onChange: action('change'),
+      onAddCustomAction: action('addCustomAction'),
+    },
+
+    moduleMetadata: {
+      imports: [
+        OuiFormFieldModule,
+        OuiInputModule,
+        OuiSelectModule,
+        FormsModule,
+        ReactiveFormsModule,
+      ],
+    },
+  }),
+
+  name: 'Multi select with custom action',
+  height: '300px',
+
+  parameters: {
+    docs: {
+      source: {
+        code: `<oui-form-field>
+  <oui-select large placeholder="Favorite food" multiple customActionItem [cancelLabel]="cancelLabel" [doneLabel]="doneLabel" [customLabel]="customLabel">
+    <oui-option *ngFor="let food of foods" [value]="food">
+      {{food array}}
+    </oui-option>
+  </oui-select>
+</oui-form-field>`,
+      },
+    },
+  },
+
+  args: {
+    large: false,
+    theme: THEME[0],
+    disabled: false,
+    appearance: APPEARANCE[0],
+    placeholder: 'Favorite food',
+
+    options: [
+      'Pizza',
+      'Burgers',
+      'Steak',
+      'Tacos',
+      'Pasta',
+      'Fries',
+      'Momos',
+      'Kababs',
+      'Rolls',
+      'Biryani',
+      'Sweets',
+    ],
+
+    cancelLabel: 'Discard',
+    doneLabel: 'Apply',
+    customLabel: 'Action',
+    allowNoSelection: false,
+  },
+
+  argTypes: {
+    theme: {
+      options: THEME,
+
+      control: {
+        type: 'select',
+      },
+    },
+
+    appearance: {
+      options: ['standard', 'underline'],
+
+      control: {
+        type: 'select',
+      },
+    },
+
+    options: {
+      control: {
+        type: 'object',
+      },
+    },
+  },
+};
+
 export const Groups = {
   render: (props) => ({
     template: `
