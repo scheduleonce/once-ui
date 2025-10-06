@@ -1,7 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
-  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -13,6 +12,8 @@ import {
   SimpleChanges,
   ViewEncapsulation,
   ViewChild,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { OuiButton } from '../button/button';
 import { merge, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -49,6 +50,9 @@ export class OuiDatepickerToggleIcon {}
 export class OuiDatepickerToggle<D>
   implements AfterContentInit, OnChanges, OnDestroy
 {
+  _intl = inject(OuiDatepickerIntl);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+
   private _stateChanges = Subscription.EMPTY;
 
   /** Datepicker instance that the button will toggle. */
@@ -77,11 +81,11 @@ export class OuiDatepickerToggle<D>
   /** Underlying button element. */
   @ViewChild('button') _button: OuiButton;
 
-  constructor(
-    public _intl: OuiDatepickerIntl,
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Attribute('tabindex') defaultTabIndex: string
-  ) {
+  constructor() {
+    const defaultTabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex =
       parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;

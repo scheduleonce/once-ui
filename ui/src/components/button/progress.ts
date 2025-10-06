@@ -24,7 +24,6 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
 ): CanProgressCtor & T {
   return class extends base {
     private _progress: string[] | string;
-    private _cdr: ChangeDetectorRef;
     private _stage: 'default' | 'progress' | 'done' = 'default';
     get progress(): string[] | string {
       return this._progress;
@@ -37,14 +36,17 @@ export function mixinProgress<T extends Constructor<HasElementRef>>(
       }
       setTimeout(() => {
         this._changeStage();
-        this._cdr.detectChanges();
+        // Access _cdr from the base class
+        const cdr = (this as any)._cdr as ChangeDetectorRef;
+        if (cdr) {
+          cdr.detectChanges();
+        }
       }, 0);
     }
 
     constructor(...args: any[]) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       super(...args);
-      this._cdr = args[1];
       this._progress = null;
     }
 

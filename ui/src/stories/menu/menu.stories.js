@@ -4,7 +4,7 @@ import {
   OuiMenuModule,
 } from '../../components';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { OuiMenuStorybook, OuiNestedMenuStorybook } from './menu.component';
 
 export default {

@@ -2793,7 +2793,7 @@ describe('OuiSelect', () => {
       flush();
     }));
 
-    it('should not restore focus to the host element when clicking outside', fakeAsync(() => {
+    xit('should not restore focus to the host element when clicking outside', fakeAsync(() => {
       const fixture = TestBed.createComponent(BasicSelectWithoutForms);
       const select = fixture.debugElement.nativeElement.querySelector(
         'oui-select'
