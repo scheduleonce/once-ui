@@ -1,4 +1,10 @@
-<div class="oui-mdc-tab-body-content" #content [innerHTML]="_innerContent">
-  <!-- {{_content}} -->
-  <!-- <ng-template [OuiTabBodyHost]></ng-template> -->
-</div>
+<div
+  class="oui-mdc-tab-body-content"
+  #content
+  [@translateTab]="{
+       value: _position,
+       params: {animationDuration: animationDuration}
+     }"
+  (@translateTab.done)="_onTranslateTabStarted($event)"
+  [innerHTML]="_innerContent"
+></div>

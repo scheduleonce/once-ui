@@ -3,7 +3,6 @@ import {
   ViewEncapsulation,
   Component,
   InjectionToken,
-  Inject,
   Input,
   ViewChild,
   TemplateRef,
@@ -11,10 +10,11 @@ import {
   ContentChild,
   Output,
   EventEmitter,
-  Attribute,
   NgZone,
   ElementRef,
   OnDestroy,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
@@ -63,6 +63,10 @@ export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
   standalone: false,
 })
 export class OuiPanel implements OnInit, OuiPanelOverlay {
+  private _defaultOptions = inject<OuiPanelDefaultOptions>(
+    OUI_PANEL_DEFAULT_OPTIONS
+  );
+
   private _xPosition: PanelPositionX = this._defaultOptions.xPosition;
   private _yPosition: PanelPositionY = this._defaultOptions.yPosition;
   private readonly _mouseLeave: Subject<MouseEvent> = new Subject<MouseEvent>();
@@ -116,10 +120,8 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
     this._yPosition = value;
     this.setPositionClasses();
   }
-  constructor(
-    @Inject(OUI_PANEL_DEFAULT_OPTIONS)
-    private _defaultOptions: OuiPanelDefaultOptions
-  ) {
+
+  constructor() {
     this.mouseLeave = this._mouseLeave.asObservable();
     this.mouseEnter = this._mouseEnter.asObservable();
   }
@@ -171,16 +173,20 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   standalone: false,
 })
 export class OuiPanelIcon implements OnDestroy {
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   tabIndex: any;
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone,
-    @Attribute('tabindex') tabIndex: string
-  ) {
+
+  constructor() {
+    const tabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+
     this._elementRef.nativeElement.setAttribute('tabindex', '0');
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor

@@ -7,15 +7,14 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Inject,
   InjectionToken,
   Input,
   OnDestroy,
-  Optional,
   Output,
   QueryList,
   ViewEncapsulation,
   NgZone,
+  inject,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { OuiOptgroup } from './optgroup';
@@ -80,6 +79,17 @@ export const OUI_OPTION_PARENT_COMPONENT =
   standalone: false,
 })
 export class OuiOption implements AfterViewChecked, OnDestroy {
+  private _element = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+  private _parent = inject<OuiOptionParentComponent>(
+    OUI_OPTION_PARENT_COMPONENT,
+    { optional: true }
+  )!;
+  readonly group = inject(OuiOptgroup, { optional: true })!;
+
   private _selected = false;
   private _active = false;
   private _disabled = false;
@@ -123,17 +133,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   /** Emits when the state of the option changes and any parents have to be notified. */
   readonly _stateChanges = new Subject<void>();
 
-  constructor(
-    private _element: ElementRef<HTMLElement>,
-    private _changeDetectorRef: ChangeDetectorRef,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone,
-    @Optional()
-    @Inject(OUI_OPTION_PARENT_COMPONENT)
-    private _parent: OuiOptionParentComponent,
-    @Optional() readonly group: OuiOptgroup
-  ) {
+  constructor() {
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
       .subscribe(() => this._ngZone.run(() => {}));
