@@ -239,6 +239,7 @@ export class OuiSelect
 
   /** Whether filling out the select is required in the form. */
   private _actionItems = false;
+  private _customActionItem = false;
   private _singleActionItems = false;
 
   /** The scroll position of the overlay panel, calculated to center the selected option. */
@@ -252,6 +253,9 @@ export class OuiSelect
 
   /** The label displayed on the done button of the select in case of multi-select. */
   private _doneLabel = 'Done';
+
+  /** The label displayed on the addCustomAction button of the select in case of multi-select. */
+  private _customLabel = 'Action';
 
   /** The label displayed on the singleSelect and multiSelect of the select as a actionItem. */
   private _singleActionLabel = 'New action button';
@@ -341,6 +345,10 @@ export class OuiSelect
 
   /** Trigger that opens the select. */
   @ViewChild('ddDoneButton', { read: ElementRef }) ddDoneButton: ElementRef;
+
+  /** Trigger that opens the select. */
+  @ViewChild('ddAddCustomButton', { read: ElementRef })
+  ddAddCustomButton: ElementRef;
 
   /** Trigger that opens the select. */
   @ViewChild('singleButton', { read: ElementRef }) singleButton: ElementRef;
@@ -447,6 +455,10 @@ export class OuiSelect
   @Output()
   readonly singleSelectionChange = new EventEmitter<void>();
 
+  /** Can pass any method to be triggered on addCustomAction click. */
+  @Output()
+  readonly addCustomActionChange = new EventEmitter<void>();
+
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
 
@@ -513,6 +525,16 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
+  /** In case of multiple the customLabel to be shown on custom action button. */
+  @Input()
+  get customLabel(): string {
+    return this._customLabel;
+  }
+  set customLabel(value: string) {
+    this._customLabel = value;
+    this.stateChanges.next();
+  }
+
   /** In case of singleSelect and multiSelect the singleActionLabel to be shown on actionItem. */
   @Input()
   get singleActionLabel(): string {
@@ -563,6 +585,18 @@ export class OuiSelect
   set actionItems(value: boolean) {
     if (this._multiple) {
       this._actionItems = coerceBooleanProperty(value);
+      this.stateChanges.next();
+    }
+  }
+
+  /** Whether the custom action items (3 buttons) are required and use saveSelectionChange instead of selectionChange. */
+  @Input()
+  get customActionItem(): boolean {
+    return this._customActionItem;
+  }
+  set customActionItem(value: boolean) {
+    if (this._multiple) {
+      this._customActionItem = coerceBooleanProperty(value);
       this.stateChanges.next();
     }
   }
@@ -926,31 +960,36 @@ export class OuiSelect
     ) as HTMLElement;
     const doneButtonRef = this.ddDoneButton?.nativeElement;
     const cancelButtonRef = this.ddCancelButton?.nativeElement;
+    const customActionButtonRef = this.ddAddCustomButton?.nativeElement;
+
     if (!focused) {
-      if (!doneDisabled && !doneButtonRef.classList.contains('cdk-focused')) {
-        doneButtonRef.focus();
-      } else if (
-        doneDisabled &&
-        !cancelButtonRef.classList.contains('cdk-focused')
-      ) {
+      if (!cancelButtonRef.classList.contains('cdk-focused')) {
         cancelButtonRef.focus();
-      } else {
-        cancelButtonRef.focus();
-      }
-    } else {
-      if (doneDisabled && cancelButtonRef.classList.contains('cdk-focused')) {
-        this.close();
+      } else if (!customActionButtonRef.classList.contains('cdk-focused')) {
+        customActionButtonRef.focus();
       } else if (
         !doneDisabled &&
-        cancelButtonRef.classList.contains('cdk-focused')
+        !doneButtonRef.classList.contains('cdk-focused')
       ) {
+        doneButtonRef.focus();
+      } else {
+        this.close();
+      }
+    } else {
+      if (doneButtonRef.classList.contains('cdk-focused')) {
+        this.close();
+      } else if (customActionButtonRef.classList.contains('cdk-focused')) {
+        if (!doneDisabled) {
+          doneButtonRef.focus();
+        } else {
+          this.close();
+        }
+      } else if (cancelButtonRef.classList.contains('cdk-focused')) {
         if (this.isSearchFieldPresent) {
           searchInput?.focus();
         } else {
-          doneButtonRef.focus();
+          customActionButtonRef.focus();
         }
-      } else {
-        cancelButtonRef.focus();
       }
     }
   }
@@ -969,6 +1008,8 @@ export class OuiSelect
         event.stopPropagation();
         manager.setActiveItem(-1);
         if (this.actionItems) {
+          this.tabKeySelection(cancelFocused, doneDisabled);
+        } else if (this.customActionItem) {
           this.tabKeySelection(cancelFocused, doneDisabled);
         } else if (this.singleActionItem) {
           this.singleTabKeySelection(singleButtonFocused);
@@ -1345,6 +1386,11 @@ export class OuiSelect
 
   handleSingleActionItemClick() {
     this.singleSelectionChange.emit();
+    this.close();
+  }
+
+  handleAddCustomActionClick() {
+    this.addCustomActionChange.emit();
     this.close();
   }
 
