@@ -5,9 +5,8 @@ import {
   ElementRef,
   OnDestroy,
   ViewEncapsulation,
-  Inject,
-  Optional,
   Input,
+  inject,
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
 import { Subject } from 'rxjs';
@@ -50,6 +49,12 @@ export class OuiMenuItem
   extends _OuiMenuItemMixinBase
   implements FocusableOption, CanDisable, OnDestroy
 {
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _parentMenu = inject<OuiMenuPanel<OuiMenuItem>>(OUI_MENU_PANEL, {
+    optional: true,
+  });
+
   /** ARIA role for the menu item. */
   @Input()
   role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
@@ -65,16 +70,13 @@ export class OuiMenuItem
   /** Whether the menu item acts as a trigger for a sub-menu. */
   _triggersSubmenu = false;
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    @Inject(DOCUMENT) document?: any,
-    private _focusMonitor?: FocusMonitor,
-    @Inject(OUI_MENU_PANEL)
-    @Optional()
-    private _parentMenu?: OuiMenuPanel<OuiMenuItem>
-  ) {
+  constructor() {
+    const document = inject(DOCUMENT);
+
     // @breaking-change 8.0.0 make `_focusMonitor` and `document` required params.
     super();
+    const _focusMonitor = this._focusMonitor;
+    const _parentMenu = this._parentMenu;
 
     if (_focusMonitor) {
       // Start monitoring the element so it gets the appropriate focused classes. We want

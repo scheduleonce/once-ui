@@ -14,18 +14,16 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
-  // forwardRef,
-  Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { Direction, Directionality } from '@angular/cdk/bidi';
@@ -58,12 +56,11 @@ export class OuiTabBodyPortal
   /** Subscription to events for when the tab body finishes leaving from center position. */
   private _leavingSub = Subscription.EMPTY;
 
-  constructor(
-    componentFactoryResolver: ComponentFactoryResolver,
-    viewContainerRef: ViewContainerRef,
-    // @Inject(forwardRef(() => OuiTabBody)) private _host: OuiTabBody,
-    @Inject(DOCUMENT) _document: any
-  ) {
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const viewContainerRef = inject(ViewContainerRef);
+    const _document = inject(DOCUMENT);
+
     super(componentFactoryResolver, viewContainerRef, _document);
   }
 
@@ -115,6 +112,10 @@ export type OuiTabBodyPositionState =
   standalone: false,
 })
 export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _dir = inject(Directionality, { optional: true })!;
+  private sanitized = inject(DomSanitizer);
+
   /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
   private _positionIndex: number;
 
@@ -156,7 +157,7 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   // Note that the default value will always be overwritten by `OuiTabBody`, but we need one
   // anyway to prevent the animations module from throwing an error if the body is used on its own.
   /** Duration for the tab's animation. */
-  @Input() animationDuration = '0';
+  @Input() animationDuration = '0ms';
 
   /** Whether the tab's content should be kept in the DOM while it's off-screen. */
   @Input() preserveContent = false;
@@ -169,12 +170,10 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
     this._computePositionAnimationState();
   }
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    @Optional() private _dir: Directionality,
-    changeDetectorRef: ChangeDetectorRef,
-    private sanitized: DomSanitizer
-  ) {
+  constructor() {
+    const _dir = this._dir;
+    const changeDetectorRef = inject(ChangeDetectorRef);
+
     if (_dir) {
       this._dirChangeSubscription = _dir.change.subscribe((dir: Direction) => {
         this._computePositionAnimationState(dir);

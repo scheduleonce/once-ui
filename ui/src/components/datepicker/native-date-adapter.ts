@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DateAdapter, OUI_DATE_LOCALE } from './date-adapter';
 
 // TODO(mmalerba): Remove when we no longer support safari 9.
@@ -93,10 +93,10 @@ export class NativeDateAdapter extends DateAdapter<Date> {
    */
   useUtcForDisplay = true;
 
-  constructor(
-    @Optional() @Inject(OUI_DATE_LOCALE) ouiDateLocale: string,
-    platform: Platform
-  ) {
+  constructor() {
+    const ouiDateLocale = inject(OUI_DATE_LOCALE, { optional: true })!;
+    const platform = inject(Platform);
+
     super();
     super.setLocale(ouiDateLocale);
 

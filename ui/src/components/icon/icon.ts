@@ -4,10 +4,10 @@ import {
   Input,
   OnInit,
   ElementRef,
-  Attribute,
   ChangeDetectionStrategy,
   InjectionToken,
   inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { CanColor, CanColorCtor, mixinColor } from '../core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -89,6 +89,10 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   standalone: false,
 })
 export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
+  private _iconRegistry = inject(OuiIconRegistry);
+  _elementRef: ElementRef;
+  titleCasePipe = inject(TitleCasePipe);
+
   /**
    * Whether the icon should be inlined, automatically sizing the icon to match the font size of
    * the element the icon is contained in.
@@ -115,13 +119,15 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   @Input()
   size: number;
 
-  constructor(
-    private _iconRegistry: OuiIconRegistry,
-    public _elementRef: ElementRef,
-    public titleCasePipe: TitleCasePipe,
-    @Attribute('aria-hidden') ariaHidden: string
-  ) {
+  constructor() {
+    const _elementRef = inject(ElementRef);
+    const ariaHidden = inject(new HostAttributeToken('aria-hidden'), {
+      optional: true,
+    })!;
+
     super(_elementRef);
+    this._elementRef = _elementRef;
+
     // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
     // the right thing to do for the majority of icon use-cases.
     if (!ariaHidden) {

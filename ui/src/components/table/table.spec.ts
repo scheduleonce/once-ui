@@ -538,8 +538,15 @@ describe('OuiTable', () => {
     });
   });
 
-  it('should be able to render a table correctly with native elements', () => {
+  it('should be able to render a table correctly with native elements', fakeAsync(() => {
     const fixture = TestBed.createComponent(NativeHtmlTableApp);
+    const app = fixture.componentInstance;
+
+    // Ensure the table is connected to the data source
+    app.table.dataSource = app.dataSource;
+    fixture.detectChanges();
+    flushMicrotasks();
+    tick();
     fixture.detectChanges();
 
     const tableElement = fixture.nativeElement.querySelector(
@@ -553,7 +560,7 @@ describe('OuiTable', () => {
       [data[2].a, data[2].b, data[2].c],
       [data[3].a, data[3].b, data[3].c],
     ]);
-  });
+  }));
 
   it('should render with OuiTableDataSource and sort', () => {
     const fixture = TestBed.createComponent(OuiTableWithSortApp);
