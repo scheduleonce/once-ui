@@ -16,12 +16,11 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Inject,
   Input,
-  Optional,
   Output,
   ViewEncapsulation,
   ViewChild,
+  inject,
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import {
@@ -47,6 +46,13 @@ const DAYS_PER_WEEK = 7;
   standalone: false,
 })
 export class OuiMonthView<D> implements AfterContentInit {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _dateFormats = inject<OuiDateFormats>(OUI_DATE_FORMATS, {
+    optional: true,
+  })!;
+  _dateAdapter = inject<DateAdapter<D>>(DateAdapter, { optional: true })!;
+  private _dir = inject(Directionality, { optional: true });
+
   /**
    * The date to display in this month view (everything other than the month and year is ignored).
    */
@@ -150,12 +156,7 @@ export class OuiMonthView<D> implements AfterContentInit {
   /** The names of the weekdays. */
   _weekdays: { long: string; narrow: string }[];
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
-    @Optional() public _dateAdapter: DateAdapter<D>,
-    @Optional() private _dir?: Directionality
-  ) {
+  constructor() {
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }

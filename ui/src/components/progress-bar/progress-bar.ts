@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { mixinColor } from '../core';
@@ -58,7 +59,9 @@ export class OuiProgressBar extends _OuiProgressBarMixinBase {
     this._strokeWidth = coerceNumberProperty(value);
   }
 
-  constructor(elementRef: ElementRef) {
+  constructor() {
+    const elementRef = inject(ElementRef);
+
     super(elementRef);
   }
 }

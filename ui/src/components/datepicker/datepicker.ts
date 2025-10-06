@@ -17,16 +17,15 @@ import {
   ComponentRef,
   ElementRef,
   EventEmitter,
-  Inject,
   InjectionToken,
   Input,
   NgZone,
   OnDestroy,
-  Optional,
   Output,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OuiDialog, OuiDialogRef } from '../dialog/public-api';
@@ -106,7 +105,9 @@ export class OuiDatepickerContent<D>
   /** Whether the datepicker is above or below the input. */
   _isAbove: boolean;
 
-  constructor(elementRef: ElementRef) {
+  constructor() {
+    const elementRef = inject(ElementRef);
+
     super(elementRef);
   }
 
@@ -131,6 +132,18 @@ export class OuiDatepickerContent<D>
   standalone: false,
 })
 export class OuiDatepicker<D> implements OnDestroy, CanColor {
+  private _dialog = inject(OuiDialog);
+  private _overlay = inject(Overlay);
+  private _ngZone = inject(NgZone);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _viewContainerRef = inject(ViewContainerRef);
+  private _dateAdapter = inject<DateAdapter<D>>(DateAdapter, {
+    optional: true,
+  })!;
+  private _dir = inject(Directionality, { optional: true })!;
+  private _document = inject(DOCUMENT, { optional: true })!;
+
   private _scrollStrategy: () => ScrollStrategy;
 
   /** An input indicating the type of the custom header component for the calendar, if set. */
@@ -295,18 +308,10 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   /** Emits new selected date when selected date changes. */
   readonly _selectedChanged = new Subject<D>();
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    private _dialog: OuiDialog,
-    private _overlay: Overlay,
-    private _ngZone: NgZone,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _viewContainerRef: ViewContainerRef,
-    @Inject(OUI_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
-    @Optional() private _dateAdapter: DateAdapter<D>,
-    @Optional() private _dir: Directionality,
-    @Optional() @Inject(DOCUMENT) private _document: any
-  ) {
+
+  constructor() {
+    const scrollStrategy = inject(OUI_DATEPICKER_SCROLL_STRATEGY);
+
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }
@@ -375,7 +380,8 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       );
     }
     if (this._document) {
-      this._focusedElementBeforeOpen = this._document.activeElement;
+      this._focusedElementBeforeOpen = this._document
+        .activeElement as HTMLElement;
     }
 
     if (this.touchUi) {

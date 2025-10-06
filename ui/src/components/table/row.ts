@@ -7,6 +7,7 @@ import {
   ElementRef,
   NgZone,
   IterableDiffers,
+  inject,
 } from '@angular/core';
 import {
   CDK_ROW_TEMPLATE,
@@ -108,13 +109,14 @@ export class OuiFooterRow extends CdkFooterRow {}
   standalone: false,
 })
 export class OuiRow extends CdkRow implements OnDestroy {
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected _differs = inject(IterableDiffers);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    protected elementRef: ElementRef<HTMLElement>,
-    protected _differs: IterableDiffers,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+
+  constructor() {
     super();
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
