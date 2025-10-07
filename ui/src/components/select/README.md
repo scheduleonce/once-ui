@@ -119,22 +119,6 @@ The `<oui-optgroup>` element can be used to group common options under a subhead
       </oui-form-field>
 ```
 
-## Multiple selection with custom action items
-
-`<oui-select>` defaults to single-selection mode, but can be configured to allow multiple selection by setting the multiple property. This will allow the user to select multiple values at once. When using the `<oui-select>` in multiple selection mode, its value will be a sorted list of all selected values rather than a single value.
-`customActionItem` after adding this action item will allow us to add three button `Discard` `Custom button` and `Apply` button.
-`actionItems` after adding this action item will allow us to add two button `Discard` and `Apply` button.
-
-```angular2html
-      <oui-form-field [appearance]="'underline'">
-        <oui-select placeholder="Favorite food" multiple customActionItem>
-          <oui-option *ngFor="let bank of banks" [value]="bank.id">
-            {{ bank.name }}
-          </oui-option>
-        </oui-select>
-      </oui-form-field>
-```
-
 ## Customizing the trigger label
 
 If you want to display a custom trigger label inside a `<oui-select>`, you can use the <oui-select-trigger> element.
