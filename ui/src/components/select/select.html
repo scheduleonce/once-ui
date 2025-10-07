@@ -49,7 +49,6 @@
     [class.oui-select-has-a-panel]="panelClass"
     [class.oui-select-large]="large"
     [class.action-item]="actionItems"
-    [class.custom-action-item]="customActionItem"
     [class.single-action-item]="singleActionItem"
   >
     <div class="oui-select-options">
@@ -77,33 +76,6 @@
           (click)="discardRecentChanges()"
         >
           {{cancelLabel}}</button
-        ><button
-          #ddDoneButton
-          oui-button
-          color="primary"
-          [disabled]="disableDoneButton"
-          (click)="doneRecentChanges()"
-        >
-          {{doneLabel}}
-        </button>
-      </div>
-    </div>
-    <div *ngIf="customActionItem" class="oui-select-action-wrapper">
-      <div class="oui-select-action-items">
-        <button
-          #ddCancelButton
-          oui-link-button
-          color="primary"
-          (click)="discardRecentChanges()"
-        >
-          {{cancelLabel}}</button
-        ><button
-          #ddAddCustomButton
-          oui-link-button
-          color="primary"
-          (click)="handleAddCustomActionClick()"
-        >
-          {{customLabel}}</button
         ><button
           #ddDoneButton
           oui-button
