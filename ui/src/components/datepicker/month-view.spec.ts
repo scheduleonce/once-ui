@@ -108,11 +108,11 @@ describe('OuiMonthView', () => {
       testComponent = fixture.componentInstance;
     });
 
-    it('has correct month label', () => {
+    it('does not display month label in calendar body', () => {
       const labelEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-label'
       );
-      expect(labelEl?.innerHTML?.trim()).toBe('Jan');
+      expect(labelEl).toBeNull();
     });
 
     it('has 31 days', () => {
