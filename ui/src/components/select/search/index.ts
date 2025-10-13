@@ -138,9 +138,12 @@ export class OuiSelectSearchComponent
     const outter = this._document.querySelector(
       '.oui-select-panel'
     ) as HTMLElement;
-    let inner = this._document.querySelector('.oui-option') as HTMLElement;
+    const inner = this._document.querySelector('.oui-option') as HTMLElement;
+
     if (inner === null) {
-      inner = { offsetWidth: 0 } as HTMLElement;
+      // If no options exist, use the full width of the panel
+      searchInput.style.width = '100%';
+      return;
     }
     const scrollbarWidth = outter.offsetWidth - inner.offsetWidth;
     if (scrollbarWidth > 5) {
