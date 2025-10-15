@@ -13,7 +13,6 @@ import {
   ContentChildren,
   ElementRef,
   EventEmitter,
-  Inject,
   InjectionToken,
   Input,
   NgZone,
@@ -24,6 +23,7 @@ import {
   ViewChild,
   ViewEncapsulation,
   OnInit,
+  inject,
 } from '@angular/core';
 import { merge, Observable, Subject, Subscription } from 'rxjs';
 import { startWith, switchMap, take } from 'rxjs/operators';
@@ -80,10 +80,17 @@ export function OUI_MENU_DEFAULT_OPTIONS_FACTORY(): OuiMenuDefaultOptions {
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenu',
   providers: [{ provide: OUI_MENU_PANEL, useExisting: OuiMenu }],
+  standalone: false,
 })
 export class OuiMenu
   implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy
 {
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _ngZone = inject(NgZone);
+  private _defaultOptions = inject<OuiMenuDefaultOptions>(
+    OUI_MENU_DEFAULT_OPTIONS
+  );
+
   private _keyManager: FocusKeyManager<OuiMenuItem>;
   private _xPosition: MenuPositionX = this._defaultOptions.xPosition;
   private _yPosition: MenuPositionY = this._defaultOptions.yPosition;
@@ -209,12 +216,7 @@ export class OuiMenu
   @Output()
   close = this.closed;
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone,
-    @Inject(OUI_MENU_DEFAULT_OPTIONS)
-    private _defaultOptions: OuiMenuDefaultOptions
-  ) {}
+  constructor() {}
 
   ngOnInit() {
     this.setPositionClasses();

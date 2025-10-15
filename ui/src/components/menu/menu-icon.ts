@@ -6,6 +6,7 @@ import {
   AfterContentInit,
   Input,
   OnChanges,
+  inject,
 } from '@angular/core';
 import { OuiIconRegistry } from '../icon/icon-registery';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -22,20 +23,21 @@ import { ICONS } from '../core/shared/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiMenuIcon',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(menuOpened)': 'menuOpened()',
     '(menuClosed)': 'menuClosed()',
   },
+  standalone: false,
 })
 export class OuiMenuIcon implements AfterContentInit, OnChanges {
+  private _elementRef = inject(ElementRef);
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
   private _iconDiv: HTMLDivElement;
   @Input() vertical = false;
-  constructor(
-    private _elementRef: ElementRef,
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIconLiteral(
       `menu-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.THREE_DOT_MENU_ICON)

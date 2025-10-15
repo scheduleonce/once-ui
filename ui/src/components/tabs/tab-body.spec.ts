@@ -7,6 +7,7 @@ import {
   TemplateRef,
   ViewChild,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -214,8 +215,11 @@ describe('MDC-based OuiTabBody', () => {
       [origin]="origin"
     ></oui-tab-body>
   `,
+  standalone: false,
 })
 class SimpleTabBodyApp implements AfterContentInit {
+  private _viewContainerRef = inject(ViewContainerRef);
+
   content: TemplatePortal;
   position: number;
   origin: number | null;
@@ -223,7 +227,7 @@ class SimpleTabBodyApp implements AfterContentInit {
   @ViewChild(OuiTabBody) tabBody: OuiTabBody;
   @ViewChild(TemplateRef) template: TemplateRef<any>;
 
-  constructor(private _viewContainerRef: ViewContainerRef) {}
+  constructor() {}
 
   ngAfterContentInit() {
     this.content = new TemplatePortal(this.template, this._viewContainerRef);

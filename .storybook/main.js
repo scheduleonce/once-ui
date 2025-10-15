@@ -3,7 +3,7 @@ module.exports = {
     '../ui/src/stories/**/*.mdx',
     '../ui/src/stories/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-mdx-gfm'],
+  addons: ['@storybook/addon-docs'],
   framework: {
     name: '@storybook/angular',
     options: {},

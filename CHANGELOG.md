@@ -5,6 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [10.0.1] - 2025-10-13
+
+- [ONCEHUB-104887](https://scheduleonce.atlassian.net/browse/ONCEHUB-104887) [ONCE-UI] [App3] The Field Mapping search bar UI appears distorted and is not aligned as expected.
+
+## [10.0.0] - 2025-10-08
+
+- [ONCEHUB-100612](https://scheduleonce.atlassian.net/browse/ONCEHUB-100612) [ONCE-UI] Upgrade Angular app to version 20 on once-ui
+
+## [9.0.2] - 2025-06-20
+
+- [ONCEHUB-58683 & ONCEHUB-99063](https://scheduleonce.atlassian.net/browse/ONCEHUB-58683) [ONCE-UI] Remove the unused package @storybook/storybook-deployer
+
+## [9.0.0] - 2025-04-10
+
+- [ONCEHUB-94991](https://scheduleonce.atlassian.net/browse/ONCEHUB-94991) [ONCE-UI] Upgrade Angular to version 19
+
 ## [8.0.38] - 2025-03-27
 
 - [ONCEHUB-93523](https://scheduleonce.atlassian.net/browse/ONCEHUB-93523) [ONCE-UI] Added the screen reader accessibility for tables in once-ui table component

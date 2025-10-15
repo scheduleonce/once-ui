@@ -26,6 +26,7 @@ export const DEC = 11;
       (monthSelected)="selectedMonth = $event"
     ></oui-year-view>
   `,
+  standalone: false,
 })
 class StandardYearView {
   date = new Date(2017, JAN, 5);
@@ -42,6 +43,7 @@ class StandardYearView {
       [dateFilter]="dateFilter"
     ></oui-year-view>
   `,
+  standalone: false,
 })
 class YearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -57,8 +59,8 @@ class YearViewWithDateFilter {
 }
 
 describe('OuiYearView', () => {
+  // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
-  console.log(dir);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -101,8 +103,8 @@ describe('OuiYearView', () => {
     it('has correct year label', () => {
       const labelEl = yearViewNativeElement.querySelector(
         '.oui-calendar-body-label'
-      )!;
-      expect(labelEl.innerHTML.trim()).toBe('2017');
+      );
+      expect(labelEl?.innerHTML?.trim()).toBe('2017');
     });
 
     it('has 12 months', () => {

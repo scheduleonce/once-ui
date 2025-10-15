@@ -1,7 +1,6 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
-  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -13,6 +12,8 @@ import {
   SimpleChanges,
   ViewEncapsulation,
   ViewChild,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { OuiButton } from '../button/button';
 import { merge, Observable, of as observableOf, Subscription } from 'rxjs';
@@ -22,6 +23,7 @@ import { OuiDatepickerIntl } from './datepicker-intl';
 /** Can be used to override the icon of a `ouiDatepickerToggle`. */
 @Directive({
   selector: '[ouiDatepickerToggleIcon]',
+  standalone: false,
 })
 export class OuiDatepickerToggleIcon {}
 
@@ -29,7 +31,6 @@ export class OuiDatepickerToggleIcon {}
   selector: 'oui-datepicker-toggle',
   templateUrl: 'datepicker-toggle.html',
   styleUrls: ['datepicker-toggle.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-datepicker-toggle',
     // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
@@ -44,10 +45,14 @@ export class OuiDatepickerToggleIcon {}
   exportAs: 'ouiDatepickerToggle',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiDatepickerToggle<D>
   implements AfterContentInit, OnChanges, OnDestroy
 {
+  _intl = inject(OuiDatepickerIntl);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+
   private _stateChanges = Subscription.EMPTY;
 
   /** Datepicker instance that the button will toggle. */
@@ -76,11 +81,11 @@ export class OuiDatepickerToggle<D>
   /** Underlying button element. */
   @ViewChild('button') _button: OuiButton;
 
-  constructor(
-    public _intl: OuiDatepickerIntl,
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Attribute('tabindex') defaultTabIndex: string
-  ) {
+  constructor() {
+    const defaultTabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex =
       parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;

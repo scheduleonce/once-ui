@@ -26,6 +26,7 @@ export const DEC = 11;
       [(selected)]="selected"
     ></oui-month-view>
   `,
+  standalone: false,
 })
 class StandardMonthView {
   date = new Date(2017, JAN, 5);
@@ -39,6 +40,7 @@ class StandardMonthView {
       [dateFilter]="dateFilter"
     ></oui-month-view>
   `,
+  standalone: false,
 })
 class MonthViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -54,6 +56,7 @@ class MonthViewWithDateFilter {
       [dateClass]="dateClass"
     ></oui-month-view>
   `,
+  standalone: false,
 })
 class MonthViewWithDateClass {
   activeDate = new Date(2017, JAN, 1);
@@ -63,8 +66,8 @@ class MonthViewWithDateClass {
 }
 
 describe('OuiMonthView', () => {
+  // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
-  console.log(dir);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -105,11 +108,11 @@ describe('OuiMonthView', () => {
       testComponent = fixture.componentInstance;
     });
 
-    it('has correct month label', () => {
+    it('does not display month label in calendar body', () => {
       const labelEl = monthViewNativeElement.querySelector(
         '.oui-calendar-body-label'
-      )!;
-      expect(labelEl.innerHTML.trim()).toBe('Jan');
+      );
+      expect(labelEl).toBeNull();
     });
 
     it('has 31 days', () => {

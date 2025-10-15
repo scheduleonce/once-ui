@@ -1,4 +1,4 @@
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { COLORS, APPEARANCE } from '../const';
 import { OuiDatepickerModule } from '../../components/datepicker';
 import { OuiFormFieldModule, OuiInputModule } from '../../components';

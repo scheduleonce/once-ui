@@ -14,7 +14,7 @@ import { A11yModule } from '@angular/cdk/a11y';
 import { OuiTabBodyPortal } from './tab-body';
 import { OuiTabContent } from './tab-content';
 import { OuiTabLabel } from './tab-label';
-import { ouiTabLabelWrapper } from './tab-label-wrapper';
+import { OuiTabLabelWrapper } from './tab-label-wrapper';
 import { OuiTab } from './tab';
 import { OuiTabHeader } from './tab-header';
 import { ouiTabGroup } from './tab-group';
@@ -48,7 +48,7 @@ import { OuiTabBody } from './tab-body';
     OuiTabLink,
 
     // Private directives, should not be exported.
-    ouiTabLabelWrapper,
+    OuiTabLabelWrapper,
     OuiTabHeader,
     OuiTabBody,
     OuiTabBodyPortal,

@@ -26,6 +26,7 @@ export const DEC = 11;
       (yearSelected)="selectedYear = $event"
     ></oui-multi-year-view>
   `,
+  standalone: false,
 })
 class StandardMultiYearView {
   date = new Date(2017, JAN, 1);
@@ -43,6 +44,7 @@ class StandardMultiYearView {
       [dateFilter]="dateFilter"
     ></oui-multi-year-view>
   `,
+  standalone: false,
 })
 class MultiYearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -52,8 +54,8 @@ class MultiYearViewWithDateFilter {
 }
 
 describe('OuiMultiYearView', () => {
+  // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
-  console.log(dir);
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

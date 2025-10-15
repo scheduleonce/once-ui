@@ -7,8 +7,7 @@ import {
   ChangeDetectionStrategy,
   ElementRef,
   OnInit,
-  Inject,
-  Optional,
+  inject,
 } from '@angular/core';
 import {
   BasePortalOutlet,
@@ -45,7 +44,6 @@ export function throwOuiDialogContentAlreadyAttachedError() {
   // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
   // eslint-disable-next-line
   changeDetection: ChangeDetectionStrategy.Default,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-container',
     tabindex: '-1',
@@ -56,8 +54,14 @@ export function throwOuiDialogContentAlreadyAttachedError() {
     '[attr.aria-label]': '_config.ariaLabel',
     '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
   },
+  standalone: false,
 })
 export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
+  private _focusTrapFactory = inject(ConfigurableFocusTrapFactory);
+  _config = inject(OuiDialogConfig);
+  elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _document = inject<Document>(DOCUMENT, { optional: true })!;
+
   /** The portal outlet inside of this container into which the dialog content will be loaded. */
   @ViewChild(CdkPortalOutlet, { static: true })
   _portalOutlet: CdkPortalOutlet;
@@ -74,12 +78,7 @@ export class OuiDialogContainer extends BasePortalOutlet implements OnInit {
   /** ID for the container DOM element. */
   _id: string;
 
-  constructor(
-    private _focusTrapFactory: ConfigurableFocusTrapFactory,
-    public _config: OuiDialogConfig,
-    public elementRef: ElementRef<HTMLElement>,
-    @Optional() @Inject(DOCUMENT) private _document: Document
-  ) {
+  constructor() {
     super();
   }
 
