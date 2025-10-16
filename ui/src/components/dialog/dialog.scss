@@ -8,6 +8,17 @@ $header-icon-height: 24px;
 .cdk-overlay-backdrop {
   background: rgba(255, 255, 255, 0.8) !important;
 }
+
+// First dialog backdrop - normal behavior
+.cdk-overlay-backdrop.oui-first-dialog-backdrop {
+  background: rgba(255, 255, 255, 0.8) !important;
+}
+
+// Nested dialog backdrops - transparent to prevent opacity stacking
+.cdk-overlay-backdrop.oui-nested-dialog-backdrop {
+  background: transparent !important;
+}
+
 .cdk-overlay-pane {
   display: block;
 }
