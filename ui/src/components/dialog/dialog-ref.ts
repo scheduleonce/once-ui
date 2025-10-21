@@ -78,20 +78,7 @@ export class OuiDialogRef<T, R = any> {
     this._beforeClosed.next(dialogResult);
     this._beforeClosed.complete();
     this._overlayRef.detachBackdrop();
-
-    // Trigger the detachment which will notify the dialog service
-    this._overlayRef.detach();
-  }
-
-  /**
-   * Internal method to dispose the overlay.
-   * This should only be called by the dialog service.
-   * @internal
-   */
-  _dispose(): void {
-    if (this._overlayRef) {
-      this._overlayRef.dispose();
-    }
+    this._overlayRef.dispose();
   }
 
   /**

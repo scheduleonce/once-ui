@@ -125,6 +125,12 @@ export class OuiDialog implements OnDestroy {
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: OuiDialogConfig<D>
   ): OuiDialogRef<T, R> {
+    const overlaySelector = document.querySelector(
+      '.cdk-overlay-backdrop-showing'
+    );
+    if (overlaySelector) {
+      (overlaySelector as HTMLElement).style.display = 'none';
+    }
     config = _applyConfigDefaults(
       config,
       this._defaultOptions || new OuiDialogConfig()
@@ -148,27 +154,11 @@ export class OuiDialog implements OnDestroy {
       this._hideNonDialogContentFromAssistiveTechnology();
     }
 
-    // Add the dialog to the stack (maintains order for nested dialogs)
     this.openDialogs.push(dialogRef);
-
-    // Set up proper z-index for stacking
-    const zIndex = 1000 + this.openDialogs.length;
-    overlayRef.overlayElement.style.zIndex = zIndex.toString();
-
-    // Subscribe to dialog close events
     this._dialogCloseSubscription = dialogRef.afterClosed().subscribe(() => {
       this._removeOpenDialog(dialogRef);
-
-      // Only restore focus if this is the topmost dialog being closed
-      // or if all dialogs are now closed
-      if (
-        this.openDialogs.length === 0 ||
-        this.openDialogs[this.openDialogs.length - 1] === dialogRef
-      ) {
-        dialogRef._containerInstance._restoreFocus();
-      }
+      dialogRef._containerInstance._restoreFocus();
     });
-
     this.afterOpened.next(dialogRef);
     dialogRef._containerInstance._trapFocus();
     return dialogRef;
@@ -217,13 +207,11 @@ export class OuiDialog implements OnDestroy {
    * @returns The overlay configuration.
    */
   private _getOverlayConfig(dialogConfig: OuiDialogConfig): OverlayConfig {
-    const dialogLevel = this.openDialogs.length;
-
     const state = new OverlayConfig({
       positionStrategy: this._overlay.position().global(),
       scrollStrategy: dialogConfig.scrollStrategy || new DialogScrollStrategy(),
       panelClass: dialogConfig.panelClass,
-      hasBackdrop: dialogConfig.hasBackdrop !== false,
+      hasBackdrop: dialogConfig.hasBackdrop,
       direction: dialogConfig.direction,
       minWidth: dialogConfig.minWidth,
       minHeight: dialogConfig.minHeight,
@@ -232,17 +220,8 @@ export class OuiDialog implements OnDestroy {
       disposeOnNavigation: true,
     });
 
-    // Add backdrop class to control opacity stacking
-    const baseClass = dialogConfig.backdropClass || '';
-    const levelClass =
-      dialogLevel === 0
-        ? 'oui-first-dialog-backdrop'
-        : 'oui-nested-dialog-backdrop';
-
-    if (baseClass) {
-      state.backdropClass = `${baseClass} ${levelClass}`;
-    } else {
-      state.backdropClass = levelClass;
+    if (dialogConfig.backdropClass) {
+      state.backdropClass = dialogConfig.backdropClass;
     }
 
     return state;
@@ -378,12 +357,7 @@ export class OuiDialog implements OnDestroy {
     const index = this.openDialogs.indexOf(dialogRef);
 
     if (index > -1) {
-      // Remove the dialog from the stack
       this.openDialogs.splice(index, 1);
-
-      // Properly dispose the overlay only after removing from stack
-      // This ensures nested dialogs are handled correctly
-      dialogRef._dispose();
 
       // If all the dialogs were closed, remove/restore the `aria-hidden`
       // to a the siblings and emit to the `afterAllClosed` stream.
@@ -433,17 +407,15 @@ export class OuiDialog implements OnDestroy {
 
   /** Closes all of the dialogs in an array. */
   private _closeDialogs(dialogs: OuiDialogRef<any>[]) {
-    // Close dialogs in reverse order (LIFO) to maintain proper nesting behavior
-    // This ensures that child dialogs are closed before parent dialogs
-    const dialogsToClose = [...dialogs].reverse();
+    let i = dialogs.length;
 
-    dialogsToClose.forEach((dialog) => {
+    while (i--) {
       // The `_openDialogs` property isn't updated after close until the rxjs subscription
       // runs on the next microtask, in addition to modifying the array as we're going
       // through it. We loop through all of them and call close without assuming that
       // they'll be removed from the list instantaneously.
-      dialog.close();
-    });
+      dialogs[i].close();
+    }
   }
 }
 
