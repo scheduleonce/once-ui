@@ -6,13 +6,12 @@ import {
   Component,
   ContentChild,
   ElementRef,
-  Inject,
   InjectionToken,
-  Optional,
   ViewChild,
   ViewEncapsulation,
   OnDestroy,
   Input,
+  inject,
 } from '@angular/core';
 import { mixinColor, ThemePalette } from '../core';
 import { Subject } from 'rxjs';
@@ -66,7 +65,6 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
   // in form-field-input.css. The OuiInput styles are fairly minimal so it shouldn't be a
   // big deal for people who aren't using OuiInput.
   styleUrls: ['form-field.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-form-field',
     '[class.oui-focused]': '_control.focused',
@@ -76,11 +74,19 @@ export const OUI_FORM_FIELD_DEFAULT_OPTIONS =
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiFormField
   extends _OuiFormFieldMixinBase
   implements AfterContentInit, AfterContentChecked, OnDestroy
 {
+  _elementRef: ElementRef;
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _defaults = inject<OuiFormFieldDefaultOptions>(
+    OUI_FORM_FIELD_DEFAULT_OPTIONS,
+    { optional: true }
+  )!;
+
   private _destroyed = new Subject<void>();
   @Input() color: ThemePalette;
   /** The form-field appearance style. */
@@ -100,14 +106,13 @@ export class OuiFormField
   _inputContainerRef: ElementRef;
   @ContentChild(OuiFormFieldControl)
   _control: OuiFormFieldControl<any>;
-  constructor(
-    public _elementRef: ElementRef,
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Optional()
-    @Inject(OUI_FORM_FIELD_DEFAULT_OPTIONS)
-    private _defaults: OuiFormFieldDefaultOptions
-  ) {
+
+  constructor() {
+    const _elementRef = inject(ElementRef);
+
     super(_elementRef);
+    this._elementRef = _elementRef;
+    const _defaults = this._defaults;
 
     // Set the default through here so we invoke the setter on the first run.
     this.appearance =

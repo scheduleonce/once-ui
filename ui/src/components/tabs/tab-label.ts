@@ -8,11 +8,10 @@
 
 import {
   Directive,
-  Inject,
   InjectionToken,
-  Optional,
   TemplateRef,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
 
@@ -33,13 +32,15 @@ export const OUI_TAB = new InjectionToken<any>('OUI_TAB');
 @Directive({
   selector: '[oui-tab-label], [OuiTabLabel]',
   providers: [{ provide: OUI_TAB_LABEL, useExisting: OuiTabLabel }],
+  standalone: false,
 })
 export class OuiTabLabel extends CdkPortal {
-  constructor(
-    templateRef: TemplateRef<any>,
-    viewContainerRef: ViewContainerRef,
-    @Inject(OUI_TAB) @Optional() public _closestTab: any
-  ) {
+  _closestTab = inject(OUI_TAB, { optional: true })!;
+
+  constructor() {
+    const templateRef = inject<TemplateRef<any>>(TemplateRef);
+    const viewContainerRef = inject(ViewContainerRef);
+
     super(templateRef, viewContainerRef);
   }
 }

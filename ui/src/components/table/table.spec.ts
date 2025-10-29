@@ -91,6 +91,7 @@ class FakeDataSource extends DataSource<TestData> {
       <oui-footer-row *ouiFooterRowDef="columnsToRender"></oui-footer-row>
     </oui-table>
   `,
+  standalone: false,
 })
 class OuiTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -121,6 +122,7 @@ class OuiTableApp {
       <tr oui-row *ouiRowDef="let row; columns: columnsToRender"></tr>
     </table>
   `,
+  standalone: false,
 })
 class NativeHtmlTableApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -152,6 +154,7 @@ class NativeHtmlTableApp {
       <oui-footer-row *ouiFooterRowDef="['column_a']"></oui-footer-row>
     </oui-table>
   `,
+  standalone: false,
 })
 class OuiTableWithWhenRowApp {
   @ViewChild(OuiTable, { static: true }) table: OuiTable<TestData>;
@@ -190,6 +193,7 @@ class OuiTableWithWhenRowApp {
 
     <oui-paginator [pageSize]="5"></oui-paginator>
   `,
+  standalone: false,
 })
 class ArrayDataSourceOuiTableApp implements AfterViewInit {
   underlyingDataSource = new FakeDataSource();
@@ -244,6 +248,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
   `,
+  standalone: false,
 })
 class OuiTableWithSortApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
@@ -295,6 +300,7 @@ class OuiTableWithSortApp implements OnInit {
 
     <oui-paginator [pageSize]="5"></oui-paginator>
   `,
+  standalone: false,
 })
 class OuiTableWithPaginatorApp implements OnInit {
   underlyingDataSource = new FakeDataSource();
@@ -336,6 +342,7 @@ class OuiTableWithPaginatorApp implements OnInit {
       </ng-container>
     </oui-table>
   `,
+  standalone: false,
 })
 class TableWithNgContainerRow {
   dataSource: FakeDataSource | null = new FakeDataSource();
@@ -531,8 +538,15 @@ describe('OuiTable', () => {
     });
   });
 
-  it('should be able to render a table correctly with native elements', () => {
+  it('should be able to render a table correctly with native elements', fakeAsync(() => {
     const fixture = TestBed.createComponent(NativeHtmlTableApp);
+    const app = fixture.componentInstance;
+
+    // Ensure the table is connected to the data source
+    app.table.dataSource = app.dataSource;
+    fixture.detectChanges();
+    flushMicrotasks();
+    tick();
     fixture.detectChanges();
 
     const tableElement = fixture.nativeElement.querySelector(
@@ -546,7 +560,7 @@ describe('OuiTable', () => {
       [data[2].a, data[2].b, data[2].c],
       [data[3].a, data[3].b, data[3].c],
     ]);
-  });
+  }));
 
   it('should render with OuiTableDataSource and sort', () => {
     const fixture = TestBed.createComponent(OuiTableWithSortApp);

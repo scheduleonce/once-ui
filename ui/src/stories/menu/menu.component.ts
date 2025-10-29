@@ -1,5 +1,5 @@
 import { OuiIconRegistry } from '../../components';
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -35,8 +35,12 @@ import { DomSanitizer } from '@angular/platform-browser';
       </button>
     </oui-menu>
   `,
+  standalone: false,
 })
 export class OuiMenuStorybook {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
   @Input() xPosition = 'before';
   @Input() yPosition = 'above';
   @Input() vertical = false;
@@ -46,10 +50,8 @@ export class OuiMenuStorybook {
   readonly _closed: EventEmitter<string> = new EventEmitter<string>();
   @Output()
   readonly _opened: EventEmitter<void> = new EventEmitter<void>();
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIcon(
       `local`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
@@ -102,8 +104,12 @@ export class OuiMenuStorybook {
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 export class OuiNestedMenuStorybook {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
   @Input() xPosition = 'before';
   @Input() yPosition = 'above';
   @Input() vertical = false;
@@ -112,10 +118,8 @@ export class OuiNestedMenuStorybook {
   readonly _closed: EventEmitter<string> = new EventEmitter<string>();
   @Output()
   readonly _opened: EventEmitter<void> = new EventEmitter<void>();
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIcon(
       `local`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(

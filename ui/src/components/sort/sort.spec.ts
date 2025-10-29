@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -64,8 +64,11 @@ import {
       </div>
     </div>
   `,
+  standalone: false,
 })
 class SimpleOuiSortApp {
+  elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
   latestSortEvent: Sort;
 
   active: string;
@@ -82,7 +85,7 @@ class SimpleOuiSortApp {
   @ViewChild('overrideDisableClear')
   overrideDisableClear: OuiSortHeader;
 
-  constructor(public elementRef: ElementRef<HTMLElement>) {}
+  constructor() {}
 
   /**
    * Checks expectations for each sort header's view state and arrow direction states. Receives a
@@ -160,6 +163,7 @@ class FakeDataSource extends DataSource<any> {
       <cdk-row *cdkRowDef="let row; columns: columnsToRender"></cdk-row>
     </cdk-table>
   `,
+  standalone: false,
 })
 class CdkTableOuiSortApp {
   @ViewChild(OuiSort) ouiSort: OuiSort;
@@ -196,6 +200,7 @@ class CdkTableOuiSortApp {
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
   `,
+  standalone: false,
 })
 class OuiTableOuiSortApp {
   @ViewChild(OuiSort) ouiSort: OuiSort;
@@ -206,6 +211,7 @@ class OuiTableOuiSortApp {
 
 @Component({
   template: ` <div oui-sort-header="a">A</div> `,
+  standalone: false,
 })
 class OuiSortHeaderMissingOuiSortApp {}
 
@@ -216,11 +222,13 @@ class OuiSortHeaderMissingOuiSortApp {}
       <div oui-sort-header="duplicateId">A</div>
     </div>
   `,
+  standalone: false,
 })
 class OuiSortDuplicateOuiSortableIdsApp {}
 
 @Component({
   template: ` <div ouiSort><div oui-sort-header>A</div></div> `,
+  standalone: false,
 })
 class OuiSortableMissingIdApp {}
 
@@ -230,6 +238,7 @@ class OuiSortableMissingIdApp {}
       <div oui-sort-header="a">A</div>
     </div>
   `,
+  standalone: false,
 })
 class OuiSortableInvalidDirection {}
 
