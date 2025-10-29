@@ -4,13 +4,11 @@ import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
   Directive,
   ElementRef,
-  Inject,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
-  Self,
+  inject,
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
@@ -108,6 +106,15 @@ export class OuiInput
   extends _OuiInputMixinBase
   implements OuiFormFieldControl<any>, OnChanges, OnDestroy, OnInit, CanColor
 {
+  _elementRef: ElementRef<
+    HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+  >;
+  protected _platform = inject(Platform);
+  ngControl: NgControl;
+  private _autofillMonitor = inject(AutofillMonitor);
+  _parentForm: NgForm;
+  _parentFormGroup: FormGroupDirective /** @docs-private */;
+
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
   private _inputValueAccessor: { value: any };
@@ -280,24 +287,20 @@ export class OuiInput
     'week',
   ].filter((t) => getSupportedInputTypes().has(t));
 
-  constructor(
-    public _elementRef: ElementRef<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >,
-    protected _platform: Platform,
-    /** @docs-private */
-    @Optional()
-    @Self()
-    public ngControl: NgControl,
-    @Optional()
-    @Self()
-    @Inject(OUI_INPUT_VALUE_ACCESSOR)
-    inputValueAccessor: any,
-    _defaultErrorStateMatcher: ErrorStateMatcher,
-    private _autofillMonitor: AutofillMonitor,
-    public _parentForm: NgForm,
-    public _parentFormGroup: FormGroupDirective /** @docs-private */
-  ) {
+  constructor() {
+    const _elementRef =
+      inject<
+        ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+      >(ElementRef);
+    const ngControl = inject(NgControl, { optional: true, self: true })!;
+    const inputValueAccessor = inject(OUI_INPUT_VALUE_ACCESSOR, {
+      optional: true,
+      self: true,
+    })!;
+    const _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+    const _parentForm = inject(NgForm);
+    const _parentFormGroup = inject(FormGroupDirective);
+
     super(
       _elementRef,
       _defaultErrorStateMatcher,
@@ -305,6 +308,10 @@ export class OuiInput
       _parentFormGroup,
       ngControl
     );
+    this._elementRef = _elementRef;
+    this.ngControl = ngControl;
+    this._parentForm = _parentForm;
+    this._parentFormGroup = _parentFormGroup;
 
     const element = this._elementRef.nativeElement;
 

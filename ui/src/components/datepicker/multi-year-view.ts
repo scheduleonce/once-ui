@@ -17,10 +17,10 @@ import {
   Component,
   EventEmitter,
   Input,
-  Optional,
   Output,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { OuiCalendarBody, OuiCalendarCell } from './calendar-body';
@@ -43,6 +43,10 @@ export const yearsPerRow = 4;
   standalone: false,
 })
 export class OuiMultiYearView<D> implements AfterContentInit {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  _dateAdapter = inject<DateAdapter<D>>(DateAdapter, { optional: true })!;
+  private _dir = inject(Directionality, { optional: true });
+
   /** The date to display in this multi-year view (everything other than the year is ignored). */
   @Input()
   get activeDate(): D {
@@ -130,11 +134,7 @@ export class OuiMultiYearView<D> implements AfterContentInit {
   /** The year of the selected date. Null if the selected date is null. */
   _selectedYear: number | null;
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Optional() public _dateAdapter: DateAdapter<D>,
-    @Optional() private _dir?: Directionality
-  ) {
+  constructor() {
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }

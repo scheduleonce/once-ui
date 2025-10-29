@@ -6,11 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Directive, ElementRef } from '@angular/core';
+import { Directive, ElementRef, inject } from '@angular/core';
 import { mixinInkBarItem } from './ink-bar';
 import { CanDisable, mixinDisabled } from '../core';
 
-// Boilerplate for applying mixins to ouiTabLabelWrapper.
+// Boilerplate for applying mixins to OuiTabLabelWrapper.
 /** @docs-private */
 const _OuiTabLabelWrapperMixinBase = mixinInkBarItem(
   mixinDisabled(
@@ -34,24 +34,26 @@ const _OuiTabLabelWrapperMixinBase = mixinInkBarItem(
   },
   standalone: false,
 })
-export class ouiTabLabelWrapper
+export class OuiTabLabelWrapper
   extends _OuiTabLabelWrapperMixinBase
   implements CanDisable
 {
-  constructor(override elementRef: ElementRef) {
+  constructor() {
     super();
+    // Inject ElementRef for the mixin
+    this.elementRef = inject(ElementRef);
   }
 
   /** Sets focus on the wrapper element */
   focus(): void {
-    this.elementRef.nativeElement.focus();
+    this.elementRef?.nativeElement?.focus();
   }
 
   getOffsetLeft(): number {
-    return this.elementRef.nativeElement.offsetLeft;
+    return this.elementRef?.nativeElement?.offsetLeft || 0;
   }
 
   getOffsetWidth(): number {
-    return this.elementRef.nativeElement.offsetWidth;
+    return this.elementRef?.nativeElement?.offsetWidth || 0;
   }
 }

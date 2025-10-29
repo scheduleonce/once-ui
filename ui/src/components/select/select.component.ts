@@ -18,7 +18,6 @@ import {
 import { CdkConnectedOverlay } from '@angular/cdk/overlay';
 import {
   AfterContentInit,
-  Attribute,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -34,14 +33,13 @@ import {
   OnChanges,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   QueryList,
-  Self,
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
-  Inject,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import {
   ControlValueAccessor,
@@ -218,6 +216,17 @@ export class OuiSelect
     OuiFormFieldControl<any>,
     CanUpdateErrorState
 {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _ngZone = inject(NgZone);
+  private _focusMonitor = inject(FocusMonitor);
+  private _dir = inject(Directionality, { optional: true })!;
+  private _parentFormField = inject(OuiFormField, { optional: true })!;
+  ngControl: NgControl;
+  private _document = inject(DOCUMENT, { optional: true })!;
+  _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  _ouiIconRegistry = inject(OuiIconRegistry);
+  private _domSanitizer = inject(DomSanitizer);
+
   /**Holds selected values after done */
   @Input() savedValues = [];
   /**Done button disabled until dropdown is dirty */
@@ -618,23 +627,16 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _ngZone: NgZone,
-    _defaultErrorStateMatcher: ErrorStateMatcher,
-    elementRef: ElementRef,
-    private _focusMonitor: FocusMonitor,
-    @Optional() private _dir: Directionality,
-    @Optional() _parentForm: NgForm,
-    @Optional() _parentFormGroup: FormGroupDirective,
-    @Optional() private _parentFormField: OuiFormField,
-    @Self() @Optional() public ngControl: NgControl,
-    @Attribute('tabindex') tabIndex: string,
-    @Optional() @Inject(DOCUMENT) private _document: any,
-    public _elementRef: ElementRef<HTMLElement>,
-    public _ouiIconRegistry: OuiIconRegistry,
-    private _domSanitizer: DomSanitizer
-  ) {
+  constructor() {
+    const _defaultErrorStateMatcher = inject(ErrorStateMatcher);
+    const elementRef = inject(ElementRef);
+    const _parentForm = inject(NgForm, { optional: true })!;
+    const _parentFormGroup = inject(FormGroupDirective, { optional: true })!;
+    const ngControl = inject(NgControl, { self: true, optional: true })!;
+    const tabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+
     super(
       elementRef,
       _defaultErrorStateMatcher,
@@ -642,6 +644,8 @@ export class OuiSelect
       _parentFormGroup,
       ngControl
     );
+    this.ngControl = ngControl;
+
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
       .subscribe(() => this._ngZone.run(() => {}));
@@ -767,7 +771,7 @@ export class OuiSelect
       this._elementRef.nativeElement.classList.remove(
         'oui-select-list-options-opened'
       );
-      setTimeout((_) => this._document.activeElement.blur());
+      setTimeout((_) => (this._document.activeElement as HTMLElement)?.blur());
     }
   }
 
@@ -900,13 +904,15 @@ export class OuiSelect
     const singleButtonRef = this.singleButton
       ?.nativeElement as HTMLButtonElement;
     const searchQueryString = '.oui-select-search-input';
-    const searchInput = this._document.querySelector(searchQueryString);
+    const searchInput = this._document.querySelector(
+      searchQueryString
+    ) as HTMLElement;
     if (!singleButtonFocused) {
       setTimeout(() => {
         singleButtonRef.focus();
       });
     } else if (this.isSearchFieldPresent && singleButtonFocused) {
-      searchInput.focus();
+      searchInput?.focus();
     } else {
       this.close();
     }
@@ -915,7 +921,9 @@ export class OuiSelect
   /** On Tab key press select the buttons at the bottom if actionItems is enabled and searchbar*/
   private tabKeySelection(focused: boolean, doneDisabled: boolean): void {
     const searchQueryString = '.oui-select-search-input';
-    const searchInput = this._document.querySelector(searchQueryString);
+    const searchInput = this._document.querySelector(
+      searchQueryString
+    ) as HTMLElement;
     const doneButtonRef = this.ddDoneButton?.nativeElement;
     const cancelButtonRef = this.ddCancelButton?.nativeElement;
     if (!focused) {
@@ -937,7 +945,7 @@ export class OuiSelect
         cancelButtonRef.classList.contains('cdk-focused')
       ) {
         if (this.isSearchFieldPresent) {
-          searchInput.focus();
+          searchInput?.focus();
         } else {
           doneButtonRef.focus();
         }
@@ -1503,7 +1511,9 @@ export class OuiSelect
     const cdkOverLayContainer = this._document.querySelector(
       '.cdk-overlay-container'
     );
-    const ouiSelectPanel = this._document.querySelector('.oui-select-panel');
+    const ouiSelectPanel = this._document.querySelector(
+      '.oui-select-panel'
+    ) as HTMLElement;
     cdkOverLayContainer.classList.add('oui-select-overlay-container');
     const containerWidth = this._elementRef.nativeElement.offsetWidth;
     ouiSelectPanel.style.width = `${containerWidth}px`;
@@ -1513,11 +1523,15 @@ export class OuiSelect
     }
   }
   scrollCalc(selectQueryString: string) {
-    const searchInput = this._document.querySelector(selectQueryString);
-    const outter = this._document.querySelector('.oui-select-panel');
-    let inner = this._document.querySelector('.oui-option');
+    const searchInput = this._document.querySelector(
+      selectQueryString
+    ) as HTMLElement;
+    const outter = this._document.querySelector(
+      '.oui-select-panel'
+    ) as HTMLElement;
+    let inner = this._document.querySelector('.oui-option') as HTMLElement;
     if (inner === null) {
-      inner = 0;
+      inner = { offsetWidth: 0 } as HTMLElement;
     }
     const scrollbarWidth = outter.offsetWidth - inner.offsetWidth;
     if (scrollbarWidth > 5) {

@@ -4,8 +4,7 @@ import {
   ChangeDetectionStrategy,
   Input,
   ViewEncapsulation,
-  Inject,
-  Optional,
+  inject,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
@@ -77,6 +76,8 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
   standalone: false,
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
+  private _document = inject(DOCUMENT, { optional: true })!;
+
   private static diameters = new Set<number>([BASE_SIZE]);
   private static styleTag: HTMLStyleElement | null = null;
   private _value = 0;
@@ -113,10 +114,10 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   set strokeWidth(value: number) {
     this._strokeWidth = coerceNumberProperty(value);
   }
-  constructor(
-    _elementRef: ElementRef,
-    @Optional() @Inject(DOCUMENT) private _document: any
-  ) {
+
+  constructor() {
+    const _elementRef = inject(ElementRef);
+
     super(_elementRef);
   }
 

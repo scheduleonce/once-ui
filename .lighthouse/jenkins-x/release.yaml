@@ -321,7 +321,7 @@ spec:
           command:
           - /bin/sh
           - -c
-          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v20.14.0
+          image: dockeronce.azurecr.io/oncehub/nodejs:angular-v22.16.0
           name: package-build-publish
           resources: {}
         volumes:

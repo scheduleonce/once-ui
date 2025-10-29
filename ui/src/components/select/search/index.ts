@@ -1,14 +1,13 @@
 import {
   Component,
   ElementRef,
-  Inject,
   Input,
   OnInit,
   ViewChild,
-  Optional,
   AfterViewChecked,
   forwardRef,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
@@ -36,6 +35,11 @@ import { ICONS } from '../../core/shared/icons';
 export class OuiSelectSearchComponent
   implements OnInit, AfterViewChecked, ControlValueAccessor, OnDestroy
 {
+  ouiSelect = inject<OuiSelect>(OuiSelect);
+  private _document = inject(DOCUMENT, { optional: true })!;
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
   /** Previously selected values when using <oui-select multiple>*/
   private previousSelectedValues: any[];
 
@@ -54,12 +58,7 @@ export class OuiSelectSearchComponent
   private onChange: (value: any) => void = () => {};
   onTouched = () => {};
 
-  constructor(
-    @Inject(OuiSelect) public ouiSelect: OuiSelect,
-    @Optional() @Inject(DOCUMENT) private _document: any,
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+  constructor() {
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?5df5gz'
@@ -133,11 +132,18 @@ export class OuiSelectSearchComponent
     }
   }
   scrollCalc(selectQueryString: string) {
-    const searchInput = this._document.querySelector(selectQueryString);
-    const outter = this._document.querySelector('.oui-select-panel');
-    let inner = this._document.querySelector('.oui-option');
+    const searchInput = this._document.querySelector(
+      selectQueryString
+    ) as HTMLElement;
+    const outter = this._document.querySelector(
+      '.oui-select-panel'
+    ) as HTMLElement;
+    const inner = this._document.querySelector('.oui-option') as HTMLElement;
+
     if (inner === null) {
-      inner = 0;
+      // If no options exist, use the full width of the panel
+      searchInput.style.width = '100%';
+      return;
     }
     const scrollbarWidth = outter.offsetWidth - inner.offsetWidth;
     if (scrollbarWidth > 5) {

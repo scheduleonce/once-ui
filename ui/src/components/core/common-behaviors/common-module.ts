@@ -8,13 +8,7 @@
 
 import { HighContrastModeDetector } from '@angular/cdk/a11y';
 import { BidiModule } from '@angular/cdk/bidi';
-import {
-  inject,
-  Inject,
-  InjectionToken,
-  NgModule,
-  Optional,
-} from '@angular/core';
+import { inject, InjectionToken, NgModule } from '@angular/core';
 import { VERSION as CDK_VERSION } from '@angular/cdk';
 import { DOCUMENT } from '@angular/common';
 import { Platform, _isTestEnvironment } from '@angular/cdk/platform';
@@ -59,16 +53,17 @@ export interface GranularSanityChecks {
   exports: [BidiModule],
 })
 export class OuiCommonModule {
+  private _sanityChecks = inject<SanityChecks>(MATERIAL_SANITY_CHECKS, {
+    optional: true,
+  })!;
+  private _document = inject<Document>(DOCUMENT);
+
   /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
   private _hasDoneGlobalChecks = false;
 
-  constructor(
-    highContrastModeDetector: HighContrastModeDetector,
-    @Optional()
-    @Inject(MATERIAL_SANITY_CHECKS)
-    private _sanityChecks: SanityChecks,
-    @Inject(DOCUMENT) private _document: Document
-  ) {
+  constructor() {
+    const highContrastModeDetector = inject(HighContrastModeDetector);
+
     // While A11yModule also does this, we repeat it here to avoid importing A11yModule
     // in OuiCommonModule.
     highContrastModeDetector._applyBodyHighContrastModeCssClasses();
