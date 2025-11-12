@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 
@@ -42,13 +42,15 @@ import { OuiIconRegistry } from '../../components';
       </ng-container>
     </ng-container>
   `,
+  standalone: false,
 })
 export class OuiTabStorybook {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
   selectedTab = 'first';
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?81ot1f'

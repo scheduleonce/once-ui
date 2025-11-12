@@ -124,6 +124,9 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
     // Add some dimensions so the element has an `innerText` which some people depend on in tests.
     min-width: 1px;
     min-height: 1px;
+    .cdk-overlay-pane {
+      display: flex;
+    }
   }
 
   // Used when disabling global scrolling.

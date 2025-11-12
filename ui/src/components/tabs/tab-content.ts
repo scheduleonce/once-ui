@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { Directive, InjectionToken, TemplateRef } from '@angular/core';
+import { Directive, InjectionToken, TemplateRef, inject } from '@angular/core';
 
 /**
  * Injection token that can be used to reference instances of `OuiTabContent`. It serves as
@@ -22,7 +22,10 @@ export const OUI_TAB_CONTENT = new InjectionToken<OuiTabContent>(
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[OuiTabContent]',
   providers: [{ provide: OUI_TAB_CONTENT, useExisting: OuiTabContent }],
+  standalone: false,
 })
 export class OuiTabContent {
-  constructor(/** Content for the tab. */ public template: TemplateRef<any>) {}
+  template = inject<TemplateRef<any>>(TemplateRef);
+
+  constructor() {}
 }

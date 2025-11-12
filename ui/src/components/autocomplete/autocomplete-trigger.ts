@@ -14,14 +14,12 @@ import {
   Directive,
   ElementRef,
   forwardRef,
-  Host,
-  Inject,
   InjectionToken,
   Input,
   NgZone,
   OnDestroy,
-  Optional,
   ViewContainerRef,
+  inject,
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -106,7 +104,6 @@ export function getOuiAutocompleteMissingPanelError(): Error {
 @Directive({
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[attr.autocomplete]': 'autocompleteAttribute',
     '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
@@ -125,13 +122,25 @@ export function getOuiAutocompleteMissingPanelError(): Error {
   },
   exportAs: 'ouiAutocompleteTrigger',
   providers: [OUI_AUTOCOMPLETE_VALUE_ACCESSOR],
+  standalone: false,
 })
 export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
+  private _element = inject<ElementRef<HTMLInputElement>>(ElementRef);
+  private _overlay = inject(Overlay);
+  private _viewContainerRef = inject(ViewContainerRef);
+  private _zone = inject(NgZone);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _formField = inject(OuiFormField, { optional: true, host: true })!;
+  private _document = inject<Document>(DOCUMENT, { optional: true })!;
+  private _viewportRuler = inject(ViewportRuler);
+
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
   private _componentDestroyed = false;
   private _autocompleteDisabled = false;
-  private _scrollStrategy: () => ScrollStrategy;
+  private _scrollStrategy: () => ScrollStrategy = inject(
+    OUI_AUTOCOMPLETE_SCROLL_STRATEGY
+  );
 
   /** Old value of the native input. Used to work around issues with the `input` event on IE. */
   private _previousValue: string | number | null;
@@ -228,29 +237,14 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     this._autocompleteDisabled = coerceBooleanProperty(value);
   }
 
-  constructor(
-    private _element: ElementRef<HTMLInputElement>,
-    private _overlay: Overlay,
-    private _viewContainerRef: ViewContainerRef,
-    private _zone: NgZone,
-    private _changeDetectorRef: ChangeDetectorRef,
-    @Inject(OUI_AUTOCOMPLETE_SCROLL_STRATEGY) scrollStrategy: any,
-    @Optional()
-    @Host()
-    private _formField: OuiFormField,
-    @Optional()
-    @Inject(DOCUMENT)
-    private _document: Document,
-    // @breaking-change 8.0.0 Make `_viewportRuler` required.
-    private _viewportRuler?: ViewportRuler
-  ) {
+  constructor() {
+    const _zone = this._zone;
+
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
         window.addEventListener('blur', this._windowBlurHandler);
       });
     }
-
-    this._scrollStrategy = scrollStrategy;
   }
 
   ngOnDestroy() {

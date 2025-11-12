@@ -9,6 +9,7 @@ import {
   NgZone,
   OnChanges,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import { take } from 'rxjs/operators';
 
@@ -42,7 +43,6 @@ export class OuiCalendarCell {
   selector: '[oui-calendar-body]',
   templateUrl: 'calendar-body.html',
   styleUrls: ['calendar-body.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-calendar-body',
     role: 'grid',
@@ -51,8 +51,12 @@ export class OuiCalendarCell {
   exportAs: 'ouiCalendarBody',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiCalendarBody implements OnChanges {
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _ngZone = inject(NgZone);
+
   /** The label for the table. (e.g. "Jan 2017"). */
   @Input() label: string;
 
@@ -94,10 +98,7 @@ export class OuiCalendarBody implements OnChanges {
   /** Width of an individual cell. */
   _cellWidth: string;
 
-  constructor(
-    private _elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone
-  ) {}
+  constructor() {}
 
   _cellClicked(cell: OuiCalendarCell): void {
     if (cell.enabled) {

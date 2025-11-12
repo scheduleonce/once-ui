@@ -10,7 +10,6 @@ import {
   ChangeDetectorRef,
   ElementRef,
   NgZone,
-  Optional,
   QueryList,
   EventEmitter,
   AfterContentChecked,
@@ -18,8 +17,8 @@ import {
   AfterViewInit,
   OnDestroy,
   Directive,
-  Inject,
   Input,
+  inject,
 } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import {
@@ -92,6 +91,14 @@ export type MatPaginatedTabHeaderItem = FocusableOption & {
 export abstract class OuiPaginatedTabHeader
   implements AfterContentChecked, AfterContentInit, AfterViewInit, OnDestroy
 {
+  protected _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected _changeDetectorRef = inject(ChangeDetectorRef);
+  private _viewportRuler = inject(ViewportRuler);
+  private _dir = inject(Directionality, { optional: true })!;
+  private _ngZone = inject(NgZone);
+  private _platform = inject(Platform);
+  _animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
+
   abstract _items: QueryList<MatPaginatedTabHeaderItem>;
   abstract _inkBar: {
     hide: () => void;
@@ -177,15 +184,10 @@ export abstract class OuiPaginatedTabHeader
   /** Event emitted when a label is focused. */
   readonly indexFocused: EventEmitter<number> = new EventEmitter<number>();
 
-  constructor(
-    protected _elementRef: ElementRef<HTMLElement>,
-    protected _changeDetectorRef: ChangeDetectorRef,
-    private _viewportRuler: ViewportRuler,
-    @Optional() private _dir: Directionality,
-    private _ngZone: NgZone,
-    private _platform: Platform,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
-  ) {
+  constructor() {
+    const _elementRef = this._elementRef;
+    const _ngZone = this._ngZone;
+
     // Bind the `mouseleave` event on the outside since it doesn't change anything in the view.
     _ngZone.runOutsideAngular(() => {
       fromEvent(_elementRef.nativeElement, 'mouseleave')

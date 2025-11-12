@@ -28,6 +28,7 @@ const DEC = 11;
     >
     </oui-calendar>
   `,
+  standalone: false,
 })
 class StandardCalendar {
   selected: Date;
@@ -44,6 +45,7 @@ class StandardCalendar {
       [maxDate]="maxDate"
     ></oui-calendar>
   `,
+  standalone: false,
 })
 class CalendarWithMinMax {
   startAt: Date;
@@ -60,6 +62,7 @@ class CalendarWithMinMax {
     >
     </oui-calendar>
   `,
+  standalone: false,
 })
 class CalendarWithDateFilter {
   selected: Date;
@@ -80,6 +83,7 @@ class CalendarWithDateFilter {
     >
     </oui-calendar>
   `,
+  standalone: false,
 })
 class CalendarWithSelectableMinDate {
   startAt = new Date(2018, JUL, 0);
@@ -116,8 +120,9 @@ export class MockNgZone extends NgZone {
 }
 
 describe('OuiCalendar', () => {
+  // @ts-ignore: Used in provider factory below
   let zone: MockNgZone;
-  console.log(zone);
+
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [OuiNativeDateModule, OuiDatepickerModule],
@@ -517,8 +522,8 @@ describe('OuiCalendar', () => {
     let fixture: ComponentFixture<CalendarWithDateFilter>;
     let testComponent: CalendarWithDateFilter;
     let calendarElement: HTMLElement;
+    // @ts-ignore: Used in beforeEach
     let calendarInstance: OuiCalendar<Date>;
-    console.log(calendarInstance);
 
     beforeEach(() => {
       fixture = TestBed.createComponent(CalendarWithDateFilter);

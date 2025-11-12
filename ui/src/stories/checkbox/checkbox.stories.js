@@ -1,5 +1,5 @@
 import { OuiCheckboxModule } from '../../components';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { LABELPOSITION, COLORS } from '../const';
 
 export default {

@@ -7,7 +7,7 @@ import {
   EventEmitter,
   ElementRef,
   ViewContainerRef,
-  Inject,
+  inject,
 } from '@angular/core';
 import {
   ScrollStrategy,
@@ -54,7 +54,6 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
  */
 @Directive({
   selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'panelOpen || null',
@@ -63,8 +62,14 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     '(keydown)': '_handleKeydown($event)',
   },
   exportAs: 'ouiPanelTrigger',
+  standalone: false,
 })
 export class OuiPanelTrigger implements OnDestroy {
+  private _overlay = inject(Overlay);
+  private _element = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _viewContainerRef = inject(ViewContainerRef);
+  private _focusTrapFactory = inject(ConfigurableFocusTrapFactory);
+
   private _portal: TemplatePortal;
   private _overlayRef: OverlayRef | null = null;
   private _panelOpen = false;
@@ -116,13 +121,9 @@ export class OuiPanelTrigger implements OnDestroy {
   @Output()
   readonly panelClosed: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor(
-    private _overlay: Overlay,
-    private _element: ElementRef<HTMLElement>,
-    private _viewContainerRef: ViewContainerRef,
-    private _focusTrapFactory: ConfigurableFocusTrapFactory,
-    @Inject(OUI_PANEL_SCROLL_STRATEGY) scrollStrategy: any
-  ) {
+  constructor() {
+    const scrollStrategy = inject(OUI_PANEL_SCROLL_STRATEGY);
+
     this._scrollStrategy = scrollStrategy;
   }
 

@@ -12,6 +12,7 @@ import { Input, Component } from '@angular/core';
       {{ text }}
     </div>
   `,
+  standalone: false,
 })
 export class OuiScrollbarTextStorybook {
   @Input() large = false;
@@ -35,6 +36,7 @@ export class OuiScrollbarTextStorybook {
       </ul>
     </div>
   `,
+  standalone: false,
 })
 export class OuiScrollbarListStorybook {
   @Input() large = false;
