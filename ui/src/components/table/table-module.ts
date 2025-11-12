@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { OuiTable } from './table';
 import { CdkTableModule } from '@angular/cdk/table';
 import {
+  _DisposeViewRepeaterStrategy,
+  _VIEW_REPEATER_STRATEGY,
+} from '@angular/cdk/collections';
+import {
   OuiCell,
   OuiCellDef,
   OuiColumnDef,
@@ -48,5 +52,11 @@ const EXPORTED_DECLARATIONS = [
   imports: [CdkTableModule, CommonModule],
   exports: EXPORTED_DECLARATIONS,
   declarations: EXPORTED_DECLARATIONS,
+  providers: [
+    {
+      provide: _VIEW_REPEATER_STRATEGY,
+      useClass: _DisposeViewRepeaterStrategy,
+    },
+  ],
 })
 export class OuiTableModule {}

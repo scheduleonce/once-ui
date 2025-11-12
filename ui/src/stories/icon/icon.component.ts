@@ -1,5 +1,5 @@
 import { OuiIconRegistry } from '../../components';
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'oui-icon-storybook',
@@ -12,15 +12,17 @@ import { DomSanitizer } from '@angular/platform-browser';
       [style.height.px]="size"
     ></oui-icon>
   `,
+  standalone: false,
 })
 export class OuiiconStorybook {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
   @Input() icon = 'notification-editor';
   @Input() color = 'primary';
   @Input() size = 20;
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIcon(
       `local`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(

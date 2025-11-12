@@ -1,4 +1,4 @@
-import { Input, Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   UntypedFormControl,
@@ -41,6 +41,7 @@ export const _filter = (opt: string[], value: string): string[] => {
       </oui-option>
     </oui-autocomplete>
   `,
+  standalone: false,
 })
 export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
@@ -106,8 +107,11 @@ export class OuiAutocompleteStorybook implements OnInit {
       </oui-autocomplete>
     </oui-form-field>
   `,
+  standalone: false,
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {
+  private fb = inject(UntypedFormBuilder);
+
   @Input() stateGroups: StateGroup[];
   @Input() appearance: string;
   @Input() autoActiveFirstOption: boolean;
@@ -124,7 +128,7 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
   });
   stateGroupOptions: Observable<StateGroup[]>;
 
-  constructor(private fb: UntypedFormBuilder) {}
+  constructor() {}
   ngOnInit() {
     this.stateGroupOptions = this.stateForm
       .get('stateGroup')!

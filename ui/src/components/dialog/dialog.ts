@@ -1,4 +1,3 @@
-import { Directionality } from '@angular/cdk/bidi';
 import {
   Overlay,
   OverlayConfig,
@@ -9,26 +8,17 @@ import {
 import {
   ComponentPortal,
   ComponentType,
-  PortalInjector,
   TemplatePortal,
 } from '@angular/cdk/portal';
 import {
-  Inject,
   Injectable,
   InjectionToken,
   Injector,
   OnDestroy,
-  Optional,
-  SkipSelf,
   TemplateRef,
+  inject,
 } from '@angular/core';
-import {
-  defer,
-  Observable,
-  of as observableOf,
-  Subject,
-  Subscription,
-} from 'rxjs';
+import { defer, Observable, Subject, Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { OuiDialogConfig } from './dialog-config';
 import { OuiDialogContainer } from './dialog-container';
@@ -74,6 +64,18 @@ export const OUI_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  */
 @Injectable()
 export class OuiDialog implements OnDestroy {
+  private _overlay = inject<Overlay>(Overlay);
+  private _injector = inject(Injector);
+  private _defaultOptions = inject<OuiDialogConfig>(
+    OUI_DIALOG_DEFAULT_OPTIONS,
+    { optional: true }
+  )!;
+  private _parentDialog = inject(OuiDialog, {
+    optional: true,
+    skipSelf: true,
+  })!;
+  private _overlayContainer = inject<OverlayContainer>(OverlayContainer);
+
   private _openDialogsAtThisLevel: OuiDialogRef<any>[] = [];
   private readonly _afterAllClosedAtThisLevel = new Subject<void>();
   private readonly _afterOpenedAtThisLevel = new Subject<OuiDialogRef<any>>();
@@ -109,17 +111,7 @@ export class OuiDialog implements OnDestroy {
       : this._afterAllClosed.pipe(startWith(undefined))
   );
 
-  constructor(
-    private _overlay: Overlay,
-    private _injector: Injector,
-    @Optional()
-    @Inject(OUI_DIALOG_DEFAULT_OPTIONS)
-    private _defaultOptions: OuiDialogConfig,
-    @Optional()
-    @SkipSelf()
-    private _parentDialog: OuiDialog,
-    private _overlayContainer: OverlayContainer
-  ) {}
+  constructor() {}
 
   /**
    * Opens a modal dialog containing the given component.
@@ -133,6 +125,12 @@ export class OuiDialog implements OnDestroy {
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     config?: OuiDialogConfig<D>
   ): OuiDialogRef<T, R> {
+    const overlaySelector = document.querySelector(
+      '.cdk-overlay-backdrop-showing'
+    );
+    if (overlaySelector) {
+      (overlaySelector as HTMLElement).style.display = 'none';
+    }
     config = _applyConfigDefaults(
       config,
       this._defaultOptions || new OuiDialogConfig()
@@ -143,7 +141,6 @@ export class OuiDialog implements OnDestroy {
         `Dialog with id "${config.id}" exists already. The dialog id must be unique.`
       );
     }
-
     const overlayRef = this._createOverlay(config);
     const dialogContainer = this._attachDialogContainer(overlayRef, config);
     const dialogRef = this._attachDialogContent<T, R>(
@@ -152,7 +149,6 @@ export class OuiDialog implements OnDestroy {
       overlayRef,
       config
     );
-
     // If this is the first dialog that we're opening, hide all the non-overlay content.
     if (!this.openDialogs.length) {
       this._hideNonDialogContentFromAssistiveTechnology();
@@ -244,10 +240,10 @@ export class OuiDialog implements OnDestroy {
   ): OuiDialogContainer {
     const userInjector =
       config && config.viewContainerRef && config.viewContainerRef.injector;
-    const injector = new PortalInjector(
-      userInjector || this._injector,
-      new WeakMap([[OuiDialogConfig, config]])
-    );
+    const injector = Injector.create({
+      parent: userInjector || this._injector,
+      providers: [{ provide: OuiDialogConfig, useValue: config }],
+    });
     const containerPortal = new ComponentPortal(
       OuiDialogContainer,
       config.viewContainerRef,
@@ -332,7 +328,7 @@ export class OuiDialog implements OnDestroy {
     config: OuiDialogConfig,
     dialogRef: OuiDialogRef<T>,
     dialogContainer: OuiDialogContainer
-  ): PortalInjector {
+  ): Injector {
     const userInjector =
       config && config.viewContainerRef && config.viewContainerRef.injector;
 
@@ -340,24 +336,16 @@ export class OuiDialog implements OnDestroy {
     // content are created out of the same ViewContainerRef and as such, are siblings for injector
     // purposes. To allow the hierarchy that is expected, the OuiDialogContainer is explicitly
     // added to the injection tokens.
-    const injectionTokens = new WeakMap<any, any>([
-      [OuiDialogContainer, dialogContainer],
-      [OUI_DIALOG_DATA, config.data],
-      [OuiDialogRef, dialogRef],
-    ]);
+    const providers = [
+      { provide: OuiDialogContainer, useValue: dialogContainer },
+      { provide: OUI_DIALOG_DATA, useValue: config.data },
+      { provide: OuiDialogRef, useValue: dialogRef },
+    ];
 
-    if (
-      config.direction &&
-      (!userInjector ||
-        !userInjector.get<Directionality | null>(Directionality, null))
-    ) {
-      injectionTokens.set(Directionality, {
-        value: config.direction,
-        change: observableOf(),
-      });
-    }
-
-    return new PortalInjector(userInjector || this._injector, injectionTokens);
+    return Injector.create({
+      parent: userInjector || this._injector,
+      providers: providers,
+    });
   }
 
   /**

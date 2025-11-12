@@ -3,12 +3,12 @@ import {
   Input,
   OnChanges,
   OnInit,
-  Optional,
   SimpleChanges,
   ElementRef,
   Component,
   NgZone,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
@@ -27,10 +27,10 @@ let dialogElementUid = 0;
 @Directive({
   selector: '[oui-dialog-header], [ouiDialogHeader]',
   exportAs: 'ouiDialogHeader',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header',
   },
+  standalone: false,
 })
 export class OuiDialogHeader {
   constructor() {}
@@ -42,10 +42,10 @@ export class OuiDialogHeader {
 @Directive({
   selector: '[oui-dialog-header-title], [ouiDialogHeaderTitle]',
   exportAs: 'ouiDialogHeaderTitle',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-title',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderTitle {
   constructor() {}
@@ -57,10 +57,10 @@ export class OuiDialogHeaderTitle {
 @Directive({
   selector: '[oui-dialog-header-image], [ouiDialogHeaderImage]',
   exportAs: 'ouiDialogHeaderImage',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-image',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderImage {
   constructor() {}
@@ -72,10 +72,10 @@ export class OuiDialogHeaderImage {
 @Directive({
   selector: '[oui-dialog-header-action], [ouiDialogHeaderAction]',
   exportAs: 'ouiDialogHeaderAction',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-action',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderAction {
   constructor() {}
@@ -89,20 +89,21 @@ export class OuiDialogHeaderAction {
   selector: '[oui-dialog-header-article], [ouiDialogHeaderArticle]',
   template: '<oui-icon svgIcon="help-library"></oui-icon>',
   exportAs: 'ouiDialogHeaderArticle',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-article',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderArticle implements OnDestroy {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
         'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?5df5gz'
@@ -125,21 +126,21 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   selector: '[oui-dialog-header-video], [ouiDialogHeaderVideo]',
   template: '<oui-icon svgIcon="video-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderVideo',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-video',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderVideo implements OnDestroy {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+  constructor() {
     this.ouiIconRegistry.addSvgIconLiteral(
       `video-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.VIDEO_ICON)
@@ -161,21 +162,22 @@ export class OuiDialogHeaderVideo implements OnDestroy {
   selector: '[oui-dialog-header-close], [ouiDialogHeaderClose]',
   template: '<oui-icon svgIcon="close-icon"></oui-icon>',
   exportAs: 'ouiDialogHeaderClose',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-close',
     '[attr.tabindex]': '0',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderClose implements OnDestroy {
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer,
-    protected elementRef: ElementRef<HTMLElement>,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+
+  constructor() {
     this.ouiIconRegistry.addSvgIconLiteral(
       `close-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.CLOSE_ICON)
@@ -195,10 +197,10 @@ export class OuiDialogHeaderClose implements OnDestroy {
 @Directive({
   selector: '[oui-dialog-header-separator], [ouiDialogHeaderSeparator]',
   exportAs: 'ouiDialogHeaderSeparator',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-header-separator',
   },
+  standalone: false,
 })
 export class OuiDialogHeaderSeparator {
   constructor() {}
@@ -210,7 +212,6 @@ export class OuiDialogHeaderSeparator {
 @Directive({
   selector: `[oui-dialog-close], [ouiDialogClose]`,
   exportAs: 'ouiDialogClose',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '[class.cross-disabled]': 'dialogResult===false',
     '(click)': 'closeDialog()',
@@ -218,8 +219,13 @@ export class OuiDialogHeaderSeparator {
     '(keyup.space)': 'handleKeydown($event)',
     '(keydown.enter)': 'handleKeydown($event)',
   },
+  standalone: false,
 })
 export class OuiDialogClose implements OnInit, OnChanges {
+  dialogRef = inject<OuiDialogRef<any>>(OuiDialogRef, { optional: true })!;
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _dialog = inject(OuiDialog);
+
   /** Screenreader label for the button. */
   @Input('aria-label')
   ariaLabel = 'Close dialog';
@@ -231,11 +237,7 @@ export class OuiDialogClose implements OnInit, OnChanges {
   @Input('ouiDialogClose')
   _ouiDialogClose: any;
 
-  constructor(
-    @Optional() public dialogRef: OuiDialogRef<any>,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _dialog: OuiDialog
-  ) {}
+  constructor() {}
 
   /** Ensures the option is selected when activated from the keyboard. */
   handleKeydown(event: KeyboardEvent): void {
@@ -278,17 +280,17 @@ export class OuiDialogClose implements OnInit, OnChanges {
 @Directive({
   selector: '[oui-dialog-content], [ouiDialogContent]',
   exportAs: 'ouiDialogContent',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-content',
   },
+  standalone: false,
 })
 export class OuiDialogContent implements OnInit {
-  constructor(
-    @Optional() public dialogRef: OuiDialogRef<any>,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _dialog: OuiDialog
-  ) {}
+  dialogRef = inject<OuiDialogRef<any>>(OuiDialogRef, { optional: true })!;
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _dialog = inject(OuiDialog);
+
+  constructor() {}
 
   ngOnInit() {
     if (!this.dialogRef) {
@@ -319,10 +321,10 @@ export class OuiDialogContent implements OnInit {
 @Directive({
   selector: '[oui-dialog-footer], [ouiDialogFooter]',
   exportAs: 'ouiDialogFooter',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-footer',
   },
+  standalone: false,
 })
 export class OuiDialogFooter {
   @Input()
@@ -336,10 +338,10 @@ export class OuiDialogFooter {
 @Directive({
   selector: '[oui-dialog-footer-action-left], [ouiDialogFooterActionLeft]',
   exportAs: 'ouiDialogFooterActionLeft',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-footer-action-left',
   },
+  standalone: false,
 })
 export class OuiDialogFooterActionLeft {
   constructor() {}
@@ -351,10 +353,10 @@ export class OuiDialogFooterActionLeft {
 @Directive({
   selector: '[oui-dialog-footer-action-right], [ouiDialogFooterActionRight]',
   exportAs: 'ouiDialogFooterActionRight',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-dialog-footer-action-right',
   },
+  standalone: false,
 })
 export class OuiDialogFooterActionRight {
   constructor() {}

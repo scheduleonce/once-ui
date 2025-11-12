@@ -6,16 +6,14 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  forwardRef,
-  Inject,
   Input,
   OnChanges,
   OnDestroy,
-  Optional,
   Output,
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { createMissingDateImplError } from './datepicker-errors';
@@ -42,17 +40,25 @@ export type OuiCalendarView = 'month' | 'year' | 'multi-year';
   selector: 'oui-calendar',
   templateUrl: 'calendar.html',
   styleUrls: ['calendar.scss'],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-calendar',
   },
   exportAs: 'ouiCalendar',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiCalendar<D>
   implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges
 {
+  private _dateAdapter = inject<DateAdapter<D>>(DateAdapter, {
+    optional: true,
+  })!;
+  private _dateFormats = inject<OuiDateFormats>(OUI_DATE_FORMATS, {
+    optional: true,
+  })!;
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+
   /** An input indicating the type of the header component, if set. */
   @Input() headerComponent: ComponentType<any>;
 
@@ -186,12 +192,10 @@ export class OuiCalendar<D>
    */
   stateChanges = new Subject<void>();
 
-  constructor(
-    _intl: OuiDatepickerIntl,
-    @Optional() private _dateAdapter: DateAdapter<D>,
-    @Optional() @Inject(OUI_DATE_FORMATS) private _dateFormats: OuiDateFormats,
-    private _changeDetectorRef: ChangeDetectorRef
-  ) {
+  constructor() {
+    const _intl = inject(OuiDatepickerIntl);
+    const _changeDetectorRef = this._changeDetectorRef;
+
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }
@@ -312,16 +316,20 @@ export class OuiCalendar<D>
   exportAs: 'ouiCalendarHeader',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiCalendarHeader<D> {
-  constructor(
-    private _intl: OuiDatepickerIntl,
-    @Inject(forwardRef(() => OuiCalendar)) public calendar: OuiCalendar<D>,
-    @Optional() private _dateAdapter: DateAdapter<D>,
-    changeDetectorRef: ChangeDetectorRef,
-    private ouiIconRegistry: OuiIconRegistry,
-    private domSanitizer: DomSanitizer
-  ) {
+  private _intl = inject(OuiDatepickerIntl);
+  calendar = inject<OuiCalendar<D>>(OuiCalendar);
+  private _dateAdapter = inject<DateAdapter<D>>(DateAdapter, {
+    optional: true,
+  })!;
+  private ouiIconRegistry = inject(OuiIconRegistry);
+  private domSanitizer = inject(DomSanitizer);
+
+  constructor() {
+    const changeDetectorRef = inject(ChangeDetectorRef);
+
     this.calendar.stateChanges.subscribe(() =>
       changeDetectorRef.markForCheck()
     );

@@ -9,9 +9,10 @@ import {
   ChangeDetectorRef,
   forwardRef,
   ElementRef,
-  Attribute,
   ViewChild,
   OnDestroy,
+  inject,
+  HostAttributeToken,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -63,7 +64,6 @@ export enum TransitionCheckState {
   templateUrl: './checkbox.html',
   styleUrls: ['./checkbox.scss'],
   exportAs: 'ouiCheckbox',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-checkbox',
     '[id]': 'id',
@@ -83,11 +83,17 @@ export enum TransitionCheckState {
       multi: true,
     },
   ],
+  standalone: false,
 })
 export class Checkbox
   extends OuiCheckboxMixinBase
   implements ControlValueAccessor, HasTabIndex, OnDestroy
 {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  _elementRef: ElementRef<HTMLElement>;
+  private _ngZone = inject(NgZone);
+  private _focusMonitor = inject(FocusMonitor);
+
   /**
    * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
    * take precedence so this may be omitted.
@@ -195,14 +201,16 @@ export class Checkbox
    * Implemented as part of HasTabIndex.
    */
   tabIndex: any;
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    public _elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone,
-    private _focusMonitor: FocusMonitor,
-    @Attribute('tabindex') tabIndex: string
-  ) {
+
+  constructor() {
+    const _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+    const tabIndex = inject(new HostAttributeToken('tabindex'), {
+      optional: true,
+    })!;
+
     super(_elementRef);
+    this._elementRef = _elementRef;
+
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)

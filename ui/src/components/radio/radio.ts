@@ -11,15 +11,14 @@ import {
   ElementRef,
   EventEmitter,
   forwardRef,
-  Inject,
   Input,
   OnDestroy,
   OnInit,
-  Optional,
   Output,
   QueryList,
   ViewChild,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -63,13 +62,15 @@ export class OuiRadioGroupBase {}
   exportAs: 'ouiRadioGroup',
   template: ` <ng-content></ng-content> `,
   providers: [OUI_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     role: 'radiogroup',
     class: 'oui-radio-group',
   },
+  standalone: false,
 })
 export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
+  private _changeDetector = inject(ChangeDetectorRef);
+
   /**
    * Event emitted when the group value changes.
    * Change events are only emitted when the value changes due to user interaction with
@@ -193,7 +194,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
     this._markRadiosForCheck();
   }
 
-  constructor(private _changeDetector: ChangeDetectorRef) {}
+  constructor() {}
 
   /**
    * Initialize properties once content children are available.
@@ -315,7 +316,6 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase =
   styleUrls: ['radio.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRadioButton',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-radio-button',
     '[class.oui-radio-checked]': 'checked',
@@ -330,11 +330,17 @@ export const OuiRadioButtonMixinBase: typeof OuiRadioButtonBase =
     '(click)': '_fireInputChange()',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class OuiRadioButton
   extends OuiRadioButtonMixinBase
   implements OnInit, AfterViewInit, OnDestroy
 {
+  private _changeDetector = inject(ChangeDetectorRef);
+  private _focusMonitor = inject(FocusMonitor);
+  private _radioDispatcher = inject(UniqueSelectionDispatcher);
+  _animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
+
   private _uniqueId = `oui-radio-${++nextUniqueId}`;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   /**
@@ -484,15 +490,13 @@ export class OuiRadioButton
   /** Unregister function for _radioDispatcher */
   private _removeUniqueSelectionListener: () => void = () => {};
 
-  constructor(
-    @Optional() radioGroup: OuiRadioGroup,
-    elementRef: ElementRef<HTMLElement>,
-    private _changeDetector: ChangeDetectorRef,
-    private _focusMonitor: FocusMonitor,
-    private _radioDispatcher: UniqueSelectionDispatcher,
-    @Optional() @Inject(ANIMATION_MODULE_TYPE) public _animationMode?: string
-  ) {
+  constructor() {
+    const radioGroup = inject(OuiRadioGroup, { optional: true })!;
+    const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+
     super(elementRef);
+    const _radioDispatcher = this._radioDispatcher;
+
     // Assertions. Ideally these should be stripped out by the compiler.
     // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
     this.radioGroup = radioGroup;

@@ -72,6 +72,7 @@ import {
       <button *ngFor="let item of extraItems" oui-menu-item>{{ item }}</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 class SimpleMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -90,6 +91,7 @@ class SimpleMenu {
       <button oui-menu-item>Positioned Content</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 class PositionedMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -109,6 +111,7 @@ interface TestableMenu {
       <button oui-menu-item>Not overlapped Content</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 class OverlapMenu implements TestableMenu {
   @Input() overlapTrigger: boolean;
@@ -125,6 +128,7 @@ class OverlapMenu implements TestableMenu {
     </ng-template>
   `,
   exportAs: 'ouiCustomMenu',
+  standalone: false,
 })
 class CustomMenuPanel implements OuiMenuPanel {
   direction: Direction;
@@ -147,6 +151,7 @@ class CustomMenuPanel implements OuiMenuPanel {
       <button oui-menu-item>Custom Content</button>
     </oui-custom-menu>
   `,
+  standalone: false,
 })
 class CustomMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -210,6 +215,7 @@ class CustomMenu {
       <button oui-menu-item>Twelve</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 class NestedMenu {
   @ViewChild('root') rootMenu: OuiMenu;
@@ -256,6 +262,7 @@ class NestedMenu {
       <button oui-menu-item>Four</button> <button oui-menu-item>Five</button>
     </oui-menu>
   `,
+  standalone: false,
 })
 class NestedMenuRepeater {
   @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef<HTMLElement>;
@@ -283,6 +290,7 @@ class NestedMenuRepeater {
       </oui-menu>
     </oui-menu>
   `,
+  standalone: false,
 })
 class SubmenuDeclaredInsideParentMenu {
   @ViewChild('rootTriggerEl') rootTriggerEl: ElementRef;
@@ -291,6 +299,7 @@ class SubmenuDeclaredInsideParentMenu {
 @Component({
   selector: 'oui-fake-icon',
   template: '<ng-content></ng-content>',
+  standalone: false,
 })
 class FakeIcon {}
 
@@ -305,6 +314,7 @@ class FakeIcon {}
       </ng-template>
     </oui-menu>
   `,
+  standalone: false,
 })
 class SimpleLazyMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -336,6 +346,7 @@ class SimpleLazyMenu {
       </ng-template>
     </oui-menu>
   `,
+  standalone: false,
 })
 class LazyMenuWithContext {
   @ViewChild('triggerOne') triggerOne: OuiMenuTrigger;
@@ -349,6 +360,7 @@ class LazyMenuWithContext {
 
     <oui-menu #two="ouiMenu"> <button oui-menu-item>Two</button> </oui-menu>
   `,
+  standalone: false,
 })
 class DynamicPanelMenu {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;
@@ -369,6 +381,7 @@ class DynamicPanelMenu {
       </button>
     </oui-menu>
   `,
+  standalone: false,
 })
 class MenuWithCheckboxItems {
   @ViewChild(OuiMenuTrigger) trigger: OuiMenuTrigger;

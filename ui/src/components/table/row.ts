@@ -7,6 +7,7 @@ import {
   ElementRef,
   NgZone,
   IterableDiffers,
+  inject,
 } from '@angular/core';
 import {
   CDK_ROW_TEMPLATE,
@@ -29,6 +30,7 @@ import { Subscription } from 'rxjs';
   providers: [{ provide: CdkHeaderRowDef, useExisting: OuiHeaderRowDef }],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['columns: ouiHeaderRowDef'],
+  standalone: false,
 })
 export class OuiHeaderRowDef extends CdkHeaderRowDef {}
 
@@ -41,6 +43,7 @@ export class OuiHeaderRowDef extends CdkHeaderRowDef {}
   providers: [{ provide: CdkFooterRowDef, useExisting: OuiFooterRowDef }],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['columns: ouiFooterRowDef'],
+  standalone: false,
 })
 export class OuiFooterRowDef extends CdkFooterRowDef {}
 
@@ -54,6 +57,7 @@ export class OuiFooterRowDef extends CdkFooterRowDef {}
   providers: [{ provide: CdkRowDef, useExisting: OuiRowDef }],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['columns: ouiRowDefColumns', 'when: ouiRowDefWhen'],
+  standalone: false,
 })
 export class OuiRowDef<T> extends CdkRowDef<T> {}
 
@@ -61,7 +65,6 @@ export class OuiRowDef<T> extends CdkRowDef<T> {}
 @Component({
   selector: 'oui-header-row, tr[oui-header-row]',
   template: CDK_ROW_TEMPLATE,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-header-row',
     role: 'row',
@@ -70,6 +73,7 @@ export class OuiRowDef<T> extends CdkRowDef<T> {}
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiHeaderRow',
   providers: [{ provide: CdkHeaderRow, useExisting: OuiHeaderRow }],
+  standalone: false,
 })
 export class OuiHeaderRow extends CdkHeaderRow {}
 
@@ -77,7 +81,6 @@ export class OuiHeaderRow extends CdkHeaderRow {}
 @Component({
   selector: 'oui-footer-row, tr[oui-footer-row]',
   template: CDK_ROW_TEMPLATE,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-footer-row',
     role: 'row',
@@ -86,6 +89,7 @@ export class OuiHeaderRow extends CdkHeaderRow {}
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiFooterRow',
   providers: [{ provide: CdkFooterRow, useExisting: OuiFooterRow }],
+  standalone: false,
 })
 export class OuiFooterRow extends CdkFooterRow {}
 
@@ -93,7 +97,6 @@ export class OuiFooterRow extends CdkFooterRow {}
 @Component({
   selector: 'oui-row, tr[oui-row]',
   template: CDK_ROW_TEMPLATE,
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'oui-row',
     role: 'row',
@@ -103,15 +106,17 @@ export class OuiFooterRow extends CdkFooterRow {}
   encapsulation: ViewEncapsulation.None,
   exportAs: 'ouiRow',
   providers: [{ provide: CdkRow, useExisting: OuiRow }],
+  standalone: false,
 })
 export class OuiRow extends CdkRow implements OnDestroy {
+  protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected _differs = inject(IterableDiffers);
+  private _focusMonitor = inject(FocusMonitor);
+  private _ngZone = inject(NgZone);
+
   private _monitorSubscription: Subscription = Subscription.EMPTY;
-  constructor(
-    protected elementRef: ElementRef<HTMLElement>,
-    protected _differs: IterableDiffers,
-    private _focusMonitor: FocusMonitor,
-    private _ngZone: NgZone
-  ) {
+
+  constructor() {
     super();
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
