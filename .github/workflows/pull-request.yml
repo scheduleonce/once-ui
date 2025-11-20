@@ -104,7 +104,29 @@ jobs:
           node-version: '22.16.0'
 
       # ---------------------------------------------------
-      # 2. Build TypeScript
+      # 2. Install Chrome Dependencies
+      # ---------------------------------------------------
+      - name: Install Chrome Dependencies
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libnspr4 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libasound2
+
+      # ---------------------------------------------------
+      # 3. Build TypeScript
       # ---------------------------------------------------
       - name: install-packages
         shell: bash
@@ -113,21 +135,21 @@ jobs:
           npm ci
 
       # ---------------------------------------------------
-      # 3. Test Prettier
+      # 4. Test Prettier
       # ---------------------------------------------------
       - name: Test Prettier
         shell: bash
         run: npm run prettier
 
       # ---------------------------------------------------
-      # 4. Test TSLint
+      # 5. Test TSLint
       # ---------------------------------------------------
       - name: Test Lint
         shell: bash
         run: npm run lint
 
       # ---------------------------------------------------
-      # 5. Unit Tests
+      # 6. Unit Tests
       # ---------------------------------------------------
       - name: Unit Tests
         shell: bash
