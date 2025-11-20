@@ -27,24 +27,74 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Checkout Actions Repository
-        uses: actions/checkout@v4
-        with:
-          repository: scheduleonce/github-workflows
-          token: ${{ secrets.GH_PAT }}
-          path: .github/actions-repo
+      - name: Install Azure CLI
+        shell: bash
+        run: |
+          if ! command -v az &>/dev/null; then
+            echo "Installing Azure CLI..."
+            curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+          fi
 
-      - name: Project setup
-        id: project-setup
-        uses: scheduleonce/github-workflows/.github/actions/setup@main
+      - name: Azure Login
+        uses: azure/login@v1
         with:
-          azure-keyvault-name: jx3-keyvault
-          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
-          base-ref: ${{ github.event.pull_request.base.ref }}
-          head-ref: ${{ github.event.pull_request.head.ref }}
-          base-branch: ${{ github.base_ref }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Get secrets from KeyVault
+        id: kv
+        uses: azure/get-keyvault-secrets@v1
+        with:
+          keyvault: jx3-keyvault
+          secrets: 'REGISTRY-PASSWORD, MERGE-DISABLED'
+
+      - name: Check merge toggle
+        shell: bash
+        run: |
+          if [[ "${{ github.event.pull_request.base.ref }}" == "qa" && "${{ steps.kv.outputs.MERGE-DISABLED }}" == "true" ]]; then
+            echo "❌ Merge disabled for QA branch."
+            exit 1
+          fi
+
+      - name: Check clean merge
+        shell: bash
+        run: |
+          set -e
+          echo "Checking if merge between base and head branches is clean..."
+          
+          git config --global --add user.name ${GIT_AUTHOR_NAME:-so-integrations}
+          git config --global --add user.email ${GIT_AUTHOR_EMAIL:-so-integrations@oncehub.com}
+          
+          git fetch origin ${{ github.event.pull_request.base.ref }}:base-ref
+          git fetch origin ${{ github.event.pull_request.head.ref }}:head-ref
+          git checkout base-ref
+          if ! git merge --no-commit --no-ff head-ref; then
+            echo "❌ Merge conflicts detected."
+            exit 1
+          fi
+          echo "✅ Clean merge confirmed."
+
+      - name: Set version tag output
+        id: version-tag
+        shell: bash
+        run: |
+          # Script to evaluate image tag.
+          branchName=${{ github.base_ref }}
+          echo "eval tag script for $branchName branch..."
+          teamBranchReg="team\/.*"
+          storyBranchReg=".*\/story\/.*"
+          if [[ $branchName =~ $teamBranchReg ]]; then
+            tag=$(echo $branchName | sed 's/team\//''/g' )
+          elif [[ $branchName =~ $storyBranchReg ]]; then
+            tag=$(echo $branchName | sed 's/\/.*/''/g' )
+          elif [[ $branchName == "master" ]]; then
+            tag="prod"
+          elif [[ $branchName == "qa" || $branchName == "staging-app2" ]]; then
+            tag=$branchName
+          else
+            tag="${branchName//\//'-'}"
+          fi
+          echo "tag=$tag" >> $GITHUB_OUTPUT
 
       # ---------------------------------------------------
       # 1. Setup Node.js
@@ -96,12 +146,29 @@ jobs:
       # - name: Code Coverage
       #   run: npm run coverage && npx nyc check-coverage --lines 65 --functions 65 --branches 65 --statements 6
 
-      - name: Build Image & Scan
-        uses: scheduleonce/github-workflows/.github/actions/image-build-scan@main
+      - name: Docker login
+        uses: docker/login-action@v2
         with:
-          repo-name: ${{ github.event.repository.name }}
-          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-          tag: "${{ steps.project-setup.outputs.version-tag }}-PR-${{ github.event.pull_request.number }}"
+          registry: dockeronce.azurecr.io/
+          username: dockeronce
+          password: ${{ steps.kv.outputs.REGISTRY-PASSWORD }}
+
+      - name: Push Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: dockeronce.azurecr.io/kubernetes/${{ github.event.repository.name }}:${{ steps.version-tag.outputs.tag }}-PR-${{ github.event.pull_request.number }}
+
+      - name: Trivy Scan
+        uses: aquasecurity/trivy-action@master
+        continue-on-error: true
+        with:
+          image-ref: dockeronce.azurecr.io/kubernetes/${{ github.event.repository.name }}:${{ steps.version-tag.outputs.tag }}-PR-${{ github.event.pull_request.number }}
+          format: 'table'
+          exit-code: '0'
+          severity: 'CRITICAL,HIGH'
     
     
       # - name: Sonar Scan
