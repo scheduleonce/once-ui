@@ -27,6 +27,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout Actions Repository
+        uses: actions/checkout@v4
+        with:
+          repository: scheduleonce/github-workflows
+          token: ${{ secrets.GH_PAT }}
+          path: .github/actions-repo
 
       - name: Project setup
         id: project-setup
