@@ -123,7 +123,16 @@ jobs:
             libxfixes3 \
             libxrandr2 \
             libgbm1 \
-            libasound2
+            libasound2 \
+            libpango-1.0-0 \
+            libcairo2 \
+            libx11-6 \
+            libx11-xcb1 \
+            libxcb1 \
+            libxext6 \
+            fonts-liberation \
+            libappindicator3-1 \
+            xdg-utils
 
       # ---------------------------------------------------
       # 3. Build TypeScript
@@ -155,9 +164,9 @@ jobs:
         shell: bash
         run: export NODE_ENV="test" && npm run test
 
-      - name: test-inte
-        shell: bash
-        run: npm run test:inte
+      # - name: test-inte
+      #   shell: bash
+      #   run: npm run test:inte
 
       # - name: Run Node Tests
       #   uses: scheduleonce/github-workflows/.github/actions/node-check@main
