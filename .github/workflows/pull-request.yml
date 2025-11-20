@@ -1,0 +1,103 @@
+name: CI Changes related to node PRs.....
+
+on:
+  pull_request:
+    branches:
+      - master
+      - qa
+      - staging-app2
+      - 'team/**'
+      - '**/story/**'
+
+permissions:
+  actions: read
+  contents: read
+
+env:
+  DOCKER_REGISTRY: "dockeronce.azurecr.io"
+  DOCKER_ORG: "kubernetes"
+  DOTNET_INSTALL_DIR: "./.node"
+
+jobs:
+  node-ci:
+    runs-on: once-ui-runner-scale-set
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Project setup
+        id: project-setup
+        uses: scheduleonce/github-workflows/.github/actions/setup@main
+        with:
+          azure-keyvault-name: jx3-keyvault
+          azure-credentials: ${{ secrets.AZURE_CREDENTIALS }}
+          base-ref: ${{ github.event.pull_request.base.ref }}
+          head-ref: ${{ github.event.pull_request.head.ref }}
+          base-branch: ${{ github.base_ref }}
+
+      # ---------------------------------------------------
+      # 1. Setup Node.js
+      # ---------------------------------------------------
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+
+      # ---------------------------------------------------
+      # 2. Build TypeScript
+      # ---------------------------------------------------
+      - name: install-packages
+        shell: bash
+        run: |
+          node -v
+          npm ci
+
+      # ---------------------------------------------------
+      # 3. Test Prettier
+      # ---------------------------------------------------
+      - name: Test Prettier
+        shell: bash
+        run: npm run prettier
+
+      # ---------------------------------------------------
+      # 4. Test TSLint
+      # ---------------------------------------------------
+      - name: Test Lint
+        shell: bash
+        run: npm run lint
+
+      # ---------------------------------------------------
+      # 5. Unit Tests
+      # ---------------------------------------------------
+      - name: Unit Tests
+        shell: bash
+        run: export NODE_ENV="test" && npm run test
+
+      - name: test-inte
+        shell: bash
+        run: npm run test:inte
+
+      # - name: Run Node Tests
+      #   uses: scheduleonce/github-workflows/.github/actions/node-check@main
+      #   with:
+      #     repo-name: ${{ github.event.repository.name }}
+      #     base-branch: ${{ github.base_ref }}
+      
+      # - name: Code Coverage
+      #   run: npm run coverage && npx nyc check-coverage --lines 65 --functions 65 --branches 65 --statements 6
+
+      - name: Build Image & Scan
+        uses: scheduleonce/github-workflows/.github/actions/image-build-scan@main
+        with:
+          repo-name: ${{ github.event.repository.name }}
+          registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          tag: "${{ steps.project-setup.outputs.version-tag }}-PR-${{ github.event.pull_request.number }}"
+    
+    
+      # - name: Sonar Scan
+      #   uses: scheduleonce/github-workflows/.github/actions/node-sonar-scan@main
+      #   with:
+      #     repo-name: ${{ github.event.repository.name }}
+      #     base-branch: ${{ github.base_ref }}
