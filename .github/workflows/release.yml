@@ -21,12 +21,95 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      
-      - name: Release Action
-        uses: scheduleonce/github-workflows/.github/actions/release@main
+
+      - name: Handle Race Condition
+        shell: bash
+        run: |
+          # Check for already running release pipeline and wait for them to get finished(if any) before continuing.
+          ENV=$(echo ${{ github.ref_name }} | cut -d '/' -f 2)
+          REPO_NAME=${{ github.event.repository.name }}
+          echo "Checking already running release pipelines for ${REPO_NAME}'s service on $ENV...";
+          CURRENT_BUILD_NO=${{ github.run_number }}
+          
+          checkAlreadyRunningPipelines() {
+            # Query GitHub API for running workflows on the same branch using curl
+            ALREADY_RUNNING_PIPELINES=$(curl -s \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secrets.READ_TOKEN }}" \
+              -H "X-GitHub-Api-Version: 2022-11-28" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/runs?status=in_progress&branch=${{ github.ref_name }}" \
+              | jq -r ".workflow_runs[] | select(.id < ${{ github.run_id }} and .name == \"${{ github.workflow }}\") | .id" 2>/dev/null || echo "")
+            
+            if [[ -n "$ALREADY_RUNNING_PIPELINES" && "$ALREADY_RUNNING_PIPELINES" != "" ]]; then
+              ALREADY_RUNNING_PIPELINES_COUNT=$(echo "$ALREADY_RUNNING_PIPELINES" | wc -l)
+            else
+              ALREADY_RUNNING_PIPELINES_COUNT=0
+            fi
+            
+            if [[ $ALREADY_RUNNING_PIPELINES_COUNT -gt 0 ]]; then
+              echo "Found $ALREADY_RUNNING_PIPELINES_COUNT running pipeline(s). Waiting for already running ${REPO_NAME}'s release pipelines to get finished before continuing to avoid race condition on $ENV..."
+              sleep 1m
+              checkAlreadyRunningPipelines
+            else
+              echo "No running pipelines found. Continuing..."
+            fi
+          }
+          checkAlreadyRunningPipelines
+
+      - name: Install Azure CLI
+        shell: bash
+        run: |
+          curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+      - name: Azure login
+        uses: azure/login@v1
         with:
-          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
-          READ_TOKEN: ${{ secrets.READ_TOKEN }}
-          SERVICE_NAME: ${{ github.event.repository.name }}
-          BASE_BRANCH: ${{ github.ref_name }}
-          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      
+      - name: Get secrets from Azure Key Vault
+        id: keyvaultSecrets
+        uses: azure/get-keyvault-secrets@v1
+        with:
+          keyvault: "jx3-keyvault"
+          secrets: 'REGISTRY-PASSWORD, AZURE-CLIENT-ID, AZURE-CLIENT-SECRET, AZURE-TENANT-ID, token-vs, qa-AZURE-CLIENT-ID, qa-AZURE-CLIENT-SECRET, qa-AZURE-TENANT-ID, qa-CLUSTER-NAME, qa-RESOURCE-GROUP, qa-KEY-VAULT, qa-CUSTOMER-NS, qa-USER-NS, qa-CUSTOMER-ID, qa-SHARED-KEY, qa-LOG-TYPE'
+      
+      - name: Generate Version Tag
+        id: version
+        shell: bash
+        run: |
+          branchName=${{ github.ref_name }}
+          echo "eval tag script for $branchName branch..."
+          teamBranchReg="team\/.*"
+          storyBranchReg=".*\/story\/.*"
+          if [[ $branchName =~ $teamBranchReg ]]; then
+            tag=$(echo $branchName | sed 's/team\//''/g' )
+          elif [[ $branchName =~ $storyBranchReg ]]; then
+            tag=$(echo $branchName | sed 's/\/.*/''/g' )
+          elif [[ $branchName == "master" ]]; then
+            tag="prod"
+          elif [[ $branchName == "qa" || $branchName == "staging-app2" ]]; then
+            tag=$branchName
+          else
+            tag="${branchName//\//'-'}"
+          fi
+          echo "Generated tag: $tag"
+          echo "tag=$tag" >> $GITHUB_OUTPUT 
+
+      - name: Docker login
+        uses: docker/login-action@v2
+        with:
+          registry: dockeronce.azurecr.io/
+          username: dockeronce
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Docker Image Build & Push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          provenance: false              # Prevent bloated metadata pushes
+          sbom: false                    # Avoids large uploads in ACR
+          no-cache: true                 # Avoid corrupted cached layers
+          tags: |
+            dockeronce.azurecr.io/kubernetes/${{ github.event.repository.name }}:${{ steps.version.outputs.tag }}-latest
