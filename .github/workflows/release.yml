@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - master
+      - qa
+      - staging-app2
+      - 'team/**'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  release:
+    runs-on: once-ui-runner-scale-set
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Release Action
+        uses: scheduleonce/github-workflows/.github/actions/release@main
+        with:
+          AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+          READ_TOKEN: ${{ secrets.READ_TOKEN }}
+          SERVICE_NAME: ${{ github.event.repository.name }}
+          BASE_BRANCH: ${{ github.ref_name }}
+          REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
