@@ -5,6 +5,7 @@ import {
   EventEmitter,
   Input,
   TemplateRef,
+  inject,
 } from '@angular/core';
 import { OuiDialog } from '../../components';
 
@@ -53,14 +54,18 @@ import { OuiDialog } from '../../components';
       </div>
     </ng-template>
   `,
+  standalone: false,
 })
 export class OuiDialogStorybook {
+  private dialog = inject(OuiDialog);
+
   @Output()
   readonly close: EventEmitter<string> = new EventEmitter<string>();
   @Input() disabled = false;
   @ViewChild('dialogTemplate')
   dialogTemplate: TemplateRef<unknown>;
-  constructor(private dialog: OuiDialog) {}
+
+  constructor() {}
   openDialog(e?: string) {
     const dialogRef = this.dialog.open(this.dialogTemplate);
     dialogRef.afterClosed().subscribe(() => {

@@ -1,15 +1,11 @@
 import {
   Directive,
   TemplateRef,
-  ComponentFactoryResolver,
-  ApplicationRef,
-  Injector,
   ViewContainerRef,
-  Inject,
   OnDestroy,
+  inject,
 } from '@angular/core';
-import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
+// Removed unused portal, sanitizer, and document imports after Angular 20 migration
 import { Subject } from 'rxjs';
 
 /**
@@ -17,49 +13,29 @@ import { Subject } from 'rxjs';
  */
 @Directive({
   selector: 'ng-template[ouiPanelContent]',
+  standalone: false,
 })
 export class OuiPanelContent implements OnDestroy {
-  private _portal: TemplatePortal<any>;
-  private _outlet: DomPortalOutlet;
+  private _template = inject<TemplateRef<any>>(TemplateRef);
+  private _viewContainerRef = inject(ViewContainerRef);
+
+  // Removed TemplatePortal and DomPortalOutlet for Angular 20+ migration
+  private _viewRef: any = null;
 
   /** Emits when the panel content has been attached. */
   _attached = new Subject<void>();
 
-  constructor(
-    private _template: TemplateRef<any>,
-    private _componentFactoryResolver: ComponentFactoryResolver,
-    private _appRef: ApplicationRef,
-    private _injector: Injector,
-    private _viewContainerRef: ViewContainerRef,
-    @Inject(DOCUMENT) private _document: Document
-  ) {}
+  constructor() {}
 
   /**
    * Attaches the content with a particular context.
    */
   attach(context: any = {}) {
-    if (!this._portal) {
-      this._portal = new TemplatePortal(this._template, this._viewContainerRef);
-    }
-
     this.detach();
-
-    if (!this._outlet) {
-      this._outlet = new DomPortalOutlet(
-        this._document.createElement('div'),
-        this._componentFactoryResolver,
-        this._appRef,
-        this._injector
-      );
-    }
-
-    const element: HTMLElement = this._template.elementRef.nativeElement;
-
-    // Because we support opening the same menu from different triggers (which in turn have their
-    // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
-    // risk it staying attached to a pane that's no longer in the DOM.
-    element.parentNode!.insertBefore(this._outlet.outletElement, element);
-    this._portal.attach(this._outlet, context);
+    this._viewRef = this._viewContainerRef.createEmbeddedView(
+      this._template,
+      context
+    );
     this._attached.next();
   }
 
@@ -67,14 +43,14 @@ export class OuiPanelContent implements OnDestroy {
    * Detaches the content.
    */
   detach() {
-    if (this._portal.isAttached) {
-      this._portal.detach();
+    if (this._viewRef) {
+      this._viewRef.destroy();
+      this._viewRef = null;
     }
   }
 
   ngOnDestroy() {
-    if (this._outlet) {
-      this._outlet.dispose();
-    }
+    this.detach();
+    this._attached.complete();
   }
 }

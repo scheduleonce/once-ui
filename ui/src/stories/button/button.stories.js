@@ -1,5 +1,5 @@
 import { OuiButtonModule, OuiIconModule } from '../../components';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import { COLORS, THEME } from '../const';
 import { OuiIconButtonStorybook } from './button.component';
 

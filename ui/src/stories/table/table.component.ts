@@ -1,5 +1,12 @@
 import { STORY_ICONS, USERINFOCOLUMNS } from './const';
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
 import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
@@ -31,6 +38,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       <oui-paginator pageSize="{{ pageSize }}"></oui-paginator>
     </div>
   `,
+  standalone: false,
 })
 export class OuiTableStorybook implements OnInit, OnChanges {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
@@ -153,8 +161,11 @@ export class OuiTableStorybook implements OnInit, OnChanges {
       </table>
     </div>
   `,
+  standalone: false,
 })
 export class OuiTableCustomStorybook implements OnChanges {
+  private sanitizer = inject(DomSanitizer);
+
   INTEGRATIONS = {
     paypal: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.PAYPAL),
     zapier: this.sanitizer.bypassSecurityTrustHtml(STORY_ICONS.ZAPIER),
@@ -174,7 +185,8 @@ export class OuiTableCustomStorybook implements OnChanges {
   @Input() users: any[] = [];
   @Input() pageSize: any[] = [];
   userInfoDataSource = new OuiTableDataSource(this.users);
-  constructor(private sanitizer: DomSanitizer) {}
+
+  constructor() {}
   ngOnChanges() {
     this.userInfoDataSource = new OuiTableDataSource(this.users);
     this.userInfoDataSource.sort = this.sort;

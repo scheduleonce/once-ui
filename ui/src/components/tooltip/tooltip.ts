@@ -27,14 +27,13 @@ import {
   Component,
   Directive,
   ElementRef,
-  Inject,
   InjectionToken,
   Input,
   NgZone,
   OnDestroy,
-  Optional,
   ViewContainerRef,
   ViewEncapsulation,
+  inject,
 } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { ouiTooltipAnimations } from './tooltip-animations';
@@ -118,7 +117,6 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [ouiTooltipAnimations.tooltipState],
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     // Forces the element to have a layout in IE and Edge. This fixes issues where the element
     // won't be rendered if the animations are disabled or there is no web animations polyfill.
@@ -126,8 +124,12 @@ export type TooltipVisibility = 'initial' | 'visible' | 'hidden';
     '(body:click)': 'this._handleBodyInteraction()',
     'aria-hidden': 'true',
   },
+  standalone: false,
 })
 export class TooltipComponent {
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _breakpointObserver = inject(BreakpointObserver);
+
   /** Message to display in the tooltip */
   message: string;
   /** Classes to be added to the tooltip. Supports the same syntax as `ngClass`. */
@@ -153,10 +155,7 @@ export class TooltipComponent {
     Breakpoints.Handset
   );
 
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _breakpointObserver: BreakpointObserver
-  ) {}
+  constructor() {}
 
   /**
    * Shows the tooltip with an animation originating from the provided origin
@@ -254,7 +253,6 @@ export class TooltipComponent {
 @Directive({
   selector: '[ouiTooltip]',
   exportAs: 'ouiTooltip',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     '(longpress)': 'show()',
     '(keydown)': '_handleKeydown($event)',
@@ -262,8 +260,18 @@ export class TooltipComponent {
     '[attr.tabindex]': 'disabled ? -1 : 0',
     '[attr.aria-hidden]': 'false',
   },
+  standalone: false,
 })
 export class OuiTooltip implements OnDestroy, CanDisable {
+  private _overlay = inject(Overlay);
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _scrollDispatcher = inject(ScrollDispatcher);
+  private _viewContainerRef = inject(ViewContainerRef);
+  private _ngZone = inject(NgZone);
+  private _ariaDescriber = inject(AriaDescriber);
+  private _focusMonitor = inject(FocusMonitor);
+  private _dir = inject(Directionality, { optional: true })!;
+
   _overlayRef: OverlayRef | null;
   _tooltipInstance: TooltipComponent | null;
 
@@ -361,18 +369,13 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   /** Emits when the component is destroyed. */
   private readonly _destroyed = new Subject<void>();
 
-  constructor(
-    private _overlay: Overlay,
-    private _elementRef: ElementRef<HTMLElement>,
-    private _scrollDispatcher: ScrollDispatcher,
-    private _viewContainerRef: ViewContainerRef,
-    private _ngZone: NgZone,
-    platform: Platform,
-    private _ariaDescriber: AriaDescriber,
-    private _focusMonitor: FocusMonitor,
-    @Inject(OUI_TOOLTIP_SCROLL_STRATEGY) scrollStrategy: any,
-    @Optional() private _dir: Directionality
-  ) {
+  constructor() {
+    const _elementRef = this._elementRef;
+    const _ngZone = this._ngZone;
+    const platform = inject(Platform);
+    const _focusMonitor = this._focusMonitor;
+    const scrollStrategy = inject(OUI_TOOLTIP_SCROLL_STRATEGY);
+
     this._scrollStrategy = scrollStrategy;
     const element: HTMLElement = _elementRef.nativeElement;
     const elementStyle = element.style as NewCSSStyleDeclaration & {
