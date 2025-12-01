@@ -19,7 +19,7 @@ env:
   DOTNET_INSTALL_DIR: "./.node"
 
 jobs:
-  node-ci:
+  ci-check:
     runs-on: once-ui-runner-scale-set
 
     steps:
