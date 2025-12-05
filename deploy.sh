@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 node package-deploy/npm-login.js $(cat "/etc/npm-cred/NPM_AUTH_TOKEN")
