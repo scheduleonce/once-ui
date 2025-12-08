@@ -113,3 +113,42 @@ jobs:
           no-cache: true                 # Avoid corrupted cached layers
           tags: |
             dockeronce.azurecr.io/kubernetes/${{ github.event.repository.name }}:${{ steps.version.outputs.tag }}-latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.16.0'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Package Build & Publish
+        shell: bash
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -e
+          
+          # NPM login
+          node package-deploy/npm-login.js ${{ secrets.NPM_TOKEN }}
+          npm whoami
+          
+          # Install dependencies and build package
+          npm i
+          chown root:root . && npm run package
+          
+          # Get package filename
+          filename="$(npm pack --dry-run | tail -n 1)"
+          echo "Package filename: $filename"
+          
+          # Determine publish tag based on branch
+          BRANCH_NAME="${{ github.ref_name }}"
+          echo "Branch: $BRANCH_NAME"
+          
+          if [[ "$BRANCH_NAME" == "qa" ]] || [[ "$BRANCH_NAME" == "master" ]] || [[ "$BRANCH_NAME" == "staging" ]] || [[ "$BRANCH_NAME" == "staging-app2" ]]; then
+            echo "Publishing to NPM with latest tag..."
+            npm publish dist/ui/$filename --registry=https://registry.npmjs.org/ || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
+          else
+            echo "Publishing to NPM with beta tag..."
+            npm publish --tag beta dist/ui/$filename --registry=https://registry.npmjs.org/ || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
+          fi
+          
+          echo "$filename package pushed to NPM successfully"
