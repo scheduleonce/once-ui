@@ -7,6 +7,7 @@ on:
       - qa
       - staging-app2
       - 'team/**'
+      - vitesh/add-package-publish
 
 permissions:
   id-token: write
@@ -135,8 +136,9 @@ jobs:
           npm i
           chown root:root . && npm run package
           
-          # Get package filename
-          filename="$(npm pack --dry-run | tail -n 1)"
+          # Navigate to dist/ui and pack the package
+          cd dist/ui
+          filename="$(npm pack)"
           echo "Package filename: $filename"
           
           # Determine publish tag based on branch
@@ -145,10 +147,10 @@ jobs:
           
           if [[ "$BRANCH_NAME" == "qa" ]] || [[ "$BRANCH_NAME" == "master" ]] || [[ "$BRANCH_NAME" == "staging" ]] || [[ "$BRANCH_NAME" == "staging-app2" ]]; then
             echo "Publishing to NPM with latest tag..."
-            npm publish dist/ui/$filename --registry=https://registry.npmjs.org/ || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
+            npm publish $filename --registry=https://registry.npmjs.org/ || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
           else
             echo "Publishing to NPM with beta tag..."
-            npm publish --tag beta dist/ui/$filename --registry=https://registry.npmjs.org/ || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
+            npm publish --tag beta $filename --registry=https://registry.npmjs.org/ || if [ $? -eq 1 ]; then echo "Package already exists, continuing pipeline..."; else exit 1; fi
           fi
           
           echo "$filename package pushed to NPM successfully"
