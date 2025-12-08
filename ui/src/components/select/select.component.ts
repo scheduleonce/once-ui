@@ -15,7 +15,7 @@ import {
   hasModifierKey,
   TAB,
 } from '@angular/cdk/keycodes';
-import { CdkConnectedOverlay } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, OverlayRef } from '@angular/cdk/overlay';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -261,6 +261,8 @@ export class OuiSelect
 
   /** In multiple selection mode, enable Done button even in case of no option selected */
   private _allowNoSelection = false;
+
+  readonly overlayRef: OverlayRef | null = null;
 
   /** Search input field **/
   isSearchFieldPresent: boolean;
@@ -1283,8 +1285,11 @@ export class OuiSelect
 
   /** Invoked when an option is clicked. */
   private _onSelect(option: OuiOption, isUserInput: boolean): void {
+    if (this.overlayRef) {
+      // Update the position when overlay is already open
+      this.overlayRef.updatePosition();
+    }
     const wasSelected = this._selectionModel.isSelected(option);
-
     if (option.value == null && !this._multiple) {
       option.deselect();
       this._selectionModel.clear();

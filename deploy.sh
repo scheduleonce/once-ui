@@ -1,7 +1,7 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
-node package-deploy/npm-login.js $(cat "/etc/npm-cred/NPM_AUTH_TOKEN")
+node package-deploy/npm-login.js "$2"
 npm whoami
 npm i
 chown root:root . && npm run package

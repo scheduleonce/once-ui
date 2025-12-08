@@ -71,7 +71,7 @@ jobs:
         uses: azure/get-keyvault-secrets@v1
         with:
           keyvault: "jx3-keyvault"
-          secrets: 'REGISTRY-PASSWORD, AZURE-CLIENT-ID, AZURE-CLIENT-SECRET, AZURE-TENANT-ID, token-vs, qa-AZURE-CLIENT-ID, qa-AZURE-CLIENT-SECRET, qa-AZURE-TENANT-ID, qa-CLUSTER-NAME, qa-RESOURCE-GROUP, qa-KEY-VAULT, qa-CUSTOMER-NS, qa-USER-NS, qa-CUSTOMER-ID, qa-SHARED-KEY, qa-LOG-TYPE'
+          secrets: 'REGISTRY-PASSWORD, npm-auth-token, AZURE-CLIENT-ID, AZURE-CLIENT-SECRET, AZURE-TENANT-ID, token-vs, qa-AZURE-CLIENT-ID, qa-AZURE-CLIENT-SECRET, qa-AZURE-TENANT-ID, qa-CLUSTER-NAME, qa-RESOURCE-GROUP, qa-KEY-VAULT, qa-CUSTOMER-NS, qa-USER-NS, qa-CUSTOMER-ID, qa-SHARED-KEY, qa-LOG-TYPE'
       
       - name: Generate Version Tag
         id: version
