@@ -134,7 +134,7 @@ jobs:
           
           # Install dependencies and build package
           npm i
-          chown root:root . && npm run package
+          npm run package
           
           # Navigate to dist/ui and pack the package
           cd dist/ui
