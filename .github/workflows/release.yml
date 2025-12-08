@@ -7,7 +7,6 @@ on:
       - qa
       - staging-app2
       - 'team/**'
-      - vitesh/add-package-publish
 
 permissions:
   id-token: write
