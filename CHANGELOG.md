@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [10.0.4] - 2025-12-17
+
+- [ONCEHUB-105787](https://scheduleonce.atlassian.net/browse/ONCEHUB-105787) Upgraded base Node version to security update v24.11.0 for enhanced security and stability.
+
 ## [10.0.3] - 2025-12-08
 
 - [ONCEHUB-108002](https://scheduleonce.atlassian.net/browse/ONCEHUB-108002) [ONCE-UI] [App3] update: Vulnerability found in package node-forge, @angular/compiler and express in project once-ui.
