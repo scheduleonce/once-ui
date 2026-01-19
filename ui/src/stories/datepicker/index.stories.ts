@@ -1,4 +1,3 @@
-import { action } from 'storybook/actions';
 import { COLORS, APPEARANCE } from '../const';
 import { OuiDatepickerModule } from '../../components/datepicker';
 import { OuiFormFieldModule, OuiInputModule } from '../../components';
@@ -8,6 +7,7 @@ import {
   OuiDatepickerStorybook,
   OuiDatepickerCustomStorybook,
 } from './datepicker.component';
+const action = (name: string) => (...args: any[]) => console.log(name, ...args);
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
 const CURRENT_DATE = new Date();

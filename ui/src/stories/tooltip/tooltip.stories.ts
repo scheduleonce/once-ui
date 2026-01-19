@@ -1,6 +1,6 @@
 import { OuiTooltipModule, OuiIconModule } from '../../components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { action } from 'storybook/actions';
+const action = (name: string) => (...args: any[]) => console.log(name, ...args);
 import { TOOLTIPPOSITION, THEME } from '../const';
 import { OuiTooltipStorybook } from './tooltip.component';
 
