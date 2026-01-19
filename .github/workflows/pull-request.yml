@@ -141,7 +141,7 @@ jobs:
         shell: bash
         run: |
           node -v
-          npm ci
+          npm ci --legacy-peer-deps
 
       # ---------------------------------------------------
       # 4. Test Prettier
