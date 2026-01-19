@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "10.0.5-beta.0",
+  "version": "10.0.7-beta.0",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -25,10 +25,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/architect": "0.2003.4",
-    "@angular-devkit/core": "20.3.7",
+    "@angular-devkit/architect": "0.2003.14",
+    "@angular-devkit/core": "20.3.14",
     "@angular/animations": "20.3.16",
-    "@angular/cdk": "20.2.7",
+    "@angular/cdk": "20.2.14",
     "@angular/common": "20.3.16",
     "@angular/compiler": "20.3.16",
     "@angular/core": "20.3.16",
@@ -38,16 +38,17 @@
     "@angular/router": "20.3.16",
     "core-js": "3.39.0",
     "rxjs": "7.8.1",
+    "tar": "^7.5.2",
     "tslib": "2.8.1",
     "zone.js": "^0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "20.3.7",
+    "@angular-devkit/build-angular": "20.3.14",
     "@angular-eslint/builder": "20.3.0",
     "@angular-eslint/eslint-plugin": "20.3.0",
     "@angular-eslint/eslint-plugin-template": "20.3.0",
     "@angular-eslint/template-parser": "20.3.0",
-    "@angular/cli": "21.1.0",
+    "@angular/cli": "20.3.14",
     "@angular/compiler-cli": "20.3.16",
     "@angular/elements": "20.3.16",
     "@angular/language-service": "20.3.16",
@@ -77,7 +78,7 @@
     "karma-jasmine": "4.0.1",
     "karma-jasmine-html-reporter": "1.7.0",
     "karma-junit-reporter": "2.0.1",
-    "ng-packagr": "20.0.0",
+    "ng-packagr": "20.3.2",
     "prettier": "2.8.0",
     "puppeteer": "22.15.0",
     "react": "^18.2.0",
@@ -87,6 +88,6 @@
     "scss-bundle": "3.1.2",
     "storybook": "^10.1.11",
     "tsx": "^4.7.0",
-    "typescript": "5.8.3"
+    "typescript": "^5.9.0"
   }
 }

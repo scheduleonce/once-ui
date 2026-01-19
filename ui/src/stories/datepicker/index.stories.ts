@@ -7,7 +7,10 @@ import {
   OuiDatepickerStorybook,
   OuiDatepickerCustomStorybook,
 } from './datepicker.component';
-const action = (name: string) => (...args: any[]) => console.log(name, ...args);
+const action =
+  (name: string) =>
+  (...args: unknown[]) =>
+    console.log(name, ...args);
 
 const START_VIEWS = ['month', 'year', 'multi-year'];
 const CURRENT_DATE = new Date();
