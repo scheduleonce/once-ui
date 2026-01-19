@@ -131,7 +131,7 @@ jobs:
             libxcb1 \
             libxext6 \
             fonts-liberation \
-            libappindicator3-1 \
+            libayatana-appindicator3-1 \
             xdg-utils
 
       # ---------------------------------------------------
