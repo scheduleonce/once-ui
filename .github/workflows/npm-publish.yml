@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: '24.11.0'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci
+      - run: npm ci --legacy-peer-deps
       - run: npm run build:lib
       # scoped packages are private by default so need to add public flag
       - run: npm publish --access public
