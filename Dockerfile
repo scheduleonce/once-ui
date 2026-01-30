@@ -2,7 +2,7 @@ FROM dockeronce.azurecr.io/node:24.11.0-alpine3.22 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN chown root:root .
-RUN npm install
+RUN npm install --legacy-peer-deps
 RUN chown root:root . && npm run build-storybook
 
 FROM nginx:alpine
