@@ -133,7 +133,8 @@ jobs:
           npm whoami
           
           # Install dependencies and build package
-          npm i
+          # Install dependencies and build package
+          npm i --legacy-peer-deps
           npm run package
           
           # Navigate to dist/ui and pack the package
