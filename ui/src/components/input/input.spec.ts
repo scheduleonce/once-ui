@@ -147,7 +147,9 @@ class OuiInputWithoutPlaceholder {}
 
 @Component({
   template: `
-    <oui-form-field><input oui-input [spellcheck]="spellcheck" /></oui-form-field>
+    <oui-form-field
+      ><input oui-input [spellcheck]="spellcheck"
+    /></oui-form-field>
   `,
   standalone: false,
 })
