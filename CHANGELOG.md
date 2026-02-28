@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [10.1.0] - 2026-02-25
+
+- [ONCEHUB-112193](https://scheduleonce.atlassian.net/browse/ONCEHUB-112193)Upgraded base Node version to security update v24.13.0 for enhanced security and stability
+
 ## [10.0.5] - 2026-01-26
 
 - Upgraded all Angular packages and other outdated dependencies to their latest compatible versions for improved security and stability.
