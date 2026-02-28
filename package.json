@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "10.1.0-beta",
+  "version": "10.1.0",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -62,8 +62,8 @@
     "@typescript-eslint/parser": "^8.51.0",
     "@webcomponents/custom-elements": "1.5.1",
     "babel-loader": "9.1.0",
-    "eslint": "^9.39.2",
-    "eslint-plugin-import": "^2.32.0",
+    "eslint": "8.57.0",
+    "eslint-plugin-import": "2.29.1",
     "eslint-plugin-jsdoc": "50.2.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "^9.1.17",

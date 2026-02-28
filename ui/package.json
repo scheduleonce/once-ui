@@ -1,6 +1,6 @@
 {
   "name": "@oncehub/ui",
-  "version": "10.1.0-beta",
+  "version": "10.1.0",
   "description": "Oncehub UI",
   "peerDependencies": {},
   "repository": {
