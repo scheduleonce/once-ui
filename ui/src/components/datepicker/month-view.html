@@ -1,9 +1,11 @@
 <table class="oui-calendar-table">
   <thead class="oui-calendar-table-header">
     <tr>
-      <th *ngFor="let day of _weekdays" [attr.aria-label]="day.long">
-        {{day.narrow}}
-      </th>
+      @for (day of _weekdays; track day) {
+        <th [attr.aria-label]="day.long">
+          {{day.narrow}}
+        </th>
+      }
     </tr>
     <tr>
       <th class="oui-calendar-table-header-divider" colspan="7"></th>

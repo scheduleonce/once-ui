@@ -1,7 +1,7 @@
 <div class="oui-tooltip-wrapper">
   <div
     class="oui-tooltip"
-    [ngClass]="tooltipClass"
+    [class]="tooltipClass"
     [@state]="_visibility"
     (@state.start)="_animationStart()"
     (@state.done)="_animationDone($event)"

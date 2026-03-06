@@ -557,20 +557,21 @@ interface Tab {
         (indexFocused)="focusedIndex = $event"
         (selectFocusedIndex)="selectedIndex = $event"
         [disablePagination]="disablePagination"
-      >
-        <div
-          ouiTabLabelWrapper
-          class="label-content"
-          style="min-width: 30px; width: 30px"
-          *ngFor="let tab of tabs; let i = index"
-          [disabled]="!!tab.disabled"
-          (click)="selectedIndex = i"
         >
-          {{ tab.label }}
-        </div>
+        @for (tab of tabs; track tab; let i = $index) {
+          <div
+            ouiTabLabelWrapper
+            class="label-content"
+            style="min-width: 30px; width: 30px"
+            [disabled]="!!tab.disabled"
+            (click)="selectedIndex = i"
+            >
+            {{ tab.label }}
+          </div>
+        }
       </oui-tab-header>
     </div>
-  `,
+    `,
   styles: [
     `
       :host {

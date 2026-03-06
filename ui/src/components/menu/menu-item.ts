@@ -5,7 +5,7 @@ import {
   ElementRef,
   OnDestroy,
   ViewEncapsulation,
-  Input,
+  input,
   inject,
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
@@ -30,7 +30,7 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
   host: {
-    '[attr.role]': 'role',
+    '[attr.role]': 'role()',
     class: 'oui-menu-item',
     '[class.oui-menu-item-highlighted]': '_highlighted',
     '[class.oui-menu-item-submenu-trigger]': '_triggersSubmenu',
@@ -56,8 +56,7 @@ export class OuiMenuItem
   });
 
   /** ARIA role for the menu item. */
-  @Input()
-  role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
+  readonly role = input<'menuitem' | 'menuitemradio' | 'menuitemcheckbox'>('menuitem');
 
   private _document: Document;
 

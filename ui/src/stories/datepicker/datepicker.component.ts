@@ -1,9 +1,8 @@
 import {
   Component,
-  Output,
-  EventEmitter,
-  Input,
-  OnChanges,
+  effect,
+  input,
+  output,
 } from '@angular/core';
 import { OuiDatepickerInputEvent } from '../../components/datepicker';
 import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
@@ -28,7 +27,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   selector: 'oui-datepicker-storybook',
   template: `
     <div style="max-width: 170px;">
-      <oui-form-field [appearance]="appearance">
+      <oui-form-field [appearance]="appearance()">
         <input
           oui-input
           [ouiDatepicker]="picker"
@@ -40,10 +39,10 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
         />
         <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
         <oui-datepicker
-          [disabled]="disabled"
-          [startView]="startView"
-          [opened]="opened"
-          [color]="color"
+          [disabled]="disabled()"
+          [startView]="startView()"
+          [opened]="opened()"
+          [color]="color()"
           (closed)="closed($event)"
           (monthSelected)="monthSelected($event)"
           (opened)="datepickeropened($event)"
@@ -55,36 +54,32 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
   `,
   standalone: false,
 })
-export class OuiDatepickerStorybook implements OnChanges {
-  @Input() appearance = 'standard';
-  @Input() color = 'primary';
-  @Input() startView = ['month', 'year', 'multi-year'];
-  @Input() opened = false;
-  @Input() disabled = false;
-  @Input() mindate: Date = new Date();
+export class OuiDatepickerStorybook {
+  readonly appearance = input('standard');
+  readonly color = input('primary');
+  readonly startView = input<any>(['month', 'year', 'multi-year']);
+  readonly opened = input(false);
+  readonly disabled = input(false);
+  readonly mindate = input<Date>(new Date());
   minDate: Date = new Date();
-  @Input() value: Date = new Date();
+  readonly value = input<Date>(new Date());
   _value: Date = new Date();
-  @Input() maxdate: Date = new Date();
+  readonly maxdate = input<Date>(new Date());
   maxDate: Date = new Date();
-  @Output()
-  readonly _closed: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _monthSelected: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _opened: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _yearSelected: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _dateChange: EventEmitter<string> = new EventEmitter<string>();
-  constructor() {}
-  ngOnChanges() {
-    this.minDate = new Date(this.mindate);
-    this.maxDate = new Date(this.maxdate);
-    this._value = new Date(this.value);
-    if (this.opened) {
-      (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
-    }
+  readonly _closed = output<string>();
+  readonly _monthSelected = output<string>();
+  readonly _opened = output<string>();
+  readonly _yearSelected = output<string>();
+  readonly _dateChange = output<string>();
+  constructor() {
+    effect(() => {
+      this.minDate = new Date(this.mindate());
+      this.maxDate = new Date(this.maxdate());
+      this._value = new Date(this.value());
+      if (this.opened()) {
+        (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
+      }
+    });
   }
 
   closed(e?: string) {
@@ -108,7 +103,7 @@ export class OuiDatepickerStorybook implements OnChanges {
   selector: 'oui-datepicker-custom-storybook',
   template: `
     <div style="max-width: 170px;">
-      <oui-form-field [appearance]="appearance">
+      <oui-form-field [appearance]="appearance()">
         <input
           oui-input
           [ouiDatepicker]="picker"
@@ -120,10 +115,10 @@ export class OuiDatepickerStorybook implements OnChanges {
         />
         <oui-datepicker-toggle ouiSuffix [for]="picker"></oui-datepicker-toggle>
         <oui-datepicker
-          [disabled]="disabled"
-          [startView]="startView"
-          [opened]="opened"
-          [color]="color"
+          [disabled]="disabled()"
+          [startView]="startView()"
+          [opened]="opened()"
+          [color]="color()"
           (closed)="closed($event)"
           (monthSelected)="monthSelected($event)"
           (opened)="datepickeropened($event)"
@@ -136,36 +131,32 @@ export class OuiDatepickerStorybook implements OnChanges {
   providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
   standalone: false,
 })
-export class OuiDatepickerCustomStorybook implements OnChanges {
-  @Input() appearance = 'standard';
-  @Input() color = 'primary';
-  @Input() startView = ['month', 'year', 'multi-year'];
-  @Input() opened = false;
-  @Input() disabled = false;
-  @Input() mindate: Date = new Date();
+export class OuiDatepickerCustomStorybook {
+  readonly appearance = input('standard');
+  readonly color = input('primary');
+  readonly startView = input<any>(['month', 'year', 'multi-year']);
+  readonly opened = input(false);
+  readonly disabled = input(false);
+  readonly mindate = input<Date>(new Date());
   minDate: Date = new Date();
-  @Input() value: Date = new Date();
+  readonly value = input<Date>(new Date());
   _value: Date = new Date();
-  @Input() maxdate: Date = new Date();
+  readonly maxdate = input<Date>(new Date());
   maxDate: Date = new Date();
-  @Output()
-  readonly _closed: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _monthSelected: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _opened: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _yearSelected: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _dateChange: EventEmitter<string> = new EventEmitter<string>();
-  constructor() {}
-  ngOnChanges() {
-    this.minDate = new Date(this.mindate);
-    this.maxDate = new Date(this.maxdate);
-    this._value = new Date(this.value);
-    if (this.opened) {
-      (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
-    }
+  readonly _closed = output<string>();
+  readonly _monthSelected = output<string>();
+  readonly _opened = output<string>();
+  readonly _yearSelected = output<string>();
+  readonly _dateChange = output<string>();
+  constructor() {
+    effect(() => {
+      this.minDate = new Date(this.mindate());
+      this.maxDate = new Date(this.maxdate());
+      this._value = new Date(this.value());
+      if (this.opened()) {
+        (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
+      }
+    });
   }
   closed(e?: string) {
     this._closed.emit(e);
@@ -189,7 +180,7 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
   template: `
     <div style="display: inline-flex;">
       <div style="max-width: 170px;">
-        <oui-form-field [appearance]="appearance">
+        <oui-form-field [appearance]="appearance()">
           <input
             oui-input
             [ouiDatepicker]="minpicker"
@@ -203,15 +194,15 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
             [for]="minpicker"
           ></oui-datepicker-toggle>
           <oui-datepicker
-            [disabled]="disabled"
-            [startView]="startView"
-            [color]="color"
+            [disabled]="disabled()"
+            [startView]="startView()"
+            [color]="color()"
             #minpicker
           ></oui-datepicker>
         </oui-form-field>
       </div>
       <div style="max-width: 170px;margin-left: 20px;">
-        <oui-form-field [appearance]="appearance">
+        <oui-form-field [appearance]="appearance()">
           <input
             oui-input
             [ouiDatepicker]="maxpicker"
@@ -225,9 +216,9 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
             [for]="maxpicker"
           ></oui-datepicker-toggle>
           <oui-datepicker
-            [disabled]="disabled"
-            [startView]="startView"
-            [color]="color"
+            [disabled]="disabled()"
+            [startView]="startView()"
+            [color]="color()"
             #maxpicker
           ></oui-datepicker>
         </oui-form-field>
@@ -236,24 +227,24 @@ export class OuiDatepickerCustomStorybook implements OnChanges {
   `,
   standalone: false,
 })
-export class OuiDaterangepickerStorybook implements OnChanges {
-  @Input() appearance = 'standard';
-  @Input() color = 'primary';
-  @Input() startView = 'primary';
-  @Input() opened = false;
-  @Input() disabled = false;
-  @Input() mindate: Date;
+export class OuiDaterangepickerStorybook {
+  readonly appearance = input('standard');
+  readonly color = input('primary');
+  readonly startView = input('primary');
+  readonly opened = input(false);
+  readonly disabled = input(false);
+  readonly mindate = input<Date>();
   minDate: Date = new Date();
   minRangeDate: Date;
-  @Input() maxdate: Date;
+  readonly maxdate = input<Date>();
   maxRangeDate: Date;
   maxDate: Date;
-  @Output()
-  readonly _dateChange: EventEmitter<{}> = new EventEmitter<{}>();
-  constructor() {}
-  ngOnChanges() {
-    this.minRangeDate = new Date(this.mindate);
-    this.maxRangeDate = new Date(this.maxdate);
+  readonly _dateChange = output<{}>();
+  constructor() {
+    effect(() => {
+      if (this.mindate()) this.minRangeDate = new Date(this.mindate());
+      if (this.maxdate()) this.maxRangeDate = new Date(this.maxdate());
+    });
   }
   mindateChange(e: OuiDatepickerInputEvent<Date>) {
     this.minDate = new Date(e.value);

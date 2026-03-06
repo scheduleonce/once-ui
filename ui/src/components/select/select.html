@@ -5,23 +5,32 @@
   (click)="toggle()"
   #origin="cdkOverlayOrigin"
   #trigger
->
-  <div class="oui-select-value" [ngSwitch]="empty">
-    <span class="oui-select-placeholder" *ngSwitchCase="true">
-      <span [innerHTML]="placeholder"></span>
-    </span>
-    <span
-      class="oui-select-value-text"
-      *ngSwitchCase="false"
-      [ngSwitch]="!!customTrigger"
-    >
-      <span
-        id="selected-values"
-        *ngSwitchDefault
-        [innerHTML]="triggerValue || placeholder"
-      ></span>
-      <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
-    </span>
+  >
+  <div class="oui-select-value">
+    @switch (empty) {
+      @case (true) {
+        <span class="oui-select-placeholder">
+          <span [innerHTML]="placeholder"></span>
+        </span>
+      }
+      @case (false) {
+        <span
+          class="oui-select-value-text"
+          >
+          @switch (!!customTrigger) {
+            @default {
+              <span
+                id="selected-values"
+                [innerHTML]="triggerValue || placeholder"
+              ></span>
+            }
+            @case (true) {
+              <ng-content select="oui-select-trigger"></ng-content>
+            }
+          }
+        </span>
+      }
+    }
   </div>
 
   <div class="oui-select-arrow-wrapper">
@@ -39,53 +48,57 @@
   (backdropClick)="close()"
   (detach)="close()"
   (attach)="openCdk()"
->
+  >
   <div
     #panel
     class="oui-select-panel {{ cdkConnectionOverlayPanel }}"
-    [ngClass]="panelClass"
+    [class]="panelClass"
     (keydown)="_handleKeydown($event)"
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
     [class.oui-select-has-a-panel]="panelClass"
     [class.oui-select-large]="large"
     [class.action-item]="actionItems"
     [class.single-action-item]="singleActionItem"
-  >
+    >
     <div class="oui-select-options">
       <div class="oui-select-options-wrapper">
         <ng-content></ng-content>
       </div>
     </div>
-    <div *ngIf="singleActionItem" class="oui-select-action-wrapper">
-      <div class="oui-select-action-items single-action-items">
-        <button
-          #singleButton
-          oui-link-button
-          (click)="handleSingleActionItemClick()"
-        >
-          {{singleActionLabel}}
-        </button>
+    @if (singleActionItem) {
+      <div class="oui-select-action-wrapper">
+        <div class="oui-select-action-items single-action-items">
+          <button
+            #singleButton
+            oui-link-button
+            (click)="handleSingleActionItemClick()"
+            >
+            {{singleActionLabel}}
+          </button>
+        </div>
       </div>
-    </div>
-    <div *ngIf="actionItems" class="oui-select-action-wrapper">
-      <div class="oui-select-action-items">
-        <button
-          #ddCancelButton
-          oui-link-button
-          color="primary"
-          (click)="discardRecentChanges()"
-        >
-          {{cancelLabel}}</button
-        ><button
-          #ddDoneButton
-          oui-button
-          color="primary"
-          [disabled]="disableDoneButton"
-          (click)="doneRecentChanges()"
-        >
-          {{doneLabel}}
-        </button>
+    }
+    @if (actionItems) {
+      <div class="oui-select-action-wrapper">
+        <div class="oui-select-action-items">
+          <button
+            #ddCancelButton
+            oui-link-button
+            color="primary"
+            (click)="discardRecentChanges()"
+            >
+            {{cancelLabel}}</button
+            ><button
+            #ddDoneButton
+            oui-button
+            color="primary"
+            [disabled]="disableDoneButton"
+            (click)="doneRecentChanges()"
+            >
+            {{doneLabel}}
+          </button>
+        </div>
       </div>
-    </div>
+    }
   </div>
 </ng-template>

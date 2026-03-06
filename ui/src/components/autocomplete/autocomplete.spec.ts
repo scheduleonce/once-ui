@@ -61,20 +61,24 @@ import { map, startWith } from 'rxjs/operators';
         [ouiAutocomplete]="auto"
         [ouiAutocompleteDisabled]="autocompleteDisabled"
         [formControl]="stateCtrl"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete
       class="class-one class-two"
       #auto="ouiAutocomplete"
-      [displayWith]="displayFn"
+      [displayWith]="displayFnProp"
+      [autoActiveFirstOption]="autoActiveFirstOption"
+      [panelWidth]="panelWidth"
       (opened)="openedSpy()"
       (closed)="closedSpy()"
-    >
-      <oui-option *ngFor="let state of filteredStates" [value]="state">
-        <span>{{ state.code }}: {{ state.name }}</span>
-      </oui-option>
+      >
+      @for (state of filteredStates; track state) {
+        <oui-option [value]="state">
+          <span>{{ state.code }}: {{ state.name }}</span>
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class SimpleAutocomplete implements OnDestroy {
@@ -85,6 +89,9 @@ class SimpleAutocomplete implements OnDestroy {
   width: number;
   disableRipple = false;
   autocompleteDisabled = false;
+  displayFnProp: ((value: any) => string) | null;
+  autoActiveFirstOption = false;
+  panelWidth?: string | number;
   openedSpy = jasmine.createSpy('autocomplete opened spy');
   closedSpy = jasmine.createSpy('autocomplete closed spy');
 
@@ -110,6 +117,7 @@ class SimpleAutocomplete implements OnDestroy {
 
   constructor() {
     this.filteredStates = this.states;
+    this.displayFnProp = this.displayFn;
     this.valueSub = this.stateCtrl.valueChanges.subscribe((val: string) => {
       this.filteredStates = val
         ? this.states.filter((s) => s.name.match(new RegExp(val, 'gi')))
@@ -128,23 +136,26 @@ class SimpleAutocomplete implements OnDestroy {
 
 @Component({
   template: `
-    <oui-form-field *ngIf="isVisible">
-      <input
-        oui-input
-        placeholder="Choose"
-        [ouiAutocomplete]="auto"
-        [formControl]="optionCtrl"
-      />
-    </oui-form-field>
+    @if (isVisible) {
+      <oui-form-field>
+        <input
+          oui-input
+          placeholder="Choose"
+          [ouiAutocomplete]="auto"
+          [formControl]="optionCtrl"
+          />
+      </oui-form-field>
+    }
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
-        {{ option }}
-      </oui-option>
+      @for (option of filteredOptions | async; track option) {
+        <oui-option
+          [value]="option"
+          >
+          {{ option }}
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class NgIfAutocomplete {
@@ -177,14 +188,16 @@ class NgIfAutocomplete {
         placeholder="State"
         [ouiAutocomplete]="auto"
         (input)="onInput($event.target?.value)"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let state of filteredStates" [value]="state">
-        <span> {{ state }} </span>
-      </oui-option>
+      @for (state of filteredStates; track state) {
+        <oui-option [value]="state">
+          <span> {{ state }} </span>
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithoutForms {
@@ -211,14 +224,16 @@ class AutocompleteWithoutForms {
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedState"
         (ngModelChange)="onInput($event)"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let state of filteredStates" [value]="state">
-        <span>{{ state }}</span>
-      </oui-option>
+      @for (state of filteredStates; track state) {
+        <oui-option [value]="state">
+          <span>{{ state }}</span>
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithNgModel {
@@ -245,14 +260,16 @@ class AutocompleteWithNgModel {
         placeholder="Number"
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedNumber"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let number of numbers" [value]="number">
-        <span>{{ number }}</span>
-      </oui-option>
+      @for (number of numbers; track number) {
+        <oui-option [value]="number">
+          <span>{{ number }}</span>
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithNumbers {
@@ -267,11 +284,13 @@ class AutocompleteWithNumbers {
       <input type="text" oui-input [ouiAutocomplete]="auto" />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let option of options" [value]="option">{{
-        option
-      }}</oui-option>
+      @for (option of options; track option) {
+        <oui-option [value]="option">{{
+          option
+        }}</oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithOnPushDelay implements OnInit {
@@ -292,16 +311,17 @@ class AutocompleteWithOnPushDelay implements OnInit {
       placeholder="Choose"
       [ouiAutocomplete]="auto"
       [formControl]="optionCtrl"
-    />
+      />
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
-        {{ option }}
-      </oui-option>
+      @for (option of filteredOptions | async; track option) {
+        <oui-option
+          [value]="option"
+          >
+          {{ option }}
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithNativeInput {
@@ -349,16 +369,20 @@ class AutocompleteWithoutPanel {
         placeholder="State"
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedState"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-optgroup *ngFor="let group of stateGroups" [label]="group.label">
-        <oui-option *ngFor="let state of group.states" [value]="state">
-          <span>{{ state }}</span>
-        </oui-option>
-      </oui-optgroup>
+      @for (group of stateGroups; track group) {
+        <oui-optgroup [label]="group.label">
+          @for (state of group.states; track state) {
+            <oui-option [value]="state">
+              <span>{{ state }}</span>
+            </oui-option>
+          }
+        </oui-optgroup>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithGroups {
@@ -389,17 +413,19 @@ class AutocompleteWithGroups {
         placeholder="State"
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedState"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete
       #auto="ouiAutocomplete"
       (optionSelected)="optionSelected($event)"
-    >
-      <oui-option *ngFor="let state of states" [value]="state">
-        <span>{{ state }}</span>
-      </oui-option>
+      >
+      @for (state of states; track state) {
+        <oui-option [value]="state">
+          <span>{{ state }}</span>
+        </oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithSelectEvent {
@@ -431,14 +457,16 @@ class PlainAutocompleteInputWithFormControl {
         oui-input
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedValue"
-      />
+        />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let value of values" [value]="value">{{
-        value
-      }}</oui-option>
+      @for (value of values; track value) {
+        <oui-option [value]="value">{{
+          value
+        }}</oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithNumberInputAndNgModel {
@@ -455,7 +483,7 @@ class AutocompleteWithNumberInputAndNgModel {
           [ouiAutocomplete]="auto"
           [ouiAutocompleteConnectedTo]="connectedTo"
           [(ngModel)]="selectedValue"
-        />
+          />
       </oui-form-field>
     </div>
     <div
@@ -463,15 +491,17 @@ class AutocompleteWithNumberInputAndNgModel {
       ouiAutocompleteOrigin
       #origin="ouiAutocompleteOrigin"
       style="margin-top: 50px"
-    >
+      >
       Connection element
     </div>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let value of values" [value]="value">{{
-        value
-      }}</oui-option>
+      @for (value of values; track value) {
+        <oui-option [value]="value">{{
+          value
+        }}</oui-option>
+      }
     </oui-autocomplete>
-  `,
+    `,
   standalone: false,
 })
 class AutocompleteWithDifferentOrigin {
@@ -1134,7 +1164,7 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      fixture.componentInstance.panel.displayWith = null;
+      fixture.componentInstance.displayFnProp = null;
       fixture.componentInstance.ouiOptions.toArray()[1].value = 'test value';
       fixture.detectChanges();
 
@@ -2050,8 +2080,8 @@ describe('OuiAutocomplete', () => {
     }));
 
     it('should be able to preselect the first option', fakeAsync(() => {
-      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption =
-        true;
+      fixture.componentInstance.autoActiveFirstOption = true;
+      fixture.detectChanges();
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
@@ -2069,8 +2099,8 @@ describe('OuiAutocomplete', () => {
         'Expected no active descendant on init.'
       );
 
-      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption =
-        true;
+      fixture.componentInstance.autoActiveFirstOption = true;
+      fixture.detectChanges();
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
@@ -2548,7 +2578,8 @@ describe('OuiAutocomplete', () => {
     widthFixture.componentInstance.width = 300;
     widthFixture.detectChanges();
 
-    widthFixture.componentInstance.trigger.autocomplete.panelWidth = 'auto';
+    widthFixture.componentInstance.panelWidth = 'auto';
+    widthFixture.detectChanges();
     widthFixture.componentInstance.trigger.openPanel();
     widthFixture.detectChanges();
 

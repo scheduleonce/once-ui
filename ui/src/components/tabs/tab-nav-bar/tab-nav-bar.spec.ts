@@ -597,20 +597,21 @@ describe('OuiTabNavBar with enabled animations', () => {
       [disableRipple]="disableRippleOnBar"
       [fitInkBarToContent]="fitInkBarToContent"
       [tabPanel]="tabPanel"
-    >
-      <a
-        oui-tab-link
-        *ngFor="let tab of tabs; let index = index"
-        [active]="activeIndex === index"
-        [disabled]="disabled"
-        (click)="activeIndex = index"
-        [disableRipple]="disableRippleOnLink"
       >
-        Tab link {{ label }}
-      </a>
+      @for (tab of tabs; track tab; let index = $index) {
+        <a
+          oui-tab-link
+          [active]="activeIndex === index"
+          [disabled]="disabled"
+          (click)="activeIndex = index"
+          [disableRipple]="disableRippleOnLink"
+          >
+          Tab link {{ label }}
+        </a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
-  `,
+    `,
   standalone: false,
 })
 class SimpleTabNavBarTestApp {
@@ -630,10 +631,12 @@ class SimpleTabNavBarTestApp {
 @Component({
   template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
-      <a oui-tab-link *ngIf="!isDestroyed">Link</a>
+      @if (!isDestroyed) {
+        <a oui-tab-link>Link</a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
-  `,
+    `,
   standalone: false,
 })
 class TabLinkWithNgIf {
@@ -643,12 +646,14 @@ class TabLinkWithNgIf {
 @Component({
   template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
-      <a oui-tab-link *ngFor="let tab of tabs" [active]="false"
-        >Tab link {{ label }}</a
-      >
-    </nav>
-    <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
-  `,
+      @for (tab of tabs; track tab) {
+        <a oui-tab-link [active]="false"
+          >Tab link {{ label }}</a
+          >
+        }
+      </nav>
+      <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
+    `,
   standalone: false,
 })
 class TabBarWithInactiveTabsOnInit {
@@ -658,10 +663,12 @@ class TabBarWithInactiveTabsOnInit {
 @Component({
   template: `
     <nav [animationDuration]="500" oui-tab-nav-bar [tabPanel]="tabPanel">
-      <a oui-tab-link *ngFor="let link of links">{{ link }}</a>
+      @for (link of links; track link) {
+        <a oui-tab-link>{{ link }}</a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
-  `,
+    `,
   standalone: false,
 })
 class TabsWithCustomAnimationDuration {

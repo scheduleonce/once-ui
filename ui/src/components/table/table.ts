@@ -9,11 +9,6 @@ import {
   Directive,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  _DisposeViewRepeaterStrategy,
-  _RecycleViewRepeaterStrategy,
-  _VIEW_REPEATER_STRATEGY,
-} from '@angular/cdk/collections';
 
 /**
  * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
@@ -21,12 +16,6 @@ import {
  */
 @Directive({
   selector: 'oui-table[recycleRows], table[oui-table][recycleRows]',
-  providers: [
-    {
-      provide: _VIEW_REPEATER_STRATEGY,
-      useClass: _RecycleViewRepeaterStrategy,
-    },
-  ],
   standalone: false,
 })
 export class MatRecycleRows {}

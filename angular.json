@@ -10,16 +10,17 @@
       "prefix": "once",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "builder": "@angular/build:ng-packagr",
           "options": {
             "tsConfig": "ui/tsconfig.lib.json",
             "project": "ui/ng-package.json"
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:karma",
           "options": {
             "main": "ui/src/test.ts",
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "ui/tsconfig.spec.json",
             "karmaConfig": "ui/karma.conf.js"
           }

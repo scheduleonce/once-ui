@@ -118,8 +118,10 @@ class OuiInputMissingOuiInputTestController {}
 
 @Component({
   template: `
-    <oui-form-field> <input oui-input *ngIf="renderInput" /> </oui-form-field>
-  `,
+    <oui-form-field> @if (renderInput) {
+      <input oui-input />
+    } </oui-form-field>
+    `,
   standalone: false,
 })
 class OuiInputWithNgIf {

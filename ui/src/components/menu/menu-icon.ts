@@ -4,8 +4,8 @@ import {
   ViewEncapsulation,
   ElementRef,
   AfterContentInit,
-  Input,
-  OnChanges,
+  input,
+  effect,
   inject,
 } from '@angular/core';
 import { OuiIconRegistry } from '../icon/icon-registery';
@@ -29,28 +29,27 @@ import { ICONS } from '../core/shared/icons';
   },
   standalone: false,
 })
-export class OuiMenuIcon implements AfterContentInit, OnChanges {
+export class OuiMenuIcon implements AfterContentInit {
   private _elementRef = inject(ElementRef);
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
   private _iconDiv: HTMLDivElement;
-  @Input() vertical = false;
+  readonly vertical = input(false);
 
   constructor() {
     this.ouiIconRegistry.addSvgIconLiteral(
       `menu-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.THREE_DOT_MENU_ICON)
     );
+    effect(() => {
+      this._transformIcon();
+    });
   }
 
   ngAfterContentInit() {
     this._iconDiv =
       this._elementRef.nativeElement.querySelector('.oui-menu-icon');
-    this._transformIcon();
-  }
-
-  ngOnChanges() {
     this._transformIcon();
   }
 
@@ -60,7 +59,7 @@ export class OuiMenuIcon implements AfterContentInit, OnChanges {
     }
     // Added tabindex to make menu icon keyboard accessible.
     this._iconDiv.parentElement.parentElement.setAttribute('tabindex', '0');
-    if (this.vertical) {
+    if (this.vertical()) {
       this._iconDiv.parentElement.classList.add('oui-menu-icon-vertical');
     } else {
       this._iconDiv.parentElement.classList.remove('oui-menu-icon-vertical');

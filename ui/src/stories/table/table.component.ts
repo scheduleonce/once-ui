@@ -1,11 +1,11 @@
 import { STORY_ICONS, USERINFOCOLUMNS } from './const';
 import {
   Component,
-  Input,
-  OnChanges,
   OnInit,
   ViewChild,
   inject,
+  input,
+  effect,
 } from '@angular/core';
 import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,33 +18,34 @@ import { DomSanitizer } from '@angular/platform-browser';
         oui-input
         class="input-filter"
         placeholder="Filter"
-      />
+        />
     </oui-form-field>
     <div class="table-container">
       <table oui-table #table [dataSource]="dataSource" ouiSort>
-        <ng-container
-          *ngFor="let column of displayedColumns"
-          ouiColumnDef="{{ column }}"
-        >
-          <th oui-header-cell *ouiHeaderCellDef oui-sort-header>
-            {{ column }}
-          </th>
-          <td oui-cell *ouiCellDef="let element">{{ element[column] }}</td>
-        </ng-container>
+        @for (column of displayedColumns; track column) {
+          <ng-container
+            ouiColumnDef="{{ column }}"
+            >
+            <th oui-header-cell *ouiHeaderCellDef oui-sort-header>
+              {{ column }}
+            </th>
+            <td oui-cell *ouiCellDef="let element">{{ element[column] }}</td>
+          </ng-container>
+        }
         <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
         <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
       </table>
-
-      <oui-paginator pageSize="{{ pageSize }}"></oui-paginator>
+    
+      <oui-paginator pageSize="{{ pageSize() }}"></oui-paginator>
     </div>
-  `,
+    `,
   standalone: false,
 })
-export class OuiTableStorybook implements OnInit, OnChanges {
+export class OuiTableStorybook implements OnInit {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
   // displayedColumns: string[] = [];
-  @Input() users: any[] = [
+  readonly users = input<any[]>([
     { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
     { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
     { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
@@ -65,23 +66,23 @@ export class OuiTableStorybook implements OnInit, OnChanges {
     { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
     { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
     { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-  ];
-  @Input() pageSize: any[] = [];
+  ]);
+  readonly pageSize = input<any[]>([]);
   displayedColumns: string[] = [];
-  dataSource = new OuiTableDataSource(this.users);
-  constructor() {}
+  dataSource = new OuiTableDataSource<any>([]);
+  constructor() {
+    effect(() => {
+      this.dataSource = new OuiTableDataSource(this.users());
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator = this.paginator;
+    });
+  }
 
   ngOnInit() {
     // eslint-disable-next-line guard-for-in
-    for (const key in this.users[0]) {
+    for (const key in this.users()[0]) {
       this.displayedColumns.push(key);
     }
-  }
-
-  ngOnChanges() {
-    this.dataSource = new OuiTableDataSource(this.users);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
   }
 
   applyFilter(filterValue: string) {
@@ -121,13 +122,15 @@ export class OuiTableStorybook implements OnInit, OnChanges {
           <td oui-cell *ouiCellDef="let user">
             <div class="integrationsContainer">
               <ul>
-                <li *ngFor="let integration of user.integration">
-                  <span
-                    [ouiTooltip]="integration"
-                    ouiTooltipPosition="above"
-                    [innerHTML]="INTEGRATIONS[integration]"
-                  ></span>
-                </li>
+                @for (integration of user.integration; track integration) {
+                  <li>
+                    <span
+                      [ouiTooltip]="integration"
+                      ouiTooltipPosition="above"
+                      [innerHTML]="INTEGRATIONS[integration]"
+                    ></span>
+                  </li>
+                }
               </ul>
             </div>
           </td>
@@ -139,13 +142,15 @@ export class OuiTableStorybook implements OnInit, OnChanges {
           <td oui-cell *ouiCellDef="let user">
             <div class="licensesContainer">
               <ul>
-                <li *ngFor="let license of user.licence">
-                  <span
-                    [ouiTooltip]="license"
-                    ouiTooltipPosition="above"
-                    [innerHTML]="LICENCES[license]"
-                  ></span>
-                </li>
+                @for (license of user.licence; track license) {
+                  <li>
+                    <span
+                      [ouiTooltip]="license"
+                      ouiTooltipPosition="above"
+                      [innerHTML]="LICENCES[license]"
+                    ></span>
+                  </li>
+                }
               </ul>
             </div>
           </td>
@@ -160,10 +165,10 @@ export class OuiTableStorybook implements OnInit, OnChanges {
         <tr oui-row *ouiRowDef="let row; columns: userInfoColumns"></tr>
       </table>
     </div>
-  `,
+    `,
   standalone: false,
 })
-export class OuiTableCustomStorybook implements OnChanges {
+export class OuiTableCustomStorybook {
   private sanitizer = inject(DomSanitizer);
 
   INTEGRATIONS = {
@@ -182,13 +187,14 @@ export class OuiTableCustomStorybook implements OnChanges {
   };
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   userInfoColumns = USERINFOCOLUMNS;
-  @Input() users: any[] = [];
-  @Input() pageSize: any[] = [];
-  userInfoDataSource = new OuiTableDataSource(this.users);
+  readonly users = input<any[]>([]);
+  readonly pageSize = input<any[]>([]);
+  userInfoDataSource = new OuiTableDataSource<any>([]);
 
-  constructor() {}
-  ngOnChanges() {
-    this.userInfoDataSource = new OuiTableDataSource(this.users);
-    this.userInfoDataSource.sort = this.sort;
+  constructor() {
+    effect(() => {
+      this.userInfoDataSource = new OuiTableDataSource(this.users());
+      this.userInfoDataSource.sort = this.sort;
+    });
   }
 }

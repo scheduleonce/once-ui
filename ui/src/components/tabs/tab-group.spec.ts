@@ -1269,13 +1269,15 @@ class SimpleTabsTestApp {
       (focusChange)="handleFocus($event)"
       (selectedTabChange)="handleSelection($event)"
       [disablePagination]="disablePagination"
-    >
-      <oui-tab *ngFor="let tab of tabs">
-        <ng-template oui-tab-label>{{ tab.label }}</ng-template>
-        {{ tab.content }}
-      </oui-tab>
+      >
+      @for (tab of tabs; track tab) {
+        <oui-tab>
+          <ng-template oui-tab-label>{{ tab.label }}</ng-template>
+          {{ tab.content }}
+        </oui-tab>
+      }
     </oui-tab-group>
-  `,
+    `,
   standalone: false,
 })
 class SimpleDynamicTabsTestApp {
@@ -1299,11 +1301,13 @@ class SimpleDynamicTabsTestApp {
 @Component({
   template: `
     <oui-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
-      <oui-tab *ngFor="let tab of tabs" label="{{ tab.label }}">
-        {{ tab.content }}
-      </oui-tab>
+      @for (tab of tabs; track tab) {
+        <oui-tab label="{{ tab.label }}">
+          {{ tab.content }}
+        </oui-tab>
+      }
     </oui-tab-group>
-  `,
+    `,
   standalone: false,
 })
 class BindedTabsTestApp {
@@ -1349,12 +1353,14 @@ class DisabledTabsTestApp {
 @Component({
   template: `
     <oui-tab-group class="tab-group">
-      <oui-tab *ngFor="let tab of tabs | async">
-        <ng-template oui-tab-label>{{ tab.label }}</ng-template>
-        {{ tab.content }}
-      </oui-tab>
+      @for (tab of tabs | async; track tab) {
+        <oui-tab>
+          <ng-template oui-tab-label>{{ tab.label }}</ng-template>
+          {{ tab.content }}
+        </oui-tab>
+      }
     </oui-tab-group>
-  `,
+    `,
   standalone: false,
 })
 class AsyncTabsTestApp implements OnInit {
@@ -1447,9 +1453,11 @@ class TabGroupWithAriaInputs {
       <oui-tab label="Junk food" #pizza> Pizza, fries </oui-tab>
       <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
     </oui-tab-group>
-
-    <div *ngIf="pizza.isActive">pizza is active</div>
-  `,
+    
+    @if (pizza.isActive) {
+      <div>pizza is active</div>
+    }
+    `,
   standalone: false,
 })
 class TabGroupWithIsActiveBinding {}
@@ -1468,10 +1476,8 @@ class TabsWithCustomAnimationDuration {}
 @Component({
   template: `
     <oui-tab-group>
-      <ng-container [ngSwitch]="true">
-        <oui-tab label="One">Tab one content</oui-tab>
-        <oui-tab label="Two">Tab two content</oui-tab>
-      </ng-container>
+      <oui-tab label="One">Tab one content</oui-tab>
+      <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
   standalone: false,

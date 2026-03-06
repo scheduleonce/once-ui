@@ -68,18 +68,19 @@ import {
         [aria-label]="ariaLabel"
         [aria-labelledby]="ariaLabelledby"
         [panelClass]="panelClass"
-      >
-        <oui-option
-          *ngFor="let food of foods"
-          [value]="food.value"
-          [disabled]="food.disabled"
         >
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option
+            [value]="food.value"
+            [disabled]="food.disabled"
+            >
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
     <div [style.height.px]="heightBelow"></div>
-  `,
+    `,
   standalone: false,
 })
 class BasicSelect {
@@ -111,12 +112,14 @@ class BasicSelect {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" ngModel [disabled]="isDisabled">
-        <oui-option *ngFor="let food of foods" [value]="food.value"
-          >{{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value"
+            >{{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class NgModelSelect {
@@ -156,12 +159,14 @@ class ManySelects {}
   template: `
     <oui-form-field>
       <oui-select (selectionChange)="changeListener($event)">
-        <oui-option *ngFor="let food of foods" [value]="food">{{
-          food
-        }}</oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food">{{
+            food
+          }}</oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class SelectWithChangeEvent {
@@ -186,13 +191,15 @@ class SelectWithChangeEvent {
       <oui-select
         placeholder="Food I want to eat right now"
         [formControl]="control"
-      >
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        >
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class SelectInitWithoutOptions {
@@ -217,12 +224,14 @@ class SelectInitWithoutOptions {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class BasicSelectOnPush {
@@ -240,12 +249,14 @@ class BasicSelectOnPush {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class BasicSelectOnPushPreselected {
@@ -266,13 +277,15 @@ class BasicSelectOnPushPreselected {
         placeholder="Food"
         [formControl]="control"
         [sortComparator]="sortComparator"
-      >
-        <oui-option *ngFor="let food of foods" [value]="food.value"
-          >{{ food.viewValue }}
-        </oui-option>
+        >
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value"
+            >{{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class MultiSelect {
@@ -308,8 +321,10 @@ class SelectWithPlainTabindex {}
     <oui-form-field>
       <oui-select #select="ouiSelect"></oui-select>
     </oui-form-field>
-    <div *ngIf="select.selected"></div>
-  `,
+    @if (select.selected) {
+      <div></div>
+    }
+    `,
   standalone: false,
 })
 class SelectEarlyAccessSibling {}
@@ -347,13 +362,15 @@ class BasicSelectNoPlaceholder {}
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
         <oui-option>None</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class ResetValuesSelect {
@@ -375,22 +392,24 @@ class ResetValuesSelect {
   template: `
     <oui-form-field>
       <oui-select placeholder="Pokemon" [formControl]="control">
-        <oui-optgroup
-          *ngFor="let group of pokemonTypes"
-          [label]="group.name"
-          [disabled]="group.disabled"
-        >
-          <oui-option
-            *ngFor="let pokemon of group.pokemon"
-            [value]="pokemon.value"
-          >
-            {{ pokemon.viewValue }}
-          </oui-option>
-        </oui-optgroup>
+        @for (group of pokemonTypes; track group) {
+          <oui-optgroup
+            [label]="group.name"
+            [disabled]="group.disabled"
+            >
+            @for (pokemon of group.pokemon; track pokemon) {
+              <oui-option
+                [value]="pokemon.value"
+                >
+                {{ pokemon.viewValue }}
+              </oui-option>
+            }
+          </oui-optgroup>
+        }
         <oui-option value="mime-11">Mr. Mime</oui-option>
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class SelectWithGroups {
@@ -439,16 +458,18 @@ class SelectWithGroups {
   template: `
     <oui-form-field>
       <oui-select placeholder="Pokemon" [formControl]="control">
-        <oui-optgroup *ngFor="let group of pokemonTypes" [label]="group.name">
-          <ng-container *ngFor="let pokemon of group.pokemon">
-            <oui-option [value]="pokemon.value">{{
-              pokemon.viewValue
-            }}</oui-option>
-          </ng-container>
-        </oui-optgroup>
+        @for (group of pokemonTypes; track group) {
+          <oui-optgroup [label]="group.name">
+            @for (pokemon of group.pokemon; track pokemon) {
+              <oui-option [value]="pokemon.value">{{
+                pokemon.viewValue
+              }}</oui-option>
+            }
+          </oui-optgroup>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class SelectWithGroupsAndNgContainer {
@@ -504,12 +525,14 @@ class SelectInsideFormGroup {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFood">
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class BasicSelectWithoutForms {
@@ -527,12 +550,14 @@ class BasicSelectWithoutForms {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFood">
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class BasicSelectWithoutFormsPreselected {
@@ -549,12 +574,14 @@ class BasicSelectWithoutFormsPreselected {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFoods" multiple>
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class BasicSelectWithoutFormsMultiple {
@@ -576,16 +603,18 @@ class BasicSelectWithoutFormsMultiple {
         placeholder="Food"
         [formControl]="control"
         #select="ouiSelect"
-      >
+        >
         <oui-select-trigger>
           {{ select.selected?.viewValue.split('').reverse().join('') }}
         </oui-select-trigger>
-        <oui-option *ngFor="let food of foods" [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value">
+            {{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class SelectWithCustomTrigger {
@@ -604,13 +633,15 @@ class SelectWithCustomTrigger {
         [(value)]="selectedFood"
         (selectionChange)="setFoodByCopy($event)"
         [compareWith]="comparator"
-      >
-        <oui-option *ngFor="let food of foods" [value]="food">{{
-          food.viewValue
-        }}</oui-option>
+        >
+        @for (food of foods; track food) {
+          <oui-option [value]="food">{{
+            food.viewValue
+          }}</oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class NgModelCompareWithSelect {
@@ -659,12 +690,14 @@ class NgModelCompareWithSelect {
       placeholder="Food"
       [formControl]="control"
       [errorStateMatcher]="errorStateMatcher"
-    >
-      <oui-option *ngFor="let food of foods" [value]="food.value">
-        {{ food.viewValue }}
-      </oui-option>
+      >
+      @for (food of foods; track food) {
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
+      }
     </oui-select>
-  `,
+    `,
   standalone: false,
 })
 class CustomErrorBehaviorSelect {
@@ -681,12 +714,14 @@ class CustomErrorBehaviorSelect {
   template: `
     <oui-form-field>
       <oui-select placeholder="Food" [(ngModel)]="selectedFoods">
-        <oui-option *ngFor="let food of foods" [value]="food.value"
-          >{{ food.viewValue }}
-        </oui-option>
+        @for (food of foods; track food) {
+          <oui-option [value]="food.value"
+            >{{ food.viewValue }}
+          </oui-option>
+        }
       </oui-select>
     </oui-form-field>
-  `,
+    `,
   standalone: false,
 })
 class SingleSelectWithPreselectedArrayValues {

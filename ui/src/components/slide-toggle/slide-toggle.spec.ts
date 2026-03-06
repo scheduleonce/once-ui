@@ -61,7 +61,7 @@ describe('OuiSlideToggle', () => {
   });
 
   it('should use user defined id when provided', () => {
-    component.id = 'test';
+    fixture.componentRef.setInput('id', 'test');
     fixture.detectChanges();
     expect(fixture.nativeElement.children[0].children[0]).toBeDefined();
   });
@@ -69,12 +69,12 @@ describe('OuiSlideToggle', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(OuiSlideToggle);
       component = fixture.componentInstance;
-      component.id = 'test';
+      fixture.componentRef.setInput('id', 'test');
       fixture.detectChanges();
     });
 
     it('should use user defined id when provided', () => {
-      component.id = 'test';
+      fixture.componentRef.setInput('id', 'test');
       fixture.detectChanges();
       expect(fixture.nativeElement.children[0].children[0].id).toBe('test');
     });
