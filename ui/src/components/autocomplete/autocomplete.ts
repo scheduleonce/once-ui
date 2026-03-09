@@ -179,8 +179,11 @@ export class OuiAutocomplete implements AfterContentInit {
   /** Panel should hide itself when the option list is empty. */
   _setVisibility() {
     this.showPanel = !!this.options.length;
-    this._classList['oui-autocomplete-visible'] = this.showPanel;
-    this._classList['oui-autocomplete-hidden'] = !this.showPanel;
+    this._classList = {
+      ...this._classList,
+      'oui-autocomplete-visible': this.showPanel,
+      'oui-autocomplete-hidden': !this.showPanel,
+    };
     this._changeDetectorRef.markForCheck();
   }
 

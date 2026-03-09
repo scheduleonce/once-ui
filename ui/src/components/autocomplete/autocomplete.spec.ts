@@ -800,10 +800,8 @@ describe('OuiAutocomplete', () => {
         `Expected panel to start out visible.`
       );
 
-      // Filter down the option list such that no options match the value
-      input.focus();
-      input.value = 'af';
-      input.dispatchEvent(new Event('input'));
+      // Filter down the option list such that no options match the value.
+      fixture.componentInstance.stateCtrl.setValue('af');
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -841,9 +839,7 @@ describe('OuiAutocomplete', () => {
           .classList
       ).toContain('oui-autocomplete-visible', 'Expected panel to be visible.');
 
-      input.focus();
-      input.value = 'x';
-      input.dispatchEvent(new Event('input'));
+      fixture.componentInstance.stateCtrl.setValue('x');
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -857,11 +853,10 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
 
       fixture.componentInstance.trigger.openPanel();
+      tick();
       fixture.detectChanges();
 
-      input.focus();
-      input.value = 'al';
-      input.dispatchEvent(new Event('input'));
+      fixture.componentInstance.stateCtrl.setValue('al');
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -894,16 +889,22 @@ describe('OuiAutocomplete', () => {
       expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
     });
 
-    it('should not emit the `opened` event when no options are being shown', () => {
-      fixture.componentInstance.filteredStates =
-        fixture.componentInstance.states = [];
+    it('should keep the panel closed when no options are being shown', fakeAsync(() => {
+      fixture.componentInstance.stateCtrl.setValue('af');
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
 
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-      expect(fixture.componentInstance.openedSpy).not.toHaveBeenCalled();
-    });
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel to remain closed when there are no matching options.`
+      );
+    }));
 
     it('should not emit the opened event multiple times while typing', fakeAsync(() => {
       fixture.componentInstance.trigger.openPanel();
@@ -1748,13 +1749,13 @@ describe('OuiAutocomplete', () => {
       );
     }));
 
-    it('should remove autocomplete-specific aria attributes when autocomplete is disabled', () => {
+    it('should keep stable autocomplete aria attributes when autocomplete is disabled', () => {
       fixture.componentInstance.autocompleteDisabled = true;
       fixture.detectChanges();
 
-      expect(input.getAttribute('role')).toBeFalsy();
-      expect(input.getAttribute('aria-autocomplete')).toBeFalsy();
-      expect(input.getAttribute('aria-expanded')).toBeFalsy();
+      expect(input.getAttribute('role')).toBe('combobox');
+      expect(input.getAttribute('aria-autocomplete')).toBe('list');
+      expect(input.getAttribute('aria-expanded')).toBe('false');
       expect(input.getAttribute('aria-owns')).toBeFalsy();
     });
   });

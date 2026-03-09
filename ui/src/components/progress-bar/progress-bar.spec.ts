@@ -94,11 +94,11 @@ describe('OuiProgressBar', () => {
     progressBarWithColorfixture.detectChanges();
 
     const testElement = progressBarWithColorfixture.debugElement.query(
-      By.css('oui-progress-bar')
+      By.directive(OuiProgressBar)
     );
     expect(testElement.nativeElement.classList).toContain('oui-primary');
 
-    progressBarWithColorfixture.componentInstance.color = 'accent';
+    testElement.componentInstance.color = 'accent';
     progressBarWithColorfixture.detectChanges();
 
     expect(testElement.nativeElement.classList).toContain('oui-accent');

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   ChangeDetectionStrategy,
@@ -8,12 +9,15 @@ import {
 } from '@angular/core';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { mixinColor } from '../core';
+import { ThemePalette } from '../core/common-behaviors/color';
 
 export class OuiProgressBarBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _OuiProgressBarMixinBase: typeof OuiProgressBarBase =
-  mixinColor(OuiProgressBarBase);
+export const _OuiProgressBarMixinBase = mixinColor(
+  OuiProgressBarBase,
+  'primary'
+);
 
 /** Possible mode for a progress spinner. */
 export type ProgressBarMode = 'determinate' | 'indeterminate';
@@ -35,10 +39,21 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
   standalone: false,
 })
 export class OuiProgressBar extends _OuiProgressBarMixinBase {
+  private _changeDetectorRef: ChangeDetectorRef | null = inject(
+    ChangeDetectorRef
+  );
+
   private _value = 0;
   private _strokeWidth: number;
 
-  @Input() color = 'primary';
+  @Input()
+  get color(): ThemePalette {
+    return super.color;
+  }
+  set color(value: ThemePalette) {
+    super.color = value;
+    this._changeDetectorRef?.markForCheck();
+  }
 
   /** Mode of the progress circle */
   mode: ProgressBarMode = 'indeterminate';

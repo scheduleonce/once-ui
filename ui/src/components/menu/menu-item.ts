@@ -1,5 +1,6 @@
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
@@ -50,6 +51,7 @@ export class OuiMenuItem
   implements FocusableOption, CanDisable, OnDestroy
 {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
   private _focusMonitor = inject(FocusMonitor);
   private _parentMenu = inject<OuiMenuPanel<OuiMenuItem>>(OUI_MENU_PANEL, {
     optional: true,
@@ -133,6 +135,12 @@ export class OuiMenuItem
   /** Emits to the hover stream. */
   _handleMouseEnter() {
     this._hovered.next(this);
+  }
+
+  /** Sets highlighted state and schedules a host binding refresh. */
+  _setHighlighted(isHighlighted: boolean) {
+    this._highlighted = isHighlighted;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Gets the label to be used when determining whether the option should be focused. */

@@ -17,12 +17,13 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "main": "ui/src/test.ts",
             "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "ui/tsconfig.spec.json",
-            "karmaConfig": "ui/karma.conf.js"
+            "karmaConfig": "ui/karma.conf.js",
+            "watch": false
           }
         },
         "lint": {

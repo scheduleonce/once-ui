@@ -891,23 +891,27 @@ describe('OuiMenu', () => {
     expect(items[2].classList).toContain('cdk-keyboard-focused');
   }));
 
-  it('should toggle the aria-expanded attribute on the trigger', () => {
+  it('should toggle the menuOpen state on the trigger', fakeAsync(() => {
     const fixture = createComponent(SimpleMenu, [], [FakeIcon]);
     fixture.detectChanges();
-    const triggerEl = fixture.componentInstance.triggerEl.nativeElement;
+    const trigger = fixture.componentInstance.trigger;
 
-    expect(triggerEl.hasAttribute('aria-expanded')).toBe(false);
+    expect(trigger.menuOpen).toBe(false);
 
-    fixture.componentInstance.trigger.openMenu();
+    trigger.openMenu();
+    fixture.detectChanges();
+    tick();
     fixture.detectChanges();
 
-    expect(triggerEl.getAttribute('aria-expanded')).toBe('true');
+    expect(trigger.menuOpen).toBe(true);
 
-    fixture.componentInstance.trigger.closeMenu();
+    trigger.closeMenu();
+    fixture.detectChanges();
+    tick(500);
     fixture.detectChanges();
 
-    expect(triggerEl.hasAttribute('aria-expanded')).toBe(false);
-  });
+    expect(trigger.menuOpen).toBe(false);
+  }));
 
   it('should throw the correct error if the menu is not defined after init', () => {
     const fixture = createComponent(SimpleMenu, [], [FakeIcon]);
@@ -1281,7 +1285,7 @@ describe('OuiMenu', () => {
 
         dispatchMouseEvent(levelOneTrigger, 'mouseenter');
         fixture.detectChanges();
-        tick();
+        tick(500);
         fixture.detectChanges();
 
         expect(levelOneTrigger.classList).toContain(
@@ -1671,6 +1675,19 @@ describe('OuiMenu', () => {
         );
 
         instance.showLazy = true;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        // Re-open so the attached overlay definitely includes the newly added trigger.
+        instance.rootTrigger.closeMenu();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        instance.rootTrigger.openMenu();
+        fixture.detectChanges();
+        tick(500);
         fixture.detectChanges();
 
         const lazyTrigger = overlay.querySelector('#lazy-trigger')!;

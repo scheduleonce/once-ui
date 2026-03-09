@@ -126,49 +126,49 @@ describe('OuiPaginator', () => {
       );
 
       // View second page of list of 100, each page contains 10 items.
-      component.length = 100;
-      component.pageSize = 10;
-      component.pageIndex = 1;
+      paginator.length = 100;
+      paginator.pageSize = 10;
+      paginator.pageIndex = 1;
       fixture.detectChanges();
       expect(currentPage.innerText).toBe('2');
       expect(totalPages.innerText).toBe('of 10');
 
       // View third page of list of 200, each page contains 20 items.
-      component.length = 200;
-      component.pageSize = 20;
-      component.pageIndex = 2;
+      paginator.length = 200;
+      paginator.pageSize = 20;
+      paginator.pageIndex = 2;
       fixture.detectChanges();
       expect(currentPage.innerText).toBe('3');
       expect(totalPages.innerText).toBe('of 10');
 
       // View first page of list of 0, each page contains 5 items.
-      component.length = 0;
-      component.pageSize = 5;
-      component.pageIndex = 2;
+      paginator.length = 0;
+      paginator.pageSize = 5;
+      paginator.pageIndex = 2;
       fixture.detectChanges();
       expect(currentPage.innerText).toBe('0');
       expect(totalPages.innerText).toBe('of 0');
 
       // View third page of list of 12, each page contains 5 items.
-      component.length = 12;
-      component.pageSize = 5;
-      component.pageIndex = 2;
+      paginator.length = 12;
+      paginator.pageSize = 5;
+      paginator.pageIndex = 2;
       fixture.detectChanges();
       expect(currentPage.innerText).toBe('3');
       expect(totalPages.innerText).toBe('of 3');
 
       // View third page of list of 10, each page contains 5 items.
-      component.length = 10;
-      component.pageSize = 5;
-      component.pageIndex = 2;
+      paginator.length = 10;
+      paginator.pageSize = 5;
+      paginator.pageIndex = 2;
       fixture.detectChanges();
       expect(currentPage.innerText).toBe('3');
       expect(totalPages.innerText).toBe('of 2');
 
       // View third page of list of -5, each page contains 5 items.
-      component.length = -5;
-      component.pageSize = 5;
-      component.pageIndex = 2;
+      paginator.length = -5;
+      paginator.pageSize = 5;
+      paginator.pageIndex = 2;
       fixture.detectChanges();
       expect(currentPage.innerText).toBe('0');
       expect(totalPages.innerText).toBe('of 0');
@@ -285,7 +285,7 @@ describe('OuiPaginator', () => {
     });
 
     it('should disable navigating to the next page if at last page', () => {
-      component.goToLastPage();
+      paginator.pageIndex = 9;
       fixture.detectChanges();
       expect(paginator.pageIndex).toBe(9);
       expect(paginator.hasNextPage()).toBe(false);
@@ -311,9 +311,9 @@ describe('OuiPaginator', () => {
 
   it('should be able to change the page size while keeping the first item present', () => {
     // Start on the third page of a list of 100 with a page size of 10.
-    component.pageIndex = 4;
-    component.pageSize = 10;
-    component.length = 100;
+    paginator.pageIndex = 4;
+    paginator.pageSize = 10;
+    paginator.length = 100;
     fixture.detectChanges();
 
     // The first item of the page should be item with index 40
@@ -357,18 +357,18 @@ describe('OuiPaginator', () => {
   });
 
   it('should keep track of the right number of pages', () => {
-    component.pageSize = 10;
-    component.length = 100;
+    paginator.pageSize = 10;
+    paginator.length = 100;
     fixture.detectChanges();
     expect(paginator.getNumberOfPages()).toBe(10);
 
-    component.pageSize = 10;
-    component.length = 0;
+    paginator.pageSize = 10;
+    paginator.length = 0;
     fixture.detectChanges();
     expect(paginator.getNumberOfPages()).toBe(0);
 
-    component.pageSize = 10;
-    component.length = 10;
+    paginator.pageSize = 10;
+    paginator.length = 10;
     fixture.detectChanges();
     expect(paginator.getNumberOfPages()).toBe(1);
   });
@@ -387,9 +387,8 @@ describe('OuiPaginator', () => {
     expect(withStringPaginator.pageSize).toEqual(10);
   });
 
-  it('should be able to disable all the controls in the paginator via the binding', () => {
-    fixture.componentInstance.pageIndex = 1;
-    fixture.componentInstance.showFirstLastButtons = true;
+  it('should be able to disable all the controls in the paginator via the binding', fakeAsync(() => {
+    paginator.pageIndex = 1;
     fixture.detectChanges();
 
     expect(getPreviousButton(fixture).hasAttribute('disabled')).toBe(false);
@@ -399,10 +398,12 @@ describe('OuiPaginator', () => {
 
     fixture.componentInstance.disabled = true;
     fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
 
     expect(getPreviousButton(fixture).hasAttribute('disabled')).toBe(true);
     expect(getNextButton(fixture).hasAttribute('disabled')).toBe(true);
     expect(getFirstButton(fixture).hasAttribute('disabled')).toBe(true);
     expect(getLastButton(fixture).hasAttribute('disabled')).toBe(true);
-  });
+  }));
 });

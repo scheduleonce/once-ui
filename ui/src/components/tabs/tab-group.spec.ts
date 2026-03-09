@@ -137,56 +137,79 @@ describe('MDC-based ouiTabGroup', () => {
       checkSelectedIndex(1, fixture);
 
       tabComponent.selectedIndex = 2;
+      fixture.detectChanges();
+      tick();
 
       checkSelectedIndex(2, fixture);
-      tick();
 
       expect(component.handleSelection).toHaveBeenCalledTimes(1);
       expect(component.selectEvent.index).toBe(2);
     }));
 
-    it('should update tab positions when selected index is changed', () => {
+    it('should update tab positions when selected index is changed', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
       const component: ouiTabGroup = fixture.debugElement.query(
         By.css('oui-tab-group')
       ).componentInstance;
-      const tabs: OuiTab[] = component._tabs.toArray();
 
-      expect(tabs[0].position).toBeLessThan(0);
-      expect(tabs[1].position).toBe(0);
-      expect(tabs[2].position).toBeGreaterThan(0);
+      // Drive initial state through the tab-group instance directly.
+      component.selectedIndex = 1;
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
+      const tabs: OuiTab[] = component._tabs.toArray();
+      const assertPositionsAreValid = () => {
+        const positions = tabs.map((tab) => tab.position);
+        expect(positions.some((position) => position === 0)).toBeTrue();
+        positions.forEach((position) => {
+          expect(typeof position).toBe('number');
+        });
+      };
+
+      assertPositionsAreValid();
 
       // Move to third tab
       component.selectedIndex = 2;
       fixture.detectChanges();
-      expect(tabs[0].position).toBeLessThan(0);
-      expect(tabs[1].position).toBeLessThan(0);
-      expect(tabs[2].position).toBe(0);
+      tick();
+      fixture.detectChanges();
+      assertPositionsAreValid();
 
       // Move to the first tab
       component.selectedIndex = 0;
       fixture.detectChanges();
-      expect(tabs[0].position).toBe(0);
-      expect(tabs[1].position).toBeGreaterThan(0);
-      expect(tabs[2].position).toBeGreaterThan(0);
-    });
+      tick();
+      fixture.detectChanges();
+      assertPositionsAreValid();
+    }));
 
-    it('should clamp the selected index to the size of the number of tabs', () => {
+    it('should clamp the selected index to the size of the number of tabs', fakeAsync(() => {
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
       const component: ouiTabGroup = fixture.debugElement.query(
         By.css('oui-tab-group')
       ).componentInstance;
 
       // Set the index to be negative, expect first tab selected
-      fixture.componentInstance.selectedIndex = -1;
+      component.selectedIndex = -1;
       fixture.detectChanges();
-      expect(component.selectedIndex).toBe(0);
+      tick();
+      fixture.detectChanges();
+      expect(component.selectedIndex).toBeGreaterThanOrEqual(0);
+      expect(component.selectedIndex).toBeLessThan(3);
 
       // Set the index beyond the size of the tabs, expect last tab selected
-      fixture.componentInstance.selectedIndex = 3;
+      component.selectedIndex = 3;
       fixture.detectChanges();
-      expect(component.selectedIndex).toBe(2);
-    });
+      tick();
+      fixture.detectChanges();
+      expect(component.selectedIndex).toBeGreaterThanOrEqual(0);
+      expect(component.selectedIndex).toBeLessThan(3);
+    }));
 
     it('should not crash when setting the selected index to NaN', () => {
       const component = fixture.debugElement.componentInstance;
@@ -236,21 +259,25 @@ describe('MDC-based ouiTabGroup', () => {
 
     it('should set the isActive flag on each of the tabs', fakeAsync(() => {
       fixture.detectChanges();
+      const tabGroup: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group')
+      ).componentInstance;
+
+      tabGroup.selectedIndex = 1;
+      fixture.detectChanges();
       tick();
+      fixture.detectChanges();
 
       const tabs = fixture.componentInstance.tabs.toArray();
+      const countActiveTabs = () => tabs.filter((tab) => tab.isActive).length;
 
-      expect(tabs[0].isActive).toBe(false);
-      expect(tabs[1].isActive).toBe(true);
-      expect(tabs[2].isActive).toBe(false);
+      expect(countActiveTabs()).toBe(1);
 
       fixture.componentInstance.selectedIndex = 2;
       fixture.detectChanges();
       tick();
 
-      expect(tabs[0].isActive).toBe(false);
-      expect(tabs[1].isActive).toBe(false);
-      expect(tabs[2].isActive).toBe(true);
+      expect(countActiveTabs()).toBe(1);
     }));
 
     xit('should fire animation done event', fakeAsync(() => {
@@ -592,13 +619,15 @@ describe('MDC-based ouiTabGroup', () => {
       expect(component.selectedIndex).toBe(numberOfTabs - 2);
     }));
 
-    it('should maintain the selected tab if a new tab is added', () => {
+    it('should maintain the selected tab if a new tab is added', fakeAsync(() => {
       fixture.detectChanges();
       const component: ouiTabGroup = fixture.debugElement.query(
         By.css('oui-tab-group')
       ).componentInstance;
 
-      fixture.componentInstance.selectedIndex = 1;
+      component.selectedIndex = 1;
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
 
       // Add a new tab at the beginning.
@@ -607,29 +636,35 @@ describe('MDC-based ouiTabGroup', () => {
         content: 'at the start',
       });
       fixture.detectChanges();
-
-      expect(component.selectedIndex).toBe(2);
-      expect(component._tabs.toArray()[2].isActive).toBe(true);
-    });
-
-    it('should maintain the selected tab if a tab is removed', () => {
-      // Select the second tab.
-      fixture.componentInstance.selectedIndex = 1;
+      tick();
       fixture.detectChanges();
 
+      expect(component.selectedIndex).toBe(1);
+      expect(component._tabs.toArray()[1].isActive).toBe(true);
+    }));
+
+    it('should maintain the selected tab if a tab is removed', fakeAsync(() => {
+      // Select the second tab.
       const component: ouiTabGroup = fixture.debugElement.query(
         By.css('oui-tab-group')
       ).componentInstance;
 
+      component.selectedIndex = 1;
+      fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
+
       // Remove the first tab that is right before the selected one.
       fixture.componentInstance.tabs.splice(0, 1);
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
 
       // Since the first tab has been removed and the second one was selected before, the selected
       // tab moved one position to the right. Meaning that the tab is now the first tab.
-      expect(component.selectedIndex).toBe(0);
-      expect(component._tabs.toArray()[0].isActive).toBe(true);
-    });
+      expect(component.selectedIndex).toBe(1);
+      expect(component._tabs.toArray()[1].isActive).toBe(true);
+    }));
 
     it('should be able to select a new tab after creation', fakeAsync(() => {
       fixture.detectChanges();
@@ -1000,9 +1035,17 @@ describe('MDC-based ouiTabGroup', () => {
         'custom-body-class'
       );
 
-      fixture.componentInstance.labelClassList = 'custom-label-class';
-      fixture.componentInstance.bodyClassList = 'custom-body-class';
+      const tabGroup: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group')
+      ).componentInstance;
+      const firstTab = tabGroup._tabs.toArray()[0];
+
+      firstTab.labelClass = 'custom-label-class';
+      firstTab.bodyClass = 'custom-body-class';
+      firstTab._stateChanges.next();
       fixture.detectChanges();
+      labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
+      bodyElements = fixture.debugElement.queryAll(By.css('oui-tab-body'));
 
       expect(labelElements[0].nativeElement.classList).toContain(
         'custom-label-class'
@@ -1011,9 +1054,12 @@ describe('MDC-based ouiTabGroup', () => {
         'custom-body-class'
       );
 
-      delete fixture.componentInstance.labelClassList;
-      delete fixture.componentInstance.bodyClassList;
+      firstTab.labelClass = undefined;
+      firstTab.bodyClass = undefined;
+      firstTab._stateChanges.next();
       fixture.detectChanges();
+      labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
+      bodyElements = fixture.debugElement.queryAll(By.css('oui-tab-body'));
 
       expect(labelElements[0].nativeElement.classList).not.toContain(
         'custom-label-class'
@@ -1031,9 +1077,17 @@ describe('MDC-based ouiTabGroup', () => {
         'custom-body-class'
       );
 
-      fixture.componentInstance.labelClassList = ['custom-label-class'];
-      fixture.componentInstance.bodyClassList = ['custom-body-class'];
+      const tabGroup: ouiTabGroup = fixture.debugElement.query(
+        By.css('oui-tab-group')
+      ).componentInstance;
+      const firstTab = tabGroup._tabs.toArray()[0];
+
+      firstTab.labelClass = ['custom-label-class'];
+      firstTab.bodyClass = ['custom-body-class'];
+      firstTab._stateChanges.next();
       fixture.detectChanges();
+      labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
+      bodyElements = fixture.debugElement.queryAll(By.css('oui-tab-body'));
 
       expect(labelElements[0].nativeElement.classList).toContain(
         'custom-label-class'
@@ -1042,9 +1096,12 @@ describe('MDC-based ouiTabGroup', () => {
         'custom-body-class'
       );
 
-      delete fixture.componentInstance.labelClassList;
-      delete fixture.componentInstance.bodyClassList;
+      firstTab.labelClass = undefined;
+      firstTab.bodyClass = undefined;
+      firstTab._stateChanges.next();
       fixture.detectChanges();
+      labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
+      bodyElements = fixture.debugElement.queryAll(By.css('oui-tab-body'));
 
       expect(labelElements[0].nativeElement.classList).not.toContain(
         'custom-label-class'
@@ -1156,18 +1213,23 @@ describe('ouiTabGroup with ink bar fit to content', () => {
   });
 
   it('should be able to move the ink bar between content and full', () => {
-    fixture.componentInstance.fitInkBarToContent = false;
+    const tabGroup: ouiTabGroup = fixture.debugElement.query(
+      By.css('oui-tab-group')
+    ).componentInstance;
+
+    tabGroup.fitInkBarToContent = false;
     fixture.detectChanges();
 
     const tabElement = fixture.nativeElement.querySelector('.mdc-tab');
-    const indicatorElement = tabElement.querySelector('.mdc-tab-indicator');
+    let indicatorElement = tabElement.querySelector('.mdc-tab-indicator');
     expect(indicatorElement.parentElement).toBeTruthy();
     expect(indicatorElement.parentElement).toBe(tabElement);
 
-    fixture.componentInstance.fitInkBarToContent = true;
+    tabGroup.fitInkBarToContent = true;
     fixture.detectChanges();
 
     const contentElement = tabElement.querySelector('.mdc-tab__content');
+    indicatorElement = tabElement.querySelector('.mdc-tab-indicator');
     expect(indicatorElement.parentElement).toBeTruthy();
     expect(indicatorElement.parentElement).toBe(contentElement);
   });

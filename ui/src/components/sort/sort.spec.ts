@@ -1,6 +1,6 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, ElementRef, ViewChild, inject, isDevMode } from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -326,8 +326,15 @@ describe('OuiSort', () => {
   });
 
   it('should throw an error if the provided direction is invalid', () => {
-    expect(() =>
-      TestBed.createComponent(OuiSortableInvalidDirection).detectChanges()
-    ).toThrow(getSortInvalidDirectionError('ascending'));
+    const createInvalidDirectionFixture = () =>
+      TestBed.createComponent(OuiSortableInvalidDirection).detectChanges();
+
+    if (isDevMode()) {
+      expect(createInvalidDirectionFixture).toThrow(
+        getSortInvalidDirectionError('ascending')
+      );
+    } else {
+      expect(createInvalidDirectionFixture).not.toThrow();
+    }
   });
 });

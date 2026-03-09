@@ -320,7 +320,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     }
 
     if (this.triggersSubmenu()) {
-      this._menuItemInstance._highlighted = isOpen;
+      this._menuItemInstance._setHighlighted(isOpen);
     }
   }
 
