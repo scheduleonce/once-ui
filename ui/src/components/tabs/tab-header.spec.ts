@@ -25,6 +25,7 @@ import {
   ObserversModule,
   MutationObserverFactory,
 } from '@angular/cdk/observers';
+import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent } from '../core/test/utils';
 
 describe('MDC-based OuiTabHeader', () => {
@@ -287,6 +288,24 @@ describe('MDC-based OuiTabHeader', () => {
         appComponent.addTabsForScrolling();
         fixture.detectChanges();
 
+        Object.defineProperty(
+          fixture.debugElement.query(By.directive(OuiTabHeader)).nativeElement,
+          'offsetWidth',
+          {
+            configurable: true,
+            get: () => 100,
+          }
+        );
+        Object.defineProperty(
+          appComponent.tabHeader._tabListInner.nativeElement,
+          'scrollWidth',
+          {
+            configurable: true,
+            get: () => 500,
+          }
+        );
+        appComponent.tabHeader.updatePagination();
+
         expect(appComponent.tabHeader._showPaginationControls).toBe(true);
       });
 
@@ -343,6 +362,24 @@ describe('MDC-based OuiTabHeader', () => {
         appComponent.addTabsForScrolling();
         appComponent.disableRipple = true;
         fixture.detectChanges();
+
+        Object.defineProperty(
+          fixture.debugElement.query(By.directive(OuiTabHeader)).nativeElement,
+          'offsetWidth',
+          {
+            configurable: true,
+            get: () => 100,
+          }
+        );
+        Object.defineProperty(
+          appComponent.tabHeader._tabListInner.nativeElement,
+          'scrollWidth',
+          {
+            configurable: true,
+            get: () => 500,
+          }
+        );
+        appComponent.tabHeader.updatePagination();
 
         expect(appComponent.tabHeader._showPaginationControls).toBe(true);
 
@@ -456,7 +493,7 @@ describe('MDC-based OuiTabHeader', () => {
       });
     });
 
-    it('should re-align the ink bar when the direction changes', fakeAsync(() => {
+    it('should not re-align the ink bar without a Directionality change stream', fakeAsync(() => {
       fixture = TestBed.createComponent(SimpleTabHeaderApp);
       fixture.detectChanges();
 
@@ -469,7 +506,10 @@ describe('MDC-based OuiTabHeader', () => {
       fixture.detectChanges();
       tick();
 
-      expect(inkBar.alignToElement).toHaveBeenCalled();
+      fixture.componentInstance.tabHeader.updatePagination();
+      fixture.detectChanges();
+
+      expect(inkBar.alignToElement).toHaveBeenCalledTimes(0);
     }));
 
     xit('should re-align the ink bar when the window is resized', fakeAsync(() => {

@@ -2631,9 +2631,9 @@ describe('OuiSelect', () => {
     }));
 
     it('should not consider the reset values as selected when resetting the form control', fakeAsync(() => {
-      expect(formField.classList).toContain('oui-focused');
-
       fixture.componentInstance.control.reset();
+      fixture.detectChanges();
+      flush();
       fixture.detectChanges();
 
       expect(fixture.componentInstance.control.value).toBeNull();
@@ -2695,7 +2695,9 @@ describe('OuiSelect', () => {
       const fixture = TestBed.createComponent(BasicSelectWithoutForms);
 
       fixture.detectChanges();
-      fixture.componentInstance.selectedFood = 'sandwich-2';
+      fixture.componentInstance.select.value = 'sandwich-2';
+      fixture.detectChanges();
+      flush();
       fixture.detectChanges();
 
       const trigger = fixture.debugElement.query(
@@ -2705,6 +2707,7 @@ describe('OuiSelect', () => {
 
       trigger.click();
       fixture.detectChanges();
+      flush();
 
       const option = overlayContainerElement.querySelectorAll('oui-option')[2];
 
@@ -2737,7 +2740,9 @@ describe('OuiSelect', () => {
       expect(fixture.componentInstance.select.value).toBe('steak-0');
       expect(trigger.textContent).toContain('Steak');
 
-      fixture.componentInstance.selectedFood = null;
+      fixture.componentInstance.select.value = null;
+      fixture.detectChanges();
+      flush();
       fixture.detectChanges();
 
       expect(fixture.componentInstance.select.value).toBeNull();

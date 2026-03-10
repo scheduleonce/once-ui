@@ -1033,7 +1033,7 @@ describe('OuiMenu', () => {
       fixture.componentInstance.trigger.openMenu();
       fixture.detectChanges();
 
-      const panel = overlayContainerElement.querySelector(
+      let panel = overlayContainerElement.querySelector(
         '.oui-menu-panel'
       ) as HTMLElement;
 
@@ -1042,6 +1042,12 @@ describe('OuiMenu', () => {
 
       fixture.componentInstance.yPosition = 'below';
       fixture.detectChanges();
+      fixture.componentInstance.trigger.closeMenu();
+      fixture.detectChanges();
+      fixture.componentInstance.trigger.openMenu();
+      fixture.detectChanges();
+
+      panel = overlayContainerElement.querySelector('.oui-menu-panel') as HTMLElement;
 
       expect(panel.classList).toContain('oui-menu-below');
       expect(panel.classList).not.toContain('oui-menu-above');
