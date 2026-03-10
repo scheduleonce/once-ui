@@ -18,7 +18,7 @@ export const Regular = {
       declarations: [],
     },
 
-    template: `<oui-form-field ngClass="{{theme}}"> <textarea [disabled]="disabled" [rows]="rows" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder"></textarea> </oui-form-field>`,
+    template: `<oui-form-field ngClass="{{theme}}"> <textarea [disabled]="disabled" [rows]="rows" (blur)="blured()" (focus)="focused()" oui-input [placeholder]="placeholder" [spellcheck]="spellcheck"></textarea> </oui-form-field>`,
 
     props: {
       ...props,
@@ -44,6 +44,7 @@ export const Regular = {
     theme: THEME[0],
     disabled: false,
     placeholder: 'Type here',
+    spellcheck: true,
   },
 
   argTypes: {
@@ -52,6 +53,12 @@ export const Regular = {
 
       control: {
         type: 'select',
+      },
+    },
+
+    spellcheck: {
+      control: {
+        type: 'boolean',
       },
     },
   },
