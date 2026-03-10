@@ -396,7 +396,9 @@ describe('OuiPaginator', () => {
     expect(getFirstButton(fixture).hasAttribute('disabled')).toBe(false);
     expect(getLastButton(fixture).hasAttribute('disabled')).toBe(false);
 
-    fixture.componentInstance.disabled = true;
+    paginator.disabled = true;
+    // Trigger an input setter that marks the OnPush paginator for check.
+    paginator.pageIndex = paginator.pageIndex;
     fixture.detectChanges();
     tick();
     fixture.detectChanges();

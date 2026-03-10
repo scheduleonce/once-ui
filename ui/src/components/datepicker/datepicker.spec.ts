@@ -18,6 +18,7 @@ import {
 import {
   UntypedFormControl,
   FormsModule,
+  NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
@@ -1207,26 +1208,30 @@ describe('OuiDatepicker', () => {
       });
 
       it('should mark invalid when value is before min', fakeAsync(() => {
-        testComponent.date = new Date(2009, DEC, 31);
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(new Date(2009, DEC, 31));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(true);
       }));
 
       it('should mark invalid when value is after max', fakeAsync(() => {
-        testComponent.date = new Date(2020, JAN, 2);
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(new Date(2020, JAN, 2));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
 
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(true);
       }));
 
       it('should not mark invalid when value equals min', fakeAsync(() => {
@@ -1283,23 +1288,24 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should mark input invalid', fakeAsync(() => {
-        testComponent.date = new Date(2017, JAN, 1);
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(new Date(2017, JAN, 1));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(true);
 
-        testComponent.date = new Date(2017, JAN, 2);
+        ngModel.control.setValue(new Date(2017, JAN, 2));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).not.toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(false);
       }));
 
       it('should disable filtered calendar cells', () => {

@@ -110,7 +110,8 @@ describe('OuiMultiYearView', () => {
     });
 
     it('does not show selected year if in different range', () => {
-      testComponent.selected = new Date(2040, JAN, 10);
+      testComponent.multiYearView.selected = new Date(2040, JAN, 10);
+      testComponent.multiYearView._init();
       fixture.detectChanges();
 
       const selectedEl = multiYearViewNativeElement.querySelector(
