@@ -192,12 +192,9 @@ describe('OuiRadio', () => {
     let radioInputElements: HTMLInputElement[];
     let groupInstance: OuiRadioGroup;
     let radioInstances: OuiRadioButton[];
-    let testComponent: RadioInsideGroupComponent;
     beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(RadioInsideGroupComponent);
       fixture.detectChanges();
-
-      testComponent = fixture.debugElement.componentInstance;
 
       groupDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioGroup)
@@ -238,7 +235,8 @@ describe('OuiRadio', () => {
     });
 
     it('should disable click interaction when the group is disabled', () => {
-      testComponent.isGroupDisabled = true;
+      groupInstance.disabled = true;
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       radioLabelElements[0].click();
@@ -248,14 +246,16 @@ describe('OuiRadio', () => {
     });
 
     it('should set label position based on the group labelPosition', () => {
-      testComponent.labelPos = 'before';
+      groupInstance.labelPosition = 'before';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
         expect(radio.labelPosition).toBe('before');
       }
 
-      testComponent.labelPos = 'after';
+      groupInstance.labelPosition = 'after';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
@@ -263,7 +263,8 @@ describe('OuiRadio', () => {
       }
     });
     it('should disable each individual radio when the group is disabled', () => {
-      testComponent.isGroupDisabled = true;
+      groupInstance.disabled = true;
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
@@ -272,7 +273,8 @@ describe('OuiRadio', () => {
     });
 
     it('should set required to each radio button when the group is required', () => {
-      testComponent.isGroupRequired = true;
+      groupInstance.required = true;
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
@@ -365,7 +367,8 @@ describe('OuiRadio', () => {
     it('should update the group and radios when updating the group value', () => {
       expect(groupInstance.value).toBeFalsy();
 
-      testComponent.groupValue = 'fire';
+      groupInstance.value = 'fire';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       expect(groupInstance.value).toBe('fire');
@@ -373,7 +376,8 @@ describe('OuiRadio', () => {
       expect(radioInstances[0].checked).toBe(true);
       expect(radioInstances[1].checked).toBe(false);
 
-      testComponent.groupValue = 'water';
+      groupInstance.value = 'water';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       expect(groupInstance.value).toBe('water');
@@ -480,14 +484,11 @@ describe('OuiRadio', () => {
     let radioLabelElements: HTMLLabelElement[];
     let groupInstance: OuiRadioGroup;
     let radioInstances: OuiRadioButton[];
-    let testComponent: RadioGroupWithNgModel;
     let groupNgModel: NgModel;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(RadioGroupWithNgModel);
       fixture.detectChanges();
-
-      testComponent = fixture.debugElement.componentInstance;
 
       groupDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioGroup)
@@ -563,7 +564,7 @@ describe('OuiRadio', () => {
     });
 
     it('should write to the radio button based on ngModel', fakeAsync(() => {
-      testComponent.modelValue = 'chocolate';
+      groupNgModel.control.setValue('chocolate');
 
       fixture.detectChanges();
       tick();
