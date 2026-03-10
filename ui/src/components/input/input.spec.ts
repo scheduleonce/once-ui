@@ -145,6 +145,18 @@ class OuiInputWithAppearance {
 })
 class OuiInputWithoutPlaceholder {}
 
+@Component({
+  template: `
+    <oui-form-field
+      ><input oui-input [spellcheck]="spellcheck"
+    /></oui-form-field>
+  `,
+  standalone: false,
+})
+class OuiInputWithSpellcheck {
+  spellcheck = true;
+}
+
 describe('OuiInput without forms', () => {
   it('should add id', waitForAsync(() => {
     const fixture = createComponent(OuiInputTextTestController);
@@ -274,6 +286,20 @@ describe('OuiInput without forms', () => {
     const input = fixture.debugElement.query(By.css('input')).nativeElement;
 
     expect(input.hasAttribute('placeholder')).toBe(false);
+  }));
+
+  it('supports the spellcheck attribute as binding', waitForAsync(() => {
+    const fixture = createComponent(OuiInputWithSpellcheck);
+    fixture.detectChanges();
+
+    const inputEl = fixture.debugElement.query(By.css('input')).nativeElement;
+
+    expect(inputEl.spellcheck).toBe(true);
+
+    fixture.componentInstance.spellcheck = false;
+    fixture.detectChanges();
+
+    expect(inputEl.spellcheck).toBe(false);
   }));
 });
 
