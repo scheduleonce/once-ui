@@ -93,6 +93,8 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-invalid]': 'errorState',
     '[attr.aria-required]': 'required.toString()',
+    // Enable browser's default spellcheck behavior for all text inputs and textareas.
+    '[attr.spellcheck]': 'spellcheck.toString()',
     '(input)': '_onInput()',
   },
   providers: [
@@ -277,6 +279,16 @@ export class OuiInput
     this._readonly = coerceBooleanProperty(value);
   }
   private _readonly = false;
+
+  /** Whether the browser's spellcheck is enabled for the element. */
+  @Input()
+  get spellcheck(): boolean {
+    return this._spellcheck;
+  }
+  set spellcheck(value: boolean) {
+    this._spellcheck = coerceBooleanProperty(value);
+  }
+  private _spellcheck = true;
 
   protected _neverEmptyInputTypes = [
     'date',
