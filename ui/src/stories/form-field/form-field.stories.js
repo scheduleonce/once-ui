@@ -22,7 +22,8 @@ export const Regular = {
                 (focus)="focused()" 
                 [value]="type" 
                 oui-input 
-                [placeholder]="placeholder" /> 
+                [placeholder]="placeholder"
+                [spellcheck]="spellcheck" /> 
                 </oui-form-field>`,
 
     props: {
@@ -50,6 +51,7 @@ export const Regular = {
     disabled: false,
     placeholder: 'Type here',
     appearance: APPEARANCE[0],
+    spellcheck: true,
   },
 
   argTypes: {
@@ -66,6 +68,12 @@ export const Regular = {
 
       control: {
         type: 'select',
+      },
+    },
+
+    spellcheck: {
+      control: {
+        type: 'boolean',
       },
     },
   },
