@@ -650,13 +650,10 @@ describe('OuiRadio', () => {
     let weatherRadioInstances: OuiRadioButton[];
     let fruitRadioInstances: OuiRadioButton[];
     let fruitRadioNativeInputs: HTMLElement[];
-    let testComponent: StandaloneRadioButtons;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(StandaloneRadioButtons);
       fixture.detectChanges();
-
-      testComponent = fixture.debugElement.componentInstance;
 
       radioDebugElements = fixture.debugElement.queryAll(
         By.directive(OuiRadioButton)
@@ -736,7 +733,8 @@ describe('OuiRadio', () => {
         'Banana'
       );
 
-      testComponent.ariaLabel = 'Pineapple';
+      fruitRadioInstances[0].ariaLabel = 'Pineapple';
+      fruitRadioInstances[0]._markForCheck();
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
@@ -761,7 +759,8 @@ describe('OuiRadio', () => {
         'xyz'
       );
 
-      testComponent.ariaLabelledby = 'uvw';
+      fruitRadioInstances[0].ariaLabelledby = 'uvw';
+      fruitRadioInstances[0]._markForCheck();
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
@@ -786,7 +785,8 @@ describe('OuiRadio', () => {
         'abc'
       );
 
-      testComponent.ariaDescribedby = 'uvw';
+      fruitRadioInstances[0].ariaDescribedby = 'uvw';
+      fruitRadioInstances[0]._markForCheck();
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
@@ -820,6 +820,9 @@ describe('OuiRadio', () => {
     });
 
     it('should allow specifying an explicit tabindex for a single radio-button', () => {
+      const radioButtonInstance = fixture.debugElement.query(
+        By.directive(OuiRadioButton)
+      ).componentInstance as OuiRadioButton;
       const radioButtonInput = fixture.debugElement.query(
         By.css('.oui-radio-button input')
       ).nativeElement as HTMLInputElement;
@@ -829,7 +832,8 @@ describe('OuiRadio', () => {
         'Expected the tabindex to be set to "0" by default.'
       );
 
-      fixture.componentInstance.tabIndex = 4;
+      radioButtonInstance.tabIndex = 4;
+      radioButtonInstance._markForCheck();
       fixture.detectChanges();
 
       expect(radioButtonInput.tabIndex).toBe(
