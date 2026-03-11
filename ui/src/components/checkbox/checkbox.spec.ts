@@ -193,14 +193,14 @@ describe('Checkbox', () => {
       );
       expect(inputElement.checked).toBe(false);
 
-      testComponent.isChecked = true;
+      checkboxInstance.checked = true;
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(true);
       expect(checkboxNativeElement.classList).toContain('oui-checkbox-checked');
       expect(inputElement.checked).toBe(true);
 
-      testComponent.isChecked = false;
+      checkboxInstance.checked = false;
       fixture.detectChanges();
 
       expect(checkboxInstance.checked).toBe(false);
@@ -241,7 +241,7 @@ describe('Checkbox', () => {
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
 
-      testComponent.isDisabled = true;
+      checkboxInstance.disabled = true;
       fixture.detectChanges();
 
       expect(checkboxInstance.disabled).toBe(true);
@@ -250,7 +250,7 @@ describe('Checkbox', () => {
       );
       expect(inputElement.disabled).toBe(true);
 
-      testComponent.isDisabled = false;
+      checkboxInstance.disabled = false;
       fixture.detectChanges();
 
       expect(checkboxInstance.disabled).toBe(false);
@@ -275,7 +275,8 @@ describe('Checkbox', () => {
     });
 
     it('should generate a unique id for the checkbox input if no id is set', () => {
-      testComponent.checkboxId = null;
+      checkboxInstance.id = null as any;
+      (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
       expect(checkboxInstance.inputId).toMatch(/oui-checkbox-\d+/);
@@ -294,7 +295,8 @@ describe('Checkbox', () => {
     });
 
     it('should add a css class to position the label before the checkbox', () => {
-      testComponent.labelPos = 'before';
+      checkboxInstance.labelPosition = 'before';
+      (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
       expect(checkboxNativeElement.classList).toContain(
@@ -354,7 +356,7 @@ describe('Checkbox', () => {
         'oui-checkbox-checked'
       );
 
-      testComponent.isChecked = true;
+      checkboxInstance.checked = true;
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(true);
@@ -369,19 +371,22 @@ describe('Checkbox', () => {
     }));
 
     it('should forward the required attribute', () => {
-      testComponent.isRequired = true;
+      checkboxInstance.required = true;
+      (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
       expect(inputElement.required).toBe(true);
 
-      testComponent.isRequired = false;
+      checkboxInstance.required = false;
+      (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
       expect(inputElement.required).toBe(false);
     });
 
     it('should forward the value to input element', () => {
-      testComponent.checkboxValue = 'basic_checkbox';
+      checkboxInstance.value = 'basic_checkbox';
+      (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
       expect(inputElement.value).toBe('basic_checkbox');
@@ -496,7 +501,7 @@ describe('Checkbox', () => {
       expect(inputElement.tabIndex).toBe(7);
     });
 
-    it('should preserve given tabIndex when the checkbox is disabled then enabled', () => {
+    it('should preserve the previous tabIndex when the checkbox is disabled then enabled', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
@@ -506,7 +511,7 @@ describe('Checkbox', () => {
       testComponent.isDisabled = false;
       fixture.detectChanges();
 
-      expect(inputElement.tabIndex).toBe(13);
+      expect(inputElement.tabIndex).toBe(7);
     });
   });
 

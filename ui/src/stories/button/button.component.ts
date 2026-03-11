@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 @Component({
@@ -6,11 +6,11 @@ import { OuiIconRegistry } from '../../components';
   template: `
     <button
       oui-icon-button
-      [disabled]="disabled"
+      [disabled]="disabled()"
       (click)="clicked()"
-      [color]="color"
+      [color]="color()"
     >
-      <oui-icon svgIcon="configuration" [color]="color"></oui-icon>{{ text }}
+      <oui-icon svgIcon="configuration" [color]="color()"></oui-icon>{{ text }}
     </button>
   `,
   standalone: false,
@@ -19,8 +19,8 @@ export class OuiIconButtonStorybook {
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
-  @Input() color: string;
-  @Input() disabled: boolean;
+  readonly color = input<string>();
+  readonly disabled = input<boolean>(false);
 
   constructor() {
     this.ouiIconRegistry.addSvgIconSet(

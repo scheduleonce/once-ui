@@ -1,4 +1,4 @@
-import { Input, Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input, effect } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   UntypedFormControl,
@@ -21,7 +21,7 @@ export const _filter = (opt: string[], value: string): string[] => {
   selector: 'oui-autocomplete-storybook',
   template: `
     <oui-form-field
-      [appearance]="appearance"
+      [appearance]="appearance()"
       style="max-width:300px;display:block;"
     >
       <input [formControl]="myControl" oui-input [ouiAutocomplete]="auto" />
@@ -30,15 +30,14 @@ export const _filter = (opt: string[], value: string): string[] => {
       (closed)="closed()"
       (opened)="opened()"
       (click)="optionSelected($event)"
-      [autoActiveFirstOption]="autoActiveFirstOption"
+      [autoActiveFirstOption]="autoActiveFirstOption()"
       #auto="ouiAutocomplete"
     >
-      <oui-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
+      @for (option of filteredOptions | async; track option) {
+      <oui-option [value]="option">
         {{ option }}
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -46,28 +45,32 @@ export const _filter = (opt: string[], value: string): string[] => {
 export class OuiAutocompleteStorybook implements OnInit {
   filteredOptions: Observable<any[]>;
   myControl = new UntypedFormControl();
-  @Input() options: any[];
-  @Input() appearance: string;
-  @Input() autoActiveFirstOption: boolean;
-  @Input()
-  set disabled(value: boolean) {
-    if (value) {
-      this.myControl.disable();
-    } else {
-      this.myControl.enable();
-    }
+  readonly options = input<any[]>();
+  readonly appearance = input<string>();
+  readonly autoActiveFirstOption = input<boolean>();
+  readonly disabled = input<boolean>();
+  constructor() {
+    effect(() => {
+      if (this.disabled()) {
+        this.myControl.disable();
+      } else {
+        this.myControl.enable();
+      }
+    });
   }
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string>(''),
       map((value) => (typeof value === 'string' ? value : value)),
-      map((option) => (option ? this._filter(option) : this.options.slice()))
+      map((option) =>
+        option ? this._filter(option) : (this.options() ?? []).slice()
+      )
     );
   }
   private _filter(option): string[] {
     const filterValue = option.toLowerCase();
 
-    return this.options.filter(
+    return (this.options() ?? []).filter(
       // eslint-disable-next-line no-shadow
       (option) => option.toLowerCase().indexOf(filterValue) === 0
     );
@@ -79,7 +82,7 @@ export class OuiAutocompleteStorybook implements OnInit {
   template: `
     <oui-form-field
       [formGroup]="stateForm"
-      [appearance]="appearance"
+      [appearance]="appearance()"
       style="max-width:300px;display:block;"
     >
       <input
@@ -94,16 +97,17 @@ export class OuiAutocompleteStorybook implements OnInit {
         (click)="optionSelected($event)"
         #autoGroup="ouiAutocomplete"
         class="autocomplete-group"
-        [autoActiveFirstOption]="autoActiveFirstOption"
+        [autoActiveFirstOption]="autoActiveFirstOption()"
       >
-        <oui-optgroup
-          *ngFor="let group of stateGroupOptions | async"
-          [label]="group.letter"
-        >
-          <oui-option *ngFor="let name of group.names" [value]="name">
+        @for (group of stateGroupOptions | async; track group) {
+        <oui-optgroup [label]="group.letter">
+          @for (name of group.names; track name) {
+          <oui-option [value]="name">
             {{ name }}
           </oui-option>
+          }
         </oui-optgroup>
+        }
       </oui-autocomplete>
     </oui-form-field>
   `,
@@ -112,23 +116,24 @@ export class OuiAutocompleteStorybook implements OnInit {
 export class OuiAutocompleteGroupStorybook implements OnInit {
   private fb = inject(UntypedFormBuilder);
 
-  @Input() stateGroups: StateGroup[];
-  @Input() appearance: string;
-  @Input() autoActiveFirstOption: boolean;
-  @Input()
-  set disabled(value: boolean) {
-    if (value) {
-      this.stateForm.get('stateGroup')!.disable();
-    } else {
-      this.stateForm.get('stateGroup')!.enable();
-    }
-  }
+  readonly stateGroups = input<StateGroup[]>();
+  readonly appearance = input<string>();
+  readonly autoActiveFirstOption = input<boolean>();
+  readonly disabled = input<boolean>();
   stateForm: UntypedFormGroup = this.fb.group({
     stateGroup: '',
   });
   stateGroupOptions: Observable<StateGroup[]>;
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      if (this.disabled()) {
+        this.stateForm.get('stateGroup')!.disable();
+      } else {
+        this.stateForm.get('stateGroup')!.enable();
+      }
+    });
+  }
   ngOnInit() {
     this.stateGroupOptions = this.stateForm
       .get('stateGroup')!
@@ -140,7 +145,7 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
 
   private _filterGroup(value: string): StateGroup[] {
     if (value) {
-      return this.stateGroups
+      return (this.stateGroups() ?? [])
         .map((group) => ({
           letter: group.letter,
           names: _filter(group.names, value),
@@ -148,6 +153,6 @@ export class OuiAutocompleteGroupStorybook implements OnInit {
         .filter((group) => group.names.length > 0);
     }
 
-    return this.stateGroups;
+    return this.stateGroups() ?? [];
   }
 }

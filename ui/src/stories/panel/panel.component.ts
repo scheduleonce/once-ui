@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'oui-panel-storybook',
@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
     </oui-panel-icon>
     <oui-panel
       #afterAboveMenu
-      [width]="width"
-      [xPosition]="xPosition"
-      [yPosition]="yPosition"
+      [width]="width()"
+      [xPosition]="xPosition()"
+      [yPosition]="yPosition()"
     >
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <p>
@@ -28,9 +28,9 @@ import { Component, Input } from '@angular/core';
   standalone: false,
 })
 export class OuiPanelStorybook {
-  @Input() xPosition = 'before';
-  @Input() yPosition = 'above';
-  @Input() width = 270;
+  readonly xPosition = input('before');
+  readonly yPosition = input('above');
+  readonly width = input(270);
   constructor() {}
 }
 @Component({
@@ -38,7 +38,11 @@ export class OuiPanelStorybook {
   template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
-    <oui-panel #afterAboveMenu [xPosition]="xPosition" [yPosition]="yPosition">
+    <oui-panel
+      #afterAboveMenu
+      [xPosition]="xPosition()"
+      [yPosition]="yPosition()"
+    >
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <img
         src="https://images.pexels.com/photos/1856488/pexels-photo-1856488.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
@@ -58,7 +62,7 @@ export class OuiPanelStorybook {
   standalone: false,
 })
 export class OuiPanelWithImageStorybook {
-  @Input() xPosition = 'before';
-  @Input() yPosition = 'above';
+  readonly xPosition = input('before');
+  readonly yPosition = input('above');
   constructor() {}
 }
