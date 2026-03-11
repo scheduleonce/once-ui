@@ -39,9 +39,8 @@ export type ProgressBarMode = 'determinate' | 'indeterminate';
   standalone: false,
 })
 export class OuiProgressBar extends _OuiProgressBarMixinBase {
-  private _changeDetectorRef: ChangeDetectorRef | null = inject(
-    ChangeDetectorRef
-  );
+  private _changeDetectorRef: ChangeDetectorRef | null =
+    inject(ChangeDetectorRef);
 
   private _value = 0;
   private _strokeWidth: number;

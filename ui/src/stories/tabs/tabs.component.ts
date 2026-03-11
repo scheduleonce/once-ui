@@ -15,7 +15,7 @@ import { OuiIconRegistry } from '../../components';
         [ngClass]="{
           active: selectedTab === 'first'
         }"
-        >
+      >
         Tab 1
       </a>
       <a
@@ -27,21 +27,15 @@ import { OuiIconRegistry } from '../../components';
         [ngClass]="{
           active: selectedTab === 'second'
         }"
-        >
+      >
         Tab 2
       </a>
     </nav>
-    
-    @switch (selectedTab) {
-      @case ('first') {
-        <oui-icon svgIcon="preview"></oui-icon>
-        First tab selected
-      }
-      @case ('second') {
-        Second tab selected
-      }
-    }
-    `,
+
+    @switch (selectedTab) { @case ('first') {
+    <oui-icon svgIcon="preview"></oui-icon>
+    First tab selected } @case ('second') { Second tab selected } }
+  `,
   standalone: false,
 })
 export class OuiTabStorybook {

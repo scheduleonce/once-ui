@@ -30,14 +30,14 @@ export class OuiScrollbarTextStorybook {
       [oui-scrollbar-large]="large()"
       [style.height.px]="height()"
       class="content"
-      >
+    >
       <ul class="scrollbar-list">
         @for (item of items(); track item) {
-          <li>{{ item }}</li>
+        <li>{{ item }}</li>
         }
       </ul>
     </div>
-    `,
+  `,
   standalone: false,
 })
 export class OuiScrollbarListStorybook {

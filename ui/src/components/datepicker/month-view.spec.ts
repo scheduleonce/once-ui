@@ -131,7 +131,8 @@ describe('OuiMonthView', () => {
       const monthViewDebugElement = fixture.debugElement.query(
         By.directive(OuiMonthView)
       );
-      const monthViewInstance = monthViewDebugElement.componentInstance as OuiMonthView<Date>;
+      const monthViewInstance =
+        monthViewDebugElement.componentInstance as OuiMonthView<Date>;
       monthViewInstance.selected = new Date(2017, MAR, 10);
       fixture.detectChanges();
 

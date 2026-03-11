@@ -81,9 +81,8 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private _document = inject(DOCUMENT, { optional: true })!;
-  private _changeDetectorRef: ChangeDetectorRef | null = inject(
-    ChangeDetectorRef
-  );
+  private _changeDetectorRef: ChangeDetectorRef | null =
+    inject(ChangeDetectorRef);
 
   private static diameters = new Set<number>([BASE_SIZE]);
   private static styleTag: HTMLStyleElement | null = null;

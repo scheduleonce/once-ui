@@ -1,9 +1,4 @@
-import {
-  Component,
-  effect,
-  input,
-  output,
-} from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { OuiDatepickerInputEvent } from '../../components/datepicker';
 import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
 
@@ -77,7 +72,9 @@ export class OuiDatepickerStorybook {
       this.maxDate = new Date(this.maxdate());
       this._value = new Date(this.value());
       if (this.opened()) {
-        (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
+        (
+          document.querySelector('.oui-datepicker-toggle') as HTMLElement
+        ).focus();
       }
     });
   }
@@ -154,7 +151,9 @@ export class OuiDatepickerCustomStorybook {
       this.maxDate = new Date(this.maxdate());
       this._value = new Date(this.value());
       if (this.opened()) {
-        (document.querySelector('.oui-datepicker-toggle') as HTMLElement).focus();
+        (
+          document.querySelector('.oui-datepicker-toggle') as HTMLElement
+        ).focus();
       }
     });
   }

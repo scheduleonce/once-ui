@@ -62,7 +62,7 @@ import {
       class="custom-one custom-two"
       (closed)="closeCallback($event)"
       [backdropClass]="backdropClass"
-      >
+    >
       <button oui-menu-item>Item</button>
       <button oui-menu-item disabled>Disabled</button>
       <button oui-menu-item disableRipple>
@@ -70,10 +70,10 @@ import {
         Item with an icon
       </button>
       @for (item of extraItems; track item) {
-        <button oui-menu-item>{{ item }}</button>
+      <button oui-menu-item>{{ item }}</button>
       }
     </oui-menu>
-    `,
+  `,
   standalone: false,
 })
 class SimpleMenu {
@@ -165,36 +165,36 @@ class CustomMenu {
       [ouiMenuTriggerFor]="root"
       #rootTrigger="ouiMenuTrigger"
       #rootTriggerEl
-      >
+    >
       Toggle menu
     </button>
-    
+
     <button [ouiMenuTriggerFor]="levelTwo" #alternateTrigger="ouiMenuTrigger">
       Toggle alternate menu
     </button>
-    
+
     <oui-menu #root="ouiMenu" (closed)="rootCloseCallback($event)">
       <button
         oui-menu-item
         id="level-one-trigger"
         [ouiMenuTriggerFor]="levelOne"
         #levelOneTrigger="ouiMenuTrigger"
-        >
+      >
         One
       </button>
       <button oui-menu-item>Two</button>
       @if (showLazy) {
-        <button
-          oui-menu-item
-          id="lazy-trigger"
-          [ouiMenuTriggerFor]="lazy"
-          #lazyTrigger="ouiMenuTrigger"
-          >
-          Three
-        </button>
+      <button
+        oui-menu-item
+        id="lazy-trigger"
+        [ouiMenuTriggerFor]="lazy"
+        #lazyTrigger="ouiMenuTrigger"
+      >
+        Three
+      </button>
       }
     </oui-menu>
-    
+
     <oui-menu #levelOne="ouiMenu" (closed)="levelOneCloseCallback($event)">
       <button oui-menu-item>Four</button>
       <button
@@ -202,22 +202,22 @@ class CustomMenu {
         id="level-two-trigger"
         [ouiMenuTriggerFor]="levelTwo"
         #levelTwoTrigger="ouiMenuTrigger"
-        >
+      >
         Five
       </button>
       <button oui-menu-item>Six</button>
     </oui-menu>
-    
+
     <oui-menu #levelTwo="ouiMenu" (closed)="levelTwoCloseCallback($event)">
       <button oui-menu-item>Seven</button> <button oui-menu-item>Eight</button>
       <button oui-menu-item>Nine</button>
     </oui-menu>
-    
+
     <oui-menu #lazy="ouiMenu">
       <button oui-menu-item>Ten</button> <button oui-menu-item>Eleven</button>
       <button oui-menu-item>Twelve</button>
     </oui-menu>
-    `,
+  `,
   standalone: false,
 })
 class NestedMenu {
@@ -252,20 +252,20 @@ class NestedMenu {
     <button [ouiMenuTriggerFor]="root" #rootTriggerEl>Toggle menu</button>
     <oui-menu #root="ouiMenu">
       @for (item of items; track item) {
-        <button
-          oui-menu-item
-          class="level-one-trigger"
-          [ouiMenuTriggerFor]="levelOne"
-          >
-          {{ item }}
-        </button>
+      <button
+        oui-menu-item
+        class="level-one-trigger"
+        [ouiMenuTriggerFor]="levelOne"
+      >
+        {{ item }}
+      </button>
       }
     </oui-menu>
-    
+
     <oui-menu #levelOne="ouiMenu">
       <button oui-menu-item>Four</button> <button oui-menu-item>Five</button>
     </oui-menu>
-    `,
+  `,
   standalone: false,
 })
 class NestedMenuRepeater {
@@ -1047,7 +1047,9 @@ describe('OuiMenu', () => {
       fixture.componentInstance.trigger.openMenu();
       fixture.detectChanges();
 
-      panel = overlayContainerElement.querySelector('.oui-menu-panel') as HTMLElement;
+      panel = overlayContainerElement.querySelector(
+        '.oui-menu-panel'
+      ) as HTMLElement;
 
       expect(panel.classList).toContain('oui-menu-below');
       expect(panel.classList).not.toContain('oui-menu-above');

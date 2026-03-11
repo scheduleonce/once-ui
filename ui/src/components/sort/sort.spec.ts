@@ -1,6 +1,12 @@
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CdkTableModule } from '@angular/cdk/table';
-import { Component, ElementRef, ViewChild, inject, isDevMode } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  inject,
+  isDevMode,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,

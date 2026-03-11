@@ -8,18 +8,18 @@
       [attr.aria-label]="ariaLabel()"
       [placeholder]="placeholderLabel()"
       [class]="{'right-padding': _value?.length}"
-      />
+    />
     @if (_value?.length) {
-      <div class="clear-btn">
-        <button
-          title="Clear"
-          (click)="clearInput()"
-          aria-label="Clear search"
-          oui-icon-button
-          >
-          <oui-icon svgIcon="x-close-small"></oui-icon>
-        </button>
-      </div>
+    <div class="clear-btn">
+      <button
+        title="Clear"
+        (click)="clearInput()"
+        aria-label="Clear search"
+        oui-icon-button
+      >
+        <oui-icon svgIcon="x-close-small"></oui-icon>
+      </button>
+    </div>
     }
   </oui-form-field>
 </div>

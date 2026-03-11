@@ -38,7 +38,11 @@ export class OuiPanelStorybook {
   template: `
     <oui-panel-icon style="" [ouiPanelTriggerFor]="afterAboveMenu">
     </oui-panel-icon>
-    <oui-panel #afterAboveMenu [xPosition]="xPosition()" [yPosition]="yPosition()">
+    <oui-panel
+      #afterAboveMenu
+      [xPosition]="xPosition()"
+      [yPosition]="yPosition()"
+    >
       <h6>Lorem ipsum, dolor sit amet consectetur</h6>
       <img
         src="https://images.pexels.com/photos/1856488/pexels-photo-1856488.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"

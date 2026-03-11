@@ -46,12 +46,12 @@ class RadioInsideGroupComponent {
   template: `
     <oui-radio-group [(ngModel)]="modelValue" (change)="lastEvent = $event">
       @for (option of options; track option) {
-        <oui-radio-button [value]="option.value">
-          {{ option.label }}
-        </oui-radio-button>
+      <oui-radio-button [value]="option.value">
+        {{ option.label }}
+      </oui-radio-button>
       }
     </oui-radio-group>
-    `,
+  `,
   standalone: false,
 })
 class RadioGroupWithNgModel {
@@ -132,14 +132,14 @@ class FocusableRadioButton {
   template: `
     <oui-radio-group name="group" [(ngModel)]="modelValue">
       @for (option of options; track option) {
-        <oui-transcluding-wrapper>
-          <oui-radio-button [value]="option.value">{{
-            option.label
-          }}</oui-radio-button>
-        </oui-transcluding-wrapper>
+      <oui-transcluding-wrapper>
+        <oui-radio-button [value]="option.value">{{
+          option.label
+        }}</oui-radio-button>
+      </oui-transcluding-wrapper>
       }
     </oui-radio-group>
-    `,
+  `,
   standalone: false,
 })
 class InterleavedRadioGroup {

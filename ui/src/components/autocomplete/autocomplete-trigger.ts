@@ -195,7 +195,9 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Defaults to the autocomplete trigger element.
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  readonly connectedTo = input<OuiAutocompleteOrigin | undefined>(undefined, { alias: 'ouiAutocompleteConnectedTo' });
+  readonly connectedTo = input<OuiAutocompleteOrigin | undefined>(undefined, {
+    alias: 'ouiAutocompleteConnectedTo',
+  });
 
   /**
    * `autocomplete` attribute to be set on the input element.
@@ -227,7 +229,10 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Whether the autocomplete is disabled. When disabled, the element will
    * act as a regular input and the user won't be able to open the panel.
    */
-  readonly autocompleteDisabled = input(false, { alias: 'ouiAutocompleteDisabled', transform: booleanAttribute });
+  readonly autocompleteDisabled = input(false, {
+    alias: 'ouiAutocompleteDisabled',
+    transform: booleanAttribute,
+  });
 
   constructor() {
     const _zone = this._zone;

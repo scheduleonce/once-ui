@@ -58,7 +58,9 @@ export class OuiMenuItem
   });
 
   /** ARIA role for the menu item. */
-  readonly role = input<'menuitem' | 'menuitemradio' | 'menuitemcheckbox'>('menuitem');
+  readonly role = input<'menuitem' | 'menuitemradio' | 'menuitemcheckbox'>(
+    'menuitem'
+  );
 
   private _document: Document;
 

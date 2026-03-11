@@ -647,7 +647,10 @@ describe('MDC-based ouiTabGroup', () => {
       tick();
 
       // Remove last tab while last tab is selected, expect next tab over to be selected
-      fixture.componentInstance.tabs = fixture.componentInstance.tabs.slice(0, -1);
+      fixture.componentInstance.tabs = fixture.componentInstance.tabs.slice(
+        0,
+        -1
+      );
       fixture.detectChanges();
       tick();
 
@@ -1394,15 +1397,15 @@ class SimpleTabsTestApp {
       (focusChange)="handleFocus($event)"
       (selectedTabChange)="handleSelection($event)"
       [disablePagination]="disablePagination"
-      >
+    >
       @for (tab of tabs; track $index) {
-        <oui-tab>
-          <ng-template oui-tab-label>{{ tab.label }}</ng-template>
-          {{ tab.content }}
-        </oui-tab>
+      <oui-tab>
+        <ng-template oui-tab-label>{{ tab.label }}</ng-template>
+        {{ tab.content }}
+      </oui-tab>
       }
     </oui-tab-group>
-    `,
+  `,
   standalone: false,
 })
 class SimpleDynamicTabsTestApp {
@@ -1427,12 +1430,12 @@ class SimpleDynamicTabsTestApp {
   template: `
     <oui-tab-group class="tab-group" [(selectedIndex)]="selectedIndex">
       @for (tab of tabs; track tab) {
-        <oui-tab label="{{ tab.label }}">
-          {{ tab.content }}
-        </oui-tab>
+      <oui-tab label="{{ tab.label }}">
+        {{ tab.content }}
+      </oui-tab>
       }
     </oui-tab-group>
-    `,
+  `,
   standalone: false,
 })
 class BindedTabsTestApp {
@@ -1479,13 +1482,13 @@ class DisabledTabsTestApp {
   template: `
     <oui-tab-group class="tab-group">
       @for (tab of tabs | async; track tab) {
-        <oui-tab>
-          <ng-template oui-tab-label>{{ tab.label }}</ng-template>
-          {{ tab.content }}
-        </oui-tab>
+      <oui-tab>
+        <ng-template oui-tab-label>{{ tab.label }}</ng-template>
+        {{ tab.content }}
+      </oui-tab>
       }
     </oui-tab-group>
-    `,
+  `,
   standalone: false,
 })
 class AsyncTabsTestApp implements OnInit {
@@ -1510,7 +1513,7 @@ class AsyncTabsTestApp implements OnInit {
       [preserveContent]="preserveContent"
       [headerPosition]="headerPosition"
       [selectedIndex]="selectedIndex"
-      >
+    >
       <oui-tab label="Junk food"> Pizza, fries </oui-tab>
       <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
       <oui-tab [label]="otherLabel"> {{ otherContent }} </oui-tab>
@@ -1584,11 +1587,11 @@ class TabGroupWithAriaInputs {
       <oui-tab label="Junk food" #pizza> Pizza, fries </oui-tab>
       <oui-tab label="Vegetables"> Broccoli, spinach </oui-tab>
     </oui-tab-group>
-    
+
     @if (pizza.isActive) {
-      <div>pizza is active</div>
+    <div>pizza is active</div>
     }
-    `,
+  `,
   standalone: false,
 })
 class TabGroupWithIsActiveBinding {}

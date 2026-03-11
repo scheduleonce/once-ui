@@ -23,7 +23,7 @@ export const _filter = (opt: string[], value: string): string[] => {
     <oui-form-field
       [appearance]="appearance()"
       style="max-width:300px;display:block;"
-      >
+    >
       <input [formControl]="myControl" oui-input [ouiAutocomplete]="auto" />
     </oui-form-field>
     <oui-autocomplete
@@ -32,16 +32,14 @@ export const _filter = (opt: string[], value: string): string[] => {
       (click)="optionSelected($event)"
       [autoActiveFirstOption]="autoActiveFirstOption()"
       #auto="ouiAutocomplete"
-      >
+    >
       @for (option of filteredOptions | async; track option) {
-        <oui-option
-          [value]="option"
-          >
-          {{ option }}
-        </oui-option>
+      <oui-option [value]="option">
+        {{ option }}
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 export class OuiAutocompleteStorybook implements OnInit {
@@ -64,7 +62,9 @@ export class OuiAutocompleteStorybook implements OnInit {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith<string>(''),
       map((value) => (typeof value === 'string' ? value : value)),
-      map((option) => (option ? this._filter(option) : (this.options() ?? []).slice()))
+      map((option) =>
+        option ? this._filter(option) : (this.options() ?? []).slice()
+      )
     );
   }
   private _filter(option): string[] {
@@ -84,13 +84,13 @@ export class OuiAutocompleteStorybook implements OnInit {
       [formGroup]="stateForm"
       [appearance]="appearance()"
       style="max-width:300px;display:block;"
-      >
+    >
       <input
         type="text"
         formControlName="stateGroup"
         oui-input
         [ouiAutocomplete]="autoGroup"
-        />
+      />
       <oui-autocomplete
         (closed)="closed()"
         (opened)="opened()"
@@ -98,21 +98,19 @@ export class OuiAutocompleteStorybook implements OnInit {
         #autoGroup="ouiAutocomplete"
         class="autocomplete-group"
         [autoActiveFirstOption]="autoActiveFirstOption()"
-        >
+      >
         @for (group of stateGroupOptions | async; track group) {
-          <oui-optgroup
-            [label]="group.letter"
-            >
-            @for (name of group.names; track name) {
-              <oui-option [value]="name">
-                {{ name }}
-              </oui-option>
-            }
-          </oui-optgroup>
+        <oui-optgroup [label]="group.letter">
+          @for (name of group.names; track name) {
+          <oui-option [value]="name">
+            {{ name }}
+          </oui-option>
+          }
+        </oui-optgroup>
         }
       </oui-autocomplete>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {

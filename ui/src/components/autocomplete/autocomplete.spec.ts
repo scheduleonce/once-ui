@@ -61,7 +61,7 @@ import { map, startWith } from 'rxjs/operators';
         [ouiAutocomplete]="auto"
         [ouiAutocompleteDisabled]="autocompleteDisabled"
         [formControl]="stateCtrl"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete
       class="class-one class-two"
@@ -71,14 +71,14 @@ import { map, startWith } from 'rxjs/operators';
       [panelWidth]="panelWidth"
       (opened)="openedSpy()"
       (closed)="closedSpy()"
-      >
+    >
       @for (state of filteredStates; track state) {
-        <oui-option [value]="state">
-          <span>{{ state.code }}: {{ state.name }}</span>
-        </oui-option>
+      <oui-option [value]="state">
+        <span>{{ state.code }}: {{ state.name }}</span>
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class SimpleAutocomplete implements OnDestroy {
@@ -137,25 +137,23 @@ class SimpleAutocomplete implements OnDestroy {
 @Component({
   template: `
     @if (isVisible) {
-      <oui-form-field>
-        <input
-          oui-input
-          placeholder="Choose"
-          [ouiAutocomplete]="auto"
-          [formControl]="optionCtrl"
-          />
-      </oui-form-field>
+    <oui-form-field>
+      <input
+        oui-input
+        placeholder="Choose"
+        [ouiAutocomplete]="auto"
+        [formControl]="optionCtrl"
+      />
+    </oui-form-field>
     }
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (option of filteredOptions | async; track option) {
-        <oui-option
-          [value]="option"
-          >
-          {{ option }}
-        </oui-option>
+      <oui-option [value]="option">
+        {{ option }}
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class NgIfAutocomplete {
@@ -188,16 +186,16 @@ class NgIfAutocomplete {
         placeholder="State"
         [ouiAutocomplete]="auto"
         (input)="onInput($event.target?.value)"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (state of filteredStates; track state) {
-        <oui-option [value]="state">
-          <span> {{ state }} </span>
-        </oui-option>
+      <oui-option [value]="state">
+        <span> {{ state }} </span>
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithoutForms {
@@ -224,16 +222,16 @@ class AutocompleteWithoutForms {
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedState"
         (ngModelChange)="onInput($event)"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (state of filteredStates; track state) {
-        <oui-option [value]="state">
-          <span>{{ state }}</span>
-        </oui-option>
+      <oui-option [value]="state">
+        <span>{{ state }}</span>
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithNgModel {
@@ -260,16 +258,16 @@ class AutocompleteWithNgModel {
         placeholder="Number"
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedNumber"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (number of numbers; track number) {
-        <oui-option [value]="number">
-          <span>{{ number }}</span>
-        </oui-option>
+      <oui-option [value]="number">
+        <span>{{ number }}</span>
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithNumbers {
@@ -285,12 +283,10 @@ class AutocompleteWithNumbers {
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (option of options; track option) {
-        <oui-option [value]="option">{{
-          option
-        }}</oui-option>
+      <oui-option [value]="option">{{ option }}</oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithOnPushDelay implements OnInit {
@@ -311,17 +307,15 @@ class AutocompleteWithOnPushDelay implements OnInit {
       placeholder="Choose"
       [ouiAutocomplete]="auto"
       [formControl]="optionCtrl"
-      />
+    />
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (option of filteredOptions | async; track option) {
-        <oui-option
-          [value]="option"
-          >
-          {{ option }}
-        </oui-option>
+      <oui-option [value]="option">
+        {{ option }}
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithNativeInput {
@@ -369,20 +363,20 @@ class AutocompleteWithoutPanel {
         placeholder="State"
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedState"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (group of stateGroups; track group) {
-        <oui-optgroup [label]="group.label">
-          @for (state of group.states; track state) {
-            <oui-option [value]="state">
-              <span>{{ state }}</span>
-            </oui-option>
-          }
-        </oui-optgroup>
+      <oui-optgroup [label]="group.label">
+        @for (state of group.states; track state) {
+        <oui-option [value]="state">
+          <span>{{ state }}</span>
+        </oui-option>
+        }
+      </oui-optgroup>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithGroups {
@@ -413,19 +407,19 @@ class AutocompleteWithGroups {
         placeholder="State"
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedState"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete
       #auto="ouiAutocomplete"
       (optionSelected)="optionSelected($event)"
-      >
+    >
       @for (state of states; track state) {
-        <oui-option [value]="state">
-          <span>{{ state }}</span>
-        </oui-option>
+      <oui-option [value]="state">
+        <span>{{ state }}</span>
+      </oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithSelectEvent {
@@ -457,16 +451,14 @@ class PlainAutocompleteInputWithFormControl {
         oui-input
         [ouiAutocomplete]="auto"
         [(ngModel)]="selectedValue"
-        />
+      />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (value of values; track value) {
-        <oui-option [value]="value">{{
-          value
-        }}</oui-option>
+      <oui-option [value]="value">{{ value }}</oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithNumberInputAndNgModel {
@@ -483,7 +475,7 @@ class AutocompleteWithNumberInputAndNgModel {
           [ouiAutocomplete]="auto"
           [ouiAutocompleteConnectedTo]="connectedTo"
           [(ngModel)]="selectedValue"
-          />
+        />
       </oui-form-field>
     </div>
     <div
@@ -491,17 +483,15 @@ class AutocompleteWithNumberInputAndNgModel {
       ouiAutocompleteOrigin
       #origin="ouiAutocompleteOrigin"
       style="margin-top: 50px"
-      >
+    >
       Connection element
     </div>
     <oui-autocomplete #auto="ouiAutocomplete">
       @for (value of values; track value) {
-        <oui-option [value]="value">{{
-          value
-        }}</oui-option>
+      <oui-option [value]="value">{{ value }}</oui-option>
       }
     </oui-autocomplete>
-    `,
+  `,
   standalone: false,
 })
 class AutocompleteWithDifferentOrigin {
@@ -2137,7 +2127,10 @@ describe('OuiAutocomplete', () => {
 
       expect(
         overlayContainerElement.querySelectorAll('oui-option')[0].classList
-      ).not.toContain('oui-active', 'Expected first option not to be auto-highlighted.');
+      ).not.toContain(
+        'oui-active',
+        'Expected first option not to be auto-highlighted.'
+      );
     }));
 
     it('should handle `optionSelections` being accessed too early', fakeAsync(() => {

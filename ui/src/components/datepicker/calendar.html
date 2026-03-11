@@ -1,47 +1,39 @@
 <ng-template [cdkPortalOutlet]="_calendarHeaderPortal"></ng-template>
 
-<div
-  class="oui-calendar-content"
-  cdkMonitorSubtreeFocus
-  tabindex="-1"
+<div class="oui-calendar-content" cdkMonitorSubtreeFocus tabindex="-1">
+  @switch (currentView) { @case ('month') {
+  <oui-month-view
+    [(activeDate)]="activeDate"
+    [selected]="selected"
+    [dateFilter]="dateFilter"
+    [maxDate]="maxDate"
+    [minDate]="minDate"
+    [dateClass]="dateClass"
+    (selectedChange)="_dateSelected($event)"
+    (_userSelection)="_userSelected()"
   >
-  @switch (currentView) {
-    @case ('month') {
-      <oui-month-view
-        [(activeDate)]="activeDate"
-        [selected]="selected"
-        [dateFilter]="dateFilter"
-        [maxDate]="maxDate"
-        [minDate]="minDate"
-        [dateClass]="dateClass"
-        (selectedChange)="_dateSelected($event)"
-        (_userSelection)="_userSelected()"
-        >
-      </oui-month-view>
-    }
-    @case ('year') {
-      <oui-year-view
-        [(activeDate)]="activeDate"
-        [selected]="selected"
-        [dateFilter]="dateFilter"
-        [maxDate]="maxDate"
-        [minDate]="minDate"
-        (monthSelected)="_monthSelectedInYearView($event)"
-        (selectedChange)="_goToDateInView($event, 'month')"
-        >
-      </oui-year-view>
-    }
-    @case ('multi-year') {
-      <oui-multi-year-view
-        [(activeDate)]="activeDate"
-        [selected]="selected"
-        [dateFilter]="dateFilter"
-        [maxDate]="maxDate"
-        [minDate]="minDate"
-        (yearSelected)="_yearSelectedInMultiYearView($event)"
-        (selectedChange)="_goToDateInView($event, 'year')"
-        >
-      </oui-multi-year-view>
-    }
-  }
+  </oui-month-view>
+  } @case ('year') {
+  <oui-year-view
+    [(activeDate)]="activeDate"
+    [selected]="selected"
+    [dateFilter]="dateFilter"
+    [maxDate]="maxDate"
+    [minDate]="minDate"
+    (monthSelected)="_monthSelectedInYearView($event)"
+    (selectedChange)="_goToDateInView($event, 'month')"
+  >
+  </oui-year-view>
+  } @case ('multi-year') {
+  <oui-multi-year-view
+    [(activeDate)]="activeDate"
+    [selected]="selected"
+    [dateFilter]="dateFilter"
+    [maxDate]="maxDate"
+    [minDate]="minDate"
+    (yearSelected)="_yearSelectedInMultiYearView($event)"
+    (selectedChange)="_goToDateInView($event, 'year')"
+  >
+  </oui-multi-year-view>
+  } }
 </div>

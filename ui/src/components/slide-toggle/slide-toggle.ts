@@ -88,7 +88,9 @@ export class OuiSlideToggle
   readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
   /** Used to set the aria-labelledby attribute on the underlying input element. */
-  readonly ariaLabelledby = input<string | null>(null, { alias: 'aria-labelledby' });
+  readonly ariaLabelledby = input<string | null>(null, {
+    alias: 'aria-labelledby',
+  });
 
   // eslint-disable-next-line @angular-eslint/no-output-rename
   readonly change = output<any>({ alias: 'state-change' });

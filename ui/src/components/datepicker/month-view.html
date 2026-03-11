@@ -2,9 +2,7 @@
   <thead class="oui-calendar-table-header">
     <tr>
       @for (day of _weekdays; track day) {
-        <th [attr.aria-label]="day.long">
-          {{day.narrow}}
-        </th>
+      <th [attr.aria-label]="day.long">{{day.narrow}}</th>
       }
     </tr>
     <tr>

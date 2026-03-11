@@ -115,7 +115,7 @@ export class OuiAutocomplete implements AfterContentInit {
    * Can be configured globally through the `OUI_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
    */
   readonly autoActiveFirstOption = input(
-    !!(inject(OUI_AUTOCOMPLETE_DEFAULT_OPTIONS).autoActiveFirstOption),
+    !!inject(OUI_AUTOCOMPLETE_DEFAULT_OPTIONS).autoActiveFirstOption,
     { transform: booleanAttribute }
   );
 

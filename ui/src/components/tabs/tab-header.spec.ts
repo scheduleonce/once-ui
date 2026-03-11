@@ -597,21 +597,21 @@ interface Tab {
         (indexFocused)="focusedIndex = $event"
         (selectFocusedIndex)="selectedIndex = $event"
         [disablePagination]="disablePagination"
-        >
+      >
         @for (tab of tabs; track tab; let i = $index) {
-          <div
-            ouiTabLabelWrapper
-            class="label-content"
-            style="min-width: 30px; width: 30px"
-            [disabled]="!!tab.disabled"
-            (click)="selectedIndex = i"
-            >
-            {{ tab.label }}
-          </div>
+        <div
+          ouiTabLabelWrapper
+          class="label-content"
+          style="min-width: 30px; width: 30px"
+          [disabled]="!!tab.disabled"
+          (click)="selectedIndex = i"
+        >
+          {{ tab.label }}
+        </div>
         }
       </oui-tab-header>
     </div>
-    `,
+  `,
   styles: [
     `
       :host {

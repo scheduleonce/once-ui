@@ -18,27 +18,25 @@ import { DomSanitizer } from '@angular/platform-browser';
         oui-input
         class="input-filter"
         placeholder="Filter"
-        />
+      />
     </oui-form-field>
     <div class="table-container">
       <table oui-table #table [dataSource]="dataSource" ouiSort>
         @for (column of displayedColumns; track column) {
-          <ng-container
-            ouiColumnDef="{{ column }}"
-            >
-            <th oui-header-cell *ouiHeaderCellDef oui-sort-header>
-              {{ column }}
-            </th>
-            <td oui-cell *ouiCellDef="let element">{{ element[column] }}</td>
-          </ng-container>
+        <ng-container ouiColumnDef="{{ column }}">
+          <th oui-header-cell *ouiHeaderCellDef oui-sort-header>
+            {{ column }}
+          </th>
+          <td oui-cell *ouiCellDef="let element">{{ element[column] }}</td>
+        </ng-container>
         }
         <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
         <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
       </table>
-    
+
       <oui-paginator pageSize="{{ pageSize() }}"></oui-paginator>
     </div>
-    `,
+  `,
   standalone: false,
 })
 export class OuiTableStorybook implements OnInit {
@@ -123,13 +121,13 @@ export class OuiTableStorybook implements OnInit {
             <div class="integrationsContainer">
               <ul>
                 @for (integration of user.integration; track integration) {
-                  <li>
-                    <span
-                      [ouiTooltip]="integration"
-                      ouiTooltipPosition="above"
-                      [innerHTML]="INTEGRATIONS[integration]"
-                    ></span>
-                  </li>
+                <li>
+                  <span
+                    [ouiTooltip]="integration"
+                    ouiTooltipPosition="above"
+                    [innerHTML]="INTEGRATIONS[integration]"
+                  ></span>
+                </li>
                 }
               </ul>
             </div>
@@ -143,13 +141,13 @@ export class OuiTableStorybook implements OnInit {
             <div class="licensesContainer">
               <ul>
                 @for (license of user.licence; track license) {
-                  <li>
-                    <span
-                      [ouiTooltip]="license"
-                      ouiTooltipPosition="above"
-                      [innerHTML]="LICENCES[license]"
-                    ></span>
-                  </li>
+                <li>
+                  <span
+                    [ouiTooltip]="license"
+                    ouiTooltipPosition="above"
+                    [innerHTML]="LICENCES[license]"
+                  ></span>
+                </li>
                 }
               </ul>
             </div>
@@ -165,7 +163,7 @@ export class OuiTableStorybook implements OnInit {
         <tr oui-row *ouiRowDef="let row; columns: userInfoColumns"></tr>
       </table>
     </div>
-    `,
+  `,
   standalone: false,
 })
 export class OuiTableCustomStorybook {

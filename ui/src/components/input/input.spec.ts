@@ -118,10 +118,12 @@ class OuiInputMissingOuiInputTestController {}
 
 @Component({
   template: `
-    <oui-form-field> @if (renderInput) {
+    <oui-form-field>
+      @if (renderInput) {
       <input oui-input />
-    } </oui-form-field>
-    `,
+      }
+    </oui-form-field>
+  `,
   standalone: false,
 })
 class OuiInputWithNgIf {
@@ -186,7 +188,9 @@ describe('OuiInput without forms', () => {
     const fixture = createComponent(OuiInputWithRequired);
     fixture.detectChanges();
 
-    const inputDebugElement = fixture.debugElement.query(By.directive(OuiInput));
+    const inputDebugElement = fixture.debugElement.query(
+      By.directive(OuiInput)
+    );
     const inputElement: HTMLInputElement = inputDebugElement.nativeElement;
 
     expect(inputElement.getAttribute('aria-required')).toBe(
@@ -235,7 +239,9 @@ describe('OuiInput without forms', () => {
     const fixture = createComponent(OuiInputPlaceholderAttrTestComponent);
     fixture.detectChanges();
 
-    const inputDebugElement = fixture.debugElement.query(By.directive(OuiInput));
+    const inputDebugElement = fixture.debugElement.query(
+      By.directive(OuiInput)
+    );
     const inputEl = inputDebugElement.nativeElement as HTMLInputElement;
 
     expect(inputEl.placeholder).toBe('');
@@ -250,7 +256,9 @@ describe('OuiInput without forms', () => {
     const fixture = createComponent(OuiInputWithRequired);
     fixture.detectChanges();
 
-    const inputDebugElement = fixture.debugElement.query(By.directive(OuiInput));
+    const inputDebugElement = fixture.debugElement.query(
+      By.directive(OuiInput)
+    );
     const inputEl = inputDebugElement.nativeElement as HTMLInputElement;
 
     expect(inputEl.required).toBe(false);
@@ -265,7 +273,9 @@ describe('OuiInput without forms', () => {
     const fixture = createComponent(OuiInputWithType);
     fixture.detectChanges();
 
-    const inputDebugElement = fixture.debugElement.query(By.directive(OuiInput));
+    const inputDebugElement = fixture.debugElement.query(
+      By.directive(OuiInput)
+    );
     const inputEl = inputDebugElement.nativeElement as HTMLInputElement;
 
     expect(inputEl.type).toBe('text');
@@ -297,7 +307,9 @@ describe('OuiInput without forms', () => {
     const fixture = createComponent(OuiInputWithSpellcheck);
     fixture.detectChanges();
 
-    const inputDebugElement = fixture.debugElement.query(By.directive(OuiInput));
+    const inputDebugElement = fixture.debugElement.query(
+      By.directive(OuiInput)
+    );
     const inputEl = inputDebugElement.nativeElement as HTMLInputElement;
 
     expect(inputEl.spellcheck).toBe(true);

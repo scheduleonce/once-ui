@@ -643,21 +643,21 @@ describe('OuiTabNavBar with enabled animations', () => {
       [disableRipple]="disableRippleOnBar"
       [fitInkBarToContent]="fitInkBarToContent"
       [tabPanel]="tabPanel"
-      >
+    >
       @for (tab of tabs; track tab; let index = $index) {
-        <a
-          oui-tab-link
-          [active]="activeIndex === index"
-          [disabled]="disabled"
-          (click)="activeIndex = index"
-          [disableRipple]="disableRippleOnLink"
-          >
-          Tab link {{ label }}
-        </a>
+      <a
+        oui-tab-link
+        [active]="activeIndex === index"
+        [disabled]="disabled"
+        (click)="activeIndex = index"
+        [disableRipple]="disableRippleOnLink"
+      >
+        Tab link {{ label }}
+      </a>
       }
     </nav>
     <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
-    `,
+  `,
   standalone: false,
 })
 class SimpleTabNavBarTestApp {
@@ -678,11 +678,11 @@ class SimpleTabNavBarTestApp {
   template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
       @if (!isDestroyed) {
-        <a oui-tab-link>Link</a>
+      <a oui-tab-link>Link</a>
       }
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
-    `,
+  `,
   standalone: false,
 })
 class TabLinkWithNgIf {
@@ -693,13 +693,11 @@ class TabLinkWithNgIf {
   template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
       @for (tab of tabs; track tab) {
-        <a oui-tab-link [active]="false"
-          >Tab link {{ label }}</a
-          >
-        }
-      </nav>
-      <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
-    `,
+      <a oui-tab-link [active]="false">Tab link {{ label }}</a>
+      }
+    </nav>
+    <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
+  `,
   standalone: false,
 })
 class TabBarWithInactiveTabsOnInit {
@@ -710,11 +708,11 @@ class TabBarWithInactiveTabsOnInit {
   template: `
     <nav [animationDuration]="500" oui-tab-nav-bar [tabPanel]="tabPanel">
       @for (link of links; track link) {
-        <a oui-tab-link>{{ link }}</a>
+      <a oui-tab-link>{{ link }}</a>
       }
     </nav>
     <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
-    `,
+  `,
   standalone: false,
 })
 class TabsWithCustomAnimationDuration {

@@ -127,9 +127,10 @@ describe('OuiProgressSpinner', () => {
   });
 
   it('should allow to set a custom diameter', () => {
-    const spinnerDebugElement = progressSpinnerDiameterFixture.debugElement.query(
-      By.directive(OuiProgressSpinner)
-    );
+    const spinnerDebugElement =
+      progressSpinnerDiameterFixture.debugElement.query(
+        By.directive(OuiProgressSpinner)
+      );
     const spinner = spinnerDebugElement.nativeElement as HTMLElement;
     const svgElement =
       progressSpinnerDiameterFixture.nativeElement.querySelector(

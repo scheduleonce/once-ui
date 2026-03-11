@@ -68,19 +68,16 @@ import {
         [aria-label]="ariaLabel"
         [aria-labelledby]="ariaLabelledby"
         [panelClass]="panelClass"
-        >
+      >
         @for (food of foods; track food) {
-          <oui-option
-            [value]="food.value"
-            [disabled]="food.disabled"
-            >
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value" [disabled]="food.disabled">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
     <div [style.height.px]="heightBelow"></div>
-    `,
+  `,
   standalone: false,
 })
 class BasicSelect {
@@ -113,13 +110,11 @@ class BasicSelect {
     <oui-form-field>
       <oui-select placeholder="Food" ngModel [disabled]="isDisabled">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value"
-            >{{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">{{ food.viewValue }} </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class NgModelSelect {
@@ -160,13 +155,11 @@ class ManySelects {}
     <oui-form-field>
       <oui-select (selectionChange)="changeListener($event)">
         @for (food of foods; track food) {
-          <oui-option [value]="food">{{
-            food
-          }}</oui-option>
+        <oui-option [value]="food">{{ food }}</oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class SelectWithChangeEvent {
@@ -191,15 +184,15 @@ class SelectWithChangeEvent {
       <oui-select
         placeholder="Food I want to eat right now"
         [formControl]="control"
-        >
+      >
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class SelectInitWithoutOptions {
@@ -225,13 +218,13 @@ class SelectInitWithoutOptions {
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class BasicSelectOnPush {
@@ -250,13 +243,13 @@ class BasicSelectOnPush {
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class BasicSelectOnPushPreselected {
@@ -277,15 +270,13 @@ class BasicSelectOnPushPreselected {
         placeholder="Food"
         [formControl]="control"
         [sortComparator]="sortComparator"
-        >
+      >
         @for (food of foods; track food) {
-          <oui-option [value]="food.value"
-            >{{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">{{ food.viewValue }} </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class MultiSelect {
@@ -322,9 +313,9 @@ class SelectWithPlainTabindex {}
       <oui-select #select="ouiSelect"></oui-select>
     </oui-form-field>
     @if (select.selected) {
-      <div></div>
+    <div></div>
     }
-    `,
+  `,
   standalone: false,
 })
 class SelectEarlyAccessSibling {}
@@ -363,14 +354,14 @@ class BasicSelectNoPlaceholder {}
     <oui-form-field>
       <oui-select placeholder="Food" [formControl]="control">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
         <oui-option>None</oui-option>
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class ResetValuesSelect {
@@ -393,23 +384,18 @@ class ResetValuesSelect {
     <oui-form-field>
       <oui-select placeholder="Pokemon" [formControl]="control">
         @for (group of pokemonTypes; track group) {
-          <oui-optgroup
-            [label]="group.name"
-            [disabled]="group.disabled"
-            >
-            @for (pokemon of group.pokemon; track pokemon) {
-              <oui-option
-                [value]="pokemon.value"
-                >
-                {{ pokemon.viewValue }}
-              </oui-option>
-            }
-          </oui-optgroup>
+        <oui-optgroup [label]="group.name" [disabled]="group.disabled">
+          @for (pokemon of group.pokemon; track pokemon) {
+          <oui-option [value]="pokemon.value">
+            {{ pokemon.viewValue }}
+          </oui-option>
+          }
+        </oui-optgroup>
         }
         <oui-option value="mime-11">Mr. Mime</oui-option>
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class SelectWithGroups {
@@ -459,17 +445,17 @@ class SelectWithGroups {
     <oui-form-field>
       <oui-select placeholder="Pokemon" [formControl]="control">
         @for (group of pokemonTypes; track group) {
-          <oui-optgroup [label]="group.name">
-            @for (pokemon of group.pokemon; track pokemon) {
-              <oui-option [value]="pokemon.value">{{
-                pokemon.viewValue
-              }}</oui-option>
-            }
-          </oui-optgroup>
+        <oui-optgroup [label]="group.name">
+          @for (pokemon of group.pokemon; track pokemon) {
+          <oui-option [value]="pokemon.value">{{
+            pokemon.viewValue
+          }}</oui-option>
+          }
+        </oui-optgroup>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class SelectWithGroupsAndNgContainer {
@@ -526,13 +512,13 @@ class SelectInsideFormGroup {
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFood">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class BasicSelectWithoutForms {
@@ -551,13 +537,13 @@ class BasicSelectWithoutForms {
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFood">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class BasicSelectWithoutFormsPreselected {
@@ -575,13 +561,13 @@ class BasicSelectWithoutFormsPreselected {
     <oui-form-field>
       <oui-select placeholder="Food" [(value)]="selectedFoods" multiple>
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class BasicSelectWithoutFormsMultiple {
@@ -603,18 +589,18 @@ class BasicSelectWithoutFormsMultiple {
         placeholder="Food"
         [formControl]="control"
         #select="ouiSelect"
-        >
+      >
         <oui-select-trigger>
           {{ select.selected?.viewValue.split('').reverse().join('') }}
         </oui-select-trigger>
         @for (food of foods; track food) {
-          <oui-option [value]="food.value">
-            {{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">
+          {{ food.viewValue }}
+        </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class SelectWithCustomTrigger {
@@ -633,15 +619,13 @@ class SelectWithCustomTrigger {
         [(value)]="selectedFood"
         (selectionChange)="setFoodByCopy($event)"
         [compareWith]="comparator"
-        >
+      >
         @for (food of foods; track food) {
-          <oui-option [value]="food">{{
-            food.viewValue
-          }}</oui-option>
+        <oui-option [value]="food">{{ food.viewValue }}</oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class NgModelCompareWithSelect {
@@ -690,14 +674,14 @@ class NgModelCompareWithSelect {
       placeholder="Food"
       [formControl]="control"
       [errorStateMatcher]="errorStateMatcher"
-      >
+    >
       @for (food of foods; track food) {
-        <oui-option [value]="food.value">
-          {{ food.viewValue }}
-        </oui-option>
+      <oui-option [value]="food.value">
+        {{ food.viewValue }}
+      </oui-option>
       }
     </oui-select>
-    `,
+  `,
   standalone: false,
 })
 class CustomErrorBehaviorSelect {
@@ -715,13 +699,11 @@ class CustomErrorBehaviorSelect {
     <oui-form-field>
       <oui-select placeholder="Food" [(ngModel)]="selectedFoods">
         @for (food of foods; track food) {
-          <oui-option [value]="food.value"
-            >{{ food.viewValue }}
-          </oui-option>
+        <oui-option [value]="food.value">{{ food.viewValue }} </oui-option>
         }
       </oui-select>
     </oui-form-field>
-    `,
+  `,
   standalone: false,
 })
 class SingleSelectWithPreselectedArrayValues {
@@ -1766,7 +1748,9 @@ describe('OuiSelect', () => {
 
         fixture.componentInstance.foods[1].viewValue = 'Calzone';
         fixture.componentInstance.options.toArray()[1]._stateChanges.next();
-        (fixture.componentInstance.select as any)._changeDetectorRef.markForCheck();
+        (
+          fixture.componentInstance.select as any
+        )._changeDetectorRef.markForCheck();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
@@ -1861,7 +1845,9 @@ describe('OuiSelect', () => {
 
         const spy = jasmine.createSpy('option selection spy');
         const subscription =
-          fixture.componentInstance.select.optionSelectionChanges.subscribe(spy);
+          fixture.componentInstance.select.optionSelectionChanges.subscribe(
+            spy
+          );
 
         trigger = fixture.debugElement.query(
           By.css('.oui-select-trigger')
@@ -2008,7 +1994,9 @@ describe('OuiSelect', () => {
       fixture.detectChanges();
 
       fixture.componentInstance.select.disabled = true;
-      (fixture.componentInstance.select as any)._changeDetectorRef.markForCheck();
+      (
+        fixture.componentInstance.select as any
+      )._changeDetectorRef.markForCheck();
       fixture.detectChanges();
       flush();
 
@@ -2033,7 +2021,9 @@ describe('OuiSelect', () => {
       );
 
       fixture.componentInstance.select.disabled = false;
-      (fixture.componentInstance.select as any)._changeDetectorRef.markForCheck();
+      (
+        fixture.componentInstance.select as any
+      )._changeDetectorRef.markForCheck();
       fixture.detectChanges();
       flush();
 
@@ -2303,7 +2293,8 @@ describe('OuiSelect', () => {
     describe('comparing by reference', () => {
       beforeEach(fakeAsync(() => {
         spyOn(instance, 'compareByReference').and.callThrough();
-        instance.select.compareWith = instance.compareByReference.bind(instance);
+        instance.select.compareWith =
+          instance.compareByReference.bind(instance);
         instance.select.value = { value: 'pizza-1', viewValue: 'Pizza' };
         fixture.detectChanges();
         flush();
