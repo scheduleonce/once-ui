@@ -1,7 +1,7 @@
 <ng-template>
   <div
     class="oui-menu-panel"
-    [class]="_classList"
+    [ngClass]="_classList"
     (keydown)="_handleKeydown($event)"
     (click)="closed.emit('click')"
     tabindex="-1"
