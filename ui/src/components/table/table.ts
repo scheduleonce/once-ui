@@ -11,8 +11,16 @@ import {
 } from '@angular/core';
 
 /**
- * Enables the recycle view repeater strategy, which reduces rendering latency. Not compatible with
- * tables that animate rows.
+ * NOTE: This directive was previously used to enable a recycle view repeater strategy
+ * (reducing rendering latency). With Angular CDK 21 the repeater strategy provider/token
+ * is no longer provided here, so this directive is currently a no-op and does not
+ * change rendering behavior.
+ *
+ * Keep the directive in place for compatibility, but do not rely on it for performance
+ * improvements. If you need a recycle strategy with CDK 21, provide the appropriate
+ * strategy implementation via the CDK token in your application.
+ *
+ * @deprecated no-op as of CDK 21
  */
 @Directive({
   selector: 'oui-table[recycleRows], table[oui-table][recycleRows]',

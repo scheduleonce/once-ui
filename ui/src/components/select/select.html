@@ -44,7 +44,7 @@
   <div
     #panel
     class="oui-select-panel {{ cdkConnectionOverlayPanel }}"
-    [class]="panelClass"
+    [ngClass]="panelClass"
     (keydown)="_handleKeydown($event)"
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
     [class.oui-select-has-a-panel]="panelClass"

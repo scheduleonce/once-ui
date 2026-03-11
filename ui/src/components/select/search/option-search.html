@@ -7,7 +7,7 @@
       (input)="onInputChange($event.target.value)"
       [attr.aria-label]="ariaLabel()"
       [placeholder]="placeholderLabel()"
-      [class]="{'right-padding': _value?.length}"
+      [class.right-padding]="!!_value?.length"
     />
     @if (_value?.length) {
     <div class="clear-btn">
