@@ -1,1 +1,9 @@
 * @mderazon @sodsingh @so-kaushal @sharmaaayush-OH @siddharth-so @sumitsheokand
+
+# Security related files
+/Dockerfile @scheduleonce/security
+**/package.json @scheduleonce/security
+**/package-lock.json @scheduleonce/security
+
+# CI/CD related files
+/.github/workflows/** @scheduleonce/system-devops @scheduleonce/security
