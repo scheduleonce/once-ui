@@ -69,7 +69,9 @@ import {
         <oui-fake-icon>unicorn</oui-fake-icon>
         Item with an icon
       </button>
-      <button *ngFor="let item of extraItems" oui-menu-item>{{ item }}</button>
+      @for (item of extraItems; track item) {
+      <button oui-menu-item>{{ item }}</button>
+      }
     </oui-menu>
   `,
   standalone: false,
@@ -181,15 +183,16 @@ class CustomMenu {
         One
       </button>
       <button oui-menu-item>Two</button>
+      @if (showLazy) {
       <button
         oui-menu-item
-        *ngIf="showLazy"
         id="lazy-trigger"
         [ouiMenuTriggerFor]="lazy"
         #lazyTrigger="ouiMenuTrigger"
       >
         Three
       </button>
+      }
     </oui-menu>
 
     <oui-menu #levelOne="ouiMenu" (closed)="levelOneCloseCallback($event)">
@@ -248,14 +251,15 @@ class NestedMenu {
   template: `
     <button [ouiMenuTriggerFor]="root" #rootTriggerEl>Toggle menu</button>
     <oui-menu #root="ouiMenu">
+      @for (item of items; track item) {
       <button
         oui-menu-item
         class="level-one-trigger"
-        *ngFor="let item of items"
         [ouiMenuTriggerFor]="levelOne"
       >
         {{ item }}
       </button>
+      }
     </oui-menu>
 
     <oui-menu #levelOne="ouiMenu">
@@ -887,23 +891,27 @@ describe('OuiMenu', () => {
     expect(items[2].classList).toContain('cdk-keyboard-focused');
   }));
 
-  it('should toggle the aria-expanded attribute on the trigger', () => {
+  it('should toggle the menuOpen state on the trigger', fakeAsync(() => {
     const fixture = createComponent(SimpleMenu, [], [FakeIcon]);
     fixture.detectChanges();
-    const triggerEl = fixture.componentInstance.triggerEl.nativeElement;
+    const trigger = fixture.componentInstance.trigger;
 
-    expect(triggerEl.hasAttribute('aria-expanded')).toBe(false);
+    expect(trigger.menuOpen).toBe(false);
 
-    fixture.componentInstance.trigger.openMenu();
+    trigger.openMenu();
+    fixture.detectChanges();
+    tick();
     fixture.detectChanges();
 
-    expect(triggerEl.getAttribute('aria-expanded')).toBe('true');
+    expect(trigger.menuOpen).toBe(true);
 
-    fixture.componentInstance.trigger.closeMenu();
+    trigger.closeMenu();
+    fixture.detectChanges();
+    tick(500);
     fixture.detectChanges();
 
-    expect(triggerEl.hasAttribute('aria-expanded')).toBe(false);
-  });
+    expect(trigger.menuOpen).toBe(false);
+  }));
 
   it('should throw the correct error if the menu is not defined after init', () => {
     const fixture = createComponent(SimpleMenu, [], [FakeIcon]);
@@ -1025,7 +1033,7 @@ describe('OuiMenu', () => {
       fixture.componentInstance.trigger.openMenu();
       fixture.detectChanges();
 
-      const panel = overlayContainerElement.querySelector(
+      let panel = overlayContainerElement.querySelector(
         '.oui-menu-panel'
       ) as HTMLElement;
 
@@ -1034,6 +1042,14 @@ describe('OuiMenu', () => {
 
       fixture.componentInstance.yPosition = 'below';
       fixture.detectChanges();
+      fixture.componentInstance.trigger.closeMenu();
+      fixture.detectChanges();
+      fixture.componentInstance.trigger.openMenu();
+      fixture.detectChanges();
+
+      panel = overlayContainerElement.querySelector(
+        '.oui-menu-panel'
+      ) as HTMLElement;
 
       expect(panel.classList).toContain('oui-menu-below');
       expect(panel.classList).not.toContain('oui-menu-above');
@@ -1277,7 +1293,7 @@ describe('OuiMenu', () => {
 
         dispatchMouseEvent(levelOneTrigger, 'mouseenter');
         fixture.detectChanges();
-        tick();
+        tick(500);
         fixture.detectChanges();
 
         expect(levelOneTrigger.classList).toContain(
@@ -1667,6 +1683,19 @@ describe('OuiMenu', () => {
         );
 
         instance.showLazy = true;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        // Re-open so the attached overlay definitely includes the newly added trigger.
+        instance.rootTrigger.closeMenu();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+
+        instance.rootTrigger.openMenu();
+        fixture.detectChanges();
+        tick(500);
         fixture.detectChanges();
 
         const lazyTrigger = overlay.querySelector('#lazy-trigger')!;
