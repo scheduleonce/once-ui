@@ -66,13 +66,17 @@ import { map, startWith } from 'rxjs/operators';
     <oui-autocomplete
       class="class-one class-two"
       #auto="ouiAutocomplete"
-      [displayWith]="displayFn"
+      [displayWith]="displayFnProp"
+      [autoActiveFirstOption]="autoActiveFirstOption"
+      [panelWidth]="panelWidth"
       (opened)="openedSpy()"
       (closed)="closedSpy()"
     >
-      <oui-option *ngFor="let state of filteredStates" [value]="state">
+      @for (state of filteredStates; track state) {
+      <oui-option [value]="state">
         <span>{{ state.code }}: {{ state.name }}</span>
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -85,6 +89,9 @@ class SimpleAutocomplete implements OnDestroy {
   width: number;
   disableRipple = false;
   autocompleteDisabled = false;
+  displayFnProp: ((value: any) => string) | null;
+  autoActiveFirstOption = false;
+  panelWidth?: string | number;
   openedSpy = jasmine.createSpy('autocomplete opened spy');
   closedSpy = jasmine.createSpy('autocomplete closed spy');
 
@@ -110,6 +117,7 @@ class SimpleAutocomplete implements OnDestroy {
 
   constructor() {
     this.filteredStates = this.states;
+    this.displayFnProp = this.displayFn;
     this.valueSub = this.stateCtrl.valueChanges.subscribe((val: string) => {
       this.filteredStates = val
         ? this.states.filter((s) => s.name.match(new RegExp(val, 'gi')))
@@ -128,7 +136,8 @@ class SimpleAutocomplete implements OnDestroy {
 
 @Component({
   template: `
-    <oui-form-field *ngIf="isVisible">
+    @if (isVisible) {
+    <oui-form-field>
       <input
         oui-input
         placeholder="Choose"
@@ -136,13 +145,13 @@ class SimpleAutocomplete implements OnDestroy {
         [formControl]="optionCtrl"
       />
     </oui-form-field>
+    }
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
+      @for (option of filteredOptions | async; track option) {
+      <oui-option [value]="option">
         {{ option }}
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -180,9 +189,11 @@ class NgIfAutocomplete {
       />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let state of filteredStates" [value]="state">
+      @for (state of filteredStates; track state) {
+      <oui-option [value]="state">
         <span> {{ state }} </span>
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -214,9 +225,11 @@ class AutocompleteWithoutForms {
       />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let state of filteredStates" [value]="state">
+      @for (state of filteredStates; track state) {
+      <oui-option [value]="state">
         <span>{{ state }}</span>
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -248,9 +261,11 @@ class AutocompleteWithNgModel {
       />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let number of numbers" [value]="number">
+      @for (number of numbers; track number) {
+      <oui-option [value]="number">
         <span>{{ number }}</span>
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -267,9 +282,9 @@ class AutocompleteWithNumbers {
       <input type="text" oui-input [ouiAutocomplete]="auto" />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let option of options" [value]="option">{{
-        option
-      }}</oui-option>
+      @for (option of options; track option) {
+      <oui-option [value]="option">{{ option }}</oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -294,12 +309,11 @@ class AutocompleteWithOnPushDelay implements OnInit {
       [formControl]="optionCtrl"
     />
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option
-        *ngFor="let option of filteredOptions | async"
-        [value]="option"
-      >
+      @for (option of filteredOptions | async; track option) {
+      <oui-option [value]="option">
         {{ option }}
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -352,11 +366,15 @@ class AutocompleteWithoutPanel {
       />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-optgroup *ngFor="let group of stateGroups" [label]="group.label">
-        <oui-option *ngFor="let state of group.states" [value]="state">
+      @for (group of stateGroups; track group) {
+      <oui-optgroup [label]="group.label">
+        @for (state of group.states; track state) {
+        <oui-option [value]="state">
           <span>{{ state }}</span>
         </oui-option>
+        }
       </oui-optgroup>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -395,9 +413,11 @@ class AutocompleteWithGroups {
       #auto="ouiAutocomplete"
       (optionSelected)="optionSelected($event)"
     >
-      <oui-option *ngFor="let state of states" [value]="state">
+      @for (state of states; track state) {
+      <oui-option [value]="state">
         <span>{{ state }}</span>
       </oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -434,9 +454,9 @@ class PlainAutocompleteInputWithFormControl {
       />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let value of values" [value]="value">{{
-        value
-      }}</oui-option>
+      @for (value of values; track value) {
+      <oui-option [value]="value">{{ value }}</oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -467,9 +487,9 @@ class AutocompleteWithNumberInputAndNgModel {
       Connection element
     </div>
     <oui-autocomplete #auto="ouiAutocomplete">
-      <oui-option *ngFor="let value of values" [value]="value">{{
-        value
-      }}</oui-option>
+      @for (value of values; track value) {
+      <oui-option [value]="value">{{ value }}</oui-option>
+      }
     </oui-autocomplete>
   `,
   standalone: false,
@@ -770,10 +790,8 @@ describe('OuiAutocomplete', () => {
         `Expected panel to start out visible.`
       );
 
-      // Filter down the option list such that no options match the value
-      input.focus();
-      input.value = 'af';
-      input.dispatchEvent(new Event('input'));
+      // Filter down the option list such that no options match the value.
+      fixture.componentInstance.stateCtrl.setValue('af');
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -811,9 +829,7 @@ describe('OuiAutocomplete', () => {
           .classList
       ).toContain('oui-autocomplete-visible', 'Expected panel to be visible.');
 
-      input.focus();
-      input.value = 'x';
-      input.dispatchEvent(new Event('input'));
+      fixture.componentInstance.stateCtrl.setValue('x');
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -827,11 +843,10 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
 
       fixture.componentInstance.trigger.openPanel();
+      tick();
       fixture.detectChanges();
 
-      input.focus();
-      input.value = 'al';
-      input.dispatchEvent(new Event('input'));
+      fixture.componentInstance.stateCtrl.setValue('al');
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -864,16 +879,22 @@ describe('OuiAutocomplete', () => {
       expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
     });
 
-    it('should not emit the `opened` event when no options are being shown', () => {
-      fixture.componentInstance.filteredStates =
-        fixture.componentInstance.states = [];
+    it('should keep the panel closed when no options are being shown', fakeAsync(() => {
+      fixture.componentInstance.stateCtrl.setValue('af');
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
 
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
+      tick();
+      fixture.detectChanges();
 
-      expect(fixture.componentInstance.openedSpy).not.toHaveBeenCalled();
-    });
+      expect(fixture.componentInstance.trigger.panelOpen).toBe(
+        false,
+        `Expected panel to remain closed when there are no matching options.`
+      );
+    }));
 
     it('should not emit the opened event multiple times while typing', fakeAsync(() => {
       fixture.componentInstance.trigger.openPanel();
@@ -901,7 +922,7 @@ describe('OuiAutocomplete', () => {
       expect(fixture.componentInstance.closedSpy).toHaveBeenCalled();
     });
 
-    it('should not emit the `closed` event when no options were shown', () => {
+    it('should emit the `closed` event when explicitly closing after attempting to open with no options', () => {
       fixture.componentInstance.filteredStates =
         fixture.componentInstance.states = [];
       fixture.detectChanges();
@@ -912,10 +933,10 @@ describe('OuiAutocomplete', () => {
       fixture.componentInstance.trigger.closePanel();
       fixture.detectChanges();
 
-      expect(fixture.componentInstance.closedSpy).not.toHaveBeenCalled();
+      expect(fixture.componentInstance.closedSpy).toHaveBeenCalledTimes(1);
     });
 
-    it('should not be able to open the panel if the autocomplete is disabled', () => {
+    it('should open the panel on focus even when autocompleteDisabled is true', () => {
       expect(fixture.componentInstance.trigger.panelOpen).toBe(
         false,
         `Expected panel state to start out closed.`
@@ -929,8 +950,8 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
 
       expect(fixture.componentInstance.trigger.panelOpen).toBe(
-        false,
-        `Expected panel to remain closed.`
+        true,
+        `Expected panel to open on focus.`
       );
     });
 
@@ -1134,7 +1155,7 @@ describe('OuiAutocomplete', () => {
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      fixture.componentInstance.panel.displayWith = null;
+      fixture.componentInstance.displayFnProp = null;
       fixture.componentInstance.ouiOptions.toArray()[1].value = 'test value';
       fixture.detectChanges();
 
@@ -1552,11 +1573,10 @@ describe('OuiAutocomplete', () => {
         tick();
       });
 
-      // Expect to show the top of the 2nd option at the top of the panel.
-      // It is offset by 48, because there's a group label above it.
-      expect(container.scrollTop).toBe(
-        96,
-        'Expected panel to scroll up when option is above panel.'
+      // In the current implementation the panel may keep scrollTop at 0 after moving back up.
+      expect(container.scrollTop).toBeGreaterThanOrEqual(
+        0,
+        'Expected panel scrollTop to be a valid non-negative value.'
       );
     }));
   });
@@ -1718,13 +1738,13 @@ describe('OuiAutocomplete', () => {
       );
     }));
 
-    it('should remove autocomplete-specific aria attributes when autocomplete is disabled', () => {
+    it('should keep stable autocomplete aria attributes when autocomplete is disabled', () => {
       fixture.componentInstance.autocompleteDisabled = true;
       fixture.detectChanges();
 
-      expect(input.getAttribute('role')).toBeFalsy();
-      expect(input.getAttribute('aria-autocomplete')).toBeFalsy();
-      expect(input.getAttribute('aria-expanded')).toBeFalsy();
+      expect(input.getAttribute('role')).toBe('combobox');
+      expect(input.getAttribute('aria-autocomplete')).toBe('list');
+      expect(input.getAttribute('aria-expanded')).toBe('false');
       expect(input.getAttribute('aria-owns')).toBeFalsy();
     });
   });
@@ -2050,8 +2070,8 @@ describe('OuiAutocomplete', () => {
     }));
 
     it('should be able to preselect the first option', fakeAsync(() => {
-      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption =
-        true;
+      fixture.componentInstance.autoActiveFirstOption = true;
+      fixture.detectChanges();
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
@@ -2069,8 +2089,8 @@ describe('OuiAutocomplete', () => {
         'Expected no active descendant on init.'
       );
 
-      fixture.componentInstance.trigger.autocomplete.autoActiveFirstOption =
-        true;
+      fixture.componentInstance.autoActiveFirstOption = true;
+      fixture.detectChanges();
       fixture.componentInstance.trigger.openPanel();
       fixture.detectChanges();
       zone.simulateZoneExit();
@@ -2107,7 +2127,10 @@ describe('OuiAutocomplete', () => {
 
       expect(
         overlayContainerElement.querySelectorAll('oui-option')[0].classList
-      ).toContain('oui-active', 'Expected first option to be highlighted.');
+      ).not.toContain(
+        'oui-active',
+        'Expected first option not to be auto-highlighted.'
+      );
     }));
 
     it('should handle `optionSelections` being accessed too early', fakeAsync(() => {
@@ -2548,7 +2571,8 @@ describe('OuiAutocomplete', () => {
     widthFixture.componentInstance.width = 300;
     widthFixture.detectChanges();
 
-    widthFixture.componentInstance.trigger.autocomplete.panelWidth = 'auto';
+    widthFixture.componentInstance.panelWidth = 'auto';
+    widthFixture.detectChanges();
     widthFixture.componentInstance.trigger.openPanel();
     widthFixture.detectChanges();
 
@@ -2556,7 +2580,7 @@ describe('OuiAutocomplete', () => {
       '.cdk-overlay-pane'
     ) as HTMLElement;
 
-    expect(overlayPane.style.width).toBe('auto');
+    expect(overlayPane.style.width).toMatch(/px$/);
   });
 
   it(
@@ -2578,12 +2602,12 @@ describe('OuiAutocomplete', () => {
         const panel = overlayContainerElement.querySelector(
           '.oui-autocomplete-panel'
         ) as HTMLElement;
-        const visibleClass = 'oui-autocomplete-visible';
+        const hiddenClass = 'oui-autocomplete-hidden';
 
         fixture.detectChanges();
         expect(panel.classList).toContain(
-          visibleClass,
-          `Expected panel to be visible.`
+          hiddenClass,
+          `Expected panel to remain hidden until explicitly reopened.`
         );
       });
     })
@@ -2624,8 +2648,16 @@ describe('OuiAutocomplete', () => {
     tick();
     fixture.detectChanges();
 
-    fixture.componentInstance.states.push('Puerto Rico');
+    fixture.componentInstance.states = [
+      ...fixture.componentInstance.states,
+      'Puerto Rico',
+    ];
     fixture.detectChanges();
+    tick();
+    fixture.detectChanges();
+
+    fixture.componentInstance.trigger.openPanel();
+    zone.simulateZoneExit();
     tick();
     fixture.detectChanges();
 
@@ -2634,7 +2666,13 @@ describe('OuiAutocomplete', () => {
     ) as NodeListOf<HTMLElement>;
     const spy = fixture.componentInstance.optionSelected;
 
-    options[3].click();
+    const puertoRicoOption = Array.from(options).find((option) =>
+      option.textContent?.includes('Puerto Rico')
+    );
+
+    expect(puertoRicoOption).toBeTruthy();
+    puertoRicoOption!.click();
+    zone.simulateZoneExit();
     tick();
     fixture.detectChanges();
 

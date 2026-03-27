@@ -32,15 +32,9 @@ import { OuiIconRegistry } from '../../components';
       </a>
     </nav>
 
-    <ng-container [ngSwitch]="selectedTab">
-      <ng-container *ngSwitchCase="'first'">
-        <oui-icon svgIcon="preview"></oui-icon>
-        First tab selected
-      </ng-container>
-      <ng-container *ngSwitchCase="'second'">
-        Second tab selected
-      </ng-container>
-    </ng-container>
+    @switch (selectedTab) { @case ('first') {
+    <oui-icon svgIcon="preview"></oui-icon>
+    First tab selected } @case ('second') { Second tab selected } }
   `,
   standalone: false,
 })
