@@ -1,7 +1,7 @@
 import {
   Component,
   ElementRef,
-  Input,
+  input,
   OnInit,
   ViewChild,
   AfterViewChecked,
@@ -46,10 +46,10 @@ export class OuiSelectSearchComponent
   /** Subject that emits when the component has been destroyed. */
   private _onDestroy = new Subject<void>();
 
-  @Input('aria-label') ariaLabel = 'Type to filter';
+  readonly ariaLabel = input('Type to filter', { alias: 'aria-label' });
 
   /** Label of the search placeholder */
-  @Input() placeholderLabel = '';
+  readonly placeholderLabel = input('');
 
   /** Reference to the search input field */
   @ViewChild('searchSelectInput', { read: ElementRef, static: true })

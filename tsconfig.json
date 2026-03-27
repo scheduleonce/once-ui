@@ -8,16 +8,12 @@
     "declaration": false,
     "experimentalDecorators": true,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "typeRoots": [
       "node_modules/@types",
       "./typings.d.ts"
-    ],
-    "lib": [
-      "es2017",
-      "dom"
     ],
     "noUnusedLocals": true,
     "noUnusedParameters": true,

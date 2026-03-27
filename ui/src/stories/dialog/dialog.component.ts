@@ -1,18 +1,17 @@
 import {
   Component,
   ViewChild,
-  Output,
-  EventEmitter,
-  Input,
   TemplateRef,
   inject,
+  input,
+  output,
 } from '@angular/core';
 import { OuiDialog } from '../../components';
 
 @Component({
   selector: 'oui-dialog-storybook',
   template: `
-    <button oui-button [disabled]="disabled" (click)="openDialog($event)">
+    <button oui-button [disabled]="disabled()" (click)="openDialog($event)">
       Open
     </button>
     <ng-template #dialogTemplate>
@@ -59,9 +58,8 @@ import { OuiDialog } from '../../components';
 export class OuiDialogStorybook {
   private dialog = inject(OuiDialog);
 
-  @Output()
-  readonly close: EventEmitter<string> = new EventEmitter<string>();
-  @Input() disabled = false;
+  readonly close = output<string>();
+  readonly disabled = input(false);
   @ViewChild('dialogTemplate')
   dialogTemplate: TemplateRef<unknown>;
 
