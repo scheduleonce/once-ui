@@ -1,7 +1,8 @@
 import {
   Component,
   ViewEncapsulation,
-  Input,
+  input,
+  booleanAttribute,
   OnInit,
   ElementRef,
   ChangeDetectionStrategy,
@@ -10,7 +11,6 @@ import {
   HostAttributeToken,
 } from '@angular/core';
 import { CanColor, CanColorCtor, mixinColor } from '../core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OuiIconRegistry } from './icon-registery';
 import { take } from 'rxjs/operators';
 import { TitleCasePipe } from '@angular/common';
@@ -81,8 +81,8 @@ export function OUI_ICON_LOCATION_FACTORY(): OuiIconLocation {
   host: {
     role: 'img',
     class: 'oui-icon',
-    '[class.oui-icon-inline]': 'inline',
-    '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon)',
+    '[class.oui-icon-inline]': 'inline()',
+    '[attr.aria-label]': 'this.titleCasePipe.transform(this.svgIcon())',
   },
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -97,15 +97,7 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
    * Whether the icon should be inlined, automatically sizing the icon to match the font size of
    * the element the icon is contained in.
    */
-  @Input()
-  get inline(): boolean {
-    return this._inline;
-  }
-  set inline(inline: boolean) {
-    this._inline = coerceBooleanProperty(inline);
-  }
-  // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-  private _inline: boolean = false;
+  readonly inline = input(false, { transform: booleanAttribute });
 
   /**
    * Implemented as part of CanColor.
@@ -113,11 +105,9 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   color: any;
 
   /** Name of the icon in the SVG icon set. */
-  @Input()
-  svgIcon: string;
+  readonly svgIcon = input<string>();
   /** User will be able to supply a size property for overriding the size. */
-  @Input()
-  size: number;
+  readonly size = input<number>();
 
   constructor() {
     const _elementRef = inject(ElementRef);
@@ -136,9 +126,9 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
   }
 
   ngOnInit() {
-    if (this.svgIcon) {
+    if (this.svgIcon()) {
       this._iconRegistry
-        .getNamedSvgIcon(this.svgIcon)
+        .getNamedSvgIcon(this.svgIcon())
         .pipe(take(1))
         .subscribe(
           (svg) => this._setSvgElement(svg),
@@ -151,13 +141,13 @@ export class Icon extends OuiIconMixinBase implements OnInit, CanColor {
     this._clearSvgElement();
     this._elementRef.nativeElement.appendChild(svg);
     let svgSize = svg.getAttribute('height');
-    if (this.size) {
+    if (this.size()) {
       //noinspection TypeScriptUnresolvedFunction
       const { x, y, width, height } = (<any>svg).getBBox();
       svg.setAttribute('height', '100%');
       svg.setAttribute('width', '100%');
       svg.setAttribute('viewBox', `${x} ${y} ${width} ${height}`);
-      svgSize = `${this.size}px`;
+      svgSize = `${this.size()}px`;
     }
     this._elementRef.nativeElement.style.height = svgSize;
     this._elementRef.nativeElement.style.width = svgSize;

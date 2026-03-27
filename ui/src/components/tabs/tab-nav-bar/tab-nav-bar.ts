@@ -323,7 +323,8 @@ export class OuiTabLink
 
     if (newValue !== this._isActive) {
       this._isActive = newValue;
-      this._tabNavBar.updateActiveLink();
+      // Defer the updateActiveLink call to avoid ExpressionChangedAfterItHasBeenCheckedError
+      Promise.resolve().then(() => this._tabNavBar.updateActiveLink());
     }
   }
 

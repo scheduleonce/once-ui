@@ -8,6 +8,7 @@ import {
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ContentChild,
   ContentChildren,
@@ -86,6 +87,7 @@ export class OuiMenu
   implements AfterContentInit, OuiMenuPanel<OuiMenuItem>, OnInit, OnDestroy
 {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
   private _ngZone = inject(NgZone);
   private _defaultOptions = inject<OuiMenuDefaultOptions>(
     OUI_MENU_DEFAULT_OPTIONS
@@ -335,10 +337,13 @@ export class OuiMenu
     posX: MenuPositionX = this.xPosition,
     posY: MenuPositionY = this.yPosition
   ) {
-    const classes = this._classList;
-    classes['oui-menu-before'] = posX === 'before';
-    classes['oui-menu-after'] = posX === 'after';
-    classes['oui-menu-above'] = posY === 'above';
-    classes['oui-menu-below'] = posY === 'below';
+    this._classList = {
+      ...this._classList,
+      'oui-menu-before': posX === 'before',
+      'oui-menu-after': posX === 'after',
+      'oui-menu-above': posY === 'above',
+      'oui-menu-below': posY === 'below',
+    };
+    this._changeDetectorRef.markForCheck();
   }
 }

@@ -2,8 +2,8 @@ import { Direction, Directionality } from '@angular/cdk/bidi';
 import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import {
-  AfterContentInit,
   Component,
+  OnInit,
   TemplateRef,
   ViewChild,
   ViewContainerRef,
@@ -119,7 +119,6 @@ describe('MDC-based OuiTabBody', () => {
     beforeEach(() => {
       dir = 'ltr';
       fixture = TestBed.createComponent(SimpleTabBodyApp);
-      fixture.detectChanges();
     });
 
     it('to be left position with negative position', () => {
@@ -150,7 +149,6 @@ describe('MDC-based OuiTabBody', () => {
     beforeEach(() => {
       dir = 'rtl';
       fixture = TestBed.createComponent(SimpleTabBodyApp);
-      fixture.detectChanges();
     });
 
     it('to be right position with negative position', () => {
@@ -217,7 +215,7 @@ describe('MDC-based OuiTabBody', () => {
   `,
   standalone: false,
 })
-class SimpleTabBodyApp implements AfterContentInit {
+class SimpleTabBodyApp implements OnInit {
   private _viewContainerRef = inject(ViewContainerRef);
 
   content: TemplatePortal;
@@ -225,11 +223,11 @@ class SimpleTabBodyApp implements AfterContentInit {
   origin: number | null;
 
   @ViewChild(OuiTabBody) tabBody: OuiTabBody;
-  @ViewChild(TemplateRef) template: TemplateRef<any>;
+  @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 
   constructor() {}
 
-  ngAfterContentInit() {
+  ngOnInit() {
     this.content = new TemplatePortal(this.template, this._viewContainerRef);
   }
 }

@@ -6,11 +6,7 @@
     (mouseenter)="_handleMouseEnter($event)"
     role="dialog"
   >
-    <div
-      class="oui-panel-content"
-      [ngStyle]="{ width: width + 'px' }"
-      tabindex="-1"
-    >
+    <div class="oui-panel-content" [style.width.px]="width()" tabindex="-1">
       <ng-content></ng-content>
       <button
         (click)="_handleCloseIcon()"

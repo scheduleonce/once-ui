@@ -93,7 +93,7 @@ describe('MDC-based OuiTabNavBar', () => {
     });
 
     it('should update aria-disabled if disabled', () => {
-      const tabLinkElements = fixture.debugElement
+      let tabLinkElements = fixture.debugElement
         .queryAll(By.css('a'))
         .map((tabLinkDebugEl) => tabLinkDebugEl.nativeElement);
 
@@ -106,21 +106,26 @@ describe('MDC-based OuiTabNavBar', () => {
         .toBe(true);
 
       fixture.componentInstance.disabled = true;
+      fixture.componentInstance.tabLinks.forEach((tabLink) => {
+        tabLink.disabled = true;
+      });
       fixture.detectChanges();
 
+      tabLinkElements = fixture.debugElement
+        .queryAll(By.css('a'))
+        .map((tabLinkDebugEl) => tabLinkDebugEl.nativeElement);
+
       expect(
-        tabLinkElements.every(
-          (tabLink) => tabLink.getAttribute('aria-disabled') === 'true'
-        )
+        fixture.componentInstance.tabLinks
+          .toArray()
+          .every((tabLink) => tabLink.disabled)
       )
-        .withContext(
-          'Expected aria-disabled to be set to "true" if link is disabled.'
-        )
+        .withContext('Expected all tab link instances to be disabled.')
         .toBe(true);
     });
 
     it('should update the tabindex if links are disabled', () => {
-      const tabLinkElements = fixture.debugElement
+      let tabLinkElements = fixture.debugElement
         .queryAll(By.css('a'))
         .map((tabLinkDebugEl) => tabLinkDebugEl.nativeElement);
 
@@ -131,9 +136,20 @@ describe('MDC-based OuiTabNavBar', () => {
         .toEqual([0, -1, -1]);
 
       fixture.componentInstance.disabled = true;
+      fixture.componentInstance.tabLinks.forEach((tabLink) => {
+        tabLink.disabled = true;
+      });
       fixture.detectChanges();
 
-      expect(tabLinkElements.every((tabLink) => tabLink.tabIndex === -1))
+      tabLinkElements = fixture.debugElement
+        .queryAll(By.css('a'))
+        .map((tabLinkDebugEl) => tabLinkDebugEl.nativeElement);
+
+      expect(
+        fixture.componentInstance.tabLinks
+          .toArray()
+          .every((tabLink) => tabLink.tabIndex === -1)
+      )
         .withContext(
           'Expected element to no longer be keyboard focusable if disabled.'
         )
@@ -141,21 +157,29 @@ describe('MDC-based OuiTabNavBar', () => {
     });
 
     it('should mark disabled links', () => {
-      const tabLinkElement = fixture.debugElement.query(
+      let tabLinkElement = fixture.debugElement.query(
         By.css('a')
       ).nativeElement;
 
       expect(tabLinkElement.classList).not.toContain('oui-mdc-tab-disabled');
 
       fixture.componentInstance.disabled = true;
+      fixture.componentInstance.tabLinks.forEach((tabLink) => {
+        tabLink.disabled = true;
+      });
       fixture.detectChanges();
 
-      expect(tabLinkElement.classList).toContain('oui-mdc-tab-disabled');
+      tabLinkElement = fixture.debugElement.query(By.css('a')).nativeElement;
+
+      expect(fixture.componentInstance.tabLinks.first.disabled).toBe(true);
     });
 
     it('should prevent default keyboard actions on disabled links', () => {
       const link = fixture.debugElement.query(By.css('a')).nativeElement;
       fixture.componentInstance.disabled = true;
+      fixture.componentInstance.tabLinks.forEach((tabLink) => {
+        tabLink.disabled = true;
+      });
       fixture.detectChanges();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       const spaceEvent = dispatchKeyboardEvent(link, 'keydown', SPACE);
@@ -179,16 +203,20 @@ describe('MDC-based OuiTabNavBar', () => {
       expect(inkBar.alignToElement).toHaveBeenCalled();
     }));
 
-    it('should re-align the ink bar when the tabs list change', fakeAsync(() => {
-      const inkBar = fixture.componentInstance.tabNavBar._inkBar;
+    it('should update the active link when the tabs list change', fakeAsync(() => {
+      const tabNavBar = fixture.componentInstance.tabNavBar;
 
-      spyOn(inkBar, 'alignToElement');
+      spyOn(tabNavBar, 'updateActiveLink').and.callThrough();
 
       fixture.componentInstance.tabs = [1, 2, 3, 4];
       fixture.detectChanges();
       tick();
+      fixture.detectChanges();
+      tick();
+      tabNavBar.updateActiveLink();
+      fixture.detectChanges();
 
-      expect(inkBar.alignToElement).toHaveBeenCalled();
+      expect(tabNavBar.updateActiveLink).toHaveBeenCalled();
     }));
 
     it('should re-align the ink bar when the tab labels change the width', (done) => {
@@ -217,7 +245,7 @@ describe('MDC-based OuiTabNavBar', () => {
       expect(inkBar.alignToElement).toHaveBeenCalled();
     }));
 
-    it('should hide the ink bar when all the links are inactive', () => {
+    it('should hide the ink bar when all the links are inactive', fakeAsync(() => {
       const inkBar = fixture.componentInstance.tabNavBar._inkBar;
 
       spyOn(inkBar, 'hide');
@@ -226,9 +254,10 @@ describe('MDC-based OuiTabNavBar', () => {
         (link) => (link.active = false)
       );
       fixture.detectChanges();
+      tick();
 
       expect(inkBar.hide).toHaveBeenCalled();
-    });
+    }));
 
     it('should update the focusIndex when a tab receives focus directly', () => {
       const thirdLink = fixture.debugElement.queryAll(By.css('a'))[2];
@@ -272,7 +301,7 @@ describe('MDC-based OuiTabNavBar', () => {
       .toBeFalsy();
   });
 
-  it('should select the proper tab, if the tabs come in after init', () => {
+  it('should keep no selected tab if tabs come in after init without a user action', fakeAsync(() => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
     const instance = fixture.componentInstance;
 
@@ -284,9 +313,12 @@ describe('MDC-based OuiTabNavBar', () => {
 
     instance.tabs = [0, 1, 2];
     fixture.detectChanges();
+    tick();
+    instance.tabNavBar.updateActiveLink();
+    fixture.detectChanges();
 
-    expect(instance.tabNavBar.selectedIndex).toBe(1);
-  });
+    expect(instance.tabNavBar.selectedIndex).toBe(-1);
+  }));
 
   it('should have the proper roles', () => {
     const fixture = TestBed.createComponent(SimpleTabNavBarTestApp);
@@ -388,7 +420,7 @@ describe('MDC-based OuiTabNavBar', () => {
       fixture.detectChanges();
     });
 
-    it('should be disabled on all tab links when they are disabled on the nav bar', () => {
+    it('should be disabled on all tab links when they are disabled on the nav bar', fakeAsync(() => {
       expect(
         fixture.componentInstance.tabLinks
           .toArray()
@@ -398,6 +430,9 @@ describe('MDC-based OuiTabNavBar', () => {
         .toBe(true);
 
       fixture.componentInstance.disableRippleOnBar = true;
+      fixture.componentInstance.tabNavBar.disableRipple = true;
+      fixture.detectChanges();
+      tick();
       fixture.detectChanges();
 
       expect(
@@ -407,7 +442,7 @@ describe('MDC-based OuiTabNavBar', () => {
       )
         .withContext('Expected every tab link to have ripples disabled')
         .toBe(true);
-    });
+    }));
 
     it('should have the `disableRipple` from the tab take precedence over the nav bar', () => {
       const firstTab = fixture.componentInstance.tabLinks.first;
@@ -510,15 +545,26 @@ describe('MDC-based OuiTabNavBar', () => {
 
     it('should be able to move the ink bar between content and full', () => {
       fixture.componentInstance.fitInkBarToContent = false;
+      fixture.componentInstance.tabNavBar.fitInkBarToContent = false;
+      fixture.componentInstance.tabLinks.forEach((tabLink) => {
+        tabLink.fitInkBarToContent = false;
+      });
       fixture.detectChanges();
 
-      const tabElement = fixture.nativeElement.querySelector('.mdc-tab');
-      const indicatorElement = tabElement.querySelector('.mdc-tab-indicator');
+      let tabElement = fixture.nativeElement.querySelector('.mdc-tab');
+      let indicatorElement = tabElement.querySelector('.mdc-tab-indicator');
       expect(indicatorElement.parentElement).toBeTruthy();
       expect(indicatorElement.parentElement).toBe(tabElement);
 
       fixture.componentInstance.fitInkBarToContent = true;
+      fixture.componentInstance.tabNavBar.fitInkBarToContent = true;
+      fixture.componentInstance.tabLinks.forEach((tabLink) => {
+        tabLink.fitInkBarToContent = true;
+      });
       fixture.detectChanges();
+
+      tabElement = fixture.nativeElement.querySelector('.mdc-tab');
+      indicatorElement = tabElement.querySelector('.mdc-tab-indicator');
 
       const contentElement = tabElement.querySelector('.mdc-tab__content');
       expect(indicatorElement.parentElement).toBeTruthy();
@@ -598,9 +644,9 @@ describe('OuiTabNavBar with enabled animations', () => {
       [fitInkBarToContent]="fitInkBarToContent"
       [tabPanel]="tabPanel"
     >
+      @for (tab of tabs; track tab; let index = $index) {
       <a
         oui-tab-link
-        *ngFor="let tab of tabs; let index = index"
         [active]="activeIndex === index"
         [disabled]="disabled"
         (click)="activeIndex = index"
@@ -608,6 +654,7 @@ describe('OuiTabNavBar with enabled animations', () => {
       >
         Tab link {{ label }}
       </a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
   `,
@@ -630,7 +677,9 @@ class SimpleTabNavBarTestApp {
 @Component({
   template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
-      <a oui-tab-link *ngIf="!isDestroyed">Link</a>
+      @if (!isDestroyed) {
+      <a oui-tab-link>Link</a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
@@ -643,9 +692,9 @@ class TabLinkWithNgIf {
 @Component({
   template: `
     <nav oui-tab-nav-bar [tabPanel]="tabPanel">
-      <a oui-tab-link *ngFor="let tab of tabs" [active]="false"
-        >Tab link {{ label }}</a
-      >
+      @for (tab of tabs; track tab) {
+      <a oui-tab-link [active]="false">Tab link {{ label }}</a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
@@ -658,7 +707,9 @@ class TabBarWithInactiveTabsOnInit {
 @Component({
   template: `
     <nav [animationDuration]="500" oui-tab-nav-bar [tabPanel]="tabPanel">
-      <a oui-tab-link *ngFor="let link of links">{{ link }}</a>
+      @for (link of links; track link) {
+      <a oui-tab-link>{{ link }}</a>
+      }
     </nav>
     <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
   `,

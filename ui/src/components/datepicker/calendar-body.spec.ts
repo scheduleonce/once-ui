@@ -67,7 +67,6 @@ describe('OuiCalendarBody', () => {
 
   describe('standard calendar body', () => {
     let fixture: ComponentFixture<StandardCalendarBody>;
-    let testComponent: StandardCalendarBody;
     let calendarBodyNativeElement: Element;
     let rowEls: Element[];
     let labelEls: Element[];
@@ -91,8 +90,6 @@ describe('OuiCalendarBody', () => {
         By.directive(OuiCalendarBody)
       );
       calendarBodyNativeElement = calendarBodyDebugElement.nativeElement;
-      testComponent = fixture.componentInstance;
-
       refreshElementLists();
     });
 
@@ -137,19 +134,32 @@ describe('OuiCalendarBody', () => {
     });
 
     it('places label in first row if space is available', () => {
-      testComponent.rows[0] = testComponent.rows[0].slice(3);
-      testComponent.rows = testComponent.rows.slice();
-      fixture.detectChanges();
-      refreshElementLists();
+      const localFixture = TestBed.createComponent(StandardCalendarBody);
+      localFixture.componentInstance.rows[0] =
+        localFixture.componentInstance.rows[0].slice(3);
+      localFixture.componentInstance.rows =
+        localFixture.componentInstance.rows.slice();
+      localFixture.detectChanges();
 
-      expect(rowEls.length).toBe(2);
-      expect(labelEls.length).toBe(1);
-      expect(cellEls.length).toBe(11);
-      expect(rowEls[0].firstElementChild!.classList).toContain(
+      const localElement = localFixture.debugElement.query(
+        By.directive(OuiCalendarBody)
+      ).nativeElement as Element;
+      const localRowEls = Array.from(localElement.querySelectorAll('tr'));
+      const localLabelEls = Array.from(
+        localElement.querySelectorAll('.oui-calendar-body-label')
+      );
+      const localCellEls = Array.from(
+        localElement.querySelectorAll('.oui-calendar-body-cell')
+      );
+
+      expect(localRowEls.length).toBe(2);
+      expect(localLabelEls.length).toBe(1);
+      expect(localCellEls.length).toBe(11);
+      expect(localRowEls[0].firstElementChild!.classList).toContain(
         'oui-calendar-body-label',
         'first cell should be the label'
       );
-      expect(labelEls[0].getAttribute('colspan')).toBe('3');
+      expect(localLabelEls[0].getAttribute('colspan')).toBe('3');
     });
 
     it('cell should be selected on click', () => {
