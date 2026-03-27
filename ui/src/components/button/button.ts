@@ -75,6 +75,7 @@ export class OuiButton
   implements OnDestroy, CanDisable, CanColor, CanProgress
 {
   protected elementRef: ElementRef<HTMLElement>;
+  @Input() tabIndex = 0;
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
 

@@ -19,7 +19,9 @@ import {
   NgZone,
   OnDestroy,
   ViewContainerRef,
+  booleanAttribute,
   inject,
+  input,
 } from '@angular/core';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -42,7 +44,6 @@ import {
   Observable,
 } from 'rxjs';
 import { OuiAutocomplete } from './autocomplete';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OuiAutocompleteOrigin } from './autocomplete-origin';
 import { OuiFormField } from '../form-field/form-field';
 
@@ -105,14 +106,14 @@ export function getOuiAutocompleteMissingPanelError(): Error {
   // eslint-disable-next-line @angular-eslint/directive-selector
   selector: `input[ouiAutocomplete], textarea[ouiAutocomplete]`,
   host: {
-    '[attr.autocomplete]': 'autocompleteAttribute',
-    '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
-    '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
+    '[attr.autocomplete]': 'autocompleteAttribute()',
+    '[attr.role]': 'autocompleteDisabled() ? null : "combobox"',
+    '[attr.aria-autocomplete]': 'autocompleteDisabled() ? null : "list"',
     '[attr.aria-activedescendant]': 'activeOption?.id',
     '[attr.aria-expanded]':
-      'autocompleteDisabled ? null : panelOpen.toString()',
+      'autocompleteDisabled() ? null : panelOpen.toString()',
     '[attr.aria-owns]':
-      '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
+      '(autocompleteDisabled() || !panelOpen) ? null : autocomplete?.id',
     // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
     // a little earlier. This avoids issues where IE delays the focusing of the input.
     '(focusin)': '_handleFocus()',
@@ -137,7 +138,6 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
   private _componentDestroyed = false;
-  private _autocompleteDisabled = false;
   private _scrollStrategy: () => ScrollStrategy = inject(
     OUI_AUTOCOMPLETE_SCROLL_STRATEGY
   );
@@ -195,8 +195,9 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Defaults to the autocomplete trigger element.
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiAutocompleteConnectedTo')
-  connectedTo: OuiAutocompleteOrigin;
+  readonly connectedTo = input<OuiAutocompleteOrigin | undefined>(undefined, {
+    alias: 'ouiAutocompleteConnectedTo',
+  });
 
   /**
    * `autocomplete` attribute to be set on the input element.
@@ -204,8 +205,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * @docs-private
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('autocomplete')
-  autocompleteAttribute = 'off';
+  readonly autocompleteAttribute = input('off', { alias: 'autocomplete' });
 
   /**
    * Event handler for when the window is blurred. Needs to be an
@@ -229,13 +229,10 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    * Whether the autocomplete is disabled. When disabled, the element will
    * act as a regular input and the user won't be able to open the panel.
    */
-  @Input('ouiAutocompleteDisabled')
-  get autocompleteDisabled(): boolean {
-    return this._autocompleteDisabled;
-  }
-  set autocompleteDisabled(value: boolean) {
-    this._autocompleteDisabled = coerceBooleanProperty(value);
-  }
+  readonly autocompleteDisabled = input(false, {
+    alias: 'ouiAutocompleteDisabled',
+    transform: booleanAttribute,
+  });
 
   constructor() {
     const _zone = this._zone;
@@ -528,10 +525,8 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   }
 
   private _setTriggerValue(value: any): void {
-    const toDisplay =
-      this.autocomplete && this.autocomplete.displayWith
-        ? this.autocomplete.displayWith(value)
-        : value;
+    const displayWith = this.autocomplete && this.autocomplete.displayWith();
+    const toDisplay = displayWith ? displayWith(value) : value;
 
     // Simply falling back to an empty string if the display value is falsy does not work properly.
     // The display value can also be the number zero and shouldn't fall back to an empty string.
@@ -671,15 +666,15 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   }
 
   private _getConnectedElement(): ElementRef {
-    if (this.connectedTo) {
-      return this.connectedTo.elementRef;
+    if (this.connectedTo()) {
+      return this.connectedTo()!.elementRef;
     }
 
     return this._element;
   }
 
   private _getPanelWidth(): number | string {
-    return this.autocomplete.panelWidth || this._getHostWidth();
+    return this.autocomplete.panelWidth() || this._getHostWidth();
   }
 
   /** Returns the width of the input element, so the panel width can match it. */
@@ -694,7 +689,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
    */
   private _resetActiveItem(): void {
     this.autocomplete._keyManager.setActiveItem(
-      this.autocomplete.autoActiveFirstOption ? 0 : -1
+      this.autocomplete.autoActiveFirstOption() ? 0 : -1
     );
   }
 
@@ -702,7 +697,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _canOpen(): boolean {
     const element = this._element.nativeElement;
     return (
-      !element.readOnly && !element.disabled && !this._autocompleteDisabled
+      !element.readOnly && !element.disabled && !this.autocompleteDisabled()
     );
   }
 }

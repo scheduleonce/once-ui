@@ -61,7 +61,7 @@ class IconFromSvgName {
 }
 
 @Component({
-  template: ` <oui-icon [svgIcon]="iconName" *ngIf="showIcon"></oui-icon> `,
+  template: ` @if (showIcon) {<oui-icon [svgIcon]="iconName"></oui-icon>} `,
   standalone: false,
 })
 class IconWithBindingAndNgIf {

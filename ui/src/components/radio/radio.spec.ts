@@ -45,9 +45,11 @@ class RadioInsideGroupComponent {
 @Component({
   template: `
     <oui-radio-group [(ngModel)]="modelValue" (change)="lastEvent = $event">
-      <oui-radio-button *ngFor="let option of options" [value]="option.value">
+      @for (option of options; track option) {
+      <oui-radio-button [value]="option.value">
         {{ option.label }}
       </oui-radio-button>
+      }
     </oui-radio-group>
   `,
   standalone: false,
@@ -129,11 +131,13 @@ class FocusableRadioButton {
 @Component({
   template: `
     <oui-radio-group name="group" [(ngModel)]="modelValue">
-      <oui-transcluding-wrapper *ngFor="let option of options">
+      @for (option of options; track option) {
+      <oui-transcluding-wrapper>
         <oui-radio-button [value]="option.value">{{
           option.label
         }}</oui-radio-button>
       </oui-transcluding-wrapper>
+      }
     </oui-radio-group>
   `,
   standalone: false,
@@ -188,12 +192,9 @@ describe('OuiRadio', () => {
     let radioInputElements: HTMLInputElement[];
     let groupInstance: OuiRadioGroup;
     let radioInstances: OuiRadioButton[];
-    let testComponent: RadioInsideGroupComponent;
     beforeEach(waitForAsync(() => {
       fixture = TestBed.createComponent(RadioInsideGroupComponent);
       fixture.detectChanges();
-
-      testComponent = fixture.debugElement.componentInstance;
 
       groupDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioGroup)
@@ -234,7 +235,8 @@ describe('OuiRadio', () => {
     });
 
     it('should disable click interaction when the group is disabled', () => {
-      testComponent.isGroupDisabled = true;
+      groupInstance.disabled = true;
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       radioLabelElements[0].click();
@@ -244,14 +246,16 @@ describe('OuiRadio', () => {
     });
 
     it('should set label position based on the group labelPosition', () => {
-      testComponent.labelPos = 'before';
+      groupInstance.labelPosition = 'before';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
         expect(radio.labelPosition).toBe('before');
       }
 
-      testComponent.labelPos = 'after';
+      groupInstance.labelPosition = 'after';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
@@ -259,7 +263,8 @@ describe('OuiRadio', () => {
       }
     });
     it('should disable each individual radio when the group is disabled', () => {
-      testComponent.isGroupDisabled = true;
+      groupInstance.disabled = true;
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
@@ -268,7 +273,8 @@ describe('OuiRadio', () => {
     });
 
     it('should set required to each radio button when the group is required', () => {
-      testComponent.isGroupRequired = true;
+      groupInstance.required = true;
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
@@ -361,7 +367,8 @@ describe('OuiRadio', () => {
     it('should update the group and radios when updating the group value', () => {
       expect(groupInstance.value).toBeFalsy();
 
-      testComponent.groupValue = 'fire';
+      groupInstance.value = 'fire';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       expect(groupInstance.value).toBe('fire');
@@ -369,7 +376,8 @@ describe('OuiRadio', () => {
       expect(radioInstances[0].checked).toBe(true);
       expect(radioInstances[1].checked).toBe(false);
 
-      testComponent.groupValue = 'water';
+      groupInstance.value = 'water';
+      groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       expect(groupInstance.value).toBe('water');
@@ -476,14 +484,11 @@ describe('OuiRadio', () => {
     let radioLabelElements: HTMLLabelElement[];
     let groupInstance: OuiRadioGroup;
     let radioInstances: OuiRadioButton[];
-    let testComponent: RadioGroupWithNgModel;
     let groupNgModel: NgModel;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(RadioGroupWithNgModel);
       fixture.detectChanges();
-
-      testComponent = fixture.debugElement.componentInstance;
 
       groupDebugElement = fixture.debugElement.query(
         By.directive(OuiRadioGroup)
@@ -559,7 +564,7 @@ describe('OuiRadio', () => {
     });
 
     it('should write to the radio button based on ngModel', fakeAsync(() => {
-      testComponent.modelValue = 'chocolate';
+      groupNgModel.control.setValue('chocolate');
 
       fixture.detectChanges();
       tick();
@@ -646,13 +651,10 @@ describe('OuiRadio', () => {
     let weatherRadioInstances: OuiRadioButton[];
     let fruitRadioInstances: OuiRadioButton[];
     let fruitRadioNativeInputs: HTMLElement[];
-    let testComponent: StandaloneRadioButtons;
 
     beforeEach(() => {
       fixture = TestBed.createComponent(StandaloneRadioButtons);
       fixture.detectChanges();
-
-      testComponent = fixture.debugElement.componentInstance;
 
       radioDebugElements = fixture.debugElement.queryAll(
         By.directive(OuiRadioButton)
@@ -732,7 +734,8 @@ describe('OuiRadio', () => {
         'Banana'
       );
 
-      testComponent.ariaLabel = 'Pineapple';
+      fruitRadioInstances[0].ariaLabel = 'Pineapple';
+      fruitRadioInstances[0]._markForCheck();
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
@@ -757,7 +760,8 @@ describe('OuiRadio', () => {
         'xyz'
       );
 
-      testComponent.ariaLabelledby = 'uvw';
+      fruitRadioInstances[0].ariaLabelledby = 'uvw';
+      fruitRadioInstances[0]._markForCheck();
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
@@ -782,7 +786,8 @@ describe('OuiRadio', () => {
         'abc'
       );
 
-      testComponent.ariaDescribedby = 'uvw';
+      fruitRadioInstances[0].ariaDescribedby = 'uvw';
+      fruitRadioInstances[0]._markForCheck();
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
@@ -816,6 +821,9 @@ describe('OuiRadio', () => {
     });
 
     it('should allow specifying an explicit tabindex for a single radio-button', () => {
+      const radioButtonInstance = fixture.debugElement.query(
+        By.directive(OuiRadioButton)
+      ).componentInstance as OuiRadioButton;
       const radioButtonInput = fixture.debugElement.query(
         By.css('.oui-radio-button input')
       ).nativeElement as HTMLInputElement;
@@ -825,7 +833,8 @@ describe('OuiRadio', () => {
         'Expected the tabindex to be set to "0" by default.'
       );
 
-      fixture.componentInstance.tabIndex = 4;
+      radioButtonInstance.tabIndex = 4;
+      radioButtonInstance._markForCheck();
       fixture.detectChanges();
 
       expect(radioButtonInput.tabIndex).toBe(
