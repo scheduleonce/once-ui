@@ -4,6 +4,7 @@ import {
   Component,
   InjectionToken,
   Input,
+  input,
   ViewChild,
   TemplateRef,
   OnInit,
@@ -75,7 +76,7 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   public mouseEnter: Observable<MouseEvent>;
   public escapeEvent: Subject<void> = new Subject<void>();
 
-  @Input() width?: number;
+  readonly width = input<number>();
 
   /** Config object to be passed into the menu's ngClass */
   _classList: { [key: string]: boolean } = {};
