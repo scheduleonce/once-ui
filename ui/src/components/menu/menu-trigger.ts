@@ -18,11 +18,11 @@ import {
   AfterContentInit,
   Directive,
   ElementRef,
-  EventEmitter,
   InjectionToken,
   Input,
   OnDestroy,
-  Output,
+  input,
+  output,
   ViewContainerRef,
   inject,
 } from '@angular/core';
@@ -142,16 +142,13 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   /** Data to be passed along to any lazily-rendered content. */
 
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiMenuTriggerData')
-  menuData: any;
+  readonly menuData = input<any>(undefined, { alias: 'ouiMenuTriggerData' });
 
   /** Event emitted when the associated menu is opened. */
-  @Output()
-  readonly menuOpened: EventEmitter<void> = new EventEmitter<void>();
+  readonly menuOpened = output<void>();
 
   /** Event emitted when the associated menu is closed. */
-  @Output()
-  readonly menuClosed: EventEmitter<void> = new EventEmitter<void>();
+  readonly menuClosed = output<void>();
 
   /**
    * Handles touch start events on the trigger.
@@ -233,7 +230,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     overlayRef.attach(this._getPortal());
 
     if (this.menu.lazyContent) {
-      this.menu.lazyContent.attach(this.menuData);
+      this.menu.lazyContent.attach(this.menuData());
     }
 
     this._closeSubscription = this._menuClosingActions().subscribe(() => {
@@ -323,7 +320,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     }
 
     if (this.triggersSubmenu()) {
-      this._menuItemInstance._highlighted = isOpen;
+      this._menuItemInstance._setHighlighted(isOpen);
     }
   }
 

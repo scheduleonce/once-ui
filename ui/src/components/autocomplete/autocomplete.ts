@@ -1,5 +1,4 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -7,11 +6,12 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  EventEmitter,
   InjectionToken,
   Input,
-  Output,
   QueryList,
+  booleanAttribute,
+  input,
+  output,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
@@ -108,41 +108,31 @@ export class OuiAutocomplete implements AfterContentInit {
   optionGroups: QueryList<OuiOptgroup>;
 
   /** Function that maps an option's control value to its display value in the trigger. */
-  @Input()
-  displayWith: ((value: any) => string) | null = null;
+  readonly displayWith = input<((value: any) => string) | null>(null);
 
   /**
    * Whether the first option should be highlighted when the autocomplete panel is opened.
    * Can be configured globally through the `OUI_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
    */
-  @Input()
-  get autoActiveFirstOption(): boolean {
-    return this._autoActiveFirstOption;
-  }
-  set autoActiveFirstOption(value: boolean) {
-    this._autoActiveFirstOption = coerceBooleanProperty(value);
-  }
-  private _autoActiveFirstOption: boolean;
+  readonly autoActiveFirstOption = input(
+    !!inject(OUI_AUTOCOMPLETE_DEFAULT_OPTIONS).autoActiveFirstOption,
+    { transform: booleanAttribute }
+  );
 
   /**
    * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
    * match the width of its host.
    */
-  @Input()
-  panelWidth: string | number;
+  readonly panelWidth = input<string | number>();
 
   /** Event that is emitted whenever an option from the list is selected. */
-  @Output()
-  readonly optionSelected: EventEmitter<OuiAutocompleteSelectedEvent> =
-    new EventEmitter<OuiAutocompleteSelectedEvent>();
+  readonly optionSelected = output<OuiAutocompleteSelectedEvent>();
 
   /** Event that is emitted when the autocomplete panel is opened. */
-  @Output()
-  readonly opened: EventEmitter<void> = new EventEmitter<void>();
+  readonly opened = output<void>();
 
   /** Event that is emitted when the autocomplete panel is closed. */
-  @Output()
-  readonly closed: EventEmitter<void> = new EventEmitter<void>();
+  readonly closed = output<void>();
 
   /**
    * Takes classes set on the host oui-autocomplete element and applies them to the panel
@@ -162,14 +152,6 @@ export class OuiAutocomplete implements AfterContentInit {
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   id: string = `oui-autocomplete-${_uniqueAutocompleteIdCounter++}`;
-
-  constructor() {
-    const defaults = inject<OuiAutocompleteDefaultOptions>(
-      OUI_AUTOCOMPLETE_DEFAULT_OPTIONS
-    );
-
-    this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
-  }
 
   ngAfterContentInit() {
     this._keyManager = new ActiveDescendantKeyManager<OuiOption>(
@@ -197,8 +179,11 @@ export class OuiAutocomplete implements AfterContentInit {
   /** Panel should hide itself when the option list is empty. */
   _setVisibility() {
     this.showPanel = !!this.options.length;
-    this._classList['oui-autocomplete-visible'] = this.showPanel;
-    this._classList['oui-autocomplete-hidden'] = !this.showPanel;
+    this._classList = {
+      ...this._classList,
+      'oui-autocomplete-visible': this.showPanel,
+      'oui-autocomplete-hidden': !this.showPanel,
+    };
     this._changeDetectorRef.markForCheck();
   }
 

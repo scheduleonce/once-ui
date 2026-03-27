@@ -1,11 +1,12 @@
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import {
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   ElementRef,
   OnDestroy,
   ViewEncapsulation,
-  Input,
+  input,
   inject,
 } from '@angular/core';
 import { CanDisable, CanDisableCtor, mixinDisabled } from '../core';
@@ -30,7 +31,7 @@ export const _OuiMenuItemMixinBase: CanDisableCtor & typeof OuiMenuItemBase =
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
   host: {
-    '[attr.role]': 'role',
+    '[attr.role]': 'role()',
     class: 'oui-menu-item',
     '[class.oui-menu-item-highlighted]': '_highlighted',
     '[class.oui-menu-item-submenu-trigger]': '_triggersSubmenu',
@@ -50,14 +51,16 @@ export class OuiMenuItem
   implements FocusableOption, CanDisable, OnDestroy
 {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
   private _focusMonitor = inject(FocusMonitor);
   private _parentMenu = inject<OuiMenuPanel<OuiMenuItem>>(OUI_MENU_PANEL, {
     optional: true,
   });
 
   /** ARIA role for the menu item. */
-  @Input()
-  role: 'menuitem' | 'menuitemradio' | 'menuitemcheckbox' = 'menuitem';
+  readonly role = input<'menuitem' | 'menuitemradio' | 'menuitemcheckbox'>(
+    'menuitem'
+  );
 
   private _document: Document;
 
@@ -134,6 +137,12 @@ export class OuiMenuItem
   /** Emits to the hover stream. */
   _handleMouseEnter() {
     this._hovered.next(this);
+  }
+
+  /** Sets highlighted state and schedules a host binding refresh. */
+  _setHighlighted(isHighlighted: boolean) {
+    this._highlighted = isHighlighted;
+    this._changeDetectorRef.markForCheck();
   }
 
   /** Gets the label to be used when determining whether the option should be focused. */

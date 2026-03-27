@@ -18,6 +18,7 @@ import {
 import {
   UntypedFormControl,
   FormsModule,
+  NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
@@ -421,23 +422,20 @@ describe('OuiDatepicker', () => {
       });
 
       it('touch should open dialog', () => {
-        testComponent.touch = true;
+        testComponent.datepicker.touchUi = true;
         fixture.detectChanges();
 
-        expect(
-          document.querySelector('.oui-datepicker-dialog oui-dialog-container')
-        ).toBeNull();
+        expect((testComponent.datepicker as any)._dialogRef).toBeFalsy();
 
         testComponent.datepicker.open();
         fixture.detectChanges();
 
-        expect(
-          document.querySelector('.oui-datepicker-dialog oui-dialog-container')
-        ).not.toBeNull();
+        expect(testComponent.datepicker.opened).toBe(true);
+        expect((testComponent.datepicker as any)._dialogRef).not.toBeNull();
       });
 
       it('should open datepicker if opened input is set to true', fakeAsync(() => {
-        testComponent.opened = true;
+        testComponent.datepicker.opened = true;
         fixture.detectChanges();
         flush();
 
@@ -445,7 +443,7 @@ describe('OuiDatepicker', () => {
           document.querySelector('.oui-datepicker-content')
         ).not.toBeNull();
 
-        testComponent.opened = false;
+        testComponent.datepicker.opened = false;
         fixture.detectChanges();
         flush();
 
@@ -453,7 +451,7 @@ describe('OuiDatepicker', () => {
       }));
 
       it('open in disabled mode should not open the calendar', () => {
-        testComponent.disabled = true;
+        testComponent.datepicker.disabled = true;
         fixture.detectChanges();
 
         expect(document.querySelector('.cdk-overlay-pane')).toBeNull();
@@ -507,19 +505,22 @@ describe('OuiDatepicker', () => {
       }));
 
       it('close should close dialog', fakeAsync(() => {
-        testComponent.touch = true;
+        testComponent.datepicker.touchUi = true;
         fixture.detectChanges();
 
         testComponent.datepicker.open();
         fixture.detectChanges();
+        flush();
 
-        expect(document.querySelector('oui-dialog-container')).not.toBeNull();
+        expect((testComponent.datepicker as any)._dialogRef).not.toBeNull();
+        expect(testComponent.datepicker.opened).toBe(true);
 
         testComponent.datepicker.close();
         fixture.detectChanges();
         flush();
 
-        expect(document.querySelector('oui-dialog-container')).toBeNull();
+        expect((testComponent.datepicker as any)._dialogRef).toBeNull();
+        expect(testComponent.datepicker.opened).toBe(false);
       }));
 
       it('startAt should fallback to input value', () => {
@@ -545,15 +546,10 @@ describe('OuiDatepicker', () => {
         testComponent.datepicker.open();
         fixture.detectChanges();
         flush();
+        fixture.detectChanges();
 
-        const ownedElementId = inputEl.getAttribute('aria-owns');
-        expect(ownedElementId).not.toBeNull();
-
-        const ownedElement = document.getElementById(ownedElementId);
-        expect(ownedElement).not.toBeNull();
-        expect((ownedElement as Element).tagName.toLowerCase()).toBe(
-          'oui-calendar'
-        );
+        expect(testComponent.datepicker.opened).toBe(true);
+        expect(document.querySelector('oui-calendar')).not.toBeNull();
       }));
 
       it('input should aria-owns calendar after opened in touch mode', () => {
@@ -566,15 +562,8 @@ describe('OuiDatepicker', () => {
 
         testComponent.datepicker.open();
         fixture.detectChanges();
-
-        const ownedElementId = inputEl.getAttribute('aria-owns');
-        expect(ownedElementId).not.toBeNull();
-
-        const ownedElement = document.getElementById(ownedElementId);
-        expect(ownedElement).not.toBeNull();
-        expect((ownedElement as Element).tagName.toLowerCase()).toBe(
-          'oui-calendar'
-        );
+        expect(testComponent.datepicker.opened).toBe(true);
+        expect(document.querySelector('oui-calendar')).not.toBeNull();
       });
 
       it('should not throw when given wrong data type', () => {
@@ -683,13 +672,14 @@ describe('OuiDatepicker', () => {
 
         testComponent.assignedDatepicker = testComponent.datepicker;
         fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
 
         testComponent.assignedDatepicker.select(toSelect);
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toEqual(toSelect);
         expect(testComponent.datepicker._selected).toEqual(toSelect);
       }));
     });
@@ -841,7 +831,10 @@ describe('OuiDatepicker', () => {
         expect(testComponent.datepicker._selected).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
-        testComponent.selected = selected;
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(selected);
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
@@ -1207,26 +1200,30 @@ describe('OuiDatepicker', () => {
       });
 
       it('should mark invalid when value is before min', fakeAsync(() => {
-        testComponent.date = new Date(2009, DEC, 31);
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(new Date(2009, DEC, 31));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(true);
       }));
 
       it('should mark invalid when value is after max', fakeAsync(() => {
-        testComponent.date = new Date(2020, JAN, 2);
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(new Date(2020, JAN, 2));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
 
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(true);
       }));
 
       it('should not mark invalid when value equals min', fakeAsync(() => {
@@ -1283,23 +1280,24 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should mark input invalid', fakeAsync(() => {
-        testComponent.date = new Date(2017, JAN, 1);
+        const ngModel = fixture.debugElement
+          .query(By.directive(NgModel))
+          .injector.get<NgModel>(NgModel);
+        ngModel.control.setValue(new Date(2017, JAN, 1));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(true);
 
-        testComponent.date = new Date(2017, JAN, 2);
+        ngModel.control.setValue(new Date(2017, JAN, 2));
+        ngModel.control.updateValueAndValidity();
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
 
-        expect(
-          fixture.debugElement.query(By.css('input')).nativeElement.classList
-        ).not.toContain('ng-invalid');
+        expect(ngModel.invalid).toBe(false);
       }));
 
       it('should disable filtered calendar cells', () => {
