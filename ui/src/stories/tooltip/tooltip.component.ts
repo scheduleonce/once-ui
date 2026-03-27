@@ -1,5 +1,5 @@
 import { OuiIconRegistry } from '../../components';
-import { Input, Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -7,10 +7,10 @@ import { DomSanitizer } from '@angular/platform-browser';
   template: `
     <oui-icon
       [svgIcon]="'help-library'"
-      [ouiTooltip]="_ouiTooltip"
-      [ouiTooltipPosition]="_ouiTooltipPosition"
+      [ouiTooltip]="_ouiTooltip()"
+      [ouiTooltipPosition]="_ouiTooltipPosition()"
       [color]="'primary'"
-      [ouiTooltipDisabled]="disabled"
+      [ouiTooltipDisabled]="disabled()"
     ></oui-icon>
   `,
   standalone: false,
@@ -19,9 +19,9 @@ export class OuiTooltipStorybook {
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
-  @Input() disabled = false;
-  @Input() _ouiTooltip = 'This is a tooltip';
-  @Input() _ouiTooltipPosition = 'above';
+  readonly disabled = input(false);
+  readonly _ouiTooltip = input('This is a tooltip');
+  readonly _ouiTooltipPosition = input('above');
 
   constructor() {
     this.ouiIconRegistry.addSvgIcon(

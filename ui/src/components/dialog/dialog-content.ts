@@ -1,6 +1,7 @@
 import {
   Directive,
   Input,
+  input,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -323,12 +324,12 @@ export class OuiDialogContent implements OnInit {
   exportAs: 'ouiDialogFooter',
   host: {
     class: 'oui-dialog-footer',
+    '[attr.id]': 'id()',
   },
   standalone: false,
 })
 export class OuiDialogFooter {
-  @Input()
-  id = `oui-dialog-footer-${dialogElementUid++}`;
+  readonly id = input(`oui-dialog-footer-${dialogElementUid++}`);
   constructor() {}
 }
 

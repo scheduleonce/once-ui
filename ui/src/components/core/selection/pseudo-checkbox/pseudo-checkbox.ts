@@ -1,7 +1,7 @@
 import {
   Component,
   ViewEncapsulation,
-  Input,
+  input,
   ChangeDetectionStrategy,
   OnDestroy,
   ElementRef,
@@ -41,8 +41,8 @@ export type OuiPseudoCheckboxState = 'unchecked' | 'checked';
   template: '',
   host: {
     class: 'oui-pseudo-checkbox',
-    '[class.oui-pseudo-checkbox-checked]': 'state === "checked"',
-    '[class.oui-pseudo-checkbox-disabled]': 'disabled',
+    '[class.oui-pseudo-checkbox-checked]': 'state() === "checked"',
+    '[class.oui-pseudo-checkbox-disabled]': 'disabled()',
   },
   standalone: false,
 })
@@ -53,10 +53,10 @@ export class OuiPseudoCheckbox implements OnDestroy {
   _animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
 
   /** Display state of the checkbox. */
-  @Input() state: OuiPseudoCheckboxState = 'unchecked';
+  readonly state = input<OuiPseudoCheckboxState>('unchecked');
 
   /** Whether the checkbox is disabled. */
-  @Input() disabled = false;
+  readonly disabled = input(false);
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
   constructor() {

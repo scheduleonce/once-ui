@@ -127,15 +127,17 @@ describe('OuiProgressSpinner', () => {
   });
 
   it('should allow to set a custom diameter', () => {
-    const spinner = progressSpinnerDiameterFixture.debugElement.query(
-      By.css('oui-progress-spinner')
-    ).nativeElement as HTMLElement;
+    const spinnerDebugElement =
+      progressSpinnerDiameterFixture.debugElement.query(
+        By.directive(OuiProgressSpinner)
+      );
+    const spinner = spinnerDebugElement.nativeElement as HTMLElement;
     const svgElement =
       progressSpinnerDiameterFixture.nativeElement.querySelector(
         'svg'
       ) as HTMLElement;
 
-    progressSpinnerDiameterFixture.componentInstance.diameter = 32;
+    spinnerDebugElement.componentInstance.diameter = 32;
     progressSpinnerDiameterFixture.detectChanges();
 
     expect(parseInt(spinner.style.width, 10)).toBe(
@@ -167,11 +169,11 @@ describe('OuiProgressSpinner', () => {
     progressSpinnerWithColorfixture.detectChanges();
 
     const testElement = progressSpinnerWithColorfixture.debugElement.query(
-      By.css('oui-progress-spinner')
+      By.directive(OuiProgressSpinner)
     );
     expect(testElement.nativeElement.classList).toContain('oui-primary');
 
-    progressSpinnerWithColorfixture.componentInstance.color = 'accent';
+    testElement.componentInstance.color = 'accent';
     progressSpinnerWithColorfixture.detectChanges();
 
     expect(testElement.nativeElement.classList).toContain('oui-accent');
