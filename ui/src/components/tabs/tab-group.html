@@ -6,13 +6,13 @@
   (indexFocused)="_focusChanged($event)"
   (selectFocusedIndex)="selectedIndex = $event"
 >
+  @for (tab of _tabs; track tab; let i = $index) {
   <div
     class="mdc-tab oui-mdc-tab oui-mdc-focus-indicator"
     #tabNode
     role="tab"
     ouiTabLabelWrapper
     cdkMonitorElementFocus
-    *ngFor="let tab of _tabs; let i = index"
     [id]="_getTabLabelId(i)"
     [attr.tabIndex]="_getTabIndex(i)"
     [attr.aria-posinset]="i + 1"
@@ -30,23 +30,20 @@
     (cdkFocusChange)="_tabFocusChanged($event, i)"
   >
     <span class="mdc-tab__ripple"></span>
-
     <!-- Needs to be a separate element, because we can't put
-         `overflow: hidden` on tab due to the ink bar. -->
+      `overflow: hidden` on tab due to the ink bar. -->
     <div class="oui-mdc-tab-ripple"></div>
-
     <span class="mdc-tab__content">
       <span class="mdc-tab__text-label">
         <!-- If there is a label template, use it. -->
-        <ng-template [ngIf]="tab.templateLabel" [ngIfElse]="tabTextLabel">
-          <ng-template [cdkPortalOutlet]="tab.templateLabel"></ng-template>
-        </ng-template>
-
+        @if (tab.templateLabel) {
+        <ng-template [cdkPortalOutlet]="tab.templateLabel"></ng-template>
+        } @else { {{tab.textLabel}} }
         <!-- If there is not a label template, fall back to the text label. -->
-        <ng-template #tabTextLabel>{{tab.textLabel}}</ng-template>
       </span>
     </span>
   </div>
+  }
 </oui-tab-header>
 
 <div
@@ -55,9 +52,9 @@
   [class._oui-animation-noopable]="_animationMode === 'NoopAnimations'"
   #tabBodyWrapper
 >
+  @for (tab of _tabs; track tab; let i = $index) {
   <oui-tab-body
     role="tabpanel"
-    *ngFor="let tab of _tabs; let i = index"
     [id]="_getTabContentId(i)"
     [attr.tabindex]="(contentTabIndex !== null && selectedIndex === i) ? contentTabIndex : null"
     [attr.aria-labelledby]="_getTabLabelId(i)"
@@ -72,4 +69,5 @@
     (_onCentering)="_setTabBodyWrapperHeight($event)"
   >
   </oui-tab-body>
+  }
 </div>

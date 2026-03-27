@@ -1,23 +1,23 @@
-import { Input, Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'oui-scrollbar-text-storybook',
   template: `
     <div
       oui-scrollbar
-      [oui-scrollbar-large]="large"
-      [style.height.px]="height"
+      [oui-scrollbar-large]="large()"
+      [style.height.px]="height()"
       class="content"
     >
-      {{ text }}
+      {{ text() }}
     </div>
   `,
   standalone: false,
 })
 export class OuiScrollbarTextStorybook {
-  @Input() large = false;
-  @Input() height = 200;
-  @Input() text = 'This is a tooltip';
+  readonly large = input(false);
+  readonly height = input(200);
+  readonly text = input('This is a tooltip');
   contentHeight = 100;
   constructor() {}
 }
@@ -27,21 +27,23 @@ export class OuiScrollbarTextStorybook {
   template: `
     <div
       oui-scrollbar
-      [oui-scrollbar-large]="large"
-      [style.height.px]="height"
+      [oui-scrollbar-large]="large()"
+      [style.height.px]="height()"
       class="content"
     >
       <ul class="scrollbar-list">
-        <li *ngFor="let item of items">{{ item }}</li>
+        @for (item of items(); track item) {
+        <li>{{ item }}</li>
+        }
       </ul>
     </div>
   `,
   standalone: false,
 })
 export class OuiScrollbarListStorybook {
-  @Input() large = false;
-  @Input() height = 200;
-  @Input() items: string[] = [];
+  readonly large = input(false);
+  readonly height = input(200);
+  readonly items = input<string[]>([]);
   contentHeight = 100;
   constructor() {}
 }

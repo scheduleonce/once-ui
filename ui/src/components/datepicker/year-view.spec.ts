@@ -122,7 +122,8 @@ describe('OuiYearView', () => {
     });
 
     it('does not show selected month if in different year', () => {
-      testComponent.selected = new Date(2016, MAR, 10);
+      testComponent.yearView.selected = new Date(2016, MAR, 10);
+      testComponent.yearView._init();
       fixture.detectChanges();
 
       const selectedEl = yearViewNativeElement.querySelector(
@@ -165,13 +166,19 @@ describe('OuiYearView', () => {
     });
 
     it('should allow selection of month with less days than current active date', () => {
-      testComponent.date = new Date(2017, JUL, 31);
+      testComponent.yearView.activeDate = new Date(2017, JUL, 31);
       fixture.detectChanges();
 
-      expect(testComponent.yearView._monthSelected(JUN));
+      let selectedValue: Date | null = null;
+      const sub = testComponent.yearView.selectedChange.subscribe(
+        (value) => (selectedValue = value)
+      );
+
+      testComponent.yearView._monthSelected(JUN);
       fixture.detectChanges();
 
-      expect(testComponent.selected).toEqual(new Date(2017, JUN, 30));
+      expect(selectedValue).toEqual(new Date(2017, JUN, 30));
+      sub.unsubscribe();
     });
   });
 

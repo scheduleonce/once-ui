@@ -1,13 +1,8 @@
 <ng-template [cdkPortalOutlet]="_calendarHeaderPortal"></ng-template>
 
-<div
-  class="oui-calendar-content"
-  [ngSwitch]="currentView"
-  cdkMonitorSubtreeFocus
-  tabindex="-1"
->
+<div class="oui-calendar-content" cdkMonitorSubtreeFocus tabindex="-1">
+  @switch (currentView) { @case ('month') {
   <oui-month-view
-    *ngSwitchCase="'month'"
     [(activeDate)]="activeDate"
     [selected]="selected"
     [dateFilter]="dateFilter"
@@ -18,9 +13,8 @@
     (_userSelection)="_userSelected()"
   >
   </oui-month-view>
-
+  } @case ('year') {
   <oui-year-view
-    *ngSwitchCase="'year'"
     [(activeDate)]="activeDate"
     [selected]="selected"
     [dateFilter]="dateFilter"
@@ -30,9 +24,8 @@
     (selectedChange)="_goToDateInView($event, 'month')"
   >
   </oui-year-view>
-
+  } @case ('multi-year') {
   <oui-multi-year-view
-    *ngSwitchCase="'multi-year'"
     [(activeDate)]="activeDate"
     [selected]="selected"
     [dateFilter]="dateFilter"
@@ -42,4 +35,5 @@
     (selectedChange)="_goToDateInView($event, 'year')"
   >
   </oui-multi-year-view>
+  } }
 </div>

@@ -94,7 +94,6 @@ describe('OuiMonthView', () => {
 
   describe('standard month view', () => {
     let fixture: ComponentFixture<StandardMonthView>;
-    let testComponent: StandardMonthView;
     let monthViewNativeElement: Element;
 
     beforeEach(() => {
@@ -105,7 +104,6 @@ describe('OuiMonthView', () => {
         By.directive(OuiMonthView)
       );
       monthViewNativeElement = monthViewDebugElement.nativeElement;
-      testComponent = fixture.componentInstance;
     });
 
     it('does not display month label in calendar body', () => {
@@ -130,13 +128,15 @@ describe('OuiMonthView', () => {
     });
 
     it('does not show selected date if in different month', () => {
-      testComponent.selected = new Date(2017, MAR, 10);
+      const monthViewDebugElement = fixture.debugElement.query(
+        By.directive(OuiMonthView)
+      );
+      const monthViewInstance =
+        monthViewDebugElement.componentInstance as OuiMonthView<Date>;
+      monthViewInstance.selected = new Date(2017, MAR, 10);
       fixture.detectChanges();
 
-      const selectedEl = monthViewNativeElement.querySelector(
-        '.oui-calendar-body-selected'
-      );
-      expect(selectedEl).toBeNull();
+      expect(monthViewInstance._selectedDate).toBeNull();
     });
 
     it('fires selected change event on cell clicked', () => {
