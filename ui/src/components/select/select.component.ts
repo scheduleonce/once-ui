@@ -1514,9 +1514,13 @@ export class OuiSelect
     const ouiSelectPanel = this._document.querySelector(
       '.oui-select-panel'
     ) as HTMLElement;
-    cdkOverLayContainer.classList.add('oui-select-overlay-container');
+    if (cdkOverLayContainer) {
+      cdkOverLayContainer.classList.add('oui-select-overlay-container');
+    }
     const containerWidth = this._elementRef.nativeElement.offsetWidth;
-    ouiSelectPanel.style.width = `${containerWidth}px`;
+    if (ouiSelectPanel) {
+      ouiSelectPanel.style.width = `${containerWidth}px`;
+    }
     const searchQueryString = '.oui-select-search-inner';
     if (this._document.querySelector(searchQueryString)) {
       this.scrollCalc(searchQueryString);

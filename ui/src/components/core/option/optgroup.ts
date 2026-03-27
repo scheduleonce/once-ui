@@ -1,7 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Input,
+  input,
   ViewEncapsulation,
 } from '@angular/core';
 import {
@@ -42,8 +42,7 @@ let _uniqueOptgroupIdCounter = 0;
 })
 export class OuiOptgroup extends _OuiOptgroupMixinBase implements CanDisable {
   /** Label for the option group. */
-  @Input()
-  label: string;
+  readonly label = input<string>();
 
   /** Unique id for the underlying label. */
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types

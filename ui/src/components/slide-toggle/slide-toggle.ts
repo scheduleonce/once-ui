@@ -3,8 +3,8 @@ import {
   Component,
   ElementRef,
   Input,
-  Output,
-  EventEmitter,
+  output,
+  input,
   ChangeDetectorRef,
   ViewEncapsulation,
   AfterContentInit,
@@ -82,20 +82,18 @@ export class OuiSlideToggle
   disabled = false;
   @Input()
   color = 'primary';
-  @Input()
-  id = `oui-slide-toggletoggle-${++nextUniqueId}`;
+  readonly id = input(`oui-slide-toggletoggle-${++nextUniqueId}`);
 
   /** Used to set the aria-label attribute on the underlying input element. */
-  @Input('aria-label')
-  ariaLabel: string | null = null;
+  readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
   /** Used to set the aria-labelledby attribute on the underlying input element. */
-  @Input('aria-labelledby')
-  ariaLabelledby: string | null = null;
+  readonly ariaLabelledby = input<string | null>(null, {
+    alias: 'aria-labelledby',
+  });
 
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('state-change')
-  change = new EventEmitter();
+  readonly change = output<any>({ alias: 'state-change' });
 
   wrapper: ElementRef<HTMLElement>;
 

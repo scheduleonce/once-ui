@@ -5,11 +5,12 @@
       class="oui-select-search-input"
       #searchSelectInput
       (input)="onInputChange($event.target.value)"
-      [attr.aria-label]="ariaLabel"
-      [placeholder]="placeholderLabel"
-      [ngClass]="{'right-padding': _value?.length}"
+      [attr.aria-label]="ariaLabel()"
+      [placeholder]="placeholderLabel()"
+      [class.right-padding]="!!_value?.length"
     />
-    <div class="clear-btn" *ngIf="_value?.length">
+    @if (_value?.length) {
+    <div class="clear-btn">
       <button
         title="Clear"
         (click)="clearInput()"
@@ -19,5 +20,6 @@
         <oui-icon svgIcon="x-close-small"></oui-icon>
       </button>
     </div>
+    }
   </oui-form-field>
 </div>

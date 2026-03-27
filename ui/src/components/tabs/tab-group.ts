@@ -331,6 +331,11 @@ export class ouiTabGroup
    * a new selected tab should transition in (from the left or right).
    */
   ngAfterContentChecked() {
+    // Defer selection/position work until tabs are available.
+    if (!this._tabs.length) {
+      return;
+    }
+
     // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
     // the amount of tabs changes before the actual change detection runs.
     const indexToSelect = (this._indexToSelect = this._clampTabIndex(
