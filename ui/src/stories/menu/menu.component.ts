@@ -1,5 +1,5 @@
 import { OuiIconRegistry } from '../../components';
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -10,16 +10,16 @@ import { DomSanitizer } from '@angular/platform-browser';
         [ouiMenuTriggerFor]="afterAboveMenu"
         (menuOpened)="opened()"
         (menuClosed)="closed($event)"
-        [vertical]="vertical"
+        [vertical]="vertical()"
       >
       </oui-menu-icon>
     </div>
     <oui-menu
       #afterAboveMenu
-      [hasBackdrop]="hasBackdrop"
-      [xPosition]="xPosition"
+      [hasBackdrop]="hasBackdrop()"
+      [xPosition]="xPosition()"
       (closed)="closed($event)"
-      [yPosition]="yPosition"
+      [yPosition]="yPosition()"
     >
       <button oui-menu-item>
         <oui-icon svgIcon="edit"></oui-icon>
@@ -41,15 +41,13 @@ export class OuiMenuStorybook {
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
-  @Input() xPosition = 'before';
-  @Input() yPosition = 'above';
-  @Input() vertical = false;
-  @Input() hasBackdrop = true;
+  readonly xPosition = input('before');
+  readonly yPosition = input('above');
+  readonly vertical = input(false);
+  readonly hasBackdrop = input(true);
 
-  @Output()
-  readonly _closed: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _opened: EventEmitter<void> = new EventEmitter<void>();
+  readonly _closed = output<string>();
+  readonly _opened = output<void>();
 
   constructor() {
     this.ouiIconRegistry.addSvgIcon(
@@ -81,14 +79,14 @@ export class OuiMenuStorybook {
         [ouiMenuTriggerFor]="rootMenu"
         (menuOpened)="opened()"
         (menuClosed)="closed()"
-        [vertical]="vertical"
+        [vertical]="vertical()"
       >
       </oui-menu-icon>
     </div>
     <oui-menu
-      [xPosition]="xPosition"
-      [hasBackdrop]="hasBackdrop"
-      [yPosition]="yPosition"
+      [xPosition]="xPosition()"
+      [hasBackdrop]="hasBackdrop()"
+      [yPosition]="yPosition()"
       (closed)="closed($event)"
       #rootMenu="ouiMenu"
     >
@@ -110,14 +108,13 @@ export class OuiNestedMenuStorybook {
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
-  @Input() xPosition = 'before';
-  @Input() yPosition = 'above';
-  @Input() vertical = false;
-  @Input() hasBackdrop = true;
-  @Output()
-  readonly _closed: EventEmitter<string> = new EventEmitter<string>();
-  @Output()
-  readonly _opened: EventEmitter<void> = new EventEmitter<void>();
+  readonly xPosition = input('before');
+  readonly yPosition = input('above');
+  readonly vertical = input(false);
+  readonly hasBackdrop = input(true);
+
+  readonly _closed = output<string>();
+  readonly _opened = output<void>();
 
   constructor() {
     this.ouiIconRegistry.addSvgIcon(

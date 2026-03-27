@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   Component,
   ElementRef,
   ChangeDetectionStrategy,
@@ -9,12 +10,15 @@ import {
 import { DOCUMENT } from '@angular/common';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { mixinColor } from '../core';
+import { ThemePalette } from '../core/common-behaviors/color';
 
 export class OuiProgressSpinnerBase {
   constructor(public _elementRef: ElementRef) {}
 }
-export const _OuiProgressSpinnerMixinBase: typeof OuiProgressSpinnerBase =
-  mixinColor(OuiProgressSpinnerBase);
+export const _OuiProgressSpinnerMixinBase = mixinColor(
+  OuiProgressSpinnerBase,
+  'primary'
+);
 
 /** Possible mode for a progress spinner. */
 export type ProgressSpinnerMode = 'determinate' | 'indeterminate';
@@ -77,22 +81,42 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
 })
 export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   private _document = inject(DOCUMENT, { optional: true })!;
+  private _changeDetectorRef: ChangeDetectorRef | null =
+    inject(ChangeDetectorRef);
 
   private static diameters = new Set<number>([BASE_SIZE]);
   private static styleTag: HTMLStyleElement | null = null;
   private _value = 0;
   private _strokeWidth: number;
 
-  @Input() color = 'primary';
+  @Input()
+  get color(): ThemePalette {
+    return super.color;
+  }
+  set color(value: ThemePalette) {
+    super.color = value;
+    this._changeDetectorRef?.markForCheck();
+  }
+
   @Input()
   get diameter(): number {
     return this._diameter;
   }
   set diameter(size: number) {
-    this._diameter = coerceNumberProperty(size);
+    if (size == null) {
+      return;
+    }
+
+    const newDiameter = coerceNumberProperty(size);
+    if (newDiameter === this._diameter) {
+      return;
+    }
+
+    this._diameter = newDiameter;
     if (!OuiProgressSpinner.diameters.has(this._diameter)) {
       this._attachStyleNode();
     }
+    this._changeDetectorRef?.markForCheck();
   }
   private _diameter = BASE_SIZE;
 
@@ -106,6 +130,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   set value(newValue: number) {
     this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
     this.mode = 'determinate';
+    this._changeDetectorRef?.markForCheck();
   }
 
   @Input() get strokeWidth(): number {
@@ -113,6 +138,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   }
   set strokeWidth(value: number) {
     this._strokeWidth = coerceNumberProperty(value);
+    this._changeDetectorRef?.markForCheck();
   }
 
   constructor() {
