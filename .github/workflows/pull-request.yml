@@ -101,7 +101,7 @@ jobs:
       # ---------------------------------------------------
       - uses: actions/setup-node@v4
         with:
-          node-version: '24.14.0'
+          node-version: '24.14.1'
 
       # ---------------------------------------------------
       # 2. Install Chrome Dependencies
@@ -207,5 +207,6 @@ jobs:
       #   with:
       #     repo-name: ${{ github.event.repository.name }}
       #     base-branch: ${{ github.base_ref }}
+
 
 
