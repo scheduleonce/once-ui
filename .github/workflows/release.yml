@@ -118,7 +118,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24.14.0'
+          node-version: '24.14.1'
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Package Build & Publish
@@ -155,5 +155,6 @@ jobs:
           fi
           
           echo "$filename package pushed to NPM successfully"
+
 
 
