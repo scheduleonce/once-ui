@@ -60,6 +60,7 @@
     "@angular/language-service": "21.2.6",
     "@babel/core": "7.26.0",
     "@compodoc/compodoc": "^1.1.32",
+    "@humanfs/core": "^0.19.1",
     "@storybook/addon-docs": "^10.2.10",
     "@storybook/addon-links": "^10.2.10",
     "@storybook/angular": "^10.2.10",
