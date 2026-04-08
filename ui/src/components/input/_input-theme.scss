@@ -12,6 +12,24 @@
 
 /*common properties in all inputs*/
 @mixin oui-input-base {
+  // Inline edit mode is applied only while unfocused, so normal form-field styles reappear on focus.
+  .oui-form-field &.oui-input-inline-edit:not(:focus):not(:active) {
+    border: none !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+
+  .oui-form-field &.oui-input-inline-edit:not(:focus):not(:active):hover {
+    background-color: #f5f5f5 !important;
+    cursor: pointer;
+  }
+
+  .oui-form-field &.oui-input-inline-edit:focus,
+  .oui-form-field &.oui-input-inline-edit:active {
+    cursor: text;
+  }
 }
 
 /*generating themes for oui-input(Standard inputs)*/
