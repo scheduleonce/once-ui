@@ -73,6 +73,18 @@ class OuiInputPlaceholderAttrTestComponent {
 
 @Component({
   template: `
+    <oui-form-field>
+      <input oui-input [inlineEdit]="isInlineEdit" />
+    </oui-form-field>
+  `,
+  standalone: false,
+})
+class OuiInputWithInlineEdit {
+  isInlineEdit = true;
+}
+
+@Component({
+  template: `
     <oui-form-field><input oui-input type="file" /></oui-form-field>
   `,
   standalone: false,
@@ -250,6 +262,22 @@ describe('OuiInput without forms', () => {
     fixture.detectChanges();
 
     expect(inputEl.placeholder).toBe('');
+  }));
+
+  it('applies the oui-input-inline-edit class when inlineEdit is true', waitForAsync(() => {
+    const fixture = createComponent(OuiInputWithInlineEdit);
+    fixture.detectChanges();
+
+    const inputElement: HTMLInputElement = fixture.debugElement.query(
+      By.css('input')
+    ).nativeElement;
+
+    expect(inputElement.classList).toContain('oui-input-inline-edit');
+
+    fixture.componentInstance.isInlineEdit = false;
+    fixture.detectChanges();
+
+    expect(inputElement.classList).not.toContain('oui-input-inline-edit');
   }));
 
   it('keeps required attribute stable after initialization', waitForAsync(() => {
