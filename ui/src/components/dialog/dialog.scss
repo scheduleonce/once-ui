@@ -10,7 +10,7 @@ $header-icon-height: 24px;
   pointer-events: none;
 }
 .cdk-overlay-backdrop.cdk-overlay-transparent-backdrop {
-  pointer-events: visible;
+  pointer-events: auto;
 }
 .cdk-overlay-pane {
   display: block;
