@@ -7,6 +7,7 @@ $header-icon-height: 24px;
 
 .cdk-overlay-backdrop {
   background: rgba(255, 255, 255, 0.8) !important;
+  pointer-events: none;
 }
 .cdk-overlay-pane {
   display: block;
