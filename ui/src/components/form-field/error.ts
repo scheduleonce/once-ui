@@ -2,7 +2,7 @@
  * Error directive
  * Shows error messages
  */
-import { Directive, Input } from '@angular/core';
+import { Directive, input } from '@angular/core';
 
 let nextUniqueId = 0;
 
@@ -13,10 +13,10 @@ let nextUniqueId = 0;
   host: {
     class: 'oui-error',
     role: 'alert',
-    '[attr.id]': 'id',
+    '[attr.id]': 'id()',
   },
   standalone: false,
 })
 export class OuiError {
-  @Input() id = `oui-error-${nextUniqueId++}`;
+  readonly id = input(`oui-error-${nextUniqueId++}`);
 }

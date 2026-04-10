@@ -6,22 +6,23 @@
   #origin="cdkOverlayOrigin"
   #trigger
 >
-  <div class="oui-select-value" [ngSwitch]="empty">
-    <span class="oui-select-placeholder" *ngSwitchCase="true">
+  <div class="oui-select-value">
+    @switch (empty) { @case (true) {
+    <span class="oui-select-placeholder">
       <span [innerHTML]="placeholder"></span>
     </span>
-    <span
-      class="oui-select-value-text"
-      *ngSwitchCase="false"
-      [ngSwitch]="!!customTrigger"
-    >
+    } @case (false) {
+    <span class="oui-select-value-text">
+      @switch (!!customTrigger) { @default {
       <span
         id="selected-values"
-        *ngSwitchDefault
         [innerHTML]="triggerValue || placeholder"
       ></span>
-      <ng-content select="oui-select-trigger" *ngSwitchCase="true"></ng-content>
+      } @case (true) {
+      <ng-content select="oui-select-trigger"></ng-content>
+      } }
     </span>
+    } }
   </div>
 
   <div class="oui-select-arrow-wrapper">
@@ -56,7 +57,8 @@
         <ng-content></ng-content>
       </div>
     </div>
-    <div *ngIf="singleActionItem" class="oui-select-action-wrapper">
+    @if (singleActionItem) {
+    <div class="oui-select-action-wrapper">
       <div class="oui-select-action-items single-action-items">
         <button
           #singleButton
@@ -67,7 +69,8 @@
         </button>
       </div>
     </div>
-    <div *ngIf="actionItems" class="oui-select-action-wrapper">
+    } @if (actionItems) {
+    <div class="oui-select-action-wrapper">
       <div class="oui-select-action-items">
         <button
           #ddCancelButton
@@ -87,5 +90,6 @@
         </button>
       </div>
     </div>
+    }
   </div>
 </ng-template>

@@ -3,8 +3,7 @@ import {
   Directive,
   OnDestroy,
   Input,
-  Output,
-  EventEmitter,
+  output,
   ElementRef,
   ViewContainerRef,
   inject,
@@ -56,7 +55,7 @@ export const OUI_PANEL_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   selector: `[oui-panel-trigger-for], [ouiPanelTriggerFor]`,
   host: {
     'aria-haspopup': 'true',
-    '[attr.aria-expanded]': 'panelOpen || null',
+    '[attr.aria-expanded]': 'panelOpen',
     '(mouseenter)': '_handleMouseEnter($event)',
     '(mouseleave)': '_handelMouseLeave($event)',
     '(keydown)': '_handleKeydown($event)',
@@ -114,12 +113,10 @@ export class OuiPanelTrigger implements OnDestroy {
   private _panel: OuiPanelOverlay;
 
   /** Event emitted when the associated panel is opened. */
-  @Output()
-  readonly panelOpened: EventEmitter<void> = new EventEmitter<void>();
+  readonly panelOpened = output<void>();
 
   /** Event emitted when the associated panel is closed. */
-  @Output()
-  readonly panelClosed: EventEmitter<void> = new EventEmitter<void>();
+  readonly panelClosed = output<void>();
 
   constructor() {
     const scrollStrategy = inject(OUI_PANEL_SCROLL_STRATEGY);
