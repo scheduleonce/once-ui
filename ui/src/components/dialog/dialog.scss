@@ -9,6 +9,9 @@ $header-icon-height: 24px;
   background: rgba(255, 255, 255, 0.8) !important;
   pointer-events: none;
 }
+.cdk-overlay-backdrop.cdk-overlay-transparent-backdrop {
+  pointer-events: auto;
+}
 .cdk-overlay-pane {
   display: block;
 }
