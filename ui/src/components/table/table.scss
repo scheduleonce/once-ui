@@ -134,3 +134,10 @@ tr.oui-row {
     outline: none;
   }
 }
+
+// ─── Column feature enhancements (loaded here because directives can't have styleUrls) ───
+
+@import './column-menu/oui-column-menu';
+@import './column-resize/oui-column-resize';
+@import './column-reorder/oui-column-reorder';
+@import './oui-table-enhanced-separators';

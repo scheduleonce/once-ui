@@ -1,0 +1,53 @@
+// Resize handle — absolutely positioned at the right edge of every header cell.
+.oui-col-resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 2;
+  user-select: none;
+
+  // Visible divider on hover / during resize.
+  &::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 20%;
+    height: 60%;
+    width: 2px;
+    background: transparent;
+    border-radius: 1px;
+    transition: background 0.15s ease;
+  }
+
+  &:hover::after {
+    background: transparent;
+  }
+}
+
+// Hide the handle's gray line during active resize — the blue column border is sufficient.
+.oui-col-resize-handle--active::after {
+  background: transparent !important;
+}
+
+// Right border highlight on every cell in the column being resized.
+.oui-col-resize-active {
+  border-right: 2px solid #2684ff !important;
+  box-sizing: border-box;
+}
+
+// Prevent text selection during resize.
+.oui-table-resizing {
+  user-select: none;
+  cursor: col-resize;
+}
+
+// When ONLY resize is active (no column menu), give header cells enough clearance
+// for the 6px handle so it doesn't overlap the content.
+// Cells that also carry [ouiColumnMenu] already get 36px from the menu SCSS — no override needed.
+oui-table[ouiResizableColumns] oui-header-cell:not([ouiColumnMenu]),
+table[oui-table][ouiResizableColumns] th[oui-header-cell]:not([ouiColumnMenu]) {
+  padding-right: 18px;
+}

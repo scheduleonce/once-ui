@@ -1,0 +1,152 @@
+// Trigger button styles — appended to th[oui-header-cell] by OuiColumnMenuDirective.
+.oui-column-menu-trigger {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none; // shown on hover via oui-header-cell:hover rule below
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  color: #4a4a4a;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  z-index: 1;
+  transition: background 0.15s ease;
+  outline: none;
+
+  &:hover {
+    background: #e8e8e8;
+  }
+
+  &[aria-expanded='true'] {
+    background: #e8e8e8;
+  }
+
+  // Neutralise programmatic re-focus applied by OuiMenuTrigger after menu close.
+  &:focus,
+  &.cdk-focused,
+  &.cdk-mouse-focused,
+  &.cdk-program-focused,
+  &.cdk-touch-focused {
+    outline: none;
+    background: transparent;
+  }
+
+  // Hover / open states still win when combined with focus.
+  &:focus:hover,
+  &:focus[aria-expanded='true'],
+  &.cdk-focused:hover,
+  &.cdk-focused[aria-expanded='true'] {
+    background: #e8e8e8;
+  }
+}
+
+// ─── Sort indicator (beside column title) ─────────────────────────────────────
+// Clicking cycles through asc → desc → cleared, matching oui-sort-header behavior.
+
+.oui-column-sort-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+  outline: none;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+
+  .oui-column-sort-icon {
+    width: 12px;
+    height: 12px;
+    color: #8c8c8c; // faded hint color when not sorted
+  }
+
+  // When actively sorted, show darker icon.
+  &.oui-column-sort-active .oui-column-sort-icon {
+    color: #4a4a4a;
+  }
+
+  &:hover {
+    background: #e8e8e8;
+  }
+}
+
+// Hide the sort indicator by default; show on header hover or when actively sorted.
+.oui-column-sort-indicator {
+  opacity: 0;
+}
+.oui-column-sort-indicator.oui-column-sort-active {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+}
+oui-header-cell:hover .oui-column-sort-indicator,
+th[oui-header-cell]:hover .oui-column-sort-indicator {
+  opacity: 1;
+}
+
+// Show trigger on header cell hover or when menu is open.
+oui-header-cell:hover .oui-column-menu-trigger,
+th[oui-header-cell]:hover .oui-column-menu-trigger,
+.oui-column-menu-trigger[aria-expanded='true'] {
+  display: flex;
+}
+
+// Reserve right-hand space so column name text never slides under the ⋮ trigger.
+// Trigger is 20px wide at right:10px → occupies 10–30px from the right edge.
+// User requested a 10px fixed gap between title and the button.
+// Button right (10px) + width (20px) + gap (10px) = 40px total padding.
+oui-header-cell[ouiColumnMenu],
+th[oui-header-cell][ouiColumnMenu] {
+  padding-right: 40px !important;
+  position: relative;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center;
+  overflow: hidden !important;
+}
+
+// .oui-sort-header-container is the wrapper inside oui-sort-header component.
+// It needs to be a flex container that allows the button to shrink.
+oui-header-cell[ouiColumnMenu] .oui-sort-header-container,
+th[oui-header-cell][ouiColumnMenu] .oui-sort-header-container {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important; // CRITICAL for shrinking
+  overflow: hidden !important;
+}
+
+// The button contains the actual text.
+oui-header-cell[ouiColumnMenu] .oui-sort-header-button,
+th[oui-header-cell][ouiColumnMenu] .oui-sort-header-button {
+  display: block !important;
+  flex: 1 1 auto !important;
+  min-width: 0 !important; // Allow shrinking below content width
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  text-align: left;
+}
+
+// The arrow follows the text and should not shrink.
+oui-header-cell[ouiColumnMenu] .oui-sort-header-arrow,
+th[oui-header-cell][ouiColumnMenu] .oui-sort-header-arrow {
+  flex: 0 0 auto !important;
+  margin-left: 4px;
+}

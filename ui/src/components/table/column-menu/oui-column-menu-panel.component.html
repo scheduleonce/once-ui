@@ -1,0 +1,56 @@
+<!-- Sort indicator — shown beside column title when sort is enabled.
+     Clicking cycles through asc → desc → cleared, just like oui-sort-header. -->
+@if (hasSort) {
+<button
+  class="oui-column-sort-indicator tw-block"
+  type="button"
+  [class.oui-column-sort-active]="sortDirection"
+  (click)="onSortClick($event)"
+  [attr.aria-label]="
+    sortDirection === 'asc'
+      ? 'Sorted ascending'
+      : sortDirection === 'desc'
+      ? 'Sorted descending'
+      : 'Sort column'
+  "
+>
+  @if (sortDirection === 'asc') {
+  <oui-icon svgIcon="move-up" class="oui-column-sort-icon"></oui-icon>
+  } @else {
+  <oui-icon svgIcon="move-down" class="oui-column-sort-icon"></oui-icon>
+  }
+</button>
+}
+
+<!-- ⋮ trigger button — absolutely positioned inside the header cell -->
+<button
+  #triggerBtn
+  class="oui-column-menu-trigger"
+  type="button"
+  aria-label="Column options"
+  [ouiMenuTriggerFor]="columnMenu"
+  (menuClosed)="triggerBtn.blur()"
+  (click)="$event.stopPropagation()"
+>
+  &#8942;
+</button>
+
+<!-- Dropdown powered by the existing oui-menu component -->
+<oui-menu #columnMenu="ouiMenu">
+  @if (!isFirst && !isSecond) {
+  <button oui-menu-item (click)="select('moveLeft')">
+    <oui-icon svgIcon="move_left" class="oui-column-menu-icon"></oui-icon>
+    <span>Move column to left</span>
+  </button>
+  } @if (!isFirst && !isLast) {
+  <button oui-menu-item (click)="select('moveRight')">
+    <oui-icon svgIcon="move_right" class="oui-column-menu-icon"></oui-icon>
+    <span>Move column to right</span>
+  </button>
+  }
+
+  <button oui-menu-item (click)="select('hide')">
+    <oui-icon svgIcon="hide" class="oui-column-menu-icon"></oui-icon>
+    <span>Hide column</span>
+  </button>
+</oui-menu>

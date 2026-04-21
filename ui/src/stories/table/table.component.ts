@@ -7,8 +7,18 @@ import {
   input,
   effect,
 } from '@angular/core';
-import { OuiTableDataSource, OuiSort, OuiPaginator } from '../../components';
+import {
+  OuiTableDataSource,
+  OuiSort,
+  OuiPaginator,
+  ColumnMenuAction,
+  ColumnOrderChangedEvent,
+  ColumnResizeEvent,
+} from '../../components';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { DomSanitizer } from '@angular/platform-browser';
+import { OuiIconRegistry } from '../../components';
+
 @Component({
   selector: 'oui-table-storybook',
   template: `
@@ -68,11 +78,18 @@ export class OuiTableStorybook implements OnInit {
   readonly pageSize = input<any[]>([]);
   displayedColumns: string[] = [];
   dataSource = new OuiTableDataSource<any>([]);
+  private readonly ouiIconRegistry = inject(OuiIconRegistry);
+  private readonly domSanitizer = inject(DomSanitizer);
   constructor() {
     effect(() => {
       this.dataSource = new OuiTableDataSource(this.users());
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
+      this.ouiIconRegistry.addSvgIconSet(
+        this.domSanitizer.bypassSecurityTrustResourceUrl(
+          'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
+        )
+      );
     });
   }
 
@@ -194,5 +211,138 @@ export class OuiTableCustomStorybook {
       this.userInfoDataSource = new OuiTableDataSource(this.users());
       this.userInfoDataSource.sort = this.sort;
     });
+  }
+}
+
+// ─── Enhanced table story (sort + resize + reorder + column menu) ──────────────
+
+const ENHANCED_DATA = [
+  { name: 'Hydrogen', position: 1, weight: 1.0079, symbol: 'H' },
+  { name: 'Helium', position: 2, weight: 4.0026, symbol: 'He' },
+  { name: 'Lithium', position: 3, weight: 6.941, symbol: 'Li' },
+  { name: 'Beryllium', position: 4, weight: 9.0122, symbol: 'Be' },
+  { name: 'Boron', position: 5, weight: 10.811, symbol: 'B' },
+  { name: 'Carbon', position: 6, weight: 12.0107, symbol: 'C' },
+  { name: 'Nitrogen', position: 7, weight: 14.0067, symbol: 'N' },
+  { name: 'Oxygen', position: 8, weight: 15.9994, symbol: 'O' },
+];
+
+@Component({
+  selector: 'oui-table-enhanced-storybook',
+  template: `
+    <div style="margin-bottom: 8px; font-size: 13px; color: #666;">
+      <strong>Try:</strong> hover a header to resize (drag right edge) or
+      reorder (drag header), or click &#8942; for the column menu.
+    </div>
+    @if (lastEvent) {
+      <div
+        style="margin-bottom: 8px; padding: 6px 10px; background: #f0f7ff; border-radius: 4px; font-size: 12px; font-family: monospace;"
+      >
+        {{ lastEvent }}
+      </div>
+    }
+    <div class="table-container">
+      <table
+        oui-table
+        [dataSource]="dataSource"
+        ouiSort
+        ouiResizableColumns
+        ouiReorderableColumns
+        (ouiSortChange)="onSort($event)"
+        (columnResized)="onColumnResized($event)"
+        (columnOrderChanged)="onColumnOrderChanged($event)"
+      >
+        @for (column of displayedColumns; track column) {
+        <ng-container [ouiColumnDef]="column">
+          <th
+            oui-header-cell
+            *ouiHeaderCellDef
+            [ouiColumnMenu]="displayedColumns"
+            [ouiColumnMenuHasSort]="true"
+            (columnMenuAction)="onColumnMenuAction($event)"
+          >
+            {{ column }}
+          </th>
+          <td oui-cell *ouiCellDef="let row">{{ row[column] }}</td>
+        </ng-container>
+        }
+        <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
+        <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  `,
+  standalone: false,
+})
+export class OuiTableEnhancedStorybook implements OnInit {
+  @ViewChild(OuiSort, { static: true }) sort: OuiSort;
+
+  displayedColumns: string[] = [];
+  dataSource = new OuiTableDataSource<typeof ENHANCED_DATA[number]>(
+    ENHANCED_DATA
+  );
+  lastEvent = '';
+  private readonly ouiIconRegistry = inject(OuiIconRegistry);
+  private readonly domSanitizer = inject(DomSanitizer);
+
+  constructor() {
+    this.ouiIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
+      )
+    );
+  }
+
+  ngOnInit(): void {
+    this.displayedColumns = Object.keys(ENHANCED_DATA[0]);
+    this.dataSource.sort = this.sort;
+  }
+
+  onSort(event: { active: string; direction: string }): void {
+    this.lastEvent = `Sort: ${event.active} ${event.direction || '(cleared)'}`;
+  }
+
+  onColumnResized(event: ColumnResizeEvent): void {
+    this.lastEvent = `Resized: column "${event.columnId}" → ${Math.round(
+      event.width
+    )}px`;
+  }
+
+  onColumnOrderChanged(event: ColumnOrderChangedEvent): void {
+    this.displayedColumns = event.columnIds;
+    this.lastEvent = `Reordered: moved column [${event.previousIndex}] to [${event.currentIndex}]`;
+  }
+
+  onColumnMenuAction(action: ColumnMenuAction): void {
+    this.lastEvent = `Menu: "${action.action}" on column "${action.columnId}"`;
+    switch (action.action) {
+      case 'moveLeft': {
+        const idx = this.displayedColumns.indexOf(action.columnId);
+        // Never move a column into the first (frozen) position.
+        if (idx > 1) {
+          moveItemInArray(this.displayedColumns, idx, idx - 1);
+          this.displayedColumns = [...this.displayedColumns];
+        }
+        break;
+      }
+      case 'moveRight': {
+        const idx = this.displayedColumns.indexOf(action.columnId);
+        // Never move the first (frozen) column.
+        if (idx > 0 && idx < this.displayedColumns.length - 1) {
+          moveItemInArray(this.displayedColumns, idx, idx + 1);
+          this.displayedColumns = [...this.displayedColumns];
+        }
+        break;
+      }
+
+      case 'hide': {
+        // Never hide the first (frozen) column.
+        if (this.displayedColumns.indexOf(action.columnId) > 0) {
+          this.displayedColumns = this.displayedColumns.filter(
+            (c) => c !== action.columnId
+          );
+        }
+        break;
+      }
+    }
   }
 }
