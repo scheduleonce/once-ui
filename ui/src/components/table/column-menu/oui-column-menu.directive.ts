@@ -34,7 +34,8 @@ export type {
   standalone: false,
 })
 export class OuiColumnMenuDirective
-  implements AfterViewInit, OnChanges, OnDestroy {
+  implements AfterViewInit, OnChanges, OnDestroy
+{
   /** Pass the current displayedColumns so the directive knows first/last position. */
   // eslint-disable-next-line @angular-eslint/no-input-rename
   @Input('ouiColumnMenu') displayedColumns: string[] = [];
@@ -69,7 +70,25 @@ export class OuiColumnMenuDirective
   private _sortClickSub: Subscription = Subscription.EMPTY;
   private _sortChangeSub: Subscription = Subscription.EMPTY;
 
+  /**
+   * Static map to track how many columns have the menu enabled per table.
+   * This allows us to remove the 'oui-table-column-menu-enabled' class
+   * only when the last menu is destroyed.
+   */
+  private static readonly _enabledCountMap = new Map<HTMLElement, number>();
+
   ngAfterViewInit(): void {
+    // Add marker class to the table host so enhanced styles (separators, etc.) apply.
+    const tableEl = this._elementRef.nativeElement.closest(
+      'oui-table, table[oui-table]'
+    ) as HTMLElement;
+    if (tableEl) {
+      const currentCount =
+        OuiColumnMenuDirective._enabledCountMap.get(tableEl) ?? 0;
+      OuiColumnMenuDirective._enabledCountMap.set(tableEl, currentCount + 1);
+      this._renderer.addClass(tableEl, 'oui-table-column-menu-enabled');
+    }
+
     // Make the host th position:relative so the trigger button can be absolutely positioned.
     this._renderer.setStyle(
       this._elementRef.nativeElement,
@@ -86,16 +105,11 @@ export class OuiColumnMenuDirective
     this._panelRef.setInput('hasSort', this._hasSortHeader());
     this._panelRef.setInput('sortDirection', this._currentSortDirection());
 
-    // Move the component's DOM nodes into the header cell element.
+    // Move the panel component host element into the header cell and keep its
+    // rendered children attached so Angular continues to manage the DOM tree.
     const hostEl = this._panelRef.location.nativeElement as HTMLElement;
-    // Move child nodes (sort indicator + button + oui-menu template) into the header cell.
-    while (hostEl.childNodes.length > 0) {
-      this._renderer.appendChild(
-        this._elementRef.nativeElement,
-        hostEl.childNodes[0]
-      );
-    }
-    // Move the host element itself too so Angular lifecycle management stays correct.
+    // Make the host transparent to layout so its rendered children behave as before.
+    this._renderer.setStyle(hostEl, 'display', 'contents');
     this._renderer.appendChild(this._elementRef.nativeElement, hostEl);
 
     // Subscribe to menu actions (move left/right, hide).
@@ -108,12 +122,12 @@ export class OuiColumnMenuDirective
     // Subscribe to sort indicator clicks — delegate to OuiSort to cycle direction.
     this._sortClickSub = this._panelRef.instance.sortClicked.subscribe(() => {
       if (this._sort) {
-        const sortable: OuiSortable = {
+        const sortable = this._sort.sortables.get(this._columnId) ?? {
           id: this._columnId,
-          start: 'asc',
-          disableClear: false,
+          start: this._sort.start,
+          disableClear: this._sort.disableClear,
         };
-        this._sort.sort(sortable);
+        this._sort.sort(sortable as OuiSortable);
       }
     });
 
@@ -160,6 +174,20 @@ export class OuiColumnMenuDirective
   }
 
   ngOnDestroy(): void {
+    const tableEl = this._elementRef.nativeElement.closest(
+      'oui-table, table[oui-table]'
+    ) as HTMLElement;
+    if (tableEl) {
+      const count =
+        (OuiColumnMenuDirective._enabledCountMap.get(tableEl) ?? 1) - 1;
+      if (count <= 0) {
+        OuiColumnMenuDirective._enabledCountMap.delete(tableEl);
+        this._renderer.removeClass(tableEl, 'oui-table-column-menu-enabled');
+      } else {
+        OuiColumnMenuDirective._enabledCountMap.set(tableEl, count);
+      }
+    }
+
     this._panelActionSub.unsubscribe();
     this._sortClickSub.unsubscribe();
     this._sortChangeSub.unsubscribe();

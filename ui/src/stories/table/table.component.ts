@@ -13,7 +13,6 @@ import {
   OuiPaginator,
   ColumnMenuAction,
   ColumnOrderChangedEvent,
-  ColumnResizeEvent,
 } from '../../components';
 import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -81,15 +80,15 @@ export class OuiTableStorybook implements OnInit {
   private readonly ouiIconRegistry = inject(OuiIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
   constructor() {
+    this.ouiIconRegistry.addSvgIconSet(
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
+      )
+    );
     effect(() => {
       this.dataSource = new OuiTableDataSource(this.users());
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
-      this.ouiIconRegistry.addSvgIconSet(
-        this.domSanitizer.bypassSecurityTrustResourceUrl(
-          'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
-        )
-      );
     });
   }
 
@@ -230,17 +229,6 @@ const ENHANCED_DATA = [
 @Component({
   selector: 'oui-table-enhanced-storybook',
   template: `
-    <div style="margin-bottom: 8px; font-size: 13px; color: #666;">
-      <strong>Try:</strong> hover a header to resize (drag right edge) or
-      reorder (drag header), or click &#8942; for the column menu.
-    </div>
-    @if (lastEvent) {
-      <div
-        style="margin-bottom: 8px; padding: 6px 10px; background: #f0f7ff; border-radius: 4px; font-size: 12px; font-family: monospace;"
-      >
-        {{ lastEvent }}
-      </div>
-    }
     <div class="table-container">
       <table
         oui-table
@@ -261,7 +249,7 @@ const ENHANCED_DATA = [
             [ouiColumnMenuHasSort]="true"
             (columnMenuAction)="onColumnMenuAction($event)"
           >
-            {{ column }}
+            {{ column | titlecase }}
           </th>
           <td oui-cell *ouiCellDef="let row">{{ row[column] }}</td>
         </ng-container>
@@ -297,23 +285,11 @@ export class OuiTableEnhancedStorybook implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  onSort(event: { active: string; direction: string }): void {
-    this.lastEvent = `Sort: ${event.active} ${event.direction || '(cleared)'}`;
-  }
-
-  onColumnResized(event: ColumnResizeEvent): void {
-    this.lastEvent = `Resized: column "${event.columnId}" → ${Math.round(
-      event.width
-    )}px`;
-  }
-
   onColumnOrderChanged(event: ColumnOrderChangedEvent): void {
     this.displayedColumns = event.columnIds;
-    this.lastEvent = `Reordered: moved column [${event.previousIndex}] to [${event.currentIndex}]`;
   }
 
   onColumnMenuAction(action: ColumnMenuAction): void {
-    this.lastEvent = `Menu: "${action.action}" on column "${action.columnId}"`;
     switch (action.action) {
       case 'moveLeft': {
         const idx = this.displayedColumns.indexOf(action.columnId);

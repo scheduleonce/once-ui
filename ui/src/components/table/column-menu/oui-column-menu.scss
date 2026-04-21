@@ -84,7 +84,8 @@
   }
 }
 
-// Hide the sort indicator by default; show on header hover or when actively sorted.
+// Hide the sort indicator by default; show on header hover, when actively sorted,
+// or when the header contains keyboard focus.
 .oui-column-sort-indicator {
   opacity: 0;
 }
@@ -94,15 +95,31 @@
   height: 20px;
 }
 oui-header-cell:hover .oui-column-sort-indicator,
-th[oui-header-cell]:hover .oui-column-sort-indicator {
+th[oui-header-cell]:hover .oui-column-sort-indicator,
+oui-header-cell:focus-within .oui-column-sort-indicator,
+th[oui-header-cell]:focus-within .oui-column-sort-indicator {
   opacity: 1;
 }
 
-// Show trigger on header cell hover or when menu is open.
+.oui-column-sort-indicator:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+  opacity: 1;
+}
+
+// Show trigger on header cell hover, when the header contains keyboard focus,
+// or when the menu is already open.
 oui-header-cell:hover .oui-column-menu-trigger,
 th[oui-header-cell]:hover .oui-column-menu-trigger,
+oui-header-cell:focus-within .oui-column-menu-trigger,
+th[oui-header-cell]:focus-within .oui-column-menu-trigger,
 .oui-column-menu-trigger[aria-expanded='true'] {
   display: flex;
+}
+
+.oui-column-menu-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 // Reserve right-hand space so column name text never slides under the ⋮ trigger.

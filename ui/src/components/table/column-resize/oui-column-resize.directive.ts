@@ -342,6 +342,12 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     this._cleanupDragListeners();
     this._handleUnlisteners.forEach((fn) => fn());
+    this._handles.forEach((h) => h.remove());
+    this._handles = [];
     this._mutationObserver?.disconnect();
+    this._renderer.removeClass(
+      this._elementRef.nativeElement,
+      'oui-table-resizing'
+    );
   }
 }

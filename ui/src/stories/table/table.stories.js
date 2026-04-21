@@ -9,7 +9,6 @@ import {
 } from '../../components';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop';
 import { USERINFODATASOURCE } from './const';
 import {
   OuiTableStorybook,
@@ -102,7 +101,6 @@ export const Enhanced = {
         OuiIconModule,
         OuiInputModule,
         BrowserAnimationsModule,
-        DragDropModule,
       ],
       schemas: [],
       declarations: [OuiTableEnhancedStorybook],
@@ -113,7 +111,7 @@ export const Enhanced = {
   }),
 
   height: '700px',
-  name: 'Enhanced (Sort + Resize + Reorder + Column Menu)',
+  name: 'Enhanced Table',
 
   parameters: {
     docs: {

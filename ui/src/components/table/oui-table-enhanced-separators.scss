@@ -1,14 +1,15 @@
 // Separator lines for the enhanced table.
-// These only apply when [ouiResizableColumns] or [ouiReorderableColumns] or [ouiColumnMenu] is present.
+// These only apply when [ouiResizableColumns], [ouiReorderableColumns], or
+// .oui-table-column-menu-enabled is present on the table host element
+// (`oui-table` or `table[oui-table]`).
 
 $oui-enhanced-border-color: #dfdfdf;
 
 oui-table[ouiResizableColumns],
 oui-table[ouiReorderableColumns],
-oui-table[ouiColumnMenu],
+.oui-table-column-menu-enabled,
 table[oui-table][ouiResizableColumns],
-table[oui-table][ouiReorderableColumns],
-table[oui-table][ouiColumnMenu] {
+table[oui-table][ouiReorderableColumns] {
   oui-header-cell,
   th.oui-header-cell,
   oui-footer-cell,

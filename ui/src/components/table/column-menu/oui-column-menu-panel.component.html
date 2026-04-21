@@ -8,10 +8,10 @@
   (click)="onSortClick($event)"
   [attr.aria-label]="
     sortDirection === 'asc'
-      ? 'Sorted ascending'
+      ? 'Sort descending'
       : sortDirection === 'desc'
-      ? 'Sorted descending'
-      : 'Sort column'
+      ? 'Clear sort'
+      : 'Sort ascending'
   "
 >
   @if (sortDirection === 'asc') {

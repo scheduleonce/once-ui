@@ -10,14 +10,7 @@ import {
 import { OuiIconRegistry } from '../../icon/icon-registery';
 import { DomSanitizer } from '@angular/platform-browser';
 
-export type ColumnMenuActionType =
-  | 'sortAsc'
-  | 'sortDesc'
-  | 'moveFirst'
-  | 'moveLeft'
-  | 'moveRight'
-  | 'moveLast'
-  | 'hide';
+export type ColumnMenuActionType = 'moveLeft' | 'moveRight' | 'hide';
 
 export interface ColumnMenuAction {
   columnId: string;
@@ -55,12 +48,18 @@ export class OuiColumnMenuPanelComponent {
   /** Emitted when the sort indicator icon is clicked. */
   @Output() sortClicked = new EventEmitter<void>();
 
+  /** Static flag to ensure we only register the oncehub icon set once across all instances. */
+  private static _iconsRegistered = false;
+
   constructor() {
-    this._iconRegistry.addSvgIconSet(
-      this._domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
-      )
-    );
+    if (!OuiColumnMenuPanelComponent._iconsRegistered) {
+      this._iconRegistry.addSvgIconSet(
+        this._domSanitizer.bypassSecurityTrustResourceUrl(
+          'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
+        )
+      );
+      OuiColumnMenuPanelComponent._iconsRegistered = true;
+    }
   }
 
   get isFirst(): boolean {
