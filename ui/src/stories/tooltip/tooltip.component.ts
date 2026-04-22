@@ -33,7 +33,7 @@ export class OuiTooltipStorybook {
 
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?dfx71h'
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
       )
     );
   }

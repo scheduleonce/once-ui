@@ -1,0 +1,77 @@
+// Separator lines for the enhanced table.
+// These only apply when [ouiResizableColumns], [ouiReorderableColumns], or
+// .oui-table-column-menu-enabled is present on the table host element
+// (`oui-table` or `table[oui-table]`).
+
+$oui-enhanced-border-color: #dfdfdf;
+
+oui-table[ouiResizableColumns],
+oui-table[ouiReorderableColumns],
+.oui-table-column-menu-enabled,
+table[oui-table][ouiResizableColumns],
+table[oui-table][ouiReorderableColumns] {
+  oui-header-cell,
+  th.oui-header-cell,
+  oui-footer-cell,
+  td.oui-footer-cell,
+  oui-cell,
+  td.oui-cell {
+    border-right: 1px solid $oui-enhanced-border-color;
+    position: relative; // Ensure handles/triggers anchor correctly
+    min-width: 144px !important;
+    box-sizing: border-box;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  // Ensure last child never has right border even with internal padding rules
+  .oui-cell:nth-last-child(1),
+  .oui-header-cell:nth-last-child(1) {
+    border-right: none !important;
+  }
+
+  // Header cell hover background — scoped to enhanced tables only so
+  // the basic/default table appearance is not affected.
+  oui-header-cell:hover,
+  th.oui-header-cell:hover {
+    background: #efefef;
+  }
+
+  // ─── Frozen first column ────────────────────────────────────────────────────
+  // The first column stays fixed on horizontal scroll (like Jira).
+  // An opaque background is required so scrolling content doesn't bleed through.
+  oui-header-cell:first-child,
+  th.oui-header-cell:first-child,
+  oui-cell:first-child,
+  td.oui-cell:first-child {
+    position: sticky !important;
+    left: 0;
+    z-index: 2;
+    background: #ffffff;
+  }
+
+  // Header cells use the header row background.
+  oui-header-cell:first-child,
+  th.oui-header-cell:first-child {
+    z-index: 3;
+    background: #f6f6f6;
+  }
+
+  // Subtle shadow on the frozen column's right edge so overlapping content
+  // is clearly hidden behind it.
+  oui-header-cell:first-child::after,
+  th.oui-header-cell:first-child::after,
+  oui-cell:first-child::after,
+  td.oui-cell:first-child::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -6px;
+    bottom: 0;
+    width: 6px;
+    pointer-events: none;
+    box-shadow: inset 6px 0 6px -6px rgba(0, 0, 0, 0.15);
+  }
+}
