@@ -229,7 +229,12 @@ const ENHANCED_DATA = [
 @Component({
   selector: 'oui-table-enhanced-storybook',
   template: `
-    <div class="table-container">
+    <div
+      class="table-container oui-table-enhanced-container tw-overflow-x-auto tw-max-w-full"
+      [class.is-scrolled]="isTableScrolled"
+      [class.table-overflow-shadow]="isTableScrolled"
+      (scroll)="onTableScroll($event)"
+    >
       <table
         oui-table
         [dataSource]="dataSource"
@@ -269,6 +274,7 @@ export class OuiTableEnhancedStorybook implements OnInit {
     ENHANCED_DATA
   );
   lastEvent = '';
+  isTableScrolled = false;
   private readonly ouiIconRegistry = inject(OuiIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
 
@@ -287,6 +293,19 @@ export class OuiTableEnhancedStorybook implements OnInit {
 
   onColumnOrderChanged(event: ColumnOrderChangedEvent): void {
     this.displayedColumns = event.columnIds;
+  }
+
+  onTableScroll(event: Event): void {
+    const el = event.target as HTMLElement;
+    this.isTableScrolled = el.scrollLeft > 5;
+  }
+
+  onSort(_event: any): void {
+    // handled by OuiSort + OuiTableDataSource
+  }
+
+  onColumnResized(_event: any): void {
+    // no-op in storybook
   }
 
   onColumnMenuAction(action: ColumnMenuAction): void {

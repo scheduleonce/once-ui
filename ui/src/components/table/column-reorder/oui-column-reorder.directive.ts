@@ -80,6 +80,9 @@ export class OuiReorderableColumnsDirective
   // ─── MutationObserver to auto-refresh when columns re-render ─────────────────
   private _mutationObserver: MutationObserver | null = null;
 
+  // ─── ResizeObserver to detect table overflow and toggle shadow class ─────────
+  private _overflowObserver: ResizeObserver | null = null;
+
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this._platformId)) {
       return;
@@ -88,6 +91,7 @@ export class OuiReorderableColumnsDirective
       setTimeout(() => {
         this._attachCellListeners();
         this._watchHeaderRow();
+        this._watchOverflow();
       }, 0);
     });
   }
@@ -570,11 +574,37 @@ export class OuiReorderableColumnsDirective
 
   // ─── Cleanup ──────────────────────────────────────────────────────────────────────────────
 
+  // ─── Overflow detection ──────────────────────────────────────────────────────
+
+  private _watchOverflow(): void {
+    const tableEl = this._elementRef.nativeElement;
+    const container = tableEl.parentElement;
+    if (!container) {
+      return;
+    }
+
+    const update = () => {
+      const overflows = container.scrollWidth > container.clientWidth;
+      if (overflows) {
+        this._renderer.addClass(tableEl, 'oui-table-col-overflow');
+      } else {
+        this._renderer.removeClass(tableEl, 'oui-table-col-overflow');
+      }
+    };
+
+    this._overflowObserver = new ResizeObserver(update);
+    this._overflowObserver.observe(container);
+    this._overflowObserver.observe(tableEl);
+    update();
+  }
+
   ngOnDestroy(): void {
     this._detachCellListeners();
     this._clearAllHighlights();
     this._cleanupDragListeners();
     this._mutationObserver?.disconnect();
+    this._overflowObserver?.disconnect();
+    this._overflowObserver = null;
     this._destroyGhost();
     this._destroyDropIndicator();
   }
