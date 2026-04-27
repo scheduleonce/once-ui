@@ -42,12 +42,16 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
 
   // Drag state
   private _isDragging = false;
+  /** True if the pointer actually moved during the current drag (delta > 2 px). */
+  private _hasMoved = false;
   private _startX = 0;
   private _startWidth = 0;
   /** Minimum width the column is allowed to reach (content + padding, measured at drag-start). */
   private _minCellWidth = 0;
   private _columnId = '';
   private _columnCells: HTMLElement[] = [];
+  /** The header cell being resized — needed to suppress the post-drag click. */
+  private _activeHeaderCell: HTMLElement | null = null;
 
   private _mouseMoveUnlisten: (() => void) | null = null;
   private _mouseUpUnlisten: (() => void) | null = null;
@@ -60,6 +64,11 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   private _reinitScheduled = false;
   /** Listeners returned by Renderer2.listen for each handle's pointerdown. */
   private _handleUnlisteners: (() => void)[] = [];
+  /** Whether initial column widths have already been snapshotted. */
+  private _initialised = false;
+
+  // ─── ResizeObserver to detect table overflow and toggle shadow class ─────────
+  private _overflowObserver: ResizeObserver | null = null;
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this._platformId)) {
@@ -68,10 +77,54 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     // Defer to allow CDK table to render all header cells.
     this._ngZone.runOutsideAngular(() => {
       setTimeout(() => {
+        this._lockTableLayout();
         this._initHandles();
         this._watchHeaderRow();
+        this._watchOverflow();
       }, 0);
     });
+  }
+
+  /**
+   * For native `<table>` elements, switch to `table-layout: fixed` and
+   * snapshot every column's rendered width. Without this the browser
+   * auto-distributes widths and resize drags are fought by the layout engine.
+   */
+  private _lockTableLayout(): void {
+    if (this._initialised) {
+      return;
+    }
+    this._initialised = true;
+    const host = this._elementRef.nativeElement;
+    const isNativeTable = host.tagName === 'TABLE';
+
+    if (isNativeTable) {
+      this._renderer.setStyle(host, 'table-layout', 'fixed');
+      // Use min-width so the table fills its container but can overflow
+      // when columns are resized to exceed the container width.
+      this._renderer.setStyle(host, 'min-width', '100%');
+      this._renderer.setStyle(host, 'width', 'auto');
+    }
+
+    // Snapshot current rendered widths of every column so they are pinned
+    // before any user interaction. This prevents the browser from re-flowing
+    // columns when one column is resized.
+    const headerCells = Array.from(
+      host.querySelectorAll<HTMLElement>('oui-header-cell, th[oui-header-cell]')
+    );
+    headerCells.forEach((cell) => {
+      const columnId = this._getColumnId(cell);
+      if (columnId && !this._columnWidths.has(columnId)) {
+        const width = cell.getBoundingClientRect().width;
+        const cells = this._getColumnCells(columnId);
+        this._applyWidthToCells(width, cells);
+        this._columnWidths.set(columnId, width);
+      }
+    });
+    // Set an explicit pixel width on the table equal to the sum of all
+    // snapshotted column widths so further resizes that grow beyond the
+    // container can set the table wider than the container.
+    this._syncNativeTableWidth();
   }
 
   /**
@@ -122,6 +175,8 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       const cells = this._getColumnCells(columnId);
       this._applyWidthToCells(width, cells);
     });
+    // Restore the table's explicit width so it matches the stored column widths.
+    this._syncNativeTableWidth();
   }
 
   private _initHandles(): void {
@@ -173,6 +228,8 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     handle: HTMLElement
   ): void {
     this._isDragging = true;
+    this._hasMoved = false;
+    this._activeHeaderCell = headerCell;
     this._startX = e.clientX;
     this._startWidth = headerCell.getBoundingClientRect().width;
     // scrollWidth = minimum space needed to render content without clipping.
@@ -244,7 +301,17 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       return;
     }
     const delta = e.clientX - this._startX;
+    if (Math.abs(delta) > 2) {
+      this._hasMoved = true;
+    }
     const newWidth = Math.max(this._minCellWidth, this._startWidth + delta);
+
+    // For native <table> elements, grow (or shrink) the table's explicit width
+    // to match the new sum of all column widths. Without this the browser
+    // re-distributes all columns within the fixed container width, making it
+    // impossible to resize beyond the container boundary.
+    this._syncNativeTableWidth(this._columnId, newWidth);
+
     this._applyWidth(newWidth);
   }
 
@@ -252,8 +319,28 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     if (!this._isDragging) {
       return;
     }
+    const hasMoved = this._hasMoved;
+    const headerCell = this._activeHeaderCell;
+    this._hasMoved = false;
+    this._activeHeaderCell = null;
     this._isDragging = false;
     this._cleanupDragListeners();
+
+    // If the user actually dragged, suppress the click the browser fires after
+    // pointerup — otherwise it would land on the sort header button and
+    // trigger an unwanted sort.
+    if (hasMoved && headerCell) {
+      const suppressClick = (e: MouseEvent) => e.stopPropagation();
+      headerCell.addEventListener('click', suppressClick, {
+        capture: true,
+        once: true,
+      });
+      // Safety: remove if no click follows within 300 ms (pointer left element).
+      setTimeout(
+        () => headerCell.removeEventListener('click', suppressClick, true),
+        300
+      );
+    }
 
     this._renderer.removeClass(
       this._elementRef.nativeElement,
@@ -280,6 +367,8 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
 
     // Persist so we can restore the width if columns are reordered later.
     this._columnWidths.set(this._columnId, finalWidth);
+    // Keep the table's explicit width in sync with the final column widths.
+    this._syncNativeTableWidth();
 
     // Emit inside zone so Angular can run change detection if needed.
     this._ngZone.run(() => {
@@ -320,6 +409,51 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   }
 
   /**
+   * For native `<table>` elements, sets the table's inline `width` to the
+   * sum of all column widths so the table can overflow its container and
+   * the scroll container shows a horizontal scrollbar.
+   *
+   * Pass `overrideColumnId` + `overrideWidth` to preview a width that
+   * hasn't been committed to `_columnWidths` yet (e.g. during a live drag).
+   * Without arguments the stored widths are summed as-is.
+   *
+   * Has no effect on non-native (CDK/flex) tables.
+   */
+  private _syncNativeTableWidth(
+    overrideColumnId?: string,
+    overrideWidth?: number
+  ): void {
+    const host = this._elementRef.nativeElement;
+    if (host.tagName !== 'TABLE') {
+      return;
+    }
+    let total = 0;
+    this._columnWidths.forEach((w, id) => {
+      total +=
+        id === overrideColumnId && overrideWidth !== undefined
+          ? overrideWidth
+          : w;
+    });
+    // If overrideColumnId is being dragged but not yet in the map (edge case
+    // during very first move), add overrideWidth once.
+    if (
+      overrideColumnId !== undefined &&
+      overrideWidth !== undefined &&
+      !this._columnWidths.has(overrideColumnId)
+    ) {
+      total += overrideWidth;
+    }
+    if (total > 0) {
+      // Use max so the table stays at least as wide as its container.
+      const containerWidth = host.parentElement
+        ? host.parentElement.clientWidth
+        : 0;
+      const tableWidth = Math.max(total, containerWidth);
+      this._renderer.setStyle(host, 'width', `${tableWidth}px`);
+    }
+  }
+
+  /**
    * Apply an explicit width to all cells (header + body) in the column.
    * Since oui-table rows are display:flex, we pin flex properties so that
    * the cell does not grow/shrink beyond the resized width.
@@ -330,12 +464,16 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
 
   private _applyWidthToCells(width: number, cells: HTMLElement[]): void {
     const px = `${width}px`;
+    const isNativeTable = this._elementRef.nativeElement.tagName === 'TABLE';
     cells.forEach((cell) => {
-      this._renderer.setStyle(cell, 'flex', `0 0 ${px}`);
       this._renderer.setStyle(cell, 'width', px);
       this._renderer.setStyle(cell, 'min-width', px);
       this._renderer.setStyle(cell, 'max-width', px);
       this._renderer.setStyle(cell, 'box-sizing', 'border-box');
+      if (!isNativeTable) {
+        // Flex-based rows (oui-table / oui-row) need explicit flex sizing.
+        this._renderer.setStyle(cell, 'flex', `0 0 ${px}`);
+      }
     });
   }
 
@@ -345,9 +483,33 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     this._handles.forEach((h) => h.remove());
     this._handles = [];
     this._mutationObserver?.disconnect();
+    this._overflowObserver?.disconnect();
+    this._overflowObserver = null;
     this._renderer.removeClass(
       this._elementRef.nativeElement,
       'oui-table-resizing'
     );
+  }
+
+  private _watchOverflow(): void {
+    const tableEl = this._elementRef.nativeElement;
+    const container = tableEl.parentElement;
+    if (!container) {
+      return;
+    }
+
+    const update = () => {
+      const overflows = container.scrollWidth > container.clientWidth;
+      if (overflows) {
+        this._renderer.addClass(tableEl, 'oui-table-col-overflow');
+      } else {
+        this._renderer.removeClass(tableEl, 'oui-table-col-overflow');
+      }
+    };
+
+    this._overflowObserver = new ResizeObserver(update);
+    this._overflowObserver.observe(container);
+    this._overflowObserver.observe(tableEl);
+    update();
   }
 }
