@@ -14,7 +14,6 @@ export const Regular = {
       schemas: [],
       declarations: [],
     },
-
     template: `<oui-form-field [appearance]="appearance" ngClass={{theme}}> 
                 <input 
                 [disabled]="disabled" 
@@ -22,19 +21,17 @@ export const Regular = {
                 (focus)="focused()" 
                 [value]="type" 
                 oui-input 
+                [inlineEdit]="inlineEdit"
                 [placeholder]="placeholder"
                 [spellcheck]="spellcheck" /> 
                 </oui-form-field>`,
-
     props: {
       ...props,
       focused: action('focus'),
       blured: action('blur'),
     },
   }),
-
   name: 'Regular',
-
   parameters: {
     docs: {
       source: {
@@ -44,34 +41,35 @@ export const Regular = {
       },
     },
   },
-
   args: {
     type: 'text',
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     placeholder: 'Type here',
     appearance: APPEARANCE[0],
     spellcheck: true,
   },
-
   argTypes: {
     theme: {
       options: THEME,
-
       control: {
         type: 'select',
       },
     },
-
     appearance: {
       options: APPEARANCE,
-
       control: {
         type: 'select',
       },
     },
-
     spellcheck: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    inlineEdit: {
+      name: 'Inline edit',
       control: {
         type: 'boolean',
       },
