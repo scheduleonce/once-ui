@@ -97,7 +97,7 @@ oui-footer-cell {
 table.oui-table {
   border-spacing: 0;
   border-collapse: collapse;
-  border-spacing: 0;
+  width: 100%;
 }
 
 tr.oui-header-row {
@@ -134,3 +134,8 @@ tr.oui-row {
     outline: none;
   }
 }
+
+@import './column-menu/oui-column-menu';
+@import './column-resize/oui-column-resize';
+@import './column-reorder/oui-column-reorder';
+@import './oui-table-enhanced-separators';
