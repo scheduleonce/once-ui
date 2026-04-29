@@ -1,0 +1,114 @@
+$_drag-blue: rgba(38, 132, 255, 0.08);
+$_drag-blue-line: #2684ff;
+
+// Make header cells look draggable while ouiReorderableColumns is active.
+// First column is locked — no grab cursor.
+oui-table[ouiReorderableColumns] oui-header-cell:not(:first-child),
+table[oui-table][ouiReorderableColumns] th[oui-header-cell]:not(:first-child) {
+  cursor: grab;
+  user-select: none;
+}
+
+// Cursor during active drag.
+.oui-table-reordering oui-header-cell:not(:first-child),
+.oui-table-reordering th[oui-header-cell]:not(:first-child) {
+  cursor: grabbing;
+}
+
+// Source header cell — light border highlight to show which column is being moved.
+.oui-col-reorder-source {
+  outline: 1.5px solid rgba(38, 132, 255, 0.35) !important;
+  outline-offset: -1.5px;
+  background: transparent !important;
+}
+
+// Target column on hover — left border highlight shows where column will land.
+// Uses a ::before pseudo-element so the line paints above the parent row's
+// border-bottom (box-shadow on the cell itself gets clipped at row boundaries).
+.oui-col-reorder-target {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px; // extend 1px above to cover the row's top border
+    bottom: -1px; // extend 1px below to cover the row's bottom border
+    width: 2px;
+    background: $_drag-blue-line;
+    z-index: 2;
+    pointer-events: none;
+  }
+}
+
+// Ghost: overlay the size of the full column (header→last row).
+// Top & left borders are visible and fade out toward the end.
+// Inside has a semi-transparent fill.
+.oui-col-reorder-ghost {
+  position: fixed;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  z-index: 9999;
+  background: rgba(38, 132, 255, 0.06);
+  // No solid borders — the pseudo-elements below draw fading borders instead.
+  border: none;
+  box-sizing: border-box;
+  will-change: transform;
+  opacity: 0.5;
+  transition: transform 16ms linear;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+  }
+
+  // Left border: solid at top, fades to transparent at bottom.
+  &::before {
+    left: 0;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      $_drag-blue-line 0%,
+      $_drag-blue-line 30%,
+      transparent 100%
+    );
+  }
+
+  // Top border: solid at left, fades to transparent at right.
+  &::after {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      $_drag-blue-line 0%,
+      $_drag-blue-line 30%,
+      transparent 100%
+    );
+  }
+}
+
+// Drop indicator: thin vertical line at the drop target edge.
+.oui-col-reorder-indicator {
+  position: fixed;
+  width: 2px;
+  background: $_drag-blue-line;
+  border-radius: 1px;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+  box-shadow: 0 0 4px rgba(38, 132, 255, 0.4);
+}
+
+// Subtle animation when the table re-renders after column reorder.
+// Consumer can add the class 'oui-table-animated' momentarily after updating displayedColumns.
+oui-table.oui-table-animated oui-header-cell,
+oui-table.oui-table-animated oui-cell {
+  transition: flex 200ms ease, width 200ms ease;
+}
