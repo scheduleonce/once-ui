@@ -80,9 +80,11 @@ Selector: `input[ouiInput], textarea[ouiInput]`
 
 Exported as: `ouiInput`
 
-| Input | Type   | Default | Required | Description                |
-| ----- | ------ | ------- | -------- | -------------------------- |
-| type  | string | text    | no       | Input type of the element. |
+| Input      | Type    | Default | Required | Description                                                      |
+| ---------- | ------- | ------- | -------- | ---------------------------------------------------------------- |
+| type       | string  | text    | no       | Input type of the element.                                       |
+| background | boolean | false   | no       | Applies a red background to the host input element when enabled. |
+| inlineEdit | boolean | false   | no       | Whether the input should render as plain text until focused.     |
 
 ### Accessibility
 
