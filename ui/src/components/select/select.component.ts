@@ -191,6 +191,7 @@ export class OuiSelectTrigger {}
     '[class.oui-select-invalid]': 'errorState',
     '[class.oui-select-required]': 'required',
     '[class.oui-select-empty]': 'empty',
+    '[class.oui-select-inline-edit]': 'inlineEdit',
     class: 'oui-select oui-input',
     '(keydown)': '_handleKeydown($event)',
     '(focus)': '_onFocus()',
@@ -368,6 +369,7 @@ export class OuiSelect
   /** Input that can be used to specify the `aria-labelledby` attribute. */
   @Input('aria-labelledby') ariaLabelledby: string;
   private _large = false;
+  private _inlineEdit = false;
   _monitorSubscription: any;
   previouslySelected: any[] = [];
   setSelectedOptions: string[] = [];
@@ -379,6 +381,17 @@ export class OuiSelect
   }
   set large(value) {
     this._large = coerceBooleanProperty(value);
+    this._changeDetectorRef.markForCheck();
+  }
+
+  /** Whether the select should render in inline edit mode. */
+  @Input()
+  get inlineEdit(): boolean {
+    return this._inlineEdit;
+  }
+  set inlineEdit(value: boolean) {
+    this._inlineEdit = coerceBooleanProperty(value);
+    this.stateChanges.next();
     this._changeDetectorRef.markForCheck();
   }
 

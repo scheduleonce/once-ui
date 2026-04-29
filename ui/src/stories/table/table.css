@@ -1,3 +1,12 @@
+.table-overflow-shadow table tr th:first-child,
+.table-overflow-shadow table tr td:first-child {
+  box-shadow: 0 0 0 2px #bbb, 0 0 8px 2px #bbb;
+  z-index: 2;
+  position: relative;
+}
+.oui-table-enhanced-container {
+  border: 1px solid #dfdfdf;
+}
 .table-container table {
   width: 99%;
 }
