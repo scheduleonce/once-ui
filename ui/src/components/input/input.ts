@@ -5,6 +5,8 @@ import {
   Directive,
   ElementRef,
   Input,
+  booleanAttribute,
+  input,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -86,6 +88,7 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     // Native input properties that are overwritten by Angular inputs need to be synced with
     // the native input element. Otherwise property bindings for those don't work.
     '[attr.id]': 'id',
+    '[class.oui-input-inline-edit]': 'inlineEdit()',
     '[attr.placeholder]': 'placeholder',
     '[disabled]': 'disabled',
     '[required]': 'required',
@@ -289,6 +292,12 @@ export class OuiInput
     this._spellcheck = coerceBooleanProperty(value);
   }
   private _spellcheck = true;
+
+  /** Whether the input should render in inline edit mode. */
+  readonly inlineEdit = input(false, {
+    alias: 'inlineEdit',
+    transform: booleanAttribute,
+  });
 
   protected _neverEmptyInputTypes = [
     'date',
