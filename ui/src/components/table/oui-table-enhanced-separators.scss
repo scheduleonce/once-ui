@@ -38,6 +38,10 @@ table[oui-table][ouiReorderableColumns] {
     position: sticky !important;
     left: 0;
     z-index: 2;
+  }
+
+  oui-cell:first-child,
+  td.oui-cell:first-child {
     background: #ffffff;
   }
 
@@ -45,6 +49,12 @@ table[oui-table][ouiReorderableColumns] {
   th.oui-header-cell:first-child {
     z-index: 3;
     background: #f6f6f6;
+  }
+
+  // Ensure sticky column inherits row hover background
+  oui-row:hover .oui-cell:first-child,
+  tr.oui-row:hover td.oui-cell:first-child {
+    background: inherit;
   }
 }
 
