@@ -1,4 +1,4 @@
-FROM dockeronce.azurecr.io/node:24.14.1-alpine3.23 AS build
+FROM dockeronce.azurecr.io/node:24.15.0-alpine3.23 AS build
 WORKDIR /app/website
 COPY . /app/website
 RUN chown root:root .
@@ -11,6 +11,7 @@ RUN ls -ltra /var/www
 # RUN ls -ltra /var/www/themes
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 CMD ["nginx", "-g", "daemon off;"]
+
 
 
 
