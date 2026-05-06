@@ -69,7 +69,7 @@ interface OuiSortHeaderColumnDef {
   templateUrl: 'sort-header.html',
   styleUrls: ['sort-header.scss'],
   host: {
-    '(click)': '_handleClick()',
+    '(click)': '_handleClick($event)',
     '(mouseenter)': '_setIndicatorHintVisible(true)',
     '(longpress)': '_setIndicatorHintVisible(true)',
     '(mouseleave)': '_setIndicatorHintVisible(false)',
@@ -270,8 +270,24 @@ export class OuiSortHeader
   }
 
   /** Triggers the sort on this sort header and removes the indicator hint. */
-  _handleClick() {
+  _handleClick(event: MouseEvent) {
     if (this._isDisabled()) {
+      return;
+    }
+    const target = event.target;
+    if (!(target instanceof Element)) {
+      return;
+    }
+    // Block clicks originating from the resize handle or column menu trigger —
+    // those have their own handlers. Allow clicks anywhere else inside the
+    // sort header container (button text AND the sort arrow).
+    if (
+      target.closest('.oui-col-resize-handle') ||
+      target.closest('.oui-column-menu-trigger')
+    ) {
+      return;
+    }
+    if (!target.closest('.oui-sort-header-container')) {
       return;
     }
 

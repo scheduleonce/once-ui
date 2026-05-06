@@ -1,0 +1,94 @@
+$oui-enhanced-border-color: #dfdfdf;
+
+oui-table[ouiResizableColumns],
+oui-table[ouiReorderableColumns],
+.oui-table-column-menu-enabled,
+table[oui-table][ouiResizableColumns],
+table[oui-table][ouiReorderableColumns] {
+  oui-header-cell,
+  th.oui-header-cell,
+  oui-footer-cell,
+  td.oui-footer-cell,
+  oui-cell,
+  td.oui-cell {
+    border-right: 1px solid $oui-enhanced-border-color;
+    position: relative;
+    min-width: 144px !important;
+    box-sizing: border-box;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  .oui-cell:nth-last-child(1),
+  .oui-header-cell:nth-last-child(1) {
+    border-right: none !important;
+  }
+
+  oui-header-cell:hover,
+  th.oui-header-cell:hover {
+    background: #efefef;
+  }
+
+  oui-header-cell:first-child,
+  th.oui-header-cell:first-child,
+  oui-cell:first-child,
+  td.oui-cell:first-child {
+    position: sticky !important;
+    left: 0;
+    z-index: 2;
+  }
+
+  oui-cell:first-child,
+  td.oui-cell:first-child {
+    background: #ffffff;
+  }
+
+  oui-header-cell:first-child,
+  th.oui-header-cell:first-child {
+    z-index: 3;
+    background: #f6f6f6;
+  }
+
+  // Ensure sticky column inherits row hover background
+  oui-row:hover .oui-cell:first-child,
+  tr.oui-row:hover td.oui-cell:first-child {
+    background: inherit;
+  }
+}
+
+// Applied when the table is wider than its container (horizontal scroll exists).
+// The frozen first column gets left/right shadow to visually elevate it.
+oui-table[ouiReorderableColumns].oui-table-col-overflow,
+oui-table[ouiResizableColumns].oui-table-col-overflow,
+table[oui-table][ouiReorderableColumns].oui-table-col-overflow,
+table[oui-table][ouiResizableColumns].oui-table-col-overflow {
+  oui-header-cell:first-child::after,
+  th.oui-header-cell:first-child::after,
+  oui-cell:first-child::after,
+  td.oui-cell:first-child::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: -6px;
+    bottom: 0;
+    width: 6px;
+    pointer-events: none;
+    box-shadow: inset 6px 0 6px -6px rgba(0, 0, 0, 0.15);
+  }
+
+  oui-header-cell:first-child::before,
+  th.oui-header-cell:first-child::before,
+  oui-cell:first-child::before,
+  td.oui-cell:first-child::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -6px;
+    bottom: 0;
+    width: 6px;
+    pointer-events: none;
+    box-shadow: inset -6px 0 6px -6px rgba(0, 0, 0, 0.15);
+  }
+}

@@ -270,6 +270,7 @@ This component can be used if someone want to have the search input field inside
 | @Input() disabled: boolean                                   | Whether the component is disabled.                                                                                           |
 | @Input() errorStateMatcher: ErrorStateMatcher                | Object used to control when error messages are shown.                                                                        |
 | @Input() id: string                                          | Unique id of the element.                                                                                                    |
+| @Input() inlineEdit: boolean                                 | Enables inline-edit three-stage behavior on the closed select (plain idle, gray hover, bordered focus).                      |
 | @Input() multiple: boolean                                   | Whether the user should be allowed to select multiple options.                                                               |
 | @Input() panelClass: string                                  | Classes to be passed to the select panel. Supports the same syntax as ngClass.                                               |
 | @Input() placeholder: string                                 | Placeholder to be shown if no value has been selected.                                                                       |

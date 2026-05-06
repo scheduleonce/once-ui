@@ -1,0 +1,172 @@
+// Trigger button styles — appended to th[oui-header-cell] by OuiColumnMenuDirective.
+.oui-column-menu-trigger {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none; // shown on hover via oui-header-cell:hover rule below
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  color: #4a4a4a;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0;
+  z-index: 1;
+  transition: background 0.15s ease;
+  outline: none;
+
+  &:hover {
+    background: #e8e8e8;
+  }
+
+  &[aria-expanded='true'] {
+    background: #e8e8e8;
+  }
+
+  // Neutralise programmatic re-focus applied by OuiMenuTrigger after menu close.
+  &:focus,
+  &.cdk-focused,
+  &.cdk-mouse-focused,
+  &.cdk-program-focused,
+  &.cdk-touch-focused {
+    outline: none;
+    background: transparent;
+  }
+
+  // Hover / open states still win when combined with focus.
+  &:focus:hover,
+  &:focus[aria-expanded='true'],
+  &.cdk-focused:hover,
+  &.cdk-focused[aria-expanded='true'] {
+    background: #e8e8e8;
+  }
+}
+
+// ─── Sort indicator (beside column title) ─────────────────────────────────────
+// Clicking cycles through asc → desc → cleared, matching oui-sort-header behavior.
+
+.oui-column-sort-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+  outline: none;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+
+  .oui-column-sort-icon {
+    width: 12px;
+    height: 12px;
+    color: #8c8c8c; // faded hint color when not sorted
+  }
+
+  // When actively sorted, show darker icon.
+  &.oui-column-sort-active .oui-column-sort-icon {
+    color: #4a4a4a;
+  }
+
+  &:hover {
+    background: #e8e8e8;
+  }
+}
+
+// Hide the sort indicator by default; show on header hover, when actively sorted,
+// or when the header contains keyboard focus.
+.oui-column-sort-indicator {
+  opacity: 0;
+}
+.oui-column-sort-indicator.oui-column-sort-active {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+}
+oui-header-cell:hover .oui-column-sort-indicator,
+th[oui-header-cell]:hover .oui-column-sort-indicator,
+oui-header-cell:focus-within .oui-column-sort-indicator,
+th[oui-header-cell]:focus-within .oui-column-sort-indicator {
+  opacity: 1;
+}
+
+.oui-column-sort-indicator:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: -2px;
+  opacity: 1;
+}
+
+// Show trigger on header cell hover, when the header contains keyboard focus,
+// or when the menu is already open.
+oui-header-cell:hover .oui-column-menu-trigger,
+th[oui-header-cell]:hover .oui-column-menu-trigger,
+oui-header-cell:focus-within .oui-column-menu-trigger,
+th[oui-header-cell]:focus-within .oui-column-menu-trigger,
+.oui-column-menu-trigger[aria-expanded='true'] {
+  display: flex;
+}
+
+.oui-column-menu-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+// ─── Layout for header cells with column menu ────────────────────────────────
+// NOTE: Do NOT override `display` on <th> in a native HTML table. Changing it
+// from `table-cell` to `flex` causes every flex-th to collapse to the same x
+// position, visually stacking columns on top of each other.
+// Instead we make .oui-sort-header-container inline-flex so the sort indicator
+// button that follows it (rendered with display:contents on its host) flows
+// naturally inline after the title text.
+
+.oui-column-menu-header {
+  padding-right: 36px !important;
+  position: relative;
+  box-sizing: border-box !important;
+  // IMPORTANT: Do not set `display` here. This <th> must remain a native
+  // `table-cell`; changing it to `flex` breaks table layout and can cause
+  // header columns to collapse/stack at the same x position.
+}
+
+// Make the sort-header container inline so the sort-indicator button sits on
+// the same line as the column title.
+.oui-column-menu-header .oui-sort-header-container {
+  display: inline-flex !important;
+  align-items: center !important;
+  max-width: calc(
+    100% - 30px
+  ) !important; // reserve space for sort indicator + menu trigger
+  vertical-align: middle;
+  overflow: hidden !important;
+}
+
+// The sort-header button carries the column title text.
+.oui-column-menu-header .oui-sort-header-button {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  text-align: left;
+}
+
+// The sort indicator must be inline to sit beside the container.
+.oui-column-menu-header .oui-column-sort-indicator {
+  display: inline-flex !important;
+  vertical-align: middle;
+}
+
+// Hide the built-in oui-sort-header arrow — the column-menu panel's own sort
+// indicator replaces it. Must be display:none so it takes no space.
+.oui-column-menu-header .oui-sort-header-arrow {
+  display: none !important;
+}

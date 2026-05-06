@@ -1,6 +1,7 @@
 import {
   OuiIconModule,
   OuiTableModule,
+  OuiTableColumnsModule,
   OuiPaginatorModule,
   OuiSortModule,
   OuiInputModule,
@@ -9,7 +10,11 @@ import {
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { USERINFODATASOURCE } from './const';
-import { OuiTableStorybook, OuiTableCustomStorybook } from './table.component';
+import {
+  OuiTableStorybook,
+  OuiTableCustomStorybook,
+  OuiTableEnhancedStorybook,
+} from './table.component';
 
 export default {
   title: 'Table',
@@ -84,5 +89,78 @@ export const Custom = {
 
   args: {
     data: USERINFODATASOURCE,
+  },
+};
+
+export const Enhanced = {
+  render: (props) => ({
+    moduleMetadata: {
+      imports: [
+        OuiTableColumnsModule,
+        OuiPaginatorModule,
+        OuiIconModule,
+        OuiInputModule,
+        BrowserAnimationsModule,
+      ],
+      schemas: [],
+      declarations: [OuiTableEnhancedStorybook],
+    },
+
+    template: `<oui-table-enhanced-storybook></oui-table-enhanced-storybook>`,
+    props,
+  }),
+
+  height: '700px',
+  name: 'Enhanced Table',
+
+  parameters: {
+    docs: {
+      description: {
+        story: `
+Demonstrates all three opt-in column features together.
+
+**Sort** — click any column header to sort asc/desc. Hover the sort icon to see the current state in a tooltip.
+
+**Resize** — hover a header cell and drag its right edge to resize the column.
+
+**Reorder** — drag a column header to a new position. A blue drop indicator shows where it will land.
+
+**Column menu** — hover a header cell and click the ⋮ button for sort actions, move left/right/first/last, and hide column.
+        `,
+      },
+      source: {
+        code: `
+<!-- Import OuiTableColumnsModule instead of OuiTableModule -->
+
+<table
+  oui-table
+  [dataSource]="dataSource"
+  ouiSort
+  ouiResizableColumns
+  ouiReorderableColumns
+  (ouiSortChange)="onSort($event)"
+  (columnResized)="onColumnResized($event)"
+  (columnOrderChanged)="onColumnOrderChanged($event)"
+>
+  @for (column of displayedColumns; track column) {
+  <ng-container [ouiColumnDef]="column">
+    <th
+      oui-header-cell
+      *ouiHeaderCellDef
+      oui-sort-header
+      [ouiColumnMenu]="displayedColumns"
+      (columnMenuAction)="onColumnMenuAction($event)"
+    >
+      {{ column }}
+    </th>
+    <td oui-cell *ouiCellDef="let row">{{ row[column] }}</td>
+  </ng-container>
+  }
+  <tr oui-header-row *ouiHeaderRowDef="displayedColumns"></tr>
+  <tr oui-row *ouiRowDef="let row; columns: displayedColumns"></tr>
+</table>
+        `,
+      },
+    },
   },
 };

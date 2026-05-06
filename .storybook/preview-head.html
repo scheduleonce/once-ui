@@ -394,6 +394,39 @@
   .oui-form-field .oui-input:focus {
     border-color: #006bb1;
   }
+  .oui-form-field .oui-input.oui-input-inline-edit:not(:focus):not(:active) {
+    border: none !important;
+    border-bottom: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+  .oui-form-field
+    .oui-input.oui-input-inline-edit:not(:focus):not(:active):hover {
+    background-color: #f5f5f5 !important;
+    cursor: pointer;
+  }
+  .oui-form-field .oui-input.oui-input-inline-edit {
+    transition: none !important;
+  }
+  .oui-form-field .oui-input.oui-input-inline-edit:not(:focus):not(:active) {
+    border: 1px solid transparent !important;
+    border-bottom: 1px solid transparent !important;
+  }
+  .oui-form-field .oui-input.oui-input-inline-edit:focus,
+  .oui-form-field .oui-input.oui-input-inline-edit:active {
+    border: 1px solid #006bb1 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: text;
+  }
+  .oui-form-field-appearance-underline .oui-input.oui-input-inline-edit:focus,
+  .oui-form-field-appearance-underline .oui-input.oui-input-inline-edit:active {
+    border: 1px solid #006bb1 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    cursor: text;
+  }
   .oui-form-field .oui-error {
     color: #ff001f;
     display: block;

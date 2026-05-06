@@ -61,7 +61,7 @@ export class OuiSelectSearchComponent
   constructor() {
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?5df5gz'
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
       )
     );
     this.ouiIconRegistry.addSvgIconLiteral(

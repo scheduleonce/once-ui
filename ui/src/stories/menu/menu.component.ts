@@ -59,7 +59,7 @@ export class OuiMenuStorybook {
 
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?81ot1f'
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
       )
     );
   }
@@ -126,7 +126,7 @@ export class OuiNestedMenuStorybook {
 
     this.ouiIconRegistry.addSvgIconSet(
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?81ot1f'
+        'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
       )
     );
   }

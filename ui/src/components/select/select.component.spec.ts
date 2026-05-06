@@ -908,6 +908,29 @@ describe('OuiSelect', () => {
           );
         }));
 
+        it('should set the oui-select-inline-edit class when inlineEdit changes', fakeAsync(() => {
+          expect(select.classList).not.toContain(
+            'oui-select-inline-edit',
+            `Expected the oui-select-inline-edit class not to be set by default.`
+          );
+
+          selectInstance.inlineEdit = true;
+          fixture.detectChanges();
+
+          expect(select.classList).toContain(
+            'oui-select-inline-edit',
+            `Expected the oui-select-inline-edit class to be set when inlineEdit is true.`
+          );
+
+          selectInstance.inlineEdit = false;
+          fixture.detectChanges();
+
+          expect(select.classList).not.toContain(
+            'oui-select-inline-edit',
+            `Expected the oui-select-inline-edit class not to be set when inlineEdit is false.`
+          );
+        }));
+
         it('should set aria-invalid for selects that are invalid and touched', fakeAsync(() => {
           expect(select.getAttribute('aria-invalid')).toEqual(
             'false',

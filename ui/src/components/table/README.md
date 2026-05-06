@@ -113,6 +113,49 @@ For example, the data object {id: 123, name: 'Mr. Smith', favoriteColor: 'blue'}
 
 To override the default filtering behavior, a custom `filterPredicate` function can be set which takes a data object and filter string and returns true if the data object is considered a match.
 
+### Enhanced Table Features (Opt-in)
+
+The `OuiTable` supports several advanced features for column management. To use these, import `OuiTableColumnsModule` instead of `OuiTableModule`.
+
+#### **Column Resizing**
+
+Add the `ouiResizableColumns` directive to the table to allow users to drag the right edge of header cells to resize columns.
+Enhanced tables have a minimum column width of 144px.
+
+```html
+<table oui-table [dataSource]="dataSource" ouiResizableColumns>
+  ...
+</table>
+```
+
+#### **Column Reordering**
+
+Add the `ouiReorderableColumns` directive to the table to enable drag-and-drop column reordering.
+
+```html
+<table oui-table [dataSource]="dataSource" ouiReorderableColumns>
+  ...
+</table>
+```
+
+#### **Column Menu**
+
+Add the `ouiColumnMenu` directive to a header cell to provide a context menu (⋮) in the header. Sorting is shown next to the column title via `oui-sort-header`, while the menu provides actions for moving and hiding columns.
+
+```html
+<ng-container ouiColumnDef="name">
+  <th
+    oui-header-cell
+    *ouiHeaderCellDef
+    oui-sort-header
+    [ouiColumnMenu]="displayedColumns"
+  >
+    Name
+  </th>
+  ...
+</ng-container>
+```
+
 ### Selection
 
 Using following steps you can make selection in table.

@@ -1,0 +1,28 @@
+// Only icon rotation overrides needed — the oui-menu component
+// handles all panel, item, hover, and disabled styling.
+
+.oui-column-menu-icon {
+  flex: 0 0 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: inherit;
+
+  &--sort-asc {
+    transform: rotate(270deg);
+  }
+
+  &--sort-desc {
+    transform: rotate(90deg);
+  }
+
+  &--move-left {
+    transform: rotate(270deg);
+  }
+
+  &--move-right {
+    transform: rotate(-90deg);
+  }
+}

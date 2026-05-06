@@ -27,7 +27,7 @@ export const Regular = {
     template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled" [inlineEdit]="inlineEdit">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -63,6 +63,7 @@ export const Regular = {
     large: false,
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     appearance: APPEARANCE[0],
     placeholder: 'Favorite food',
 
@@ -103,6 +104,12 @@ export const Regular = {
         type: 'object',
       },
     },
+
+    inlineEdit: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 
@@ -111,7 +118,7 @@ export const RegularSelectWithSingleActionItem = {
     template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" singleActionItem [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" singleActionItem [disabled]="disabled" [inlineEdit]="inlineEdit">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -157,6 +164,7 @@ export const RegularSelectWithSingleActionItem = {
     large: false,
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     appearance: APPEARANCE[0],
     placeholder: 'Favorite food',
 
@@ -199,6 +207,12 @@ export const RegularSelectWithSingleActionItem = {
         type: 'object',
       },
     },
+
+    inlineEdit: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 
@@ -207,7 +221,7 @@ export const MultiSelectWithSingleActionItem = {
     template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" multiple singleActionItem [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [singleActionLabel]="singleActionLabel" multiple singleActionItem [disabled]="disabled" [inlineEdit]="inlineEdit">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -253,6 +267,7 @@ export const MultiSelectWithSingleActionItem = {
     large: false,
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     appearance: APPEARANCE[0],
     placeholder: 'Favorite food',
 
@@ -295,6 +310,12 @@ export const MultiSelectWithSingleActionItem = {
         type: 'object',
       },
     },
+
+    inlineEdit: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 
@@ -303,7 +324,7 @@ export const MultiSelect = {
     template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [allowNoSelection]="allowNoSelection" [disabled]="disabled" [cancelLabel]="cancelLabel" [doneLabel]="doneLabel">
+        <oui-select (saveSelectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" multiple actionItems [allowNoSelection]="allowNoSelection" [disabled]="disabled" [cancelLabel]="cancelLabel" [doneLabel]="doneLabel" [inlineEdit]="inlineEdit">
           <oui-option *ngFor="let option of options" [value]="option">
             {{option}}
           </oui-option>
@@ -349,6 +370,7 @@ export const MultiSelect = {
     large: false,
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     appearance: APPEARANCE[0],
     placeholder: 'Favorite food',
 
@@ -393,6 +415,12 @@ export const MultiSelect = {
         type: 'object',
       },
     },
+
+    inlineEdit: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 
@@ -401,7 +429,7 @@ export const Groups = {
     template: `
     <div style="width: 213px;">
     <oui-form-field [appearance]="appearance">
-        <oui-select ngClass="{{theme}}" (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select ngClass="{{theme}}" (selectionChange)="onChange($event)" [large]="large" [placeholder]="placeholder" [disabled]="disabled" [inlineEdit]="inlineEdit">
           <oui-option>-- None --</oui-option>
           <oui-optgroup *ngFor="let group of groups" [label]="group.name">
             <oui-option *ngFor="let option of group.options" [value]="option">
@@ -453,6 +481,7 @@ export const Groups = {
     large: false,
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     appearance: APPEARANCE[0],
     placeholder: 'Favorite food',
 
@@ -502,6 +531,12 @@ export const Groups = {
         type: 'object',
       },
     },
+
+    inlineEdit: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
 };
 
@@ -510,7 +545,7 @@ export const SearchOptions = {
     template: `
     <div style="width: 213px;">
       <oui-form-field [appearance]="appearance">
-        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled">
+        <oui-select (selectionChange)="onChange($event)" ngClass="{{theme}}" [large]="large" [placeholder]="placeholder" [disabled]="disabled" [inlineEdit]="inlineEdit">
           <oui-select-search [(ngModel)]="keyword"></oui-select-search>
           <oui-option *ngFor="let option of (options | filterOptions: keyword)" [value]="option">
             {{option}}
@@ -525,12 +560,10 @@ export const SearchOptions = {
       </oui-form-field>
     </div>
     `,
-
     props: {
       ...props,
       onChange: action('change'),
     },
-
     moduleMetadata: {
       imports: [
         OuiFormFieldModule,
@@ -541,10 +574,8 @@ export const SearchOptions = {
       ],
     },
   }),
-
   name: 'Search options',
   height: '300px',
-
   parameters: {
     docs: {
       source: {
@@ -559,14 +590,13 @@ export const SearchOptions = {
       },
     },
   },
-
   args: {
-    large: false,
+    large: true,
     theme: THEME[0],
     disabled: false,
+    inlineEdit: false,
     appearance: APPEARANCE[0],
     placeholder: 'Favorite food',
-
     options: [
       'Pizza',
       'Burgers',
@@ -581,27 +611,27 @@ export const SearchOptions = {
       'Sweets',
     ],
   },
-
   argTypes: {
     theme: {
       options: THEME,
-
       control: {
         type: 'select',
       },
     },
-
     appearance: {
       options: ['standard', 'underline'],
-
       control: {
         type: 'select',
       },
     },
-
     options: {
       control: {
         type: 'object',
+      },
+    },
+    inlineEdit: {
+      control: {
+        type: 'boolean',
       },
     },
   },
