@@ -100,10 +100,9 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
 
     if (isNativeTable) {
       this._renderer.setStyle(host, 'table-layout', 'fixed');
-      // Use min-width so the table fills its container but can overflow
-      // when columns are resized to exceed the container width.
-      this._renderer.setStyle(host, 'min-width', '100%');
-      this._renderer.setStyle(host, 'width', 'auto');
+      // Do NOT set min-width: 100% — it forces the table wider than the
+      // sum of column widths, causing table-layout:fixed to redistribute
+      // the extra space and shift neighbouring columns during resize.
     }
 
     // Snapshot current rendered widths of every column so they are pinned
@@ -326,22 +325,6 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     this._isDragging = false;
     this._cleanupDragListeners();
 
-    // If the user actually dragged, suppress the click the browser fires after
-    // pointerup — otherwise it would land on the sort header button and
-    // trigger an unwanted sort.
-    if (hasMoved && headerCell) {
-      const suppressClick = (e: MouseEvent) => e.stopPropagation();
-      headerCell.addEventListener('click', suppressClick, {
-        capture: true,
-        once: true,
-      });
-      // Safety: remove if no click follows within 300 ms (pointer left element).
-      setTimeout(
-        () => headerCell.removeEventListener('click', suppressClick, true),
-        300
-      );
-    }
-
     this._renderer.removeClass(
       this._elementRef.nativeElement,
       'oui-table-resizing'
@@ -359,6 +342,26 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     this._columnCells.forEach((cell) =>
       this._renderer.removeClass(cell, 'oui-col-resize-active')
     );
+
+    // Suppress the click that follows pointerup — it would land on the
+    // header cell and trigger an unwanted sort toggle.
+    if (headerCell) {
+      const suppressClick = (e: MouseEvent) => e.stopPropagation();
+      headerCell.addEventListener('click', suppressClick, {
+        capture: true,
+        once: true,
+      });
+      setTimeout(
+        () => headerCell.removeEventListener('click', suppressClick, true),
+        300
+      );
+    }
+
+    // Click without drag → reset column to minimum width.
+    if (!hasMoved && headerCell) {
+      this._resetColumnWidth(headerCell);
+      return;
+    }
 
     const finalWidth =
       this._columnCells.length > 0
@@ -399,6 +402,67 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     );
   }
 
+  /**
+   * Reset a column to its minimum allowed width. Called on click (no drag).
+   * Uses a brief CSS transition for smooth visual feedback.
+   */
+  private _resetColumnWidth(headerCell: HTMLElement): void {
+    const columnId = this._getColumnId(headerCell);
+    if (!columnId) {
+      return;
+    }
+
+    const cells = this._getColumnCells(columnId);
+    const currentWidth = headerCell.getBoundingClientRect().width;
+
+    // Calculate minimum width (same logic as _onPointerDown).
+    let contentWidth = 0;
+    Array.from(headerCell.childNodes).forEach((node) => {
+      if (
+        node instanceof HTMLElement &&
+        !node.classList.contains('oui-col-resize-handle')
+      ) {
+        contentWidth += node.scrollWidth;
+      } else if (node.nodeType === Node.TEXT_NODE) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        contentWidth += range.getBoundingClientRect().width;
+      }
+    });
+
+    const style = globalThis.getComputedStyle(headerCell);
+    const padding =
+      Number.parseFloat(style.paddingLeft) +
+      Number.parseFloat(style.paddingRight);
+    const minWidth = Math.max(this.minColumnWidth, contentWidth + padding);
+
+    // Already at minimum — no-op (prevents jitter on repeated clicks).
+    if (Math.abs(currentWidth - minWidth) < 1) {
+      return;
+    }
+
+    // Add transition class for smooth reset animation.
+    cells.forEach((cell) =>
+      this._renderer.addClass(cell, 'oui-col-resize-transitioning')
+    );
+
+    // Apply minimum width.
+    this._applyWidthToCells(minWidth, cells);
+    this._columnWidths.set(columnId, minWidth);
+    this._syncNativeTableWidth();
+
+    // Remove transition class after animation completes.
+    setTimeout(() => {
+      cells.forEach((cell) =>
+        this._renderer.removeClass(cell, 'oui-col-resize-transitioning')
+      );
+    }, 200);
+
+    this._ngZone.run(() => {
+      this.columnResized.emit({ columnId, width: minWidth });
+    });
+  }
+
   private _cleanupDragListeners(): void {
     this._mouseMoveUnlisten?.();
     this._mouseUpUnlisten?.();
@@ -409,24 +473,26 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   }
 
   /**
-   * For native `<table>` elements, sets the table's inline `width` to the
-   * sum of all column widths so the table can overflow its container and
-   * the scroll container shows a horizontal scrollbar.
+   * Sync the table's inline width to the exact sum of all column widths.
+   *
+   * For native `<table>` elements this sets `width` so the table can
+   * overflow its container and the scroll container shows a horizontal
+   * scrollbar.
+   *
+   * For flex-based `<oui-table>` elements this sets `min-width` so the
+   * block-level table element grows with its columns, allowing child
+   * flex rows to expand instead of squeezing cells.
    *
    * Pass `overrideColumnId` + `overrideWidth` to preview a width that
    * hasn't been committed to `_columnWidths` yet (e.g. during a live drag).
    * Without arguments the stored widths are summed as-is.
-   *
-   * Has no effect on non-native (CDK/flex) tables.
    */
   private _syncNativeTableWidth(
     overrideColumnId?: string,
     overrideWidth?: number
   ): void {
     const host = this._elementRef.nativeElement;
-    if (host.tagName !== 'TABLE') {
-      return;
-    }
+    const isNativeTable = host.tagName === 'TABLE';
     let total = 0;
     this._columnWidths.forEach((w, id) => {
       total +=
@@ -444,12 +510,16 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       total += overrideWidth;
     }
     if (total > 0) {
-      // Use max so the table stays at least as wide as its container.
-      const containerWidth = host.parentElement
-        ? host.parentElement.clientWidth
-        : 0;
-      const tableWidth = Math.max(total, containerWidth);
-      this._renderer.setStyle(host, 'width', `${tableWidth}px`);
+      if (isNativeTable) {
+        // Set width to the exact sum — never clamp to the container width.
+        // Clamping would leave extra space that table-layout:fixed
+        // redistributes to other columns, causing bidirectional resize.
+        this._renderer.setStyle(host, 'width', `${total}px`);
+      } else {
+        // Flex table: min-width lets the block element grow so its flex
+        // rows expand and trigger horizontal scroll in the container.
+        this._renderer.setStyle(host, 'min-width', `${total}px`);
+      }
     }
   }
 

@@ -2,10 +2,15 @@ import { STORY_ICONS, USERINFOCOLUMNS } from './const';
 import {
   Component,
   OnInit,
+  OnDestroy,
   ViewChild,
   inject,
   input,
   effect,
+  afterNextRender,
+  ElementRef,
+  viewChild,
+  signal,
 } from '@angular/core';
 import {
   OuiTableDataSource,
@@ -29,7 +34,11 @@ import { OuiIconRegistry } from '../../components';
         placeholder="Filter"
       />
     </oui-form-field>
-    <div class="table-container">
+    <div
+      class="table-container"
+      #ouiTableContainer
+      [class.table-overflow-shadow]="isTableOverflowing()"
+    >
       <table oui-table #table [dataSource]="dataSource" ouiSort>
         @for (column of displayedColumns; track column) {
         <ng-container ouiColumnDef="{{ column }}">
@@ -48,7 +57,7 @@ import { OuiIconRegistry } from '../../components';
   `,
   standalone: false,
 })
-export class OuiTableStorybook implements OnInit {
+export class OuiTableStorybook implements OnInit, OnDestroy {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
   @ViewChild(OuiPaginator, { static: true }) paginator: OuiPaginator;
   // displayedColumns: string[] = [];
@@ -77,6 +86,10 @@ export class OuiTableStorybook implements OnInit {
   readonly pageSize = input<any[]>([]);
   displayedColumns: string[] = [];
   dataSource = new OuiTableDataSource<any>([]);
+  readonly isTableOverflowing = signal(false);
+  private readonly tableContainerRef =
+    viewChild<ElementRef<HTMLElement>>('ouiTableContainer');
+  private resizeObserver: ResizeObserver | null = null;
   private readonly ouiIconRegistry = inject(OuiIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
   constructor() {
@@ -90,6 +103,16 @@ export class OuiTableStorybook implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
     });
+    afterNextRender(() => {
+      const el = this.tableContainerRef()?.nativeElement;
+      if (!el) return;
+      const checkOverflow = () => {
+        this.isTableOverflowing.set(el.scrollWidth > el.clientWidth);
+      };
+      checkOverflow();
+      this.resizeObserver = new ResizeObserver(checkOverflow);
+      this.resizeObserver.observe(el);
+    });
   }
 
   ngOnInit() {
@@ -97,6 +120,10 @@ export class OuiTableStorybook implements OnInit {
     for (const key in this.users()[0]) {
       this.displayedColumns.push(key);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
   }
 
   applyFilter(filterValue: string) {
@@ -107,7 +134,11 @@ export class OuiTableStorybook implements OnInit {
 @Component({
   selector: 'oui-table-custom-storybook',
   template: `
-    <div class="table-container">
+    <div
+      class="table-container"
+      #ouiTableContainer
+      [class.table-overflow-shadow]="isTableOverflowing()"
+    >
       <table oui-table [dataSource]="userInfoDataSource">
         <ng-container ouiColumnDef="Users">
           <th oui-header-cell *ouiHeaderCellDef class="col-one-width">Users</th>
@@ -182,7 +213,7 @@ export class OuiTableStorybook implements OnInit {
   `,
   standalone: false,
 })
-export class OuiTableCustomStorybook {
+export class OuiTableCustomStorybook implements OnDestroy {
   private sanitizer = inject(DomSanitizer);
 
   INTEGRATIONS = {
@@ -204,12 +235,30 @@ export class OuiTableCustomStorybook {
   readonly users = input<any[]>([]);
   readonly pageSize = input<any[]>([]);
   userInfoDataSource = new OuiTableDataSource<any>([]);
+  readonly isTableOverflowing = signal(false);
+  private readonly tableContainerRef =
+    viewChild<ElementRef<HTMLElement>>('ouiTableContainer');
+  private resizeObserver: ResizeObserver | null = null;
 
   constructor() {
     effect(() => {
       this.userInfoDataSource = new OuiTableDataSource(this.users());
       this.userInfoDataSource.sort = this.sort;
     });
+    afterNextRender(() => {
+      const el = this.tableContainerRef()?.nativeElement;
+      if (!el) return;
+      const checkOverflow = () => {
+        this.isTableOverflowing.set(el.scrollWidth > el.clientWidth);
+      };
+      checkOverflow();
+      this.resizeObserver = new ResizeObserver(checkOverflow);
+      this.resizeObserver.observe(el);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
   }
 }
 
@@ -230,9 +279,10 @@ const ENHANCED_DATA = [
   selector: 'oui-table-enhanced-storybook',
   template: `
     <div
-      class="table-container oui-table-enhanced-container tw-overflow-x-auto tw-max-w-full"
+      class="table-container tw-overflow-x-auto tw-max-w-full"
+      #ouiTableContainer
       [class.is-scrolled]="isTableScrolled"
-      [class.table-overflow-shadow]="isTableScrolled"
+      [class.table-overflow-shadow]="isTableOverflowing()"
       (scroll)="onTableScroll($event)"
     >
       <table
@@ -266,7 +316,7 @@ const ENHANCED_DATA = [
   `,
   standalone: false,
 })
-export class OuiTableEnhancedStorybook implements OnInit {
+export class OuiTableEnhancedStorybook implements OnInit, OnDestroy {
   @ViewChild(OuiSort, { static: true }) sort: OuiSort;
 
   displayedColumns: string[] = [];
@@ -275,6 +325,10 @@ export class OuiTableEnhancedStorybook implements OnInit {
   );
   lastEvent = '';
   isTableScrolled = false;
+  readonly isTableOverflowing = signal(false);
+  private readonly tableContainerRef =
+    viewChild<ElementRef<HTMLElement>>('ouiTableContainer');
+  private resizeObserver: ResizeObserver | null = null;
   private readonly ouiIconRegistry = inject(OuiIconRegistry);
   private readonly domSanitizer = inject(DomSanitizer);
 
@@ -284,6 +338,16 @@ export class OuiTableEnhancedStorybook implements OnInit {
         'https://cdn.icomoon.io/135790/oncehub-20/symbol-defs.svg?v7tuaj'
       )
     );
+    afterNextRender(() => {
+      const el = this.tableContainerRef()?.nativeElement;
+      if (!el) return;
+      const checkOverflow = () => {
+        this.isTableOverflowing.set(el.scrollWidth > el.clientWidth);
+      };
+      checkOverflow();
+      this.resizeObserver = new ResizeObserver(checkOverflow);
+      this.resizeObserver.observe(el);
+    });
   }
 
   ngOnInit(): void {
@@ -339,5 +403,9 @@ export class OuiTableEnhancedStorybook implements OnInit {
         break;
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
   }
 }

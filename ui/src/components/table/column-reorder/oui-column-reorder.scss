@@ -27,13 +27,14 @@ table[oui-table][ouiReorderableColumns] th[oui-header-cell]:not(:first-child) {
 // border-bottom (box-shadow on the cell itself gets clipped at row boundaries).
 .oui-col-reorder-target {
   position: relative;
+  overflow: hidden;
 
   &::before {
     content: '';
     position: absolute;
     left: 0;
-    top: -1px; // extend 1px above to cover the row's top border
-    bottom: -1px; // extend 1px below to cover the row's bottom border
+    top: 0;
+    bottom: 0;
     width: 2px;
     background: $_drag-blue-line;
     z-index: 2;
@@ -56,6 +57,7 @@ table[oui-table][ouiReorderableColumns] th[oui-header-cell]:not(:first-child) {
   box-sizing: border-box;
   will-change: transform;
   opacity: 0.5;
+  overflow: hidden;
   transition: transform 16ms linear;
 
   &::before,
@@ -97,6 +99,8 @@ table[oui-table][ouiReorderableColumns] th[oui-header-cell]:not(:first-child) {
 // Drop indicator: thin vertical line at the drop target edge.
 .oui-col-reorder-indicator {
   position: fixed;
+  left: 0;
+  top: 0;
   width: 2px;
   background: $_drag-blue-line;
   border-radius: 1px;

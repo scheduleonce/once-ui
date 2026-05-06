@@ -44,6 +44,12 @@
   cursor: col-resize;
 }
 
+// Smooth transition for click-to-reset.
+.oui-col-resize-transitioning {
+  transition: width 150ms ease, min-width 150ms ease, max-width 150ms ease,
+    flex-basis 150ms ease;
+}
+
 // When ONLY resize is active (no column menu), give header cells enough clearance
 // for the 6px handle so it doesn't overlap the content.
 // Cells that also carry [ouiColumnMenu] already get 36px from the menu SCSS — no override needed.
