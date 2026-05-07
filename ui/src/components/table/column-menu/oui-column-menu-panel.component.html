@@ -15,13 +15,12 @@
   "
 >
   @if (sortDirection === 'asc') {
-  <oui-icon svgIcon="move-up" size="13" class="oui-column-sort-icon"></oui-icon>
+
+  <div class="oui-column-sort-indicator--sorting"></div>
   } @else {
-  <oui-icon
-    svgIcon="move-down"
-    size="13"
-    class="oui-column-sort-icon"
-  ></oui-icon>
+  <div
+    class="oui-column-sort-indicator--sorting oui-column-sort-indicator--sorting--desc"
+  ></div>
   }
 </button>
 }
