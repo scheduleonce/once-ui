@@ -125,6 +125,14 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     // snapshotted column widths so further resizes that grow beyond the
     // container can set the table wider than the container.
     this._syncNativeTableWidth();
+    // Remove min-width now that we have an explicit pixel width on the table.
+    // Keeping min-width: 100% would override the explicit width whenever the
+    // column sum drops below the container width, causing table-layout:fixed
+    // to redistribute the surplus pixels across ALL columns — exactly the
+    // bidirectional-shift bug. The scroll container handles overflow instead.
+    if (isNativeTable) {
+      this._renderer.removeStyle(host, 'min-width');
+    }
   }
 
   /**
@@ -444,12 +452,13 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       total += overrideWidth;
     }
     if (total > 0) {
-      // Use max so the table stays at least as wide as its container.
-      const containerWidth = host.parentElement
-        ? host.parentElement.clientWidth
-        : 0;
-      const tableWidth = Math.max(total, containerWidth);
-      this._renderer.setStyle(host, 'width', `${tableWidth}px`);
+      // Set the table to exactly the sum of column widths — no Math.max with
+      // containerWidth. If the table were wider than the column sum,
+      // table-layout:fixed would proportionally distribute the surplus to all
+      // columns, shifting columns the user did not touch. The scroll container
+      // (overflow-x: auto) handles horizontal overflow when columns grow past
+      // the container, and shows a gap at the right when they shrink below it.
+      this._renderer.setStyle(host, 'width', `${total}px`);
     }
   }
 

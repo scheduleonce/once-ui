@@ -50,7 +50,6 @@ export class OuiReorderableColumnsDirective
   /** True while _onPointerUp is running — prevents lostpointercapture from re-entering cleanup. */
   private _pointerUpInProgress = false;
   private _sourceIndex = -1;
-  private _currentTargetIndex = -1;
   private _startX = 0;
   private _startY = 0;
   /** Offset from cursor to cell left edge at pointerdown — keeps ghost pinned under cursor horizontally. */
@@ -60,6 +59,11 @@ export class OuiReorderableColumnsDirective
   private _columnIds: string[] = [];
   /** CDK column ID of the currently highlighted target column. */
   private _highlightedTargetColumnId = '';
+  /**
+   * The insertion slot index: the column will be inserted BEFORE this index.
+   * A value equal to _headerCells.length means "insert at the very end".
+   */
+  private _insertionSlot = -1;
   private _ghost: HTMLElement | null = null;
   private _dropIndicator: HTMLElement | null = null;
 
@@ -115,11 +119,15 @@ export class OuiReorderableColumnsDirective
           if (idx === 0) {
             return;
           }
-          // Skip resize handle and ⋮ menu trigger — those have their own handlers.
+          // Skip resize handle, ⋮ menu trigger, and sort indicator —
+          // those have their own click handlers. setPointerCapture must not
+          // be called on these targets or the browser re-routes the click to
+          // the <th> (the captured element), preventing their handlers from firing.
           const target = e.target as HTMLElement;
           if (
-            target.classList.contains('oui-col-resize-handle') ||
-            target.classList.contains('oui-column-menu-trigger')
+            target.closest('.oui-col-resize-handle') ||
+            target.closest('.oui-column-menu-trigger') ||
+            target.closest('.oui-column-sort-indicator')
           ) {
             return;
           }
@@ -167,11 +175,10 @@ export class OuiReorderableColumnsDirective
     this._dragging = false;
     this._dragActive = true;
     this._sourceIndex = cellIndex;
-    this._currentTargetIndex = cellIndex;
     this._startX = e.clientX;
     this._startY = e.clientY;
 
-    // Capture cursor offset within the cell so the ghost stays pinned where the user grabbed.
+    // Capture cursor offset within the cell so the ghost stays pinned under the cursor.
     const cellRect = cell.getBoundingClientRect();
     this._cursorOffsetX = e.clientX - cellRect.left;
     this._cursorOffsetY = e.clientY - cellRect.top;
@@ -256,20 +263,32 @@ export class OuiReorderableColumnsDirective
       }
     }
 
-    // Ghost follows the cursor freely in both X and Y (Jira-like floating chip).
+    // Ghost follows the cursor freely in both X and Y.
+    // Only the height is pinned to the table height.
     if (this._ghost) {
+      const tableRect = this._elementRef.nativeElement.getBoundingClientRect();
+      const bounds = this._getVisibleBounds(tableRect);
+      // Ghost follows the cursor freely in both X and Y —
+      // only its height is locked to the visible table height.
       const ghostX = e.clientX - this._cursorOffsetX;
       const ghostY = e.clientY - this._cursorOffsetY;
+
       this._renderer.setStyle(
         this._ghost,
         'transform',
         `translate(${ghostX}px, ${ghostY}px)`
       );
+      // Keep ghost height equal to the visible table height.
+      this._renderer.setStyle(
+        this._ghost,
+        'height',
+        `${bounds.bottom - bounds.top}px`
+      );
     }
 
-    this._currentTargetIndex = this._getTargetIndex(e.clientX);
-    this._positionDropIndicator(this._currentTargetIndex, e.clientX);
-    this._updateTargetHighlight(this._currentTargetIndex, e.clientX, e.clientY);
+    this._insertionSlot = this._getInsertionSlot(e.clientX);
+    const isOverTable = this._isCursorOverHeaderCell(e.clientX, e.clientY);
+    this._positionDropIndicator(this._insertionSlot, isOverTable);
   }
 
   private _onPointerUp(_e: PointerEvent): void {
@@ -313,25 +332,62 @@ export class OuiReorderableColumnsDirective
       return;
     }
 
-    const prev = this._sourceIndex;
-    const curr = this._currentTargetIndex;
+    // After a real drag, suppress the click event that the browser fires
+    // immediately after pointerup. Without this, releasing the pointer
+    // over the sort indicator fires onSortClick and triggers an unintended sort.
+    // Use document-level capture to intercept regardless of which element
+    // the click is dispatched to (varies by browser / capture state).
+    const suppressDragClick = (evt: MouseEvent) => {
+      evt.stopImmediatePropagation();
+      evt.preventDefault();
+    };
+    document.addEventListener('click', suppressDragClick, {
+      capture: true,
+      once: true,
+    });
+    // Safety: remove the suppressor if no click fires within 300ms.
+    setTimeout(
+      () => document.removeEventListener('click', suppressDragClick, true),
+      300
+    );
 
-    // Only reorder if cursor is directly over a different header cell.
+    const prev = this._sourceIndex;
+
+    // Valid drop: cursor is over a header cell and the insertion slot would
+    // actually move the column (not a no-op).
+    const isNoOp =
+      this._insertionSlot === prev || this._insertionSlot === prev + 1;
     const validDrop =
-      prev !== curr && this._isCursorOverHeaderCell(_e.clientX, _e.clientY);
+      !isNoOp && this._isCursorOverHeaderCell(_e.clientX, _e.clientY);
 
     if (validDrop) {
-      const newOrder = [...this._columnIds];
-      const [moved] = newOrder.splice(prev, 1);
-      newOrder.splice(curr, 0, moved);
+      // Convert the insertion slot to a final index in the original array.
+      // _insertionSlot is the slot index in the current column order.
+      // When the source is before the slot, removing it shifts all later
+      // indices down by one, so we subtract 1 from the slot.
+      let finalIndex = this._insertionSlot;
+      if (prev < finalIndex) {
+        finalIndex -= 1;
+      }
+      // Clamp to valid range after removal.
+      finalIndex = Math.max(
+        0,
+        Math.min(finalIndex, this._columnIds.length - 1)
+      );
 
-      this._ngZone.run(() => {
-        this.columnOrderChanged.emit({
-          previousIndex: prev,
-          currentIndex: curr,
-          columnIds: newOrder,
+      if (prev !== finalIndex) {
+        const newOrder = [...this._columnIds];
+        const [moved] = newOrder.splice(prev, 1);
+        newOrder.splice(finalIndex, 0, moved);
+
+        this._ngZone.run(() => {
+          this.columnOrderChanged.emit({
+            previousIndex: prev,
+            currentIndex: finalIndex,
+            columnIds: newOrder,
+          });
         });
-      });
+      }
     }
   }
 
@@ -379,6 +435,57 @@ export class OuiReorderableColumnsDirective
 
   // ─── Helpers ──────────────────────────────────────────────────────────────────
 
+  /**
+   * Returns the visible bounds of the table, intersected with the nearest
+   * scroll ancestor AND the viewport so drag visuals never escape the
+   * visible area — even when the page itself is the scroll context.
+   */
+  private _getVisibleBounds(tableRect: DOMRect): {
+    left: number;
+    top: number;
+    right: number;
+    bottom: number;
+  } {
+    const bounds = {
+      left: tableRect.left,
+      top: tableRect.top,
+      right: tableRect.right,
+      bottom: tableRect.bottom,
+    };
+
+    // Walk up to find the nearest scroll ancestor and clamp to its rect.
+    const scrollParent = this._findScrollParent(this._elementRef.nativeElement);
+    if (scrollParent) {
+      const sr = scrollParent.getBoundingClientRect();
+      bounds.left = Math.max(bounds.left, sr.left);
+      bounds.top = Math.max(bounds.top, sr.top);
+      bounds.right = Math.min(bounds.right, sr.right);
+      bounds.bottom = Math.min(bounds.bottom, sr.bottom);
+    }
+
+    // Always clamp to the viewport as a final safety net (handles
+    // page-level scrolling where no scroll ancestor exists).
+    bounds.left = Math.max(bounds.left, 0);
+    bounds.top = Math.max(bounds.top, 0);
+    bounds.right = Math.min(bounds.right, globalThis.innerWidth);
+    bounds.bottom = Math.min(bounds.bottom, globalThis.innerHeight);
+
+    return bounds;
+  }
+
+  /** Walk up the DOM to find the nearest ancestor with overflow scrolling. */
+  private _findScrollParent(el: HTMLElement): HTMLElement | null {
+    let parent = el.parentElement;
+    while (parent && parent !== document.documentElement) {
+      const style = globalThis.getComputedStyle(parent);
+      if (/(auto|scroll|hidden)/.test(style.overflowY)) {
+        return parent;
+      }
+      parent = parent.parentElement;
+    }
+    return null;
+  }
+
   private _getColumnId(cell: HTMLElement): string {
     const cls = Array.from(cell.classList).find((c) =>
       c.startsWith('cdk-column-')
@@ -399,23 +506,31 @@ export class OuiReorderableColumnsDirective
     });
   }
 
-  private _getTargetIndex(clientX: number): number {
-    let best = this._sourceIndex;
-    let bestDist = Infinity;
-    this._headerCells.forEach((cell, idx) => {
-      // First column is locked — never allow dropping onto it.
-      if (idx === 0) {
-        return;
+  /**
+   * Calculate the insertion slot index — the position BEFORE which the
+   * dragged column will be inserted. This is edge-based, not center-based:
+   * the cursor position relative to each column boundary determines the slot.
+   *
+   * Returns a value in [1, _headerCells.length] (slot 0 = before the locked
+   * first column, which is never valid).
+   */
+  private _getInsertionSlot(clientX: number): number {
+    const tableRect = this._elementRef.nativeElement.getBoundingClientRect();
+    const bounds = this._getVisibleBounds(tableRect);
+    const clampedX = Math.max(bounds.left, Math.min(clientX, bounds.right));
+
+    // Walk the header cells and find which gap the cursor falls into.
+    // A "gap" is between the midpoint of column N and the midpoint of column N+1.
+    // If cursor is left of the first movable column's midpoint → slot = 1.
+    // If cursor is right of the last column's midpoint → slot = length.
+    for (let i = 1; i < this._headerCells.length; i++) {
+      const rect = this._headerCells[i].getBoundingClientRect();
+      const mid = rect.left + rect.width / 2;
+      if (clampedX < mid) {
+        return i;
       }
-      const rect = cell.getBoundingClientRect();
-      const center = rect.left + rect.width / 2;
-      const dist = Math.abs(clientX - center);
-      if (dist < bestDist) {
-        bestDist = dist;
-        best = idx;
-      }
-    });
-    return best;
+    }
+    return this._headerCells.length;
   }
 
   // ─── Ghost ────────────────────────────────────────────────────────────────────
@@ -424,17 +539,22 @@ export class OuiReorderableColumnsDirective
     const source = this._headerCells[this._sourceIndex];
     const cellRect = source.getBoundingClientRect();
     const tableRect = this._elementRef.nativeElement.getBoundingClientRect();
+    const bounds = this._getVisibleBounds(tableRect);
 
     this._ghost = this._renderer.createElement('div') as HTMLElement;
     this._renderer.addClass(this._ghost, 'oui-col-reorder-ghost');
-    // Full column size: same width as source header, full table height.
+    // Full column size: same width as source header, height clipped to visible table area.
     this._renderer.setStyle(this._ghost, 'width', `${cellRect.width}px`);
-    this._renderer.setStyle(this._ghost, 'height', `${tableRect.height}px`);
-    // Start at source column, top of table.
+    this._renderer.setStyle(
+      this._ghost,
+      'height',
+      `${bounds.bottom - bounds.top}px`
+    );
+    // Start at source column, top of visible table area.
     this._renderer.setStyle(
       this._ghost,
       'transform',
-      `translate(${cellRect.left}px, ${tableRect.top}px)`
+      `translate(${cellRect.left}px, ${bounds.top}px)`
     );
     this._renderer.appendChild(document.body, this._ghost);
   }
@@ -454,28 +574,52 @@ export class OuiReorderableColumnsDirective
     this._renderer.appendChild(document.body, this._dropIndicator);
   }
 
-  private _positionDropIndicator(targetIndex: number, clientX: number): void {
+  /**
+   * Position the drop indicator at the insertion slot boundary.
+   * The slot index points BEFORE a column, so we use the left edge of
+   * that column — or the right edge of the last column for the end slot.
+   */
+  private _positionDropIndicator(slot: number, visible: boolean): void {
     if (!this._dropIndicator) {
       return;
     }
-    const targetCell = this._headerCells[targetIndex];
-    if (!targetCell) {
+    // Hide when cursor is outside the table header area, or when the
+    // insertion slot equals the source (no-op drop).
+    const isNoOp = slot === this._sourceIndex || slot === this._sourceIndex + 1;
+    if (!visible || isNoOp) {
+      this._renderer.setStyle(this._dropIndicator, 'display', 'none');
       return;
     }
-    const rect = targetCell.getBoundingClientRect();
+    this._renderer.setStyle(this._dropIndicator, 'display', '');
+
     const tableRect = this._elementRef.nativeElement.getBoundingClientRect();
-    const mid = rect.left + rect.width / 2;
-    const xPos = clientX < mid ? rect.left : rect.right;
+    const bounds = this._getVisibleBounds(tableRect);
+    const indicatorWidth = 2;
+
+    let rawX: number;
+    if (slot >= this._headerCells.length) {
+      // Insert at the very end — use right edge of last column.
+      const lastCell = this._headerCells[this._headerCells.length - 1];
+      rawX = lastCell.getBoundingClientRect().right;
+    } else {
+      // Insert before column at `slot` — use its left edge.
+      rawX = this._headerCells[slot].getBoundingClientRect().left;
+    }
+
+    const xPos = Math.max(
+      bounds.left,
+      Math.min(rawX, bounds.right - indicatorWidth)
+    );
 
     this._renderer.setStyle(
       this._dropIndicator,
       'transform',
-      `translate(${xPos}px, ${tableRect.top}px)`
+      `translate(${xPos}px, ${bounds.top}px)`
     );
     this._renderer.setStyle(
       this._dropIndicator,
       'height',
-      `${tableRect.height}px`
+      `${bounds.bottom - bounds.top}px`
     );
   }
 
@@ -500,41 +644,6 @@ export class OuiReorderableColumnsDirective
           ? this._renderer.addClass(cell, cls)
           : this._renderer.removeClass(cell, cls)
       );
-  }
-
-  /** Update which target column is highlighted as the pointer moves. */
-  private _updateTargetHighlight(
-    targetIndex: number,
-    clientX: number,
-    clientY: number
-  ): void {
-    const isOverHeader = this._isCursorOverHeaderCell(clientX, clientY);
-    const targetCell = targetIndex >= 0 ? this._headerCells[targetIndex] : null;
-    const targetId =
-      isOverHeader && targetCell ? this._getColumnId(targetCell) : '';
-    const sourceId =
-      this._sourceIndex >= 0 ? this._columnIds[this._sourceIndex] : '';
-
-    if (targetId === this._highlightedTargetColumnId) {
-      return;
-    }
-
-    // Clear previous target highlight.
-    if (this._highlightedTargetColumnId) {
-      this._applyColumnClass(
-        this._highlightedTargetColumnId,
-        'oui-col-reorder-target',
-        false
-      );
-    }
-
-    // Apply new target highlight, unless it is the source column itself or cursor is not over header.
-    if (targetId && targetId !== sourceId) {
-      this._applyColumnClass(targetId, 'oui-col-reorder-target', true);
-      this._highlightedTargetColumnId = targetId;
-    } else {
-      this._highlightedTargetColumnId = '';
-    }
   }
 
   /** Remove all drag-related highlight classes from the table. */
