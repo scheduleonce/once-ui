@@ -6,12 +6,19 @@
   type="button"
   [class.oui-column-sort-active]="sortDirection"
   (click)="onSortClick($event)"
+  [ouiTooltip]="
+    sortDirection === 'asc'
+      ? 'Sorted ascending'
+      : sortDirection === 'desc'
+      ? 'Sorted descending'
+      : 'Sort ascending'
+  "
   [attr.aria-label]="
     sortDirection === 'asc'
-      ? 'Sort descending'
+      ? 'Sort ascending'
       : sortDirection === 'desc'
       ? 'Clear sort'
-      : 'Sort ascending'
+      : 'Sort descending'
   "
 >
   @if (sortDirection === 'asc') {
@@ -43,12 +50,12 @@
   @if (!isFirst && !isSecond) {
   <button oui-menu-item (click)="select('moveLeft')">
     <oui-icon svgIcon="move_left" class="oui-column-menu-icon"></oui-icon>
-    <span>Move column to left</span>
+    <span>Move to left</span>
   </button>
   } @if (!isFirst && !isLast) {
   <button oui-menu-item (click)="select('moveRight')">
     <oui-icon svgIcon="move_right" class="oui-column-menu-icon"></oui-icon>
-    <span>Move column to right</span>
+    <span>Move to right</span>
   </button>
   }
 
