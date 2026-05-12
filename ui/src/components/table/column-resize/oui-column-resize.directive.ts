@@ -265,7 +265,9 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       // skip the reinit entirely.
       const currentHeaderIds = new Set(
         Array.from(
-          host.querySelectorAll<HTMLElement>('oui-header-cell, th[oui-header-cell]')
+          host.querySelectorAll<HTMLElement>(
+            'oui-header-cell, th[oui-header-cell]'
+          )
         )
           .map((c) => this._getColumnId(c))
           .filter(Boolean)
@@ -388,7 +390,6 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     if (newColumnIds.length === 0) {
       return;
     }
-
 
     // Find the last existing column in DOM order (rightmost column that already
     // has a stored width, i.e. was present before this batch of additions).
@@ -655,7 +656,8 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     if (lastColumnId && lastColumnId !== this._columnId) {
       this._elasticColumnId = lastColumnId;
       this._elasticColumnStartWidth = this._columnWidths.get(lastColumnId) ?? 0;
-      this._elasticColumnWasUserResized = this._userResizedColumns.has(lastColumnId);
+      this._elasticColumnWasUserResized =
+        this._userResizedColumns.has(lastColumnId);
       let startTotal = 0;
       this._columnWidths.forEach((w) => (startTotal += w));
       const cw = this._elementRef.nativeElement.parentElement
@@ -695,8 +697,8 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
         const contentFloor = Math.max(1, elasticContentWidth + elasticPadding);
         this._elasticColumnMinWidth =
           this._elasticColumnStartWidth >= this._effectiveMinWidth
-            ? this._effectiveMinWidth   // started above min → honour min
-            : contentFloor;             // started below min → shrink to content
+            ? this._effectiveMinWidth // started above min → honour min
+            : contentFloor; // started below min → shrink to content
       } else {
         this._elasticColumnMinWidth = this._effectiveMinWidth;
       }
@@ -772,9 +774,11 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
           // Refresh elastic start width to the current stored value so the
           // transition into elastic mode is seamless.
           this._elasticColumnStartWidth =
-            this._columnWidths.get(this._elasticColumnId) ?? this._elasticColumnStartWidth;
-          this._elasticColumnWasUserResized =
-            this._userResizedColumns.has(this._elasticColumnId);
+            this._columnWidths.get(this._elasticColumnId) ??
+            this._elasticColumnStartWidth;
+          this._elasticColumnWasUserResized = this._userResizedColumns.has(
+            this._elasticColumnId
+          );
         }
       }
     }
@@ -801,7 +805,10 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
           this._userResizedColumns.delete(this._elasticColumnId);
         } else {
           // Hit minimum — pin it and let the table overflow (scrollbar appears).
-          this._columnWidths.set(this._elasticColumnId, this._elasticColumnMinWidth);
+          this._columnWidths.set(
+            this._elasticColumnId,
+            this._elasticColumnMinWidth
+          );
           this._userResizedColumns.add(this._elasticColumnId);
         }
         const elasticWidth = this._columnWidths.get(this._elasticColumnId) ?? 0;
@@ -903,7 +910,10 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     this._columnWidths.set(this._columnId, this._startWidth);
     // Restore the elastic column to its exact pre-drag state.
     if (this._elasticColumnId) {
-      this._columnWidths.set(this._elasticColumnId, this._elasticColumnStartWidth);
+      this._columnWidths.set(
+        this._elasticColumnId,
+        this._elasticColumnStartWidth
+      );
       if (this._elasticColumnWasUserResized) {
         this._userResizedColumns.add(this._elasticColumnId);
       } else {

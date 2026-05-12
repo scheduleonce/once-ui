@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [11.0.5] - 2026-05-12
+
+- [ONCEHUB-115012](https://scheduleonce.atlassian.net/browse/ONCEHUB-115012) [ONCE-UI] [Table] Updated Interactive Table resize improvements.
+
 ## [11.0.4] - 2026-04-28
 
 - [ONCEHUB-117481](https://scheduleonce.atlassian.net/browse/ONCEHUB-117481) [ONCE-UI] [Table] Added Interactive Table features (Resize, Reorder, and Column Menu).
