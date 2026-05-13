@@ -8,6 +8,7 @@ import { OuiColumnMenuDirective } from './column-menu/oui-column-menu.directive'
 import { OuiColumnMenuPanelComponent } from './column-menu/oui-column-menu-panel.component';
 import { OuiResizableColumnsDirective } from './column-resize/oui-column-resize.directive';
 import { OuiReorderableColumnsDirective } from './column-reorder/oui-column-reorder.directive';
+import { OuiTooltipModule } from '../tooltip/tooltip-module';
 
 const COLUMN_FEATURE_DECLARATIONS = [
   OuiColumnMenuDirective,
@@ -32,6 +33,7 @@ const COLUMN_FEATURE_DECLARATIONS = [
     OuiSortModule,
     OuiIconModule,
     OuiMenuModule,
+    OuiTooltipModule,
   ],
   declarations: COLUMN_FEATURE_DECLARATIONS,
   exports: [
