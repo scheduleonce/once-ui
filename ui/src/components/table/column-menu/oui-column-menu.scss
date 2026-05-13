@@ -51,6 +51,8 @@
 // ─── Sort indicator (beside column title) ─────────────────────────────────────
 // Clicking cycles through asc → desc → cleared, matching oui-sort-header behavior.
 
+$arrow-sorting: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMTAwJSIgd2lkdGg9IjEwMCUiIGZpdD0iIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiBmb2N1c2FibGU9ImZhbHNlIiB2aWV3Qm94PSI0LjE5ODk5OTQwNDkwNzIyNyAxLjEwMDAwMDM4MTQ2OTcyNjYgMTEuNjQ1MDAwNDU3NzYzNjcyIDE2LjkzNDk5OTQ2NTk0MjM4MyI+PHBhdGggZD0iTTQuOTA2IDcuNjNsNS4xMTYtNS4xMTYgNS4xMTUgNS4xMTYgMC43MDctMC43MDctNS44MjItNS44MjMtNS44MjMgNS44MjMgMC43MDcgMC43MDd6Ij48L3BhdGg+PHBhdGggZD0iTTkuNSAxOC4wMzVoMXYtMTZoLTF2MTZ6Ij48L3BhdGg+PC9zdmc+');
+
 .oui-column-sort-indicator {
   display: inline-flex;
   align-items: center;
@@ -72,6 +74,17 @@
     width: 12px;
     height: 12px;
     color: #8c8c8c; // faded hint color when not sorted
+  }
+
+  &--sorting {
+    width: 12px;
+    height: 12px;
+    background: $arrow-sorting center center no-repeat;
+    display: inline-block;
+
+    &--desc {
+      transform: scaleY(-1);
+    }
   }
 
   // When actively sorted, show darker icon.
