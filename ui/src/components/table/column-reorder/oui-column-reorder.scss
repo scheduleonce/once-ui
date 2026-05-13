@@ -95,8 +95,13 @@ table[oui-table][ouiReorderableColumns] th[oui-header-cell]:not(:first-child) {
 }
 
 // Drop indicator: thin vertical line at the drop target edge.
+// left:0;top:0 is required so that transform:translate(x,y) positions
+// the element from the viewport origin rather than from its auto static
+// position (which varies depending on the amount of content in the page).
 .oui-col-reorder-indicator {
   position: fixed;
+  left: 0;
+  top: 0;
   width: 2px;
   background: $_drag-blue-line;
   border-radius: 1px;
