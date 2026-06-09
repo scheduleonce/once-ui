@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "11.0.6-beta.2",
+  "version": "11.0.6",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -48,7 +48,7 @@
     "zone.js": "^0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^21.2.9",
+    "@angular-devkit/build-angular": "21.2.9",
     "@angular-eslint/builder": "^21.3.0",
     "@angular-eslint/eslint-plugin": "^21.3.0",
     "@angular-eslint/eslint-plugin-template": "^21.3.0",
