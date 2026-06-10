@@ -214,16 +214,55 @@ export class OuiTableCustomStorybook {
 }
 
 // ─── Enhanced table story (sort + resize + reorder + column menu) ──────────────
-
 const ENHANCED_DATA = [
-  { name: 'Hydrogen', position: 1, weight: 1.0079, symbol: 'H' },
-  { name: 'Helium', position: 2, weight: 4.0026, symbol: 'He' },
-  { name: 'Lithium', position: 3, weight: 6.941, symbol: 'Li' },
-  { name: 'Beryllium', position: 4, weight: 9.0122, symbol: 'Be' },
-  { name: 'Boron', position: 5, weight: 10.811, symbol: 'B' },
-  { name: 'Carbon', position: 6, weight: 12.0107, symbol: 'C' },
-  { name: 'Nitrogen', position: 7, weight: 14.0067, symbol: 'N' },
-  { name: 'Oxygen', position: 8, weight: 15.9994, symbol: 'O' },
+  {
+    element_name_with_extremely_long_header: 'Hydrogen',
+    position: 1,
+    weight: 1.0079,
+    symbol: 'H',
+  },
+  {
+    element_name_with_extremely_long_header: 'Helium',
+    position: 2,
+    weight: 4.0026,
+    symbol: 'He',
+  },
+  {
+    element_name_with_extremely_long_header: 'Lithium',
+    position: 3,
+    weight: 6.941,
+    symbol: 'Li',
+  },
+  {
+    element_name_with_extremely_long_header: 'Beryllium',
+    position: 4,
+    weight: 9.0122,
+    symbol: 'Be',
+  },
+  {
+    element_name_with_extremely_long_header: 'Boron',
+    position: 5,
+    weight: 10.811,
+    symbol: 'B',
+  },
+  {
+    element_name_with_extremely_long_header: 'Carbon',
+    position: 6,
+    weight: 12.0107,
+    symbol: 'C',
+  },
+  {
+    element_name_with_extremely_long_header: 'Nitrogen',
+    position: 7,
+    weight: 14.0067,
+    symbol: 'N',
+  },
+  {
+    element_name_with_extremely_long_header: 'Oxygen',
+    position: 8,
+    weight: 15.9994,
+    symbol: 'O',
+  },
 ];
 
 @Component({
@@ -254,7 +293,9 @@ const ENHANCED_DATA = [
             [ouiColumnMenuHasSort]="true"
             (columnMenuAction)="onColumnMenuAction($event)"
           >
-            {{ column | titlecase }}
+            <span class="oui-header-label">
+              {{ column | titlecase }}
+            </span>
           </th>
           <td oui-cell *ouiCellDef="let row">{{ row[column] }}</td>
         </ng-container>
