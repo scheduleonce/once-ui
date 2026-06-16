@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "11.0.7",
+  "version": "11.1.0",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -28,7 +28,10 @@
     "picomatch@4.0.3": "4.0.4",
     "readdirp": {
       "picomatch": "4.0.4"
-    }
+    },
+    "vite": "7.3.5",
+    "@babel/core": "7.29.6",
+    "ws": "8.21.0"
   },
   "dependencies": {
     "@angular-devkit/architect": "0.2102.15",
