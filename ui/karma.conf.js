@@ -1,6 +1,29 @@
-// Karma configuration file, see link for more information
-// https://karma-runner.github.io/1.0/config/configuration-file.html
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+const fs = require('fs');
+
+let chromePath;
+try {
+  // 1. Try finding Puppeteer's executable (works locally)
+  chromePath = require('puppeteer').executablePath();
+} catch (e) {
+  // 2. Fallback to standard Ubuntu path if puppeteer resolution throws an error
+  chromePath = '/usr/bin/chromium-browser';
+}
+
+// 3. CRITICAL: If the resolved path doesn't physically exist on disk (like in your CI failure)
+// or if we are explicitly running inside GitHub Actions, force the system binary path.
+if (!fs.existsSync(chromePath) || process.env.GITHUB_ACTIONS === 'true') {
+  // If chromium-browser isn't found, try alternative common linux paths
+  if (fs.existsSync('/usr/bin/chromium-browser')) {
+    chromePath = '/usr/bin/chromium-browser';
+  } else if (fs.existsSync('/usr/bin/chromium')) {
+    chromePath = '/usr/bin/chromium';
+  } else {
+    chromePath = '/usr/bin/google-chrome-stable';
+  }
+}
+
+process.env.CHROME_BIN = chromePath;
+console.log('🚀 Karma is booting Chrome from:', process.env.CHROME_BIN);
 module.exports = function (config) {
   config.set({
     basePath: '',
