@@ -89,7 +89,7 @@
     "karma-junit-reporter": "2.0.1",
     "ng-packagr": "21.2.5",
     "prettier": "2.8.0",
-    "puppeteer": "24.40.0",
+    "puppeteer": "25.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "1.98.0",
