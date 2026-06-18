@@ -134,6 +134,34 @@ jobs:
             libayatana-appindicator3-1 \
             xdg-utils
 
+      - name: Install Chromium and expose CHROME_BIN
+        shell: bash
+        run: |
+          # Try installing a Chromium package and set CHROME_BIN for Karma
+          sudo apt-get install -y chromium-browser chromium || true
+          if [ -x "/usr/bin/chromium-browser" ]; then
+            echo "CHROME_BIN=/usr/bin/chromium-browser" >> $GITHUB_ENV
+          elif [ -x "/usr/bin/chromium" ]; then
+            echo "CHROME_BIN=/usr/bin/chromium" >> $GITHUB_ENV
+          elif [ -x "/usr/bin/google-chrome-stable" ]; then
+            echo "CHROME_BIN=/usr/bin/google-chrome-stable" >> $GITHUB_ENV
+          else
+            echo "CHROME_BIN not found; Karma will try Puppeteer's binary if available"
+          fi
+
+      - name: CI Chrome debug (print CHROME_BIN, Puppeteer path, and cache)
+        shell: bash
+        run: |
+          echo "CHROME_BIN=$CHROME_BIN"
+          echo "-- which binaries --"
+          which chromium-browser || true
+          which chromium || true
+          which google-chrome-stable || true
+          echo "-- puppeteer executable --"
+          node -e "try{const p=require('puppeteer'); const exe=typeof p.executablePath==='function'?p.executablePath():p.executablePath; console.log(exe);}catch(e){console.log('puppeteer not installed or failed:', e.message)}"
+          echo "-- puppeteer cache --"
+          ls -la ~/.cache/puppeteer || true
+
       # ---------------------------------------------------
       # 3. Build TypeScript
       # ---------------------------------------------------
