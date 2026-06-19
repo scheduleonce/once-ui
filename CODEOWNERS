@@ -1,5 +1,5 @@
 # Global Default Owners (Must be on a single line)
-* @mderazon @sodsingh @so-kaushal @sharmaaayush-OH @siddharth-so @sumitsheokand
+* @sodsingh @so-kaushal @sharmaaayush-OH @siddharth-so @sumitsheokand
 
 # Security related files
 /Dockerfile @scheduleonce/security
