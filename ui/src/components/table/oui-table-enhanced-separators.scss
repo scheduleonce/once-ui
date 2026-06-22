@@ -37,7 +37,7 @@ table[oui-table][ouiReorderableColumns] {
   td.oui-cell:first-child {
     position: sticky !important;
     left: 0;
-    z-index: 2;
+    z-index: 999;
   }
 
   oui-cell:first-child,
@@ -47,7 +47,7 @@ table[oui-table][ouiReorderableColumns] {
 
   oui-header-cell:first-child,
   th.oui-header-cell:first-child {
-    z-index: 3;
+    z-index: 999;
     background: #f6f6f6;
   }
 

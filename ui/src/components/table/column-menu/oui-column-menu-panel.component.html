@@ -1,49 +1,51 @@
-<!-- Sort indicator — shown beside column title when sort is enabled.
-     Clicking cycles through asc → desc → cleared, just like oui-sort-header. -->
-@if (hasSort) {
-<button
-  class="oui-column-sort-indicator tw-block"
-  type="button"
-  [class.oui-column-sort-active]="sortDirection"
-  (click)="onSortClick($event)"
-  [ouiTooltip]="
-    sortDirection === 'asc'
-      ? 'Sorted ascending'
-      : sortDirection === 'desc'
-      ? 'Sorted descending'
-      : 'Sort ascending'
-  "
-  [attr.aria-label]="
-    sortDirection === 'asc'
-      ? 'Sort descending'
-      : sortDirection === 'desc'
-      ? 'Clear sort'
-      : 'Sort ascending'
-  "
->
-  @if (sortDirection === 'asc') {
+<!-- Actions container — hidden by default, smoothly appears on header hover/focus.
+     Houses the sort indicator and column-menu trigger side by side. -->
+<div class="oui-column-header-actions">
+  @if (hasSort) {
+  <button
+    class="oui-column-sort-indicator tw-block"
+    type="button"
+    [class.oui-column-sort-active]="sortDirection"
+    (click)="onSortClick($event)"
+    [title]="
+      sortDirection === 'asc'
+        ? 'Sorted ascending'
+        : sortDirection === 'desc'
+        ? 'Sorted descending'
+        : 'Sort ascending'
+    "
+    [attr.aria-label]="
+      sortDirection === 'asc'
+        ? 'Sort descending'
+        : sortDirection === 'desc'
+        ? 'Clear sort'
+        : 'Sort ascending'
+    "
+  >
+    @if (sortDirection === 'asc') {
 
-  <div class="oui-column-sort-indicator--sorting"></div>
-  } @else {
-  <div
-    class="oui-column-sort-indicator--sorting oui-column-sort-indicator--sorting--desc"
-  ></div>
+    <div class="oui-column-sort-indicator--sorting"></div>
+    } @else {
+    <div
+      class="oui-column-sort-indicator--sorting oui-column-sort-indicator--sorting--desc"
+    ></div>
+    }
+  </button>
   }
-</button>
-}
 
-<!-- ⋮ trigger button — absolutely positioned inside the header cell -->
-<button
-  #triggerBtn
-  class="oui-column-menu-trigger"
-  type="button"
-  aria-label="Column options"
-  [ouiMenuTriggerFor]="columnMenu"
-  (menuClosed)="triggerBtn.blur()"
-  (click)="$event.stopPropagation()"
->
-  &#8942;
-</button>
+  <!-- ⋮ trigger button — flows inside the actions container -->
+  <button
+    #triggerBtn
+    class="oui-column-menu-trigger"
+    type="button"
+    aria-label="Column options"
+    [ouiMenuTriggerFor]="columnMenu"
+    (menuClosed)="triggerBtn.blur()"
+    (click)="$event.stopPropagation()"
+  >
+    &#8942;
+  </button>
+</div>
 
 <!-- Dropdown powered by the existing oui-menu component -->
 <oui-menu #columnMenu="ouiMenu">

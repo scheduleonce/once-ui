@@ -115,6 +115,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   private get _effectiveMinWidth(): number {
     return this.minColumnWidth > 0 ? this.minColumnWidth : 200;
   }
+  private _lastPointerId = 0;
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this._platformId)) {
@@ -254,66 +255,59 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
    * changes — body row additions/removals (infinite scroll, pagination) fire
    * the same MutationObserver but must not cause a reinit loop.
    */
+
   private _watchHeaderRow(): void {
     const host = this._elementRef.nativeElement;
-    this._mutationObserver = new MutationObserver(() => {
-      if (this._reinitScheduled) {
-        return;
-      }
-      // Snapshot current header cell column IDs and compare against what we
-      // have stored. If the set is unchanged (e.g. only body rows changed),
-      // skip the reinit entirely.
-      const currentHeaderIds = new Set(
-        Array.from(
-          host.querySelectorAll<HTMLElement>(
-            'oui-header-cell, th[oui-header-cell]'
-          )
-        )
-          .map((c) => this._getColumnId(c))
-          .filter(Boolean)
-      );
-      const storedIds = this._columnWidths;
-      const headerChanged =
-        currentHeaderIds.size !== storedIds.size ||
-        [...currentHeaderIds].some((id) => !storedIds.has(id));
 
-      if (!headerChanged) {
-        return; // Body rows or other subtree changes — not a header column change.
+    this._mutationObserver = new MutationObserver(() => {
+      if (this._reinitScheduled) return;
+
+      if (host.querySelector('.oui-col-resize-handle')) {
+        return;
       }
 
       this._reinitScheduled = true;
-      this._mutationObserver?.disconnect();
+
       setTimeout(() => {
-        this._reinitScheduled = false;
+        const headerRow = host.querySelector(
+          'oui-header-row, tr[oui-header-row]'
+        );
+
+        if (!headerRow) {
+          this._reinitScheduled = false;
+          return;
+        }
+
         this._reinitHandles();
-        // Reconnect after handles are added.
-        this._mutationObserver?.observe(host, {
-          childList: true,
-          subtree: true,
-        });
+        this._reinitScheduled = false;
       }, 0);
     });
-    this._mutationObserver.observe(host, { childList: true, subtree: true });
+
+    this._mutationObserver.observe(host, {
+      childList: true,
+      subtree: true,
+    });
   }
 
   /** Called when CDK re-stamps header cells; re-appends handles and restores widths. */
   private _reinitHandles(): void {
+    if (this._handles.length > 0) {
+      this._handles.forEach((h) => h.remove());
+      this._handles = [];
+    }
     // Remove stale handles that may survive on reused cells.
-    this._handles.forEach((h) => h.remove());
-    this._handles = [];
-    // Detach old pointerdown listeners.
-    this._handleUnlisteners.forEach((fn) => fn());
-    this._handleUnlisteners = [];
-    // Reconcile any columns that were removed: clean up their stored widths
-    // and redistribute freed space to the last remaining column.
-    this._reconcileRemovedColumns();
-    this._initHandles();
-    // Compute widths for any newly added columns (and adjust existing ones)
-    // BEFORE the final reapply pass so _reapplyStoredWidths sees the
-    // already-updated _columnWidths map and applies correct values to every
-    // cell — including body cells CDK may render after header cells.
-    this._snapshotNewColumns();
-    this._reapplyStoredWidths();
+    setTimeout(() => {
+      this._handles.forEach((h) => h.remove());
+      this._handles = [];
+
+      this._handleUnlisteners.forEach((fn) => fn());
+      this._handleUnlisteners = [];
+
+      this._reconcileRemovedColumns();
+      this._initHandles();
+      this._snapshotNewColumns();
+      this._reapplyStoredWidths();
+    }, 0);
   }
 
   /**
@@ -554,6 +548,10 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       this._handles.push(handle);
 
       this._renderer.setStyle(cell, 'position', 'relative');
+      this._renderer.setStyle(cell, 'overflow', 'visible');
+      this._renderer.setStyle(handle, 'touch-action', 'none');
+      this._renderer.setStyle(handle, 'cursor', 'col-resize');
+      this._renderer.setStyle(cell, 'user-select', 'none');
 
       // pointerdown on handle — run outside zone to avoid unnecessary CD cycles.
       const unlisten = this._renderer.listen(
@@ -588,6 +586,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     headerCell: HTMLElement,
     handle: HTMLElement
   ): void {
+    this._lastPointerId = e.pointerId;
     this._isDragging = true;
     this._hasMoved = false;
     this._activeHeaderCell = headerCell;
@@ -629,7 +628,8 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     );
     this._columnId = this._getColumnId(headerCell);
     this._columnCells = this._getColumnCells(this._columnId);
-
+    this._activeHeaderCell = headerCell;
+    this._activeHandle = handle;
     // Find the elastic column: the rightmost column that is NOT the dragged
     // one. If the dragged column IS the rightmost, disable elastic entirely
     // (dragging the last column's handle should grow/shrink the table freely).
@@ -703,12 +703,16 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
         this._elasticColumnMinWidth = this._effectiveMinWidth;
       }
     }
-
-    handle.setPointerCapture(e.pointerId);
+    try {
+      handle.setPointerCapture(e.pointerId);
+    } catch {
+      // Pointer capture can fail in browsers that do not fully support it.
+    }
 
     // Mark only this handle as active (not the whole table — avoids coloring all handles).
     this._activeHandle = handle;
     this._renderer.addClass(handle, 'oui-col-resize-handle--active');
+    this._renderer.addClass(document.body, 'oui-table-resize-cursor');
 
     // Highlight the right border of the column being resized.
     this._columnCells.forEach((cell) =>
@@ -720,7 +724,6 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
       this._elementRef.nativeElement,
       'oui-table-resizing'
     );
-
     this._mouseMoveUnlisten = this._renderer.listen(
       handle,
       'pointermove',
@@ -830,6 +833,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   }
 
   private _onPointerUp(_e: PointerEvent): void {
+    this._renderer.removeClass(document.body, 'oui-table-resize-cursor');
     if (!this._isDragging) {
       return;
     }
@@ -898,6 +902,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   }
 
   private _cancelResize(): void {
+    this._renderer.removeClass(document.body, 'oui-table-resize-cursor');
     if (!this._isDragging) {
       return;
     }
@@ -1001,6 +1006,13 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    try {
+      if (this._activeHandle && this._lastPointerId !== 0) {
+        this._activeHandle.releasePointerCapture(this._lastPointerId);
+      }
+    } catch {
+      // Ignore cleanup failures during teardown.
+    }
     this._cleanupDragListeners();
     this._handleUnlisteners.forEach((fn) => fn());
     this._handles.forEach((h) => h.remove());

@@ -1,10 +1,19 @@
-// Trigger button styles — appended to th[oui-header-cell] by OuiColumnMenuDirective.
+// ═══════════════════════════════════════════════════════════════════════════════
+// ACTIONS CONTAINER (wraps sort indicator + menu trigger)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+.oui-column-header-actions {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+// ─── Trigger button ──────────────────────────────────────────────────────────
+
 .oui-column-menu-trigger {
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: none; // shown on hover via oui-header-cell:hover rule below
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 20px;
@@ -20,6 +29,7 @@
   z-index: 1;
   transition: background 0.15s ease;
   outline: none;
+  flex-shrink: 0;
 
   &:hover {
     background: #e8e8e8;
@@ -48,6 +58,11 @@
   }
 }
 
+.oui-column-menu-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
 // ─── Sort indicator (beside column title) ─────────────────────────────────────
 // Clicking cycles through asc → desc → cleared, matching oui-sort-header behavior.
 
@@ -64,7 +79,6 @@ $arrow-sorting: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53M
   background: transparent;
   cursor: pointer;
   padding: 0;
-  margin-left: 4px;
   vertical-align: middle;
   outline: none;
   flex-shrink: 0;
@@ -97,39 +111,54 @@ $arrow-sorting: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53M
   }
 }
 
-// Hide the sort indicator by default; show on header hover, when actively sorted,
-// or when the header contains keyboard focus.
-.oui-column-sort-indicator {
-  opacity: 0;
-}
-.oui-column-sort-indicator.oui-column-sort-active {
-  opacity: 1;
-  width: 20px;
-  height: 20px;
-}
-oui-header-cell:hover .oui-column-sort-indicator,
-th[oui-header-cell]:hover .oui-column-sort-indicator,
-oui-header-cell:focus-within .oui-column-sort-indicator,
-th[oui-header-cell]:focus-within .oui-column-sort-indicator {
-  opacity: 1;
-}
-
 .oui-column-sort-indicator:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: -2px;
-  opacity: 1;
 }
 
-// Show trigger on header cell hover, when the header contains keyboard focus,
-// or when the menu is already open.
-oui-header-cell:hover .oui-column-menu-trigger,
-th[oui-header-cell]:hover .oui-column-menu-trigger,
-oui-header-cell:focus-within .oui-column-menu-trigger,
-th[oui-header-cell]:focus-within .oui-column-menu-trigger,
-.oui-column-menu-trigger[aria-expanded='true'] {
-  display: flex;
+// ═══════════════════════════════════════════════════════════════════════════════
+// FLEX-BASED TABLE LAYOUT  (oui-header-cell custom element, display: flex)
+// ═══════════════════════════════════════════════════════════════════════════════
+// The actions container participates in flex layout — hidden via max-width: 0
+// and smoothly expands on hover. The label (oui-sort-header-container) uses
+// flex: 1 + min-width: 0 so it shrinks and truncates.
+
+th.oui-header-cell {
+  position: relative;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
+.oui-header-label {
+  display: block;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  /* IMPORTANT: allows transition when icons appear */
+  transition: padding-right 0.15s ease;
+}
+
+.oui-column-header-actions {
+  display: none !important;
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  gap: 4px;
+  white-space: nowrap;
+}
+
+/* show on hover */
+th.oui-header-cell:hover .oui-column-header-actions {
+  display: inline-flex !important;
+}
+th.oui-header-cell:hover .oui-header-label {
+  padding-right: 24px !important; /* space for icons */
+  box-sizing: border-box;
+}
 .oui-column-menu-trigger:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
@@ -157,25 +186,17 @@ th[oui-header-cell]:focus-within .oui-column-menu-trigger,
 .oui-column-menu-header .oui-sort-header-container {
   display: inline-flex !important;
   align-items: center !important;
-  max-width: calc(
-    100% - 30px
-  ) !important; // reserve space for sort indicator + menu trigger
+  min-width: 0;
   vertical-align: middle;
-  overflow: hidden !important;
 }
 
-// The sort-header button carries the column title text.
+// The sort-header button carries the column title text — truncate when tight.
 .oui-column-menu-header .oui-sort-header-button {
-  overflow: hidden !important;
   text-overflow: ellipsis !important;
   white-space: nowrap !important;
   text-align: left;
-}
-
-// The sort indicator must be inline to sit beside the container.
-.oui-column-menu-header .oui-column-sort-indicator {
-  display: inline-flex !important;
-  vertical-align: middle;
+  min-width: 0;
+  flex: 1; // fill the parent flex container so truncation works
 }
 
 // Hide the built-in oui-sort-header arrow — the column-menu panel's own sort
