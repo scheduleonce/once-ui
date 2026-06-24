@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "11.1.0",
+  "version": "11.2.0",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -31,7 +31,18 @@
     },
     "vite": "7.3.5",
     "@babel/core": "7.29.6",
-    "ws": "8.21.0"
+    "ws": "8.21.0",
+    "piscina": "5.2.0",
+    "esbuild": "0.28.1",
+    "@angular/build": {
+      "undici": "7.28.0"
+    },
+    "@compodoc/compodoc": {
+      "cheerio": {
+        "undici": "7.28.0"
+      }
+    },
+    "uuid": "11.1.1"
   },
   "dependencies": {
     "@angular-devkit/architect": "0.2102.15",
@@ -56,8 +67,8 @@
     "@angular-eslint/eslint-plugin": "^21.4.0",
     "@angular-eslint/eslint-plugin-template": "^21.4.0",
     "@angular-eslint/template-parser": "^21.4.0",
-    "@angular/build": "21.2.15",
-    "@angular/cli": "21.2.15",
+    "@angular/build": "21.2.16",
+    "@angular/cli": "21.2.16",
     "@angular/compiler-cli": "21.2.17",
     "@angular/elements": "21.2.17",
     "@angular/language-service": "21.2.17",
