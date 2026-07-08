@@ -444,11 +444,11 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
   private _reapplyStoredWidths(): void {
     this._doApply();
     if (this._pendingApplyRaf !== null) {
-      cancelAnimationFrame(this._pendingApplyRaf);
+      globalThis.cancelAnimationFrame(this._pendingApplyRaf);
     }
-    this._pendingApplyRaf = requestAnimationFrame(() => {
+    this._pendingApplyRaf = globalThis.requestAnimationFrame(() => {
       this._doApplyInline();
-      this._pendingApplyRaf = requestAnimationFrame(() => {
+      this._pendingApplyRaf = globalThis.requestAnimationFrame(() => {
         this._pendingApplyRaf = null;
         this._doApplyInline();
       });
@@ -1021,7 +1021,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     this._overflowObserver?.disconnect();
     this._overflowObserver = null;
     if (this._pendingApplyRaf !== null) {
-      cancelAnimationFrame(this._pendingApplyRaf);
+      globalThis.cancelAnimationFrame(this._pendingApplyRaf);
       this._pendingApplyRaf = null;
     }
     if (this._styleEl) {

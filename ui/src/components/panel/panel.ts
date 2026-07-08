@@ -16,6 +16,7 @@ import {
   OnDestroy,
   inject,
   HostAttributeToken,
+  ChangeDetectorRef,
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
@@ -63,7 +64,7 @@ export function OUI_PANEL_DEFAULT_OPTIONS_FACTORY(): OuiPanelDefaultOptions {
   exportAs: 'ouiPanel',
   standalone: false,
 })
-export class OuiPanel implements OnInit, OuiPanelOverlay {
+export class OuiPanel implements OnInit, OnDestroy, OuiPanelOverlay {
   private _defaultOptions = inject<OuiPanelDefaultOptions>(
     OUI_PANEL_DEFAULT_OPTIONS
   );
@@ -77,6 +78,10 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
   public escapeEvent: Subject<void> = new Subject<void>();
 
   readonly width = input<number>();
+
+  private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _classObserver: MutationObserver | null = null;
 
   /** Config object to be passed into the menu's ngClass */
   _classList: { [key: string]: boolean } = {};
@@ -129,6 +134,69 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
 
   ngOnInit() {
     this.setPositionClasses();
+    this._copyHostClasses();
+    // Watch for dynamic class changes on the host element and mirror them
+    // onto the panel's `_classList` so the overlay reflects host classes.
+    try {
+      this._classObserver = new MutationObserver((mutations) => {
+        for (const m of mutations) {
+          if (m.type === 'attributes' && m.attributeName === 'class') {
+            this._copyHostClasses();
+          }
+        }
+      });
+      this._classObserver.observe(this._elementRef.nativeElement, {
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    } catch (e) {
+      // MutationObserver may not be available in some environments; ignore.
+    }
+  }
+
+  ngOnDestroy() {
+    if (this._classObserver) {
+      this._classObserver.disconnect();
+      this._classObserver = null;
+    }
+  }
+
+  /** Copies classes from the host `oui-panel` element onto `_classList`. */
+  private _copyHostClasses() {
+    try {
+      const el = this._elementRef.nativeElement;
+      if (!el) return;
+
+      const hostClasses = Array.from(el.classList || []).filter(
+        (c) =>
+          c !== 'oui-panel' && !/^oui-panel-(before|after|above|below)$/.test(c)
+      );
+      const hostSet = new Set(hostClasses);
+
+      // Remove any previously set classes that are not position classes and
+      // are no longer present on the host element.
+      for (const key of Object.keys(this._classList)) {
+        if (/^oui-panel-(before|after|above|below)$/.test(key)) {
+          continue;
+        }
+        if (!hostSet.has(key)) {
+          delete this._classList[key];
+        }
+      }
+
+      // Add host classes to the class list so the overlay mirrors them.
+      for (const c of hostClasses) {
+        this._classList[c] = true;
+      }
+      // Ensure OnPush templates are checked after we mutate the class map.
+      try {
+        this._changeDetectorRef.markForCheck();
+      } catch (e) {
+        // ignore in environments without change detector
+      }
+    } catch (e) {
+      // Defensive: ignore errors reading host classes
+    }
   }
 
   /**
@@ -148,6 +216,12 @@ export class OuiPanel implements OnInit, OuiPanelOverlay {
     classes['oui-panel-after'] = posX === 'after';
     classes['oui-panel-above'] = posY === 'above';
     classes['oui-panel-below'] = posY === 'below';
+    // Ensure OnPush templates are checked when position classes change.
+    try {
+      this._changeDetectorRef.markForCheck();
+    } catch (e) {
+      // ignore
+    }
   }
 
   public _handleMouseLeave(event: MouseEvent) {
