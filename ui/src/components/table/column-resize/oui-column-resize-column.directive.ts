@@ -93,8 +93,7 @@ export class OuiResizableColumnDirective implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this._ngZone.runOutsideAngular(() => {
-      // Deferred so CDK has stamped the `cdk-column-*` class before we read it.
-      setTimeout(() => this._createHandle());
+      this._createHandle();
     });
   }
 
