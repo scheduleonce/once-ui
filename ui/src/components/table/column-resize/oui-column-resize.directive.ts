@@ -20,6 +20,9 @@ export interface ColumnResizeEvent {
   width: number;
 }
 
+/**
+ * @deprecated Use `ouiResizableColumn` on individual header cells instead. This directive will be removed in a future release.
+ */
 @Directive({
   selector:
     'oui-table[ouiResizableColumns], table[oui-table][ouiResizableColumns]',
