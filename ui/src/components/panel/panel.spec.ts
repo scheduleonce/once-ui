@@ -203,4 +203,73 @@ describe('OuiPanel', () => {
     const role = overlayPanel ? overlayPanel.getAttribute('role') : '';
     expect(role).toBe('dialog', 'Expected panel to have the "dialog" role.');
   });
+
+  it('should mirror non-position host classes onto the overlay and remove them when toggled', fakeAsync(() => {
+    const fixture = createComponent(SimplePanel, [], [FakeIcon]);
+    fixture.detectChanges();
+
+    const hostEl: HTMLElement =
+      fixture.nativeElement.querySelector('oui-panel');
+    expect(hostEl).toBeTruthy();
+
+    // Add a custom class on the host and force the panel to copy classes
+    hostEl.classList.add('my-custom-host-class');
+    // MutationObserver may not run in the test environment, call the copy method directly.
+    (fixture.componentInstance.panel as any)._copyHostClasses?.();
+    fixture.detectChanges();
+
+    fixture.componentInstance.trigger.openPanel();
+    fixture.detectChanges();
+    tick(0);
+    fixture.detectChanges();
+
+    let overlayPanel = overlayContainerElement.querySelector(
+      '.oui-panel'
+    ) as HTMLElement;
+    expect(overlayPanel).toBeTruthy();
+    expect(overlayPanel.classList.contains('my-custom-host-class')).toBeTrue();
+
+    // Remove the host class and ensure overlay no longer has it
+    hostEl.classList.remove('my-custom-host-class');
+    (fixture.componentInstance.panel as any)._copyHostClasses?.();
+    fixture.detectChanges();
+
+    overlayPanel = overlayContainerElement.querySelector(
+      '.oui-panel'
+    ) as HTMLElement;
+    expect(overlayPanel.classList.contains('my-custom-host-class')).toBeFalse();
+  }));
+
+  it('should not mirror position-related classes from the host; position classes come from setPositionClasses()', fakeAsync(() => {
+    const fixture = createComponent(SimplePanel, [], [FakeIcon]);
+    fixture.detectChanges();
+
+    const hostEl: HTMLElement =
+      fixture.nativeElement.querySelector('oui-panel');
+    expect(hostEl).toBeTruthy();
+
+    // Intentionally add a position-like class on the host (should be ignored).
+    hostEl.classList.add('oui-panel-before');
+    // Force the component to use a different position via input setter and apply position classes.
+    fixture.componentInstance.panel.xPosition = 'after';
+    fixture.componentInstance.panel.yPosition = 'below';
+    (fixture.componentInstance.panel as any).setPositionClasses?.(
+      'after',
+      'below'
+    );
+    fixture.detectChanges();
+
+    fixture.componentInstance.trigger.openPanel();
+    fixture.detectChanges();
+    tick(0);
+    fixture.detectChanges();
+
+    const overlayPanel = overlayContainerElement.querySelector(
+      '.oui-panel'
+    ) as HTMLElement;
+    expect(overlayPanel).toBeTruthy();
+    // The overlay should reflect the programmatic position classes, not the host-supplied one.
+    expect(overlayPanel.classList.contains('oui-panel-after')).toBeTrue();
+    expect(overlayPanel.classList.contains('oui-panel-before')).toBeFalse();
+  }));
 });
