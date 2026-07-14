@@ -87,6 +87,19 @@ export class OuiReorderableColumnsDirective
   // ─── ResizeObserver to detect table overflow and toggle shadow class ─────────
   private _overflowObserver: ResizeObserver | null = null;
 
+  // ─── Auto-scroll state (used while dragging) ────────────────────────────────
+  private _scrollContainer: HTMLElement | null = null;
+  private _scrollRafId = 0;
+  /** True while the RAF loop should keep scrolling (cursor in edge zone). */
+  private _scrollWanted = false;
+  /** Last known pointer position — used by the RAF loop after a scroll tick. */
+  private _lastClientX = 0;
+  private _lastClientY = 0;
+  /** Width (px) of the edge activation zone. Cursor inside this region triggers auto-scroll. */
+  private readonly _scrollZoneSize = 50;
+  /** Maximum pixels scrolled per animation frame when cursor is at the very edge. */
+  private readonly _scrollMaxSpeed = 12;
+
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this._platformId)) {
       return;
@@ -117,6 +130,10 @@ export class OuiReorderableColumnsDirective
         (e: PointerEvent) => {
           // First column is locked — never allow dragging it.
           if (idx === 0) {
+            return;
+          }
+          // Filler column is a layout-only column that must remain at the end.
+          if (cell.classList.contains('filler-column')) {
             return;
           }
           // Skip resize handle, ⋮ menu trigger, and sort indicator —
@@ -239,6 +256,9 @@ export class OuiReorderableColumnsDirective
   }
 
   private _onPointerMove(e: PointerEvent): void {
+    this._lastClientX = e.clientX;
+    this._lastClientY = e.clientY;
+
     const dx = e.clientX - this._startX;
     const dy = e.clientY - this._startY;
 
@@ -289,6 +309,29 @@ export class OuiReorderableColumnsDirective
     this._insertionSlot = this._getInsertionSlot(e.clientX);
     const isOverTable = this._isCursorOverHeaderCell(e.clientX, e.clientY);
     this._positionDropIndicator(this._insertionSlot, isOverTable);
+
+    // ── Auto-scroll ─────────────────────────────────────────────────────────
+    // Check whether the cursor is near the scroll container's left or right
+    // edge. If so, flag the RAF loop to keep scrolling; otherwise stop it.
+    const scrollContainer = this._getScrollContainer();
+    if (scrollContainer) {
+      const sr = scrollContainer.getBoundingClientRect();
+      const distLeft = e.clientX - sr.left;
+      const distRight = sr.right - e.clientX;
+      const nearEdge =
+        (distLeft > 0 && distLeft < this._scrollZoneSize) ||
+        (distRight > 0 && distRight < this._scrollZoneSize);
+      if (nearEdge) {
+        this._scrollContainer = scrollContainer;
+        this._scrollWanted = true;
+        this._startAutoScroll();
+      } else {
+        this._scrollWanted = false;
+        // The RAF loop checks _scrollWanted on every frame and stops itself.
+      }
+    } else {
+      this._scrollWanted = false;
+    }
   }
 
   private _onPointerUp(_e: PointerEvent): void {
@@ -298,6 +341,9 @@ export class OuiReorderableColumnsDirective
       return;
     }
     this._pointerUpInProgress = true;
+
+    // Stop auto-scroll before any other cleanup.
+    this._stopAutoScroll();
 
     const wasDragging = this._dragging;
     this._dragging = false;
@@ -397,6 +443,7 @@ export class OuiReorderableColumnsDirective
       return;
     }
     this._dragging = false;
+    this._stopAutoScroll();
     this._cleanupDragListeners();
     // Always clean up visual artifacts — even if _dragging was not yet true
     // (e.g. lostpointercapture during a long hold).
@@ -423,6 +470,7 @@ export class OuiReorderableColumnsDirective
     this._dragSelectStartUnlisten = null;
     this._dragNativeDragUnlisten = null;
     this._removeDocPointerUp();
+    this._stopAutoScroll();
     this._dragActive = false;
   }
 
@@ -519,18 +567,25 @@ export class OuiReorderableColumnsDirective
     const bounds = this._getVisibleBounds(tableRect);
     const clampedX = Math.max(bounds.left, Math.min(clientX, bounds.right));
 
+    // The last valid slot index.  When a filler column exists the slot range
+    // ends before it (no drops past / on the filler column).
+    const hasFiller = this._hasFillerColumn();
+    const end = hasFiller
+      ? this._headerCells.length - 1
+      : this._headerCells.length;
+
     // Walk the header cells and find which gap the cursor falls into.
     // A "gap" is between the midpoint of column N and the midpoint of column N+1.
     // If cursor is left of the first movable column's midpoint → slot = 1.
-    // If cursor is right of the last column's midpoint → slot = length.
-    for (let i = 1; i < this._headerCells.length; i++) {
+    // If cursor is right of the last valid column's midpoint → slot = end.
+    for (let i = 1; i < end; i++) {
       const rect = this._headerCells[i].getBoundingClientRect();
       const mid = rect.left + rect.width / 2;
       if (clampedX < mid) {
         return i;
       }
     }
-    return this._headerCells.length;
+    return end;
   }
 
   // ─── Ghost ────────────────────────────────────────────────────────────────────
@@ -585,8 +640,15 @@ export class OuiReorderableColumnsDirective
     }
     // Hide when cursor is outside the table header area, or when the
     // insertion slot equals the source (no-op drop).
+    // Also hide the left edge of the first column (slot <= 0).
+    // When a filler column is present, also hide the right edge of the
+    // filler column (slot >= headerCells.length) — no drops beyond it.
+    // Without a filler column, slot == headerCells.length is a valid
+    // "insert after the last column" position.
+    const hasFiller = this._hasFillerColumn();
     const isNoOp = slot === this._sourceIndex || slot === this._sourceIndex + 1;
-    if (!visible || isNoOp) {
+    const isEdge = slot <= 0 || (hasFiller && slot >= this._headerCells.length);
+    if (!visible || isNoOp || isEdge) {
       this._renderer.setStyle(this._dropIndicator, 'display', 'none');
       return;
     }
@@ -606,10 +668,23 @@ export class OuiReorderableColumnsDirective
       rawX = this._headerCells[slot].getBoundingClientRect().left;
     }
 
+    // Clamp to visible bounds so the indicator never renders outside the
+    // table's visible area.
     const xPos = Math.max(
       bounds.left,
       Math.min(rawX, bounds.right - indicatorWidth)
     );
+
+    // Never show the drop indicator at or within the sticky first column's
+    // area — it would appear clipped behind or peeking through the sticky
+    // overlay.  We check the *rendered* position xPos because the clamp
+    // to bounds.left can pull a far-left column edge into the first
+    // column's visual space.
+    const firstRect = this._headerCells[0].getBoundingClientRect();
+    if (slot === 1 || xPos <= firstRect.right) {
+      this._renderer.setStyle(this._dropIndicator, 'display', 'none');
+      return;
+    }
 
     this._renderer.setStyle(
       this._dropIndicator,
@@ -630,7 +705,113 @@ export class OuiReorderableColumnsDirective
     }
   }
 
+  // ─── Auto-scroll ─────────────────────────────────────────────────────────────
+
+  /**
+   * Walk up the DOM to find the nearest horizontally-scrollable ancestor
+   * that currently overflows — this is the container we'll auto-scroll.
+   */
+  private _getScrollContainer(): HTMLElement | null {
+    const isScrollable = (el: HTMLElement): boolean => {
+      const ox = globalThis.getComputedStyle(el).overflowX;
+      return (
+        (ox === 'auto' || ox === 'scroll') && el.scrollWidth > el.clientWidth
+      );
+    };
+
+    // First pass: walk up the parent chain.
+    let el: HTMLElement | null = this._elementRef.nativeElement.parentElement;
+    while (el && el !== document.documentElement) {
+      if (isScrollable(el)) {
+        return el;
+      }
+      el = el.parentElement;
+    }
+
+    // Fallback: check the table element itself.
+    if (isScrollable(this._elementRef.nativeElement)) {
+      return this._elementRef.nativeElement;
+    }
+
+    // Last resort: the body element (page-level scroll).
+    if (isScrollable(document.body)) {
+      return document.body;
+    }
+
+    return null;
+  }
+
+  /**
+   * Start (or restart) the auto-scroll RAF loop.
+   * The loop only keeps running while `_scrollWanted` is true.
+   */
+  private _startAutoScroll(): void {
+    if (this._scrollRafId || !this._dragging || !this._scrollContainer) {
+      return;
+    }
+    this._scrollRafId = requestAnimationFrame(this._scrollLoop);
+  }
+
+  /** Single requestAnimationFrame step — scrolls then re-queues if needed. */
+  private _scrollLoop = (): void => {
+    // Stop when the drag ended, the container disappeared, or the cursor
+    // is no longer near the edge (set in _onPointerMove).
+    if (!this._dragging || !this._scrollContainer || !this._scrollWanted) {
+      this._stopAutoScroll();
+      return;
+    }
+
+    const rect = this._scrollContainer.getBoundingClientRect();
+    const distLeft = this._lastClientX - rect.left;
+    const distRight = rect.right - this._lastClientX;
+
+    let scrollDelta = 0;
+    if (distLeft > 0 && distLeft < this._scrollZoneSize) {
+      const factor = 1 - distLeft / this._scrollZoneSize;
+      scrollDelta = -Math.round(factor * this._scrollMaxSpeed);
+    } else if (distRight > 0 && distRight < this._scrollZoneSize) {
+      const factor = 1 - distRight / this._scrollZoneSize;
+      scrollDelta = Math.round(factor * this._scrollMaxSpeed);
+    }
+
+    if (scrollDelta !== 0) {
+      this._scrollContainer.scrollLeft += scrollDelta;
+    }
+
+    // Always recalculate the insertion slot and indicator on every RAF
+    // frame — even when scrollDelta is 0 — so the indicator tracks
+    // column boundaries smoothly as they shift during scroll.
+    this._insertionSlot = this._getInsertionSlot(this._lastClientX);
+    const isOverTable = this._isCursorOverHeaderCell(
+      this._lastClientX,
+      this._lastClientY
+    );
+    this._positionDropIndicator(this._insertionSlot, isOverTable);
+
+    // Re-queue — the _scrollWanted guard at the top will stop the loop
+    // on the next frame if the cursor has left the activation zone.
+    this._scrollRafId = requestAnimationFrame(this._scrollLoop);
+  };
+
+  /** Cancel the auto-scroll animation frame. */
+  private _stopAutoScroll(): void {
+    if (this._scrollRafId) {
+      cancelAnimationFrame(this._scrollRafId);
+      this._scrollRafId = 0;
+    }
+    this._scrollContainer = null;
+    this._scrollWanted = false;
+  }
+
   // ─── Column highlight helpers ─────────────────────────────────────────────────────────────────
+
+  /** Returns true when the last header cell carries the `filler-column` class. */
+  private _hasFillerColumn(): boolean {
+    const cells = this._headerCells;
+    return (
+      cells.length > 0 && cells.at(-1)!.classList.contains('filler-column')
+    );
+  }
 
   /** Add or remove a CSS class on every cell (header + body) in the given column. */
   private _applyColumnClass(columnId: string, cls: string, add: boolean): void {
