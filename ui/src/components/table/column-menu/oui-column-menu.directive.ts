@@ -146,8 +146,16 @@ export class OuiColumnMenuDirective
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['displayedColumns'] && this._panelRef) {
+    if (!this._panelRef) {
+      return;
+    }
+
+    if (changes['displayedColumns']) {
       this._panelRef.setInput('displayedColumns', [...this.displayedColumns]);
+    }
+
+    if (changes['ouiColumnMenuHasSort']) {
+      this._panelRef.setInput('hasSort', this._hasSortHeader());
     }
   }
 
