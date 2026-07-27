@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [11.3.2] - 2026-07-27
+
+- [ONCEHUB-115288](https://scheduleonce.atlassian.net/browse/ONCEHUB-115288) Add the hasSort property to oui-column-menu in once-ui repo to conditionally show and hide the sorting icon on table columns.
+
 ## [11.3.1] - 2026-07-13
 
 - [ONCEHUB-124194](https://scheduleonce.atlassian.net/browse/ONCEHUB-124194) Add class property to oui-panel in once-ui repo to modify the UI and positioning.
