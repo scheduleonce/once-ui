@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   Directive,
+  DoCheck,
   ElementRef,
   EventEmitter,
   inject,
@@ -51,7 +52,9 @@ import { ColumnResizeEvent } from './oui-column-resize.directive';
     'th[oui-header-cell][ouiResizableColumn], oui-header-cell[ouiResizableColumn]',
   standalone: false,
 })
-export class OuiResizableColumnDirective implements AfterViewInit, OnDestroy {
+export class OuiResizableColumnDirective
+  implements AfterViewInit, DoCheck, OnDestroy
+{
   /**
    * CDK column id for this header cell. Optional — when omitted it is
    * auto-detected from the host's `cdk-column-<id>` class.
@@ -90,10 +93,49 @@ export class OuiResizableColumnDirective implements AfterViewInit, OnDestroy {
   private _minCellWidth = 0;
   /** Header + body cells belonging to this column (scoped to the closest ancestor table). */
   private _columnCells: HTMLElement[] = [];
+  /**
+   * Last width (px) we explicitly applied — either the restored/persisted
+   * `width` or the result of a completed drag. Re-asserted on every
+   * `ngDoCheck` (see below) so the column keeps its size even when something
+   * outside this directive's control (e.g. the table re-rendering its rows
+   * when the user sorts) recreates the column's cells without destroying
+   * this directive instance, which would otherwise silently drop back to
+   * the CSS baseline/content-based width. `null` means this column was never
+   * explicitly sized and should keep using its natural/CSS width.
+   */
+  private _lastAppliedWidth: number | null = null;
 
   ngAfterViewInit(): void {
     this._ngZone.runOutsideAngular(() => {
       this._createHandle();
+    });
+  }
+
+  /**
+   * Cheap self-healing check: if this column has an explicitly-applied width
+   * and isn't mid-drag, re-assert it on whatever cells currently match this
+   * column. This makes the applied width resilient to external re-renders
+   * (e.g. CDK Table rebuilding rows on sort) that don't tear down this
+   * directive instance — those would otherwise leave freshly-rendered cells
+   * without our inline width, silently falling back to auto/content-based
+   * sizing. Re-querying `_getColumnCells` fresh (rather than relying on a
+   * cached list) also picks up any newly-created cells for this column.
+   *
+   * The (cheap) `getBoundingClientRect` read lets every no-drift check cycle
+   * — the overwhelming majority — bail out after a single layout read,
+   * instead of always re-querying and re-styling every matching cell.
+   */
+  ngDoCheck(): void {
+    if (this._isDragging || this._lastAppliedWidth === null) {
+      return;
+    }
+    const host = this._elementRef.nativeElement;
+    const currentWidth = host.getBoundingClientRect().width;
+    if (Math.abs(currentWidth - this._lastAppliedWidth) <= 1) {
+      return;
+    }
+    this._ngZone.runOutsideAngular(() => {
+      this._setCellsWidth(this._lastAppliedWidth!, this._getColumnCells(host));
     });
   }
 
@@ -274,6 +316,7 @@ export class OuiResizableColumnDirective implements AfterViewInit, OnDestroy {
     const finalWidth =
       this._columnCells[0]?.getBoundingClientRect().width ?? this._startWidth;
     this._applyWidth(finalWidth);
+    this._lastAppliedWidth = finalWidth;
 
     this._ngZone.run(() => {
       this.columnResized.emit({ columnId: this.columnId, width: finalWidth });
@@ -290,6 +333,7 @@ export class OuiResizableColumnDirective implements AfterViewInit, OnDestroy {
     this._endDragVisuals(host);
     // Roll back to the pre-drag width.
     this._applyWidth(this._startWidth);
+    this._lastAppliedWidth = this._startWidth;
   }
 
   private _endDragVisuals(host: HTMLElement): void {
