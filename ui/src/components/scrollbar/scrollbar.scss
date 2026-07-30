@@ -24,10 +24,9 @@
   }
 }
 
-.oui-scrollbar-container {
-  /* Standardized Properties */
-  @supports not selector(::-webkit-scrollbar) {
-    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+@supports (-moz-appearance: none) {
+  .oui-scrollbar-container {
     scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
   }
 }
