@@ -103,7 +103,7 @@ export class OuiColumnMenuDirective
     this._panelRef.setInput('columnId', this._columnId);
     this._panelRef.setInput('displayedColumns', [...this.displayedColumns]);
     this._panelRef.setInput('hasSort', this._hasSortHeader());
-    this._panelRef.setInput('sortDirection', this._currentSortDirection());
+    this._syncSortDirection();
 
     // Move the panel component host element into the header cell and keep its
     // rendered children attached so Angular continues to manage the DOM tree.
@@ -135,12 +135,7 @@ export class OuiColumnMenuDirective
     // This also ensures only the active column shows the sorted state.
     if (this._sort) {
       this._sortChangeSub = this._sort.sortChange.subscribe(() => {
-        if (this._panelRef) {
-          this._panelRef.setInput(
-            'sortDirection',
-            this._currentSortDirection()
-          );
-        }
+        this._syncSortDirection();
       });
     }
   }
@@ -179,6 +174,26 @@ export class OuiColumnMenuDirective
       return '';
     }
     return (this._sort.direction as 'asc' | 'desc') || '';
+  }
+
+  /** Updates the panel's sort indicator and marks the host header as sorted. */
+  private _syncSortDirection(): void {
+    const direction = this._currentSortDirection();
+    if (this._panelRef) {
+      this._panelRef.setInput('sortDirection', direction);
+    }
+
+    if (direction) {
+      this._renderer.addClass(
+        this._elementRef.nativeElement,
+        'oui-column-header-sorted'
+      );
+    } else {
+      this._renderer.removeClass(
+        this._elementRef.nativeElement,
+        'oui-column-header-sorted'
+      );
+    }
   }
 
   ngOnDestroy(): void {
