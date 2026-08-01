@@ -159,6 +159,32 @@ th.oui-header-cell:hover .oui-header-label {
   padding-right: 24px !important; /* space for icons */
   box-sizing: border-box;
 }
+
+/* keep the actions visible when the menu trigger is open (aria-expanded) */
+th.oui-header-cell:has(.oui-column-menu-trigger[aria-expanded='true'])
+  .oui-column-header-actions {
+  display: inline-flex !important;
+}
+th.oui-header-cell:has(.oui-column-menu-trigger[aria-expanded='true'])
+  .oui-header-label {
+  padding-right: 24px !important;
+  box-sizing: border-box;
+}
+
+/* keep the sort indicator visible for the active sorted column */
+th.oui-header-cell.oui-column-header-sorted .oui-column-header-actions {
+  display: inline-flex !important;
+}
+th.oui-header-cell.oui-column-header-sorted .oui-header-label {
+  padding-right: 24px !important; /* space for icons */
+  box-sizing: border-box;
+}
+
+/* keep the three-dot trigger visible on the active sorted column */
+th.oui-header-cell.oui-column-header-sorted .oui-column-menu-trigger {
+  display: inline-flex;
+}
+
 .oui-column-menu-trigger:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 2px;
