@@ -1,25 +1,39 @@
 .oui-scrollbar-container {
   overflow-y: auto;
+
   &::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
+    background: transparent;
   }
-  &::-webkit-scrollbar-track {
-    display: none;
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-track-piece {
+    background: transparent;
   }
+
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 15px;
-    border-right: 2px solid transparent;
+    background-color: rgba(0, 0, 0, 0.24);
+    border: 2px solid transparent;
+    border-radius: 999px;
     background-clip: padding-box;
   }
 }
+
 .oui-scrollbar-container-large {
   &::-webkit-scrollbar {
     width: 10px;
+    background: transparent;
   }
+
+  &::-webkit-scrollbar-track,
+  &::-webkit-scrollbar-track-piece {
+    background: transparent;
+  }
+
   &::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.15);
-    border-right: 2px solid transparent;
+    background-color: rgba(0, 0, 0, 0.24);
+    border: 2px solid transparent;
+    border-radius: 999px;
     background-clip: padding-box;
   }
 }
@@ -27,6 +41,6 @@
 @supports (-moz-appearance: none) {
   .oui-scrollbar-container {
     scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+    scrollbar-color: rgba(0, 0, 0, 0.24) transparent;
   }
 }
