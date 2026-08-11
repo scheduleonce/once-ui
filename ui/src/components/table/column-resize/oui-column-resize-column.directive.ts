@@ -229,23 +229,7 @@ export class OuiResizableColumnDirective
       );
     }
 
-    // scrollWidth/measured content width sets the true floor so text is
-    // never clipped, even when that's bigger than `minWidth`.
-    let contentWidth = 0;
-    Array.from(host.childNodes).forEach((node) => {
-      if (node instanceof HTMLElement && node !== handle) {
-        contentWidth += node.scrollWidth;
-      } else if (node.nodeType === Node.TEXT_NODE) {
-        const range = host.ownerDocument.createRange();
-        range.selectNodeContents(node);
-        contentWidth += range.getBoundingClientRect().width;
-      }
-    });
-    const style = globalThis.getComputedStyle(host);
-    const padding =
-      Number.parseFloat(style.paddingLeft) +
-      Number.parseFloat(style.paddingRight);
-    this._minCellWidth = Math.max(this.minWidth, contentWidth + padding);
+    this._minCellWidth = this.minWidth;
 
     try {
       handle.setPointerCapture(e.pointerId);
