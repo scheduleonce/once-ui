@@ -220,48 +220,96 @@ const ENHANCED_DATA = [
     position: 1,
     weight: 1.0079,
     symbol: 'H',
+    melting_point: -259.1,
+    boiling_point: -252.9,
+    density: 0.0899,
+    discovered: 1766,
+    group: 1,
+    period: 1,
   },
   {
     element_name_with_extremely_long_header: 'Helium',
     position: 2,
     weight: 4.0026,
     symbol: 'He',
+    melting_point: -272.2,
+    boiling_point: -268.9,
+    density: 0.1785,
+    discovered: 1868,
+    group: 18,
+    period: 1,
   },
   {
     element_name_with_extremely_long_header: 'Lithium',
     position: 3,
     weight: 6.941,
     symbol: 'Li',
+    melting_point: 180.5,
+    boiling_point: 1342,
+    density: 0.534,
+    discovered: 1817,
+    group: 1,
+    period: 2,
   },
   {
     element_name_with_extremely_long_header: 'Beryllium',
     position: 4,
     weight: 9.0122,
     symbol: 'Be',
+    melting_point: 1287,
+    boiling_point: 2470,
+    density: 1.848,
+    discovered: 1798,
+    group: 2,
+    period: 2,
   },
   {
     element_name_with_extremely_long_header: 'Boron',
     position: 5,
     weight: 10.811,
     symbol: 'B',
+    melting_point: 2076,
+    boiling_point: 3927,
+    density: 2.34,
+    discovered: 1808,
+    group: 13,
+    period: 2,
   },
   {
     element_name_with_extremely_long_header: 'Carbon',
     position: 6,
     weight: 12.0107,
     symbol: 'C',
+    melting_point: 3550,
+    boiling_point: 4827,
+    density: 2.267,
+    discovered: -3750,
+    group: 14,
+    period: 2,
   },
   {
     element_name_with_extremely_long_header: 'Nitrogen',
     position: 7,
     weight: 14.0067,
     symbol: 'N',
+    melting_point: -210.0,
+    boiling_point: -195.8,
+    density: 1.251,
+    discovered: 1772,
+    group: 15,
+    period: 2,
   },
   {
     element_name_with_extremely_long_header: 'Oxygen',
     position: 8,
     weight: 15.9994,
     symbol: 'O',
+    melting_point: -218.8,
+    boiling_point: -183.0,
+    density: 1.429,
+    discovered: 1774,
+    group: 16,
+    period: 2,
   },
 ];
 
@@ -269,7 +317,8 @@ const ENHANCED_DATA = [
   selector: 'oui-table-enhanced-storybook',
   template: `
     <div
-      class="table-container oui-table-enhanced-container tw-overflow-x-auto tw-max-w-full"
+      class="table-container oui-table-enhanced-container"
+      style="overflow-x: auto; max-width: 100%;"
       [class.is-scrolled]="isTableScrolled"
       [class.table-overflow-shadow]="isTableScrolled"
       (scroll)="onTableScroll($event)"
@@ -280,6 +329,7 @@ const ENHANCED_DATA = [
         ouiSort
         ouiResizableColumns
         ouiReorderableColumns
+        ohReorderableAutoScroll
         (ouiSortChange)="onSort($event)"
         (columnResized)="onColumnResized($event)"
         (columnOrderChanged)="onColumnOrderChanged($event)"
