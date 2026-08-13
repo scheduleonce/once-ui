@@ -1,4 +1,10 @@
-import { AfterViewInit, Directive, inject, OnDestroy, ProviderToken } from '@angular/core';
+import {
+  AfterViewInit,
+  Directive,
+  inject,
+  OnDestroy,
+  ProviderToken,
+} from '@angular/core';
 import { OuiReorderableColumnsDirective } from './oui-column-reorder.directive';
 
 /**
@@ -43,7 +49,9 @@ interface ReorderDirectiveInternals {
   selector: '[ohReorderableAutoScroll]',
   standalone: false,
 })
-export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestroy {
+export class OuiReorderableAutoScrollDirective
+  implements AfterViewInit, OnDestroy
+{
   private readonly reorder = inject(
     OuiReorderableColumnsDirective as ProviderToken<OuiReorderableColumnsDirective>
   );
@@ -80,7 +88,11 @@ export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestr
 
     this.originalScrollLoop = directive._scrollLoop.bind(directive);
     directive._scrollLoop = () => {
-      if (!directive._dragging || !directive._scrollContainer || !directive._scrollWanted) {
+      if (
+        !directive._dragging ||
+        !directive._scrollContainer ||
+        !directive._scrollWanted
+      ) {
         directive._stopAutoScroll();
         return;
       }
@@ -88,7 +100,9 @@ export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestr
       const container = directive._scrollContainer;
       const rect = container.getBoundingClientRect();
       const firstHeader = directive._headerCells[0];
-      const firstColRight = firstHeader ? firstHeader.getBoundingClientRect().right : rect.left;
+      const firstColRight = firstHeader
+        ? firstHeader.getBoundingClientRect().right
+        : rect.left;
 
       const distRight = rect.right - directive._lastClientX;
       const zoneSize = directive._scrollZoneSize;
@@ -102,7 +116,11 @@ export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestr
         const dist = firstColRight - directive._lastClientX;
         const factor = Math.min(dist / zoneSize, 1);
         scrollDelta = -Math.round(factor * maxSpeed);
-      } else if (distRight >= 0 && distRight < zoneSize && container.scrollLeft < container.scrollWidth - rect.width) {
+      } else if (
+        distRight >= 0 &&
+        distRight < zoneSize &&
+        container.scrollLeft < container.scrollWidth - rect.width
+      ) {
         const factor = 1 - distRight / zoneSize;
         scrollDelta = Math.round(factor * maxSpeed);
       }
@@ -111,16 +129,25 @@ export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestr
         container.scrollLeft += scrollDelta;
       }
 
-      directive._insertionSlot = directive._getInsertionSlot(directive._lastClientX);
-      const isOverTable = directive._isCursorOverHeaderCell(directive._lastClientX, directive._lastClientY);
+      directive._insertionSlot = directive._getInsertionSlot(
+        directive._lastClientX
+      );
+      const isOverTable = directive._isCursorOverHeaderCell(
+        directive._lastClientX,
+        directive._lastClientY
+      );
       directive._positionDropIndicator(directive._insertionSlot, isOverTable);
 
       directive._scrollRafId = requestAnimationFrame(directive._scrollLoop);
     };
   }
 
-  private updateScrollState(directive: ReorderDirectiveInternals, e: PointerEvent): void {
-    const container = directive._scrollContainer ?? directive._getScrollContainer();
+  private updateScrollState(
+    directive: ReorderDirectiveInternals,
+    e: PointerEvent
+  ): void {
+    const container =
+      directive._scrollContainer ?? directive._getScrollContainer();
 
     if (!container) {
       directive._scrollWanted = false;
@@ -130,7 +157,9 @@ export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestr
 
     const rect = container.getBoundingClientRect();
     const firstHeader = directive._headerCells[0];
-    const firstColRight = firstHeader ? firstHeader.getBoundingClientRect().right : rect.left;
+    const firstColRight = firstHeader
+      ? firstHeader.getBoundingClientRect().right
+      : rect.left;
 
     const distRight = rect.right - e.clientX;
     const zoneSize = directive._scrollZoneSize;
@@ -139,7 +168,9 @@ export class OuiReorderableAutoScrollDirective implements AfterViewInit, OnDestr
     // left of the first (fixed/sticky) column.
     const nearLeft = e.clientX < firstColRight;
     const nearRight =
-      distRight >= 0 && distRight < zoneSize && container.scrollLeft < container.scrollWidth - rect.width;
+      distRight >= 0 &&
+      distRight < zoneSize &&
+      container.scrollLeft < container.scrollWidth - rect.width;
 
     if (nearLeft || nearRight) {
       directive._scrollContainer = container;
