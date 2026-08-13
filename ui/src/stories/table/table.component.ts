@@ -329,7 +329,7 @@ const ENHANCED_DATA = [
         ouiSort
         ouiResizableColumns
         ouiReorderableColumns
-        ohReorderableAutoScroll
+        ouiReorderableAutoScroll
         (ouiSortChange)="onSort($event)"
         (columnResized)="onColumnResized($event)"
         (columnOrderChanged)="onColumnOrderChanged($event)"
