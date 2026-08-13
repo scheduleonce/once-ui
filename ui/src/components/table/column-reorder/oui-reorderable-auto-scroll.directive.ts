@@ -42,11 +42,11 @@ interface ReorderDirectiveInternals {
  * Apply this directive on the same `<table>` element that has `ouiReorderableColumns`:
  *
  * ```html
- * <table oui-table ouiReorderableColumns ohReorderableAutoScroll ...>
+ * <table oui-table ouiReorderableColumns ouiReorderableAutoScroll ...>
  * ```
  */
 @Directive({
-  selector: '[ohReorderableAutoScroll]',
+  selector: '[ouiReorderableAutoScroll]',
   standalone: false,
 })
 export class OuiReorderableAutoScrollDirective
