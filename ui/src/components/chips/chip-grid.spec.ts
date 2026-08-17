@@ -84,7 +84,7 @@ class ChipsAutocompleteHostComponent {
       : this.allFruits.slice();
   }
 
-  @ViewChild(OuiChipGrid) chipGrid: OuiChipGrid;
+  @ViewChild(OuiChipGrid) chipGrid!: OuiChipGrid;
 
   add(event: OuiChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -191,7 +191,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
   }
 
   it('renders the initial set of chips', () => {
-    expect(getChips().length).toBe(1);
+    expect(getChips()).toHaveSize(1);
     expect(getChips()[0].nativeElement.textContent.trim()).toContain('Lemon');
   });
 
@@ -203,7 +203,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
     fixture.detectChanges();
 
     expect(component.fruits).toEqual(['Lemon', 'Apple']);
-    expect(getChips().length).toBe(2);
+    expect(getChips()).toHaveSize(2);
   }));
 
   it('adds a new chip when typing a separator key (COMMA)', fakeAsync(() => {
@@ -243,7 +243,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
     fixture.detectChanges();
 
     expect(component.fruits).toEqual([]);
-    expect(getChips().length).toBe(0);
+    expect(getChips()).toHaveSize(0);
   });
 
   it('emits the change event when the chip list is mutated', fakeAsync(() => {
@@ -266,7 +266,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
     component.fruits = ['Apple', 'Lemon', 'Lime'];
     fixture.detectChanges();
 
-    expect(component.fruits.length).toBe(3);
+    expect(component.fruits).toHaveSize(3);
   });
 
   it('writes back the model value when removed via keyboard (DELETE on focused chip)', fakeAsync(() => {
@@ -291,7 +291,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
   it('fires a removed event on chip row when removed', () => {
     let removedSpy: OuiChipEvent | null = null;
     const chipDebugEl = getChips()[0];
-    chipDebugEl.componentInstance.removed.subscribe((event) => {
+    chipDebugEl.componentInstance.removed.subscribe((event: OuiChipEvent) => {
       removedSpy = event;
     });
 
@@ -365,7 +365,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
       // Should contain 'Apple' (the activated option) and NOT 'App' as a
       // separate chip - autocomplete must run before chip-input on Enter.
       expect(component.fruits).toContain('Apple');
-      expect(component.fruits.filter((f) => f === 'App').length).toBe(0);
+      expect(component.fruits.filter((f) => f === 'App')).toHaveSize(0);
     }));
 
     it('closes the panel when clicking outside the form field', fakeAsync(() => {
