@@ -1,0 +1,24 @@
+import { Meta, Story, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import { action } from 'storybook/actions';
+import {
+  OuiAutocompleteModule,
+  OuiChipsModule,
+  OuiFormFieldModule,
+} from '../../components';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { OuiChipsAutocompleteStorybook } from './chips-autocomplete.component';
+import * as ChipsStories from './chips.stories';
+
+<Meta of={ChipsStories} />
+
+# Chips Autocomplete
+
+`oui-chip-grid` integrates with `oui-autocomplete` to provide a list of selectable chips with an autocomplete input that allows users to add new entries. See: https://github.com/scheduleonce/once-ui/blob/master/ui/src/components/chips/README.md
+
+Stackblitz demo link: https://stackblitz.com/edit/oui-chips-autocomplete
+
+Chips Autocomplete:
+
+<Canvas of={ChipsStories.Regular} />
+
+<Controls of={ChipsStories.Regular} />
