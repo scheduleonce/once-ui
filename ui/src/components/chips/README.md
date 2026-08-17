@@ -10,12 +10,12 @@ See: https://material.angular.dev/components/chips/overview#chips-autocomplete
 <oui-form-field>
   <oui-chip-grid #chipGrid [value]="fruits" (change)="onChange($event)">
     @for (fruit of fruits; track fruit) {
-      <oui-chip-row [value]="fruit" (removed)="remove(fruit)">
-        {{ fruit }}
-        <button ouiChipRemove aria-label="remove">
-          <oui-icon svgIcon="x-close-small"></oui-icon>
-        </button>
-      </oui-chip-row>
+    <oui-chip-row [value]="fruit" (removed)="remove(fruit)">
+      {{ fruit }}
+      <button ouiChipRemove aria-label="remove">
+        <oui-icon svgIcon="x-close-small"></oui-icon>
+      </button>
+    </oui-chip-row>
     }
     <input
       placeholder="New fruit..."
@@ -27,9 +27,12 @@ See: https://material.angular.dev/components/chips/overview#chips-autocomplete
       [formControl]="currentFruitCtrl"
     />
   </oui-chip-grid>
-  <oui-chips-autocomplete #auto="ouiChipsAutocomplete" (optionSelected)="selected($event)">
+  <oui-chips-autocomplete
+    #auto="ouiChipsAutocomplete"
+    (optionSelected)="selected($event)"
+  >
     @for (fruit of filteredFruits; track fruit) {
-      <oui-chips-option [value]="fruit">{{ fruit }}</oui-chips-option>
+    <oui-chips-option [value]="fruit">{{ fruit }}</oui-chips-option>
     }
   </oui-chips-autocomplete>
 </oui-form-field>
@@ -182,74 +185,74 @@ Exported as: `ouiChipAutocompleteTrigger`
 
 ### `OuiChipGrid`
 
-| Name | Description | Default | Control |
-| ---- | ----------- | ------- | ------- |
-| `@Input() disabled: boolean` | Whether the chip grid is disabled. | `false` | boolean |
-| `@Input() placeholder: string` | Placeholder text for the chip input. | `''` | text |
-| `@Input() required: boolean` | Whether the chip grid is required. | `false` | boolean |
-| `@Input() value: any[]` | The current value of the chip grid. | `[]` | — |
-| `@Input() tabIndex: number` | Tabindex for the chip grid. | `0` | number |
-| `@Input() errorStateMatcher: ErrorStateMatcher` | Matcher used to compute the error state. | `ErrorStateMatcher` | — |
-| `@Output() change: EventEmitter<OuiChipGridChange>` | Emitted when the chip grid value changes. | — | — |
-| `@Output() valueChange: EventEmitter<any>` | Emitted whenever the value changes. | — | — |
+| Name                                                | Description                               | Default             | Control |
+| --------------------------------------------------- | ----------------------------------------- | ------------------- | ------- |
+| `@Input() disabled: boolean`                        | Whether the chip grid is disabled.        | `false`             | boolean |
+| `@Input() placeholder: string`                      | Placeholder text for the chip input.      | `''`                | text    |
+| `@Input() required: boolean`                        | Whether the chip grid is required.        | `false`             | boolean |
+| `@Input() value: any[]`                             | The current value of the chip grid.       | `[]`                | —       |
+| `@Input() tabIndex: number`                         | Tabindex for the chip grid.               | `0`                 | number  |
+| `@Input() errorStateMatcher: ErrorStateMatcher`     | Matcher used to compute the error state.  | `ErrorStateMatcher` | —       |
+| `@Output() change: EventEmitter<OuiChipGridChange>` | Emitted when the chip grid value changes. | —                   | —       |
+| `@Output() valueChange: EventEmitter<any>`          | Emitted whenever the value changes.       | —                   | —       |
 
 ### `OuiChipSet`
 
-| Name | Description | Default | Control |
-| ---- | ----------- | ------- | ------- |
-| `@Input() disabled: boolean` | Whether the chip set is disabled. | `false` | boolean |
-| `@Input() role: string` | ARIA role applied to the chip set. | `'presentation'` | text |
-| `@Input() tabIndex: number` | Tabindex of the chip set. | `0` | number |
+| Name                         | Description                        | Default          | Control |
+| ---------------------------- | ---------------------------------- | ---------------- | ------- |
+| `@Input() disabled: boolean` | Whether the chip set is disabled.  | `false`          | boolean |
+| `@Input() role: string`      | ARIA role applied to the chip set. | `'presentation'` | text    |
+| `@Input() tabIndex: number`  | Tabindex of the chip set.          | `0`              | number  |
 
 ### `OuiChipRow`
 
-| Name | Description | Default | Control |
-| ---- | ----------- | ------- | ------- |
-| `@Input() value: any` | The value associated with the chip. | content text | text |
-| `@Input() removable: boolean` | Whether the chip can be removed. | `true` | boolean |
-| `@Input() disabled: boolean` | Whether the chip is disabled. | `false` | boolean |
-| `@Input() color: string` | Color theme of the chip (primary, accent, warn). | `'primary'` | select |
-| `@Input() highlighted: boolean` | Whether the chip is highlighted. | `false` | boolean |
-| `@Output() removed: EventEmitter<OuiChipEvent>` | Emitted when the chip is removed. | — | — |
-| `@Output() destroyed: EventEmitter<OuiChipEvent>` | Emitted when the chip is destroyed. | — | — |
+| Name                                              | Description                                      | Default      | Control |
+| ------------------------------------------------- | ------------------------------------------------ | ------------ | ------- |
+| `@Input() value: any`                             | The value associated with the chip.              | content text | text    |
+| `@Input() removable: boolean`                     | Whether the chip can be removed.                 | `true`       | boolean |
+| `@Input() disabled: boolean`                      | Whether the chip is disabled.                    | `false`      | boolean |
+| `@Input() color: string`                          | Color theme of the chip (primary, accent, warn). | `'primary'`  | select  |
+| `@Input() highlighted: boolean`                   | Whether the chip is highlighted.                 | `false`      | boolean |
+| `@Output() removed: EventEmitter<OuiChipEvent>`   | Emitted when the chip is removed.                | —            | —       |
+| `@Output() destroyed: EventEmitter<OuiChipEvent>` | Emitted when the chip is destroyed.              | —            | —       |
 
 ### `OuiChipInput`
 
-| Name | Description | Default | Control |
-| ---- | ----------- | ------- | ------- |
-| `@Input('ouiChipInputFor') chipGrid: OuiChipGrid` | The chip grid this input belongs to. | — | — |
-| `@Input('ouiChipInputAddOnBlur') addOnBlur: boolean` | Whether to emit `chipEnd` on blur. | `false` | boolean |
-| `@Input('ouiChipInputSeparatorKeyCodes') separatorKeyCodes: number[]` | Key codes that emit `chipEnd`. | `[ENTER]` | — |
-| `@Input() placeholder: string` | Placeholder text. | `''` | text |
-| `@Input() disabled: boolean` | Whether the input is disabled. | `false` | boolean |
-| `@Input() readonly: boolean` | Whether the input is readonly. | `false` | boolean |
-| `@Input('ouiChipInputDisabledInteractive') disabledInteractive: boolean` | Whether the input remains interactive when disabled. | `false` | boolean |
-| `@Output('ouiChipInputTokenEnd') chipEnd: EventEmitter<OuiChipInputEvent>` | Emitted when a chip is to be added. | — | — |
+| Name                                                                       | Description                                          | Default   | Control |
+| -------------------------------------------------------------------------- | ---------------------------------------------------- | --------- | ------- |
+| `@Input('ouiChipInputFor') chipGrid: OuiChipGrid`                          | The chip grid this input belongs to.                 | —         | —       |
+| `@Input('ouiChipInputAddOnBlur') addOnBlur: boolean`                       | Whether to emit `chipEnd` on blur.                   | `false`   | boolean |
+| `@Input('ouiChipInputSeparatorKeyCodes') separatorKeyCodes: number[]`      | Key codes that emit `chipEnd`.                       | `[ENTER]` | —       |
+| `@Input() placeholder: string`                                             | Placeholder text.                                    | `''`      | text    |
+| `@Input() disabled: boolean`                                               | Whether the input is disabled.                       | `false`   | boolean |
+| `@Input() readonly: boolean`                                               | Whether the input is readonly.                       | `false`   | boolean |
+| `@Input('ouiChipInputDisabledInteractive') disabledInteractive: boolean`   | Whether the input remains interactive when disabled. | `false`   | boolean |
+| `@Output('ouiChipInputTokenEnd') chipEnd: EventEmitter<OuiChipInputEvent>` | Emitted when a chip is to be added.                  | —         | —       |
 
 ### `ChipsAutocomplete`
 
-| Name | Description | Default | Control |
-| ---- | ----------- | ------- | ------- |
-| `@Input() displayWith: (value: any) => string` | Function that maps an option's value to its display string. | `null` | — |
-| `@Input() autoActiveFirstOption: boolean` | Whether the first option is highlighted when the panel opens. | `false` | boolean |
-| `@Input() panelWidth: string \| number` | Width of the autocomplete panel. Matches host width if unset. | — | — |
-| `@Input() class: string` | CSS classes applied to the panel element. | `''` | text |
-| `@Output() optionSelected: EventEmitter<ChipsAutocompleteSelectedEvent>` | Emitted when an option is selected. | — | — |
-| `@Output() opened: EventEmitter<void>` | Emitted when the panel is opened. | — | — |
-| `@Output() closed: EventEmitter<void>` | Emitted when the panel is closed. | — | — |
+| Name                                                                     | Description                                                   | Default | Control |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------- | ------- | ------- |
+| `@Input() displayWith: (value: any) => string`                           | Function that maps an option's value to its display string.   | `null`  | —       |
+| `@Input() autoActiveFirstOption: boolean`                                | Whether the first option is highlighted when the panel opens. | `false` | boolean |
+| `@Input() panelWidth: string \| number`                                  | Width of the autocomplete panel. Matches host width if unset. | —       | —       |
+| `@Input() class: string`                                                 | CSS classes applied to the panel element.                     | `''`    | text    |
+| `@Output() optionSelected: EventEmitter<ChipsAutocompleteSelectedEvent>` | Emitted when an option is selected.                           | —       | —       |
+| `@Output() opened: EventEmitter<void>`                                   | Emitted when the panel is opened.                             | —       | —       |
+| `@Output() closed: EventEmitter<void>`                                   | Emitted when the panel is closed.                             | —       | —       |
 
 ### `ChipsAutocompleteTrigger`
 
-| Name | Description | Default | Control |
-| ---- | ----------- | ------- | ------- |
-| `@Input('ouiChipAutocomplete') autocomplete: ChipsAutocomplete` | The autocomplete panel to attach to this trigger. | — | — |
-| `@Input('autocomplete') autocompleteAttribute: string` | `autocomplete` attribute for the native input. | `'off'` | text |
-| `@Input('ouiChipAutocompleteDisabled') autocompleteDisabled: boolean` | Whether the autocomplete is disabled. | `false` | boolean |
+| Name                                                                  | Description                                       | Default | Control |
+| --------------------------------------------------------------------- | ------------------------------------------------- | ------- | ------- |
+| `@Input('ouiChipAutocomplete') autocomplete: ChipsAutocomplete`       | The autocomplete panel to attach to this trigger. | —       | —       |
+| `@Input('autocomplete') autocompleteAttribute: string`                | `autocomplete` attribute for the native input.    | `'off'` | text    |
+| `@Input('ouiChipAutocompleteDisabled') autocompleteDisabled: boolean` | Whether the autocomplete is disabled.             | `false` | boolean |
 
 ### `ChipsAutocompleteSelectedEvent`
 
-| Name | Description |
-| ---- | ----------- |
+| Name                        | Description                                    |
+| --------------------------- | ---------------------------------------------- |
 | `source: ChipsAutocomplete` | The autocomplete panel that emitted the event. |
-| `option: ChipsOption` | The option that was selected. |
-| `option.viewValue: string` | The display text of the selected option. |
+| `option: ChipsOption`       | The option that was selected.                  |
+| `option.viewValue: string`  | The display text of the selected option.       |
