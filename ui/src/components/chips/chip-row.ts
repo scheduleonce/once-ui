@@ -184,7 +184,7 @@ export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {
 
     afterNextRender(
       () => {
-        this._getEditInput().initialize(value);
+        this._getEditInput().initialize(String(value));
 
         setTimeout(() =>
           this._ngZone.run(() => (this._editStartPending = false))
