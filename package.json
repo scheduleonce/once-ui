@@ -34,12 +34,7 @@
     "ws": "8.21.0",
     "piscina": "5.2.0",
     "@angular/build": {
-      "undici": "7.28.0"
-    },
-    "@compodoc/compodoc": {
-      "cheerio": {
-        "undici": "7.28.0"
-      }
+      "undici": "7.29.0"
     },
     "uuid": "11.1.1",
     "@angular-devkit/build-angular": {
@@ -75,11 +70,11 @@
     "@angular/elements": "21.2.17",
     "@angular/language-service": "21.2.17",
     "@babel/core": "7.29.6",
-    "@compodoc/compodoc": "^1.1.32",
+    "@compodoc/compodoc": "2.0.0",
     "@humanfs/core": "^0.19.2",
-    "@storybook/addon-docs": "^10.5.7",
-    "@storybook/addon-links": "^10.5.7",
-    "@storybook/angular": "^10.5.7",
+    "@storybook/addon-docs": "^10.5.9",
+    "@storybook/addon-links": "^10.5.9",
+    "@storybook/angular": "^10.5.9",
     "@types/jasmine": "4.3.0",
     "@types/node": "^22.20.1",
     "@typescript-eslint/eslint-plugin": "^8.67.0",
@@ -88,7 +83,7 @@
     "babel-loader": "9.1.0",
     "eslint": "^9.39.5",
     "eslint-plugin-prefer-arrow": "1.2.3",
-    "eslint-plugin-storybook": "^10.5.7",
+    "eslint-plugin-storybook": "^10.5.9",
     "gulp": "5.0.0",
     "jasmine-core": "4.1.0",
     "jasmine-spec-reporter": "7.0.0",
@@ -105,7 +100,7 @@
     "react-dom": "^18.2.0",
     "sass": "1.98.0",
     "scss-bundle": "3.1.2",
-    "storybook": "^10.5.7",
+    "storybook": "^10.5.9",
     "tsx": "^4.23.12",
     "typescript": "5.9.3"
   }
