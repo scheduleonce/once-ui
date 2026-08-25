@@ -9,6 +9,7 @@ import { OuiColumnMenuPanelComponent } from './column-menu/oui-column-menu-panel
 import { OuiResizableColumnsDirective } from './column-resize/oui-column-resize.directive';
 import { OuiResizableColumnDirective } from './column-resize/oui-column-resize-column.directive';
 import { OuiReorderableColumnsDirective } from './column-reorder/oui-column-reorder.directive';
+import { OuiReorderableAutoScrollDirective } from './column-reorder/oui-reorderable-auto-scroll.directive';
 import { OuiTooltipModule } from '../tooltip/tooltip-module';
 
 const COLUMN_FEATURE_DECLARATIONS = [
@@ -17,6 +18,7 @@ const COLUMN_FEATURE_DECLARATIONS = [
   OuiResizableColumnsDirective,
   OuiResizableColumnDirective,
   OuiReorderableColumnsDirective,
+  OuiReorderableAutoScrollDirective,
 ];
 
 /**
