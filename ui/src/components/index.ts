@@ -19,3 +19,4 @@ export * from './select/public-api';
 export * from './slide-toggle/public-api';
 export * from './scrollbar/public-api';
 export * from './tabs/public-api';
+export * from './chips/public-api';
