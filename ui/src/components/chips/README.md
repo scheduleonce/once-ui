@@ -123,9 +123,9 @@ Use `ouiChipInputSeparatorKeyCodes` to define which keys create a chip.
 - `ENTER`: Select the highlighted autocomplete option (panel must be open).
 - `ESCAPE`: Close the autocomplete panel.
 
-## Stackblitz demo link
+<!-- ## Stackblitz demo link
 
-https://stackblitz.com/edit/oui-chips-autocomplete
+https://stackblitz.com/edit/oui-chips-autocomplete -->
 
 ## Accessibility
 
