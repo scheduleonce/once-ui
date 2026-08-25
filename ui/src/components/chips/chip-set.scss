@@ -1,0 +1,92 @@
+.oui-chip-set {
+  display: flex;
+  width: 100%;
+
+  &:focus {
+    outline: none;
+  }
+
+  .oui-chip-set__chips {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    min-width: 100%;
+    margin-left: -8px;
+    margin-right: 0;
+  }
+
+  .oui-chip {
+    margin: 4px 0 4px 8px;
+  }
+
+  [dir='rtl'] & {
+    .oui-chip-set__chips {
+      margin-left: 0;
+      margin-right: -8px;
+    }
+
+    .oui-chip {
+      margin-left: 0;
+      margin-right: 8px;
+    }
+  }
+}
+
+.oui-chip-set-stacked {
+  flex-direction: column;
+  align-items: flex-start;
+
+  .oui-chip {
+    width: 100%;
+  }
+}
+
+input.oui-chip-input {
+  flex: 1 0 150px;
+  margin: 4px 0 4px 8px;
+  height: 32px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: inherit;
+  padding: 0;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #666;
+    opacity: 1;
+  }
+}
+
+/* When the input lives as a sibling of the chip-set inside form-field-infix
+   (the structure Angular Material documents for chips-autocomplete), drop
+   the horizontal margin so the input sits flush on its own line below the
+   chips. Mirrors Material's `.mat-mdc-chip-set + input.mat-mdc-chip-input`
+   rule. */
+oui-chip-set + input.oui-chip-input,
+oui-chip-grid + input.oui-chip-input {
+  margin-left: 0;
+  margin-right: 0;
+  display: block;
+  width: 100%;
+  flex: 0 0 auto;
+}
+
+/* Chips autocomplete: background and bottom border for the chips + input wrapper */
+.oui-form-field-type-oui-chip-grid {
+  .oui-form-field-flex {
+    padding: 0 14px;
+    background: #f6f6f6;
+    border-bottom: 1px solid #c8c8c8;
+    transition: border-color 0.5s;
+  }
+
+  &.oui-focused .oui-form-field-flex {
+    border-bottom-color: #00a4ff;
+  }
+}
