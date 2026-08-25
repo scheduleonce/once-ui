@@ -1,0 +1,168 @@
+$oui-chip-action-padding: 12px;
+$oui-chip-graphic-padding: 6px;
+$oui-chip-trailing-action-padding: 8px;
+$oui-chip-trailing-icon-size: 18px;
+
+.oui-chip {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  max-width: 100%;
+  box-sizing: border-box;
+  border-radius: 3px;
+  height: 32px;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.17px;
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.87);
+  border: 1px solid #d7d7d7;
+  padding: 1px 6px;
+  cursor: default;
+  outline: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+
+  &.oui-accent {
+    background: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &.oui-warn {
+    background: #ffffff;
+    color: #fff;
+  }
+
+  &.oui-chip--basic {
+    background: #ffffff;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &.oui-chip--disabled {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+
+  &.oui-chip-highlighted {
+    background-color: #ffd740;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.oui-chip__cell,
+.oui-chip__action {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+.oui-chip__cell--primary {
+  flex-basis: 100%;
+  overflow-x: hidden;
+}
+
+.oui-chip__cell--trailing {
+  flex: 1 0 auto;
+}
+
+.oui-chip-action {
+  background: #ffffff;
+  border: none;
+  box-sizing: content-box;
+  cursor: inherit;
+  display: inline-flex;
+  justify-content: center;
+  outline: none;
+  padding: 0;
+  text-decoration: none;
+  color: inherit;
+
+  &--presentational {
+    cursor: auto;
+  }
+
+  &--primary {
+    font: inherit;
+    letter-spacing: inherit;
+    white-space: inherit;
+    overflow-x: hidden;
+    padding-left: $oui-chip-action-padding;
+    padding-right: $oui-chip-action-padding;
+  }
+
+  &--secondary {
+    position: relative;
+    overflow: visible;
+    padding-left: $oui-chip-trailing-action-padding;
+    padding-right: $oui-chip-trailing-action-padding;
+  }
+}
+
+.oui-chip-with-trailing-icon {
+  .oui-chip-action--primary {
+    padding: 0;
+  }
+}
+
+.oui-chip__text-label {
+  user-select: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.oui-chip-action-label {
+  text-align: left;
+  z-index: 1;
+}
+
+.oui-chip__graphic {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  overflow: hidden;
+  pointer-events: none;
+  position: relative;
+  flex: 1 0 auto;
+  padding-left: $oui-chip-graphic-padding;
+  padding-right: $oui-chip-graphic-padding;
+}
+
+.oui-chip__icon--trailing {
+  height: $oui-chip-trailing-icon-size;
+  width: $oui-chip-trailing-icon-size;
+  font-size: $oui-chip-trailing-icon-size;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.oui-chip__icon--primary {
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+}
+
+.oui-chip-remove {
+  cursor: pointer;
+  opacity: 0.54;
+  transition: opacity 150ms linear;
+  padding-left: 4px;
+  padding-right: 0px;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus {
+    opacity: 1;
+    outline: none;
+  }
+}
+
+.oui-chip-with-trailing-icon .oui-chip-action-label {
+  position: relative;
+}

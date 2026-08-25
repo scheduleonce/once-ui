@@ -1,0 +1,23 @@
+<span class="oui-chip-focus-overlay"></span>
+
+<span class="oui-chip__cell oui-chip__cell--primary">
+  <span ouiChipContent>
+    @if (leadingIcon) {
+    <span class="oui-chip__graphic oui-chip-graphic">
+      <ng-content select="oui-chip-avatar, [ouiChipAvatar]"></ng-content>
+    </span>
+    }
+    <span class="oui-chip__text-label oui-chip-action-label">
+      <ng-content></ng-content>
+      <span class="oui-chip-primary-focus-indicator" aria-hidden="true"></span>
+    </span>
+  </span>
+</span>
+
+@if (_hasTrailingIcon()) {
+<span class="oui-chip__cell oui-chip__cell--trailing">
+  <ng-content
+    select="oui-chip-trailing-icon,[ouiChipRemove],[ouiChipTrailingIcon]"
+  ></ng-content>
+</span>
+}
