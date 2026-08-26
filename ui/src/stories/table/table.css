@@ -6,6 +6,8 @@
 }
 .oui-table-enhanced-container {
   border: 1px solid #dfdfdf;
+  overflow-x: auto;
+  max-width: 100%;
 }
 .table-container table {
   width: 99%;
