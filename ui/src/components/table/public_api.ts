@@ -11,3 +11,4 @@ export * from './column-menu/oui-column-menu.directive';
 export * from './column-resize/oui-column-resize.directive';
 export * from './column-resize/oui-column-resize-column.directive';
 export * from './column-reorder/oui-column-reorder.directive';
+export * from './column-reorder/oui-reorderable-auto-scroll.directive';
