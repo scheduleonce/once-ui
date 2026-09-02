@@ -59,7 +59,7 @@
     "zone.js": "^0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "21.2.16",
+    "@angular-devkit/build-angular": "21.2.21",
     "@angular-eslint/builder": "^21.4.0",
     "@angular-eslint/eslint-plugin": "^21.4.0",
     "@angular-eslint/eslint-plugin-template": "^21.4.0",
@@ -93,7 +93,7 @@
     "karma-jasmine": "4.0.1",
     "karma-jasmine-html-reporter": "1.7.0",
     "karma-junit-reporter": "2.0.1",
-    "ng-packagr": "21.2.5",
+    "ng-packagr": "21.2.7",
     "prettier": "2.8.0",
     "puppeteer": "24.40.0",
     "react": "^18.2.0",
