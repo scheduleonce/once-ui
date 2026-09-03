@@ -4,7 +4,10 @@ const { execFileSync } = require('child_process');
 
 process.env.CHROME_BIN = execFileSync(
   process.execPath,
-  ['-e', "require('puppeteer').executablePath().then((path) => process.stdout.write(path))"],
+  [
+    '-e',
+    "require('puppeteer').executablePath().then((path) => process.stdout.write(path))",
+  ],
   { encoding: 'utf8' }
 ).trim();
 
