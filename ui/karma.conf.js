@@ -1,6 +1,16 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+const { execFileSync } = require('child_process');
+
+process.env.CHROME_BIN = execFileSync(
+  process.execPath,
+  [
+    '-e',
+    "require('puppeteer').executablePath().then((path) => process.stdout.write(path))",
+  ],
+  { encoding: 'utf8' }
+).trim();
+
 module.exports = function (config) {
   config.set({
     basePath: '',
