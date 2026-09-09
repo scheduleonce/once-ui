@@ -250,8 +250,8 @@ describe('MDC-based OuiTabNavBar', () => {
 
       spyOn(inkBar, 'hide');
 
-      fixture.componentInstance.tabLinks.forEach(
-        (link) => (link.active = false)
+      fixture.componentInstance.tabLinks.forEach((link) =>
+        link.active.set(false)
       );
       fixture.detectChanges();
       tick();

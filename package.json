@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "11.5.0",
+  "version": "11.5.0-beta.0",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -86,6 +86,7 @@
     "@webcomponents/custom-elements": "1.5.1",
     "babel-loader": "9.1.0",
     "eslint": "10.10.0",
+    "eslint-plugin-import": "2.32.0",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "^10.6.0",
     "gulp": "5.0.0",

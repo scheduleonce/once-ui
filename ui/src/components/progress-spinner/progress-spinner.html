@@ -1,15 +1,11 @@
-<svg
-  [style.width.px]="diameter"
-  [style.height.px]="diameter"
-  [attr.viewBox]="_viewBox"
->
+<svg [style.width.px]="diameter()" [attr.viewBox]="_viewBox">
   <circle
     cx="50%"
     cy="50%"
     [attr.r]="_circleRadius"
     [style.animation-name]="
       mode === 'indeterminate'
-        ? 'oui-progress-spinner-stroke-rotate-' + diameter
+        ? 'oui-progress-spinner-stroke-rotate-' + diameter()
         : 'none'
     "
     [style.stroke-dashoffset.px]="_strokeDashOffset"

@@ -2,13 +2,13 @@ import { BACKSPACE, hasModifierKey, ModifierKey } from '@angular/cdk/keycodes';
 import {
   Directive,
   ElementRef,
-  EventEmitter,
-  Input,
   OnChanges,
   OnDestroy,
-  Output,
   booleanAttribute,
+  effect,
   inject,
+  input,
+  output,
 } from '@angular/core';
 import { _IdGenerator } from '@angular/cdk/a11y';
 import {
@@ -65,7 +65,9 @@ export class OuiChipInput implements OuiChipTextControl, OnChanges, OnDestroy {
   focused: boolean = false;
 
   /** Register input for chip list */
-  @Input('ouiChipInputFor')
+  readonly chipGridInput = input<OuiChipGrid | undefined>(undefined, {
+    alias: 'ouiChipInputFor',
+  });
   get chipGrid(): OuiChipGrid {
     return this._chipGrid;
   }
@@ -80,51 +82,67 @@ export class OuiChipInput implements OuiChipTextControl, OnChanges, OnDestroy {
   /**
    * Whether or not the chipEnd event will be emitted when the input is blurred.
    */
-  @Input({ alias: 'ouiChipInputAddOnBlur', transform: booleanAttribute })
-  addOnBlur: boolean = false;
+  readonly addOnBlur = input(false, {
+    alias: 'ouiChipInputAddOnBlur',
+    transform: booleanAttribute,
+  });
 
   /**
    * The list of key codes that will trigger a chipEnd event.
    *
    * Defaults to `[ENTER]`.
    */
-  @Input('ouiChipInputSeparatorKeyCodes')
-  separatorKeyCodes:
+  readonly separatorKeyCodesInput = input<
+    readonly (number | SeparatorKey)[] | ReadonlySet<number | SeparatorKey>
+  >(undefined, {
+    alias: 'ouiChipInputSeparatorKeyCodes',
+  });
+  private _separatorKeyCodes:
     | readonly (number | SeparatorKey)[]
     | ReadonlySet<number | SeparatorKey>;
+  get separatorKeyCodes() {
+    return this.separatorKeyCodesInput() ?? this._separatorKeyCodes;
+  }
 
   /** Emitted when a chip is to be added. */
-  // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('ouiChipInputTokenEnd')
-  readonly chipEnd: EventEmitter<OuiChipInputEvent> =
-    new EventEmitter<OuiChipInputEvent>();
+  /* eslint-disable @angular-eslint/no-output-rename */
+  readonly chipEnd = output<OuiChipInputEvent>({
+    alias: 'ouiChipInputTokenEnd',
+  });
+  /* eslint-enable @angular-eslint/no-output-rename */
 
   /** The input's placeholder text. */
-  @Input() placeholder: string = '';
+  readonly placeholderInput = input('', { alias: 'placeholder' });
+  get placeholder(): string {
+    return this.placeholderInput();
+  }
 
   /** Unique id for the input. */
-  @Input() id: string = inject(_IdGenerator).getId('oui-chip-list-input-');
+  readonly idInput = input(inject(_IdGenerator).getId('oui-chip-list-input-'), {
+    alias: 'id',
+  });
+  get id(): string {
+    return this.idInput();
+  }
 
   /** Whether the input is disabled. */
-  @Input({ transform: booleanAttribute })
+  readonly disabledInput = input(false, { transform: booleanAttribute });
   get disabled(): boolean {
-    return this._disabled || (this._chipGrid && this._chipGrid.disabled);
+    return this.disabledInput() || (this._chipGrid && this._chipGrid.disabled);
   }
-  set disabled(value: boolean) {
-    this._disabled = value;
-  }
-  private _disabled: boolean = false;
 
   /** Whether the input is readonly. */
-  @Input({ transform: booleanAttribute })
-  readonly: boolean = false;
+  readonly readonly = input(false, { transform: booleanAttribute });
 
   /** Whether the input should remain interactive when it is disabled. */
-  @Input({
+  readonly disabledInteractiveInput = input<boolean | undefined>(undefined, {
     alias: 'ouiChipInputDisabledInteractive',
     transform: booleanAttribute,
-  })
-  disabledInteractive: boolean;
+  });
+  private _disabledInteractive = false;
+  get disabledInteractive(): boolean {
+    return this.disabledInteractiveInput() ?? this._disabledInteractive;
+  }
 
   /** Whether the input is empty. */
   get empty(): boolean {
@@ -140,17 +158,23 @@ export class OuiChipInput implements OuiChipTextControl, OnChanges, OnDestroy {
     );
 
     this.inputElement = this._elementRef.nativeElement as HTMLInputElement;
-    this.separatorKeyCodes = defaultOptions.separatorKeyCodes;
-    this.disabledInteractive = defaultOptions.inputDisabledInteractive ?? false;
+    this._separatorKeyCodes = defaultOptions.separatorKeyCodes;
+    this._disabledInteractive =
+      defaultOptions.inputDisabledInteractive ?? false;
+    effect(() => {
+      const chipGrid = this.chipGridInput();
+      if (chipGrid) {
+        this.chipGrid = chipGrid;
+      }
+    });
   }
 
   ngOnChanges() {
     this._chipGrid?.stateChanges?.next();
   }
 
-  ngOnDestroy(): void {
-    this.chipEnd.complete();
-  }
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
+  ngOnDestroy(): void {}
 
   /** Utility method to make host definition/tests more clear. */
   _keydown(event: KeyboardEvent) {
@@ -166,7 +190,7 @@ export class OuiChipInput implements OuiChipTextControl, OnChanges, OnDestroy {
 
   /** Checks to see if the blur should emit the (chipEnd) event. */
   _blur() {
-    if (this.addOnBlur) {
+    if (this.addOnBlur()) {
       this._emitChipEnd();
     }
     this.focused = false;
@@ -264,7 +288,7 @@ export class OuiChipInput implements OuiChipTextControl, OnChanges, OnDestroy {
 
   /** Gets the value to set on the `readonly` attribute. */
   protected _getReadonlyAttribute(): string | null {
-    return this.readonly || (this.disabled && this.disabledInteractive)
+    return this.readonly() || (this.disabled && this.disabledInteractive)
       ? 'true'
       : null;
   }

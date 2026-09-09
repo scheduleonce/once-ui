@@ -79,14 +79,14 @@ describe('OuiProgressSpinner', () => {
     const testElement = basicProgressSpinnerFixture.debugElement.query(
       By.css('oui-progress-spinner')
     );
-    expect(testElement.componentInstance.value).toBe(0);
+    expect(testElement.componentInstance.value()).toBe(0);
   });
 
   it('should apply a mode of "determinate" if value is provided.', () => {
     const testElement = basicProgressSpinnerFixture.debugElement.query(
       By.css('oui-progress-spinner')
     );
-    testElement.componentInstance.value = 50;
+    basicProgressSpinnerFixture.componentRef.setInput('value', 50);
     basicProgressSpinnerFixture.detectChanges();
     expect(testElement.componentInstance.mode).toBe('determinate');
   });
@@ -99,20 +99,20 @@ describe('OuiProgressSpinner', () => {
     );
     const progressComponent = testElement.componentInstance;
 
-    progressComponent.value = 50;
-    expect(progressComponent.value).toBe(50);
+    basicProgressSpinnerFixture.componentRef.setInput('value', 50);
+    expect(progressComponent.value()).toBe(50);
 
-    progressComponent.value = 0;
-    expect(progressComponent.value).toBe(0);
+    basicProgressSpinnerFixture.componentRef.setInput('value', 0);
+    expect(progressComponent.value()).toBe(0);
 
-    progressComponent.value = 100;
-    expect(progressComponent.value).toBe(100);
+    basicProgressSpinnerFixture.componentRef.setInput('value', 100);
+    expect(progressComponent.value()).toBe(100);
 
-    progressComponent.value = 999;
-    expect(progressComponent.value).toBe(100);
+    basicProgressSpinnerFixture.componentRef.setInput('value', 999);
+    expect(progressComponent.value()).toBe(100);
 
-    progressComponent.value = -10;
-    expect(progressComponent.value).toBe(0);
+    basicProgressSpinnerFixture.componentRef.setInput('value', -10);
+    expect(progressComponent.value()).toBe(0);
   });
 
   it('should default to a stroke width of the 2', () => {
@@ -120,10 +120,10 @@ describe('OuiProgressSpinner', () => {
       By.directive(OuiProgressSpinner)
     );
 
-    progressSpinnerDiameterFixture.componentInstance.diameter = 57;
+    progressSpinnerDiameterFixture.componentRef.setInput('diameter', 57);
     progressSpinnerDiameterFixture.detectChanges();
 
-    expect(spinner.componentInstance.strokeWidth).toBe(2);
+    expect(spinner.componentInstance.strokeWidth()).toBe(2);
   });
 
   it('should allow to set a custom diameter', () => {
@@ -137,7 +137,7 @@ describe('OuiProgressSpinner', () => {
         'svg'
       ) as HTMLElement;
 
-    spinnerDebugElement.componentInstance.diameter = 32;
+    progressSpinnerDiameterFixture.componentRef.setInput('diameter', 32);
     progressSpinnerDiameterFixture.detectChanges();
 
     expect(parseInt(spinner.style.width, 10)).toBe(
@@ -173,7 +173,7 @@ describe('OuiProgressSpinner', () => {
     );
     expect(testElement.nativeElement.classList).toContain('oui-primary');
 
-    testElement.componentInstance.color = 'accent';
+    progressSpinnerWithColorfixture.componentRef.setInput('color', 'accent');
     progressSpinnerWithColorfixture.detectChanges();
 
     expect(testElement.nativeElement.classList).toContain('oui-accent');
@@ -186,7 +186,7 @@ describe('OuiProgressSpinner', () => {
       By.directive(OuiProgressSpinner)
     );
 
-    spinner.componentInstance.diameter = 100;
+    basicProgressSpinnerFixture.componentRef.setInput('diameter', 100);
     basicProgressSpinnerFixture.detectChanges();
 
     expect(spinner.nativeElement.style.width).toBe('100px');

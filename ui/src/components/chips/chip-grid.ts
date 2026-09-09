@@ -12,13 +12,13 @@ import {
   Component,
   ContentChildren,
   DoCheck,
-  EventEmitter,
-  Input,
   OnDestroy,
-  Output,
   QueryList,
   ViewEncapsulation,
+  effect,
   inject,
+  input,
+  output,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -62,7 +62,7 @@ export class OuiChipGridChange {
     class: 'oui-chip-set oui-chip-grid',
     '[attr.role]': 'role',
     '[attr.tabindex]':
-      '(disabled || (_chips && _chips.length === 0)) ? -1 : tabIndex',
+      '(disabled || (_chips && _chips.length === 0)) ? -1 : tabIndex()',
     '[attr.aria-disabled]': 'disabled.toString()',
     '[attr.aria-invalid]': 'errorState',
     '[class.oui-chip-list-disabled]': 'disabled',
@@ -120,7 +120,7 @@ export class OuiChipGrid
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
    */
-  @Input({ transform: booleanAttribute })
+  readonly disabledInput = input(false, { transform: booleanAttribute });
   override get disabled(): boolean {
     return this.ngControl ? !!this.ngControl.disabled : this._disabled;
   }
@@ -153,7 +153,9 @@ export class OuiChipGrid
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
    */
-  @Input()
+  readonly placeholderInput = input<string | undefined>(undefined, {
+    alias: 'placeholder',
+  });
   get placeholder(): string {
     return this._chipInput ? this._chipInput.placeholder : this._placeholder;
   }
@@ -172,7 +174,7 @@ export class OuiChipGrid
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
    */
-  @Input({ transform: booleanAttribute })
+  readonly requiredInput = input(false, { transform: booleanAttribute });
   get required(): boolean {
     return (
       this._required ??
@@ -198,7 +200,7 @@ export class OuiChipGrid
    * Implemented as part of OuiFormFieldControl.
    * @docs-private
    */
-  @Input()
+  readonly valueInput = input<any>(undefined, { alias: 'value' });
   get value(): any {
     return this._value;
   }
@@ -208,7 +210,10 @@ export class OuiChipGrid
   protected _value: any[] = [];
 
   /** An object used to control when error messages are shown. */
-  @Input()
+  readonly errorStateMatcherInput = input<ErrorStateMatcher | undefined>(
+    undefined,
+    { alias: 'errorStateMatcher' }
+  );
   get errorStateMatcher() {
     return this._errorStateTracker.matcher;
   }
@@ -222,15 +227,14 @@ export class OuiChipGrid
   }
 
   /** Emits when the chip grid value has been changed by the user. */
-  @Output() readonly change: EventEmitter<OuiChipGridChange> =
-    new EventEmitter<OuiChipGridChange>();
+  readonly change = output<OuiChipGridChange>();
 
   /**
    * Emits whenever the raw value of the chip-grid changes. This is here primarily
    * to facilitate the two-way binding for the `value` input.
    * @docs-private
    */
-  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
+  readonly valueChange = output<any>();
 
   @ContentChildren(OuiChipRow, {
     descendants: true,
@@ -270,17 +274,37 @@ export class OuiChipGrid
       parentForm,
       this.stateChanges
     );
+
+    effect(() => {
+      this.disabled = this.disabledInput();
+      this.placeholder = this.placeholderInput() as string;
+      this.required = this.requiredInput();
+      const value = this.valueInput();
+      if (value !== undefined) {
+        this.value = value;
+      }
+      const errorStateMatcher = this.errorStateMatcherInput();
+      if (errorStateMatcher !== undefined) {
+        this.errorStateMatcher = errorStateMatcher;
+      }
+    });
   }
 
   ngAfterContentInit() {
-    this.chipBlurChanges.pipe(takeUntil(this._destroyed)).subscribe(() => {
-      this._blur();
-      this.stateChanges.next();
+    this.chipBlurChanges.pipe(takeUntil(this._destroyed)).subscribe({
+      next: () => {
+        this._blur();
+        this.stateChanges.next();
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
 
     merge(this.chipFocusChanges, this._chips.changes)
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => this.stateChanges.next());
+      .subscribe({
+        next: () => this.stateChanges.next(),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
 
   ngDoCheck() {
@@ -321,7 +345,7 @@ export class OuiChipGrid
       return;
     }
 
-    if (!this._chips.length || this._chips.first.disabled) {
+    if (!this._chips.length || this._chips.first._isDisabled()) {
       if (!this._chipInput) {
         return;
       }
@@ -443,7 +467,7 @@ export class OuiChipGrid
         this._chipInput?.focused &&
         hasModifierKey(event, 'shiftKey') &&
         this._chips.length &&
-        !this._chips.last.disabled
+        !this._chips.last._isDisabled()
       ) {
         event.preventDefault();
 
@@ -486,7 +510,7 @@ export class OuiChipGrid
 
     if (
       !this._chips.length ||
-      (this._chips.length === 1 && this._chips.first.disabled)
+      (this._chips.length === 1 && this._chips.first._isDisabled())
     ) {
       this._keyManager.updateActiveItem(-1);
     }
@@ -501,7 +525,7 @@ export class OuiChipGrid
   /** Emits change event to set the model value. */
   private _propagateChanges(): void {
     const valueToEmit = this._chips.length
-      ? this._chips.toArray().map((chip) => chip.value)
+      ? this._chips.toArray().map((chip) => chip.value())
       : [];
     this._value = valueToEmit;
     this.change.emit(new OuiChipGridChange(this, valueToEmit));

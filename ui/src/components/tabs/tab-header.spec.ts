@@ -174,8 +174,8 @@ describe('MDC-based OuiTabHeader', () => {
     });
 
     it('should not prevent the default space/enter action if the current is selected', () => {
-      appComponent.tabHeader.focusIndex =
-        appComponent.tabHeader.selectedIndex = 0;
+      appComponent.tabHeader.focusIndex = 0;
+      appComponent.tabHeader.selectedIndex.set(0);
       fixture.detectChanges();
 
       const spaceEvent = dispatchKeyboardEvent(

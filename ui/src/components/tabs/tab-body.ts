@@ -13,12 +13,12 @@ import {
   ComponentFactoryResolver,
   Directive,
   ElementRef,
-  EventEmitter,
-  Input,
+  ErrorHandler,
+  input,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  output,
   SimpleChanges,
   ViewChild,
   ViewContainerRef,
@@ -121,6 +121,7 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
 
   /** Subscription to the directionality change observable. */
   private _dirChangeSubscription = Subscription.EMPTY;
+  private _errorHandler = inject(ErrorHandler);
 
   /** Tab body position state. Used by the animation trigger for the current state. */
   _position: OuiTabBodyPositionState;
@@ -129,55 +130,49 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
   readonly _translateTabComplete = new Subject<AnimationEvent>();
 
   /** Event emitted when the tab begins to animate towards the center as the active tab. */
-  @Output() readonly _onCentering: EventEmitter<number> =
-    new EventEmitter<number>();
+  readonly _onCentering = output<number>();
 
   /** Event emitted before the centering of the tab begins. */
-  @Output() readonly _beforeCentering: EventEmitter<boolean> =
-    new EventEmitter<boolean>();
+  readonly _beforeCentering = output<boolean>();
 
   /** Event emitted before the centering of the tab begins. */
-  @Output() readonly _afterLeavingCenter: EventEmitter<void> =
-    new EventEmitter<void>();
+  readonly _afterLeavingCenter = output<void>();
 
   /** Event emitted when the tab completes its animation towards the center. */
-  @Output() readonly _onCentered: EventEmitter<void> = new EventEmitter<void>(
-    true
-  );
+  readonly _onCentered = output<void>();
 
   /** The portal host inside of this container into which the tab body content will be loaded. */
   @ViewChild(CdkPortalOutlet) _portalHost: CdkPortalOutlet;
 
   /** The tab body content to display. */
-  @Input('content') _content: string;
+  readonly _content = input<string>(undefined, { alias: 'content' });
 
   /** Position that will be used when the tab is immediately becoming visible after creation. */
-  @Input() origin: number | null;
+  readonly origin = input<number | null>();
 
   // Note that the default value will always be overwritten by `OuiTabBody`, but we need one
   // anyway to prevent the animations module from throwing an error if the body is used on its own.
   /** Duration for the tab's animation. */
-  @Input() animationDuration = '0ms';
+  readonly animationDuration = input('0ms');
 
   /** Whether the tab's content should be kept in the DOM while it's off-screen. */
-  @Input() preserveContent = false;
+  readonly preserveContent = input(false);
   _innerContent: any;
 
   /** The shifted index position of the tab body, where zero represents the active center tab. */
-  @Input()
-  set position(position: number) {
-    this._positionIndex = position;
-    this._computePositionAnimationState();
-  }
+  readonly position = input<number>();
 
   constructor() {
     const _dir = this._dir;
     const changeDetectorRef = inject(ChangeDetectorRef);
 
     if (_dir) {
-      this._dirChangeSubscription = _dir.change.subscribe((dir: Direction) => {
-        this._computePositionAnimationState(dir);
-        changeDetectorRef.markForCheck();
+      this._dirChangeSubscription = _dir.change.subscribe({
+        next: (dir: Direction) => {
+          this._computePositionAnimationState(dir);
+          changeDetectorRef.markForCheck();
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
     }
 
@@ -189,21 +184,24 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
           return x.fromState === y.fromState && x.toState === y.toState;
         })
       )
-      .subscribe((event) => {
-        // If the transition to the center is complete, emit an event.
-        if (
-          this._isCenterPosition(event.toState) &&
-          this._isCenterPosition(this._position)
-        ) {
-          this._onCentered.emit();
-        }
+      .subscribe({
+        next: (event) => {
+          // If the transition to the center is complete, emit an event.
+          if (
+            this._isCenterPosition(event.toState) &&
+            this._isCenterPosition(this._position)
+          ) {
+            this._onCentered.emit();
+          }
 
-        if (
-          this._isCenterPosition(event.fromState) &&
-          !this._isCenterPosition(this._position)
-        ) {
-          this._afterLeavingCenter.emit();
-        }
+          if (
+            this._isCenterPosition(event.fromState) &&
+            !this._isCenterPosition(this._position)
+          ) {
+            this._afterLeavingCenter.emit();
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
@@ -212,11 +210,11 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
    * special position states that transition the tab from the left or right before centering.
    */
   ngOnInit() {
-    if (this._position == 'center' && this.origin != null) {
-      this._position = this._computePositionFromOrigin(this.origin);
+    if (this._position == 'center' && this.origin() != null) {
+      this._position = this._computePositionFromOrigin(this.origin()!);
     }
     this._innerContent = this.sanitized.bypassSecurityTrustHtml(
-      this._content ? this._content : ''
+      this._content() || ''
     );
   }
 
@@ -226,6 +224,10 @@ export class OuiTabBody implements OnInit, OnDestroy, OnChanges {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         changes._content.currentValue ? changes._content.currentValue : ''
       );
+    }
+    if (changes.position) {
+      this._positionIndex = this.position()!;
+      this._computePositionAnimationState();
     }
   }
 

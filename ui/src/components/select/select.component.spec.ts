@@ -7,6 +7,7 @@ import {
   A,
 } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import {
@@ -841,7 +842,7 @@ describe('OuiSelect', () => {
         }));
 
         it('should support setting a custom aria-label', fakeAsync(() => {
-          selectInstance.ariaLabel = 'Custom Label';
+          fixture.componentRef.setInput('ariaLabel', 'Custom Label');
           (selectInstance as any)._changeDetectorRef.markForCheck();
           fixture.detectChanges();
 
@@ -849,7 +850,7 @@ describe('OuiSelect', () => {
         }));
 
         it('should not set an aria-label if aria-labelledby is specified', fakeAsync(() => {
-          selectInstance.ariaLabelledby = 'myLabelId';
+          fixture.componentRef.setInput('ariaLabelledby', 'myLabelId');
           (selectInstance as any)._changeDetectorRef.markForCheck();
           fixture.detectChanges();
 
@@ -914,7 +915,7 @@ describe('OuiSelect', () => {
             `Expected the oui-select-inline-edit class not to be set by default.`
           );
 
-          selectInstance.inlineEdit = true;
+          fixture.componentRef.setInput('inlineEdit', true);
           fixture.detectChanges();
 
           expect(select.classList).toContain(
@@ -922,7 +923,7 @@ describe('OuiSelect', () => {
             `Expected the oui-select-inline-edit class to be set when inlineEdit is true.`
           );
 
-          selectInstance.inlineEdit = false;
+          fixture.componentRef.setInput('inlineEdit', false);
           fixture.detectChanges();
 
           expect(select.classList).not.toContain(
@@ -2495,7 +2496,7 @@ describe('OuiSelect', () => {
     beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([CustomErrorBehaviorSelect])));
 
-    it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
+    it('should be able to override the error matching behavior via an input', fakeAsync(() => {
       const fixture = TestBed.createComponent(CustomErrorBehaviorSelect);
       const component = fixture.componentInstance;
       const matcher = jasmine
@@ -2508,6 +2509,8 @@ describe('OuiSelect', () => {
       expect(component.select.errorState).toBe(false);
 
       fixture.componentInstance.errorStateMatcher = { isErrorState: matcher };
+      // Propagate the `errorStateMatcher` input to the select before updating the error state.
+      fixture.detectChanges();
       component.select.updateErrorState();
       (component.select as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
@@ -2915,7 +2918,7 @@ describe('OuiSelect', () => {
       const spy = jasmine.createSpy('change spy');
 
       fixture.detectChanges();
-      instance.select.selectionChange.subscribe(() =>
+      outputToObservable(instance.select.selectionChange).subscribe(() =>
         spy(instance.selectedFood)
       );
 

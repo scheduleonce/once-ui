@@ -15,9 +15,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  input,
+  model,
+  output,
   ViewEncapsulation,
   ViewChild,
   inject,
@@ -56,80 +56,37 @@ export class OuiMonthView<D> implements AfterContentInit {
   /**
    * The date to display in this month view (everything other than the month and year is ignored).
    */
-  @Input()
-  get activeDate(): D {
-    return this._activeDate;
-  }
-  set activeDate(value: D) {
-    const oldActiveDate = this._activeDate;
-    const validDate =
-      this._getValidDateOrNull(this._dateAdapter.deserialize(value)) ||
-      this._dateAdapter.today();
-    this._activeDate = this._dateAdapter.clampDate(
-      validDate,
-      this.minDate,
-      this.maxDate
-    );
-    if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
-      this._init();
-    }
-  }
-  private _activeDate: D;
+  readonly activeDate = model<D>(undefined as D);
 
   /** The currently selected date. */
-  @Input()
-  get selected(): D | null {
-    return this._selected;
-  }
-  set selected(value: D | null) {
-    this._selected = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-    this._selectedDate = this._getDateInCurrentMonth(this._selected);
-  }
-  private _selected: D | null;
+  readonly selected = model<D | null>(null);
 
   /** The minimum selectable date. */
-  @Input()
-  get minDate(): D | null {
-    return this._minDate;
-  }
-  set minDate(value: D | null) {
-    this._minDate = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-  }
-  private _minDate: D | null;
+  readonly minDate = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** The maximum selectable date. */
-  @Input()
-  get maxDate(): D | null {
-    return this._maxDate;
-  }
-  set maxDate(value: D | null) {
-    this._maxDate = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-  }
-  private _maxDate: D | null;
+  readonly maxDate = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** Function used to filter which dates are selectable. */
-  @Input() dateFilter: (date: D) => boolean;
+  readonly dateFilter = input<(date: D) => boolean>();
 
   /** Function that can be used to add custom CSS classes to dates. */
-  @Input() dateClass: (date: D) => OuiCalendarCellCssClasses;
+  readonly dateClass = input<(date: D) => OuiCalendarCellCssClasses>();
 
   /** Emits when a new date is selected. */
-  @Output()
-  readonly selectedChange: EventEmitter<D | null> =
-    new EventEmitter<D | null>();
+  readonly selectedChange = output<D | null>();
 
   /** Emits when any date is selected. */
-  @Output()
-  readonly _userSelection: EventEmitter<void> = new EventEmitter<void>();
+  readonly _userSelection = output<void>();
 
   /** Emits when any date is activated. */
-  @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
+  readonly activeDateChange = output<D>();
 
   /** The body of calendar table */
   @ViewChild(OuiCalendarBody)
@@ -173,7 +130,7 @@ export class OuiMonthView<D> implements AfterContentInit {
       narrow: narrowWeekdays[i],
     }));
     this._weekdays = weekdays.slice(firstDayOfWeek).concat();
-    this._activeDate = this._dateAdapter.today();
+    this.activeDate.set(this._dateAdapter.today());
   }
 
   ngAfterContentInit() {
@@ -183,14 +140,16 @@ export class OuiMonthView<D> implements AfterContentInit {
   /** Handles when a new date is selected. */
   _dateSelected(date: number) {
     if (this._selectedDate !== date) {
-      const selectedYear = this._dateAdapter.getYear(this.activeDate);
-      const selectedMonth = this._dateAdapter.getMonth(this.activeDate);
+      this._selectedDate = date;
+      const selectedYear = this._dateAdapter.getYear(this.activeDate());
+      const selectedMonth = this._dateAdapter.getMonth(this.activeDate());
       const selectedDate = this._dateAdapter.createDate(
         selectedYear,
         selectedMonth,
         date
       );
 
+      this.selected.set(selectedDate);
       this.selectedChange.emit(selectedDate);
     }
 
@@ -203,61 +162,65 @@ export class OuiMonthView<D> implements AfterContentInit {
     // disabled ones from being selected. This may not be ideal, we should look into whether
     // navigation should skip over disabled dates, and if so, how to implement that efficiently.
 
-    const oldActiveDate = this._activeDate;
+    const oldActiveDate = this.activeDate();
     const isRtl = this._isRtl();
 
     switch (event.keyCode) {
       case LEFT_ARROW:
-        this.activeDate = this._dateAdapter.addCalendarDays(
-          this._activeDate,
-          isRtl ? 1 : -1
+        this.activeDate.set(
+          this._dateAdapter.addCalendarDays(this.activeDate(), isRtl ? 1 : -1)
         );
         break;
       case RIGHT_ARROW:
-        this.activeDate = this._dateAdapter.addCalendarDays(
-          this._activeDate,
-          isRtl ? -1 : 1
+        this.activeDate.set(
+          this._dateAdapter.addCalendarDays(this.activeDate(), isRtl ? -1 : 1)
         );
         break;
       case UP_ARROW:
-        this.activeDate = this._dateAdapter.addCalendarDays(
-          this._activeDate,
-          -7
+        this.activeDate.set(
+          this._dateAdapter.addCalendarDays(this.activeDate(), -7)
         );
         break;
       case DOWN_ARROW:
-        this.activeDate = this._dateAdapter.addCalendarDays(
-          this._activeDate,
-          7
+        this.activeDate.set(
+          this._dateAdapter.addCalendarDays(this.activeDate(), 7)
         );
         break;
       case HOME:
-        this.activeDate = this._dateAdapter.addCalendarDays(
-          this._activeDate,
-          1 - this._dateAdapter.getDate(this._activeDate)
+        this.activeDate.set(
+          this._dateAdapter.addCalendarDays(
+            this.activeDate(),
+            1 - this._dateAdapter.getDate(this.activeDate())
+          )
         );
         break;
       case END:
-        this.activeDate = this._dateAdapter.addCalendarDays(
-          this._activeDate,
-          this._dateAdapter.getNumDaysInMonth(this._activeDate) -
-            this._dateAdapter.getDate(this._activeDate)
+        this.activeDate.set(
+          this._dateAdapter.addCalendarDays(
+            this.activeDate(),
+            this._dateAdapter.getNumDaysInMonth(this.activeDate()) -
+              this._dateAdapter.getDate(this.activeDate())
+          )
         );
         break;
       case PAGE_UP:
-        this.activeDate = event.altKey
-          ? this._dateAdapter.addCalendarYears(this._activeDate, -1)
-          : this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+        this.activeDate.set(
+          event.altKey
+            ? this._dateAdapter.addCalendarYears(this.activeDate(), -1)
+            : this._dateAdapter.addCalendarMonths(this.activeDate(), -1)
+        );
         break;
       case PAGE_DOWN:
-        this.activeDate = event.altKey
-          ? this._dateAdapter.addCalendarYears(this._activeDate, 1)
-          : this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+        this.activeDate.set(
+          event.altKey
+            ? this._dateAdapter.addCalendarYears(this.activeDate(), 1)
+            : this._dateAdapter.addCalendarMonths(this.activeDate(), 1)
+        );
         break;
       case ENTER:
       case SPACE:
-        if (!this.dateFilter || this.dateFilter(this._activeDate)) {
-          this._dateSelected(this._dateAdapter.getDate(this._activeDate));
+        if (!this.dateFilter() || this.dateFilter()(this.activeDate())) {
+          this._dateSelected(this._dateAdapter.getDate(this.activeDate()));
           this._userSelection.emit();
           // Prevent unexpected default actions such as form submission.
           event.preventDefault();
@@ -268,8 +231,8 @@ export class OuiMonthView<D> implements AfterContentInit {
         return;
     }
 
-    if (this._dateAdapter.compareDate(oldActiveDate, this.activeDate)) {
-      this.activeDateChange.emit(this.activeDate);
+    if (this._dateAdapter.compareDate(oldActiveDate, this.activeDate())) {
+      this.activeDateChange.emit(this.activeDate());
     }
 
     this._focusActiveCell();
@@ -279,16 +242,16 @@ export class OuiMonthView<D> implements AfterContentInit {
 
   /** Initializes this month view. */
   _init() {
-    this._selectedDate = this._getDateInCurrentMonth(this.selected);
+    this._selectedDate = this._getDateInCurrentMonth(this.selected());
     this._todayDate = this._getDateInCurrentMonth(this._dateAdapter.today());
     this._monthLabel =
       this._dateAdapter.getMonthNames('short')[
-        this._dateAdapter.getMonth(this.activeDate)
+        this._dateAdapter.getMonth(this.activeDate())
       ];
 
     const firstOfMonth = this._dateAdapter.createDate(
-      this._dateAdapter.getYear(this.activeDate),
-      this._dateAdapter.getMonth(this.activeDate),
+      this._dateAdapter.getYear(this.activeDate()),
+      this._dateAdapter.getMonth(this.activeDate()),
       1
     );
     this._firstWeekOffset =
@@ -308,7 +271,7 @@ export class OuiMonthView<D> implements AfterContentInit {
 
   /** Creates OuiCalendarCells for the dates in this month. */
   private _createWeekCells() {
-    const daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+    const daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate());
     const dateNames = this._dateAdapter.getDateNames();
     this._weeks = [[]];
     for (
@@ -321,8 +284,8 @@ export class OuiMonthView<D> implements AfterContentInit {
         cell = 0;
       }
       const date = this._dateAdapter.createDate(
-        this._dateAdapter.getYear(this.activeDate),
-        this._dateAdapter.getMonth(this.activeDate),
+        this._dateAdapter.getYear(this.activeDate()),
+        this._dateAdapter.getMonth(this.activeDate()),
         i + 1
       );
       const enabled = this._shouldEnableDate(date);
@@ -330,7 +293,7 @@ export class OuiMonthView<D> implements AfterContentInit {
         date,
         this._dateFormats.display.dateA11yLabel
       );
-      const cellClasses = this.dateClass ? this.dateClass(date) : undefined;
+      const cellClasses = this.dateClass() ? this.dateClass()(date) : undefined;
 
       this._weeks[this._weeks.length - 1].push(
         new OuiCalendarCell(
@@ -348,10 +311,11 @@ export class OuiMonthView<D> implements AfterContentInit {
   private _shouldEnableDate(date: D): boolean {
     return (
       !!date &&
-      (!this.dateFilter || this.dateFilter(date)) &&
-      (!this.minDate ||
-        this._dateAdapter.compareDate(date, this.minDate) >= 0) &&
-      (!this.maxDate || this._dateAdapter.compareDate(date, this.maxDate) <= 0)
+      (!this.dateFilter() || this.dateFilter()(date)) &&
+      (!this.minDate() ||
+        this._dateAdapter.compareDate(date, this.minDate()!) >= 0) &&
+      (!this.maxDate() ||
+        this._dateAdapter.compareDate(date, this.maxDate()!) <= 0)
     );
   }
 
@@ -360,7 +324,7 @@ export class OuiMonthView<D> implements AfterContentInit {
    * Returns null if the given Date is in another month.
    */
   private _getDateInCurrentMonth(date: D | null): number | null {
-    return date && this._hasSameMonthAndYear(date, this.activeDate)
+    return date && this._hasSameMonthAndYear(date, this.activeDate())
       ? this._dateAdapter.getDate(date)
       : null;
   }
@@ -375,17 +339,16 @@ export class OuiMonthView<D> implements AfterContentInit {
     );
   }
 
-  /**
-   * @param obj The object to check.
-   * @returns The given object if it is both a date instance and valid, otherwise null.
-   */
   private _getValidDateOrNull(obj: any): D | null {
     return this._dateAdapter.isDateInstance(obj) &&
       this._dateAdapter.isValid(obj as any as D)
       ? obj
       : null;
   }
-
+  /**
+   * @param obj The object to check.
+   * @returns The given object if it is both a date instance and valid, otherwise null.
+   */
   /** Determines whether the user has the RTL layout direction. */
   private _isRtl() {
     return this._dir && this._dir.value === 'rtl';

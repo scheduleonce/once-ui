@@ -14,10 +14,11 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  EventEmitter,
-  Input,
+  effect,
+  input,
+  model,
   OnDestroy,
-  Output,
+  output,
   QueryList,
   ViewChild,
   ViewEncapsulation,
@@ -94,7 +95,7 @@ export type OuiTabHeaderPosition = 'above' | 'below';
     ngSkipHydration: '',
     class: 'oui-mdc-tab-group oui-tab',
     '[class.oui-mdc-tab-group-dynamic-height]': 'dynamicHeight',
-    '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition === "below"',
+    '[class.oui-mdc-tab-group-inverted-header]': 'headerPosition() === "below"',
     '[class.oui-mdc-tab-group-stretch-tabs]': 'stretchTabs',
     '[style.--oui-tab-animation-duration]': 'animationDuration',
   },
@@ -139,55 +140,24 @@ export class ouiTabGroup
   private _tabLabelSubscription = Subscription.EMPTY;
 
   /** Whether the ink bar should fit its width to the size of the tab label content. */
-  @Input()
-  get fitInkBarToContent(): boolean {
-    return this._fitInkBarToContent;
-  }
-  set fitInkBarToContent(v: BooleanInput) {
-    this._fitInkBarToContent = coerceBooleanProperty(v);
-    this._changeDetectorRef.markForCheck();
-  }
-  private _fitInkBarToContent = false;
+  readonly fitInkBarToContent = model(false);
 
   /** Whether tabs should be stretched to fill the header. */
-  @Input('oui-stretch-tabs')
-  get stretchTabs(): boolean {
-    return this._stretchTabs;
-  }
-  set stretchTabs(v: BooleanInput) {
-    this._stretchTabs = coerceBooleanProperty(v);
-  }
-  private _stretchTabs = true;
+  readonly stretchTabs = model(true, { alias: 'oui-stretch-tabs' });
 
   /** Whether the tab group should grow to the size of the active tab. */
-  @Input()
-  get dynamicHeight(): boolean {
-    return this._dynamicHeight;
-  }
-
-  set dynamicHeight(value: BooleanInput) {
-    this._dynamicHeight = coerceBooleanProperty(value);
-  }
-
-  private _dynamicHeight = false;
+  readonly dynamicHeight = model(false);
 
   /** The index of the active tab. */
-  @Input()
-  get selectedIndex(): number | null {
-    return this._selectedIndex;
-  }
-
-  set selectedIndex(value: NumberInput) {
-    this._indexToSelect = coerceNumberProperty(value, null);
-  }
-
-  private _selectedIndex: number | null = null;
+  readonly selectedIndex = model<number | null>(null);
 
   /** Position of the tab header. */
-  @Input() headerPosition: OuiTabHeaderPosition = 'above';
+  readonly headerPosition = input<OuiTabHeaderPosition>('above');
 
   /** Duration for the tab animation. Will be normalized to milliseconds if no units are set. */
-  @Input()
+  readonly animationDurationInput = input<NumberInput | undefined>(undefined, {
+    alias: 'animationDuration',
+  });
   get animationDuration(): string {
     return this._animationDuration;
   }
@@ -207,7 +177,9 @@ export class ouiTabGroup
    * The `tabindex` will be removed automatically for inactive tabs.
    * Read more at https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-2/tabs.html
    */
-  @Input()
+  readonly contentTabIndexInput = input<NumberInput | undefined>(undefined, {
+    alias: 'contentTabIndex',
+  });
   get contentTabIndex(): number | null {
     return this._contentTabIndex;
   }
@@ -222,7 +194,9 @@ export class ouiTabGroup
    * Whether pagination should be disabled. This can be used to avoid unnecessary
    * layout recalculations if it's known that pagination won't be required.
    */
-  @Input()
+  readonly disablePaginationInput = input<BooleanInput | undefined>(undefined, {
+    alias: 'disablePagination',
+  });
   get disablePagination(): boolean {
     return this._disablePagination;
   }
@@ -238,7 +212,9 @@ export class ouiTabGroup
    * Setting this to `true` will keep it in the DOM which will prevent elements
    * like iframes and videos from reloading next time it comes back into the view.
    */
-  @Input()
+  readonly preserveContentInput = input<BooleanInput | undefined>(undefined, {
+    alias: 'preserveContent',
+  });
   get preserveContent(): boolean {
     return this._preserveContent;
   }
@@ -250,7 +226,9 @@ export class ouiTabGroup
   private _preserveContent = false;
 
   /** Background color of the tab group. */
-  @Input()
+  readonly backgroundColorInput = input<ThemePalette>(undefined, {
+    alias: 'backgroundColor',
+  });
   get backgroundColor(): ThemePalette {
     return this._backgroundColor;
   }
@@ -273,20 +251,16 @@ export class ouiTabGroup
   private _backgroundColor: ThemePalette;
 
   /** Output to enable support for two-way binding on `[(selectedIndex)]` */
-  @Output() readonly selectedIndexChange: EventEmitter<number> =
-    new EventEmitter<number>();
+  readonly selectedIndexChange = output<number>();
 
   /** Event emitted when focus has changed within a tab group. */
-  @Output() readonly focusChange: EventEmitter<OuiTabChangeEvent> =
-    new EventEmitter<OuiTabChangeEvent>();
+  readonly focusChange = output<OuiTabChangeEvent>();
 
   /** Event emitted when the body animation has completed */
-  @Output() readonly animationDone: EventEmitter<void> =
-    new EventEmitter<void>();
+  readonly animationDone = output<void>();
 
   /** Event emitted when the tab selection has changed. */
-  @Output() readonly selectedTabChange: EventEmitter<OuiTabChangeEvent> =
-    new EventEmitter<OuiTabChangeEvent>(true);
+  readonly selectedTabChange = output<OuiTabChangeEvent>();
 
   private _groupId: number;
   getHTMLText: any;
@@ -299,6 +273,19 @@ export class ouiTabGroup
     });
 
     super(elementRef);
+    effect(() => {
+      const animationDuration = this.animationDurationInput();
+      if (animationDuration !== undefined)
+        this.animationDuration = animationDuration;
+      const contentTabIndex = this.contentTabIndexInput();
+      if (contentTabIndex !== undefined) this.contentTabIndex = contentTabIndex;
+      const disablePagination = this.disablePaginationInput();
+      if (disablePagination !== undefined)
+        this.disablePagination = disablePagination;
+      const preserveContent = this.preserveContentInput();
+      if (preserveContent !== undefined) this.preserveContent = preserveContent;
+      this.backgroundColor = this.backgroundColorInput();
+    });
     this._groupId = nextId++;
     this.animationDuration =
       defaultConfig && defaultConfig.animationDuration
@@ -308,21 +295,35 @@ export class ouiTabGroup
       defaultConfig && defaultConfig.disablePagination != null
         ? defaultConfig.disablePagination
         : false;
-    this.dynamicHeight =
+    this.dynamicHeight.set(
       defaultConfig && defaultConfig.dynamicHeight != null
         ? defaultConfig.dynamicHeight
-        : false;
+        : false
+    );
     this.contentTabIndex = defaultConfig?.contentTabIndex ?? null;
     this.preserveContent = !!defaultConfig?.preserveContent;
-    this.fitInkBarToContent =
+    this.fitInkBarToContent.set(
       defaultConfig && defaultConfig.fitInkBarToContent != null
         ? defaultConfig.fitInkBarToContent
-        : false;
-    this.stretchTabs =
+        : false
+    );
+    this.stretchTabs.set(
       defaultConfig && defaultConfig.stretchTabs != null
         ? defaultConfig.stretchTabs
-        : false;
+        : false
+    );
+
+    // When `selectedIndex` is changed externally (e.g. via `selectedIndex.set(...)` or the
+    // two-way binding `[(selectedIndex)]`), sync the pending index and mark the component
+    // for change detection so `ngAfterContentChecked` can clamp and commit it.
+    effect(() => {
+      this._indexToSelect = this.selectedIndex();
+      this._changeDetectorRef.markForCheck();
+    });
   }
+
+  /** Tracks the previously committed selected index to detect changes. */
+  private _lastCommittedIndex: number | null = null;
 
   /**
    * After the content is checked, this component knows what tabs have been defined
@@ -336,6 +337,12 @@ export class ouiTabGroup
       return;
     }
 
+    // If the `selectedIndex` signal was changed externally (e.g. via `selectedIndex.set(...)`
+    // or the two-way binding `[(selectedIndex)]`), use it as the pending target index.
+    if (this.selectedIndex() !== this._lastCommittedIndex) {
+      this._indexToSelect = this.selectedIndex();
+    }
+
     // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
     // the amount of tabs changes before the actual change detection runs.
     const indexToSelect = (this._indexToSelect = this._clampTabIndex(
@@ -344,26 +351,26 @@ export class ouiTabGroup
 
     // If there is a change in selected index, emit a change event. Should not trigger if
     // the selected index has not yet been initialized.
-    if (this._selectedIndex != indexToSelect) {
-      const isFirstRun = this._selectedIndex == null;
+    if (this._lastCommittedIndex !== indexToSelect) {
+      const isFirstRun = this._lastCommittedIndex == null;
 
       if (!isFirstRun) {
         this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
         // Preserve the height so page doesn't scroll up during tab change.
         // Fixes https://stackblitz.com/edit/mat-tabs-scroll-page-top-on-tab-change
-        const wrapper = this._tabBodyWrapper.nativeElement;
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
-        wrapper.style.minHeight = wrapper.clientHeight + 'px';
+        // The `_tabBodyWrapper` may not be resolved yet on the first pass since
+        // `ngAfterContentChecked` runs before the view is initialized.
+        if (this._tabBodyWrapper) {
+          const wrapper = this._tabBodyWrapper.nativeElement;
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
+          wrapper.style.minHeight = wrapper.clientHeight + 'px';
+        }
       }
 
       // Changing these values after change detection has run
       // since the checked content may contain references to them.
       Promise.resolve().then(() => {
-        this._tabs.forEach(
-          (tab, index) => (tab.isActive = index === indexToSelect)
-        );
-
-        if (!isFirstRun) {
+        if (!isFirstRun && this._tabBodyWrapper) {
           this.selectedIndexChange.emit(indexToSelect);
           // Clear the min-height, this was needed during tab change to avoid
           // unnecessary scrolling.
@@ -371,62 +378,87 @@ export class ouiTabGroup
         }
       });
     }
+
+    // Always keep the tabs' `isActive` state in sync with the selected index, even when
+    // the index hasn't changed (e.g. on initial render).
+    this._tabs.forEach(
+      (tab, index) => (tab.isActive = index === indexToSelect)
+    );
+
     // Setup the position for each tab and optionally setup an origin on the next selected tab.
     this._tabs.forEach((tab: OuiTab, index: number) => {
       tab.position = index - indexToSelect;
 
       // If there is already a selected tab, then set up an origin for the next selected tab
       // if it doesn't have one already.
-      if (this._selectedIndex != null && tab.position == 0 && !tab.origin) {
-        tab.origin = indexToSelect - this._selectedIndex;
+      if (
+        this._lastCommittedIndex != null &&
+        tab.position == 0 &&
+        !tab.origin
+      ) {
+        tab.origin = indexToSelect - this._lastCommittedIndex!;
       }
     });
 
-    if (this._selectedIndex !== indexToSelect) {
-      this._selectedIndex = indexToSelect;
+    if (this._lastCommittedIndex !== indexToSelect) {
+      this._lastCommittedIndex = indexToSelect;
+      this.selectedIndex.set(indexToSelect);
       this._lastFocusedTabIndex = null;
       this._changeDetectorRef.markForCheck();
     }
   }
 
   ngAfterContentInit() {
+    // If the parent provided an initial `selectedIndex` via two-way binding
+    // `[(selectedIndex)]`, use it as the pending index so it isn't overridden
+    // by the default `_indexToSelect` of `0`.
+    if (this.selectedIndex() != null) {
+      this._indexToSelect = this.selectedIndex();
+      this._lastCommittedIndex = this.selectedIndex();
+    }
     this._subscribeToAllTabChanges();
     this._subscribeToTabLabels();
     // Subscribe to changes in the amount of tabs, in order to be
     // able to re-render the content as new tabs are added or removed.
-    this._tabsSubscription = this._tabs.changes.subscribe(() => {
-      const indexToSelect = this._clampTabIndex(this._indexToSelect);
+    this._tabsSubscription = this._tabs.changes.subscribe({
+      next: () => {
+        const indexToSelect = this._clampTabIndex(this._indexToSelect);
 
-      // Maintain the previously-selected tab if a new tab is added or removed and there is no
-      // explicit change that selects a different tab.
-      if (indexToSelect === this._selectedIndex) {
-        const tabs = this._tabs.toArray();
-        let selectedTab: OuiTab | undefined;
+        // Maintain the previously-selected tab if a new tab is added or removed and there is no
+        // explicit change that selects a different tab.
+        if (indexToSelect === this.selectedIndex()) {
+          const tabs = this._tabs.toArray();
+          let selectedTab: OuiTab | undefined;
 
-        for (let i = 0; i < tabs.length; i++) {
-          if (tabs[i].isActive) {
-            // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
-            // event, otherwise the consumer may end up in an infinite loop in some edge cases like
-            // adding a tab within the `selectedIndexChange` event.
-            this._indexToSelect = this._selectedIndex = i;
-            this._lastFocusedTabIndex = null;
-            selectedTab = tabs[i];
-            break;
+          for (let i = 0; i < tabs.length; i++) {
+            if (tabs[i].isActive) {
+              // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+              // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+              // adding a tab within the `selectedIndexChange` event.
+              this._indexToSelect = i;
+              this.selectedIndex.set(i);
+              this._lastFocusedTabIndex = null;
+              selectedTab = tabs[i];
+              break;
+            }
+          }
+
+          // If we haven't found an active tab and a tab exists at the selected index, it means
+          // that the active tab was swapped out. Since this won't be picked up by the rendering
+          // loop in `ngAfterContentChecked`, we need to sync it up manually.
+          if (!selectedTab && tabs[indexToSelect]) {
+            Promise.resolve().then(() => {
+              tabs[indexToSelect].isActive = true;
+              this.selectedTabChange.emit(
+                this._createChangeEvent(indexToSelect)
+              );
+            });
           }
         }
 
-        // If we haven't found an active tab and a tab exists at the selected index, it means
-        // that the active tab was swapped out. Since this won't be picked up by the rendering
-        // loop in `ngAfterContentChecked`, we need to sync it up manually.
-        if (!selectedTab && tabs[indexToSelect]) {
-          Promise.resolve().then(() => {
-            tabs[indexToSelect].isActive = true;
-            this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
-          });
-        }
-      }
-
-      this._changeDetectorRef.markForCheck();
+        this._changeDetectorRef.markForCheck();
+      },
+      error: (err: Error) => console.error('Tab collection update failed', err),
     });
   }
 
@@ -439,16 +471,17 @@ export class ouiTabGroup
       this.getHTMLText = this._allTabs['_results'][0].contentWithin;
       this.updatedTabHTML = this.getHTMLText;
     }
-    this._allTabs.changes
-      .pipe(startWith(this._allTabs))
-      .subscribe((tabs: QueryList<OuiTab>) => {
+    this._allTabs.changes.pipe(startWith(this._allTabs)).subscribe({
+      next: (tabs: QueryList<OuiTab>) => {
         this._tabs.reset(
           tabs.filter((tab) => {
             return tab._closestTabGroup === this || !tab._closestTabGroup;
           })
         );
         this._tabs.notifyOnChanges();
-      });
+      },
+      error: (err: Error) => console.error('Tab change update failed', err),
+    });
   }
 
   ngOnDestroy() {
@@ -511,7 +544,7 @@ export class ouiTabGroup
   }
 
   /**
-   * Subscribes to changes in the tab labels. This is needed, because the @Input for the label is
+   * Subscribes to changes in the tab labels. This is needed, because the input for the label is
    * on the OuiTab component, whereas the data binding is inside the ouiTabGroup. In order for the
    * binding to be updated, we need to subscribe to changes in it and trigger change detection
    * manually.
@@ -523,7 +556,10 @@ export class ouiTabGroup
 
     this._tabLabelSubscription = merge(
       ...this._tabs.map((tab) => tab._stateChanges)
-    ).subscribe(() => this._changeDetectorRef.markForCheck());
+    ).subscribe({
+      next: () => this._changeDetectorRef.markForCheck(),
+      error: (err: Error) => console.error('Tab label update failed', err),
+    });
   }
 
   /** Clamps the given index to the bounds of 0 and the tabs length. */
@@ -549,7 +585,7 @@ export class ouiTabGroup
    * height property is true.
    */
   _setTabBodyWrapperHeight(tabHeight: number): void {
-    if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
+    if (!this.dynamicHeight || !this._tabBodyWrapperHeight) {
       return;
     }
 
@@ -579,13 +615,13 @@ export class ouiTabGroup
     this.getHTMLText = this.updatedTabHTML;
 
     if (!tab.disabled) {
-      this.selectedIndex = index;
+      this._indexToSelect = index;
     }
   }
 
   /** Retrieves the tabindex for the tab. */
   _getTabIndex(index: number): number {
-    const targetIndex = this._lastFocusedTabIndex ?? this.selectedIndex;
+    const targetIndex = this._lastFocusedTabIndex ?? this.selectedIndex();
     return index === targetIndex ? 0 : -1;
   }
 

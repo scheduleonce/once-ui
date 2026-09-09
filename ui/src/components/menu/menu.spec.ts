@@ -7,6 +7,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
   Component,
@@ -462,7 +463,7 @@ describe('OuiMenu', () => {
     const fixture = createComponent(SimpleMenu, [], [FakeIcon]);
     fixture.detectChanges();
 
-    fixture.componentInstance.menu.hasBackdrop = false;
+    fixture.componentInstance.menu.hasBackdrop.set(false);
     fixture.componentInstance.trigger.openMenu();
     fixture.detectChanges();
     tick(500);
@@ -490,7 +491,7 @@ describe('OuiMenu', () => {
     tick(500);
 
     // Change `hasBackdrop` after the first open.
-    fixture.componentInstance.menu.hasBackdrop = false;
+    fixture.componentInstance.menu.hasBackdrop.set(false);
     fixture.detectChanges();
 
     // Reopen the menu.
@@ -917,7 +918,7 @@ describe('OuiMenu', () => {
     const fixture = createComponent(SimpleMenu, [], [FakeIcon]);
     fixture.detectChanges();
 
-    fixture.componentInstance.trigger.menu = null!;
+    fixture.componentInstance.trigger.menu.set(null!);
     fixture.detectChanges();
 
     expect(() => {
@@ -944,8 +945,9 @@ describe('OuiMenu', () => {
 
     expect(overlayContainerElement.textContent).toBe('');
 
-    fixture.componentInstance.trigger.menu =
-      fixture.componentInstance.secondMenu;
+    fixture.componentInstance.trigger.menu.set(
+      fixture.componentInstance.secondMenu
+    );
     fixture.componentInstance.trigger.openMenu();
     fixture.detectChanges();
 
@@ -1202,10 +1204,8 @@ describe('OuiMenu', () => {
         const emitCallback = jasmine.createSpy('emit callback');
         const completeCallback = jasmine.createSpy('complete callback');
 
-        fixture.componentInstance.menu.closed.subscribe(
-          emitCallback,
-          null,
-          completeCallback
+        outputToObservable(fixture.componentInstance.menu.closed).subscribe(
+          emitCallback
         );
         fixture.destroy();
 
@@ -1956,8 +1956,8 @@ describe('OuiMenu default overrides', () => {
     fixture.detectChanges();
     const menu = fixture.componentInstance.menu;
 
-    expect(menu.overlapTrigger).toBe(true);
-    expect(menu.xPosition).toBe('before');
-    expect(menu.yPosition).toBe('above');
+    expect(menu.overlapTrigger()).toBe(true);
+    expect(menu.xPosition()).toBe('before');
+    expect(menu.yPosition()).toBe('above');
   });
 });

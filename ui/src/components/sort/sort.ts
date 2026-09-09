@@ -1,13 +1,12 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   Directive,
-  EventEmitter,
-  Input,
-  isDevMode,
+  input,
+  model,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  output,
 } from '@angular/core';
 import {
   CanDisable,
@@ -22,19 +21,18 @@ import { SortDirection } from './sort-direction';
 import {
   getSortDuplicateSortableIdError,
   getSortHeaderMissingIdError,
-  getSortInvalidDirectionError,
 } from './sort-errors';
 
 /** Interface for a directive that holds sorting state consumed by `OuiSortHeader`. */
 export interface OuiSortable {
   /** The id of the column being sorted. */
-  id: string;
+  id: any;
 
   /** Starting sort direction. */
-  start: 'asc' | 'desc';
+  start: any;
 
   /** Whether to disable clearing the sorting state. */
-  disableClear: boolean;
+  disableClear: any;
 }
 
 /** The current sort state. */
@@ -73,50 +71,30 @@ export class OuiSort
 
   /** The id of the most recently sorted OuiSortable. */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiSortActive') active: string;
+  readonly active = model<string>();
 
   /**
    * The direction to set when an OuiSortable is initially sorted.
    * May be overriden by the OuiSortable's sort start.
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiSortStart') start: 'asc' | 'desc' = 'asc';
+  readonly start = input<'asc' | 'desc'>('asc', { alias: 'ouiSortStart' });
 
   /** The sort direction of the currently active OuiSortable. */
-  @Input('ouiSortDirection')
-  get direction(): SortDirection {
-    return this._direction;
-  }
-  set direction(direction: SortDirection) {
-    if (
-      isDevMode() &&
-      direction &&
-      direction !== 'asc' &&
-      direction !== 'desc'
-    ) {
-      throw getSortInvalidDirectionError(direction);
-    }
-    this._direction = direction;
-  }
-  private _direction: SortDirection = '';
+  readonly direction = model<SortDirection>('', { alias: 'ouiSortDirection' });
 
   /**
    * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
    * May be overriden by the OuiSortable's disable clear input.
    */
-  @Input('ouiSortDisableClear')
-  get disableClear(): boolean {
-    return this._disableClear;
-  }
-  set disableClear(v: boolean) {
-    this._disableClear = coerceBooleanProperty(v);
-  }
-  private _disableClear: boolean;
+  readonly disableClear = input(false, {
+    alias: 'ouiSortDisableClear',
+    transform: coerceBooleanProperty,
+  });
 
   /** Event emitted when the user changes either the active sort or sort direction. */
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('ouiSortChange')
-  readonly sortChange: EventEmitter<Sort> = new EventEmitter<Sort>();
+  readonly sortChange = output<Sort>({ alias: 'ouiSortChange' });
 
   /**
    * Register function to be used by the contained OuiSortables. Adds the OuiSortable to the
@@ -127,9 +105,12 @@ export class OuiSort
       throw getSortHeaderMissingIdError();
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     if (this.sortables.has(sortable.id)) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       throw getSortDuplicateSortableIdError(sortable.id);
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     this.sortables.set(sortable.id, sortable);
   }
 
@@ -138,19 +119,25 @@ export class OuiSort
    * collection of contained OuiSortables.
    */
   deregister(sortable: OuiSortable): void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     this.sortables.delete(sortable.id);
   }
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: OuiSortable): void {
-    if (this.active !== sortable.id) {
-      this.active = sortable.id;
-      this.direction = sortable.start ? sortable.start : this.start;
+    if (this.active() !== sortable.id) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      this.active.set(sortable.id);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      this.direction.set(sortable.start ? sortable.start : this.start());
     } else {
-      this.direction = this.getNextSortDirection(sortable);
+      this.direction.set(this.getNextSortDirection(sortable));
     }
 
-    this.sortChange.emit({ active: this.active, direction: this.direction });
+    this.sortChange.emit({
+      active: this.active(),
+      direction: this.direction(),
+    });
   }
 
   /** Returns the next sort direction of the active sortable, checking for potential overrides. */
@@ -160,11 +147,13 @@ export class OuiSort
     }
 
     const sortDirectionCycle = getSortDirectionCycle(
-      sortable.start || this.start
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      sortable.start || this.start()
     );
 
     // Get and return the next direction in the cycle
-    let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction()) + 1;
     if (nextDirectionIndex >= sortDirectionCycle.length) {
       nextDirectionIndex = 0;
     }

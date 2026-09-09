@@ -133,7 +133,8 @@ describe('OuiMonthView', () => {
       );
       const monthViewInstance =
         monthViewDebugElement.componentInstance as OuiMonthView<Date>;
-      monthViewInstance.selected = new Date(2017, MAR, 10);
+      monthViewInstance.selected.set(new Date(2017, MAR, 10));
+      monthViewInstance._init();
       fixture.detectChanges();
 
       expect(monthViewInstance._selectedDate).toBeNull();

@@ -19,13 +19,14 @@ import {
   Directive,
   ElementRef,
   InjectionToken,
-  Input,
   OnDestroy,
   input,
+  model,
   output,
   ViewContainerRef,
   inject,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import {
   asapScheduler,
@@ -114,30 +115,31 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   _openedBy: 'mouse' | 'touch' | null = null;
 
   /** References the menu instance that the trigger is associated with. */
-  @Input('ouiMenuTriggerFor')
-  get menu() {
-    return this._menu;
-  }
-  set menu(menu: OuiMenuPanel) {
-    if (menu === this._menu) {
-      return;
-    }
-    this._menu = menu;
-    this._menuCloseSubscription.unsubscribe();
-
+  readonly menu = model<OuiMenuPanel>(undefined, {
+    alias: 'ouiMenuTriggerFor',
+  });
+  private _watchMenu() {
+    const menu = this.menu();
     if (menu) {
-      this._menuCloseSubscription = menu.close
-        .asObservable()
-        .subscribe((event) => {
+      this._menuCloseSubscription.unsubscribe();
+      const close =
+        typeof menu.close?.asObservable === 'function'
+          ? menu.close.asObservable()
+          : // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            outputToObservable(menu.close);
+      this._menuCloseSubscription = close.subscribe({
+        next: (event) => {
           this._destroyMenu(event);
           // If a click closed the menu, we should close the entire chain of nested menus.
           if ((event === 'click' || event === 'tab') && this._parentMenu) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
             this._parentMenu.closed.emit(event);
           }
-        });
+        },
+        error: (err: Error) => console.error('Menu close stream failed', err),
+      });
     }
   }
-  private _menu: OuiMenuPanel;
 
   /** Data to be passed along to any lazily-rendered content. */
 
@@ -175,6 +177,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   }
 
   ngAfterContentInit() {
+    this._watchMenu();
     this._checkMenu();
     this._handleHover();
   }
@@ -224,24 +227,25 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       overlayConfig.positionStrategy as FlexibleConnectedPositionStrategy
     );
     overlayConfig.hasBackdrop =
-      this.menu.hasBackdrop == null
+      this.menu().hasBackdrop?.() == null
         ? !this.triggersSubmenu()
-        : this.menu.hasBackdrop;
+        : this.menu().hasBackdrop();
     overlayRef.attach(this._getPortal());
 
-    if (this.menu.lazyContent) {
-      this.menu.lazyContent.attach(this.menuData());
+    if (this.menu().lazyContent) {
+      this.menu().lazyContent.attach(this.menuData());
     }
 
-    this._closeSubscription = this._menuClosingActions().subscribe(() => {
-      this.closeMenu();
+    this._closeSubscription = this._menuClosingActions().subscribe({
+      next: () => this.closeMenu(),
+      error: (err: Error) => console.error('Menu closing action failed', err),
     });
     this._initMenu();
   }
 
   /** Closes the menu. */
   closeMenu(event?: 'click' | 'keydown' | 'tab'): void {
-    this.menu.close.emit(event);
+    this.menu().close.emit(event);
   }
 
   /**
@@ -264,7 +268,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       return;
     }
 
-    const menu = this.menu;
+    const menu = this.menu();
 
     this._closeSubscription.unsubscribe();
     this._overlayRef.detach();
@@ -280,11 +284,11 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * the menu was opened via the keyboard.
    */
   private _initMenu(): void {
-    this.menu.parentMenu = this.triggersSubmenu()
+    this.menu().parentMenu = this.triggersSubmenu()
       ? this._parentMenu
       : undefined;
     this._setIsMenuOpen(true);
-    this.menu.focusFirstItem(this._openedBy || 'program');
+    this.menu().focusFirstItem(this._openedBy || 'program');
   }
 
   /**
@@ -329,7 +333,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    * ouiMenuTriggerFor. If not, an exception is thrown.
    */
   private _checkMenu() {
-    if (!this.menu) {
+    if (!this.menu()) {
       throwOuiMenuMissingError();
     }
   }
@@ -349,7 +353,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       // Consume the `keydownEvents` in order to prevent them from going to another overlay.
       // Ideally we'd also have our keyboard event logic in here, however doing so will
       // break anybody that may have implemented the `OuiMenuPanel` themselves.
-      this._overlayRef.keydownEvents().subscribe();
+      this._overlayRef.keydownEvents().subscribe({
+        error: (err: Error) => console.error('Menu keydown stream failed', err),
+      });
     }
 
     return this._overlayRef;
@@ -368,7 +374,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         .withLockedPosition()
         .withTransformOriginOn('.oui-menu-panel'),
       backdropClass:
-        this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
+        this.menu().backdropClass() || 'cdk-overlay-transparent-backdrop',
       scrollStrategy: this._scrollStrategy(),
       direction: 'ltr',
     });
@@ -382,14 +388,18 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
   private _subscribeToPositions(
     position: FlexibleConnectedPositionStrategy
   ): void {
-    if (this.menu.setPositionClasses) {
-      position.positionChanges.subscribe((change) => {
-        const posX: MenuPositionX =
-          change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-        const posY: MenuPositionY =
-          change.connectionPair.overlayY === 'top' ? 'below' : 'above';
+    if (this.menu().setPositionClasses) {
+      position.positionChanges.subscribe({
+        next: (change) => {
+          const posX: MenuPositionX =
+            change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+          const posY: MenuPositionY =
+            change.connectionPair.overlayY === 'top' ? 'below' : 'above';
 
-        this.menu.setPositionClasses!(posX, posY);
+          this.menu().setPositionClasses!(posX, posY);
+        },
+        error: (err: Error) =>
+          console.error('Menu position stream failed', err),
       });
     }
   }
@@ -402,10 +412,14 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
    */
   private _setPosition(positionStrategy: FlexibleConnectedPositionStrategy) {
     let [originX, originFallbackX]: HorizontalConnectionPos[] =
-      this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'];
+      this.menu().xPosition() === 'before'
+        ? ['end', 'start']
+        : ['start', 'end'];
 
     const [overlayY, overlayFallbackY]: VerticalConnectionPos[] =
-      this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
+      this.menu().yPosition() === 'above'
+        ? ['bottom', 'top']
+        : ['top', 'bottom'];
 
     let [originY, originFallbackY] = [overlayY, overlayFallbackY];
     let [overlayX, overlayFallbackX] = [originX, originFallbackX];
@@ -416,7 +430,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
       // When the menu is a sub-menu, it should always align itself
       // to the edges of the trigger, instead of overlapping it.
       overlayFallbackX = originX =
-        this.menu.xPosition === 'before' ? 'start' : 'end';
+        this.menu().xPosition() === 'before' ? 'start' : 'end';
       originFallbackX = overlayX = originX === 'end' ? 'start' : 'end';
       offsetY =
         overlayY === 'bottom'
@@ -427,7 +441,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         overlayX === 'start'
           ? MENU_PANEL_LEFT_PADDING
           : -MENU_PANEL_LEFT_PADDING;
-    } else if (!this.menu.overlapTrigger) {
+    } else if (!this.menu().overlapTrigger()) {
       originY = overlayY === 'top' ? 'bottom' : 'top';
       originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
     }
@@ -472,7 +486,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     const backdrop = this._overlayRef!.backdropClick();
     const detachments = this._overlayRef!.detachments();
     const parentClose = this._parentMenu
-      ? this._parentMenu.closed
+      ? outputToObservable(this._parentMenu.closed)
       : observableOf();
     const hover = this._parentMenu
       ? this._parentMenu._hovered().pipe(
@@ -552,14 +566,17 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
         ),
         delay(0, asapScheduler)
       )
-      .subscribe(() => {
-        this._openedBy = 'mouse';
+      .subscribe({
+        next: () => {
+          this._openedBy = 'mouse';
 
-        // If the same menu is used between multiple triggers, it might still be animating
-        // while the new trigger tries to re-open it. Wait for the animation to finish
-        // before doing so. Also interrupt if the user moves to another item.
-        // (TODO)
-        this.openMenu();
+          // If the same menu is used between multiple triggers, it might still be animating
+          // while the new trigger tries to re-open it. Wait for the animation to finish
+          // before doing so. Also interrupt if the user moves to another item.
+          // (TODO)
+          this.openMenu();
+        },
+        error: (err: Error) => console.error('Menu hover stream failed', err),
       });
   }
 
@@ -568,9 +585,9 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     // Note that we can avoid this check by keeping the portal on the menu panel.
     // While it would be cleaner, we'd have to introduce another required method on
     // `OuiMenuPanel`, making it harder to consume.
-    if (!this._portal || this._portal.templateRef !== this.menu.templateRef) {
+    if (!this._portal || this._portal.templateRef !== this.menu().templateRef) {
       this._portal = new TemplatePortal(
-        this.menu.templateRef,
+        this.menu().templateRef,
         this._viewContainerRef
       );
     }
