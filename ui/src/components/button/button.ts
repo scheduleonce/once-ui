@@ -6,7 +6,8 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   NgZone,
-  Input,
+  ErrorHandler,
+  input,
   inject,
 } from '@angular/core';
 import {
@@ -60,12 +61,12 @@ export const OuiButtonMixinBase: CanDisableCtor &
   exportAs: 'ouiButton',
   host: {
     '[disabled]': 'disabled || null',
-    '[tabindex]': 'tabIndex || 0',
+    '[tabindex]': 'tabIndex() || 0',
   },
   templateUrl: 'button.html',
   styleUrls: ['button.scss'],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'color', 'progress', 'tabIndex'],
+  inputs: ['disabled', 'color', 'progress'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false,
@@ -75,9 +76,10 @@ export class OuiButton
   implements OnDestroy, CanDisable, CanColor, CanProgress
 {
   protected elementRef: ElementRef<HTMLElement>;
-  @Input() tabIndex = 0;
+  readonly tabIndex = input(0);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
@@ -88,11 +90,13 @@ export class OuiButton
     this.addClass();
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() =>
-        this._ngZone.run(() => {
-          this._cdr.markForCheck();
-        })
-      );
+      .subscribe({
+        next: () =>
+          this._ngZone.run(() => {
+            this._cdr.markForCheck();
+          }),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
 
   protected addClass() {
@@ -136,7 +140,7 @@ export class OuiButton
     a[oui-icon-text-button]`,
   exportAs: 'ouiButton, ouiAnchor',
   host: {
-    '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
+    '[attr.tabindex]': 'disabled ? -1 : (tabIndex() || 0)',
     '[attr.disabled]': 'disabled || null',
     '[attr.aria-disabled]': 'disabled.toString()',
     '(click)': '_haltDisabledEvents($event)',
@@ -151,7 +155,7 @@ export class OuiButton
 })
 export class OuiAnchor extends OuiButton {
   /** Tabindex of the button. */
-  @Input() tabIndex: number;
+  override readonly tabIndex = input(0);
 
   constructor() {
     super();

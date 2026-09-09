@@ -3,16 +3,17 @@ import {
   AfterViewInit,
   Component,
   ContentChild,
-  EventEmitter,
-  Input,
+  ErrorHandler,
   OnDestroy,
-  Output,
   Renderer2,
   ViewChild,
   ViewEncapsulation,
   afterNextRender,
   inject,
+  input,
+  output,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { takeUntil } from 'rxjs/operators';
 import { OuiChip, OuiChipEvent } from './chip';
 import { OuiChipAction } from './chip-action';
@@ -37,16 +38,16 @@ export interface OuiChipEditedEvent extends OuiChipEvent {
   host: {
     class: 'oui-chip oui-chip-row',
     '[class.oui-chip-with-avatar]': 'leadingIcon',
-    '[class.oui-chip--disabled]': 'disabled',
+    '[class.oui-chip--disabled]': 'disabled()',
     '[class.oui-chip-editing]': '_isEditing',
-    '[class.oui-chip-editable]': 'editable',
+    '[class.oui-chip-editable]': 'editable()',
     '[class.oui-chip-with-trailing-icon]': '_hasTrailingIcon()',
-    '[class.oui-chip-highlighted]': 'highlighted',
-    '[id]': 'id',
-    '[attr.tabindex]': 'disabled ? null : -1',
+    '[class.oui-chip-highlighted]': 'highlighted()',
+    '[id]': 'id()',
+    '[attr.tabindex]': 'disabled() ? null : -1',
     '[attr.aria-label]': 'null',
     '[attr.aria-description]': 'null',
-    '[attr.role]': 'role',
+    '[attr.role]': 'role()',
     '(focus)': '_handleFocus()',
     '(click)': 'this._hasInteractiveActions() ? _handleClick($event) : null',
     '(dblclick)': '_handleDoubleclick($event)',
@@ -61,6 +62,7 @@ export interface OuiChipEditedEvent extends OuiChipEvent {
 export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {
   protected override basicChipAttrName = 'oui-basic-chip-row';
   private _renderer = inject(Renderer2);
+  private _rowErrorHandler = inject(ErrorHandler);
   private _cleanupMousedown: (() => void) | undefined;
 
   /**
@@ -87,21 +89,23 @@ export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {
 
   _isEditing = false;
 
-  @Input() editable: boolean = false;
+  readonly editable = input(false);
 
   /** Emitted when the chip is edited. */
-  @Output() readonly edited: EventEmitter<OuiChipEditedEvent> =
-    new EventEmitter<OuiChipEditedEvent>();
+  readonly edited = output<OuiChipEditedEvent>();
 
   constructor() {
     super();
 
-    this.role = 'row';
-    this._onBlur.pipe(takeUntil(this.destroyed)).subscribe(() => {
-      if (this._isEditing && !this._editStartPending) {
-        this._onEditFinish();
-      }
-      this._alreadyFocused = false;
+    this.role.set('row');
+    this._onBlur.pipe(takeUntil(outputToObservable(this.destroyed))).subscribe({
+      next: () => {
+        if (this._isEditing && !this._editStartPending) {
+          this._onEditFinish();
+        }
+        this._alreadyFocused = false;
+      },
+      error: (err: Error) => this._rowErrorHandler.handleError(err),
     });
   }
 
@@ -124,15 +128,15 @@ export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {
 
   /** Sends focus to the first gridcell when the user clicks anywhere inside the chip. */
   _handleFocus() {
-    if (!this._isEditing && !this.disabled) {
+    if (!this._isEditing && !this._isDisabled()) {
       this.focus();
     }
   }
 
   _handleClick(event: MouseEvent) {
     if (
-      !this.disabled &&
-      this.editable &&
+      !this._isDisabled() &&
+      this.editable() &&
       !this._isEditing &&
       this._alreadyFocused
     ) {
@@ -143,17 +147,17 @@ export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {
   }
 
   _handleDoubleclick(event: MouseEvent) {
-    if (!this.disabled && this.editable) {
+    if (!this._isDisabled() && this.editable()) {
       this._startEditing(event);
     }
   }
 
   override _handleKeydown(event: KeyboardEvent) {
-    if (event.keyCode === ENTER && !this.disabled) {
+    if (event.keyCode === ENTER && !this._isDisabled()) {
       if (this._isEditing) {
         event.preventDefault();
         this._onEditFinish();
-      } else if (this.editable) {
+      } else if (this.editable()) {
         this._startEditing(event);
       }
     } else if (this._isEditing) {
@@ -178,7 +182,7 @@ export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {
       return;
     }
 
-    const value = this.value;
+    const value = this.value();
 
     this._isEditing = this._editStartPending = true;
 

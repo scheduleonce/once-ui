@@ -773,7 +773,7 @@ describe('OuiTable', () => {
             return '';
         }
       };
-      component.sort.direction = '';
+      component.sort.direction.set('');
       component.sort.sort(component.sortHeader);
       expectTableToMatchContent(tableElement, [
         ['Column A', 'Column B', 'Column C'],

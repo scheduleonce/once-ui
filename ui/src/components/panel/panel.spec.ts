@@ -251,8 +251,8 @@ describe('OuiPanel', () => {
     // Intentionally add a position-like class on the host (should be ignored).
     hostEl.classList.add('oui-panel-before');
     // Force the component to use a different position via input setter and apply position classes.
-    fixture.componentInstance.panel.xPosition = 'after';
-    fixture.componentInstance.panel.yPosition = 'below';
+    fixture.componentInstance.panel.xPosition.set('after');
+    fixture.componentInstance.panel.yPosition.set('below');
     (fixture.componentInstance.panel as any).setPositionClasses?.(
       'after',
       'below'

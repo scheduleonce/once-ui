@@ -2,12 +2,11 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  EventEmitter,
+  input,
   inject,
-  Input,
   NgZone,
   OnDestroy,
-  Output,
+  output,
   PLATFORM_ID,
   Renderer2,
 } from '@angular/core';
@@ -33,18 +32,18 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
    * Minimum column width in pixels. Must be a positive number; if 0 or negative
    * the directive falls back to 200px.
    */
-  @Input() minColumnWidth = 0;
+  readonly minColumnWidth = input(0);
 
   /**
    * Optional initial column widths keyed by CDK column ID.
    * Supports two-way binding: `[(columnWidths)]="widthMap"` keeps the parent
    * in sync as the user resizes columns or columns are added/removed.
    */
-  @Input() columnWidths: Record<string, number> = {};
-  @Output() columnWidthsChange = new EventEmitter<Record<string, number>>();
+  readonly columnWidths = input<Record<string, number>>({});
+  readonly columnWidthsChange = output<Record<string, number>>();
 
   /** Emitted when the user finishes resizing a single column. */
-  @Output() columnResized = new EventEmitter<ColumnResizeEvent>();
+  readonly columnResized = output<ColumnResizeEvent>();
 
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _renderer = inject(Renderer2);
@@ -116,7 +115,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
 
   /** Effective minimum width: the input value when positive, otherwise 200px. */
   private get _effectiveMinWidth(): number {
-    return this.minColumnWidth > 0 ? this.minColumnWidth : 200;
+    return this.minColumnWidth() > 0 ? this.minColumnWidth() : 200;
   }
   private _lastPointerId = 0;
 
@@ -177,7 +176,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     headerCells.forEach((cell) => {
       const columnId = this._getColumnId(cell);
       if (columnId && !this._columnWidths.has(columnId)) {
-        const inputWidth = this.columnWidths[columnId];
+        const inputWidth = this.columnWidths()[columnId];
         const width =
           inputWidth != null && inputWidth > 0
             ? inputWidth
@@ -427,7 +426,7 @@ export class OuiResizableColumnsDirective implements AfterViewInit, OnDestroy {
     // For each new column, prefer a consumer-supplied width from the
     // `columnWidths` input when available and positive.
     newColumnIds.forEach((columnId) => {
-      const inputWidth = this.columnWidths[columnId];
+      const inputWidth = this.columnWidths()[columnId];
       if (inputWidth != null && inputWidth > 0) {
         this._columnWidths.set(columnId, inputWidth);
         this._userResizedColumns.add(columnId);

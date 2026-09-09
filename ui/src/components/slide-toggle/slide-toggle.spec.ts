@@ -32,22 +32,22 @@ describe('OuiSlideToggle', () => {
   });
 
   it('should update checked on mouse click', () => {
-    component.checked = true;
+    component.checked.set(true);
     fixture.nativeElement.children[0].children[0].dispatchEvent(
       new Event('click')
     );
     fixture.detectChanges();
-    expect(component.checked).toBeFalsy();
+    expect(component.checked()).toBeFalsy();
   });
 
   it('should not change on click when disabled', () => {
-    component.checked = false;
-    component.disabled = true;
+    component.checked.set(false);
+    component.disabled.set(true);
     fixture.nativeElement.children[0].children[0].dispatchEvent(
       new Event('click')
     );
     fixture.detectChanges();
-    expect(component.checked).toBeFalsy();
+    expect(component.checked()).toBeFalsy();
   });
 
   it('should not emit change event on click when disabled', () => {

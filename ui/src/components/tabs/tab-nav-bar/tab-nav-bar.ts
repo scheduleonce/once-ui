@@ -14,7 +14,9 @@ import {
   ContentChildren,
   ElementRef,
   forwardRef,
-  Input,
+  input,
+  model,
+  effect,
   OnDestroy,
   QueryList,
   ViewChild,
@@ -57,8 +59,6 @@ let nextUniqueId = 0;
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[oui-tab-nav-bar]',
   exportAs: 'OuiTabNavBar, OuiTabNav',
-  // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['color'],
   templateUrl: 'tab-nav-bar.html',
   styleUrls: ['tab-nav-bar.scss'],
   host: {
@@ -68,9 +68,9 @@ let nextUniqueId = 0;
       '_showPaginationControls',
     '[class.oui-mdc-tab-header-rtl]': "_getLayoutDirection() == 'rtl'",
     '[class.oui-mdc-tab-nav-bar-stretch-tabs]': 'stretchTabs',
-    '[class.oui-primary]': 'color !== "warn" && color !== "accent"',
-    '[class.oui-accent]': 'color === "accent"',
-    '[class.oui-warn]': 'color === "warn"',
+    '[class.oui-primary]': 'color() !== "warn" && color() !== "accent"',
+    '[class.oui-accent]': 'color() === "accent"',
+    '[class.oui-warn]': 'color() === "warn"',
     '[class._oui-animation-noopable]': '_animationMode === "NoopAnimations"',
     '[style.--oui-tab-animation-duration]': 'animationDuration',
   },
@@ -84,7 +84,9 @@ export class OuiTabNav
   implements AfterContentChecked, AfterContentInit, OnDestroy, AfterViewInit
 {
   /** Whether the ink bar should fit its width to the size of the tab label content. */
-  @Input()
+  readonly fitInkBarToContentInput = input(false, {
+    alias: 'fitInkBarToContent',
+  });
   get fitInkBarToContent(): boolean {
     return this._fitInkBarToContent.value;
   }
@@ -95,7 +97,7 @@ export class OuiTabNav
   _fitInkBarToContent = new BehaviorSubject(false);
 
   /** Whether tabs should be stretched to fill the header. */
-  @Input('oui-stretch-tabs')
+  readonly stretchTabsInput = input(true, { alias: 'oui-stretch-tabs' });
   get stretchTabs(): boolean {
     return this._stretchTabs;
   }
@@ -104,7 +106,9 @@ export class OuiTabNav
   }
   private _stretchTabs = true;
 
-  @Input()
+  readonly animationDurationInput = input<NumberInput | undefined>(undefined, {
+    alias: 'animationDuration',
+  });
   get animationDuration(): string {
     return this._animationDuration;
   }
@@ -123,7 +127,9 @@ export class OuiTabNav
   _items: QueryList<OuiTabLink>;
 
   /** Background color of the tab nav. */
-  @Input()
+  readonly backgroundColorInput = input<ThemePalette>(undefined, {
+    alias: 'backgroundColor',
+  });
   get backgroundColor(): ThemePalette {
     return this._backgroundColor;
   }
@@ -145,7 +151,9 @@ export class OuiTabNav
   private _backgroundColor: ThemePalette;
 
   /** Whether the ripple effect is disabled or not. */
-  @Input()
+  readonly disableRippleInput = input<BooleanInput | undefined>(undefined, {
+    alias: 'disableRipple',
+  });
   get disableRipple(): boolean {
     return this._disableRipple;
   }
@@ -157,14 +165,14 @@ export class OuiTabNav
   private _disableRipple = false;
 
   /** Theme color of the nav bar. */
-  @Input() color: ThemePalette = 'primary';
+  readonly color = input<ThemePalette>('primary');
 
   /**
    * Associated tab panel controlled by the nav bar. If not provided, then the nav bar
    * follows the ARIA link / navigation landmark pattern. If provided, it follows the
    * ARIA tabs design pattern.
    */
-  @Input() tabPanel?: ouiTabNavPanel;
+  readonly tabPanel = input<ouiTabNavPanel>();
 
   @ViewChild('tabListContainer', { static: true })
   _tabListContainer: ElementRef;
@@ -180,10 +188,23 @@ export class OuiTabNav
     });
 
     super();
-    this.disablePagination =
+    effect(() => {
+      const fitInkBarToContent = this.fitInkBarToContentInput();
+      if (fitInkBarToContent !== undefined)
+        this.fitInkBarToContent = fitInkBarToContent;
+      this.stretchTabs = this.stretchTabsInput();
+      const animationDuration = this.animationDurationInput();
+      if (animationDuration !== undefined)
+        this.animationDuration = animationDuration;
+      this.backgroundColor = this.backgroundColorInput();
+      const disableRipple = this.disableRippleInput();
+      if (disableRipple !== undefined) this.disableRipple = disableRipple;
+    });
+    this.disablePagination.set(
       defaultConfig && defaultConfig.disablePagination != null
         ? defaultConfig.disablePagination
-        : false;
+        : false
+    );
     this.fitInkBarToContent =
       defaultConfig && defaultConfig.fitInkBarToContent != null
         ? defaultConfig.fitInkBarToContent
@@ -204,8 +225,9 @@ export class OuiTabNav
     // selectedIndex is up-to-date by the time the super class starts looking for it.
     this._items.changes
       .pipe(startWith(null), takeUntil(this._destroyed))
-      .subscribe(() => {
-        this.updateActiveLink();
+      .subscribe({
+        next: () => this.updateActiveLink(),
+        error: (err: Error) => console.error('Tab link update failed', err),
       });
 
     super.ngAfterContentInit();
@@ -221,11 +243,11 @@ export class OuiTabNav
 
     for (let i = 0; i < items.length; i++) {
       if (items[i].active) {
-        this.selectedIndex = i;
+        this.selectedIndex.set(i);
         this._changeDetectorRef.markForCheck();
 
-        if (this.tabPanel) {
-          this.tabPanel._activeTabId = items[i].id;
+        if (this.tabPanel()) {
+          this.tabPanel()!._activeTabId = items[i].id();
         }
 
         return;
@@ -233,12 +255,12 @@ export class OuiTabNav
     }
 
     // The ink bar should hide itself if no items are active.
-    this.selectedIndex = -1;
+    this.selectedIndex.set(-1);
     this._inkBar.hide();
   }
 
   _getRole(): string | null {
-    return this.tabPanel
+    return this.tabPanel()
       ? 'tablist'
       : this._elementRef.nativeElement.getAttribute('role');
   }
@@ -265,14 +287,7 @@ const _OuiTabLinkMixinBase = mixinInkBarItem(
   selector: '[oui-tab-link], [OuiTabLink]',
   exportAs: 'OuiTabLink',
   // eslint-disable-next-line
-  inputs: [
-    'disabled',
-    'disableRipple',
-    'tabIndex',
-    'active',
-    'id',
-    'routerLink',
-  ],
+  inputs: ['disabled', 'disableRipple', 'tabIndex', 'routerLink'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
   templateUrl: 'tab-link.html',
@@ -310,24 +325,8 @@ export class OuiTabLink
   private readonly _destroyed = new Subject<void>();
 
   /** Whether the tab link is active or not. */
-  protected _isActive = false;
-
   /** Whether the link is active. */
-  @Input()
-  get active(): boolean {
-    return this._isActive;
-  }
-
-  set active(value: BooleanInput) {
-    const newValue = coerceBooleanProperty(value);
-
-    if (newValue !== this._isActive) {
-      this._isActive = newValue;
-      // Defer the updateActiveLink call to avoid ExpressionChangedAfterItHasBeenCheckedError
-      Promise.resolve().then(() => this._tabNavBar.updateActiveLink());
-    }
-  }
-
+  readonly active = model(false);
   /**
    * Whether ripples are disabled on interaction.
    * @docs-private
@@ -337,7 +336,7 @@ export class OuiTabLink
   }
 
   /** Unique id for the tab. */
-  @Input() id = `oui-tab-link-${nextUniqueId++}`;
+  readonly id = input(`oui-tab-link-${nextUniqueId++}`);
 
   constructor() {
     const tabIndex = inject(new HostAttributeToken('tabindex'), {
@@ -350,6 +349,10 @@ export class OuiTabLink
 
     // Inject ElementRef for the mixin
     this.elementRef = inject(ElementRef);
+    effect(() => {
+      this.active();
+      this._tabNavBar.updateActiveLink();
+    });
 
     this.tabIndex = parseInt(tabIndex) || 0;
 
@@ -357,11 +360,12 @@ export class OuiTabLink
       // this.rippleConfig.animation = { enterDuration: 0, exitDuration: 0 };
     }
 
-    _tabNavBar._fitInkBarToContent
-      .pipe(takeUntil(this._destroyed))
-      .subscribe((fitInkBarToContent) => {
+    _tabNavBar._fitInkBarToContent.pipe(takeUntil(this._destroyed)).subscribe({
+      next: (fitInkBarToContent) => {
         this.fitInkBarToContent = fitInkBarToContent;
-      });
+      },
+      error: (err: Error) => console.error('Tab ink bar update failed', err),
+    });
   }
 
   /** Focuses the tab link. */
@@ -399,38 +403,38 @@ export class OuiTabLink
   _handleKeydown(event: KeyboardEvent) {
     if (this.disabled && (event.keyCode === SPACE || event.keyCode === ENTER)) {
       event.preventDefault();
-    } else if (this._tabNavBar.tabPanel && event.keyCode === SPACE) {
+    } else if (this._tabNavBar.tabPanel() && event.keyCode === SPACE) {
       this.elementRef.nativeElement.click();
     }
   }
 
   _getAriaControls(): string | null {
-    return this._tabNavBar.tabPanel
-      ? this._tabNavBar.tabPanel?.id
+    return this._tabNavBar.tabPanel()
+      ? this._tabNavBar.tabPanel()?.id()
       : this.elementRef.nativeElement.getAttribute('aria-controls');
   }
 
   _getAriaSelected(): string | null {
-    if (this._tabNavBar.tabPanel) {
-      return this.active ? 'true' : 'false';
+    if (this._tabNavBar.tabPanel()) {
+      return this.active() ? 'true' : 'false';
     } else {
       return this.elementRef.nativeElement.getAttribute('aria-selected');
     }
   }
 
   _getAriaCurrent(): string | null {
-    return this.active && !this._tabNavBar.tabPanel ? 'page' : null;
+    return this.active() && !this._tabNavBar.tabPanel() ? 'page' : null;
   }
 
   _getRole(): string | null {
-    return this._tabNavBar.tabPanel
+    return this._tabNavBar.tabPanel()
       ? 'tab'
       : this.elementRef.nativeElement.getAttribute('role');
   }
 
   _getTabIndex(): number {
     if (this._tabNavBar.tabPanel) {
-      return this._isActive && !this.disabled ? 0 : -1;
+      return this.active() && !this.disabled ? 0 : -1;
     } else {
       return this.tabIndex;
     }
@@ -456,7 +460,7 @@ export class OuiTabLink
 })
 export class ouiTabNavPanel {
   /** Unique id for the tab panel. */
-  @Input() id = `oui-tab-nav-panel-${nextUniqueId++}`;
+  readonly id = input(`oui-tab-nav-panel-${nextUniqueId++}`);
 
   /** Id of the active tab in the nav bar. */
   _activeTabId?: string;

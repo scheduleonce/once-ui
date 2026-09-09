@@ -3,18 +3,20 @@ import {
   ComponentRef,
   Directive,
   ElementRef,
-  EventEmitter,
+  ErrorHandler,
+  effect,
   inject,
-  Input,
+  input,
   OnChanges,
   OnDestroy,
-  Output,
+  output,
   ProviderToken,
   Renderer2,
   SimpleChanges,
   ViewContainerRef,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { OuiSort, OuiSortable } from '../../sort/sort';
 import {
   ColumnMenuAction,
@@ -38,33 +40,39 @@ export class OuiColumnMenuDirective
 {
   /** Pass the current displayedColumns so the directive knows first/last position. */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiColumnMenu') displayedColumns: string[] = [];
+  readonly displayedColumnsInput = input<string[]>([], {
+    alias: 'ouiColumnMenu',
+  });
+  displayedColumns: string[] = [];
 
   /**
    * Explicitly control whether sort items appear in the menu.
    * When null (default), auto-detects by checking for the [oui-sort-header] attribute.
    * Set to true to show sort items even when oui-sort-header is not on the host element.
    */
-  @Input() ouiColumnMenuHasSort: boolean | null = null;
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  readonly ouiColumnMenuHasSortInput = input<boolean | null>(null, {
+    alias: 'ouiColumnMenuHasSort',
+  });
+  ouiColumnMenuHasSort: boolean | null = null;
 
   /** Emitted when the user selects an action from the column menu. */
-  @Output() columnMenuAction = new EventEmitter<ColumnMenuAction>();
+  readonly columnMenuAction = output<ColumnMenuAction>();
 
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _renderer = inject(Renderer2);
   private _viewContainerRef = inject(ViewContainerRef);
+  private _errorHandler = inject(ErrorHandler);
 
   /** Optional: OuiSort on the ancestor table — used to show/hide sort menu items. */
   private _sort = inject(OuiSort, { optional: true });
 
-  /** OuiColumnDef provides the column name via the token used by OuiSortHeader. */
   private _columnDef = inject<{ name: string }>(
     'OUI_SORT_HEADER_COLUMN_DEF' as unknown as ProviderToken<{ name: string }>,
     {
       optional: true,
     }
   );
-
   private _panelRef: ComponentRef<OuiColumnMenuPanelComponent> | null = null;
   private _panelActionSub: Subscription = Subscription.EMPTY;
   private _sortClickSub: Subscription = Subscription.EMPTY;
@@ -76,6 +84,13 @@ export class OuiColumnMenuDirective
    * only when the last menu is destroyed.
    */
   private static readonly _enabledCountMap = new Map<HTMLElement, number>();
+
+  constructor() {
+    effect(() => {
+      this.displayedColumns = this.displayedColumnsInput();
+      this.ouiColumnMenuHasSort = this.ouiColumnMenuHasSortInput();
+    });
+  }
 
   ngAfterViewInit(): void {
     // Add marker class to the table host so enhanced styles (separators, etc.) apply.
@@ -112,48 +127,48 @@ export class OuiColumnMenuDirective
     this._renderer.setStyle(hostEl, 'display', 'contents');
     this._renderer.appendChild(this._elementRef.nativeElement, hostEl);
 
-    // Subscribe to menu actions (move left/right, hide).
-    this._panelActionSub = this._panelRef.instance.actionSelected.subscribe(
-      (action: ColumnMenuActionType) => {
+    this._panelActionSub = outputToObservable(
+      this._panelRef.instance.actionSelected
+    ).subscribe({
+      next: (action: ColumnMenuActionType) => {
         this.columnMenuAction.emit({ columnId: this._columnId, action });
-      }
-    );
-
-    // Subscribe to sort indicator clicks — delegate to OuiSort to cycle direction.
-    this._sortClickSub = this._panelRef.instance.sortClicked.subscribe(() => {
-      if (this._sort) {
-        const sortable = this._sort.sortables.get(this._columnId) ?? {
-          id: this._columnId,
-          start: this._sort.start,
-          disableClear: this._sort.disableClear,
-        };
-        this._sort.sort(sortable as OuiSortable);
-      }
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
-
-    // Subscribe to OuiSort.sortChange to keep the panel's sort indicator in sync.
-    // This also ensures only the active column shows the sorted state.
+    this._sortClickSub = outputToObservable(
+      this._panelRef.instance.sortClicked
+    ).subscribe({
+      next: () => {
+        if (this._sort) {
+          const sortable = this._sort.sortables.get(this._columnId) ?? {
+            id: this._columnId,
+            start: this._sort.start,
+            disableClear: this._sort.disableClear,
+          };
+          this._sort.sort(sortable as OuiSortable);
+        }
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
     if (this._sort) {
-      this._sortChangeSub = this._sort.sortChange.subscribe(() => {
-        this._syncSortDirection();
-      });
+      this._sortChangeSub = outputToObservable(this._sort.sortChange).subscribe(
+        {
+          next: () => this._syncSortDirection(),
+          error: (err: Error) => this._errorHandler.handleError(err),
+        }
+      );
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this._panelRef) {
-      return;
-    }
-
+    if (!this._panelRef) return;
     if (changes['displayedColumns']) {
       this._panelRef.setInput('displayedColumns', [...this.displayedColumns]);
     }
-
     if (changes['ouiColumnMenuHasSort']) {
       this._panelRef.setInput('hasSort', this._hasSortHeader());
     }
   }
-
   private get _columnId(): string {
     return this._columnDef?.name ?? '';
   }
@@ -170,10 +185,10 @@ export class OuiColumnMenuDirective
 
   /** Returns the current sort direction for this column, or '' if not sorted. */
   private _currentSortDirection(): '' | 'asc' | 'desc' {
-    if (!this._sort || this._sort.active !== this._columnId) {
+    if (!this._sort || this._sort.active() !== this._columnId) {
       return '';
     }
-    return (this._sort.direction as 'asc' | 'desc') || '';
+    return (this._sort.direction() as 'asc' | 'desc') || '';
   }
 
   /** Updates the panel's sort indicator and marks the host header as sorted. */

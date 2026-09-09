@@ -2,9 +2,9 @@ import {
   Component,
   ChangeDetectionStrategy,
   ViewEncapsulation,
-  Input,
-  EventEmitter,
-  Output,
+  input,
+  model,
+  output,
   NgZone,
   ChangeDetectorRef,
   forwardRef,
@@ -13,6 +13,7 @@ import {
   OnDestroy,
   inject,
   HostAttributeToken,
+  ErrorHandler,
 } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -66,11 +67,11 @@ export enum TransitionCheckState {
   exportAs: 'ouiCheckbox',
   host: {
     class: 'oui-checkbox',
-    '[id]': 'id',
+    '[id]': 'id()',
     '[attr.tabindex]': 'null',
-    '[class.oui-checkbox-checked]': 'checked',
-    '[class.oui-checkbox-disabled]': 'disabled',
-    '[class.oui-checkbox-label-before]': 'labelPosition == "before"',
+    '[class.oui-checkbox-checked]': 'checked()',
+    '[class.oui-checkbox-disabled]': 'disabled()',
+    '[class.oui-checkbox-label-before]': 'labelPosition() == "before"',
   },
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['tabIndex', 'color'],
@@ -103,14 +104,12 @@ export class Checkbox
    */
   color = 'primary';
 
-  @Input('aria-label')
-  ariaLabel: any = '';
+  readonly ariaLabel = input<any>('', { alias: 'aria-label' });
 
   /**
    * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
    */
-  @Input('aria-labelledby')
-  ariaLabelledby: any = null;
+  readonly ariaLabelledby = input<any>(null, { alias: 'aria-labelledby' });
 
   private _uniqueId: any = `oui-checkbox-${++nextUniqueId}`;
 
@@ -118,82 +117,42 @@ export class Checkbox
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
-  @Input()
-  id: string = this._uniqueId;
+  readonly id = input(this._uniqueId);
 
   /** Returns the unique id for the visual hidden input. */
   get inputId(): string {
-    return `${this.id || this._uniqueId}-input`;
+    return `${this.id() || this._uniqueId}-input`;
   }
 
   /** Whether the checkbox is required. */
-  @Input()
-  get required(): boolean {
-    return this._required;
-  }
-
-  set required(value: boolean) {
-    this._required = coerceBooleanProperty(value);
-  }
-
-  private _required: boolean;
+  readonly required = input(false, { transform: coerceBooleanProperty });
 
   /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
-  @Input()
-  labelPosition: 'before' | 'after' = 'after';
+  readonly labelPosition = input<'before' | 'after'>('after');
 
   /** Name value will be applied to the input element if present */
-  @Input()
-  name: string | null = null;
+  readonly name = input<string | null>(null);
 
   /** Event emitted when the checkbox's `checked` value changes. */
-  @Output()
-  readonly change: EventEmitter<OuiCheckboxChange> =
-    new EventEmitter<OuiCheckboxChange>();
+  readonly change = output<OuiCheckboxChange>();
 
   /** The native `<input type="checkbox">` element */
   @ViewChild('input') _inputElement: ElementRef<HTMLInputElement>;
 
   /** The value attribute of the native input element */
-  @Input()
-  value: string;
+  readonly value = input<string>();
 
   /**
    * Whether the checkbox is checked.
    */
-  @Input()
-  get checked(): boolean {
-    return this._checked;
-  }
-
-  set checked(value: boolean) {
-    if (value !== this.checked) {
-      this._checked = value;
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-
-  private _checked: any = false;
+  readonly checked = model(false);
 
   /**
    * Whether the checkbox is disabled. This fully overrides the implementation provided by
    * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
    */
-  @Input()
-  get disabled() {
-    return this._disabled;
-  }
-
-  set disabled(value: any) {
-    const newValue = coerceBooleanProperty(value);
-
-    if (newValue !== this.disabled) {
-      this._disabled = newValue;
-      this._changeDetectorRef.markForCheck();
-    }
-  }
-
-  private _disabled = false;
+  readonly disabled = model(false);
+  private _errorHandler = inject(ErrorHandler);
   private _currentCheckState: TransitionCheckState = TransitionCheckState.Init;
   private _currentAnimationClass = '';
 
@@ -214,15 +173,17 @@ export class Checkbox
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe(() =>
-        this._ngZone.run(() => {
-          this._changeDetectorRef.markForCheck();
-        })
-      );
+      .subscribe({
+        next: () =>
+          this._ngZone.run(() => {
+            this._changeDetectorRef.markForCheck();
+          }),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
 
   _getAriaChecked(): 'true' | 'false' {
-    return this.checked ? 'true' : 'false';
+    return this.checked() ? 'true' : 'false';
   }
 
   /** Focuses the checkbox. */
@@ -252,10 +213,10 @@ export class Checkbox
     event.stopPropagation();
 
     // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.toggle();
       this._transitionCheckState(
-        this._checked
+        this.checked()
           ? TransitionCheckState.Checked
           : TransitionCheckState.Unchecked
       );
@@ -298,20 +259,20 @@ export class Checkbox
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this.disabled.set(coerceBooleanProperty(isDisabled));
   }
 
   private _emitChangeEvent() {
     const event = new OuiCheckboxChange();
     event.source = this;
-    event.checked = this.checked;
-    this._controlValueAccessorChangeFn(this.checked);
+    event.checked = this.checked();
+    this._controlValueAccessorChangeFn(this.checked());
     this.change.emit(event);
   }
 
   /** Toggles the `checked` state of the checkbox. */
   toggle(): void {
-    this.checked = !this.checked;
+    this.checked.set(!this.checked());
   }
 
   _onInteractionEvent(event: Event) {
@@ -323,7 +284,7 @@ export class Checkbox
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: any) {
-    this.checked = !!value;
+    this.checked.set(!!value);
   }
 
   // Implemented as part of ControlValueAccessor.

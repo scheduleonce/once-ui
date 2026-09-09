@@ -2,11 +2,10 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  EventEmitter,
+  output,
   inject,
   NgZone,
   OnDestroy,
-  Output,
   PLATFORM_ID,
   Renderer2,
 } from '@angular/core';
@@ -33,7 +32,7 @@ export class OuiReorderableColumnsDirective
   implements AfterViewInit, OnDestroy
 {
   /** Emitted when a column is dropped in a new position. */
-  @Output() columnOrderChanged = new EventEmitter<ColumnOrderChangedEvent>();
+  readonly columnOrderChanged = output<ColumnOrderChangedEvent>();
 
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _renderer = inject(Renderer2);

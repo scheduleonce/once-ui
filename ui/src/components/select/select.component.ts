@@ -1,6 +1,5 @@
 import { ActiveDescendantKeyManager, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
   A,
@@ -26,14 +25,17 @@ import {
   Directive,
   DoCheck,
   ElementRef,
-  EventEmitter,
-  Input,
+  ErrorHandler,
+  booleanAttribute,
+  effect,
+  input,
+  model,
   isDevMode,
   NgZone,
   OnChanges,
   OnDestroy,
   OnInit,
-  Output,
+  output,
   QueryList,
   SimpleChanges,
   ViewChild,
@@ -41,6 +43,7 @@ import {
   inject,
   HostAttributeToken,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
   FormGroupDirective,
@@ -191,7 +194,7 @@ export class OuiSelectTrigger {}
     '[class.oui-select-invalid]': 'errorState',
     '[class.oui-select-required]': 'required',
     '[class.oui-select-empty]': 'empty',
-    '[class.oui-select-inline-edit]': 'inlineEdit',
+    '[class.oui-select-inline-edit]': 'inlineEdit()',
     class: 'oui-select oui-input',
     '(keydown)': '_handleKeydown($event)',
     '(focus)': '_onFocus()',
@@ -227,9 +230,10 @@ export class OuiSelect
   _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   _ouiIconRegistry = inject(OuiIconRegistry);
   private _domSanitizer = inject(DomSanitizer);
+  private _errorHandler = inject(ErrorHandler);
 
   /**Holds selected values after done */
-  @Input() savedValues = [];
+  readonly savedValues = model<any[]>([]);
   /**Done button disabled until dropdown is dirty */
   disableDoneButton = true;
   /** Whether or not the overlay panel is open. */
@@ -242,26 +246,14 @@ export class OuiSelect
   private _actionItems = false;
   private _singleActionItems = false;
 
+  /** Whether the component is in multiple selection mode. */
+  private _multiple = false;
+
   /** The scroll position of the overlay panel, calculated to center the selected option. */
   private _scrollTop = 0;
 
   /** The placeholder displayed in the trigger of the select. */
   private _placeholder: string;
-
-  /** The label displayed on the cancel button of the select in case of multi-select. */
-  private _cancelLabel = 'Cancel';
-
-  /** The label displayed on the done button of the select in case of multi-select. */
-  private _doneLabel = 'Done';
-
-  /** The label displayed on the singleSelect and multiSelect of the select as a actionItem. */
-  private _singleActionLabel = 'New action button';
-
-  /** Whether the component is in multiple selection mode. */
-  private _multiple = false;
-
-  /** In multiple selection mode, enable Done button even in case of no option selected */
-  private _allowNoSelection = false;
 
   /** Search input field **/
   isSearchFieldPresent: boolean;
@@ -326,9 +318,6 @@ export class OuiSelect
   /** Emits whenever the component is destroyed. */
   private readonly _destroy = new Subject<void>();
 
-  /** Whether the component is disabling centering of the active option over the trigger. */
-  private _disableOptionCentering = false;
-
   private _focused = false;
 
   /** A name for this control that can be used by `oui-form-field`. */
@@ -355,55 +344,36 @@ export class OuiSelect
    * Function used to sort the values in a select in multiple mode.
    * Follows the same logic as `Array.prototype.sort`.
    */
-  @Input() sortComparator: (
-    a: OuiOption,
-    b: OuiOption,
-    options: OuiOption[]
-  ) => number;
+  readonly sortComparator =
+    input<(a: OuiOption, b: OuiOption, options: OuiOption[]) => number>();
 
   /** Aria label of the select. If not specified, the placeholder will be used as label. */
-  @Input('aria-label') ariaLabel = '';
+  readonly ariaLabel = input('', { alias: 'aria-label' });
 
   /** Input that can be used to specify the `aria-labelledby` attribute. */
-  @Input('aria-labelledby') ariaLabelledby: string;
-  private _large = false;
-  private _inlineEdit = false;
+  readonly ariaLabelledby = input<string>(undefined, {
+    alias: 'aria-labelledby',
+  });
+  readonly large = input(false, { transform: booleanAttribute });
+  readonly inlineEdit = input(false, { transform: booleanAttribute });
   _monitorSubscription: any;
   previouslySelected: any[] = [];
   setSelectedOptions: string[] = [];
 
-  /** Whether the oui-select is of large size. */
-  @Input()
-  get large(): boolean {
-    return this._large;
-  }
-  set large(value) {
-    this._large = coerceBooleanProperty(value);
-    this._changeDetectorRef.markForCheck();
-  }
-
-  /** Whether the select should render in inline edit mode. */
-  @Input()
-  get inlineEdit(): boolean {
-    return this._inlineEdit;
-  }
-  set inlineEdit(value: boolean) {
-    this._inlineEdit = coerceBooleanProperty(value);
-    this.stateChanges.next();
-    this._changeDetectorRef.markForCheck();
-  }
-
   private _id: string;
 
   /** Event emitted when the select panel has been toggled. */
-  @Output()
-  readonly openedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  readonly openedChange = output<boolean>();
 
   /** Combined stream of all of the child options' change events. */
   readonly optionSelectionChanges: Observable<OuiOptionSelectionChange> = defer(
     (): Observable<OuiOptionSelectionChange> => {
       if (this.options) {
-        return merge(...this.options.map((option) => option.onSelectionChange));
+        return merge(
+          ...this.options.map((option) =>
+            outputToObservable(option.onSelectionChange)
+          )
+        );
       }
 
       return this._ngZone.onStable.asObservable().pipe(
@@ -419,10 +389,14 @@ export class OuiSelect
    *
    * @docs-private
    */
-  @Output() readonly valueChange: EventEmitter<any> = new EventEmitter<any>();
+  readonly valueChange = output<any>();
 
   /** Object used to control when error messages are shown. */
-  @Input() errorStateMatcher: ErrorStateMatcher;
+  errorStateMatcher: ErrorStateMatcher;
+  readonly errorStateMatcherInput = input<ErrorStateMatcher | undefined>(
+    undefined,
+    { alias: 'errorStateMatcher' }
+  );
 
   /** All of the defined select options. */
   @ContentChildren(OuiOption, { descendants: true })
@@ -430,16 +404,18 @@ export class OuiSelect
 
   /** Event emitted when the select has been opened. */
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('opened')
-  readonly _openedStream: Observable<void> = this.openedChange.pipe(
+  readonly _openedStream: Observable<void> = outputToObservable(
+    this.openedChange
+  ).pipe(
     filter((o) => o),
     map(() => {})
   );
 
   /** Event emitted when the select has been closed. */
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('closed')
-  readonly _closedStream: Observable<void> = this.openedChange.pipe(
+  readonly _closedStream: Observable<void> = outputToObservable(
+    this.openedChange
+  ).pipe(
     filter((o) => !o),
     map(() => {
       this.isSearchFieldPresent = false;
@@ -447,18 +423,13 @@ export class OuiSelect
   );
 
   /** Event emitted when the selected value has been changed by the user. */
-  @Output()
-  readonly selectionChange: EventEmitter<OuiSelectChange> =
-    new EventEmitter<OuiSelectChange>();
+  readonly selectionChange = output<OuiSelectChange>();
 
   /** Event emitted when the selected value has been changed and saved by the user. */
-  @Output()
-  readonly saveSelectionChange: EventEmitter<OuiSelectChange> =
-    new EventEmitter<OuiSelectChange>();
+  readonly saveSelectionChange = output<OuiSelectChange>();
 
   /** Can pass any method to be triggered on singleActionItem click. */
-  @Output()
-  readonly singleSelectionChange = new EventEmitter<void>();
+  readonly singleSelectionChange = output<void>();
 
   /** All of the defined groups of options. */
   @ContentChildren(OuiOptgroup) optionGroups: QueryList<OuiOptgroup>;
@@ -468,7 +439,9 @@ export class OuiSelect
   customTrigger: OuiSelectTrigger;
 
   /** Classes to be passed to the select panel. Supports the same syntax as `ngClass`. */
-  @Input() panelClass: string | string[] | Set<string> | { [key: string]: any };
+  readonly panelClass = input<
+    string | string[] | Set<string> | { [key: string]: any }
+  >();
 
   /** Overlay pane containing the options. */
   @ViewChild(CdkConnectedOverlay)
@@ -497,7 +470,9 @@ export class OuiSelect
   _onTouched = () => {};
 
   /** Placeholder to be shown if no value has been selected. */
-  @Input()
+  readonly placeholderInput = input<string | undefined>(undefined, {
+    alias: 'placeholder',
+  });
   get placeholder(): string {
     return this._placeholder;
   }
@@ -507,103 +482,74 @@ export class OuiSelect
   }
 
   /** In case of multiple the cancelLabel to be shown on cancel action button. */
-  @Input()
-  get cancelLabel(): string {
-    return this._cancelLabel;
-  }
-  set cancelLabel(value: string) {
-    this._cancelLabel = value;
-    this.stateChanges.next();
-  }
+  readonly cancelLabel = input('Cancel');
 
   /** In case of multiple the doneLabel to be shown on apply action button. */
-  @Input()
-  get doneLabel(): string {
-    return this._doneLabel;
-  }
-  set doneLabel(value: string) {
-    this._doneLabel = value;
-    this.stateChanges.next();
-  }
+  readonly doneLabel = input('Done');
 
   /** In case of singleSelect and multiSelect the singleActionLabel to be shown on actionItem. */
-  @Input()
-  get singleActionLabel(): string {
-    return this._singleActionLabel;
-  }
-  set singleActionLabel(value: string) {
-    this._singleActionLabel = value;
-    this.stateChanges.next();
-  }
-
-  /** Whether the component is required. */
-  @Input()
-  get required(): boolean {
-    return this._required;
-  }
-  set required(value: boolean) {
-    this._required = coerceBooleanProperty(value);
-    this.stateChanges.next();
-  }
+  readonly singleActionLabel = input('New action button');
 
   /** Whether the user should be allowed to select multiple options. */
-  @Input()
+  readonly multipleInput = input(false, {
+    alias: 'multiple',
+    transform: booleanAttribute,
+  });
   get multiple(): boolean {
     return this._multiple;
   }
   set multiple(value: boolean) {
-    if (this._selectionModel) {
+    const newValue = booleanAttribute(value);
+    if (this._selectionModel && this._multiple !== newValue) {
       throw getOuiSelectDynamicMultipleError();
     }
 
-    this._multiple = coerceBooleanProperty(value);
-  }
-
-  /** Whether the user should be allowed to select no option in case of multiple options. */
-  @Input()
-  get allowNoSelection(): boolean {
-    return this._allowNoSelection;
-  }
-  set allowNoSelection(value: boolean) {
-    this._allowNoSelection = coerceBooleanProperty(value);
+    this._multiple = newValue;
   }
 
   /** Whether the action items are required and use saveSelectionChange instead of selectionChange. */
-  @Input()
+  readonly actionItemsInput = input(false, {
+    alias: 'actionItems',
+    transform: booleanAttribute,
+  });
   get actionItems(): boolean {
     return this._actionItems;
   }
   set actionItems(value: boolean) {
     if (this._multiple) {
-      this._actionItems = coerceBooleanProperty(value);
+      this._actionItems = booleanAttribute(value);
       this.stateChanges.next();
     }
   }
 
-  @Input()
+  readonly singleActionItemInput = input(false, {
+    alias: 'singleActionItem',
+    transform: booleanAttribute,
+  });
   get singleActionItem(): boolean {
     return this._singleActionItems;
   }
   set singleActionItem(value: boolean) {
-    this._singleActionItems = coerceBooleanProperty(value);
+    this._singleActionItems = booleanAttribute(value);
     this.stateChanges.next();
   }
 
+  /** Whether the user should be allowed to select no option in case of multiple options. */
+  readonly allowNoSelection = input(false, { transform: booleanAttribute });
+
   /** Whether to center the active option over the trigger. */
-  @Input()
-  get disableOptionCentering(): boolean {
-    return this._disableOptionCentering;
-  }
-  set disableOptionCentering(value: boolean) {
-    this._disableOptionCentering = coerceBooleanProperty(value);
-  }
+  readonly disableOptionCentering = input(false, {
+    transform: booleanAttribute,
+  });
 
   /**
    * Function to compare the option values with the selected values. The first argument
    * is a value from an option. The second is a value from the selection. A boolean
    * should be returned.
    */
-  @Input()
+  readonly compareWithInput = input<
+    ((o1: any, o2: any) => boolean) | undefined
+  >(undefined, { alias: 'compareWith' });
   get compareWith() {
     return this._compareWith;
   }
@@ -613,13 +559,12 @@ export class OuiSelect
     }
     this._compareWith = fn;
     if (this._selectionModel) {
-      // A different comparator means the selection could change.
       this._initializeSelection();
     }
   }
 
   /** Value of the select control. */
-  @Input()
+  readonly valueInput = input<any>(undefined, { alias: 'value' });
   get value(): any {
     return this._value;
   }
@@ -630,8 +575,21 @@ export class OuiSelect
     }
   }
 
+  /** Whether the component is required. */
+  readonly requiredInput = input(false, {
+    alias: 'required',
+    transform: booleanAttribute,
+  });
+  get required(): boolean {
+    return this._required;
+  }
+  set required(value: boolean) {
+    this._required = booleanAttribute(value);
+    this.stateChanges.next();
+  }
+
   /** Unique id of the element. */
-  @Input()
+  readonly idInput = input<string | undefined>(undefined, { alias: 'id' });
   get id(): string {
     return this._id;
   }
@@ -640,6 +598,11 @@ export class OuiSelect
     this.stateChanges.next();
   }
 
+  /**
+   * Function to compare the option values with the selected values. The first argument
+   * is a value from an option. The second is a value from the selection. A boolean
+   * should be returned.
+   */
   constructor() {
     const _defaultErrorStateMatcher = inject(ErrorStateMatcher);
     const elementRef = inject(ElementRef);
@@ -659,9 +622,37 @@ export class OuiSelect
     );
     this.ngControl = ngControl;
 
+    effect(() => {
+      this.errorStateMatcher =
+        this.errorStateMatcherInput() as ErrorStateMatcher;
+      this.placeholder = this.placeholderInput() as string;
+      this.multiple = this.multipleInput();
+      this.actionItems = this.actionItemsInput();
+      this.singleActionItem = this.singleActionItemInput();
+      this.required = this.requiredInput();
+      this.id = this.idInput() as string;
+      const compareWith = this.compareWithInput();
+      if (compareWith !== undefined) {
+        this.compareWith = compareWith;
+      }
+      const value = this.valueInput();
+      if (value !== undefined) {
+        this.value = value;
+      }
+      // Track the aria/inline-edit inputs so that host bindings re-evaluate when
+      // they change via `setInput` or template bindings.
+      this.ariaLabel();
+      this.ariaLabelledby();
+      this.inlineEdit();
+      this._changeDetectorRef.markForCheck();
+    });
+
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
     this._ouiIconRegistry.addSvgIconLiteral(
       `select-arrow-icon`,
       this._domSanitizer.bypassSecurityTrustHtml(ICONS.SELECT_ARROW_ICON)
@@ -680,6 +671,9 @@ export class OuiSelect
   }
 
   ngOnInit() {
+    // Synchronize the signal input value before the selection model is created,
+    // because the constructor effect runs after initialization.
+    this._multiple = this.multipleInput();
     this._selectionModel = new SelectionModel<OuiOption>(this.multiple);
     this.stateChanges.next();
 
@@ -688,32 +682,39 @@ export class OuiSelect
     // https://github.com/angular/angular/issues/24084
     this._panelDoneAnimatingStream
       .pipe(distinctUntilChanged(), takeUntil(this._destroy))
-      .subscribe(() => {
-        if (this.panelOpen) {
-          this._scrollTop = 0;
-          this.openedChange.emit(true);
-        } else {
-          this.openedChange.emit(false);
-          this.overlayDir.offsetX = 0;
-          this._changeDetectorRef.markForCheck();
-        }
+      .subscribe({
+        next: () => {
+          if (this.panelOpen) {
+            this._scrollTop = 0;
+            this.openedChange.emit(true);
+          } else {
+            this.openedChange.emit(false);
+            this.overlayDir.offsetX = 0;
+            this._changeDetectorRef.markForCheck();
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
   ngAfterContentInit() {
     this._initKeyManager();
 
-    this._selectionModel.changed
-      .pipe(takeUntil(this._destroy))
-      .subscribe((event) => {
+    this._selectionModel.changed.pipe(takeUntil(this._destroy)).subscribe({
+      next: (event) => {
         event.added.forEach((option) => option.select());
         event.removed.forEach((option) => option.deselect());
-      });
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
     this.options.changes
       .pipe(startWith(null), takeUntil(this._destroy))
-      .subscribe(() => {
-        this._resetOptions();
-        this._initializeSelection();
+      .subscribe({
+        next: () => {
+          this._resetOptions();
+          this._initializeSelection();
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
@@ -1142,10 +1143,13 @@ export class OuiSelect
    * Callback that is invoked when the overlay panel has been attached.
    */
   _onAttached(): void {
-    this.overlayDir.positionChange.pipe(take(1)).subscribe(() => {
-      this._setPseudoCheckboxPaddingSize();
-      this._changeDetectorRef.detectChanges();
-      this.panel.nativeElement.scrollTop = this._scrollTop;
+    this.overlayDir.positionChange.pipe(take(1)).subscribe({
+      next: () => {
+        this._setPseudoCheckboxPaddingSize();
+        this._changeDetectorRef.detectChanges();
+        this.panel.nativeElement.scrollTop = this._scrollTop;
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
   }
 
@@ -1245,50 +1249,60 @@ export class OuiSelect
       .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr')
       .withAllowedModifierKeys(['shiftKey']);
 
-    this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => {
-      // Restore focus to the trigger before closing. Ensures that the focus
-      // position won't be lost if the user got focus into the overlay.
-      if (!this.singleActionItem) {
-        this.focus();
-        this.close();
-      }
+    this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe({
+      next: () => {
+        // Restore focus to the trigger before closing. Ensures that the focus
+        // position won't be lost if the user got focus into the overlay.
+        if (!this.singleActionItem) {
+          this.focus();
+          this.close();
+        }
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
 
-    this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {
-      if (this._panelOpen && this.panel) {
-        // Panel is opened
-        // Need not to scroll
-      } else if (
-        !this._panelOpen &&
-        !this.multiple &&
-        this._keyManager.activeItem
-      ) {
-        this._keyManager.activeItem._selectViaInteraction();
-      }
+    this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe({
+      next: () => {
+        if (this._panelOpen && this.panel) {
+          // Panel is opened
+          // Need not to scroll
+        } else if (
+          !this._panelOpen &&
+          !this.multiple &&
+          this._keyManager.activeItem
+        ) {
+          this._keyManager.activeItem._selectViaInteraction();
+        }
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
   }
 
   /** Drops current option subscriptions and IDs and resets from scratch. */
   private _resetOptions(): void {
     const changedOrDestroyed = merge(this.options.changes, this._destroy);
-    this.optionSelectionChanges
-      .pipe(takeUntil(changedOrDestroyed))
-      .subscribe((event) => {
+    this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed)).subscribe({
+      next: (event) => {
         this._onSelect(event.source, event.isUserInput);
 
         if (event.isUserInput && !this.multiple && this._panelOpen) {
           this.close();
           this.focus();
         }
-      });
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
 
     // Listen to changes in the internal state of the options and react accordingly.
     // Handles cases like the labels of the selected options changing.
     merge(...this.options.map((option) => option._stateChanges))
       .pipe(takeUntil(changedOrDestroyed))
-      .subscribe(() => {
-        this._changeDetectorRef.markForCheck();
-        this.stateChanges.next();
+      .subscribe({
+        next: () => {
+          this._changeDetectorRef.markForCheck();
+          this.stateChanges.next();
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
 
     this._setOptionIds();
@@ -1343,15 +1357,16 @@ export class OuiSelect
     this.stateChanges.next();
   }
   discardRecentChanges() {
-    this.value = this.savedValues;
+    this.value = this.savedValues();
     this._setSelectionByValue(this.value);
     this.disableDoneButton = true;
     this.close();
   }
   doneRecentChanges() {
-    this.savedValues = this.value;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    this.savedValues.set(this.value);
     this.disableDoneButton = true;
-    this.previouslySelected = [...this.setSelectedOptions];
+    this.previouslySelected = this.setSelectedOptions.slice();
     this.saveSelectionChange.emit(new OuiSelectChange(this, this.value));
     this.close();
   }
@@ -1366,7 +1381,7 @@ export class OuiSelect
     const selectedItems = (this.selected as OuiOption[]).map(
       (option) => option.value
     );
-    if (this.allowNoSelection) {
+    if (this.allowNoSelection()) {
       return false;
     }
     return selectedItems.length === 0;
@@ -1378,8 +1393,8 @@ export class OuiSelect
       const options = this.options.toArray();
 
       this._selectionModel.sort((a, b) =>
-        this.sortComparator
-          ? this.sortComparator(a, b, options)
+        this.sortComparator()
+          ? this.sortComparator()(a, b, options)
           : options.indexOf(a) - options.indexOf(b)
       );
       this.stateChanges.next();
@@ -1451,13 +1466,13 @@ export class OuiSelect
   _getAriaLabel(): string | null {
     // If an ariaLabelledby value has been set by the consumer, the select should not overwrite the
     // `aria-labelledby` value by setting the ariaLabel to the placeholder.
-    return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
+    return this.ariaLabelledby() ? null : this.ariaLabel() || this.placeholder;
   }
 
   /** Returns the aria-labelledby of the select component. */
   _getAriaLabelledby(): string | null {
-    if (this.ariaLabelledby) {
-      return this.ariaLabelledby;
+    if (this.ariaLabelledby()) {
+      return this.ariaLabelledby();
     }
 
     return null;
@@ -1512,13 +1527,16 @@ export class OuiSelect
    * Custom overlay class for cdk overlay container
    */
   openCdk() {
-    this.overlayDir.positionChange.pipe(take(1)).subscribe((e) => {
-      this.cdkConnectionOverlayPanel = '';
-      if (e.connectionPair.originY === 'top') {
-        this.cdkConnectionOverlayPanel = 'select-overlay-top';
-      }
-      this._changeDetectorRef.detectChanges();
-      setTimeout((_) => this._scrollToOption());
+    this.overlayDir.positionChange.pipe(take(1)).subscribe({
+      next: (e) => {
+        this.cdkConnectionOverlayPanel = '';
+        if (e.connectionPair.originY === 'top') {
+          this.cdkConnectionOverlayPanel = 'select-overlay-top';
+        }
+        this._changeDetectorRef.detectChanges();
+        setTimeout((_) => this._scrollToOption());
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
 
     const cdkOverLayContainer = this._document.querySelector(

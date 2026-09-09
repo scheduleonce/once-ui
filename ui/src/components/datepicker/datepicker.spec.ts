@@ -466,7 +466,7 @@ describe('OuiDatepicker', () => {
 
       it('disabled datepicker input should open the calendar if datepicker is enabled', () => {
         testComponent.datepicker.disabled = false;
-        testComponent.datepickerInput.disabled = true;
+        testComponent.datepickerInput.disabled.set(true);
         fixture.detectChanges();
 
         expect(document.querySelector('.cdk-overlay-pane')).toBeNull();
@@ -667,7 +667,7 @@ describe('OuiDatepicker', () => {
 
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
         expect(testComponent.datepicker._selected).toBeNull();
 
         testComponent.assignedDatepicker = testComponent.datepicker;
@@ -827,7 +827,7 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should update datepicker when model changes', fakeAsync(() => {
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
         expect(testComponent.datepicker._selected).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
@@ -839,13 +839,13 @@ describe('OuiDatepicker', () => {
         flush();
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
         expect(testComponent.datepicker._selected).toEqual(selected);
       }));
 
       it('should update model when date is selected', fakeAsync(() => {
         expect(testComponent.selected).toBeNull();
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
         testComponent.datepicker.select(selected);
@@ -854,7 +854,7 @@ describe('OuiDatepicker', () => {
         fixture.detectChanges();
 
         expect(testComponent.selected).toEqual(selected);
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
       }));
 
       it('should mark input dirty after date selected', fakeAsync(() => {
@@ -922,27 +922,27 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should update datepicker when formControl changes', () => {
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
         expect(testComponent.datepicker._selected).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
         testComponent.formControl.setValue(selected);
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
         expect(testComponent.datepicker._selected).toEqual(selected);
       });
 
       it('should update formControl when date is selected', () => {
         expect(testComponent.formControl.value).toBeNull();
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
         testComponent.datepicker.select(selected);
         fixture.detectChanges();
 
         expect(testComponent.formControl.value).toEqual(selected);
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
       });
     });
 
@@ -1338,13 +1338,13 @@ describe('OuiDatepicker', () => {
         expect(testComponent.datepicker.startAt).toEqual(
           new Date(2017, JUL, 1)
         );
-        expect(testComponent.datepickerInput.value).toEqual(
+        expect(testComponent.datepickerInput.value()).toEqual(
           new Date(2017, JUN, 1)
         );
-        expect(testComponent.datepickerInput.min).toEqual(
+        expect(testComponent.datepickerInput.min()).toEqual(
           new Date(2017, JAN, 1)
         );
-        expect(testComponent.datepickerInput.max).toEqual(
+        expect(testComponent.datepickerInput.max()).toEqual(
           new Date(2017, DEC, 31)
         );
       }));

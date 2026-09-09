@@ -5,6 +5,7 @@ import {
   ViewEncapsulation,
   OnDestroy,
   ElementRef,
+  ErrorHandler,
   NgZone,
   IterableDiffers,
   inject,
@@ -113,6 +114,7 @@ export class OuiRow extends CdkRow implements OnDestroy {
   protected _differs = inject(IterableDiffers);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
@@ -120,7 +122,10 @@ export class OuiRow extends CdkRow implements OnDestroy {
     super();
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
   ngOnDestroy(): void {
     this._focusMonitor.stopMonitoring(this.elementRef);

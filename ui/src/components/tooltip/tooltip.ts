@@ -28,7 +28,10 @@ import {
   Directive,
   ElementRef,
   InjectionToken,
-  Input,
+  ErrorHandler,
+  effect,
+  input,
+  model,
   NgZone,
   OnDestroy,
   ViewContainerRef,
@@ -37,7 +40,6 @@ import {
 } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 import { ouiTooltipAnimations } from './tooltip-animations';
-import { CanDisable } from '../core';
 
 export type TooltipPosition = 'left' | 'right' | 'above' | 'below';
 
@@ -262,7 +264,7 @@ export class TooltipComponent {
   },
   standalone: false,
 })
-export class OuiTooltip implements OnDestroy, CanDisable {
+export class OuiTooltip implements OnDestroy {
   private _overlay = inject(Overlay);
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _scrollDispatcher = inject(ScrollDispatcher);
@@ -271,95 +273,29 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   private _ariaDescriber = inject(AriaDescriber);
   private _focusMonitor = inject(FocusMonitor);
   private _dir = inject(Directionality, { optional: true })!;
+  private _errorHandler = inject(ErrorHandler);
 
   _overlayRef: OverlayRef | null;
   _tooltipInstance: TooltipComponent | null;
 
   private _portal: ComponentPortal<TooltipComponent>;
-  private _position: TooltipPosition = 'below';
-  private _disabled = false;
-  private _tooltipClass:
-    | string
-    | string[]
-    | Set<string>
-    | { [key: string]: any };
   private _scrollStrategy: () => ScrollStrategy;
 
   /** Allows the user to define the position of the tooltip relative to the parent element */
-  @Input('ouiTooltipPosition')
-  get position(): TooltipPosition {
-    return this._position;
-  }
-  set position(value: TooltipPosition) {
-    if (value !== this._position) {
-      this._position = value;
-      if (this._overlayRef) {
-        this._updatePosition();
-
-        if (this._tooltipInstance) {
-          this._tooltipInstance!.show();
-        }
-
-        this._overlayRef.updatePosition();
-      }
-    }
-  }
+  readonly position = input<TooltipPosition>('below', {
+    alias: 'ouiTooltipPosition',
+  });
 
   /** Disables the display of the tooltip. */
-  @Input('ouiTooltipDisabled')
-  get disabled(): boolean {
-    return this._disabled;
-  }
-  set disabled(value) {
-    this._disabled = coerceBooleanProperty(value);
-
-    // If tooltip is disabled, hide immediately.
-    if (this._disabled) {
-      this.hide();
-    }
-  }
-
-  private _message = '';
+  readonly disabled = model(false, { alias: 'ouiTooltipDisabled' });
 
   /** The message to be displayed in the tooltip */
-  @Input('ouiTooltip')
-  get message() {
-    return this._message;
-  }
-  set message(value: string) {
-    this._ariaDescriber.removeDescription(
-      this._elementRef.nativeElement,
-      this._message
-    );
-
-    // If the message is not a string (e.g. number), convert it to a string and trim it.
-    this._message = value != null ? `${value}`.trim() : '';
-
-    if (!this._message && this._isTooltipVisible()) {
-      this.hide();
-    } else {
-      this._updateTooltipMessage();
-      this._ariaDescriber.describe(
-        this._elementRef.nativeElement,
-        this.message
-      );
-    }
-  }
+  readonly message = model('', { alias: 'ouiTooltip' });
 
   /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
-  @Input('ouiTooltipClass')
-  get tooltipClass() {
-    return this._tooltipClass;
-  }
-  set tooltipClass(
-    value: string | string[] | Set<string> | { [key: string]: any }
-  ) {
-    this._tooltipClass = value;
-    if (this._tooltipInstance) {
-      this._tooltipInstance._markForCheck();
-      this._setTooltipClass(this._tooltipClass);
-    }
-  }
+  readonly tooltipClass = input<
+    string | string[] | Set<string> | { [key: string]: any }
+  >(undefined, { alias: 'ouiTooltipClass' });
 
   private _manualListeners = new Map<
     string,
@@ -377,6 +313,29 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     const scrollStrategy = inject(OUI_TOOLTIP_SCROLL_STRATEGY);
 
     this._scrollStrategy = scrollStrategy;
+    effect(() => {
+      if (coerceBooleanProperty(this.disabled())) {
+        this.hide();
+      }
+    });
+    effect(() => {
+      const message = this.message();
+      this._updateTooltipMessage();
+      this._ariaDescriber.describe(this._elementRef.nativeElement, message);
+    });
+    effect(() => {
+      this.position();
+      if (this._overlayRef) {
+        this._updatePosition();
+        this._overlayRef.updatePosition();
+      }
+    });
+    effect(() => {
+      this.tooltipClass();
+      if (this._tooltipInstance) {
+        this._setTooltipClass(this.tooltipClass());
+      }
+    });
     const element: HTMLElement = _elementRef.nativeElement;
     const elementStyle = element.style as NewCSSStyleDeclaration & {
       webkitUserDrag: string;
@@ -415,13 +374,16 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     _focusMonitor
       .monitor(_elementRef)
       .pipe(takeUntil(this._destroyed))
-      .subscribe((origin) => {
-        // Note that the focus monitor runs outside the Angular zone.
-        if (!origin) {
-          _ngZone.run(() => this.hide());
-        } else if (origin === 'keyboard') {
-          _ngZone.run(() => this.show());
-        }
+      .subscribe({
+        next: (origin) => {
+          // Note that the focus monitor runs outside the Angular zone.
+          if (!origin) {
+            _ngZone.run(() => this.hide());
+          } else if (origin === 'keyboard') {
+            _ngZone.run(() => this.show());
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
@@ -445,7 +407,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
     this._ariaDescriber.removeDescription(
       this._elementRef.nativeElement,
-      this.message
+      this.message()
     );
     this._focusMonitor.stopMonitoring(this._elementRef);
   }
@@ -453,8 +415,8 @@ export class OuiTooltip implements OnDestroy, CanDisable {
   /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
   show(): void {
     if (
-      this.disabled ||
-      !this.message ||
+      this.disabled() ||
+      !this.message() ||
       (this._isTooltipVisible() &&
         !this._tooltipInstance!._showTimeoutId &&
         !this._tooltipInstance!._hideTimeoutId)
@@ -472,8 +434,11 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     this._tooltipInstance
       .afterHidden()
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => this._detach());
-    this._setTooltipClass(this._tooltipClass);
+      .subscribe({
+        next: () => this._detach(),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
+    this._setTooltipClass(this.tooltipClass());
     this._updateTooltipMessage();
     this._tooltipInstance!.show();
   }
@@ -536,9 +501,8 @@ export class OuiTooltip implements OnDestroy, CanDisable {
 
     strategy.withScrollableContainers(scrollableAncestors);
 
-    strategy.positionChanges
-      .pipe(takeUntil(this._destroyed))
-      .subscribe((change) => {
+    strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe({
+      next: (change) => {
         if (this._tooltipInstance) {
           if (
             change.scrollableViewProperties.isOverlayClipped &&
@@ -549,7 +513,9 @@ export class OuiTooltip implements OnDestroy, CanDisable {
             this._ngZone.run(() => this.hide());
           }
         }
-      });
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
 
     this._overlayRef = this._overlay.create({
       direction: this._dir,
@@ -563,7 +529,10 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     this._overlayRef
       .detachments()
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => this._detach());
+      .subscribe({
+        next: () => this._detach(),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
 
     return this._overlayRef;
   }
@@ -600,7 +569,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     fallback: OriginConnectionPosition;
   } {
     const isLtr = !this._dir || this._dir.value === 'ltr';
-    const position = this.position;
+    const position = this.position();
     let originPosition: OriginConnectionPosition;
 
     if (position === 'above' || position === 'below') {
@@ -639,7 +608,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     fallback: OverlayConnectionPosition;
   } {
     const isLtr = !this._dir || this._dir.value === 'ltr';
-    const position = this.position;
+    const position = this.position();
     let overlayPosition: OverlayConnectionPosition;
 
     if (position === 'above') {
@@ -676,16 +645,19 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     // Must wait for the message to be painted to the tooltip so that the overlay can properly
     // calculate the correct positioning based on the size of the text.
     if (this._tooltipInstance) {
-      this._tooltipInstance.message = this.message;
+      this._tooltipInstance.message = this.message();
       this._tooltipInstance._markForCheck();
 
       this._ngZone.onMicrotaskEmpty
         .asObservable()
         .pipe(take(1), takeUntil(this._destroyed))
-        .subscribe(() => {
-          if (this._tooltipInstance) {
-            this._overlayRef!.updatePosition();
-          }
+        .subscribe({
+          next: () => {
+            if (this._tooltipInstance) {
+              this._overlayRef!.updatePosition();
+            }
+          },
+          error: (err: Error) => this._errorHandler.handleError(err),
         });
     }
   }
@@ -705,7 +677,7 @@ export class OuiTooltip implements OnDestroy, CanDisable {
     x: HorizontalConnectionPos,
     y: VerticalConnectionPos
   ) {
-    if (this.position === 'above' || this.position === 'below') {
+    if (this.position() === 'above' || this.position() === 'below') {
       if (y === 'top') {
         y = 'bottom';
       } else if (y === 'bottom') {

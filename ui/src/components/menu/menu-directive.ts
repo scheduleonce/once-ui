@@ -13,12 +13,14 @@ import {
   ContentChild,
   ContentChildren,
   ElementRef,
-  EventEmitter,
   InjectionToken,
-  Input,
+  booleanAttribute,
+  effect,
+  input,
+  model,
   NgZone,
   OnDestroy,
-  Output,
+  output,
   TemplateRef,
   QueryList,
   ViewChild,
@@ -36,7 +38,6 @@ import {
 import { OuiMenuItem } from './menu-item';
 import { OUI_MENU_PANEL, OuiMenuPanel } from './menu-panel';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /** Default `oui-menu` options that can be overridden. */
 export interface OuiMenuDefaultOptions {
@@ -92,10 +93,7 @@ export class OuiMenu
   private _defaultOptions = inject<OuiMenuDefaultOptions>(
     OUI_MENU_DEFAULT_OPTIONS
   );
-
   private _keyManager: FocusKeyManager<OuiMenuItem>;
-  private _xPosition: MenuPositionX = this._defaultOptions.xPosition;
-  private _yPosition: MenuPositionY = this._defaultOptions.yPosition;
 
   /** Menu items inside the current menu. */
   private _items: OuiMenuItem[] = [];
@@ -113,44 +111,16 @@ export class OuiMenu
   parentMenu: OuiMenuPanel | undefined;
 
   /** Class to be added to the backdrop element. */
-  @Input()
-  backdropClass: string = this._defaultOptions.backdropClass;
+  readonly backdropClass = input(this._defaultOptions.backdropClass);
 
   /** Whether the menu has a backdrop. */
-  @Input()
-  get hasBackdrop(): boolean | undefined {
-    return this._hasBackdrop;
-  }
-  set hasBackdrop(value: boolean | undefined) {
-    this._hasBackdrop = coerceBooleanProperty(value);
-  }
-  private _hasBackdrop: boolean | undefined = this._defaultOptions.hasBackdrop;
+  readonly hasBackdrop = model(this._defaultOptions.hasBackdrop);
 
   /** Position of the menu in the X axis. */
-  @Input()
-  get xPosition(): MenuPositionX {
-    return this._xPosition;
-  }
-  set xPosition(value: MenuPositionX) {
-    if (value !== 'before' && value !== 'after') {
-      throwOuiMenuInvalidPositionX();
-    }
-    this._xPosition = value;
-    this.setPositionClasses();
-  }
+  readonly xPosition = input(this._defaultOptions.xPosition);
 
   /** Position of the menu in the Y axis. */
-  @Input()
-  get yPosition(): MenuPositionY {
-    return this._yPosition;
-  }
-  set yPosition(value: MenuPositionY) {
-    if (value !== 'above' && value !== 'below') {
-      throwOuiMenuInvalidPositionY();
-    }
-    this._yPosition = value;
-    this.setPositionClasses();
-  }
+  readonly yPosition = input(this._defaultOptions.yPosition);
 
   /** @docs-private */
   @ViewChild(TemplateRef)
@@ -174,14 +144,9 @@ export class OuiMenu
   lazyContent: OuiMenuContent;
 
   /** Whether the menu should overlap its trigger. */
-  @Input()
-  get overlapTrigger(): boolean {
-    return this._overlapTrigger;
-  }
-  set overlapTrigger(value: boolean) {
-    this._overlapTrigger = coerceBooleanProperty(value);
-  }
-  private _overlapTrigger: boolean = this._defaultOptions.overlapTrigger;
+  readonly overlapTrigger = input(this._defaultOptions.overlapTrigger, {
+    transform: booleanAttribute,
+  });
 
   /**
    * This method takes classes set on the host oui-menu element and applies them on the
@@ -190,8 +155,9 @@ export class OuiMenu
    *
    * @param classes list of class names
    */
-  @Input('class')
-  set panelClass(classes: string) {
+  readonly panelClass = input('', { alias: 'class' });
+
+  private _applyPanelClass(classes: string) {
     if (classes && classes.length) {
       this._classList = classes
         .split(' ')
@@ -205,9 +171,7 @@ export class OuiMenu
   }
 
   /** Event emitted when the menu is closed. */
-  @Output()
-  readonly closed: EventEmitter<void | 'click' | 'keydown' | 'tab'> =
-    new EventEmitter<void | 'click' | 'keydown' | 'tab'>();
+  readonly closed = output<void | 'click' | 'keydown' | 'tab'>();
 
   /**
    * Event emitted when the menu is closed.
@@ -215,10 +179,23 @@ export class OuiMenu
    * @deprecated Switch to `closed` instead
    * @breaking-change 8.0.0
    */
-  @Output()
   close = this.closed;
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      const xPosition = this.xPosition();
+      const yPosition = this.yPosition();
+      const panelClass = this.panelClass();
+      if (xPosition !== 'before' && xPosition !== 'after') {
+        throwOuiMenuInvalidPositionX();
+      }
+      if (yPosition !== 'above' && yPosition !== 'below') {
+        throwOuiMenuInvalidPositionY();
+      }
+      this._applyPanelClass(panelClass);
+      this.setPositionClasses(xPosition, yPosition);
+    });
+  }
 
   ngOnInit() {
     this.setPositionClasses();
@@ -228,14 +205,14 @@ export class OuiMenu
     this._keyManager = new FocusKeyManager<OuiMenuItem>(this._items)
       .withWrap()
       .withTypeAhead();
-    this._tabSubscription = this._keyManager.tabOut.subscribe(() =>
-      this.closed.emit('tab')
-    );
+    this._tabSubscription = this._keyManager.tabOut.subscribe({
+      next: () => this.closed.emit('tab'),
+      error: (err: Error) => console.error('Menu tab-out failed', err),
+    });
   }
 
   ngOnDestroy() {
     this._tabSubscription.unsubscribe();
-    this.closed.complete();
   }
 
   /** Stream that emits whenever the hovered menu item changes. */
@@ -278,9 +255,11 @@ export class OuiMenu
       this._ngZone.onStable
         .asObservable()
         .pipe(take(1))
-        .subscribe(() =>
-          this._keyManager.setFocusOrigin(origin).setFirstItemActive()
-        );
+        .subscribe({
+          next: () =>
+            this._keyManager.setFocusOrigin(origin).setFirstItemActive(),
+          error: (err: Error) => console.error('Menu focus failed', err),
+        });
     } else {
       this._keyManager.setFocusOrigin(origin).setFirstItemActive();
     }
@@ -334,8 +313,8 @@ export class OuiMenu
    * @docs-private
    */
   setPositionClasses(
-    posX: MenuPositionX = this.xPosition,
-    posY: MenuPositionY = this.yPosition
+    posX: MenuPositionX = this.xPosition(),
+    posY: MenuPositionY = this.yPosition()
   ) {
     this._classList = {
       ...this._classList,
