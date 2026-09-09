@@ -85,6 +85,7 @@
     "babel-loader": "9.1.0",
     "eslint": "^9.39.5",
     "eslint-plugin-import": "2.32.0",
+    "eslint-plugin-jsdoc": "^50.2.2",
     "eslint-plugin-prefer-arrow": "1.2.3",
     "eslint-plugin-storybook": "^10.5.10",
     "gulp": "5.0.0",
