@@ -748,7 +748,7 @@ export class OuiReorderableColumnsDirective
     if (this._scrollRafId || !this._dragging || !this._scrollContainer) {
       return;
     }
-    this._scrollRafId = requestAnimationFrame(this._scrollLoop);
+    this._scrollRafId = globalThis.requestAnimationFrame(this._scrollLoop);
   }
 
   /** Single requestAnimationFrame step — scrolls then re-queues if needed. */
@@ -789,13 +789,13 @@ export class OuiReorderableColumnsDirective
 
     // Re-queue — the _scrollWanted guard at the top will stop the loop
     // on the next frame if the cursor has left the activation zone.
-    this._scrollRafId = requestAnimationFrame(this._scrollLoop);
+    this._scrollRafId = globalThis.requestAnimationFrame(this._scrollLoop);
   };
 
   /** Cancel the auto-scroll animation frame. */
   private _stopAutoScroll(): void {
     if (this._scrollRafId) {
-      cancelAnimationFrame(this._scrollRafId);
+      globalThis.cancelAnimationFrame(this._scrollRafId);
       this._scrollRafId = 0;
     }
     this._scrollContainer = null;
