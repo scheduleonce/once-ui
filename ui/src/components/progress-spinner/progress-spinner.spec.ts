@@ -15,16 +15,6 @@ import { By } from '@angular/platform-browser';
 class BasicProgressSpinner {}
 
 @Component({
-  template:
-    '<oui-progress-spinner [diameter]="diameter"></oui-progress-spinner>',
-  changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
-})
-class ProgressSpinnerCustomDiameter {
-  diameter: number;
-}
-
-@Component({
   template: `
     <oui-progress-spinner [value]="60" [color]="color"></oui-progress-spinner>
   `,

@@ -4,7 +4,8 @@
     "types": [
       "node"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "rootDir": ".."
   },
   "exclude": [
     "../ui/src/test.ts",
