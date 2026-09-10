@@ -36,7 +36,7 @@
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayOpen]="panelOpen"
-  [cdkConnectedOverlayMinWidth]="$safeNavigationMigration(_triggerRect?.width)"
+  [cdkConnectedOverlayMinWidth]="_triggerRect?.width"
   (backdropClick)="close()"
   (detach)="close()"
   (attach)="openCdk()"

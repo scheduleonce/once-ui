@@ -23,7 +23,6 @@ import {
   ViewChild,
   ViewEncapsulation,
   inject,
-  linkedSignal,
 } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { OUI_TAB_GROUP, OuiTab } from './tab';
@@ -150,10 +149,7 @@ export class ouiTabGroup
   readonly dynamicHeight = model(false);
 
   /** The index of the active tab. */
-  readonly selectedIndexInput = input<number | null>(null, {
-    alias: 'selectedIndex',
-  });
-  readonly selectedIndex = linkedSignal(this.selectedIndexInput);
+  readonly selectedIndex = model<number | null>(null);
 
   /** Position of the tab header. */
   readonly headerPosition = input<OuiTabHeaderPosition>('above');

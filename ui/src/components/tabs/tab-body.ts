@@ -10,6 +10,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ComponentFactoryResolver,
   Directive,
   ElementRef,
   ErrorHandler,
@@ -20,11 +21,13 @@ import {
   output,
   SimpleChanges,
   ViewChild,
+  ViewContainerRef,
   ViewEncapsulation,
   inject,
 } from '@angular/core';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { Direction, Directionality } from '@angular/cdk/bidi';
+import { DOCUMENT } from '@angular/common';
 import { Subject, Subscription } from 'rxjs';
 import {
   distinctUntilChanged,
@@ -52,6 +55,14 @@ export class OuiTabBodyPortal
   private _centeringSub = Subscription.EMPTY;
   /** Subscription to events for when the tab body finishes leaving from center position. */
   private _leavingSub = Subscription.EMPTY;
+
+  constructor() {
+    const componentFactoryResolver = inject(ComponentFactoryResolver);
+    const viewContainerRef = inject(ViewContainerRef);
+    const _document = inject(DOCUMENT);
+
+    super(componentFactoryResolver, viewContainerRef, _document);
+  }
 
   /** Set initial visibility or set up subscription for changing visibility. */
   override ngOnInit(): void {
