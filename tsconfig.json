@@ -1,7 +1,6 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "esModuleInterop": true,
@@ -19,13 +18,14 @@
     "noUnusedParameters": true,
     "paths": {
       "ui": [
-        "dist/ui"
+        "./dist/ui"
       ],
       "ui/*": [
-        "dist/ui/*"
+        "./dist/ui/*"
       ]
     },
-    "useDefineForClassFields": false
+    "useDefineForClassFields": false,
+    "strict": false
   },
   "angularCompilerOptions": {
     "strictInjectionParameters": true

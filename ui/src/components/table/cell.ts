@@ -87,10 +87,10 @@ export class OuiColumnDef extends CdkColumnDef {
 })
 export class OuiHeaderCell extends CdkHeaderCell {
   constructor() {
+    super();
     const columnDef = inject(CdkColumnDef);
     const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    super(columnDef, elementRef);
     elementRef.nativeElement.classList.add(
       `oui-column-${columnDef.cssClassFriendlyName}`
     );
@@ -109,10 +109,10 @@ export class OuiHeaderCell extends CdkHeaderCell {
 })
 export class OuiFooterCell extends CdkFooterCell {
   constructor() {
+    super();
     const columnDef = inject(CdkColumnDef);
     const elementRef = inject(ElementRef);
 
-    super(columnDef, elementRef);
     elementRef.nativeElement.classList.add(
       `oui-column-${columnDef.cssClassFriendlyName}`
     );
@@ -132,10 +132,10 @@ export class OuiFooterCell extends CdkFooterCell {
 })
 export class OuiCell extends CdkCell {
   constructor() {
+    super();
     const columnDef = inject(CdkColumnDef);
     const elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
 
-    super(columnDef, elementRef);
     elementRef.nativeElement.classList.add(
       `oui-column-${columnDef.cssClassFriendlyName}`
     );
