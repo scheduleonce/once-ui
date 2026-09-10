@@ -19,23 +19,30 @@ module.exports = function (results) {
     totalErrors += errorCount;
     totalWarnings += warningCount;
 
-    const status =
-      errorCount > 0 ? '✗' : warningCount > 0 ? '⚠' : '✓';
+    const status = errorCount > 0 ? '✗' : warningCount > 0 ? '⚠' : '✓';
     lines.push(
-      `${status} ${filePath} (${errorCount} error${errorCount === 1 ? '' : 's'}, ${warningCount} warning${warningCount === 1 ? '' : 's'})`
+      `${status} ${filePath} (${errorCount} error${
+        errorCount === 1 ? '' : 's'
+      }, ${warningCount} warning${warningCount === 1 ? '' : 's'})`
     );
 
     for (const msg of messages) {
       const severity = msg.severity === 2 ? 'error' : 'warning';
       lines.push(
-        `    ${msg.line}:${msg.column}  ${severity}  ${msg.message}  ${msg.ruleId || ''}`
+        `    ${msg.line}:${msg.column}  ${severity}  ${msg.message}  ${
+          msg.ruleId || ''
+        }`
       );
     }
   }
 
   lines.push('');
   lines.push(
-    `Linted ${results.length} file${results.length === 1 ? '' : 's'} — ${totalErrors} error${totalErrors === 1 ? '' : 's'}, ${totalWarnings} warning${totalWarnings === 1 ? '' : 's'}`
+    `Linted ${results.length} file${
+      results.length === 1 ? '' : 's'
+    } — ${totalErrors} error${
+      totalErrors === 1 ? '' : 's'
+    }, ${totalWarnings} warning${totalWarnings === 1 ? '' : 's'}`
   );
 
   return lines.join('\n');
