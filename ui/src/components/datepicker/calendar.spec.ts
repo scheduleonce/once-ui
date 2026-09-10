@@ -173,6 +173,7 @@ describe('OuiCalendar', () => {
         spyOn(adapter, 'today').and.callFake(() => fakeToday);
 
         calendarInstance.activeDate = fakeToday;
+        fixture.detectChanges();
         calendarInstance.updateTodaysDate();
         fixture.detectChanges();
 
@@ -380,29 +381,29 @@ describe('OuiCalendar', () => {
     it('should re-render the month view when the minDate changes', () => {
       fixture.detectChanges();
       const updatedMinDate = new Date(2017, NOV, 1);
-      const previousMinDate = calendarInstance.minDate;
-      calendarInstance.minDate = updatedMinDate;
+      const previousMinDate = calendarInstance.minDate();
+      testComponent.minDate = updatedMinDate;
       calendarInstance.ngOnChanges({
         minDate: new SimpleChange(previousMinDate, updatedMinDate, false),
       });
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('month');
-      expect(calendarInstance.minDate).toEqual(updatedMinDate);
+      expect(calendarInstance.minDate()).toEqual(updatedMinDate);
     });
 
     it('should re-render the month view when the maxDate changes', () => {
       fixture.detectChanges();
       const updatedMaxDate = new Date(2017, DEC, 1);
-      const previousMaxDate = calendarInstance.maxDate;
-      calendarInstance.maxDate = updatedMaxDate;
+      const previousMaxDate = calendarInstance.maxDate();
+      testComponent.maxDate = updatedMaxDate;
       calendarInstance.ngOnChanges({
         maxDate: new SimpleChange(previousMaxDate, updatedMaxDate, false),
       });
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('month');
-      expect(calendarInstance.maxDate).toEqual(updatedMaxDate);
+      expect(calendarInstance.maxDate()).toEqual(updatedMaxDate);
     });
 
     it('should re-render the year view when the minDate changes', () => {
@@ -421,15 +422,15 @@ describe('OuiCalendar', () => {
       fixture.detectChanges();
 
       const updatedMinDate = new Date(2017, NOV, 1);
-      const previousMinDate = calendarInstance.minDate;
-      calendarInstance.minDate = updatedMinDate;
+      const previousMinDate = calendarInstance.minDate();
+      testComponent.minDate = updatedMinDate;
       calendarInstance.ngOnChanges({
         minDate: new SimpleChange(previousMinDate, updatedMinDate, false),
       });
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('year');
-      expect(calendarInstance.minDate).toEqual(updatedMinDate);
+      expect(calendarInstance.minDate()).toEqual(updatedMinDate);
     });
 
     it('should re-render the year view when the maxDate changes', () => {
@@ -448,15 +449,15 @@ describe('OuiCalendar', () => {
       fixture.detectChanges();
 
       const updatedMaxDate = new Date(2017, DEC, 1);
-      const previousMaxDate = calendarInstance.maxDate;
-      calendarInstance.maxDate = updatedMaxDate;
+      const previousMaxDate = calendarInstance.maxDate();
+      testComponent.maxDate = updatedMaxDate;
       calendarInstance.ngOnChanges({
         maxDate: new SimpleChange(previousMaxDate, updatedMaxDate, false),
       });
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('year');
-      expect(calendarInstance.maxDate).toEqual(updatedMaxDate);
+      expect(calendarInstance.maxDate()).toEqual(updatedMaxDate);
     });
 
     it('should re-render the multi-year view when the minDate changes', () => {
@@ -468,15 +469,15 @@ describe('OuiCalendar', () => {
       fixture.detectChanges();
 
       const updatedMinDate = new Date(2017, NOV, 1);
-      const previousMinDate = calendarInstance.minDate;
-      calendarInstance.minDate = updatedMinDate;
+      const previousMinDate = calendarInstance.minDate();
+      testComponent.minDate = updatedMinDate;
       calendarInstance.ngOnChanges({
         minDate: new SimpleChange(previousMinDate, updatedMinDate, false),
       });
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('multi-year');
-      expect(calendarInstance.minDate).toEqual(updatedMinDate);
+      expect(calendarInstance.minDate()).toEqual(updatedMinDate);
     });
 
     it('should re-render the multi-year view when the maxDate changes', () => {
@@ -488,15 +489,15 @@ describe('OuiCalendar', () => {
       fixture.detectChanges();
 
       const updatedMaxDate = new Date(2017, DEC, 1);
-      const previousMaxDate = calendarInstance.maxDate;
-      calendarInstance.maxDate = updatedMaxDate;
+      const previousMaxDate = calendarInstance.maxDate();
+      testComponent.maxDate = updatedMaxDate;
       calendarInstance.ngOnChanges({
         maxDate: new SimpleChange(previousMaxDate, updatedMaxDate, false),
       });
       fixture.detectChanges();
 
       expect(calendarInstance.currentView).toBe('multi-year');
-      expect(calendarInstance.maxDate).toEqual(updatedMaxDate);
+      expect(calendarInstance.maxDate()).toEqual(updatedMaxDate);
     });
 
     it('should update the minDate in the child view if it changed after an interaction', () => {

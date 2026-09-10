@@ -1,6 +1,7 @@
 import {
   Component,
   ElementRef,
+  ErrorHandler,
   input,
   OnInit,
   ViewChild,
@@ -9,6 +10,7 @@ import {
   OnDestroy,
   inject,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { DOCUMENT } from '@angular/common';
 import { OuiSelect } from '../select.component';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -37,6 +39,7 @@ export class OuiSelectSearchComponent
 {
   ouiSelect = inject<OuiSelect>(OuiSelect);
   private _document = inject(DOCUMENT, { optional: true })!;
+  private _errorHandler = inject(ErrorHandler);
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
 
@@ -79,14 +82,17 @@ export class OuiSelectSearchComponent
 
   ngOnInit() {
     // when the select dropdown panel is opened or closed
-    this.ouiSelect.openedChange.subscribe((opened) => {
-      if (opened) {
-        // focus the search field when opening
-        this._focus();
-      } else {
-        // clear it when closing
-        this._reset();
-      }
+    outputToObservable(this.ouiSelect.openedChange).subscribe({
+      next: (opened) => {
+        if (opened) {
+          // focus the search field when opening
+          this._focus();
+        } else {
+          // clear it when closing
+          this._reset();
+        }
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
     this.initMultipleHandling();
     this.storeInitialValuesIntoPrevious();
@@ -102,10 +108,13 @@ export class OuiSelectSearchComponent
         takeUntil(this._onDestroy),
         filter(() => this.ouiSelect.multiple)
       )
-      .subscribe(() => {
-        this.previousSelectedValues = (
-          this.ouiSelect.selected as OuiOption[]
-        ).map((option) => option.value);
+      .subscribe({
+        next: () => {
+          this.previousSelectedValues = (
+            this.ouiSelect.selected as OuiOption[]
+          ).map((option) => option.value);
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
@@ -181,42 +190,45 @@ export class OuiSelectSearchComponent
   }
   private initMultipleHandling() {
     // In oui-search, if we filter something then the options which has disappeared, will be treated as deselected. To avoid this problem we can store the previously selected value and restore them if those values are not available in visible option.
-    this.ouiSelect.valueChange
+    outputToObservable(this.ouiSelect.valueChange)
       .pipe(takeUntil(this._onDestroy))
-      .subscribe((values) => {
-        if (this.ouiSelect.multiple) {
-          let restoreSelectedValues = false;
-          if (
-            this._value &&
-            this._value.length &&
-            this.previousSelectedValues &&
-            Array.isArray(this.previousSelectedValues)
-          ) {
-            if (!values || !Array.isArray(values)) {
-              values = [];
-            }
-            const optionValues = this.ouiSelect.options.map(
-              (option) => option.value
-            );
-            this.previousSelectedValues.forEach((previousValue) => {
-              if (
-                values.indexOf(previousValue) === -1 &&
-                optionValues.indexOf(previousValue) === -1
-              ) {
-                // if a value that was selected before is not found in the options due to filtering then it will be treated as deselected
-                // to avoid this we can push them again.
-                values.push(previousValue);
-                restoreSelectedValues = true;
+      .subscribe({
+        next: (values) => {
+          if (this.ouiSelect.multiple) {
+            let restoreSelectedValues = false;
+            if (
+              this._value &&
+              this._value.length &&
+              this.previousSelectedValues &&
+              Array.isArray(this.previousSelectedValues)
+            ) {
+              if (!values || !Array.isArray(values)) {
+                values = [];
               }
-            });
-          }
+              const optionValues = this.ouiSelect.options.map(
+                (option) => option.value
+              );
+              this.previousSelectedValues.forEach((previousValue) => {
+                if (
+                  values.indexOf(previousValue) === -1 &&
+                  optionValues.indexOf(previousValue) === -1
+                ) {
+                  // if a value that was selected before is not found in the options due to filtering then it will be treated as deselected
+                  // to avoid this problem we can push them again.
+                  values.push(previousValue);
+                  restoreSelectedValues = true;
+                }
+              });
+            }
 
-          if (restoreSelectedValues) {
-            this.ouiSelect._onChange(values);
-          }
+            if (restoreSelectedValues) {
+              this.ouiSelect._onChange(values);
+            }
 
-          this.previousSelectedValues = values;
-        }
+            this.previousSelectedValues = values;
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 }

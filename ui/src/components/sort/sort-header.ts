@@ -3,7 +3,8 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  Input,
+  input,
+  model,
   OnDestroy,
   OnInit,
   ViewEncapsulation,
@@ -20,6 +21,7 @@ import { SortDirection } from './sort-direction';
 import { getSortHeaderNotContainedWithinSortError } from './sort-errors';
 import { OuiSortHeaderIntl } from './sort-header-intl';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 
 // Boilerplate for applying mixins to the sort header.
 /** @docs-private */
@@ -136,26 +138,19 @@ export class OuiSortHeader
    * the column's name.
    */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('oui-sort-header') id: string;
+  readonly id = model<string>(undefined, { alias: 'oui-sort-header' });
 
   /** Sets the position of the arrow that displays when sorted. */
-  @Input() arrowPosition: 'before' | 'after' = 'after';
+  readonly arrowPosition = input<'before' | 'after'>('after');
 
   /** Overrides the sort start value of the containing OuiSort for this OuiSortable. */
-  @Input() start: 'asc' | 'desc';
+  readonly start = input<'asc' | 'desc'>();
 
   // To set browser tooltip
   title: string;
 
   /** Overrides the disable clear value of the containing OuiSort for this OuiSortable. */
-  @Input()
-  get disableClear(): boolean {
-    return this._disableClear;
-  }
-  set disableClear(v) {
-    this._disableClear = coerceBooleanProperty(v);
-  }
-  private _disableClear: boolean;
+  readonly disableClear = input(false, { transform: coerceBooleanProperty });
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
   constructor() {
@@ -171,43 +166,51 @@ export class OuiSortHeader
 
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) =>
+          console.error('Sort header focus monitoring failed', err),
+      });
 
     if (!_sort) {
       throw getSortHeaderNotContainedWithinSortError();
     }
 
     this._rerenderSubscription = merge(
-      _sort.sortChange,
+      outputToObservable(_sort.sortChange),
       _sort._stateChanges,
       _intl.changes
-    ).subscribe(() => {
-      if (this._isSorted()) {
-        this._updateArrowDirection();
-      }
+    ).subscribe({
+      next: () => {
+        if (this._isSorted()) {
+          this._updateArrowDirection();
+        }
 
-      // If this header was recently active and now no longer sorted, animate away the arrow.
-      if (
-        !this._isSorted() &&
-        this._viewState &&
-        this._viewState.toState === 'active'
-      ) {
-        this._disableViewStateAnimation = false;
-        this._setAnimationTransitionState({
-          fromState: 'active',
-          toState: this._arrowDirection,
-        });
-      }
+        // If this header was recently active and now no longer sorted, animate away the arrow.
+        if (
+          !this._isSorted() &&
+          this._viewState &&
+          this._viewState.toState === 'active'
+        ) {
+          this._disableViewStateAnimation = false;
+          this._setAnimationTransitionState({
+            fromState: 'active',
+            toState: this._arrowDirection,
+          });
+        }
 
-      changeDetectorRef.markForCheck();
+        changeDetectorRef.markForCheck();
+      },
+      error: (err: Error) =>
+        console.error('Sort header state update failed', err),
     });
   }
 
   ngOnInit() {
     const columnHeading: string = this._elementRef.nativeElement.innerText;
     this.title = 'Sort by ' + columnHeading;
-    if (!this.id && this._columnDef) {
-      this.id = this._columnDef.name;
+    if (!this.id() && this._columnDef) {
+      this.id.set(this._columnDef.name);
     }
 
     // Initialize the direction of the arrow and set the view state to be immediately that state.
@@ -314,8 +317,8 @@ export class OuiSortHeader
   /** Whether this OuiSortHeader is currently sorted in either ascending or descending order. */
   _isSorted() {
     return (
-      this._sort.active === this.id &&
-      (this._sort.direction === 'asc' || this._sort.direction === 'desc')
+      this._sort.active() === this.id() &&
+      (this._sort.direction() === 'asc' || this._sort.direction() === 'desc')
     );
   }
 
@@ -342,8 +345,8 @@ export class OuiSortHeader
    */
   _updateArrowDirection() {
     this._arrowDirection = this._isSorted()
-      ? this._sort.direction
-      : this.start || this._sort.start;
+      ? this._sort.direction()
+      : this.start() || this._sort.start();
   }
 
   _isDisabled() {
@@ -361,6 +364,6 @@ export class OuiSortHeader
       return null;
     }
 
-    return this._sort.direction === 'asc' ? 'ascending' : 'descending';
+    return this._sort.direction() === 'asc' ? 'ascending' : 'descending';
   }
 }

@@ -1,28 +1,28 @@
 <!-- Actions container — hidden by default, smoothly appears on header hover/focus.
      Houses the sort indicator and column-menu trigger side by side. -->
 <div class="oui-column-header-actions">
-  @if (hasSort) {
+  @if (hasSort()) {
   <button
     class="oui-column-sort-indicator tw-block"
     type="button"
-    [class.oui-column-sort-active]="sortDirection"
+    [class.oui-column-sort-active]="sortDirection()"
     (click)="onSortClick($event)"
     [title]="
-      sortDirection === 'asc'
+      sortDirection() === 'asc'
         ? 'Sorted ascending'
-        : sortDirection === 'desc'
+        : sortDirection() === 'desc'
         ? 'Sorted descending'
         : 'Sort ascending'
     "
     [attr.aria-label]="
-      sortDirection === 'asc'
+      sortDirection() === 'asc'
         ? 'Sort descending'
-        : sortDirection === 'desc'
+        : sortDirection() === 'desc'
         ? 'Clear sort'
         : 'Sort ascending'
     "
   >
-    @if (sortDirection === 'asc') {
+    @if (sortDirection() === 'asc') {
 
     <div class="oui-column-sort-indicator--sorting"></div>
     } @else {

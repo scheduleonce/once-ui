@@ -14,13 +14,12 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  Input,
+  input,
   OnDestroy,
   QueryList,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
-import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { OuiTabLabelWrapper } from './tab-label-wrapper';
 import { OuiInkBar } from './ink-bar';
 import { OuiPaginatedTabHeader } from './paginated-tab-header';
@@ -36,8 +35,6 @@ import { OuiPaginatedTabHeader } from './paginated-tab-header';
   selector: 'oui-tab-header',
   templateUrl: 'tab-header.html',
   styleUrls: ['tab-header.scss'],
-  // eslint-disable-next-line
-  inputs: ['selectedIndex'],
   // eslint-disable-next-line
   outputs: ['selectFocusedIndex', 'indexFocused'],
   encapsulation: ViewEncapsulation.None,
@@ -67,16 +64,7 @@ export class OuiTabHeader
   _inkBar: OuiInkBar;
 
   /** Whether the ripple effect is disabled or not. */
-  @Input()
-  get disableRipple(): boolean {
-    return this._disableRipple;
-  }
-
-  set disableRipple(value: BooleanInput) {
-    this._disableRipple = coerceBooleanProperty(value);
-  }
-
-  private _disableRipple = false;
+  readonly disableRipple = input(false);
 
   constructor() {
     super();

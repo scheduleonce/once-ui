@@ -1,10 +1,10 @@
 import {
   Directive,
   ElementRef,
-  Input,
   booleanAttribute,
   numberAttribute,
   inject,
+  input,
 } from '@angular/core';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { OUI_CHIP } from './tokens';
@@ -29,7 +29,7 @@ export class OuiChipContent {
   protected _parentChip = inject<{
     _handlePrimaryActionInteraction(): void;
     remove(): void;
-    disabled: boolean;
+    _isDisabled(): boolean;
     _edit(event: Event): void;
     _isEditing?: boolean;
   }>(OUI_CHIP);
@@ -41,33 +41,30 @@ export class OuiChipContent {
   _isLeading = false;
 
   /** Whether the action is disabled. */
-  @Input({ transform: booleanAttribute })
+  readonly disabledInput = input(false, {
+    alias: 'disabled',
+    transform: booleanAttribute,
+  });
   get disabled(): boolean {
-    return this._disabled || this._parentChip?.disabled || false;
+    return this.disabledInput() || this._parentChip?._isDisabled() || false;
   }
-  set disabled(value: boolean) {
-    this._disabled = value;
-  }
-  private _disabled = false;
 
   /** Tab index of the action. */
-  @Input({
+  readonly tabIndex = input(-1, {
     transform: (value: unknown) =>
       value == null ? -1 : numberAttribute(value),
-  })
-  tabIndex: number = -1;
+  });
 
   /**
    * Private API to allow focusing this chip when it is disabled.
    */
-  @Input()
-  _allowFocusWhenDisabled = false;
+  readonly _allowFocusWhenDisabled = input(false);
 
   /**
    * Determine the value of the disabled attribute for this chip action.
    */
   protected _getDisabledAttribute(): string | null {
-    return this.disabled && !this._allowFocusWhenDisabled ? '' : null;
+    return this.disabled && !this._allowFocusWhenDisabled() ? '' : null;
   }
 
   constructor() {
@@ -99,9 +96,9 @@ export class OuiChipAction extends OuiChipContent {
    * Determine the value of the tabindex attribute for this chip action.
    */
   protected _getTabindex(): string | null {
-    return this.disabled && !this._allowFocusWhenDisabled
+    return this.disabled && !this._allowFocusWhenDisabled()
       ? null
-      : this.tabIndex.toString();
+      : this.tabIndex().toString();
   }
 
   _handleClick(event: MouseEvent) {

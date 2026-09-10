@@ -3,7 +3,8 @@ import {
   Component,
   ElementRef,
   ChangeDetectionStrategy,
-  Input,
+  effect,
+  input,
   ViewEncapsulation,
   inject,
 } from '@angular/core';
@@ -68,11 +69,11 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
   styleUrls: ['progress-spinner.scss'],
   host: {
     class: 'oui-progress-spinner',
-    '[style.width.px]': 'diameter',
-    '[style.height.px]': 'diameter',
+    '[style.width.px]': 'diameter()',
+    '[style.height.px]': 'diameter()',
     '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
     '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
-    '[attr.aria-valuenow]': 'value',
+    '[attr.aria-valuenow]': 'value()',
     '[attr.mode]': 'mode',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -86,79 +87,60 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
 
   private static diameters = new Set<number>([BASE_SIZE]);
   private static styleTag: HTMLStyleElement | null = null;
-  private _value = 0;
-  private _strokeWidth: number;
 
-  @Input()
-  get color(): ThemePalette {
-    return super.color;
-  }
-  set color(value: ThemePalette) {
-    super.color = value;
-    this._changeDetectorRef?.markForCheck();
-  }
+  readonly colorInput = input<ThemePalette>(undefined, { alias: 'color' });
+  readonly diameter = input<number, number>(BASE_SIZE, {
+    transform: (value: number) => coerceNumberProperty(value),
+  });
 
-  @Input()
-  get diameter(): number {
-    return this._diameter;
-  }
-  set diameter(size: number) {
-    if (size == null) {
-      return;
-    }
-
-    const newDiameter = coerceNumberProperty(size);
-    if (newDiameter === this._diameter) {
-      return;
-    }
-
-    this._diameter = newDiameter;
-    if (!OuiProgressSpinner.diameters.has(this._diameter)) {
-      this._attachStyleNode();
-    }
-    this._changeDetectorRef?.markForCheck();
-  }
-  private _diameter = BASE_SIZE;
-
-  /** Mode of the progress circle */
-  mode: ProgressSpinnerMode = 'indeterminate';
-
-  @Input()
-  get value(): number {
-    return this.mode === 'determinate' ? this._value : 0;
-  }
-  set value(newValue: number) {
-    this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
-    this.mode = 'determinate';
-    this._changeDetectorRef?.markForCheck();
-  }
-
-  @Input() get strokeWidth(): number {
-    return this._strokeWidth || BASE_STROKE_WIDTH;
-  }
-  set strokeWidth(value: number) {
-    this._strokeWidth = coerceNumberProperty(value);
-    this._changeDetectorRef?.markForCheck();
-  }
+  readonly value = input<number, number>(0, {
+    transform: (value: number) =>
+      Math.max(0, Math.min(100, coerceNumberProperty(value))),
+  });
 
   constructor() {
     const _elementRef = inject(ElementRef);
 
     super(_elementRef);
+
+    effect(() => {
+      super.color = this.colorInput();
+      this._changeDetectorRef?.markForCheck();
+    });
+
+    effect(() => {
+      if (!OuiProgressSpinner.diameters.has(this.diameter())) {
+        this._attachStyleNode();
+      }
+    });
+
+    effect(() => {
+      if (this.value() !== 0) {
+        this.mode = 'determinate';
+      }
+    });
   }
+
+  /** Mode of the progress circle */
+  mode: ProgressSpinnerMode = 'indeterminate';
+
+  readonly strokeWidth = input<number>(BASE_STROKE_WIDTH, {
+    transform: coerceNumberProperty,
+  });
 
   /** The radius of the spinner, adjusted for stroke width. */
   get _circleRadius() {
-    return (this.diameter - this.strokeWidth) / 2;
+    return (this.diameter() - (this.strokeWidth() || BASE_STROKE_WIDTH)) / 2;
   }
 
   /** The view box of the spinner's svg element. */
   get _viewBox() {
-    const viewBox = this._circleRadius * 2 + this.strokeWidth;
+    const viewBox =
+      this._circleRadius * 2 + (this.strokeWidth() || BASE_STROKE_WIDTH);
     return `0 0 ${viewBox} ${viewBox}`;
   }
   get _circleStrokeWidth() {
-    return (this.strokeWidth / this.diameter) * 100;
+    return ((this.strokeWidth() || BASE_STROKE_WIDTH) / this.diameter()) * 100;
   }
 
   /** The stroke circumference of the svg circle. */
@@ -169,7 +151,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   /** The dash offset of the svg circle. */
   get _strokeDashOffset() {
     if (this.mode === 'determinate') {
-      return (this._strokeCircumference * (100 - this._value)) / 100;
+      return (this._strokeCircumference * (100 - this.value())) / 100;
     }
 
     // In fallback mode set the circle to 80% and rotate it with CSS.
@@ -194,7 +176,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
       (styleTag.sheet as CSSStyleSheet).insertRule(this._getAnimationText(), 0);
     }
 
-    OuiProgressSpinner.diameters.add(this.diameter);
+    OuiProgressSpinner.diameters.add(this.diameter());
   }
 
   /** Generates animation styles adjusted for the spinner's diameter. */
@@ -204,7 +186,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
         // Animation should begin at 5% and end at 80%
         .replace(/START_VALUE/g, `${0.95 * this._strokeCircumference}`)
         .replace(/END_VALUE/g, `${0.2 * this._strokeCircumference}`)
-        .replace(/DIAMETER/g, `${this.diameter}`)
+        .replace(/DIAMETER/g, `${this.diameter()}`)
     );
   }
 }

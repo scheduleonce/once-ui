@@ -1,10 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  EventEmitter,
+  input,
+  output,
   inject,
-  Input,
-  Output,
   ViewEncapsulation,
 } from '@angular/core';
 import { OuiIconRegistry } from '../../icon/icon-registery';
@@ -36,17 +35,17 @@ export class OuiColumnMenuPanelComponent {
   private readonly _iconRegistry = inject(OuiIconRegistry);
   private readonly _domSanitizer = inject(DomSanitizer);
 
-  @Input() columnId = '';
-  @Input() displayedColumns: string[] = [];
-  @Input() hasSort = false;
+  readonly columnId = input('');
+  readonly displayedColumns = input<string[]>([]);
+  readonly hasSort = input(false);
 
   /** Current sort direction for this column — set by the directive. */
-  @Input() sortDirection: '' | 'asc' | 'desc' = '';
+  readonly sortDirection = input<'' | 'asc' | 'desc'>('');
 
-  @Output() actionSelected = new EventEmitter<ColumnMenuActionType>();
+  readonly actionSelected = output<ColumnMenuActionType>();
 
   /** Emitted when the sort indicator icon is clicked. */
-  @Output() sortClicked = new EventEmitter<void>();
+  readonly sortClicked = output<void>();
 
   /** Static flag to ensure we only register the oncehub icon set once across all instances. */
   private static _iconsRegistered = false;
@@ -63,18 +62,18 @@ export class OuiColumnMenuPanelComponent {
   }
 
   get isFirst(): boolean {
-    const idx = this.displayedColumns.indexOf(this.columnId);
+    const idx = this.displayedColumns().indexOf(this.columnId());
     return idx === 0;
   }
 
   get isLast(): boolean {
-    const idx = this.displayedColumns.indexOf(this.columnId);
-    return idx === this.displayedColumns.length - 1;
+    const idx = this.displayedColumns().indexOf(this.columnId());
+    return idx === this.displayedColumns().length - 1;
   }
 
   /** True when this column is in the second position (index 1). */
   get isSecond(): boolean {
-    return this.displayedColumns.indexOf(this.columnId) === 1;
+    return this.displayedColumns().indexOf(this.columnId()) === 1;
   }
 
   select(action: ColumnMenuActionType): void {

@@ -1,4 +1,5 @@
 import { GlobalPositionStrategy, OverlayRef } from '@angular/cdk/overlay';
+import { ErrorHandler } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { DialogPosition, OuiDialogConfig } from './dialog-config';
@@ -13,6 +14,7 @@ let uniqueId = 0;
  * Reference to a dialog opened via the OuiDialog service.
  */
 export class OuiDialogRef<T, R = any> {
+  private _errorHandler?: ErrorHandler;
   /** The instance of component opened into the dialog. */
   componentInstance: T;
 
@@ -45,27 +47,35 @@ export class OuiDialogRef<T, R = any> {
   constructor(
     private _overlayRef: OverlayRef,
     public _containerInstance: OuiDialogContainer,
-    readonly id: string = `oui-dialog-${uniqueId++}`
+    readonly id: string = `oui-dialog-${uniqueId++}`,
+    _errorHandler?: ErrorHandler
   ) {
+    this._errorHandler = _errorHandler;
     // Pass the id along to the container.
     _containerInstance._id = id;
 
     this._afterOpened.next();
     this._afterOpened.complete();
 
-    _overlayRef.detachments().subscribe(() => {
-      this._beforeClosed.next(this._result);
-      this._beforeClosed.complete();
-      this._afterClosed.next(this._result);
-      this._afterClosed.complete();
-      this.componentInstance = null!;
-      this._overlayRef.dispose();
+    _overlayRef.detachments().subscribe({
+      next: () => {
+        this._beforeClosed.next(this._result);
+        this._beforeClosed.complete();
+        this._afterClosed.next(this._result);
+        this._afterClosed.complete();
+        this.componentInstance = null!;
+        this._overlayRef.dispose();
+      },
+      error: (err: Error) => this._errorHandler?.handleError(err),
     });
 
     _overlayRef
       .keydownEvents()
       .pipe(filter((event) => event.key === 'Escape' && !this.disableClose))
-      .subscribe(() => this.close());
+      .subscribe({
+        next: () => this.close(),
+        error: (err: Error) => this._errorHandler?.handleError(err),
+      });
   }
 
   /**

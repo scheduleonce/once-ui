@@ -5,11 +5,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
+  ErrorHandler,
+  input,
   OnChanges,
   OnDestroy,
-  Output,
+  output,
   SimpleChanges,
   ViewChild,
   ViewEncapsulation,
@@ -58,9 +58,10 @@ export class OuiCalendar<D>
     optional: true,
   })!;
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _errorHandler = inject(ErrorHandler);
 
   /** An input indicating the type of the header component, if set. */
-  @Input() headerComponent: ComponentType<any>;
+  readonly headerComponent = input<ComponentType<any>>();
 
   /** A portal containing the header component type for this calendar. */
   _calendarHeaderPortal: Portal<any>;
@@ -75,80 +76,55 @@ export class OuiCalendar<D>
   private _moveFocusOnNextTick = false;
 
   /** A date representing the period (month or year) to start the calendar in. */
-  @Input()
-  get startAt(): D | null {
-    return this._startAt;
-  }
-  set startAt(value: D | null) {
-    this._startAt = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-  }
-  private _startAt: D | null;
+  readonly startAt = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** Whether the calendar should be started in month or year view. */
-  @Input() startView: OuiCalendarView = 'month';
+  readonly startView = input<OuiCalendarView>('month');
 
   /** The currently selected date. */
-  @Input()
-  get selected(): D | null {
-    return this._selected;
-  }
-  set selected(value: D | null) {
-    this._selected = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-  }
-  private _selected: D | null;
+  readonly selected = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** The minimum selectable date. */
-  @Input()
-  get minDate(): D | null {
-    return this._minDate;
-  }
-  set minDate(value: D | null) {
-    this._minDate = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-  }
-  private _minDate: D | null;
+  readonly minDate = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** The maximum selectable date. */
-  @Input()
-  get maxDate(): D | null {
-    return this._maxDate;
-  }
-  set maxDate(value: D | null) {
-    this._maxDate = this._getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
-    );
-  }
-  private _maxDate: D | null;
+  readonly maxDate = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** Function used to filter which dates are selectable. */
-  @Input() dateFilter: (date: D) => boolean;
+  readonly dateFilter = input<(date: D) => boolean>();
 
   /** Function that can be used to add custom CSS classes to dates. */
-  @Input() dateClass: (date: D) => OuiCalendarCellCssClasses;
+  readonly dateClass = input<(date: D) => OuiCalendarCellCssClasses>();
 
   /** Emits when the currently selected date changes. */
-  @Output() readonly selectedChange: EventEmitter<D> = new EventEmitter<D>();
+  readonly selectedChange = output<D>();
 
   /**
    * Emits the year chosen in multiyear view.
    * This doesn't imply a change on the selected date.
    */
-  @Output() readonly yearSelected: EventEmitter<D> = new EventEmitter<D>();
+  readonly yearSelected = output<D>();
 
   /**
    * Emits the month chosen in year view.
    * This doesn't imply a change on the selected date.
    */
-  @Output() readonly monthSelected: EventEmitter<D> = new EventEmitter<D>();
+  readonly monthSelected = output<D>();
 
   /** Emits when any date is selected. */
-  @Output()
-  readonly _userSelection: EventEmitter<void> = new EventEmitter<void>();
+  readonly _userSelection = output<void>();
 
   /** Reference to the current month view component. */
   @ViewChild(OuiMonthView) monthView: OuiMonthView<D>;
@@ -170,8 +146,8 @@ export class OuiCalendar<D>
   set activeDate(value: D) {
     this._clampedActiveDate = this._dateAdapter.clampDate(
       value,
-      this.minDate,
-      this.maxDate
+      this.minDate(),
+      this.maxDate()
     );
     this.stateChanges.next();
   }
@@ -204,20 +180,23 @@ export class OuiCalendar<D>
       throw createMissingDateImplError('OuiDATE_FORMATS');
     }
 
-    this._intlChanges = _intl.changes.subscribe(() => {
-      _changeDetectorRef.markForCheck();
-      this.stateChanges.next();
+    this._intlChanges = _intl.changes.subscribe({
+      next: () => {
+        _changeDetectorRef.markForCheck();
+        this.stateChanges.next();
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
   }
 
   ngAfterContentInit() {
     this._calendarHeaderPortal = new ComponentPortal(
-      this.headerComponent || OuiCalendarHeader
+      this.headerComponent() || OuiCalendarHeader
     );
-    this.activeDate = this.startAt || this._dateAdapter.today();
+    this.activeDate = this.startAt() || this._dateAdapter.today();
 
     // Assign to the private property since we don't want to move focus on init.
-    this._currentView = this.startView;
+    this._currentView = this.startView();
   }
 
   ngAfterViewChecked() {
@@ -267,7 +246,7 @@ export class OuiCalendar<D>
 
   /** Handles date selection in the month view. */
   _dateSelected(date: D): void {
-    if (!this._dateAdapter.sameDate(date, this.selected)) {
+    if (!this._dateAdapter.sameDate(date, this.selected())) {
       this.selectedChange.emit(date);
     }
   }
@@ -326,13 +305,15 @@ export class OuiCalendarHeader<D> {
   })!;
   private ouiIconRegistry = inject(OuiIconRegistry);
   private domSanitizer = inject(DomSanitizer);
+  private _errorHandler = inject(ErrorHandler);
 
   constructor() {
     const changeDetectorRef = inject(ChangeDetectorRef);
 
-    this.calendar.stateChanges.subscribe(() =>
-      changeDetectorRef.markForCheck()
-    );
+    this.calendar.stateChanges.subscribe({
+      next: () => changeDetectorRef.markForCheck(),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
     this.ouiIconRegistry.addSvgIconLiteral(
       `arrow-icon`,
       this.domSanitizer.bypassSecurityTrustHtml(ICONS.ARROW_ICON)
@@ -421,20 +402,20 @@ export class OuiCalendarHeader<D> {
 
   /** Whether the previous period button is enabled. */
   previousEnabled(): boolean {
-    if (!this.calendar.minDate) {
+    if (!this.calendar.minDate()) {
       return true;
     }
     return (
-      !this.calendar.minDate ||
-      !this._isSameView(this.calendar.activeDate, this.calendar.minDate)
+      !this.calendar.minDate() ||
+      !this._isSameView(this.calendar.activeDate, this.calendar.minDate()!)
     );
   }
 
   /** Whether the next period button is enabled. */
   nextEnabled(): boolean {
     return (
-      !this.calendar.maxDate ||
-      !this._isSameView(this.calendar.activeDate, this.calendar.maxDate)
+      !this.calendar.maxDate() ||
+      !this._isSameView(this.calendar.activeDate, this.calendar.maxDate()!)
     );
   }
 

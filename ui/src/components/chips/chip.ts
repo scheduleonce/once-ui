@@ -9,22 +9,24 @@ import {
   ContentChildren,
   DoCheck,
   ElementRef,
-  EventEmitter,
+  ErrorHandler,
   Injector,
-  Input,
   NgZone,
   OnDestroy,
   OnInit,
-  Output,
   QueryList,
   ViewChild,
   ViewEncapsulation,
   booleanAttribute,
+  computed,
   inject,
+  input,
+  model,
+  output,
   DOCUMENT,
 } from '@angular/core';
 import { Subject, Subscription, merge } from 'rxjs';
-import { OuiChipAction, OuiChipContent } from './chip-action';
+import { OuiChipAction } from './chip-action';
 import {
   OuiChipAvatar,
   OuiChipEdit,
@@ -57,21 +59,20 @@ export interface OuiChipEvent {
   styleUrls: ['chip.scss'],
   host: {
     class: 'oui-chip',
-    '[class]': '"oui-" + (color || "primary")',
+    '[class]': '"oui-" + (color() || "primary")',
     '[class.oui-chip--basic]': '_isBasicChip',
     '[class.oui-chip--standard]': '!_isBasicChip',
-    '[class.oui-chip--disabled]': 'disabled',
+    '[class.oui-chip--disabled]': 'disabled()',
     '[class.oui-chip-with-trailing-icon]': '_hasTrailingIcon()',
     '[class.oui-chip-with-avatar]': 'leadingIcon',
-    '[class.oui-chip-highlighted]': 'highlighted',
-    '[id]': 'id',
-    '[attr.role]': 'role',
-    '[attr.aria-label]': 'ariaLabel',
+    '[class.oui-chip-highlighted]': 'highlighted()',
+    '[id]': 'id()',
+    '[attr.role]': 'role()',
+    '[attr.aria-label]': 'ariaLabel()',
     '(keydown)': '_handleKeydown($event)',
   },
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: OUI_CHIP, useExisting: OuiChip }],
-  imports: [OuiChipContent],
 })
 export class OuiChip
   implements OnInit, AfterViewInit, AfterContentInit, DoCheck, OnDestroy
@@ -93,7 +94,7 @@ export class OuiChip
   _isBasicChip = false;
 
   /** Role for the root of the chip. */
-  @Input() role: string | null = null;
+  readonly role = model<string | null>(null);
 
   /** Whether the chip has focus. */
   private _hasFocusInternal = false;
@@ -125,13 +126,15 @@ export class OuiChip
   }
 
   /** A unique id for the chip. If none is supplied, it will be auto-generated. */
-  @Input() id: string = inject(_IdGenerator).getId('oui-chip-');
+  readonly id = input(inject(_IdGenerator).getId('oui-chip-'));
 
   /** ARIA label for the content of the chip. */
-  @Input('aria-label') ariaLabel: string | null = null;
+  readonly ariaLabel = input<string | null>(null, { alias: 'aria-label' });
 
   /** ARIA description for the content of the chip. */
-  @Input('aria-description') ariaDescription: string | null = null;
+  readonly ariaDescription = input<string | null>(null, {
+    alias: 'aria-description',
+  });
 
   /** Whether the chip list is disabled. */
   _chipListDisabled: boolean = false;
@@ -145,55 +148,37 @@ export class OuiChip
    * The value of the chip. Defaults to the content inside
    * the `oui-chip-action-label` element.
    */
-  @Input()
-  get value(): any {
-    return this._value !== undefined
-      ? this._value
-      : this._textElement?.textContent?.trim();
-  }
-  set value(value: any) {
-    this._value = value;
-  }
-  protected _value: any;
+  readonly value = model<any>();
 
   /**
    * Color theme of the chip. Accepts primary, accent or warn.
    */
-  @Input() color?: string | null;
+  readonly color = input<string | null>();
 
   /**
    * Determines whether or not the chip displays the remove styling and emits (removed) events.
    */
-  @Input({ transform: booleanAttribute })
-  removable: boolean = true;
+  readonly removable = input(true, { transform: booleanAttribute });
 
   /**
    * Colors the chip for emphasis as if it were selected.
    */
-  @Input({ transform: booleanAttribute })
-  highlighted: boolean = false;
+  readonly highlighted = input(false, { transform: booleanAttribute });
 
   /** Whether the ripple effect is disabled or not. */
-  @Input({ transform: booleanAttribute })
-  disableRipple: boolean = false;
+  readonly disableRipple = input(false, { transform: booleanAttribute });
 
   /** Whether the chip is disabled. */
-  @Input({ transform: booleanAttribute })
-  get disabled(): boolean {
-    return this._disabled || this._chipListDisabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = value;
-  }
-  private _disabled = false;
+  readonly disabled = model(false);
+  readonly _isDisabled = computed(
+    () => this.disabled() || this._chipListDisabled
+  );
 
   /** Emitted when a chip is to be removed. */
-  @Output() readonly removed: EventEmitter<OuiChipEvent> =
-    new EventEmitter<OuiChipEvent>();
+  readonly removed = output<OuiChipEvent>();
 
   /** Emitted when the chip is destroyed. */
-  @Output() readonly destroyed: EventEmitter<OuiChipEvent> =
-    new EventEmitter<OuiChipEvent>();
+  readonly destroyed = output<OuiChipEvent>();
 
   /** The unstyled chip selector for this component. */
   protected basicChipAttrName = 'oui-basic-chip';
@@ -214,6 +199,7 @@ export class OuiChip
   @ViewChild(OuiChipAction) primaryAction!: OuiChipAction;
 
   protected _injector = inject(Injector);
+  private _errorHandler = inject(ErrorHandler);
 
   constructor() {
     this._monitorFocus();
@@ -231,6 +217,10 @@ export class OuiChip
       '.oui-chip-action-label'
     )!;
 
+    if (this.value() === undefined) {
+      this.value.set(this._textElement?.textContent?.trim());
+    }
+
     if (this._pendingFocus) {
       this._pendingFocus = false;
       this.focus();
@@ -242,7 +232,10 @@ export class OuiChip
       this._allLeadingIcons.changes,
       this._allTrailingIcons.changes,
       this._allRemoveIcons.changes
-    ).subscribe(() => this._changeDetectorRef.markForCheck());
+    ).subscribe({
+      next: () => this._changeDetectorRef.markForCheck(),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 
   // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
@@ -252,7 +245,6 @@ export class OuiChip
 
   ngOnDestroy() {
     this.destroyed.emit({ chip: this });
-    this.destroyed.complete();
     this._focusMonitor.stopMonitoring(this._elementRef);
     this._actionChanges?.unsubscribe();
   }
@@ -263,7 +255,7 @@ export class OuiChip
    * Informs any listeners of the removal request. Does not remove the chip from the DOM.
    */
   remove(): void {
-    if (this.removable) {
+    if (this.removable()) {
       this._hadFocusOnRemove = this._hasFocus();
       this.removed.emit({ chip: this });
     }
@@ -272,8 +264,8 @@ export class OuiChip
   /** Whether or not the ripple should be disabled. */
   _isRippleDisabled(): boolean {
     return (
-      this.disabled ||
-      this.disableRipple ||
+      this._isDisabled() ||
+      this.disableRipple() ||
       this._isBasicChip ||
       !this._hasInteractiveActions()
     );
@@ -307,7 +299,7 @@ export class OuiChip
 
   /** Allows for programmatic focusing of the chip. */
   focus(): void {
-    if (!this.disabled) {
+    if (!this._isDisabled()) {
       if (this.primaryAction) {
         this.primaryAction.focus();
       } else {
@@ -360,21 +352,24 @@ export class OuiChip
 
   /** Starts the focus monitoring process on the chip. */
   private _monitorFocus() {
-    this._focusMonitor.monitor(this._elementRef, true).subscribe((origin) => {
-      const hasFocus = origin !== null;
+    this._focusMonitor.monitor(this._elementRef, true).subscribe({
+      next: (origin) => {
+        const hasFocus = origin !== null;
 
-      if (hasFocus !== this._hasFocusInternal) {
-        this._hasFocusInternal = hasFocus;
+        if (hasFocus !== this._hasFocusInternal) {
+          this._hasFocusInternal = hasFocus;
 
-        if (hasFocus) {
-          this._onFocus.next({ chip: this });
-        } else {
-          this._changeDetectorRef.markForCheck();
-          setTimeout(() =>
-            this._ngZone.run(() => this._onBlur.next({ chip: this }))
-          );
+          if (hasFocus) {
+            this._onFocus.next({ chip: this });
+          } else {
+            this._changeDetectorRef.markForCheck();
+            setTimeout(() =>
+              this._ngZone.run(() => this._onBlur.next({ chip: this }))
+            );
+          }
         }
-      }
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
   }
 }

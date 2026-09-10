@@ -13,9 +13,10 @@ import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
+  ErrorHandler,
+  effect,
   forwardRef,
   InjectionToken,
-  Input,
   NgZone,
   OnDestroy,
   ViewContainerRef,
@@ -23,6 +24,7 @@ import {
   inject,
   input,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -134,6 +136,7 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
   private _formField = inject(OuiFormField, { optional: true, host: true })!;
   private _document = inject<Document>(DOCUMENT, { optional: true })!;
   private _viewportRuler = inject(ViewportRuler);
+  private _errorHandler = inject(ErrorHandler);
 
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
@@ -172,7 +175,9 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     (): Observable<OuiOptionSelectionChange> => {
       if (this.autocomplete && this.autocomplete.options) {
         return merge(
-          ...this.autocomplete.options.map((option) => option.onSelectionChange)
+          ...this.autocomplete.options.map((option) =>
+            outputToObservable(option.onSelectionChange)
+          )
         );
       }
 
@@ -187,7 +192,9 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
 
   /** The autocomplete panel to be attached to this trigger. */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiAutocomplete')
+  readonly autocompleteInput = input<OuiAutocomplete | undefined>(undefined, {
+    alias: 'ouiAutocomplete',
+  });
   autocomplete: OuiAutocomplete;
 
   /**
@@ -236,6 +243,13 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
 
   constructor() {
     const _zone = this._zone;
+
+    effect(() => {
+      const autocomplete = this.autocompleteInput();
+      if (autocomplete) {
+        this.autocomplete = autocomplete;
+      }
+    });
 
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
@@ -511,7 +525,10 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
           take(1)
         )
         // set the value, close the panel, and complete.
-        .subscribe((event) => this._setValueAndClose(event))
+        .subscribe({
+          next: (event) => this._setValueAndClose(event),
+          error: (err: Error) => this._errorHandler.handleError(err),
+        })
     );
   }
 
@@ -532,13 +549,10 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
     // The display value can also be the number zero and shouldn't fall back to an empty string.
     const inputValue = toDisplay != null ? toDisplay : '';
 
-    // If it's used within a `OuiFormField`, we should set it through the property so it can go
-    // through change detection.
-    if (this._formField) {
-      this._formField._control.value = inputValue;
-    } else {
-      this._element.nativeElement.value = inputValue;
-    }
+    // Set the value on the native input element. `OuiInput.value` is a getter-only property
+    // (backed by the native element), so we write to the element directly to keep the
+    // `OuiFormField` control in sync.
+    this._element.nativeElement.value = inputValue;
 
     this._previousValue = inputValue;
   }
@@ -585,26 +599,30 @@ export class OuiAutocompleteTrigger implements ControlValueAccessor, OnDestroy {
 
       // Use the `keydownEvents` in order to take advantage of
       // the overlay event targeting provided by the CDK overlay.
-      this._overlayRef.keydownEvents().subscribe((event) => {
-        // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
-        // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-        if (
-          event.key === keycodes.ESCAPE ||
-          (event.key === keycodes.UP_ARROW && event.altKey)
-        ) {
-          this._resetActiveItem();
-          this._closeKeyEventStream.next();
-        }
+      this._overlayRef.keydownEvents().subscribe({
+        next: (event) => {
+          // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+          // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+          if (
+            event.key === keycodes.ESCAPE ||
+            (event.key === keycodes.UP_ARROW && event.altKey)
+          ) {
+            this._resetActiveItem();
+            this._closeKeyEventStream.next();
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
 
       if (this._viewportRuler) {
-        this._viewportSubscription = this._viewportRuler
-          .change()
-          .subscribe(() => {
+        this._viewportSubscription = this._viewportRuler.change().subscribe({
+          next: () => {
             if (this.panelOpen && this._overlayRef) {
               this._overlayRef.updateSize({ width: this._getPanelWidth() });
             }
-          });
+          },
+          error: (err: Error) => this._errorHandler.handleError(err),
+        });
       }
     } else {
       // Update the panel width and direction, in case anything has changed.

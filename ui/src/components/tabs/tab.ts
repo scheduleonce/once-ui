@@ -12,7 +12,9 @@ import {
   ContentChild,
   ElementRef,
   InjectionToken,
-  Input,
+  effect,
+  input,
+  model,
   OnChanges,
   OnDestroy,
   OnInit,
@@ -25,7 +27,7 @@ import {
 } from '@angular/core';
 import { OuiTabContent } from './tab-content';
 import { OUI_TAB, OuiTabLabel } from './tab-label';
-import { CanDisable, mixinColor } from '../core';
+import { CanColorCtor, CanDisable, mixinColor, ThemePalette } from '../core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -35,16 +37,14 @@ export class OuiTabsBase {
 }
 // Boilerplate for applying mixins to OuiTab.
 /** @docs-private */
-const _OuiTabMixinBase: typeof OuiTabsBase = mixinColor(OuiTabsBase);
+const _OuiTabMixinBase: CanColorCtor & typeof OuiTabsBase =
+  mixinColor(OuiTabsBase);
 
 /**
  * Used to provide a tab group to a tab without causing a circular dependency.
  * @docs-private
  */
 export const OUI_TAB_GROUP = new InjectionToken<any>('OUI_TAB_GROUP');
-
-/** Default color palette for the tab */
-const DEFAULT_COLOR = 'primary';
 
 @Component({
   selector: 'oui-tab',
@@ -91,32 +91,40 @@ export class OuiTab
   @ViewChild(TemplateRef, { static: true }) _implicitContent: TemplateRef<any>;
 
   /** Plain text label for the tab, used when there is no template label. */
-  @Input('label') textLabel = '';
+  readonly textLabel = input('', { alias: 'label' });
 
   contentWithin = '';
 
   /** Aria label for the tab. */
-  @Input('aria-label') ariaLabel: string;
+  readonly ariaLabel = input<string>(undefined, { alias: 'aria-label' });
 
-  @Input() color = 'accent';
+  readonly colorInput = input<ThemePalette>('accent', { alias: 'color' });
+  get color(): ThemePalette {
+    return super.color;
+  }
+  set color(value: ThemePalette) {
+    super.color = value;
+  }
 
   /**
    * Reference to the element that the tab is labelled by.
    * Will be cleared if `aria-label` is set at the same time.
    */
-  @Input('aria-labelledby') ariaLabelledby: string;
+  readonly ariaLabelledby = input<string>(undefined, {
+    alias: 'aria-labelledby',
+  });
 
   /**
    * Classes to be passed to the tab label inside the oui-tab-header container.
    * Supports string and string array values, same as `ngClass`.
    */
-  @Input() labelClass: string | string[];
+  readonly labelClass = model<string | string[] | undefined>();
 
   /**
    * Classes to be passed to the tab oui-tab-body container.
    * Supports string and string array values, same as `ngClass`.
    */
-  @Input() bodyClass: string | string[];
+  readonly bodyClass = model<string | string[] | undefined>();
 
   /** Portal that will be the hosted content of the tab */
   private _contentPortal: TemplatePortal | null = null;
@@ -152,6 +160,9 @@ export class OuiTab
     const _elementRef = inject(ElementRef);
 
     super(_elementRef);
+    effect(() => {
+      super.color = this.colorInput();
+    });
     this.addThemeColor();
   }
 
@@ -178,7 +189,7 @@ export class OuiTab
 
   addThemeColor() {
     if (!this.color) {
-      this.color = DEFAULT_COLOR;
+      return;
     }
   }
 

@@ -1,13 +1,16 @@
 import {
   InjectionToken,
   Directive,
+  ErrorHandler,
+  effect,
+  model,
   OnDestroy,
-  Input,
   output,
   ElementRef,
   ViewContainerRef,
   inject,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import {
   ScrollStrategy,
   Overlay,
@@ -69,7 +72,7 @@ export class OuiPanelTrigger implements OnDestroy {
   private _viewContainerRef = inject(ViewContainerRef);
   private _focusTrapFactory = inject(ConfigurableFocusTrapFactory);
 
-  private _portal: TemplatePortal;
+  private _portal!: TemplatePortal;
   private _overlayRef: OverlayRef | null = null;
   private _panelOpen = false;
   private _closeSubscription = Subscription.EMPTY;
@@ -82,35 +85,16 @@ export class OuiPanelTrigger implements OnDestroy {
   private _scrollStrategy: () => ScrollStrategy;
 
   /** The class that traps and manages focus within the panel. */
-  private _focusTrap: FocusTrap;
+  private _focusTrap: FocusTrap | null = null;
+  private _errorHandler = inject(ErrorHandler);
 
   /** Element that was focused before the panel was opened. Save this to restore upon close. */
-  private _currentFocusElement: HTMLElement = null;
+  private _currentFocusElement: HTMLElement | null = null;
 
   /** References the panel instance that the trigger is associated with. */
-  @Input('ouiPanelTriggerFor')
-  get panel() {
-    return this._panel;
-  }
-  set panel(panel: OuiPanelOverlay) {
-    if (panel === this._panel) {
-      return;
-    }
-    this._panel = panel;
-    this._panelCloseSubscription.unsubscribe();
-
-    if (panel) {
-      this._panelCloseSubscription = panel.closed
-        .asObservable()
-        .subscribe(() => {
-          this._destroyPanel();
-        });
-      this._escapeEventSubscription = this.panel.escapeEvent.subscribe(() => {
-        this.closePanel();
-      });
-    }
-  }
-  private _panel: OuiPanelOverlay;
+  readonly panel = model<OuiPanelOverlay | undefined>(undefined, {
+    alias: 'ouiPanelTriggerFor',
+  });
 
   /** Event emitted when the associated panel is opened. */
   readonly panelOpened = output<void>();
@@ -122,6 +106,27 @@ export class OuiPanelTrigger implements OnDestroy {
     const scrollStrategy = inject(OUI_PANEL_SCROLL_STRATEGY);
 
     this._scrollStrategy = scrollStrategy;
+    effect(() => {
+      const panel = this.panel();
+      this._panelCloseSubscription.unsubscribe();
+      this._escapeEventSubscription.unsubscribe();
+
+      if (panel) {
+        const closed =
+          typeof panel.closed.asObservable === 'function'
+            ? panel.closed.asObservable()
+            : // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+              outputToObservable(panel.closed);
+        this._panelCloseSubscription = closed.subscribe({
+          next: () => this._destroyPanel(),
+          error: (err: Error) => this._errorHandler.handleError(err),
+        });
+        this._escapeEventSubscription = panel.escapeEvent.subscribe({
+          next: () => this.closePanel(),
+          error: (err: Error) => this._errorHandler.handleError(err),
+        });
+      }
+    });
   }
 
   /** Whether the panel is open. */
@@ -160,8 +165,9 @@ export class OuiPanelTrigger implements OnDestroy {
     // overlayConfig.hasBackdrop = true;
     overlayRef.attach(this._getPortal());
     this._setLargeWidth();
-    this._closeSubscription = this._panelClosingActions().subscribe(() => {
-      this.closePanel('mouserHover');
+    this._closeSubscription = this._panelClosingActions().subscribe({
+      next: () => this.closePanel('mouserHover'),
+      error: (err: Error) => console.error('Panel closing action failed', err),
     });
     this._setIsPanelOpen(true);
   }
@@ -182,7 +188,7 @@ export class OuiPanelTrigger implements OnDestroy {
    */
   private _createOverlay(): OverlayRef {
     if (document.querySelector('.oui-panel')) {
-      document.querySelector('.oui-panel').remove();
+      document.querySelector('.oui-panel')!.remove();
     }
     if (!this._overlayRef) {
       const config = this._getOverlayConfig();
@@ -197,7 +203,11 @@ export class OuiPanelTrigger implements OnDestroy {
       this._keyboardEventSubscription = this._overlayRef
         .keydownEvents()
         .pipe(filter((event) => event.key === 'Escape'))
-        .subscribe(() => this.closePanel());
+        .subscribe({
+          next: () => this.closePanel(),
+          error: (err: Error) =>
+            console.error('Panel keydown stream failed', err),
+        });
     }
     return this._overlayRef;
   }
@@ -228,14 +238,18 @@ export class OuiPanelTrigger implements OnDestroy {
   private _subscribeToPositions(
     position: FlexibleConnectedPositionStrategy
   ): void {
-    if (this.panel.setPositionClasses) {
-      position.positionChanges.subscribe((change) => {
-        const posX: PanelPositionX =
-          change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-        const posY: PanelPositionY =
-          change.connectionPair.overlayY === 'top' ? 'below' : 'above';
+    if (this.panel()!.setPositionClasses) {
+      position.positionChanges.subscribe({
+        next: (change) => {
+          const posX: PanelPositionX =
+            change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+          const posY: PanelPositionY =
+            change.connectionPair.overlayY === 'top' ? 'below' : 'above';
 
-        this.panel.setPositionClasses!(posX, posY);
+          this.panel()!.setPositionClasses!(posX, posY);
+        },
+        error: (err: Error) =>
+          console.error('Panel position stream failed', err),
       });
     }
   }
@@ -248,17 +262,19 @@ export class OuiPanelTrigger implements OnDestroy {
    */
   private _setPosition(positionStrategy: FlexibleConnectedPositionStrategy) {
     const panelPositions = new PanelFlexiblePosition(
-      this.panel.xPosition,
-      this.panel.yPosition
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      this.panel()!.xPosition(),
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      this.panel()!.yPosition()
     );
     positionStrategy.withPositions(panelPositions.getPosition());
   }
   /**  assign large width if overlay element contains img tag */
   private _setLargeWidth() {
-    const imageTag = this._overlayRef.overlayElement.querySelector('img');
+    const imageTag = this._overlayRef!.overlayElement.querySelector('img');
     if (imageTag) {
       const content: HTMLDivElement =
-        this._overlayRef.overlayElement.querySelector('.oui-panel-content');
+        this._overlayRef!.overlayElement.querySelector('.oui-panel-content')!;
       content.classList.add('oui-panel-content-large');
     }
   }
@@ -277,7 +293,7 @@ export class OuiPanelTrigger implements OnDestroy {
       return;
     }
     this._setIsPanelOpen(false);
-    const panel = this.panel;
+    const panel = this.panel()!;
 
     this._closeSubscription.unsubscribe();
     this._overlayRef.detach();
@@ -288,8 +304,8 @@ export class OuiPanelTrigger implements OnDestroy {
   }
 
   /** Closes The Panel */
-  closePanel(hoverType?) {
-    this.panel.closed.emit();
+  closePanel(hoverType?: string) {
+    this.panel()!.closed.emit();
     if (!hoverType) {
       this._restoreFocus();
     }
@@ -298,7 +314,7 @@ export class OuiPanelTrigger implements OnDestroy {
   /** Moves the focus inside the focus trap. */
   public _trapFocus() {
     const element: HTMLDivElement =
-      this._overlayRef.overlayElement.querySelector('.oui-panel-content');
+      this._overlayRef!.overlayElement.querySelector('.oui-panel-content')!;
 
     if (!this._focusTrap) {
       this._focusTrap = this._focusTrapFactory.create(element);
@@ -324,9 +340,12 @@ export class OuiPanelTrigger implements OnDestroy {
     // Note that we can avoid this check by keeping the portal on the menu panel.
     // While it would be cleaner, we'd have to introduce another required method on
     // `OuiPanelOverlay`, making it harder to consume.
-    if (!this._portal || this._portal.templateRef !== this.panel.templateRef) {
+    if (
+      !this._portal ||
+      this._portal.templateRef !== this.panel()!.templateRef
+    ) {
       this._portal = new TemplatePortal(
-        this.panel.templateRef,
+        this.panel()!.templateRef,
         this._viewContainerRef
       );
     }
@@ -353,8 +372,8 @@ export class OuiPanelTrigger implements OnDestroy {
     const mouseLeave = merge(
       this._mouseLeave.asObservable(),
       this._mouseEnter.asObservable(),
-      this.panel.mouseLeave,
-      this.panel.mouseEnter
+      this.panel()!.mouseLeave,
+      this.panel()!.mouseEnter
     ).pipe(
       debounceTime(200),
       filter((event) => event.type === 'mouseleave')

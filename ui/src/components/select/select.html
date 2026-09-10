@@ -44,11 +44,11 @@
   <div
     #panel
     class="oui-select-panel {{ cdkConnectionOverlayPanel }}"
-    [ngClass]="panelClass"
+    [ngClass]="panelClass()"
     (keydown)="_handleKeydown($event)"
     [class.oui-select-input-outer]="ouiSelectInputOuterClassName"
-    [class.oui-select-has-a-panel]="panelClass"
-    [class.oui-select-large]="large"
+    [class.oui-select-has-a-panel]="panelClass()"
+    [class.oui-select-large]="large()"
     [class.action-item]="actionItems"
     [class.single-action-item]="singleActionItem"
   >
@@ -65,7 +65,7 @@
           oui-link-button
           (click)="handleSingleActionItemClick()"
         >
-          {{singleActionLabel}}
+          {{singleActionLabel()}}
         </button>
       </div>
     </div>
@@ -78,7 +78,7 @@
           color="primary"
           (click)="discardRecentChanges()"
         >
-          {{cancelLabel}}</button
+          {{cancelLabel()}}</button
         ><button
           #ddDoneButton
           oui-button
@@ -86,7 +86,7 @@
           [disabled]="disableDoneButton"
           (click)="doneRecentChanges()"
         >
-          {{doneLabel}}
+          {{doneLabel()}}
         </button>
       </div>
     </div>
