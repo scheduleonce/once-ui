@@ -6,11 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {
-  Directive,
-  InjectionToken,
-  inject,
-} from '@angular/core';
+import { Directive, InjectionToken, inject } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
 
 /**
