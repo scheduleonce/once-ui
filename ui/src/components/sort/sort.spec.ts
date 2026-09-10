@@ -6,6 +6,7 @@ import {
   ViewChild,
   inject,
   isDevMode,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -70,6 +71,7 @@ import {
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleOuiSortApp {
@@ -169,6 +171,7 @@ class FakeDataSource extends DataSource<any> {
       <cdk-row *cdkRowDef="let row; columns: columnsToRender"></cdk-row>
     </cdk-table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CdkTableOuiSortApp {
@@ -206,6 +209,7 @@ class CdkTableOuiSortApp {
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiTableOuiSortApp {
@@ -217,6 +221,7 @@ class OuiTableOuiSortApp {
 
 @Component({
   template: ` <div oui-sort-header="a">A</div> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiSortHeaderMissingOuiSortApp {}
@@ -228,12 +233,14 @@ class OuiSortHeaderMissingOuiSortApp {}
       <div oui-sort-header="duplicateId">A</div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiSortDuplicateOuiSortableIdsApp {}
 
 @Component({
   template: ` <div ouiSort><div oui-sort-header>A</div></div> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiSortableMissingIdApp {}
@@ -244,6 +251,7 @@ class OuiSortableMissingIdApp {}
       <div oui-sort-header="a">A</div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiSortableInvalidDirection {}

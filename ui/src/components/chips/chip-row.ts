@@ -12,6 +12,7 @@ import {
   inject,
   input,
   output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import { takeUntil } from 'rxjs/operators';
@@ -57,6 +58,7 @@ export interface OuiChipEditedEvent extends OuiChipEvent {
     { provide: OUI_CHIP, useExisting: OuiChipRow },
   ],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [OuiChipAction, OuiChipEditInput],
 })
 export class OuiChipRow extends OuiChip implements AfterViewInit, OnDestroy {

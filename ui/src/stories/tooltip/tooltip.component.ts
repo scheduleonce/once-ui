@@ -1,5 +1,10 @@
 import { OuiIconRegistry } from '../../components';
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -13,6 +18,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       [ouiTooltipDisabled]="disabled()"
     ></oui-icon>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiTooltipStorybook {

@@ -15,6 +15,7 @@ import {
   effect,
   inject,
   input,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import { Observable, Subject, merge } from 'rxjs';
@@ -40,6 +41,7 @@ import { OuiChipAction, OuiChipContent } from './chip-action';
     '(keydown)': '_handleKeydown($event)',
     '[attr.role]': 'role',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class OuiChipSet implements AfterViewInit, OnDestroy {

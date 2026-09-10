@@ -1,5 +1,11 @@
 import { Directionality } from '@angular/cdk/bidi';
-import { Component, NgZone, EventEmitter, SimpleChange } from '@angular/core';
+import {
+  Component,
+  NgZone,
+  EventEmitter,
+  SimpleChange,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ComponentFixture,
   inject,
@@ -28,6 +34,7 @@ const DEC = 11;
     >
     </oui-calendar>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandardCalendar {
@@ -45,6 +52,7 @@ class StandardCalendar {
       [maxDate]="maxDate"
     ></oui-calendar>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CalendarWithMinMax {
@@ -62,6 +70,7 @@ class CalendarWithMinMax {
     >
     </oui-calendar>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CalendarWithDateFilter {
@@ -83,6 +92,7 @@ class CalendarWithDateFilter {
     >
     </oui-calendar>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CalendarWithSelectableMinDate {

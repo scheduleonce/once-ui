@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { OuiProgressSpinner } from './progress-spinner';
 import { By } from '@angular/platform-browser';
 
@@ -9,6 +9,7 @@ import { By } from '@angular/platform-browser';
 
 @Component({
   template: '<oui-progress-spinner></oui-progress-spinner>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicProgressSpinner {}
@@ -17,6 +18,7 @@ class BasicProgressSpinner {}
   template: `
     <oui-progress-spinner [value]="60" [color]="color"></oui-progress-spinner>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ProgressSpinnerWithColor {

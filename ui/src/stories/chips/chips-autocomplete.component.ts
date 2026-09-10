@@ -7,6 +7,7 @@ import {
   input,
   output,
   signal,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UntypedFormControl } from '@angular/forms';
@@ -59,6 +60,7 @@ import { FRUITS, INITIAL_FRUITS } from './const';
       </oui-chips-autocomplete>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiChipsAutocompleteStorybook {

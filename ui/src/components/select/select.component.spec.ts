@@ -80,6 +80,7 @@ import {
     </oui-form-field>
     <div [style.height.px]="heightBelow"></div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelect {
@@ -118,6 +119,7 @@ class BasicSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NgModelSelect {
@@ -148,6 +150,7 @@ class NgModelSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ManySelects {}
@@ -163,6 +166,7 @@ class ManySelects {}
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithChangeEvent {
@@ -196,6 +200,7 @@ class SelectWithChangeEvent {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectInitWithoutOptions {
@@ -280,6 +285,7 @@ class BasicSelectOnPushPreselected {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultiSelect {
@@ -305,6 +311,7 @@ class MultiSelect {
   template: `
     <oui-form-field><oui-select tabindex="5"></oui-select></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithPlainTabindex {}
@@ -319,6 +326,7 @@ class SelectWithPlainTabindex {}
     <div></div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectEarlyAccessSibling {}
@@ -332,6 +340,7 @@ class SelectEarlyAccessSibling {}
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectInitiallyHidden {
@@ -347,6 +356,7 @@ class BasicSelectInitiallyHidden {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectNoPlaceholder {}
@@ -365,6 +375,7 @@ class BasicSelectNoPlaceholder {}
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ResetValuesSelect {
@@ -399,6 +410,7 @@ class ResetValuesSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithGroups {
@@ -459,6 +471,7 @@ class SelectWithGroups {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithGroupsAndNgContainer {
@@ -479,6 +492,7 @@ class SelectWithGroupsAndNgContainer {
       </oui-form-field>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class InvalidSelectInForm {
@@ -498,6 +512,7 @@ class InvalidSelectInForm {
       </oui-form-field>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectInsideFormGroup {
@@ -522,6 +537,7 @@ class SelectInsideFormGroup {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectWithoutForms {
@@ -547,6 +563,7 @@ class BasicSelectWithoutForms {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectWithoutFormsPreselected {
@@ -571,6 +588,7 @@ class BasicSelectWithoutFormsPreselected {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectWithoutFormsMultiple {
@@ -604,6 +622,7 @@ class BasicSelectWithoutFormsMultiple {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithCustomTrigger {
@@ -629,6 +648,7 @@ class SelectWithCustomTrigger {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NgModelCompareWithSelect {
@@ -685,6 +705,7 @@ class NgModelCompareWithSelect {
       }
     </oui-select>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CustomErrorBehaviorSelect {
@@ -707,6 +728,7 @@ class CustomErrorBehaviorSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SingleSelectWithPreselectedArrayValues {
@@ -732,6 +754,7 @@ class SingleSelectWithPreselectedArrayValues {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithFormFieldLabel {

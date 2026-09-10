@@ -6,13 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import {
-  Directive,
-  InjectionToken,
-  TemplateRef,
-  ViewContainerRef,
-  inject,
-} from '@angular/core';
+import { Directive, InjectionToken, inject } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
 
 /**
@@ -36,11 +30,4 @@ export const OUI_TAB = new InjectionToken<any>('OUI_TAB');
 })
 export class OuiTabLabel extends CdkPortal {
   _closestTab = inject(OUI_TAB, { optional: true })!;
-
-  constructor() {
-    const templateRef = inject<TemplateRef<any>>(TemplateRef);
-    const viewContainerRef = inject(ViewContainerRef);
-
-    super(templateRef, viewContainerRef);
-  }
 }

@@ -1,5 +1,11 @@
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { Component, DebugElement, NgZone, ViewChild } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  NgZone,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -66,6 +72,7 @@ import { ChipsAutocompleteTrigger } from './chips-autocomplete-trigger';
       </oui-chips-autocomplete>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ChipsAutocompleteHostComponent {

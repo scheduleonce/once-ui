@@ -6,6 +6,7 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -1372,6 +1373,7 @@ describe('OuiTabNavBar with a default config', () => {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleTabsTestApp {
@@ -1409,6 +1411,7 @@ class SimpleTabsTestApp {
       }
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleDynamicTabsTestApp {
@@ -1439,6 +1442,7 @@ class SimpleDynamicTabsTestApp {
       }
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BindedTabsTestApp {
@@ -1474,6 +1478,7 @@ class BindedTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DisabledTabsTestApp {
@@ -1492,6 +1497,7 @@ class DisabledTabsTestApp {
       }
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AsyncTabsTestApp implements OnInit {
@@ -1523,6 +1529,7 @@ class AsyncTabsTestApp implements OnInit {
       <oui-tab label="Legumes"> <p #legumes>Peanuts</p> </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithSimpleApi {
@@ -1547,6 +1554,7 @@ class TabGroupWithSimpleApi {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NestedTabs {
@@ -1564,6 +1572,7 @@ class NestedTabs {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TemplateTabs {}
@@ -1577,6 +1586,7 @@ class TemplateTabs {}
       ></oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithAriaInputs {
@@ -1595,6 +1605,7 @@ class TabGroupWithAriaInputs {
     <div>pizza is active</div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithIsActiveBinding {}
@@ -1606,6 +1617,7 @@ class TabGroupWithIsActiveBinding {}
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabsWithCustomAnimationDuration {}
@@ -1617,6 +1629,7 @@ class TabsWithCustomAnimationDuration {}
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithIndirectDescendantTabs {
@@ -1630,6 +1643,7 @@ class TabGroupWithIndirectDescendantTabs {
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithInkBarFitToContent {
@@ -1650,6 +1664,7 @@ class TabGroupWithInkBarFitToContent {
       </ng-container>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithSpaceAbove {
@@ -1673,6 +1688,7 @@ class TabGroupWithSpaceAbove {
       <oui-tab label="Parent 3">Parent 3</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NestedTabGroupWithLabel {}
@@ -1696,6 +1712,7 @@ class NestedTabGroupWithLabel {}
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabsWithClassesTestApp {

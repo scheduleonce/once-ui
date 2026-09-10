@@ -9,6 +9,7 @@ import {
   forwardRef,
   OnDestroy,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { outputToObservable } from '@angular/core/rxjs-interop';
 import { DOCUMENT } from '@angular/common';
@@ -32,6 +33,7 @@ import { ICONS } from '../../core/shared/icons';
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiSelectSearchComponent

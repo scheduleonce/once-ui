@@ -6,6 +6,7 @@ import {
   Component,
   ViewChild,
   ElementRef,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -24,6 +25,7 @@ import { OuiIconTestingModule } from '../icon/public-api';
 @Component({
   selector: 'oui-fake-icon',
   template: '<ng-content></ng-content>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class FakeIcon {}
@@ -38,6 +40,7 @@ class FakeIcon {}
       <p>Lorem ipsum dolor sit amet</p>
     </oui-panel>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimplePanel {

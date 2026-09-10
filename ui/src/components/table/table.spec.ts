@@ -1,5 +1,11 @@
 import { DataSource } from '@angular/cdk/collections';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   ComponentFixture,
   fakeAsync,
@@ -91,6 +97,7 @@ class FakeDataSource extends DataSource<TestData> {
       <oui-footer-row *ouiFooterRowDef="columnsToRender"></oui-footer-row>
     </oui-table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiTableApp {
@@ -122,6 +129,7 @@ class OuiTableApp {
       <tr oui-row *ouiRowDef="let row; columns: columnsToRender"></tr>
     </table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NativeHtmlTableApp {
@@ -154,6 +162,7 @@ class NativeHtmlTableApp {
       <oui-footer-row *ouiFooterRowDef="['column_a']"></oui-footer-row>
     </oui-table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiTableWithWhenRowApp {
@@ -193,6 +202,7 @@ class OuiTableWithWhenRowApp {
 
     <oui-paginator [pageSize]="5"></oui-paginator>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ArrayDataSourceOuiTableApp implements AfterViewInit {
@@ -248,6 +258,7 @@ class ArrayDataSourceOuiTableApp implements AfterViewInit {
       <oui-row *ouiRowDef="let row; columns: columnsToRender"></oui-row>
     </oui-table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiTableWithSortApp implements OnInit {
@@ -300,6 +311,7 @@ class OuiTableWithSortApp implements OnInit {
 
     <oui-paginator [pageSize]="5"></oui-paginator>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiTableWithPaginatorApp implements OnInit {
@@ -342,6 +354,7 @@ class OuiTableWithPaginatorApp implements OnInit {
       </ng-container>
     </oui-table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TableWithNgContainerRow {

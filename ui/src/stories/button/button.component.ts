@@ -1,4 +1,9 @@
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 @Component({
@@ -13,6 +18,7 @@ import { OuiIconRegistry } from '../../components';
       <oui-icon svgIcon="configuration" [color]="color()"></oui-icon>{{ text }}
     </button>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiIconButtonStorybook {
