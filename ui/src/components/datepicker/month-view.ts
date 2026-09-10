@@ -16,11 +16,11 @@ import {
   ChangeDetectorRef,
   Component,
   input,
+  model,
   output,
   ViewEncapsulation,
   ViewChild,
   inject,
-  linkedSignal,
 } from '@angular/core';
 import { Directionality } from '@angular/cdk/bidi';
 import {
@@ -56,12 +56,10 @@ export class OuiMonthView<D> implements AfterContentInit {
   /**
    * The date to display in this month view (everything other than the month and year is ignored).
    */
-  readonly activeDateInput = input<D>(undefined as D, { alias: 'activeDate' });
-  readonly activeDate = linkedSignal(this.activeDateInput);
+  readonly activeDate = model<D>(undefined as D);
 
   /** The currently selected date. */
-  readonly selectedInput = input<D | null>(null, { alias: 'selected' });
-  readonly selected = linkedSignal(this.selectedInput);
+  readonly selected = model<D | null>(null);
 
   /** The minimum selectable date. */
   readonly minDate = input<D | null, D | null>(null, {

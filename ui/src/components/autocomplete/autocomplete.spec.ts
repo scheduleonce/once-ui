@@ -187,7 +187,7 @@ class NgIfAutocomplete {
         oui-input
         placeholder="State"
         [ouiAutocomplete]="auto"
-        (input)="onInput($safeNavigationMigration($event.target?.value))"
+        (input)="onInput($event.target?.value)"
       />
     </oui-form-field>
     <oui-autocomplete #auto="ouiAutocomplete">
