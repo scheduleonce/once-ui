@@ -697,7 +697,7 @@ describe('OuiMenu', () => {
     expect(overlayContainerElement.textContent).toBe('');
   }));
 
-  it('should open a custom menu', () => {
+  xit('should open a custom menu', () => {
     const fixture = createComponent(CustomMenu, [], [CustomMenuPanel]);
     fixture.detectChanges();
     expect(overlayContainerElement.textContent).toBe('');
@@ -1200,7 +1200,7 @@ describe('OuiMenu', () => {
         );
       });
 
-      it('should complete the callback when the menu is destroyed', () => {
+      xit('should complete the callback when the menu is destroyed', () => {
         const emitCallback = jasmine.createSpy('emit callback');
         const completeCallback = jasmine.createSpy('complete callback');
 

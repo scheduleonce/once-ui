@@ -124,7 +124,7 @@ export class OuiProgressSpinner extends _OuiProgressSpinnerMixinBase {
   /** Mode of the progress circle */
   mode: ProgressSpinnerMode = 'indeterminate';
 
-  readonly strokeWidth = input<number | undefined>(undefined, {
+  readonly strokeWidth = input<number>(BASE_STROKE_WIDTH, {
     transform: coerceNumberProperty,
   });
 

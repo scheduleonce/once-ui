@@ -219,6 +219,7 @@ export class OuiMenuTrigger implements AfterContentInit, OnDestroy {
     }
 
     this._checkMenu();
+    this._watchMenu();
 
     const overlayRef = this._createOverlay();
     const overlayConfig = overlayRef.getConfig();

@@ -35,7 +35,7 @@ describe('Directive: HoverFocus', () => {
 
   it('should display tooltip on element hover', fakeAsync(() => {
     assertTooltipInstance(tooltipDirective, false);
-    fixture.componentRef.setInput('ouiTooltip', tooltipMessage);
+    tooltipDirective.message.set(tooltipMessage);
     tooltipDirective.show();
     tick(0); // Tick for the show delay (default is 0)
     expect(tooltipDirective._isTooltipVisible()).toBe(true);
@@ -46,7 +46,7 @@ describe('Directive: HoverFocus', () => {
 
   it('should display correct message', fakeAsync(() => {
     assertTooltipInstance(tooltipDirective, false);
-    fixture.componentRef.setInput('ouiTooltip', tooltipMessage);
+    tooltipDirective.message.set(tooltipMessage);
     tooltipDirective.show();
     tick(0); // Tick for the show delay (default is 0)
     expect(tooltipDirective._isTooltipVisible()).toBe(true);
@@ -58,8 +58,8 @@ describe('Directive: HoverFocus', () => {
 
   it('should not display tooltip when disabled', fakeAsync(() => {
     assertTooltipInstance(tooltipDirective, false);
-    fixture.componentRef.setInput('ouiTooltip', tooltipMessage);
-    fixture.componentRef.setInput('ouiTooltipDisabled', true);
+    tooltipDirective.message.set(tooltipMessage);
+    tooltipDirective.disabled.set(true);
     tooltipDirective.show();
     tick(0); // Tick for the show delay (default is 0)
     expect(tooltipDirective._isTooltipVisible()).toBe(false);
@@ -67,8 +67,8 @@ describe('Directive: HoverFocus', () => {
 
   it('should add proper tooltip class', fakeAsync(() => {
     assertTooltipInstance(tooltipDirective, false);
-    fixture.componentRef.setInput('ouiTooltip', tooltipMessage);
-    fixture.componentRef.setInput('ouiTooltipClass', 'class');
+    tooltipDirective.message.set(tooltipMessage);
+    (tooltipDirective.tooltipClass as any).set('class');
     tooltipDirective.show();
     tick(0); // Tick for the show delay (default is 0)
     expect(tooltipDirective._isTooltipVisible()).toBe(true);

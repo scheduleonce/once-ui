@@ -348,14 +348,14 @@ export class OuiSelect
     input<(a: OuiOption, b: OuiOption, options: OuiOption[]) => number>();
 
   /** Aria label of the select. If not specified, the placeholder will be used as label. */
-  readonly ariaLabel = input('', { alias: 'aria-label' });
+  readonly ariaLabel = model('', { alias: 'aria-label' });
 
   /** Input that can be used to specify the `aria-labelledby` attribute. */
-  readonly ariaLabelledby = input<string>(undefined, {
+  readonly ariaLabelledby = model<string | undefined>(undefined, {
     alias: 'aria-labelledby',
   });
   readonly large = input(false, { transform: booleanAttribute });
-  readonly inlineEdit = input(false, { transform: booleanAttribute });
+  readonly inlineEdit = model<boolean>(false);
   _monitorSubscription: any;
   previouslySelected: any[] = [];
   setSelectedOptions: string[] = [];
@@ -1472,7 +1472,7 @@ export class OuiSelect
   /** Returns the aria-labelledby of the select component. */
   _getAriaLabelledby(): string | null {
     if (this.ariaLabelledby()) {
-      return this.ariaLabelledby();
+      return this.ariaLabelledby()!;
     }
 
     return null;

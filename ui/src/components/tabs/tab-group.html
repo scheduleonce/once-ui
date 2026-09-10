@@ -24,7 +24,7 @@
     [class.mdc-tab--active]="selectedIndex() === i"
     [ngClass]="tab.labelClass()"
     [disabled]="tab.disabled"
-    [fitInkBarToContent]="fitInkBarToContent"
+    [fitInkBarToContent]="fitInkBarToContent()"
     (click)="_handleClick(tab, tabHeader, i)"
     (keyup.enter)="_handleEnter()"
     (cdkFocusChange)="_tabFocusChanged($event, i)"

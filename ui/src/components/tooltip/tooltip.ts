@@ -293,7 +293,7 @@ export class OuiTooltip implements OnDestroy {
   readonly message = model('', { alias: 'ouiTooltip' });
 
   /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
-  readonly tooltipClass = input<
+  readonly tooltipClass = model<
     string | string[] | Set<string> | { [key: string]: any }
   >(undefined, { alias: 'ouiTooltipClass' });
 
