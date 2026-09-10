@@ -14,15 +14,6 @@ import { By } from '@angular/platform-browser';
 class BasicProgressSpinner {}
 
 @Component({
-  template:
-    '<oui-progress-spinner [diameter]="diameter"></oui-progress-spinner>',
-  standalone: false,
-})
-class ProgressSpinnerCustomDiameter {
-  diameter: number;
-}
-
-@Component({
   template: `
     <oui-progress-spinner [value]="60" [color]="color"></oui-progress-spinner>
   `,
@@ -36,14 +27,12 @@ describe('OuiProgressSpinner', () => {
   let component: OuiProgressSpinner;
   let fixture: ComponentFixture<OuiProgressSpinner>;
   let basicProgressSpinnerFixture: ComponentFixture<BasicProgressSpinner>;
-  let progressSpinnerDiameterFixture: ComponentFixture<ProgressSpinnerCustomDiameter>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         OuiProgressSpinner,
         BasicProgressSpinner,
-        ProgressSpinnerCustomDiameter,
         ProgressSpinnerWithColor,
       ],
     }).compileComponents();
@@ -52,9 +41,6 @@ describe('OuiProgressSpinner', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiProgressSpinner);
     basicProgressSpinnerFixture = TestBed.createComponent(BasicProgressSpinner);
-    progressSpinnerDiameterFixture = TestBed.createComponent(
-      ProgressSpinnerCustomDiameter
-    );
 
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -83,62 +69,51 @@ describe('OuiProgressSpinner', () => {
   });
 
   it('should apply a mode of "determinate" if value is provided.', () => {
-    const testElement = basicProgressSpinnerFixture.debugElement.query(
-      By.css('oui-progress-spinner')
-    );
-    basicProgressSpinnerFixture.componentRef.setInput('value', 50);
-    basicProgressSpinnerFixture.detectChanges();
-    expect(testElement.componentInstance.mode).toBe('determinate');
+    const spinnerFixture = TestBed.createComponent(OuiProgressSpinner);
+    spinnerFixture.componentRef.setInput('value', 50);
+    spinnerFixture.detectChanges();
+    expect(spinnerFixture.componentInstance.mode).toBe('determinate');
   });
 
   it('should clamp the value of the progress between 0 and 100', () => {
-    basicProgressSpinnerFixture.detectChanges();
+    const spinnerFixture = TestBed.createComponent(OuiProgressSpinner);
+    spinnerFixture.detectChanges();
 
-    const testElement = basicProgressSpinnerFixture.debugElement.query(
-      By.css('oui-progress-spinner')
-    );
-    const progressComponent = testElement.componentInstance;
+    const progressComponent = spinnerFixture.componentInstance;
 
-    basicProgressSpinnerFixture.componentRef.setInput('value', 50);
+    spinnerFixture.componentRef.setInput('value', 50);
     expect(progressComponent.value()).toBe(50);
 
-    basicProgressSpinnerFixture.componentRef.setInput('value', 0);
+    spinnerFixture.componentRef.setInput('value', 0);
     expect(progressComponent.value()).toBe(0);
 
-    basicProgressSpinnerFixture.componentRef.setInput('value', 100);
+    spinnerFixture.componentRef.setInput('value', 100);
     expect(progressComponent.value()).toBe(100);
 
-    basicProgressSpinnerFixture.componentRef.setInput('value', 999);
+    spinnerFixture.componentRef.setInput('value', 999);
     expect(progressComponent.value()).toBe(100);
 
-    basicProgressSpinnerFixture.componentRef.setInput('value', -10);
+    spinnerFixture.componentRef.setInput('value', -10);
     expect(progressComponent.value()).toBe(0);
   });
 
   it('should default to a stroke width of the 2', () => {
-    const spinner = progressSpinnerDiameterFixture.debugElement.query(
-      By.directive(OuiProgressSpinner)
-    );
+    const spinnerFixture = TestBed.createComponent(OuiProgressSpinner);
+    spinnerFixture.componentRef.setInput('diameter', 57);
+    spinnerFixture.detectChanges();
 
-    progressSpinnerDiameterFixture.componentRef.setInput('diameter', 57);
-    progressSpinnerDiameterFixture.detectChanges();
-
-    expect(spinner.componentInstance.strokeWidth()).toBe(2);
+    expect(spinnerFixture.componentInstance.strokeWidth()).toBe(2);
   });
 
   it('should allow to set a custom diameter', () => {
-    const spinnerDebugElement =
-      progressSpinnerDiameterFixture.debugElement.query(
-        By.directive(OuiProgressSpinner)
-      );
-    const spinner = spinnerDebugElement.nativeElement as HTMLElement;
-    const svgElement =
-      progressSpinnerDiameterFixture.nativeElement.querySelector(
-        'svg'
-      ) as HTMLElement;
+    const spinnerFixture = TestBed.createComponent(OuiProgressSpinner);
+    spinnerFixture.componentRef.setInput('diameter', 32);
+    spinnerFixture.detectChanges();
 
-    progressSpinnerDiameterFixture.componentRef.setInput('diameter', 32);
-    progressSpinnerDiameterFixture.detectChanges();
+    const spinner = spinnerFixture.nativeElement as HTMLElement;
+    const svgElement = spinnerFixture.nativeElement.querySelector(
+      'svg'
+    ) as HTMLElement;
 
     expect(parseInt(spinner.style.width, 10)).toBe(
       32,
@@ -163,33 +138,29 @@ describe('OuiProgressSpinner', () => {
   });
 
   it('should set the color class on the oui-progress-spinner', () => {
-    const progressSpinnerWithColorfixture = TestBed.createComponent(
-      ProgressSpinnerWithColor
-    );
-    progressSpinnerWithColorfixture.detectChanges();
+    const spinnerFixture = TestBed.createComponent(OuiProgressSpinner);
+    spinnerFixture.componentRef.setInput('color', 'primary');
+    spinnerFixture.detectChanges();
 
-    const testElement = progressSpinnerWithColorfixture.debugElement.query(
-      By.directive(OuiProgressSpinner)
-    );
-    expect(testElement.nativeElement.classList).toContain('oui-primary');
+    const testElement = spinnerFixture.nativeElement as HTMLElement;
+    expect(testElement.classList).toContain('oui-primary');
 
-    progressSpinnerWithColorfixture.componentRef.setInput('color', 'accent');
-    progressSpinnerWithColorfixture.detectChanges();
+    spinnerFixture.componentRef.setInput('color', 'accent');
+    spinnerFixture.detectChanges();
 
-    expect(testElement.nativeElement.classList).toContain('oui-accent');
-    expect(testElement.nativeElement.classList).not.toContain('oui-primary');
-    expect(testElement.nativeElement.classList).not.toContain('oui-warn');
+    expect(testElement.classList).toContain('oui-accent');
+    expect(testElement.classList).not.toContain('oui-primary');
+    expect(testElement.classList).not.toContain('oui-warn');
   });
 
   it('should update the elements size when changed dynamically', () => {
-    const spinner = basicProgressSpinnerFixture.debugElement.query(
-      By.directive(OuiProgressSpinner)
-    );
+    const spinnerFixture = TestBed.createComponent(OuiProgressSpinner);
+    spinnerFixture.componentRef.setInput('diameter', 100);
+    spinnerFixture.detectChanges();
 
-    basicProgressSpinnerFixture.componentRef.setInput('diameter', 100);
-    basicProgressSpinnerFixture.detectChanges();
+    const spinner = spinnerFixture.nativeElement as HTMLElement;
 
-    expect(spinner.nativeElement.style.width).toBe('100px');
-    expect(spinner.nativeElement.style.height).toBe('100px');
+    expect(spinner.style.width).toBe('100px');
+    expect(spinner.style.height).toBe('100px');
   });
 });

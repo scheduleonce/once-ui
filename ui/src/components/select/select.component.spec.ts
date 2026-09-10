@@ -68,6 +68,7 @@ import {
         [tabIndex]="tabIndexOverride"
         [aria-label]="ariaLabel"
         [aria-labelledby]="ariaLabelledby"
+        [inlineEdit]="inlineEdit"
         [panelClass]="panelClass"
       >
         @for (food of foods; track food) {
@@ -99,6 +100,7 @@ class BasicSelect {
   tabIndexOverride: number;
   ariaLabel: string;
   ariaLabelledby: string;
+  inlineEdit: boolean;
   panelClass = ['custom-one', 'custom-two'];
 
   @ViewChild(OuiSelect, { static: true }) select: OuiSelect;
@@ -842,16 +844,14 @@ describe('OuiSelect', () => {
         }));
 
         it('should support setting a custom aria-label', fakeAsync(() => {
-          fixture.componentRef.setInput('ariaLabel', 'Custom Label');
-          (selectInstance as any)._changeDetectorRef.markForCheck();
+          selectInstance.ariaLabel.set('Custom Label');
           fixture.detectChanges();
 
           expect(select.getAttribute('aria-label')).toEqual('Custom Label');
         }));
 
         it('should not set an aria-label if aria-labelledby is specified', fakeAsync(() => {
-          fixture.componentRef.setInput('ariaLabelledby', 'myLabelId');
-          (selectInstance as any)._changeDetectorRef.markForCheck();
+          selectInstance.ariaLabelledby.set('myLabelId');
           fixture.detectChanges();
 
           expect(select.getAttribute('aria-label')).toBeFalsy(
@@ -915,7 +915,7 @@ describe('OuiSelect', () => {
             `Expected the oui-select-inline-edit class not to be set by default.`
           );
 
-          fixture.componentRef.setInput('inlineEdit', true);
+          selectInstance.inlineEdit.set(true);
           fixture.detectChanges();
 
           expect(select.classList).toContain(
@@ -923,7 +923,7 @@ describe('OuiSelect', () => {
             `Expected the oui-select-inline-edit class to be set when inlineEdit is true.`
           );
 
-          fixture.componentRef.setInput('inlineEdit', false);
+          selectInstance.inlineEdit.set(false);
           fixture.detectChanges();
 
           expect(select.classList).not.toContain(

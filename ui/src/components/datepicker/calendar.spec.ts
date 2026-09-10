@@ -173,6 +173,7 @@ describe('OuiCalendar', () => {
         spyOn(adapter, 'today').and.callFake(() => fakeToday);
 
         calendarInstance.activeDate = fakeToday;
+        fixture.detectChanges();
         calendarInstance.updateTodaysDate();
         fixture.detectChanges();
 

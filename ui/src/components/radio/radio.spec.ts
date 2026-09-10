@@ -737,7 +737,7 @@ describe('OuiRadio', () => {
         'Banana'
       );
 
-      fixture.componentInstance.ariaLabel = 'Pineapple';
+      fruitRadioInstances[0].ariaLabel.set('Pineapple');
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
@@ -762,7 +762,7 @@ describe('OuiRadio', () => {
         'xyz'
       );
 
-      fixture.componentInstance.ariaLabelledby = 'uvw';
+      fruitRadioInstances[0].ariaLabelledby.set('uvw');
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
@@ -787,7 +787,7 @@ describe('OuiRadio', () => {
         'abc'
       );
 
-      fixture.componentInstance.ariaDescribedby = 'uvw';
+      fruitRadioInstances[0].ariaDescribedby.set('uvw');
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
@@ -830,7 +830,10 @@ describe('OuiRadio', () => {
         'Expected the tabindex to be set to "0" by default.'
       );
 
-      fixture.componentInstance.tabIndex = 4;
+      const radioInstance = fixture.debugElement
+        .query(By.directive(OuiRadioButton))
+        .injector.get<OuiRadioButton>(OuiRadioButton);
+      radioInstance.tabIndex.set(4);
       fixture.detectChanges();
 
       expect(radioButtonInput.tabIndex).toBe(

@@ -84,7 +84,7 @@ export class OuiTabNav
   implements AfterContentChecked, AfterContentInit, OnDestroy, AfterViewInit
 {
   /** Whether the ink bar should fit its width to the size of the tab label content. */
-  readonly fitInkBarToContentInput = input(false, {
+  readonly fitInkBarToContentInput = input<boolean | undefined>(undefined, {
     alias: 'fitInkBarToContent',
   });
   get fitInkBarToContent(): boolean {
@@ -242,7 +242,7 @@ export class OuiTabNav
     const items = this._items.toArray();
 
     for (let i = 0; i < items.length; i++) {
-      if (items[i].active) {
+      if (items[i].active()) {
         this.selectedIndex.set(i);
         this._changeDetectorRef.markForCheck();
 
@@ -299,11 +299,11 @@ const _OuiTabLinkMixinBase = mixinInkBarItem(
     '[attr.aria-current]': '_getAriaCurrent()',
     '[attr.aria-disabled]': 'disabled',
     '[attr.aria-selected]': '_getAriaSelected()',
-    '[attr.id]': 'id',
+    '[attr.id]': 'id()',
     '[attr.tabIndex]': '_getTabIndex()',
     '[attr.role]': '_getRole()',
     '[class.oui-mdc-tab-disabled]': 'disabled',
-    '[class.mdc-tab--active]': 'active',
+    '[class.mdc-tab--active]': 'active()',
     '(focus)': '_handleFocus()',
     '(keydown)': '_handleKeydown($event)',
   },

@@ -338,17 +338,17 @@ export class OuiRadioButton
   readonly name = model<string>();
 
   /** Used to set the `aria-label` attribute on the underlying input element. */
-  readonly ariaLabel = input<string>(undefined, { alias: 'aria-label' });
+  readonly ariaLabel = model<string>(undefined, { alias: 'aria-label' });
 
   /** The `aria-labelledby` attribute takes precedence as the element text alternative. */
-  readonly ariaLabelledby = input<string>(undefined, {
+  readonly ariaLabelledby = model<string>(undefined, {
     alias: 'aria-labelledby',
   });
   /** The `aria-labelledby` attribute takes precedence as the element text alternative. */
-  readonly tabIndex = input<number>();
+  readonly tabIndex = model<number>();
 
   /** The  `aria-describedby` attribute is read after the element label and field type. */
-  readonly ariaDescribedby = input<string>(undefined, {
+  readonly ariaDescribedby = model<string>(undefined, {
     alias: 'aria-describedby',
   });
 
@@ -371,6 +371,7 @@ export class OuiRadioButton
         // When unchecking the selected radio button, update the selected radio
         // property on the group.
         this.radioGroup.selected.set(null);
+        this.radioGroup.value.set(null);
       }
 
       if (newCheckedState) {

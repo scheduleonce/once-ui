@@ -101,17 +101,18 @@ export class OuiSort
    * collection of OuiSortables.
    */
   register(sortable: OuiSortable): void {
-    if (!sortable.id) {
+    const id = typeof sortable.id === 'function' ? sortable.id() : sortable.id;
+    if (!id) {
       throw getSortHeaderMissingIdError();
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    if (this.sortables.has(sortable.id)) {
+    if (this.sortables.has(id)) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      throw getSortDuplicateSortableIdError(sortable.id);
+      throw getSortDuplicateSortableIdError(id);
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    this.sortables.set(sortable.id, sortable);
+    this.sortables.set(id, sortable);
   }
 
   /**
@@ -119,15 +120,17 @@ export class OuiSort
    * collection of contained OuiSortables.
    */
   deregister(sortable: OuiSortable): void {
+    const id = typeof sortable.id === 'function' ? sortable.id() : sortable.id;
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    this.sortables.delete(sortable.id);
+    this.sortables.delete(id);
   }
 
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: OuiSortable): void {
-    if (this.active() !== sortable.id) {
+    const id = typeof sortable.id === 'function' ? sortable.id() : sortable.id;
+    if (this.active() !== id) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      this.active.set(sortable.id);
+      this.active.set(id);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this.direction.set(sortable.start ? sortable.start : this.start());
     } else {
