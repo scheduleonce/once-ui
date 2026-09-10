@@ -55,7 +55,7 @@ export const OUI_TAB_GROUP = new InjectionToken<any>('OUI_TAB_GROUP');
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
   inputs: ['disabled'],
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
   exportAs: 'OuiTab',
   providers: [{ provide: OUI_TAB, useExisting: OuiTab }],

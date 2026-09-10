@@ -19,6 +19,7 @@ import {
   inject,
   input,
   output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -72,6 +73,7 @@ export class OuiChipGridChange {
     '(blur)': '_blur()',
   },
   providers: [{ provide: OuiFormFieldControl, useExisting: OuiChipGrid }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class OuiChipGrid

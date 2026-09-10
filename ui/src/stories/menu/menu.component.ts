@@ -1,5 +1,11 @@
 import { OuiIconRegistry } from '../../components';
-import { Component, inject, input, output } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
@@ -35,6 +41,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       </button>
     </oui-menu>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiMenuStorybook {
@@ -102,6 +109,7 @@ export class OuiMenuStorybook {
       <button oui-menu-item>Hibernate</button>
     </oui-menu>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiNestedMenuStorybook {

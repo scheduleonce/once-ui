@@ -7,6 +7,7 @@ import {
   Type,
   ValueProvider,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -61,6 +62,7 @@ export const DEC = 11;
       [opened]="opened"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandardDatepicker {
@@ -79,12 +81,14 @@ class StandardDatepicker {
       #d
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultiInputDatepicker {}
 
 @Component({
   template: ` <oui-datepicker #d></oui-datepicker> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NoInputDatepicker {
@@ -96,6 +100,7 @@ class NoInputDatepicker {
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker #d [startAt]="startDate"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithStartAt {
@@ -113,6 +118,7 @@ class DatepickerWithStartAt {
       (monthSelected)="onYearSelection()"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithStartViewYear {
@@ -131,6 +137,7 @@ class DatepickerWithStartViewYear {
       (yearSelected)="onMultiYearSelection()"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithStartViewMultiYear {
@@ -145,6 +152,7 @@ class DatepickerWithStartViewMultiYear {
     <input [(ngModel)]="selected" [ouiDatepicker]="d" />
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithNgModel {
@@ -160,6 +168,7 @@ class DatepickerWithNgModel {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithFormControl {
@@ -177,6 +186,7 @@ class DatepickerWithFormControl {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="touchUI"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithToggle {
@@ -193,6 +203,7 @@ class DatepickerWithToggle {
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithCustomIcon {}
@@ -204,6 +215,7 @@ class DatepickerWithCustomIcon {}
       <oui-datepicker #d></oui-datepicker>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class FormFieldDatepicker {
@@ -224,6 +236,7 @@ class FormFieldDatepicker {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithMinAndMaxValidation {
@@ -243,6 +256,7 @@ class DatepickerWithMinAndMaxValidation {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="true"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithFilterAndValidation {
@@ -256,6 +270,7 @@ class DatepickerWithFilterAndValidation {
     <input [ouiDatepicker]="d" [(ngModel)]="date" />
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithi18n {
@@ -270,6 +285,7 @@ class DatepickerWithi18n {
     <input [ouiDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max" />
     <oui-datepicker #d [startAt]="startAt"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithISOStrings {
@@ -291,6 +307,7 @@ class DatepickerWithISOStrings {
       #d
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithEvents {
@@ -305,6 +322,7 @@ class DatepickerWithEvents {
     <input (focus)="d.open()" [ouiDatepicker]="d" />
     <oui-datepicker #d="ouiDatepicker"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerOpeningOnFocus {
@@ -316,6 +334,7 @@ class DatepickerOpeningOnFocus {
     <div class="custom-element">Custom element</div>
     <oui-calendar-header></oui-calendar-header>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CustomHeaderForDatepicker {}
@@ -327,6 +346,7 @@ class CustomHeaderForDatepicker {}
       [calendarHeaderComponent]="customHeaderForDatePicker"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithCustomHeader {
@@ -339,6 +359,7 @@ class DatepickerWithCustomHeader {
     <input [ouiDatepicker]="assignedDatepicker" [value]="date" />
     <oui-datepicker #d [touchUi]="touch"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DelayedDatepicker {
@@ -357,6 +378,7 @@ class DelayedDatepicker {
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithTabindexOnToggle {}

@@ -1,5 +1,5 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
@@ -26,6 +26,7 @@ export const DEC = 11;
       (yearSelected)="selectedYear = $event"
     ></oui-multi-year-view>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandardMultiYearView {
@@ -44,6 +45,7 @@ class StandardMultiYearView {
       [dateFilter]="dateFilter"
     ></oui-multi-year-view>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultiYearViewWithDateFilter {

@@ -24,6 +24,7 @@ import {
   model,
   output,
   DOCUMENT,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { Subject, Subscription, merge } from 'rxjs';
 import { OuiChipAction } from './chip-action';
@@ -72,6 +73,7 @@ export interface OuiChipEvent {
     '(keydown)': '_handleKeydown($event)',
   },
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{ provide: OUI_CHIP, useExisting: OuiChip }],
 })
 export class OuiChip

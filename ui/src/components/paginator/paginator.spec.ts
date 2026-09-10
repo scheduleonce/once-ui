@@ -5,7 +5,7 @@ import {
   fakeAsync,
   waitForAsync,
 } from '@angular/core/testing';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThemePalette } from '../core';
 import {
@@ -44,6 +44,7 @@ function getLastButton(fixture: ComponentFixture<any>) {
     >
     </oui-paginator>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiPaginatorApp {
@@ -65,6 +66,7 @@ class OuiPaginatorApp {
 
 @Component({
   template: ` <oui-paginator></oui-paginator> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiPaginatorWithoutInputsApp {
@@ -73,6 +75,7 @@ class OuiPaginatorWithoutInputsApp {
 
 @Component({
   template: ` <oui-paginator [pageSize]="10"></oui-paginator> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiPaginatorWithoutOptionsApp {
@@ -83,6 +86,7 @@ class OuiPaginatorWithoutOptionsApp {
   template: `
     <oui-paginator pageIndex="0" pageSize="10" length="100"> </oui-paginator>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiPaginatorWithStringValues {

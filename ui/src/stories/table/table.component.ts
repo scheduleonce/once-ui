@@ -6,6 +6,7 @@ import {
   inject,
   input,
   effect,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   OuiTableDataSource,
@@ -46,6 +47,7 @@ import { OuiIconRegistry } from '../../components';
       <oui-paginator pageSize="{{ pageSize() }}"></oui-paginator>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiTableStorybook implements OnInit {
@@ -180,6 +182,7 @@ export class OuiTableStorybook implements OnInit {
       </table>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiTableCustomStorybook {
@@ -355,6 +358,7 @@ const ENHANCED_DATA = [
       </table>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiTableEnhancedStorybook implements OnInit {

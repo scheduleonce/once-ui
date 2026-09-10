@@ -11,7 +11,13 @@ import {
   NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Component, DebugElement, ViewChild, Type } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ViewChild,
+  Type,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Checkbox, OuiCheckboxModule } from './public-api';
 
@@ -36,6 +42,7 @@ import { Checkbox, OuiCheckboxModule } from './public-api';
       </oui-checkbox>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SingleCheckbox {
@@ -57,6 +64,7 @@ class SingleCheckbox {
       >Be good</oui-checkbox
     >
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithNgModel {
@@ -70,6 +78,7 @@ class CheckboxWithNgModel {
     <oui-checkbox>Option 1</oui-checkbox>
     <oui-checkbox>Option 2</oui-checkbox>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultipleCheckboxes {}
@@ -80,6 +89,7 @@ class MultipleCheckboxes {}
     <oui-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
     </oui-checkbox>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithTabIndex {
@@ -90,6 +100,7 @@ class CheckboxWithTabIndex {
 /** Simple test component that accesses Checkbox using ViewChild. */
 @Component({
   template: ` <oui-checkbox></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxUsingViewChild {
@@ -104,6 +115,7 @@ class CheckboxUsingViewChild {
 /** Simple test component with an aria-label set. */
 @Component({
   template: ` <oui-checkbox aria-label="Super effective"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithAriaLabel {}
@@ -111,6 +123,7 @@ class CheckboxWithAriaLabel {}
 /** Simple test component with an aria-label set. */
 @Component({
   template: ` <oui-checkbox aria-labelledby="some-id"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithAriaLabelledby {}
@@ -118,6 +131,7 @@ class CheckboxWithAriaLabelledby {}
 /** Simple test component with name attribute */
 @Component({
   template: ` <oui-checkbox name="test-name"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithNameAttribute {}
@@ -125,6 +139,7 @@ class CheckboxWithNameAttribute {}
 /** Test component with reactive forms */
 @Component({
   template: ` <oui-checkbox [formControl]="formControl"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithFormControl {
@@ -134,6 +149,7 @@ class CheckboxWithFormControl {
 /** Test component without label */
 @Component({
   template: ` <oui-checkbox>{{ label }}</oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithoutLabel {
@@ -143,6 +159,7 @@ class CheckboxWithoutLabel {
 /** Test component with the native tabindex attribute. */
 @Component({
   template: ` <oui-checkbox tabindex="5"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithTabindexAttr {}
