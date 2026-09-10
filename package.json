@@ -6,10 +6,10 @@
     "build": "ng build ui",
     "postbuild": "gulp copy",
     "test": "ng test ui",
-    "lint": "ng lint ui --format stylish",
+    "lint": "ng lint ui --format ./eslint-formatter-files.js",
     "prettier": "prettier --list-different \"**/*.{ts,js,css,scss,md,html}\"",
     "fix:prettier": "prettier --write \"**/*.{ts,js,css,scss,md,html}\"",
-    "fix:lint": "ng lint ui --fix --format stylish",
+    "fix:lint": "ng lint ui --fix --format ./eslint-formatter-files.js",
     "bundle-styles": "npm run bundle-styles-blue && npm run compile-scss-blue && npm run bundle-styles-green && npm run compile-scss-green",
     "bundle-styles-blue": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-blue.scss -o ./dist/ui/themes/once-ui-theme-blue.scss",
     "bundle-styles-green": "scss-bundle -e ./ui/src/components/core/themes/once-ui-theme-green.scss -o ./dist/ui/themes/once-ui-theme-green.scss",
@@ -73,6 +73,7 @@
     "@angular/language-service": "22.1.5",
     "@babel/core": "7.29.6",
     "@compodoc/compodoc": "2.0.0",
+    "@eslint/config-helpers": "^0.4.2",
     "@humanfs/core": "^0.19.2",
     "@storybook/addon-docs": "^10.5.10",
     "@storybook/addon-links": "^10.5.10",
@@ -82,6 +83,7 @@
     "@typescript-eslint/eslint-plugin": "^8.68.0",
     "@typescript-eslint/parser": "^8.68.0",
     "@webcomponents/custom-elements": "1.5.1",
+    "angular-eslint": "^22.5.0",
     "babel-loader": "9.1.0",
     "eslint": "^9.39.5",
     "eslint-plugin-import": "2.32.0",
@@ -107,6 +109,7 @@
     "scss-bundle": "3.1.2",
     "storybook": "^10.5.10",
     "tsx": "^4.23.12",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.70.0"
   }
 }
