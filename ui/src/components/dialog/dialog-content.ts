@@ -11,6 +11,7 @@ import {
   OnDestroy,
   effect,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
@@ -94,6 +95,7 @@ export class OuiDialogHeaderAction {
   host: {
     class: 'oui-dialog-header-article',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogHeaderArticle implements OnDestroy {
@@ -135,6 +137,7 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   host: {
     class: 'oui-dialog-header-video',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogHeaderVideo implements OnDestroy {
@@ -176,6 +179,7 @@ export class OuiDialogHeaderVideo implements OnDestroy {
     class: 'oui-dialog-header-close',
     '[attr.tabindex]': '0',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogHeaderClose implements OnDestroy {

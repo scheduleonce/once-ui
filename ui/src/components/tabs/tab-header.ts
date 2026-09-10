@@ -39,7 +39,7 @@ import { OuiPaginatedTabHeader } from './paginated-tab-header';
   outputs: ['selectFocusedIndex', 'indexFocused'],
   encapsulation: ViewEncapsulation.None,
   // tslint:disable-next-line
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   // eslint-disable-next-line
   host: {
     class: 'oui-mdc-tab-header',

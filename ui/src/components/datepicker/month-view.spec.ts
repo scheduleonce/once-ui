@@ -1,5 +1,5 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
@@ -26,6 +26,7 @@ export const DEC = 11;
       [(selected)]="selected"
     ></oui-month-view>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandardMonthView {
@@ -40,6 +41,7 @@ class StandardMonthView {
       [dateFilter]="dateFilter"
     ></oui-month-view>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MonthViewWithDateFilter {
@@ -56,6 +58,7 @@ class MonthViewWithDateFilter {
       [dateClass]="dateClass"
     ></oui-month-view>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MonthViewWithDateClass {

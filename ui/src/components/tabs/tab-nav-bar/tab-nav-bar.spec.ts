@@ -6,7 +6,13 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import {
+  Component,
+  QueryList,
+  ViewChild,
+  ViewChildren,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Subject } from 'rxjs';
@@ -658,6 +664,7 @@ describe('OuiTabNavBar with enabled animations', () => {
     </nav>
     <oui-tab-nav-panel #tabPanel id="tab-panel">Tab panel</oui-tab-nav-panel>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleTabNavBarTestApp {
@@ -683,6 +690,7 @@ class SimpleTabNavBarTestApp {
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabLinkWithNgIf {
@@ -698,6 +706,7 @@ class TabLinkWithNgIf {
     </nav>
     <oui-tab-nav-panel #tabPanel>Tab panel</oui-tab-nav-panel>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabBarWithInactiveTabsOnInit {
@@ -713,6 +722,7 @@ class TabBarWithInactiveTabsOnInit {
     </nav>
     <oui-tab-nav-panel #tabPanel></oui-tab-nav-panel>,
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabsWithCustomAnimationDuration {

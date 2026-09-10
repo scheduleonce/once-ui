@@ -4,7 +4,11 @@ import {
   tick,
   fakeAsync,
 } from '@angular/core/testing';
-import { Component, DebugElement } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OuiTooltipModule } from './tooltip-module';
 import { OuiTooltip } from './tooltip';
@@ -13,6 +17,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
   template: ` <button ouiTooltip>button</button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TestTooltipComponent {}

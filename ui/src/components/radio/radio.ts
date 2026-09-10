@@ -67,6 +67,7 @@ export class OuiRadioGroupBase {}
     role: 'radiogroup',
     class: 'oui-radio-group',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {

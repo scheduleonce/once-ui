@@ -11,7 +11,12 @@ import {
   NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OuiRadioButton, OuiRadioGroup, OuiRadioChange } from './radio';
 import { OuiRadioModule } from './radio-module';
@@ -32,6 +37,7 @@ import { OuiRadioModule } from './radio-module';
       <oui-radio-button value="leaf"> Bulbasaur </oui-radio-button>
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioInsideGroupComponent {
@@ -52,6 +58,7 @@ class RadioInsideGroupComponent {
       }
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioGroupWithNgModel {
@@ -88,6 +95,7 @@ class RadioGroupWithNgModel {
     >
     <oui-radio-button id="nameless" value="no-name">No name</oui-radio-button>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandaloneRadioButtons {
@@ -98,6 +106,7 @@ class StandaloneRadioButtons {
 
 @Component({
   template: ` <oui-radio-button>One</oui-radio-button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DisableableRadioButton {
@@ -114,6 +123,7 @@ class DisableableRadioButton {
       <oui-radio-button value="1">One</oui-radio-button>
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioGroupWithFormControl {
@@ -122,6 +132,7 @@ class RadioGroupWithFormControl {
 
 @Component({
   template: ` <oui-radio-button [tabIndex]="tabIndex"></oui-radio-button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class FocusableRadioButton {
@@ -140,6 +151,7 @@ class FocusableRadioButton {
       }
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class InterleavedRadioGroup {
@@ -154,12 +166,14 @@ class InterleavedRadioGroup {
 @Component({
   selector: 'oui-transcluding-wrapper',
   template: ` <div><ng-content></ng-content></div> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TranscludingWrapper {}
 
 @Component({
   template: ` <oui-radio-button tabindex="0"></oui-radio-button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioButtonWithPredefinedTabindex {}
