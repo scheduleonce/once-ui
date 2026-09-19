@@ -22,6 +22,7 @@ type CanDisableRippleCtor = Constructor<CanDisableRipple> &
 export function mixinDisableRipple<T extends AbstractConstructor<{}>>(
   base: T
 ): CanDisableRippleCtor & T;
+// eslint-disable-next-line no-redeclare
 export function mixinDisableRipple<T extends Constructor<{}>>(
   base: T
 ): CanDisableRippleCtor & T {
