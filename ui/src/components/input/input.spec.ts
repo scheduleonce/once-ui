@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
   UntypedFormControl,
+  UntypedFormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -67,6 +68,23 @@ class OuiInputWithType {
 })
 class OuiInputWithFormControl {
   formControl = new UntypedFormControl();
+}
+
+@Component({
+  template: `
+    <form [formGroup]="formGroup">
+      <oui-form-field>
+        <input oui-input formControlName="subTitleName" />
+      </oui-form-field>
+    </form>
+  `,
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
+})
+class OuiInputWithFormControlName {
+  formGroup = new UntypedFormGroup({
+    subTitleName: new UntypedFormControl('testing value'),
+  });
 }
 
 @Component({
@@ -391,6 +409,23 @@ describe('OuiInput without forms', () => {
 });
 
 describe('OuiInput with forms', () => {
+  it('should display the value assigned through formControlName without a value binding', waitForAsync(() => {
+    const fixture = createComponent(OuiInputWithFormControlName);
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.css('input'))
+      .nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('testing value');
+
+    fixture.componentInstance.formGroup.controls['subTitleName'].setValue(
+      'updated value'
+    );
+    fixture.detectChanges();
+
+    expect(input.value).toBe('updated value');
+  }));
+
   it('should update the value when using FormControl.setValue', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithFormControl);
     fixture.detectChanges();
