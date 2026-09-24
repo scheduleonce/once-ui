@@ -219,7 +219,9 @@ export class OuiInput
    *
    * @docs-private
    */
-  readonly valueInput = input('', { alias: 'value' });
+  readonly valueInput = input<string | undefined>(undefined, {
+    alias: 'value',
+  });
   get value(): string {
     return this._inputValueAccessor.value;
   }
@@ -299,7 +301,11 @@ export class OuiInput
       const spellcheck = this.spellcheck();
 
       this._validateType(type);
-      this._inputValueAccessor.value = value;
+      // An omitted `value` input must not overwrite a value written by Angular Forms through
+      // `formControl` or `formControlName`. An explicit `[value]` binding still takes precedence.
+      if (value !== undefined) {
+        this._inputValueAccessor.value = value;
+      }
       this.errorStateMatcher =
         this.errorStateMatcherInput() || this.errorStateMatcher;
       if (!this._isTextarea() && getSupportedInputTypes().has(type)) {
