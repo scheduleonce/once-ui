@@ -1,0 +1,43 @@
+import { Meta, Canvas, Controls } from '@storybook/addon-docs/blocks';
+import * as calendarStories from './index.stories.ts';
+
+<Meta of={calendarStories} />
+
+# Calendar
+
+`oui-calendar` is the calendar surface used by the datepicker. It supports month, year, and multi-year navigation, selected dates, date constraints, and date filtering.
+
+## Regular Calendar
+
+<Canvas of={calendarStories.Regular} />
+
+<Controls of={calendarStories.Regular} />
+
+## Date Constraints
+
+This example limits the selectable range and disables weekends.
+
+<Canvas of={calendarStories.WithDateConstraints} />
+
+<Controls of={calendarStories.WithDateConstraints} />
+
+## Year View
+
+<Canvas of={calendarStories.YearView} />
+
+<Controls of={calendarStories.YearView} />
+
+## Multi-Year View
+
+<Canvas of={calendarStories.MultiYearView} />
+
+<Controls of={calendarStories.MultiYearView} />
+
+## Multiple Date Selection
+
+The calendar emits one selected date at a time. This example keeps the selected dates in a `Set`,
+uses `dateClass` to highlight every selected date, and toggles a date when it is clicked again.
+
+<Canvas of={calendarStories.MultipleDateSelection} />
+
+<Controls of={calendarStories.MultipleDateSelection} />
