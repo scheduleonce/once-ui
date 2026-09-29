@@ -128,19 +128,19 @@ export class OuiSort
   /** Sets the active sort id and determines the new sort direction. */
   sort(sortable: OuiSortable): void {
     const id = typeof sortable.id === 'function' ? sortable.id() : sortable.id;
+    const sortableStart = readSortableValue(sortable.start);
     if (this.active() !== id) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       this.active.set(id);
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      this.direction.set(sortable.start ? sortable.start : this.start());
+      this.direction.set(sortableStart || this.start());
     } else {
       this.direction.set(this.getNextSortDirection(sortable));
     }
 
-    this.sortChange.emit({
-      active: this.active(),
-      direction: this.direction(),
-    });
+    const active = this.active();
+    const direction = this.direction();
+    this.sortChange.emit({ active, direction });
   }
 
   /** Returns the next sort direction of the active sortable, checking for potential overrides. */
@@ -149,9 +149,13 @@ export class OuiSort
       return '';
     }
 
+    const sortableStart = readSortableValue(sortable.start);
+    const sortableDisableClear = readSortableValue(sortable.disableClear);
     const sortDirectionCycle = getSortDirectionCycle(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      sortable.start || this.start()
+      sortableStart || this.start(),
+      sortableDisableClear === undefined
+        ? this.disableClear()
+        : sortableDisableClear
     );
 
     // Get and return the next direction in the cycle
@@ -177,11 +181,23 @@ export class OuiSort
 }
 
 /** Returns the sort direction cycle to use given the provided parameters of order and clear. */
-function getSortDirectionCycle(start: 'asc' | 'desc'): SortDirection[] {
+function getSortDirectionCycle(
+  start: 'asc' | 'desc',
+  disableClear: boolean
+): SortDirection[] {
   const sortOrder: SortDirection[] = ['asc', 'desc'];
   if (start === 'desc') {
     sortOrder.reverse();
   }
 
+  if (!disableClear) {
+    sortOrder.push('');
+  }
+
   return sortOrder;
+}
+
+/** Reads a value that may be an Angular input signal from a sortable header. */
+function readSortableValue<T>(value: T | (() => T)): T {
+  return typeof value === 'function' ? (value as () => T)() : value;
 }
