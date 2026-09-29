@@ -197,10 +197,7 @@ export const MultipleDateSelection = (props) => {
         selectedDates.has(dateKey(date))
           ? 'oui-calendar-multiple-selected'
           : '',
-      dateChanged: (
-        date: Date,
-        calendar: { updateTodaysDate: () => void }
-      ) => {
+      dateChanged: (date: Date, calendar: { updateTodaysDate: () => void }) => {
         selectedChangeHandled = true;
         toggleDate(date);
         calendar.updateTodaysDate();
