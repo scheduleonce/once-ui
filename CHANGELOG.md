@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Ensure `OuiSort` emits plain string sort event values and correctly supports clearing and
-	per-header `disableClear` settings when signal-backed inputs are used.
+  per-header `disableClear` settings when signal-backed inputs are used.
 
 ## [11.5.0] - 2026-09-18
 
