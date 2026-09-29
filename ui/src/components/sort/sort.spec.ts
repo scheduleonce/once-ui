@@ -287,6 +287,60 @@ describe('OuiSort', () => {
     fixture.detectChanges();
   });
 
+  it('should emit primitive values when sorting a new column', () => {
+    component.ouiSort.sort(component.defaultA);
+
+    const event = component.latestSortEvent;
+    expect(typeof event.active).toBe('string');
+    expect(typeof event.direction).toBe('string');
+    expect(['asc', 'desc', '']).toContain(event.direction);
+    expect(event).toEqual({ active: 'defaultA', direction: 'asc' });
+  });
+
+  it('should toggle between ascending and descending directions', () => {
+    component.ouiSort.sort(component.defaultA);
+    component.ouiSort.sort(component.defaultA);
+
+    expect(component.latestSortEvent).toEqual({
+      active: 'defaultA',
+      direction: 'desc',
+    });
+  });
+
+  it('should clear the sort after descending when clearing is enabled', () => {
+    component.ouiSort.sort(component.defaultA);
+    component.ouiSort.sort(component.defaultA);
+    component.ouiSort.sort(component.defaultA);
+
+    expect(component.latestSortEvent).toEqual({
+      active: 'defaultA',
+      direction: '',
+    });
+    expect(typeof component.latestSortEvent.active).toBe('string');
+    expect(typeof component.latestSortEvent.direction).toBe('string');
+  });
+
+  it('should not emit an input signal function for a header start direction', () => {
+    component.ouiSort.sort(component.overrideStart);
+
+    expect(component.latestSortEvent).toEqual({
+      active: 'overrideStart',
+      direction: 'desc',
+    });
+    expect(typeof component.latestSortEvent.direction).toBe('string');
+  });
+
+  it('should keep the sort when clearing is disabled', () => {
+    component.ouiSort.sort(component.overrideDisableClear);
+    component.ouiSort.sort(component.overrideDisableClear);
+    component.ouiSort.sort(component.overrideDisableClear);
+
+    expect(component.latestSortEvent).toEqual({
+      active: 'overrideDisableClear',
+      direction: 'asc',
+    });
+  });
+
   it('should have the sort headers register and deregister themselves', () => {
     const sortables = component.ouiSort.sortables;
     expect(sortables.size).toBe(4);
