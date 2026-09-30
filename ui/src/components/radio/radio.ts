@@ -16,6 +16,7 @@ import {
   OnInit,
   Output,
   QueryList,
+  signal,
   ViewChild,
   ViewEncapsulation,
   inject,
@@ -98,8 +99,14 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
   private _labelPosition: 'before' | 'after' = 'after';
 
-  /** Whether the radio group is disabled. */
-  private _disabled = false;
+  /** Whether the group was disabled through its template input. */
+  private _inputDisabled = false;
+
+  /** Whether the group was disabled by its forms control. */
+  private _formDisabled = false;
+
+  /** The authoritative disabled state exposed to the group and its radio buttons. */
+  private readonly _disabled = signal(false);
 
   /** Whether the radio group is required. */
   private _required = false;
@@ -177,10 +184,19 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Whether the radio group is disabled */
   @Input()
   get disabled(): boolean {
-    return this._disabled;
+    return this._disabled();
   }
   set disabled(value) {
-    this._disabled = coerceBooleanProperty(value);
+    this._inputDisabled = coerceBooleanProperty(value);
+    this._updateDisabledState();
+  }
+
+  /** Merge template input and ControlValueAccessor state into one authoritative state. */
+  private _updateDisabledState(): void {
+    const disabled = this._inputDisabled || this._formDisabled;
+    if (this._disabled() !== disabled) {
+      this._disabled.set(disabled);
+    }
     this._markRadiosForCheck();
   }
 
@@ -291,7 +307,8 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
    * @param isDisabled Whether the control should be disabled.
    */
   setDisabledState(isDisabled: boolean) {
-    this.disabled = isDisabled;
+    this._formDisabled = coerceBooleanProperty(isDisabled);
+    this._updateDisabledState();
     this._changeDetector.markForCheck();
   }
 }

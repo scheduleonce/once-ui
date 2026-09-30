@@ -606,6 +606,31 @@ describe('OuiRadio', () => {
 
       expect(groupInstance.disabled).toBeFalsy();
     });
+
+    it('should preserve the form disabled state when the value is written or reset', () => {
+      testComponent.formControl.disable();
+      fixture.detectChanges();
+
+      groupInstance.writeValue('1');
+      testComponent.formControl.reset();
+      fixture.detectChanges();
+
+      expect(groupInstance.disabled).toBeTruthy();
+    });
+
+    it('should propagate the form disabled state to every radio button', () => {
+      testComponent.formControl.disable();
+      fixture.detectChanges();
+
+      const radios = fixture.debugElement
+        .query(By.directive(OuiRadioGroup))
+        .queryAll(By.directive(OuiRadioButton))
+        .map(
+          (debugElement) => debugElement.componentInstance as OuiRadioButton
+        );
+
+      expect(radios.every((radio) => radio.disabled)).toBe(true);
+    });
   });
 
   describe('disableable', () => {
