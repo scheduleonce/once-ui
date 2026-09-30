@@ -31,6 +31,12 @@ export class OuiTableDataSource<T> extends DataSource<T> {
   /** Stream that emits when a new data array is set on the data source. */
   private readonly _data: BehaviorSubject<T[]>;
 
+  /** Original data arrays mapped to the monitored arrays exposed by this data source. */
+  private readonly _monitoredData = new WeakMap<T[], T[]>();
+
+  /** Row objects mapped to their monitored counterparts. */
+  private readonly _monitoredRows = new WeakMap<object, T>();
+
   /** Stream emitting render data to the table (depends on ordered data changes). */
   private readonly _renderData = new BehaviorSubject<T[]>([]);
 
@@ -56,7 +62,21 @@ export class OuiTableDataSource<T> extends DataSource<T> {
     return this._data.value;
   }
   set data(data: T[]) {
-    this._data.next(data);
+    this._data.next(this._monitorData(data));
+  }
+
+  /**
+   * Notifies the table that its data has changed in place.
+   *
+   * The data array and its rows are monitored automatically when they are obtained through
+   * `dataSource.data`. This method is also available for consumers that retain and mutate the
+   * original array or row objects after assigning them to the data source.
+   */
+  refresh(): void {
+    // CdkTable tracks rows by object identity. Clear the rendered collection first so a
+    // mutation of an existing row is not treated as the same unchanged row by the differ.
+    this._renderData.next([]);
+    this._data.next(this._data.value);
   }
 
   /**
@@ -216,8 +236,84 @@ export class OuiTableDataSource<T> extends DataSource<T> {
 
   constructor(initialData: T[] = []) {
     super();
-    this._data = new BehaviorSubject<T[]>(initialData);
+    this._data = new BehaviorSubject<T[]>([]);
+    this._data.next(this._monitorData(initialData));
     this._updateChangeSubscription();
+  }
+
+  /**
+   * Monitors mutations that can otherwise bypass the data source's observable. Angular CDK tables
+   * only render when the data source emits, so an in-place `splice`, `push`, or row update must
+   * produce the same notification as assigning a new array.
+   */
+  private _monitorData(data: T[]): T[] {
+    const existingData = this._monitoredData.get(data);
+    if (existingData) {
+      return existingData;
+    }
+
+    const monitoredData = new Proxy(data, {
+      set: (target, property, value, receiver) => {
+        const result = Reflect.set(
+          target,
+          property,
+          this._monitorArrayValue(property, value),
+          receiver
+        );
+        this.refresh();
+        return result;
+      },
+      deleteProperty: (target, property) => {
+        const result = Reflect.deleteProperty(target, property);
+        this.refresh();
+        return result;
+      },
+    });
+
+    this._monitoredData.set(data, monitoredData);
+    for (let index = 0; index < monitoredData.length; index++) {
+      monitoredData[index] = this._monitorRow(monitoredData[index]);
+    }
+
+    return monitoredData;
+  }
+
+  private _monitorArrayValue(
+    property: string | symbol,
+    value: unknown
+  ): unknown {
+    if (typeof property !== 'string' || !/^(0|[1-9]\d*)$/.test(property)) {
+      return value;
+    }
+
+    return this._monitorRow(value as T);
+  }
+
+  private _monitorRow(row: T): T {
+    if (row === null || typeof row !== 'object') {
+      return row;
+    }
+
+    const existingRow = this._monitoredRows.get(row);
+    if (existingRow) {
+      return existingRow;
+    }
+
+    const monitoredRow = new Proxy(row, {
+      set: (target, property, value, receiver) => {
+        const result = Reflect.set(target, property, value, receiver);
+        this.refresh();
+        return result;
+      },
+      deleteProperty: (target, property) => {
+        const result = Reflect.deleteProperty(target, property);
+        this.refresh();
+        return result;
+      },
+    });
+
+    this._monitoredRows.set(row, monitoredRow);
+    return monitoredRow;
   }
 
   /**
