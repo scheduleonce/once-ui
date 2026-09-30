@@ -504,14 +504,14 @@ describe('OuiTable', () => {
         '.oui-table'
       )! as HTMLElement;
       const data = fixture.componentInstance.dataSource!.data;
-        expectTableToMatchContent(tableElement, [
-          ['Column A', 'Column B', 'Column C'],
-          [data[0].a, data[0].b, data[0].c],
-          [data[1].a, data[1].b, data[1].c],
-          [data[2].a, data[2].b, data[2].c],
-          ['fourth_row'],
-          ['Footer A', 'Footer B', 'Footer C'],
-        ]);
+      expectTableToMatchContent(tableElement, [
+        ['Column A', 'Column B', 'Column C'],
+        [data[0].a, data[0].b, data[0].c],
+        [data[1].a, data[1].b, data[1].c],
+        [data[2].a, data[2].b, data[2].c],
+        ['fourth_row'],
+        ['Footer A', 'Footer B', 'Footer C'],
+      ]);
     });
 
     it('should create a table with special when row', () => {
