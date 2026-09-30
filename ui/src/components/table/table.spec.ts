@@ -504,14 +504,14 @@ describe('OuiTable', () => {
         '.oui-table'
       )! as HTMLElement;
       const data = fixture.componentInstance.dataSource!.data;
-      expectTableToMatchContent(tableElement, [
-        ['Column A', 'Column B', 'Column C'],
-        [data[0].a, data[0].b, data[0].c],
-        [data[1].a, data[1].b, data[1].c],
-        [data[2].a, data[2].b, data[2].c],
-        ['fourth_row'],
-        ['Footer A', 'Footer B', 'Footer C'],
-      ]);
+        expectTableToMatchContent(tableElement, [
+          ['Column A', 'Column B', 'Column C'],
+          [data[0].a, data[0].b, data[0].c],
+          [data[1].a, data[1].b, data[1].c],
+          [data[2].a, data[2].b, data[2].c],
+          ['fourth_row'],
+          ['Footer A', 'Footer B', 'Footer C'],
+        ]);
     });
 
     it('should create a table with special when row', () => {
@@ -665,6 +665,31 @@ describe('OuiTable', () => {
         ['a_2', 'b_2', 'c_2'],
         ['a_3', 'b_3', 'c_3'],
         ['a_4', 'b_4', 'c_4'],
+        ['Footer A', 'Footer B', 'Footer C'],
+      ]);
+    });
+
+    it('should update when the data array is mutated in place', () => {
+      dataSource.data.splice(0, 1);
+      fixture.detectChanges();
+
+      expectTableToMatchContent(tableElement, [
+        ['Column A', 'Column B', 'Column C'],
+        ['a_2', 'b_2', 'c_2'],
+        ['a_3', 'b_3', 'c_3'],
+        ['Footer A', 'Footer B', 'Footer C'],
+      ]);
+    });
+
+    it('should update when a row is mutated in place', () => {
+      dataSource.data[0].a = 'updated';
+      fixture.detectChanges();
+
+      expectTableToMatchContent(tableElement, [
+        ['Column A', 'Column B', 'Column C'],
+        ['updated', 'b_1', 'c_1'],
+        ['a_2', 'b_2', 'c_2'],
+        ['a_3', 'b_3', 'c_3'],
         ['Footer A', 'Footer B', 'Footer C'],
       ]);
     });
