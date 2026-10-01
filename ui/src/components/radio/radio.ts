@@ -211,6 +211,11 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
     // possibly be set by NgModel on OuiRadioGroup, and it is possible that the OnInit of the
     // NgModel occurs *after* the OnInit of the OuiRadioGroup.
     this._isInitialized = true;
+
+    // The disabled state may be initialized before projected radio buttons are available.
+    // Reapply the merged state after ContentChildren has been populated.
+    this._syncDisabledState();
+    this._propagateGroupProperties();
   }
 
   /**
