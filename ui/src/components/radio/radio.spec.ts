@@ -639,6 +639,33 @@ describe('OuiRadio', () => {
       testComponent.formControl.disable();
       fixture.detectChanges();
 
+      const radioDebugElements = fixture.debugElement
+        .query(By.directive(OuiRadioGroup))
+        .queryAll(By.directive(OuiRadioButton));
+      const radios = radioDebugElements.map(
+        (debugElement) => debugElement.componentInstance as OuiRadioButton
+      );
+
+      expect(radios.every((radio) => radio.disabled())).toBe(true);
+      expect(
+        radioDebugElements.every(
+          (debugElement) =>
+            (
+              debugElement.nativeElement.querySelector(
+                'input'
+              ) as HTMLInputElement
+            ).disabled
+        )
+      ).toBe(true);
+    });
+
+    it('should keep all child radio buttons disabled after form value updates', () => {
+      testComponent.formControl.disable();
+      fixture.detectChanges();
+
+      testComponent.formControl.setValue('1');
+      fixture.detectChanges();
+
       const radios = fixture.debugElement
         .query(By.directive(OuiRadioGroup))
         .queryAll(By.directive(OuiRadioButton))
@@ -646,7 +673,21 @@ describe('OuiRadio', () => {
           (debugElement) => debugElement.componentInstance as OuiRadioButton
         );
 
+      expect(groupInstance.disabled()).toBe(true);
       expect(radios.every((radio) => radio.disabled())).toBe(true);
+      expect(
+        fixture.debugElement
+          .query(By.directive(OuiRadioGroup))
+          .queryAll(By.directive(OuiRadioButton))
+          .every(
+            (debugElement) =>
+              (
+                debugElement.nativeElement.querySelector(
+                  'input'
+                ) as HTMLInputElement
+              ).disabled
+          )
+      ).toBe(true);
     });
   });
 
