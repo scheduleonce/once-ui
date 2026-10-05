@@ -71,7 +71,9 @@ export class OuiRadioGroupBase {}
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
-export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
+export class OuiRadioGroup
+  implements AfterContentInit, OnDestroy, ControlValueAccessor
+{
   private _changeDetector = inject(ChangeDetectorRef);
 
   /**
@@ -99,11 +101,14 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Disabled state supplied through the component input. */
   private readonly _inputDisabled = signal(false);
 
+  /** Last disabled state written by the group itself. */
+  private _lastAppliedDisabled = false;
+
   /** Disabled state supplied by the forms API. */
   private readonly _formDisabled = signal(false);
 
-  /** Last disabled state applied by the group while merging both sources. */
-  private _lastAppliedDisabled = false;
+  /** Subscription used to synchronize radio buttons added after initialization. */
+  private _radiosChangesSubscription = Subscription.EMPTY;
 
   /** Whether the radio group is required. */
 
@@ -154,23 +159,16 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Whether the radio group is disabled */
   readonly disabled = model(false);
 
-  /** Merge template and Reactive Forms disabled state without losing either source. */
-  private _syncDisabledState(): void {
-    const currentDisabled = this.disabled();
+  /** Apply the merged template and Reactive Forms disabled state to child radios. */
+  private _applyDisabledState(): void {
+    const disabled = this._inputDisabled() || this._formDisabled();
 
-    // A change not made by this component came from the template input. Preserve it as a
-    // separate source so a later forms callback cannot overwrite it.
-    if (currentDisabled !== this._lastAppliedDisabled) {
-      this._inputDisabled.set(currentDisabled);
+    if (this.disabled() !== disabled) {
+      this._lastAppliedDisabled = disabled;
+      this.disabled.set(disabled);
     }
 
-    const mergedDisabled = this._inputDisabled() || this._formDisabled();
-    if (currentDisabled !== mergedDisabled) {
-      this._lastAppliedDisabled = mergedDisabled;
-      this.disabled.set(mergedDisabled);
-    } else {
-      this._lastAppliedDisabled = currentDisabled;
-    }
+    this._radios?.forEach((radio) => radio._setDisabled(disabled));
   }
 
   /** Whether the radio group is required */
@@ -181,11 +179,13 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
       this.name();
       this._updateRadioButtonNames();
       this.labelPosition();
-      this._propagateGroupProperties();
       this.value();
       this._updateSelectedRadioFromValue();
-      this.disabled();
-      this._syncDisabledState();
+      const disabled = this.disabled();
+      if (disabled !== this._lastAppliedDisabled) {
+        this._inputDisabled.set(disabled);
+      }
+      this._applyDisabledState();
       this.required();
       this._propagateGroupProperties();
     });
@@ -194,8 +194,9 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Propagates the group's `disabled`, `required` and `labelPosition` to its radios. */
   private _propagateGroupProperties(): void {
     if (this._radios) {
+      const disabled = this._inputDisabled() || this._formDisabled();
       this._radios.forEach((radio) => {
-        radio.disabled.set(this.disabled());
+        radio._setDisabled(disabled);
         radio.required.set(this.required());
         radio.labelPosition.set(this.labelPosition());
       });
@@ -214,8 +215,19 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
     // The disabled state may be initialized before projected radio buttons are available.
     // Reapply the merged state after ContentChildren has been populated.
-    this._syncDisabledState();
+    this._applyDisabledState();
     this._propagateGroupProperties();
+
+    // ContentChildren can change after initialization (for example when an @for block changes).
+    // Reapply the effective state without allowing the child list update to affect the form state.
+    this._radiosChangesSubscription = this._radios.changes.subscribe(() => {
+      this._applyDisabledState();
+      this._propagateGroupProperties();
+    });
+  }
+
+  ngOnDestroy() {
+    this._radiosChangesSubscription.unsubscribe();
   }
 
   /**
@@ -303,7 +315,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
    */
   setDisabledState(isDisabled: boolean) {
     this._formDisabled.set(coerceBooleanProperty(isDisabled));
-    this._syncDisabledState();
+    this._applyDisabledState();
     this._changeDetector.markForCheck();
   }
 }
@@ -439,6 +451,16 @@ export class OuiRadioButton
 
   /** Whether the radio button is disabled. */
   readonly disabled = model(false);
+
+  /** Updates the disabled state and schedules the native input for refresh. */
+  _setDisabled(value: boolean): void {
+    const disabled = coerceBooleanProperty(value);
+
+    if (this.disabled() !== disabled) {
+      this.disabled.set(disabled);
+      this._changeDetector.markForCheck();
+    }
+  }
 
   /** Whether the radio button is required. */
   readonly required = model(false);
