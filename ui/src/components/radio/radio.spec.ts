@@ -642,9 +642,7 @@ describe('OuiRadio', () => {
       const radios = fixture.debugElement
         .query(By.directive(OuiRadioGroup))
         .queryAll(By.directive(OuiRadioButton))
-        .map(
-          (debugElement) => debugElement.componentInstance as OuiRadioButton
-        );
+        .map((debugElement) => debugElement.componentInstance as OuiRadioButton);
 
       expect(radios.every((radio) => radio.disabled())).toBe(true);
     });
