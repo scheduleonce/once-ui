@@ -17,7 +17,6 @@ import {
   model,
   output,
   QueryList,
-  signal,
   ViewChild,
   ViewEncapsulation,
   inject,
@@ -96,14 +95,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
 
   /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
 
-  /** Disabled state supplied through the component input. */
-  private readonly _inputDisabled = signal(false);
-
-  /** Disabled state supplied by the forms API. */
-  private readonly _formDisabled = signal(false);
-
-  /** Last disabled state applied by the group while merging both sources. */
-  private _lastAppliedDisabled = false;
+  /** Whether the radio group is disabled. */
 
   /** Whether the radio group is required. */
 
@@ -154,25 +146,6 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
   /** Whether the radio group is disabled */
   readonly disabled = model(false);
 
-  /** Merge template and Reactive Forms disabled state without losing either source. */
-  private _syncDisabledState(): void {
-    const currentDisabled = this.disabled();
-
-    // A change not made by this component came from the template input. Preserve it as a
-    // separate source so a later forms callback cannot overwrite it.
-    if (currentDisabled !== this._lastAppliedDisabled) {
-      this._inputDisabled.set(currentDisabled);
-    }
-
-    const mergedDisabled = this._inputDisabled() || this._formDisabled();
-    if (currentDisabled !== mergedDisabled) {
-      this._lastAppliedDisabled = mergedDisabled;
-      this.disabled.set(mergedDisabled);
-    } else {
-      this._lastAppliedDisabled = currentDisabled;
-    }
-  }
-
   /** Whether the radio group is required */
   readonly required = model(false);
 
@@ -185,7 +158,6 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
       this.value();
       this._updateSelectedRadioFromValue();
       this.disabled();
-      this._syncDisabledState();
       this.required();
       this._propagateGroupProperties();
     });
@@ -297,8 +269,7 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
    * @param isDisabled Whether the control should be disabled.
    */
   setDisabledState(isDisabled: boolean) {
-    this._formDisabled.set(coerceBooleanProperty(isDisabled));
-    this._syncDisabledState();
+    this.disabled.set(coerceBooleanProperty(isDisabled));
     this._changeDetector.markForCheck();
   }
 }
