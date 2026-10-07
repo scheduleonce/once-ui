@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
+  ErrorHandler,
   ViewEncapsulation,
   NgZone,
   computed,
@@ -54,6 +55,7 @@ export class OuiCalendarCell {
 export class OuiCalendarBody {
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   /** The label for the table. (e.g. "Jan 2017"). */
   readonly label = input<string>();
@@ -125,15 +127,18 @@ export class OuiCalendarBody {
       this._ngZone.onStable
         .asObservable()
         .pipe(take(1))
-        .subscribe(() => {
-          const activeCell: HTMLElement | null =
-            this._elementRef.nativeElement.querySelector(
-              '.oui-calendar-body-active'
-            );
+        .subscribe({
+          next: () => {
+            const activeCell: HTMLElement | null =
+              this._elementRef.nativeElement.querySelector(
+                '.oui-calendar-body-active'
+              );
 
-          if (activeCell) {
-            activeCell.focus();
-          }
+            if (activeCell) {
+              activeCell.focus();
+            }
+          },
+          error: (err: Error) => this._errorHandler.handleError(err),
         });
     });
   }
