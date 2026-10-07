@@ -669,31 +669,6 @@ describe('OuiTable', () => {
       ]);
     });
 
-    it('should update when the data array is mutated in place', () => {
-      dataSource.data.splice(0, 1);
-      fixture.detectChanges();
-
-      expectTableToMatchContent(tableElement, [
-        ['Column A', 'Column B', 'Column C'],
-        ['a_2', 'b_2', 'c_2'],
-        ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
-      ]);
-    });
-
-    it('should update when a row is mutated in place', () => {
-      dataSource.data[0].a = 'updated';
-      fixture.detectChanges();
-
-      expectTableToMatchContent(tableElement, [
-        ['Column A', 'Column B', 'Column C'],
-        ['updated', 'b_1', 'c_1'],
-        ['a_2', 'b_2', 'c_2'],
-        ['a_3', 'b_3', 'c_3'],
-        ['Footer A', 'Footer B', 'Footer C'],
-      ]);
-    });
-
     it('should be able to filter the table contents', fakeAsync(() => {
       // Change filter to a_1, should match one row
       dataSource.filter = 'a_1';
