@@ -1,13 +1,17 @@
-<label #wrapper [class.oui-checked]="checked" class="oui-slide-toogle-wrapper">
+<label
+  #wrapper
+  [class.oui-checked]="checked()"
+  class="oui-slide-toogle-wrapper"
+>
   <input
     [id]="id()"
     (click)="emitChange()"
     type="checkbox"
     [attr.aria-label]="ariaLabel()"
     [attr.aria-labelledby]="ariaLabelledby()"
-    [attr.aria-checked]="checked.toString()"
-    [disabled]="disabled"
-    [checked]="checked"
+    [attr.aria-checked]="checked().toString()"
+    [disabled]="disabled()"
+    [checked]="checked()"
     [tabIndex]="tabIndex"
   />
   <span class="oui-slider round"></span>

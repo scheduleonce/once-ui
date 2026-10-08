@@ -9,6 +9,7 @@ import {
   Subscription,
 } from 'rxjs';
 import { OuiPaginator, PageEvent } from '../paginator/public-api';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { OuiSort, Sort } from '../sort/public-api';
 import { map } from 'rxjs/operators';
 
@@ -142,8 +143,8 @@ export class OuiTableDataSource<T> extends DataSource<T> {
     data: T[],
     sort: OuiSort
   ): T[] => {
-    const active = sort.active;
-    const direction = sort.direction;
+    const active = sort.active();
+    const direction = sort.direction();
     if (!active || direction === '') {
       return data;
     }
@@ -233,13 +234,13 @@ export class OuiTableDataSource<T> extends DataSource<T> {
     // they purely act as a signal to progress in the pipeline.
     const sortChange: Observable<Sort | null | void> = this._sort
       ? (merge(
-          this._sort.sortChange,
+          outputToObservable(this._sort.sortChange),
           this._sort.initialized
         ) as Observable<Sort | void>)
       : observableOf(null);
     const pageChange: Observable<PageEvent | null | void> = this._paginator
       ? (merge(
-          this._paginator.page,
+          outputToObservable(this._paginator.page),
           this._paginator.initialized
         ) as Observable<PageEvent | void>)
       : observableOf(null);
@@ -259,9 +260,11 @@ export class OuiTableDataSource<T> extends DataSource<T> {
     );
     // Watched for paged data changes and send the result to the table to render.
     this._renderChangesSubscription.unsubscribe();
-    this._renderChangesSubscription = paginatedData.subscribe((data) =>
-      this._renderData.next(data)
-    );
+    this._renderChangesSubscription = paginatedData.subscribe({
+      next: (data) => this._renderData.next(data),
+      error: (err: Error) =>
+        console.error('Table render data update failed', err),
+    });
   }
 
   /**

@@ -1,15 +1,17 @@
 import {
   Directive,
-  Input,
   input,
   OnChanges,
   OnInit,
   SimpleChanges,
   ElementRef,
+  ErrorHandler,
   Component,
   NgZone,
   OnDestroy,
+  effect,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { OuiDialog } from './dialog';
 import { OuiDialogRef } from './dialog-ref';
@@ -93,6 +95,7 @@ export class OuiDialogHeaderAction {
   host: {
     class: 'oui-dialog-header-article',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogHeaderArticle implements OnDestroy {
@@ -101,6 +104,7 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
@@ -112,7 +116,10 @@ export class OuiDialogHeaderArticle implements OnDestroy {
     );
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
   ngOnDestroy() {
     this._monitorSubscription.unsubscribe();
@@ -130,6 +137,7 @@ export class OuiDialogHeaderArticle implements OnDestroy {
   host: {
     class: 'oui-dialog-header-video',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogHeaderVideo implements OnDestroy {
@@ -138,6 +146,7 @@ export class OuiDialogHeaderVideo implements OnDestroy {
   protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
@@ -148,7 +157,10 @@ export class OuiDialogHeaderVideo implements OnDestroy {
     );
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
   ngOnDestroy() {
     this._monitorSubscription.unsubscribe();
@@ -167,6 +179,7 @@ export class OuiDialogHeaderVideo implements OnDestroy {
     class: 'oui-dialog-header-close',
     '[attr.tabindex]': '0',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogHeaderClose implements OnDestroy {
@@ -175,6 +188,7 @@ export class OuiDialogHeaderClose implements OnDestroy {
   protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
 
@@ -185,7 +199,10 @@ export class OuiDialogHeaderClose implements OnDestroy {
     );
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
   ngOnDestroy() {
     this._monitorSubscription.unsubscribe();
@@ -226,19 +243,29 @@ export class OuiDialogClose implements OnInit, OnChanges {
   dialogRef = inject<OuiDialogRef<any>>(OuiDialogRef, { optional: true })!;
   private _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _dialog = inject(OuiDialog);
+  readonly ariaLabelInput = input('Close dialog', { alias: 'aria-label' });
 
   /** Screenreader label for the button. */
-  @Input('aria-label')
   ariaLabel = 'Close dialog';
 
   /** Dialog close input. */
-  @Input('oui-dialog-close')
+  readonly dialogResultInput = input<any>(undefined, {
+    alias: 'oui-dialog-close',
+  });
   dialogResult: any;
 
-  @Input('ouiDialogClose')
+  readonly ouiDialogCloseInput = input<any>(undefined, {
+    alias: 'ouiDialogClose',
+  });
   _ouiDialogClose: any;
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      this.ariaLabel = this.ariaLabelInput();
+      this.dialogResult = this.dialogResultInput();
+      this._ouiDialogClose = this.ouiDialogCloseInput();
+    });
+  }
 
   /** Ensures the option is selected when activated from the keyboard. */
   handleKeydown(event: KeyboardEvent): void {
