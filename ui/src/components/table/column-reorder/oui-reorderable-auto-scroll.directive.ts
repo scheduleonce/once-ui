@@ -138,7 +138,9 @@ export class OuiReorderableAutoScrollDirective
       );
       directive._positionDropIndicator(directive._insertionSlot, isOverTable);
 
-      directive._scrollRafId = requestAnimationFrame(directive._scrollLoop);
+      directive._scrollRafId = globalThis.requestAnimationFrame(
+        directive._scrollLoop
+      );
     };
   }
 
