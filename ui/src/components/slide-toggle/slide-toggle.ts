@@ -2,10 +2,12 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  Input,
+  ErrorHandler,
+  effect,
   output,
   input,
   ChangeDetectorRef,
+  model,
   ViewEncapsulation,
   AfterContentInit,
   OnDestroy,
@@ -15,8 +17,7 @@ import {
   HostAttributeToken,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { mixinColor } from '../core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { CanColorCtor, mixinColor, ThemePalette } from '../core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 let nextUniqueId = 0;
@@ -35,8 +36,8 @@ export const OUI_SLIDE_TOGGLE_VALUE_ACCESSOR: any = {
 export class OuiSlideToggleBase {
   constructor(public _elementRef: ElementRef<HTMLElement>) {}
 }
-export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
-  mixinColor(OuiSlideToggleBase);
+export const _OuiSlideToggleMixinBase: CanColorCtor &
+  typeof OuiSlideToggleBase = mixinColor(OuiSlideToggleBase);
 
 /** Container for form controls that applies Oncehub Design styling and behavior. */
 @Component({
@@ -45,11 +46,11 @@ export const _OuiSlideToggleMixinBase: typeof OuiSlideToggleBase =
   templateUrl: 'slide-toggle.html',
   host: {
     class: 'oui-slide-toggle',
-    '[class.oui-disabled]': 'disabled',
-    '[attr.tabindex]': 'disabled ? null : -1',
+    '[class.oui-disabled]': 'disabled()',
+    '[attr.tabindex]': 'disabled() ? null : -1',
   },
   // eslint-disable-next-line @angular-eslint/no-inputs-metadata-property
-  inputs: ['disabled', 'tabIndex'],
+  inputs: ['tabIndex'],
   styleUrls: ['./slide-toggle.scss'],
   providers: [OUI_SLIDE_TOGGLE_VALUE_ACCESSOR],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -65,23 +66,21 @@ export class OuiSlideToggle
   private _focusMonitor = inject(FocusMonitor);
   private _changeDetectorRef = inject(ChangeDetectorRef);
 
-  private _checked = false;
   tabIndex: any;
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   private _focusMonitorSubscription: Subscription = Subscription.EMPTY;
   /** Whether the slide-toggle element is checked or not. */
-  @Input()
-  get checked(): boolean {
-    return this._checked;
+  readonly checked = model(false);
+  readonly disabled = model(false);
+  readonly colorInput = input<ThemePalette>('primary', { alias: 'color' });
+  get color(): ThemePalette {
+    return super.color;
   }
-  set checked(value) {
-    this._checked = coerceBooleanProperty(value);
-    this._changeDetectorRef.markForCheck();
+  set color(value: ThemePalette) {
+    super.color = value;
+    this._changeDetectorRef?.markForCheck();
   }
-  @Input()
-  disabled = false;
-  @Input()
-  color = 'primary';
+  private _errorHandler = inject(ErrorHandler);
   readonly id = input(`oui-slide-toggletoggle-${++nextUniqueId}`);
 
   /** Used to set the aria-label attribute on the underlying input element. */
@@ -110,40 +109,49 @@ export class OuiSlideToggle
     this.elementRef = elementRef;
 
     this.tabIndex = parseInt(tabIndex, 10) || 0;
+    effect(() => {
+      super.color = this.colorInput();
+      this._changeDetectorRef.markForCheck();
+    });
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe(() =>
-        this._ngZone.run(() => {
-          this._changeDetectorRef.markForCheck();
-        })
-      );
+      .subscribe({
+        next: () =>
+          this._ngZone.run(() => {
+            this._changeDetectorRef.markForCheck();
+          }),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
   ngAfterContentInit() {
     this._focusMonitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe((focusOrigin) => {
-        if (!focusOrigin) {
-          Promise.resolve().then(() => this.onTouched());
-        }
+      .subscribe({
+        next: (focusOrigin) => {
+          if (!focusOrigin) {
+            Promise.resolve().then(() => this.onTouched());
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
   emitChange() {
-    if (!this.disabled) {
+    if (!this.disabled()) {
       this.toggle();
-      this.onChange(this.checked);
-      this.change.emit(this.checked);
+      this.onChange(this.checked());
+      this.change.emit(this.checked());
     }
   }
 
   /** Toggles the checked state of the slide-toggle. */
   toggle() {
-    this.checked = !this.checked;
+    this.checked.set(!this.checked());
   }
 
   /** Implemented as part of ControlValueAccessor. */
   writeValue(value: any): void {
-    this.checked = !!value;
+    this.checked.set(!!value);
   }
 
   /** Implemented as part of ControlValueAccessor. */
@@ -158,7 +166,7 @@ export class OuiSlideToggle
 
   /** Implemented as a part of ControlValueAccessor. */
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
     this._changeDetectorRef.markForCheck();
   }
   /** Focuses the slide-toggle. */

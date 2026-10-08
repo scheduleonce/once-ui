@@ -6,7 +6,9 @@ import {
   Component,
   ContentChild,
   Directive,
-  Input,
+  ErrorHandler,
+  effect,
+  input,
   OnChanges,
   OnDestroy,
   SimpleChanges,
@@ -15,6 +17,7 @@ import {
   inject,
   HostAttributeToken,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { OuiButton } from '../button/button';
 import { merge, Observable, of as observableOf, Subscription } from 'rxjs';
 import { OuiDatepicker } from './datepicker';
@@ -52,18 +55,30 @@ export class OuiDatepickerToggle<D>
 {
   _intl = inject(OuiDatepickerIntl);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _errorHandler = inject(ErrorHandler);
 
   private _stateChanges = Subscription.EMPTY;
 
   /** Datepicker instance that the button will toggle. */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('for') datepicker: OuiDatepicker<D>;
+  readonly datepickerInput = input<OuiDatepicker<D> | undefined>(undefined, {
+    alias: 'for',
+  });
+  datepicker: OuiDatepicker<D>;
 
   /** Tabindex for the toggle. */
-  @Input() tabIndex: number | null;
+  readonly tabIndexInput = input<number | null>(null, { alias: 'tabIndex' });
+  get tabIndex(): number | null {
+    return this._tabIndex;
+  }
+  private _tabIndex: number | null;
 
   /** Whether the toggle button is disabled. */
-  @Input()
+  // eslint-disable-next-line @angular-eslint/no-input-rename
+  readonly disabledInput = input(false, {
+    transform: coerceBooleanProperty,
+    alias: 'disabled',
+  });
   get disabled(): boolean {
     return this._disabled === undefined
       ? this.datepicker.disabled
@@ -87,8 +102,17 @@ export class OuiDatepickerToggle<D>
     })!;
 
     const parsedTabIndex = Number(defaultTabIndex);
-    this.tabIndex =
+    this._tabIndex =
       parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
+
+    effect(() => {
+      const datepicker = this.datepickerInput();
+      if (datepicker) {
+        this.datepicker = datepicker;
+      }
+      this._tabIndex = this.tabIndexInput();
+      this.disabled = this.disabledInput();
+    });
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -118,18 +142,24 @@ export class OuiDatepickerToggle<D>
       : observableOf();
     const inputDisabled =
       this.datepicker && this.datepicker._datepickerInput
-        ? this.datepicker._datepickerInput._disabledChange
+        ? outputToObservable(this.datepicker._datepickerInput._disabledChange)
         : observableOf();
     const datepickerToggled = this.datepicker
-      ? merge(this.datepicker.openedStream, this.datepicker.closedStream)
+      ? merge(
+          outputToObservable(this.datepicker.openedStream),
+          outputToObservable(this.datepicker.closedStream)
+        )
       : observableOf();
 
     this._stateChanges.unsubscribe();
     this._stateChanges = merge(
       this._intl.changes,
       datepickerDisabled as Observable<void>,
-      inputDisabled as Observable<void>,
+      inputDisabled,
       datepickerToggled
-    ).subscribe(() => this._changeDetectorRef.markForCheck());
+    ).subscribe({
+      next: () => this._changeDetectorRef.markForCheck(),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 }
