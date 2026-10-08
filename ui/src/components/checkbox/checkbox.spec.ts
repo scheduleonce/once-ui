@@ -11,7 +11,13 @@ import {
   NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Component, DebugElement, ViewChild, Type } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ViewChild,
+  Type,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { Checkbox, OuiCheckboxModule } from './public-api';
 
@@ -36,6 +42,7 @@ import { Checkbox, OuiCheckboxModule } from './public-api';
       </oui-checkbox>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SingleCheckbox {
@@ -57,6 +64,7 @@ class SingleCheckbox {
       >Be good</oui-checkbox
     >
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithNgModel {
@@ -70,6 +78,7 @@ class CheckboxWithNgModel {
     <oui-checkbox>Option 1</oui-checkbox>
     <oui-checkbox>Option 2</oui-checkbox>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultipleCheckboxes {}
@@ -80,6 +89,7 @@ class MultipleCheckboxes {}
     <oui-checkbox [tabIndex]="customTabIndex" [disabled]="isDisabled">
     </oui-checkbox>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithTabIndex {
@@ -90,6 +100,7 @@ class CheckboxWithTabIndex {
 /** Simple test component that accesses Checkbox using ViewChild. */
 @Component({
   template: ` <oui-checkbox></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxUsingViewChild {
@@ -97,13 +108,14 @@ class CheckboxUsingViewChild {
   checkbox: Checkbox;
 
   set isDisabled(value: boolean) {
-    this.checkbox.disabled = value;
+    this.checkbox.disabled.set(value);
   }
 }
 
 /** Simple test component with an aria-label set. */
 @Component({
   template: ` <oui-checkbox aria-label="Super effective"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithAriaLabel {}
@@ -111,6 +123,7 @@ class CheckboxWithAriaLabel {}
 /** Simple test component with an aria-label set. */
 @Component({
   template: ` <oui-checkbox aria-labelledby="some-id"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithAriaLabelledby {}
@@ -118,6 +131,7 @@ class CheckboxWithAriaLabelledby {}
 /** Simple test component with name attribute */
 @Component({
   template: ` <oui-checkbox name="test-name"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithNameAttribute {}
@@ -125,6 +139,7 @@ class CheckboxWithNameAttribute {}
 /** Test component with reactive forms */
 @Component({
   template: ` <oui-checkbox [formControl]="formControl"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithFormControl {
@@ -134,6 +149,7 @@ class CheckboxWithFormControl {
 /** Test component without label */
 @Component({
   template: ` <oui-checkbox>{{ label }}</oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithoutLabel {
@@ -143,6 +159,7 @@ class CheckboxWithoutLabel {
 /** Test component with the native tabindex attribute. */
 @Component({
   template: ` <oui-checkbox tabindex="5"></oui-checkbox> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CheckboxWithTabindexAttr {}
@@ -187,23 +204,23 @@ describe('Checkbox', () => {
     });
 
     it('should add and remove the checked state', () => {
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
         'oui-checkbox-checked'
       );
       expect(inputElement.checked).toBe(false);
 
-      checkboxInstance.checked = true;
+      checkboxInstance.checked.set(true);
       fixture.detectChanges();
 
-      expect(checkboxInstance.checked).toBe(true);
+      expect(checkboxInstance.checked()).toBe(true);
       expect(checkboxNativeElement.classList).toContain('oui-checkbox-checked');
       expect(inputElement.checked).toBe(true);
 
-      checkboxInstance.checked = false;
+      checkboxInstance.checked.set(false);
       fixture.detectChanges();
 
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
         'oui-checkbox-checked'
       );
@@ -213,47 +230,47 @@ describe('Checkbox', () => {
     it('should change native element checked when check programmatically', () => {
       expect(inputElement.checked).toBe(false);
 
-      checkboxInstance.checked = true;
+      checkboxInstance.checked.set(true);
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(true);
     });
 
     it('should toggle checked state on click', () => {
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
 
       labelElement.click();
       fixture.detectChanges();
 
-      expect(checkboxInstance.checked).toBe(true);
+      expect(checkboxInstance.checked()).toBe(true);
 
       labelElement.click();
       fixture.detectChanges();
 
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
     });
 
     it('should add and remove disabled state', () => {
-      expect(checkboxInstance.disabled).toBe(false);
+      expect(checkboxInstance.disabled()).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
         'oui-checkbox-disabled'
       );
       expect(inputElement.tabIndex).toBe(0);
       expect(inputElement.disabled).toBe(false);
 
-      checkboxInstance.disabled = true;
+      checkboxInstance.disabled.set(true);
       fixture.detectChanges();
 
-      expect(checkboxInstance.disabled).toBe(true);
+      expect(checkboxInstance.disabled()).toBe(true);
       expect(checkboxNativeElement.classList).toContain(
         'oui-checkbox-disabled'
       );
       expect(inputElement.disabled).toBe(true);
 
-      checkboxInstance.disabled = false;
+      checkboxInstance.disabled.set(false);
       fixture.detectChanges();
 
-      expect(checkboxInstance.disabled).toBe(false);
+      expect(checkboxInstance.disabled()).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
         'oui-checkbox-disabled'
       );
@@ -266,7 +283,7 @@ describe('Checkbox', () => {
       fixture.detectChanges();
 
       checkboxNativeElement.click();
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
     });
 
     it('should preserve the user-provided id', () => {
@@ -275,7 +292,7 @@ describe('Checkbox', () => {
     });
 
     it('should generate a unique id for the checkbox input if no id is set', () => {
-      checkboxInstance.id = null as any;
+      testComponent.checkboxId = null as any;
       (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
@@ -295,7 +312,7 @@ describe('Checkbox', () => {
     });
 
     it('should add a css class to position the label before the checkbox', () => {
-      checkboxInstance.labelPosition = 'before';
+      testComponent.labelPos = 'before';
       (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
@@ -356,7 +373,7 @@ describe('Checkbox', () => {
         'oui-checkbox-checked'
       );
 
-      checkboxInstance.checked = true;
+      checkboxInstance.checked.set(true);
       fixture.detectChanges();
 
       expect(inputElement.checked).toBe(true);
@@ -371,13 +388,13 @@ describe('Checkbox', () => {
     }));
 
     it('should forward the required attribute', () => {
-      checkboxInstance.required = true;
+      testComponent.isRequired = true;
       (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
       expect(inputElement.required).toBe(true);
 
-      checkboxInstance.required = false;
+      testComponent.isRequired = false;
       (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
@@ -385,7 +402,7 @@ describe('Checkbox', () => {
     });
 
     it('should forward the value to input element', () => {
-      checkboxInstance.value = 'basic_checkbox';
+      testComponent.checkboxValue = 'basic_checkbox';
       (checkboxInstance as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
 
@@ -559,7 +576,7 @@ describe('Checkbox', () => {
       const inputElement = <HTMLInputElement>(
         checkboxNativeElement.querySelector('input')
       );
-      expect(checkboxInstance.disabled).toBe(false);
+      expect(checkboxInstance.disabled()).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
         'oui-checkbox-disabled'
       );
@@ -569,7 +586,7 @@ describe('Checkbox', () => {
       testComponent.isDisabled = true;
       fixture.detectChanges();
 
-      expect(checkboxInstance.disabled).toBe(true);
+      expect(checkboxInstance.disabled()).toBe(true);
       expect(checkboxNativeElement.classList).toContain(
         'oui-checkbox-disabled'
       );
@@ -578,7 +595,7 @@ describe('Checkbox', () => {
       testComponent.isDisabled = false;
       fixture.detectChanges();
 
-      expect(checkboxInstance.disabled).toBe(false);
+      expect(checkboxInstance.disabled()).toBe(false);
       expect(checkboxNativeElement.classList).not.toContain(
         'oui-checkbox-disabled'
       );
@@ -643,24 +660,24 @@ describe('Checkbox', () => {
         // Flush the two nested timeouts from the FocusMonitor that are being created on `focus`.
         flush();
 
-        checkboxInstance.disabled = true;
+        checkboxInstance.disabled.set(true);
         fixture.detectChanges();
         flushMicrotasks();
       }).not.toThrow();
     }));
 
     it('should toggle checked state on click', () => {
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
 
       inputElement.click();
       fixture.detectChanges();
 
-      expect(checkboxInstance.checked).toBe(true);
+      expect(checkboxInstance.checked()).toBe(true);
 
       inputElement.click();
       fixture.detectChanges();
 
-      expect(checkboxInstance.checked).toBe(false);
+      expect(checkboxInstance.checked()).toBe(false);
     });
   });
 
@@ -701,18 +718,18 @@ describe('Checkbox', () => {
     });
 
     it('should toggle the disabled state', () => {
-      expect(checkboxInstance.disabled).toBe(false);
+      expect(checkboxInstance.disabled()).toBe(false);
 
       testComponent.formControl.disable();
       fixture.detectChanges();
 
-      expect(checkboxInstance.disabled).toBe(true);
+      expect(checkboxInstance.disabled()).toBe(true);
       expect(inputElement.disabled).toBe(true);
 
       testComponent.formControl.enable();
       fixture.detectChanges();
 
-      expect(checkboxInstance.disabled).toBe(false);
+      expect(checkboxInstance.disabled()).toBe(false);
       expect(inputElement.disabled).toBe(false);
     });
   });

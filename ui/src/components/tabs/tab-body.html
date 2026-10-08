@@ -3,7 +3,7 @@
   #content
   [@translateTab]="{
        value: _position,
-       params: {animationDuration: animationDuration}
+      params: {animationDuration: animationDuration()}
      }"
   (@translateTab.done)="_onTranslateTabStarted($event)"
   [innerHTML]="_innerContent"
