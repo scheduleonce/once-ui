@@ -1,4 +1,11 @@
-import { Component, OnInit, inject, input, effect } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  inject,
+  input,
+  effect,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   UntypedFormControl,
@@ -40,6 +47,7 @@ export const _filter = (opt: string[], value: string): string[] => {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiAutocompleteStorybook implements OnInit {
@@ -111,6 +119,7 @@ export class OuiAutocompleteStorybook implements OnInit {
       </oui-autocomplete>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiAutocompleteGroupStorybook implements OnInit {

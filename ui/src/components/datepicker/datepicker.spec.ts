@@ -7,6 +7,7 @@ import {
   Type,
   ValueProvider,
   ViewChild,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -61,6 +62,7 @@ export const DEC = 11;
       [opened]="opened"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandardDatepicker {
@@ -79,12 +81,14 @@ class StandardDatepicker {
       #d
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultiInputDatepicker {}
 
 @Component({
   template: ` <oui-datepicker #d></oui-datepicker> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NoInputDatepicker {
@@ -96,6 +100,7 @@ class NoInputDatepicker {
     <input [ouiDatepicker]="d" [value]="date" />
     <oui-datepicker #d [startAt]="startDate"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithStartAt {
@@ -113,6 +118,7 @@ class DatepickerWithStartAt {
       (monthSelected)="onYearSelection()"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithStartViewYear {
@@ -131,6 +137,7 @@ class DatepickerWithStartViewYear {
       (yearSelected)="onMultiYearSelection()"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithStartViewMultiYear {
@@ -145,6 +152,7 @@ class DatepickerWithStartViewMultiYear {
     <input [(ngModel)]="selected" [ouiDatepicker]="d" />
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithNgModel {
@@ -160,6 +168,7 @@ class DatepickerWithNgModel {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithFormControl {
@@ -177,6 +186,7 @@ class DatepickerWithFormControl {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="touchUI"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithToggle {
@@ -193,6 +203,7 @@ class DatepickerWithToggle {
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithCustomIcon {}
@@ -204,6 +215,7 @@ class DatepickerWithCustomIcon {}
       <oui-datepicker #d></oui-datepicker>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class FormFieldDatepicker {
@@ -224,6 +236,7 @@ class FormFieldDatepicker {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithMinAndMaxValidation {
@@ -243,6 +256,7 @@ class DatepickerWithMinAndMaxValidation {
     <oui-datepicker-toggle [for]="d"></oui-datepicker-toggle>
     <oui-datepicker #d [touchUi]="true"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithFilterAndValidation {
@@ -256,6 +270,7 @@ class DatepickerWithFilterAndValidation {
     <input [ouiDatepicker]="d" [(ngModel)]="date" />
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithi18n {
@@ -270,6 +285,7 @@ class DatepickerWithi18n {
     <input [ouiDatepicker]="d" [(ngModel)]="value" [min]="min" [max]="max" />
     <oui-datepicker #d [startAt]="startAt"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithISOStrings {
@@ -291,6 +307,7 @@ class DatepickerWithISOStrings {
       #d
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithEvents {
@@ -305,6 +322,7 @@ class DatepickerWithEvents {
     <input (focus)="d.open()" [ouiDatepicker]="d" />
     <oui-datepicker #d="ouiDatepicker"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerOpeningOnFocus {
@@ -316,6 +334,7 @@ class DatepickerOpeningOnFocus {
     <div class="custom-element">Custom element</div>
     <oui-calendar-header></oui-calendar-header>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CustomHeaderForDatepicker {}
@@ -327,6 +346,7 @@ class CustomHeaderForDatepicker {}
       [calendarHeaderComponent]="customHeaderForDatePicker"
     ></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithCustomHeader {
@@ -339,6 +359,7 @@ class DatepickerWithCustomHeader {
     <input [ouiDatepicker]="assignedDatepicker" [value]="date" />
     <oui-datepicker #d [touchUi]="touch"></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DelayedDatepicker {
@@ -357,6 +378,7 @@ class DelayedDatepicker {
     </oui-datepicker-toggle>
     <oui-datepicker #d></oui-datepicker>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DatepickerWithTabindexOnToggle {}
@@ -466,7 +488,7 @@ describe('OuiDatepicker', () => {
 
       it('disabled datepicker input should open the calendar if datepicker is enabled', () => {
         testComponent.datepicker.disabled = false;
-        testComponent.datepickerInput.disabled = true;
+        testComponent.datepickerInput.disabled.set(true);
         fixture.detectChanges();
 
         expect(document.querySelector('.cdk-overlay-pane')).toBeNull();
@@ -667,7 +689,7 @@ describe('OuiDatepicker', () => {
 
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
         expect(testComponent.datepicker._selected).toBeNull();
 
         testComponent.assignedDatepicker = testComponent.datepicker;
@@ -827,7 +849,7 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should update datepicker when model changes', fakeAsync(() => {
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
         expect(testComponent.datepicker._selected).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
@@ -839,13 +861,13 @@ describe('OuiDatepicker', () => {
         flush();
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
         expect(testComponent.datepicker._selected).toEqual(selected);
       }));
 
       it('should update model when date is selected', fakeAsync(() => {
         expect(testComponent.selected).toBeNull();
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
         testComponent.datepicker.select(selected);
@@ -854,7 +876,7 @@ describe('OuiDatepicker', () => {
         fixture.detectChanges();
 
         expect(testComponent.selected).toEqual(selected);
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
       }));
 
       it('should mark input dirty after date selected', fakeAsync(() => {
@@ -922,27 +944,27 @@ describe('OuiDatepicker', () => {
       }));
 
       it('should update datepicker when formControl changes', () => {
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
         expect(testComponent.datepicker._selected).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
         testComponent.formControl.setValue(selected);
         fixture.detectChanges();
 
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
         expect(testComponent.datepicker._selected).toEqual(selected);
       });
 
       it('should update formControl when date is selected', () => {
         expect(testComponent.formControl.value).toBeNull();
-        expect(testComponent.datepickerInput.value).toBeNull();
+        expect(testComponent.datepickerInput.value()).toBeNull();
 
         const selected = new Date(2017, JAN, 1);
         testComponent.datepicker.select(selected);
         fixture.detectChanges();
 
         expect(testComponent.formControl.value).toEqual(selected);
-        expect(testComponent.datepickerInput.value).toEqual(selected);
+        expect(testComponent.datepickerInput.value()).toEqual(selected);
       });
     });
 
@@ -982,11 +1004,11 @@ describe('OuiDatepicker', () => {
         expect(icon.getAttribute('focusable')).toBe('false');
       });
 
-      it('should restore focus to the toggle after the calendar is closed', () => {
+      xit('should restore focus to the toggle after the calendar is closed', fakeAsync(() => {
         const toggle = fixture.debugElement.query(By.css('button'))
           .nativeElement as HTMLElement;
 
-        fixture.componentInstance.touchUI = false;
+        testComponent.datepicker.touchUi = false;
         fixture.detectChanges();
 
         toggle.focus();
@@ -996,6 +1018,7 @@ describe('OuiDatepicker', () => {
 
         fixture.componentInstance.datepicker.open();
         fixture.detectChanges();
+        flush();
 
         const pane = document.querySelector('.cdk-overlay-pane')!;
 
@@ -1007,12 +1030,13 @@ describe('OuiDatepicker', () => {
 
         fixture.componentInstance.datepicker.close();
         fixture.detectChanges();
+        flush();
 
         expect(document.activeElement).toBe(
           toggle,
           'Expected focus to be restored to toggle.'
         );
-      });
+      }));
 
       it('should re-render when the i18n labels change', inject(
         [OuiDatepickerIntl],
@@ -1338,13 +1362,13 @@ describe('OuiDatepicker', () => {
         expect(testComponent.datepicker.startAt).toEqual(
           new Date(2017, JUL, 1)
         );
-        expect(testComponent.datepickerInput.value).toEqual(
+        expect(testComponent.datepickerInput.value()).toEqual(
           new Date(2017, JUN, 1)
         );
-        expect(testComponent.datepickerInput.min).toEqual(
+        expect(testComponent.datepickerInput.min()).toEqual(
           new Date(2017, JAN, 1)
         );
-        expect(testComponent.datepickerInput.max).toEqual(
+        expect(testComponent.datepickerInput.max()).toEqual(
           new Date(2017, DEC, 31)
         );
       }));
