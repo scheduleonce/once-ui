@@ -10,7 +10,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { OuiIconModule } from './icon.module';
 import { OuiIconRegistry } from './icon-registery';
 import { OUI_ICON_LOCATION } from './public-api';
@@ -37,6 +37,7 @@ export const FAKE_SVGS = {
  */
 @Component({
   template: ` <oui-icon></oui-icon> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class IconWithLigature {
@@ -45,6 +46,7 @@ class IconWithLigature {
 
 @Component({
   template: ` <oui-icon [color]="iconColor"></oui-icon> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class IconWithColor {
@@ -54,6 +56,7 @@ class IconWithColor {
 
 @Component({
   template: ` <oui-icon [svgIcon]="iconName"></oui-icon> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class IconFromSvgName {
@@ -62,6 +65,7 @@ class IconFromSvgName {
 
 @Component({
   template: ` @if (showIcon) {<oui-icon [svgIcon]="iconName"></oui-icon>} `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class IconWithBindingAndNgIf {
@@ -71,6 +75,7 @@ class IconWithBindingAndNgIf {
 
 @Component({
   template: ` <oui-icon [inline]="inline"></oui-icon> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class InlineIcon {
@@ -79,6 +84,7 @@ class InlineIcon {
 
 @Component({
   template: ` <oui-icon [svgIcon]="iconName"><div>Hello</div></oui-icon> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SvgIconWithUserContent {

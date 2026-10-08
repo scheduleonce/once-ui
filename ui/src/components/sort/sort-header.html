@@ -1,13 +1,13 @@
 <div
   class="oui-sort-header-container"
   [class.oui-sort-header-sorted]="_isSorted()"
-  [class.oui-sort-header-position-before]="arrowPosition === 'before'"
+  [class.oui-sort-header-position-before]="arrowPosition() === 'before'"
 >
   <button
     class="oui-sort-header-button"
     type="button"
     [attr.disabled]="_isDisabled() || null"
-    [attr.aria-label]="_intl.sortButtonLabel(id)"
+    [attr.aria-label]="_intl.sortButtonLabel(id())"
     (focus)="_setIndicatorHintVisible(true)"
     (blur)="_setIndicatorHintVisible(false)"
   >

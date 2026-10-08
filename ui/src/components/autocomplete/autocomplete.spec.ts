@@ -79,6 +79,7 @@ import { map, startWith } from 'rxjs/operators';
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleAutocomplete implements OnDestroy {
@@ -154,6 +155,7 @@ class SimpleAutocomplete implements OnDestroy {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NgIfAutocomplete {
@@ -196,6 +198,7 @@ class NgIfAutocomplete {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithoutForms {
@@ -232,6 +235,7 @@ class AutocompleteWithoutForms {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithNgModel {
@@ -268,6 +272,7 @@ class AutocompleteWithNgModel {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithNumbers {
@@ -316,6 +321,7 @@ class AutocompleteWithOnPushDelay implements OnInit {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithNativeInput {
@@ -347,6 +353,7 @@ class AutocompleteWithNativeInput {
       [formControl]="control"
     />
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithoutPanel {
@@ -377,6 +384,7 @@ class AutocompleteWithoutPanel {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithGroups {
@@ -420,6 +428,7 @@ class AutocompleteWithGroups {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithSelectEvent {
@@ -437,6 +446,7 @@ class AutocompleteWithSelectEvent {
     <input [formControl]="formControl" [ouiAutocomplete]="auto" />
     <oui-autocomplete #auto="ouiAutocomplete"></oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class PlainAutocompleteInputWithFormControl {
@@ -459,6 +469,7 @@ class PlainAutocompleteInputWithFormControl {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithNumberInputAndNgModel {
@@ -492,6 +503,7 @@ class AutocompleteWithNumberInputAndNgModel {
       }
     </oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithDifferentOrigin {
@@ -513,6 +525,7 @@ class AutocompleteWithDifferentOrigin {
     />
     <oui-autocomplete #auto="ouiAutocomplete"></oui-autocomplete>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AutocompleteWithNativeAutocompleteAttribute {
@@ -521,6 +534,7 @@ class AutocompleteWithNativeAutocompleteAttribute {
 
 @Component({
   template: '<input [ouiAutocomplete]="null" ouiAutocompleteDisabled>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class InputWithoutAutocompleteAndDisabled {}

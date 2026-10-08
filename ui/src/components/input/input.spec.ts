@@ -1,7 +1,14 @@
 import { PlatformModule } from '@angular/cdk/platform';
-import { Component, Type, Provider, ViewChild } from '@angular/core';
+import {
+  Component,
+  Type,
+  Provider,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import {
   UntypedFormControl,
+  UntypedFormGroup,
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
@@ -23,6 +30,7 @@ import {
       <input oui-input id="test-id" placeholder="test" />
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithId {}
@@ -31,6 +39,7 @@ class OuiInputWithId {}
   template: `
     <oui-form-field><input oui-input [required]="required" /></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithRequired {
@@ -41,6 +50,7 @@ class OuiInputWithRequired {
   template: `
     <oui-form-field><input oui-input [type]="type" /></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithType {
@@ -53,6 +63,7 @@ class OuiInputWithType {
       <input oui-input placeholder="Hello" [formControl]="formControl" />
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithFormControl {
@@ -61,10 +72,28 @@ class OuiInputWithFormControl {
 
 @Component({
   template: `
+    <form [formGroup]="formGroup">
+      <oui-form-field>
+        <input oui-input formControlName="subTitleName" />
+      </oui-form-field>
+    </form>
+  `,
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false,
+})
+class OuiInputWithFormControlName {
+  formGroup = new UntypedFormGroup({
+    subTitleName: new UntypedFormControl('testing value'),
+  });
+}
+
+@Component({
+  template: `
     <oui-form-field
       ><input oui-input [placeholder]="placeholder"
     /></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputPlaceholderAttrTestComponent {
@@ -77,6 +106,7 @@ class OuiInputPlaceholderAttrTestComponent {
       <input oui-input [inlineEdit]="isInlineEdit" />
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithInlineEdit {
@@ -89,6 +119,7 @@ class OuiInputWithInlineEdit {
       <input oui-input [inlineEdit]="isInlineEdit" />
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithoutInlineEdit {
@@ -99,6 +130,7 @@ class OuiInputWithoutInlineEdit {
   template: `
     <oui-form-field><input oui-input type="file" /></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputInvalidTypeTestController {}
@@ -109,6 +141,7 @@ class OuiInputInvalidTypeTestController {}
       <input oui-input type="text" placeholder="Placeholder" />
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputTextTestController {}
@@ -126,6 +159,7 @@ class OuiInputTextTestController {}
       </textarea>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputTextareaWithBindings {
@@ -136,6 +170,7 @@ class OuiInputTextareaWithBindings {
 
 @Component({
   template: ` <oui-form-field><input /></oui-form-field> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputMissingOuiInputTestController {}
@@ -148,6 +183,7 @@ class OuiInputMissingOuiInputTestController {}
       }
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithNgIf {
@@ -160,6 +196,7 @@ class OuiInputWithNgIf {
       <input oui-input placeholder="Placeholder" />
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithAppearance {
@@ -169,6 +206,7 @@ class OuiInputWithAppearance {
 
 @Component({
   template: ` <oui-form-field> <input oui-input /> </oui-form-field> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithoutPlaceholder {}
@@ -179,6 +217,7 @@ class OuiInputWithoutPlaceholder {}
       ><input oui-input [spellcheck]="spellcheck"
     /></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class OuiInputWithSpellcheck {
@@ -370,6 +409,23 @@ describe('OuiInput without forms', () => {
 });
 
 describe('OuiInput with forms', () => {
+  it('should display the value assigned through formControlName without a value binding', waitForAsync(() => {
+    const fixture = createComponent(OuiInputWithFormControlName);
+    fixture.detectChanges();
+
+    const input = fixture.debugElement.query(By.css('input'))
+      .nativeElement as HTMLInputElement;
+
+    expect(input.value).toBe('testing value');
+
+    fixture.componentInstance.formGroup.controls['subTitleName'].setValue(
+      'updated value'
+    );
+    fixture.detectChanges();
+
+    expect(input.value).toBe('updated value');
+  }));
+
   it('should update the value when using FormControl.setValue', waitForAsync(() => {
     const fixture = createComponent(OuiInputWithFormControl);
     fixture.detectChanges();

@@ -1,10 +1,10 @@
 <oui-tab-header
   #tabHeader
-  [selectedIndex]="selectedIndex || 0"
+  [selectedIndex]="selectedIndex() || 0"
   [disableRipple]="disableRipple"
   [disablePagination]="disablePagination"
   (indexFocused)="_focusChanged($event)"
-  (selectFocusedIndex)="selectedIndex = $event"
+  (selectFocusedIndex)="selectedIndex.set($event)"
 >
   @for (tab of _tabs; track tab; let i = $index) {
   <div
@@ -18,13 +18,13 @@
     [attr.aria-posinset]="i + 1"
     [attr.aria-setsize]="_tabs.length"
     [attr.aria-controls]="_getTabContentId(i)"
-    [attr.aria-selected]="selectedIndex === i"
-    [attr.aria-label]="tab.ariaLabel || null"
-    [attr.aria-labelledby]="(!tab.ariaLabel && tab.ariaLabelledby) ? tab.ariaLabelledby : null"
-    [class.mdc-tab--active]="selectedIndex === i"
-    [ngClass]="tab.labelClass"
+    [attr.aria-selected]="selectedIndex() === i"
+    [attr.aria-label]="tab.ariaLabel() || null"
+    [attr.aria-labelledby]="(!tab.ariaLabel() && tab.ariaLabelledby()) ? tab.ariaLabelledby() : null"
+    [class.mdc-tab--active]="selectedIndex() === i"
+    [ngClass]="tab.labelClass()"
     [disabled]="tab.disabled"
-    [fitInkBarToContent]="fitInkBarToContent"
+    [fitInkBarToContent]="fitInkBarToContent()"
     (click)="_handleClick(tab, tabHeader, i)"
     (keyup.enter)="_handleEnter()"
     (cdkFocusChange)="_tabFocusChanged($event, i)"
@@ -38,7 +38,7 @@
         <!-- If there is a label template, use it. -->
         @if (tab.templateLabel) {
         <ng-template [cdkPortalOutlet]="tab.templateLabel"></ng-template>
-        } @else { {{tab.textLabel}} }
+        } @else { {{tab.textLabel()}} }
         <!-- If there is not a label template, fall back to the text label. -->
       </span>
     </span>
@@ -56,10 +56,10 @@
   <oui-tab-body
     role="tabpanel"
     [id]="_getTabContentId(i)"
-    [attr.tabindex]="(contentTabIndex !== null && selectedIndex === i) ? contentTabIndex : null"
+    [attr.tabindex]="(contentTabIndex !== null && selectedIndex() === i) ? contentTabIndex : null"
     [attr.aria-labelledby]="_getTabLabelId(i)"
-    [class.oui-mdc-tab-body-active]="selectedIndex === i"
-    [ngClass]="tab.bodyClass"
+    [class.oui-mdc-tab-body-active]="selectedIndex() === i"
+    [ngClass]="tab.bodyClass()"
     [content]="tab.contentWithin"
     [position]="tab.position!"
     [origin]="tab.origin"
