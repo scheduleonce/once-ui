@@ -3,7 +3,8 @@ import {
   Component,
   ElementRef,
   ChangeDetectionStrategy,
-  Input,
+  effect,
+  input,
   ViewEncapsulation,
   inject,
 } from '@angular/core';
@@ -43,9 +44,7 @@ export class OuiProgressBar extends _OuiProgressBarMixinBase {
     inject(ChangeDetectorRef);
 
   private _value = 0;
-  private _strokeWidth: number;
-
-  @Input()
+  readonly colorInput = input<ThemePalette>(undefined, { alias: 'color' });
   get color(): ThemePalette {
     return super.color;
   }
@@ -57,7 +56,9 @@ export class OuiProgressBar extends _OuiProgressBarMixinBase {
   /** Mode of the progress circle */
   mode: ProgressBarMode = 'indeterminate';
 
-  @Input()
+  readonly valueInput = input<number | undefined>(undefined, {
+    alias: 'value',
+  });
   get value(): number {
     return this.mode === 'determinate' ? this._value : 0;
   }
@@ -66,16 +67,25 @@ export class OuiProgressBar extends _OuiProgressBarMixinBase {
     this.mode = 'determinate';
   }
 
-  @Input() get strokeWidth(): number {
-    return this._strokeWidth;
-  }
-  set strokeWidth(value: number) {
-    this._strokeWidth = coerceNumberProperty(value);
-  }
+  readonly strokeWidth = input<number | undefined>(undefined, {
+    transform: coerceNumberProperty,
+  });
 
   constructor() {
     const elementRef = inject(ElementRef);
 
     super(elementRef);
+
+    effect(() => {
+      super.color = this.colorInput();
+      this._changeDetectorRef?.markForCheck();
+    });
+
+    effect(() => {
+      const value = this.valueInput();
+      if (value !== undefined) {
+        this.value = value;
+      }
+    });
   }
 }

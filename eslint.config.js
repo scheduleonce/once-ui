@@ -1,61 +1,49 @@
-const js = require('@eslint/js');
-const tsPlugin = require('@typescript-eslint/eslint-plugin');
-const tsParser = require('@typescript-eslint/parser');
-const angularPlugin = require('@angular-eslint/eslint-plugin');
-const angularTemplatePlugin = require('@angular-eslint/eslint-plugin-template');
-const angularTemplateParser = require('@angular-eslint/template-parser');
-const globals = require('globals');
+// @ts-check
+const { defineConfig } = require('@eslint/config-helpers');
+const eslint = require('@eslint/js');
+const tseslint = require('typescript-eslint');
+const angular = require('angular-eslint');
 
-module.exports = [
+module.exports = defineConfig(
   {
-    ignores: [
-      'projects/**/*',
-      'dist/**/*',
-      'node_modules/**/*',
-      '.angular/**/*',
-    ],
+    ignores: ['projects/**/*'],
   },
   {
     files: ['**/*.ts'],
+    linterOptions: {
+      // Suppress "unused eslint-disable directive" warnings. Many existing
+      // `eslint-disable` comments reference rules that are no longer active in
+      // the @angular-eslint v22 / @typescript-eslint v8 recommended configs.
+      reportUnusedDisableDirectives: 'off',
+    },
+    extends: [
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
+      ...tseslint.configs.recommendedTypeChecked,
+      ...angular.configs.tsRecommended,
+    ],
+    processor: angular.processInlineTemplates,
     languageOptions: {
-      parser: tsParser,
       parserOptions: {
-        project: 'tsconfig.json',
-        createDefaultProgram: true,
+        project: ['./tsconfig.json'],
         sourceType: 'module',
       },
-      globals: {
-        ...globals.browser,
-        ...globals.node,
-        jasmine: 'readonly',
-        describe: 'readonly',
-        it: 'readonly',
-        xit: 'readonly',
-        xdescribe: 'readonly',
-        expect: 'readonly',
-        fail: 'readonly',
-        beforeEach: 'readonly',
-        afterEach: 'readonly',
-        spyOn: 'readonly',
-      },
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
-      '@angular-eslint': angularPlugin,
     },
     rules: {
-      ...js.configs.recommended.rules,
-      ...tsPlugin.configs.recommended.rules,
-      ...tsPlugin.configs['recommended-requiring-type-checking'].rules,
-      ...angularPlugin.configs.recommended.rules,
       '@angular-eslint/prefer-standalone': 'off',
       '@angular-eslint/component-class-suffix': 'off',
       '@angular-eslint/directive-class-suffix': 'off',
       '@typescript-eslint/consistent-type-definitions': 'error',
-      '@typescript-eslint/explicit-member-accessibility': 'off',
+      '@typescript-eslint/explicit-member-accessibility': [
+        'off',
+        {
+          accessibility: 'explicit',
+        },
+      ],
       '@typescript-eslint/no-non-null-assertion': 'off',
-      'brace-style': 'off',
+      'brace-style': ['off', '1tbs'],
       complexity: 'error',
+      // rules added
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
       '@typescript-eslint/no-unsafe-assignment': 'off',
@@ -69,6 +57,12 @@ module.exports = [
       '@angular-eslint/no-input-rename': 'off',
       '@typescript-eslint/unbound-method': 'off',
       '@angular-eslint/no-conflicting-lifecycle': 'off',
+      // Disabled to preserve pre-migration lint behavior:
+      // - `prefer-on-push` is new in @angular-eslint v22 and conflicts with the
+      //   library's intentional use of `ChangeDetectionStrategy.Eager` in tests.
+      // - `no-unsafe-argument` was commented out in the legacy eslintrc config.
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
       'no-self-assign': 'off',
       '@typescript-eslint/ban-ts-comment': 'off',
       'no-useless-escape': 'off',
@@ -100,14 +94,7 @@ module.exports = [
   },
   {
     files: ['**/*.html'],
-    languageOptions: {
-      parser: angularTemplateParser,
-    },
-    plugins: {
-      '@angular-eslint/template': angularTemplatePlugin,
-    },
-    rules: {
-      ...angularTemplatePlugin.configs.recommended.rules,
-    },
-  },
-];
+    extends: [...angular.configs.templateRecommended],
+    rules: {},
+  }
+);

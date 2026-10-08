@@ -16,18 +16,20 @@ import {
   Component,
   ComponentRef,
   ElementRef,
-  EventEmitter,
+  ErrorHandler,
   InjectionToken,
-  Input,
   NgZone,
   OnDestroy,
-  Output,
+  effect,
+  input,
+  output,
   ViewChild,
   ViewContainerRef,
   ViewEncapsulation,
   inject,
 } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { OuiDialog, OuiDialogRef } from '../dialog/public-api';
 import { merge, Subject, Subscription } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
@@ -137,6 +139,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _ngZone = inject(NgZone);
   protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _focusMonitor = inject(FocusMonitor);
+  private _errorHandler = inject(ErrorHandler);
   private _viewContainerRef = inject(ViewContainerRef);
   private _dateAdapter = inject<DateAdapter<D>>(DateAdapter, {
     optional: true,
@@ -147,16 +150,22 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _scrollStrategy: () => ScrollStrategy;
 
   /** An input indicating the type of the custom header component for the calendar, if set. */
-  @Input() calendarHeaderComponent: ComponentType<any>;
+  readonly calendarHeaderComponent = input<ComponentType<any>>();
 
   /** The date to open the calendar to initially. */
-  @Input()
+  readonly startAtInput = input<D | null | undefined>(undefined, {
+    alias: 'startAt',
+  });
   get startAt(): D | null {
     // If an explicit startAt is set we start there, otherwise we start at whatever the currently
     // selected value is.
     return (
       this._startAt ||
-      (this._datepickerInput ? this._datepickerInput.value : null)
+      (this._datepickerInput
+        ? typeof this._datepickerInput.value === 'function'
+          ? this._datepickerInput.value()
+          : this._datepickerInput.value
+        : null)
     );
   }
   set startAt(value: D | null) {
@@ -167,10 +176,10 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _startAt: D | null;
 
   /** The view that the calendar should start in. */
-  @Input() startView: 'month' | 'year' | 'multi-year' = 'month';
+  readonly startView = input<'month' | 'year' | 'multi-year'>('month');
 
   /** Color palette to use on the datepicker's calendar. */
-  @Input()
+  readonly colorInput = input<ThemePalette>(undefined, { alias: 'color' });
   get color(): ThemePalette {
     return (
       this._color ||
@@ -188,7 +197,10 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
    * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
    * than a popup and elements have more padding to allow for bigger touch targets.
    */
-  @Input()
+  readonly touchUiInput = input(false, {
+    alias: 'touchUi',
+    transform: coerceBooleanProperty,
+  });
   get touchUi(): boolean {
     return this._touchUi;
   }
@@ -198,10 +210,13 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _touchUi = false;
 
   /** Whether the datepicker pop-up should be disabled. */
-  @Input()
+  readonly disabledInput = input(false, {
+    alias: 'disabled',
+    transform: coerceBooleanProperty,
+  });
   get disabled(): boolean {
     return this._disabled === undefined && this._datepickerInput
-      ? this._datepickerInput.disabled
+      ? this._datepickerInput.disabled()
       : !!this._disabled;
   }
   set disabled(value: boolean) {
@@ -219,30 +234,30 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
    * Emits selected year in multiyear view.
    * This doesn't imply a change on the selected date.
    */
-  @Output() readonly yearSelected: EventEmitter<D> = new EventEmitter<D>();
+  readonly yearSelected = output<D>();
 
   /**
    * Emits selected month in year view.
    * This doesn't imply a change on the selected date.
    */
-  @Output() readonly monthSelected: EventEmitter<D> = new EventEmitter<D>();
+  readonly monthSelected = output<D>();
 
   /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
-  @Input() panelClass: string | string[];
+  readonly panelClass = input<string | string[]>();
 
   /** Function that can be used to add custom CSS classes to dates. */
-  @Input() dateClass: (date: D) => OuiCalendarCellCssClasses;
+  readonly dateClass = input<(date: D) => OuiCalendarCellCssClasses>();
 
   /** Emits when the datepicker has been opened. */
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('opened') openedStream: EventEmitter<void> = new EventEmitter<void>();
+  readonly openedStream = output<void>({ alias: 'opened' });
 
   /** Emits when the datepicker has been closed. */
   // eslint-disable-next-line @angular-eslint/no-output-rename
-  @Output('closed') closedStream: EventEmitter<void> = new EventEmitter<void>();
+  readonly closedStream = output<void>({ alias: 'closed' });
 
   /** Whether the calendar is open. */
-  @Input()
+  readonly openedInput = input(false, { alias: 'opened' });
   get opened(): boolean {
     return this._opened;
   }
@@ -269,16 +284,16 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
 
   /** The minimum selectable date. */
   get _minDate(): D | null {
-    return this._datepickerInput && this._datepickerInput.min;
+    return this._datepickerInput && this._datepickerInput.min();
   }
 
   /** The maximum selectable date. */
   get _maxDate(): D | null {
-    return this._datepickerInput && this._datepickerInput.max;
+    return this._datepickerInput && this._datepickerInput.max();
   }
 
   get _dateFilter(): (date: D | null) => boolean {
-    return this._datepickerInput && this._datepickerInput._dateFilter;
+    return this._datepickerInput && this._datepickerInput.ouiDatepickerFilter();
   }
 
   /** A reference to the overlay when the calendar is opened as a popup. */
@@ -316,9 +331,20 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       throw createMissingDateImplError('DateAdapter');
     }
     this._scrollStrategy = scrollStrategy;
+    effect(() => {
+      const startAt = this.startAtInput();
+      if (startAt !== undefined) this.startAt = startAt;
+      this.color = this.colorInput();
+      this.touchUi = this.touchUiInput();
+      this.disabled = this.disabledInput();
+      this.opened = this.openedInput();
+    });
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
 
   ngOnDestroy() {
@@ -364,9 +390,12 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       );
     }
     this._datepickerInput = input;
-    this._inputSubscription = this._datepickerInput._valueChange.subscribe(
-      (value: D | null) => (this._selected = value)
-    );
+    this._inputSubscription = outputToObservable(
+      this._datepickerInput._valueChange
+    ).subscribe({
+      next: (value: D | null) => (this._selected = value),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 
   /** Open the calendar. */
@@ -457,7 +486,10 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       }
     );
 
-    this._dialogRef.afterClosed().subscribe(() => this.close());
+    this._dialogRef.afterClosed().subscribe({
+      next: () => this.close(),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
     this._dialogRef.componentInstance.datepicker = this;
     this._setColor();
   }
@@ -484,8 +516,11 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       this._ngZone.onStable
         .asObservable()
         .pipe(take(1))
-        .subscribe(() => {
-          this._popupRef.updatePosition();
+        .subscribe({
+          next: () => {
+            this._popupRef.updatePosition();
+          },
+          error: (err: Error) => this._errorHandler.handleError(err),
         });
     }
   }
@@ -517,7 +552,10 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
               event.keyCode === UP_ARROW)
         )
       )
-    ).subscribe(() => this.close());
+    ).subscribe({
+      next: () => this.close(),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 
   /** Create the popup PositionStrategy. */

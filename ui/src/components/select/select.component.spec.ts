@@ -7,6 +7,7 @@ import {
   A,
 } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import {
@@ -67,6 +68,7 @@ import {
         [tabIndex]="tabIndexOverride"
         [aria-label]="ariaLabel"
         [aria-labelledby]="ariaLabelledby"
+        [inlineEdit]="inlineEdit"
         [panelClass]="panelClass"
       >
         @for (food of foods; track food) {
@@ -78,6 +80,7 @@ import {
     </oui-form-field>
     <div [style.height.px]="heightBelow"></div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelect {
@@ -98,6 +101,7 @@ class BasicSelect {
   tabIndexOverride: number;
   ariaLabel: string;
   ariaLabelledby: string;
+  inlineEdit: boolean;
   panelClass = ['custom-one', 'custom-two'];
 
   @ViewChild(OuiSelect, { static: true }) select: OuiSelect;
@@ -115,6 +119,7 @@ class BasicSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NgModelSelect {
@@ -145,6 +150,7 @@ class NgModelSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ManySelects {}
@@ -160,6 +166,7 @@ class ManySelects {}
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithChangeEvent {
@@ -193,6 +200,7 @@ class SelectWithChangeEvent {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectInitWithoutOptions {
@@ -277,6 +285,7 @@ class BasicSelectOnPushPreselected {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class MultiSelect {
@@ -302,6 +311,7 @@ class MultiSelect {
   template: `
     <oui-form-field><oui-select tabindex="5"></oui-select></oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithPlainTabindex {}
@@ -316,6 +326,7 @@ class SelectWithPlainTabindex {}
     <div></div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectEarlyAccessSibling {}
@@ -329,6 +340,7 @@ class SelectEarlyAccessSibling {}
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectInitiallyHidden {
@@ -344,6 +356,7 @@ class BasicSelectInitiallyHidden {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectNoPlaceholder {}
@@ -362,6 +375,7 @@ class BasicSelectNoPlaceholder {}
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ResetValuesSelect {
@@ -396,6 +410,7 @@ class ResetValuesSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithGroups {
@@ -456,6 +471,7 @@ class SelectWithGroups {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithGroupsAndNgContainer {
@@ -476,6 +492,7 @@ class SelectWithGroupsAndNgContainer {
       </oui-form-field>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class InvalidSelectInForm {
@@ -495,6 +512,7 @@ class InvalidSelectInForm {
       </oui-form-field>
     </form>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectInsideFormGroup {
@@ -519,6 +537,7 @@ class SelectInsideFormGroup {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectWithoutForms {
@@ -544,6 +563,7 @@ class BasicSelectWithoutForms {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectWithoutFormsPreselected {
@@ -568,6 +588,7 @@ class BasicSelectWithoutFormsPreselected {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicSelectWithoutFormsMultiple {
@@ -601,6 +622,7 @@ class BasicSelectWithoutFormsMultiple {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithCustomTrigger {
@@ -626,6 +648,7 @@ class SelectWithCustomTrigger {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NgModelCompareWithSelect {
@@ -682,6 +705,7 @@ class NgModelCompareWithSelect {
       }
     </oui-select>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class CustomErrorBehaviorSelect {
@@ -704,6 +728,7 @@ class CustomErrorBehaviorSelect {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SingleSelectWithPreselectedArrayValues {
@@ -729,6 +754,7 @@ class SingleSelectWithPreselectedArrayValues {
       </oui-select>
     </oui-form-field>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SelectWithFormFieldLabel {
@@ -841,16 +867,14 @@ describe('OuiSelect', () => {
         }));
 
         it('should support setting a custom aria-label', fakeAsync(() => {
-          selectInstance.ariaLabel = 'Custom Label';
-          (selectInstance as any)._changeDetectorRef.markForCheck();
+          selectInstance.ariaLabel.set('Custom Label');
           fixture.detectChanges();
 
           expect(select.getAttribute('aria-label')).toEqual('Custom Label');
         }));
 
         it('should not set an aria-label if aria-labelledby is specified', fakeAsync(() => {
-          selectInstance.ariaLabelledby = 'myLabelId';
-          (selectInstance as any)._changeDetectorRef.markForCheck();
+          selectInstance.ariaLabelledby.set('myLabelId');
           fixture.detectChanges();
 
           expect(select.getAttribute('aria-label')).toBeFalsy(
@@ -914,7 +938,7 @@ describe('OuiSelect', () => {
             `Expected the oui-select-inline-edit class not to be set by default.`
           );
 
-          selectInstance.inlineEdit = true;
+          selectInstance.inlineEdit.set(true);
           fixture.detectChanges();
 
           expect(select.classList).toContain(
@@ -922,7 +946,7 @@ describe('OuiSelect', () => {
             `Expected the oui-select-inline-edit class to be set when inlineEdit is true.`
           );
 
-          selectInstance.inlineEdit = false;
+          selectInstance.inlineEdit.set(false);
           fixture.detectChanges();
 
           expect(select.classList).not.toContain(
@@ -2495,7 +2519,7 @@ describe('OuiSelect', () => {
     beforeEach(waitForAsync(() =>
       configureOuiSelectTestingModule([CustomErrorBehaviorSelect])));
 
-    it('should be able to override the error matching behavior via an @Input', fakeAsync(() => {
+    it('should be able to override the error matching behavior via an input', fakeAsync(() => {
       const fixture = TestBed.createComponent(CustomErrorBehaviorSelect);
       const component = fixture.componentInstance;
       const matcher = jasmine
@@ -2508,6 +2532,8 @@ describe('OuiSelect', () => {
       expect(component.select.errorState).toBe(false);
 
       fixture.componentInstance.errorStateMatcher = { isErrorState: matcher };
+      // Propagate the `errorStateMatcher` input to the select before updating the error state.
+      fixture.detectChanges();
       component.select.updateErrorState();
       (component.select as any)._changeDetectorRef.markForCheck();
       fixture.detectChanges();
@@ -2915,7 +2941,7 @@ describe('OuiSelect', () => {
       const spy = jasmine.createSpy('change spy');
 
       fixture.detectChanges();
-      instance.select.selectionChange.subscribe(() =>
+      outputToObservable(instance.select.selectionChange).subscribe(() =>
         spy(instance.selectedFood)
       );
 
