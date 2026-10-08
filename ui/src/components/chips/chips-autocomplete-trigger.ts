@@ -13,16 +13,18 @@ import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
+  ErrorHandler,
   forwardRef,
   InjectionToken,
-  Input,
   NgZone,
   OnDestroy,
   ViewContainerRef,
   booleanAttribute,
+  effect,
   inject,
   input,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -136,6 +138,7 @@ export class ChipsAutocompleteTrigger
   private _formField = inject(OuiFormField, { optional: true })!;
   private _document = inject<Document>(DOCUMENT, { optional: true })!;
   private _viewportRuler = inject(ViewportRuler);
+  private _errorHandler = inject(ErrorHandler);
 
   private _overlayRef: OverlayRef | null;
   private _portal: TemplatePortal;
@@ -174,7 +177,9 @@ export class ChipsAutocompleteTrigger
     (): Observable<ChipsOptionSelectionChange> => {
       if (this.autocomplete && this.autocomplete.options) {
         return merge(
-          ...this.autocomplete.options.map((option) => option.onSelectionChange)
+          ...this.autocomplete.options.map((option) =>
+            outputToObservable(option.onSelectionChange)
+          )
         );
       }
 
@@ -189,7 +194,9 @@ export class ChipsAutocompleteTrigger
 
   /** The autocomplete panel to be attached to this trigger. */
   // eslint-disable-next-line @angular-eslint/no-input-rename
-  @Input('ouiChipAutocomplete')
+  readonly autocompleteInput = input<ChipsAutocomplete | undefined>(undefined, {
+    alias: 'ouiChipAutocomplete',
+  });
   autocomplete: ChipsAutocomplete;
 
   /**
@@ -243,6 +250,13 @@ export class ChipsAutocompleteTrigger
 
   constructor() {
     const _zone = this._zone;
+
+    effect(() => {
+      const autocomplete = this.autocompleteInput();
+      if (autocomplete) {
+        this.autocomplete = autocomplete;
+      }
+    });
 
     if (typeof window !== 'undefined') {
       _zone.runOutsideAngular(() => {
@@ -552,7 +566,10 @@ export class ChipsAutocompleteTrigger
         }),
         take(1)
       )
-      .subscribe((event) => this._setValueAndClose(event));
+      .subscribe({
+        next: (event) => this._setValueAndClose(event),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
 
   /** Destroys the autocomplete suggestion panel. */
@@ -636,24 +653,28 @@ export class ChipsAutocompleteTrigger
         this._overlayMousedownHandler
       );
 
-      this._overlayRef.keydownEvents().subscribe((event) => {
-        if (
-          event.key === 'Escape' ||
-          (event.key === 'ArrowUp' && event.altKey)
-        ) {
-          this._resetActiveItem();
-          this._closeKeyEventStream.next();
-        }
+      this._overlayRef.keydownEvents().subscribe({
+        next: (event) => {
+          if (
+            event.key === 'Escape' ||
+            (event.key === 'ArrowUp' && event.altKey)
+          ) {
+            this._resetActiveItem();
+            this._closeKeyEventStream.next();
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
 
       if (this._viewportRuler) {
-        this._viewportSubscription = this._viewportRuler
-          .change()
-          .subscribe(() => {
+        this._viewportSubscription = this._viewportRuler.change().subscribe({
+          next: () => {
             if (this.panelOpen && this._overlayRef) {
               this._overlayRef.updateSize({ width: this._getPanelWidth() });
             }
-          });
+          },
+          error: (err: Error) => this._errorHandler.handleError(err),
+        });
       }
     } else {
       this._overlayRef.updateSize({ width: this._getPanelWidth() });

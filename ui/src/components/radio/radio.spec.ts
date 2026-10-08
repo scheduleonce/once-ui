@@ -11,7 +11,12 @@ import {
   NgModel,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import {
+  Component,
+  DebugElement,
+  ViewChild,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { OuiRadioButton, OuiRadioGroup, OuiRadioChange } from './radio';
 import { OuiRadioModule } from './radio-module';
@@ -32,6 +37,7 @@ import { OuiRadioModule } from './radio-module';
       <oui-radio-button value="leaf"> Bulbasaur </oui-radio-button>
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioInsideGroupComponent {
@@ -52,6 +58,7 @@ class RadioInsideGroupComponent {
       }
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioGroupWithNgModel {
@@ -88,6 +95,7 @@ class RadioGroupWithNgModel {
     >
     <oui-radio-button id="nameless" value="no-name">No name</oui-radio-button>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandaloneRadioButtons {
@@ -98,13 +106,14 @@ class StandaloneRadioButtons {
 
 @Component({
   template: ` <oui-radio-button>One</oui-radio-button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DisableableRadioButton {
   @ViewChild(OuiRadioButton) ouiRadioButton: OuiRadioButton;
 
   set disabled(value: boolean) {
-    this.ouiRadioButton.disabled = value;
+    this.ouiRadioButton.disabled.set(value);
   }
 }
 
@@ -114,6 +123,7 @@ class DisableableRadioButton {
       <oui-radio-button value="1">One</oui-radio-button>
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioGroupWithFormControl {
@@ -122,6 +132,7 @@ class RadioGroupWithFormControl {
 
 @Component({
   template: ` <oui-radio-button [tabIndex]="tabIndex"></oui-radio-button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class FocusableRadioButton {
@@ -140,6 +151,7 @@ class FocusableRadioButton {
       }
     </oui-radio-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class InterleavedRadioGroup {
@@ -154,12 +166,14 @@ class InterleavedRadioGroup {
 @Component({
   selector: 'oui-transcluding-wrapper',
   template: ` <div><ng-content></ng-content></div> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TranscludingWrapper {}
 
 @Component({
   template: ` <oui-radio-button tabindex="0"></oui-radio-button> `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class RadioButtonWithPredefinedTabindex {}
@@ -218,114 +232,114 @@ describe('OuiRadio', () => {
     }));
 
     it('should set individual radio names based on the group name', () => {
-      expect(groupInstance.name).toBeTruthy();
+      expect(groupInstance.name()).toBeTruthy();
       for (const radio of radioInstances) {
-        expect(radio.name).toBe(groupInstance.name);
+        expect(radio.name()).toBe(groupInstance.name());
       }
     });
     it('should coerce the disabled binding on the radio group', () => {
-      (groupInstance as any).disabled = '';
+      groupInstance.disabled.set(true);
       fixture.detectChanges();
 
       radioLabelElements[0].click();
       fixture.detectChanges();
 
-      expect(radioInstances[0].checked).toBe(false);
-      expect(groupInstance.disabled).toBe(true);
+      expect(radioInstances[0].checked()).toBe(false);
+      expect(groupInstance.disabled()).toBe(true);
     });
 
     it('should disable click interaction when the group is disabled', () => {
-      groupInstance.disabled = true;
+      groupInstance.disabled.set(true);
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       radioLabelElements[0].click();
       fixture.detectChanges();
 
-      expect(radioInstances[0].checked).toBe(false);
+      expect(radioInstances[0].checked()).toBe(false);
     });
 
     it('should set label position based on the group labelPosition', () => {
-      groupInstance.labelPosition = 'before';
+      groupInstance.labelPosition.set('before');
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
-        expect(radio.labelPosition).toBe('before');
+        expect(radio.labelPosition()).toBe('before');
       }
 
-      groupInstance.labelPosition = 'after';
+      groupInstance.labelPosition.set('after');
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
-        expect(radio.labelPosition).toBe('after');
+        expect(radio.labelPosition()).toBe('after');
       }
     });
     it('should disable each individual radio when the group is disabled', () => {
-      groupInstance.disabled = true;
+      groupInstance.disabled.set(true);
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
-        expect(radio.disabled).toBe(true);
+        expect(radio.disabled()).toBe(true);
       }
     });
 
     it('should set required to each radio button when the group is required', () => {
-      groupInstance.required = true;
+      groupInstance.required.set(true);
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
       for (const radio of radioInstances) {
-        expect(radio.required).toBe(true);
+        expect(radio.required()).toBe(true);
       }
     });
 
     it('should update the group value when one of the radios changes', () => {
-      expect(groupInstance.value).toBeFalsy();
+      expect(groupInstance.value()).toBeFalsy();
 
-      radioInstances[0].checked = true;
+      radioInstances[0]._setChecked(true);
       fixture.detectChanges();
 
-      expect(groupInstance.value).toBe('fire');
-      expect(groupInstance.selected).toBe(radioInstances[0]);
+      expect(groupInstance.value()).toBe('fire');
+      expect(groupInstance.selected()).toBe(radioInstances[0]);
     });
 
     it('should update the group and radios when one of the radios is clicked', () => {
-      expect(groupInstance.value).toBeFalsy();
+      expect(groupInstance.value()).toBeFalsy();
 
       radioLabelElements[0].click();
       fixture.detectChanges();
 
-      expect(groupInstance.value).toBe('fire');
-      expect(groupInstance.selected).toBe(radioInstances[0]);
-      expect(radioInstances[0].checked).toBe(true);
-      expect(radioInstances[1].checked).toBe(false);
+      expect(groupInstance.value()).toBe('fire');
+      expect(groupInstance.selected()).toBe(radioInstances[0]);
+      expect(radioInstances[0].checked()).toBe(true);
+      expect(radioInstances[1].checked()).toBe(false);
 
       radioLabelElements[1].click();
       fixture.detectChanges();
 
-      expect(groupInstance.value).toBe('water');
-      expect(groupInstance.selected).toBe(radioInstances[1]);
-      expect(radioInstances[0].checked).toBe(false);
-      expect(radioInstances[1].checked).toBe(true);
+      expect(groupInstance.value()).toBe('water');
+      expect(groupInstance.selected()).toBe(radioInstances[1]);
+      expect(radioInstances[0].checked()).toBe(false);
+      expect(radioInstances[1].checked()).toBe(true);
     });
 
     it('should check a radio upon interaction with the underlying native radio button', () => {
       radioInputElements[0].click();
       fixture.detectChanges();
 
-      expect(radioInstances[0].checked).toBe(true);
-      expect(groupInstance.value).toBe('fire');
-      expect(groupInstance.selected).toBe(radioInstances[0]);
+      expect(radioInstances[0].checked()).toBe(true);
+      expect(groupInstance.value()).toBe('fire');
+      expect(groupInstance.selected()).toBe(radioInstances[0]);
     });
 
     it('should emit a change event from radio buttons', () => {
-      expect(radioInstances[0].checked).toBe(false);
+      expect(radioInstances[0].checked()).toBe(false);
 
       const spies = radioInstances.map((radio, index) =>
-        jasmine.createSpy(`onChangeSpy ${index} for ${radio.name}`)
+        jasmine.createSpy(`onChangeSpy ${index} for ${radio.name()}`)
       );
 
       spies.forEach((spy, index) =>
@@ -348,7 +362,7 @@ describe('OuiRadio', () => {
 
     it(`should not emit a change event from the radio group when change group value
           programmatically`, () => {
-      expect(groupInstance.value).toBeFalsy();
+      expect(groupInstance.value()).toBeFalsy();
 
       const changeSpy = jasmine.createSpy('radio-group change listener');
       groupInstance.change.subscribe(changeSpy);
@@ -358,119 +372,120 @@ describe('OuiRadio', () => {
 
       expect(changeSpy).toHaveBeenCalledTimes(1);
 
-      groupInstance.value = 'water';
+      groupInstance.value.set('water');
       fixture.detectChanges();
 
       expect(changeSpy).toHaveBeenCalledTimes(1);
     });
 
     it('should update the group and radios when updating the group value', () => {
-      expect(groupInstance.value).toBeFalsy();
+      expect(groupInstance.value()).toBeFalsy();
 
-      groupInstance.value = 'fire';
+      groupInstance.value.set('fire');
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
-      expect(groupInstance.value).toBe('fire');
-      expect(groupInstance.selected).toBe(radioInstances[0]);
-      expect(radioInstances[0].checked).toBe(true);
-      expect(radioInstances[1].checked).toBe(false);
+      expect(groupInstance.value()).toBe('fire');
+      expect(groupInstance.selected()).toBe(radioInstances[0]);
+      expect(radioInstances[0].checked()).toBe(true);
+      expect(radioInstances[1].checked()).toBe(false);
 
-      groupInstance.value = 'water';
+      groupInstance.value.set('water');
       groupInstance._markRadiosForCheck();
       fixture.detectChanges();
 
-      expect(groupInstance.value).toBe('water');
-      expect(groupInstance.selected).toBe(radioInstances[1]);
-      expect(radioInstances[0].checked).toBe(false);
-      expect(radioInstances[1].checked).toBe(true);
+      expect(groupInstance.value()).toBe('water');
+      expect(groupInstance.selected()).toBe(radioInstances[1]);
+      expect(radioInstances[0].checked()).toBe(false);
+      expect(radioInstances[1].checked()).toBe(true);
     });
 
     it('should deselect all of the radios when the group value is cleared', () => {
-      radioInstances[0].checked = true;
+      radioInstances[0]._setChecked(true);
 
-      expect(groupInstance.value).toBeTruthy();
+      expect(groupInstance.value()).toBeTruthy();
 
-      groupInstance.value = null;
+      groupInstance.value.set(null);
+      fixture.detectChanges();
 
-      expect(radioInstances.every((radio) => !radio.checked)).toBe(true);
+      expect(radioInstances.every((radio) => !radio.checked())).toBe(true);
     });
 
     it(`should update the group's selected radio to null when unchecking that radio
         programmatically`, () => {
       const changeSpy = jasmine.createSpy('radio-group change listener');
       groupInstance.change.subscribe(changeSpy);
-      radioInstances[0].checked = true;
+      radioInstances[0]._setChecked(true);
 
       fixture.detectChanges();
 
       expect(changeSpy).not.toHaveBeenCalled();
-      expect(groupInstance.value).toBeTruthy();
+      expect(groupInstance.value()).toBeTruthy();
 
-      radioInstances[0].checked = false;
+      radioInstances[0]._setChecked(false);
 
       fixture.detectChanges();
 
       expect(changeSpy).not.toHaveBeenCalled();
-      expect(groupInstance.value).toBeFalsy();
-      expect(radioInstances.every((radio) => !radio.checked)).toBe(true);
-      expect(groupInstance.selected).toBeNull();
+      expect(groupInstance.value()).toBeFalsy();
+      expect(radioInstances.every((radio) => !radio.checked())).toBe(true);
+      expect(groupInstance.selected()).toBeNull();
     });
 
     it('should not fire a change event from the group when a radio checked state changes', () => {
       const changeSpy = jasmine.createSpy('radio-group change listener');
       groupInstance.change.subscribe(changeSpy);
-      radioInstances[0].checked = true;
+      radioInstances[0]._setChecked(true);
 
       fixture.detectChanges();
 
       expect(changeSpy).not.toHaveBeenCalled();
-      expect(groupInstance.value).toBeTruthy();
-      expect(groupInstance.value).toBe('fire');
+      expect(groupInstance.value()).toBeTruthy();
+      expect(groupInstance.value()).toBe('fire');
 
-      radioInstances[1].checked = true;
+      radioInstances[1]._setChecked(true);
 
       fixture.detectChanges();
 
-      expect(groupInstance.value).toBe('water');
+      expect(groupInstance.value()).toBe('water');
       expect(changeSpy).not.toHaveBeenCalled();
     });
 
     it(`should update checked status if changed value to radio group's value`, () => {
       const changeSpy = jasmine.createSpy('radio-group change listener');
       groupInstance.change.subscribe(changeSpy);
-      groupInstance.value = 'apple';
+      groupInstance.value.set('apple');
 
       expect(changeSpy).not.toHaveBeenCalled();
-      expect(groupInstance.value).toBe('apple');
-      expect(groupInstance.selected).toBeFalsy(
+      expect(groupInstance.value()).toBe('apple');
+      expect(groupInstance.selected()).toBeFalsy(
         'expect group selected to be null'
       );
-      expect(radioInstances[0].checked).toBeFalsy(
+      expect(radioInstances[0].checked()).toBeFalsy(
         'should not select the first button'
       );
-      expect(radioInstances[1].checked).toBeFalsy(
+      expect(radioInstances[1].checked()).toBeFalsy(
         'should not select the second button'
       );
-      expect(radioInstances[2].checked).toBeFalsy(
+      expect(radioInstances[2].checked()).toBeFalsy(
         'should not select the third button'
       );
 
-      radioInstances[0].value = 'apple';
+      radioInstances[0].value.set('apple');
 
       fixture.detectChanges();
 
-      expect(groupInstance.selected).toBe(
+      expect(groupInstance.selected()).toBe(
         radioInstances[0],
         'expect group selected to be first button'
       );
-      expect(radioInstances[0].checked).toBeTruthy(
+      expect(radioInstances[0].checked()).toBeTruthy(
         'expect group select the first button'
       );
-      expect(radioInstances[1].checked).toBeFalsy(
+      expect(radioInstances[1].checked()).toBeFalsy(
         'should not select the second button'
       );
-      expect(radioInstances[2].checked).toBeFalsy(
+      expect(radioInstances[2].checked()).toBeFalsy(
         'should not select the third button'
       );
     });
@@ -513,29 +528,31 @@ describe('OuiRadio', () => {
     });
 
     it('should set individual radio names based on the group name', () => {
-      expect(groupInstance.name).toBeTruthy();
+      expect(groupInstance.name()).toBeTruthy();
       for (const radio of radioInstances) {
-        expect(radio.name).toBe(groupInstance.name);
+        expect(radio.name()).toBe(groupInstance.name());
       }
 
-      groupInstance.name = 'new name';
+      groupInstance.name.set('new name');
+      fixture.detectChanges();
 
       for (const radio of radioInstances) {
-        expect(radio.name).toBe(groupInstance.name);
+        expect(radio.name()).toBe(groupInstance.name());
       }
     });
 
     it('should check the corresponding radio button on group value change', () => {
-      expect(groupInstance.value).toBeFalsy();
+      expect(groupInstance.value()).toBeFalsy();
       for (const radio of radioInstances) {
-        expect(radio.checked).toBeFalsy();
+        expect(radio.checked()).toBeFalsy();
       }
 
-      groupInstance.value = 'vanilla';
+      groupInstance.value.set('vanilla');
+      fixture.detectChanges();
       for (const radio of radioInstances) {
-        expect(radio.checked).toBe(groupInstance.value === radio.value);
+        expect(radio.checked()).toBe(groupInstance.value() === radio.value());
       }
-      expect(groupInstance.selected!.value).toBe(groupInstance.value);
+      expect(groupInstance.selected()!.value()).toBe(groupInstance.value());
     });
 
     it('should have the correct control state initially and after interaction', () => {
@@ -546,7 +563,7 @@ describe('OuiRadio', () => {
 
       // After changing the value programmatically, the control should stay pristine
       // but remain untouched.
-      radioInstances[1].checked = true;
+      radioInstances[1]._setChecked(true);
       fixture.detectChanges();
 
       expect(groupNgModel.valid).toBe(true);
@@ -571,7 +588,7 @@ describe('OuiRadio', () => {
       fixture.detectChanges();
 
       expect(innerRadios[1].nativeElement.checked).toBe(true);
-      expect(radioInstances[1].checked).toBe(true);
+      expect(radioInstances[1].checked()).toBe(true);
     }));
   });
 
@@ -594,17 +611,17 @@ describe('OuiRadio', () => {
     });
 
     it('should toggle the disabled state', () => {
-      expect(groupInstance.disabled).toBeFalsy();
+      expect(groupInstance.disabled()).toBeFalsy();
 
       testComponent.formControl.disable();
       fixture.detectChanges();
 
-      expect(groupInstance.disabled).toBeTruthy();
+      expect(groupInstance.disabled()).toBeTruthy();
 
       testComponent.formControl.enable();
       fixture.detectChanges();
 
-      expect(groupInstance.disabled).toBeFalsy();
+      expect(groupInstance.disabled()).toBeFalsy();
     });
 
     it('should preserve the form disabled state when the value is written or reset', () => {
@@ -654,17 +671,17 @@ describe('OuiRadio', () => {
     });
 
     it('should toggle the disabled state', () => {
-      expect(radioInstance.disabled).toBeFalsy();
+      expect(radioInstance.disabled()).toBeFalsy();
       expect(radioNativeElement.disabled).toBeFalsy();
 
       testComponent.disabled = true;
       fixture.detectChanges();
-      expect(radioInstance.disabled).toBeTruthy();
+      expect(radioInstance.disabled()).toBeTruthy();
       expect(radioNativeElement.disabled).toBeTruthy();
 
       testComponent.disabled = false;
       fixture.detectChanges();
-      expect(radioInstance.disabled).toBeFalsy();
+      expect(radioInstance.disabled()).toBeFalsy();
       expect(radioNativeElement.disabled).toBeFalsy();
     });
   });
@@ -685,17 +702,17 @@ describe('OuiRadio', () => {
         By.directive(OuiRadioButton)
       );
       seasonRadioInstances = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'season')
+        .filter((debugEl) => debugEl.componentInstance.name() === 'season')
         .map((debugEl) => debugEl.componentInstance);
       weatherRadioInstances = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'weather')
+        .filter((debugEl) => debugEl.componentInstance.name() === 'weather')
         .map((debugEl) => debugEl.componentInstance);
       fruitRadioInstances = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'fruit')
+        .filter((debugEl) => debugEl.componentInstance.name() === 'fruit')
         .map((debugEl) => debugEl.componentInstance);
 
       const fruitRadioNativeElements = radioDebugElements
-        .filter((debugEl) => debugEl.componentInstance.name === 'fruit')
+        .filter((debugEl) => debugEl.componentInstance.name() === 'fruit')
         .map((debugEl) => debugEl.nativeElement);
 
       fruitRadioNativeInputs = [];
@@ -707,41 +724,41 @@ describe('OuiRadio', () => {
     });
 
     it('should uniquely select radios by a name', () => {
-      seasonRadioInstances[0].checked = true;
-      weatherRadioInstances[1].checked = true;
+      seasonRadioInstances[0]._setChecked(true);
+      weatherRadioInstances[1]._setChecked(true);
 
       fixture.detectChanges();
-      expect(seasonRadioInstances[0].checked).toBe(true);
-      expect(seasonRadioInstances[1].checked).toBe(false);
-      expect(seasonRadioInstances[2].checked).toBe(false);
-      expect(weatherRadioInstances[0].checked).toBe(false);
-      expect(weatherRadioInstances[1].checked).toBe(true);
-      expect(weatherRadioInstances[2].checked).toBe(false);
+      expect(seasonRadioInstances[0].checked()).toBe(true);
+      expect(seasonRadioInstances[1].checked()).toBe(false);
+      expect(seasonRadioInstances[2].checked()).toBe(false);
+      expect(weatherRadioInstances[0].checked()).toBe(false);
+      expect(weatherRadioInstances[1].checked()).toBe(true);
+      expect(weatherRadioInstances[2].checked()).toBe(false);
 
-      seasonRadioInstances[1].checked = true;
+      seasonRadioInstances[1]._setChecked(true);
       fixture.detectChanges();
-      expect(seasonRadioInstances[0].checked).toBe(false);
-      expect(seasonRadioInstances[1].checked).toBe(true);
-      expect(seasonRadioInstances[2].checked).toBe(false);
-      expect(weatherRadioInstances[0].checked).toBe(false);
-      expect(weatherRadioInstances[1].checked).toBe(true);
-      expect(weatherRadioInstances[2].checked).toBe(false);
+      expect(seasonRadioInstances[0].checked()).toBe(false);
+      expect(seasonRadioInstances[1].checked()).toBe(true);
+      expect(seasonRadioInstances[2].checked()).toBe(false);
+      expect(weatherRadioInstances[0].checked()).toBe(false);
+      expect(weatherRadioInstances[1].checked()).toBe(true);
+      expect(weatherRadioInstances[2].checked()).toBe(false);
 
-      weatherRadioInstances[2].checked = true;
-      expect(seasonRadioInstances[0].checked).toBe(false);
-      expect(seasonRadioInstances[1].checked).toBe(true);
-      expect(seasonRadioInstances[2].checked).toBe(false);
-      expect(weatherRadioInstances[0].checked).toBe(false);
-      expect(weatherRadioInstances[1].checked).toBe(false);
-      expect(weatherRadioInstances[2].checked).toBe(true);
+      weatherRadioInstances[2]._setChecked(true);
+      expect(seasonRadioInstances[0].checked()).toBe(false);
+      expect(seasonRadioInstances[1].checked()).toBe(true);
+      expect(seasonRadioInstances[2].checked()).toBe(false);
+      expect(weatherRadioInstances[0].checked()).toBe(false);
+      expect(weatherRadioInstances[1].checked()).toBe(false);
+      expect(weatherRadioInstances[2].checked()).toBe(true);
     });
 
     it('should add required attribute to the underlying input element if defined', () => {
       const radioInstance = seasonRadioInstances[0];
-      radioInstance.required = true;
+      radioInstance.required.set(true);
       fixture.detectChanges();
 
-      expect(radioInstance.required).toBe(true);
+      expect(radioInstance.required()).toBe(true);
     });
 
     it('should add aria-label attribute to the underlying input element if defined', () => {
@@ -759,8 +776,7 @@ describe('OuiRadio', () => {
         'Banana'
       );
 
-      fruitRadioInstances[0].ariaLabel = 'Pineapple';
-      fruitRadioInstances[0]._markForCheck();
+      fruitRadioInstances[0].ariaLabel.set('Pineapple');
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-label')).toBe(
@@ -785,8 +801,7 @@ describe('OuiRadio', () => {
         'xyz'
       );
 
-      fruitRadioInstances[0].ariaLabelledby = 'uvw';
-      fruitRadioInstances[0]._markForCheck();
+      fruitRadioInstances[0].ariaLabelledby.set('uvw');
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-labelledby')).toBe(
@@ -811,8 +826,7 @@ describe('OuiRadio', () => {
         'abc'
       );
 
-      fruitRadioInstances[0].ariaDescribedby = 'uvw';
-      fruitRadioInstances[0]._markForCheck();
+      fruitRadioInstances[0].ariaDescribedby.set('uvw');
       fixture.detectChanges();
 
       expect(fruitRadioNativeInputs[0].getAttribute('aria-describedby')).toBe(
@@ -846,9 +860,6 @@ describe('OuiRadio', () => {
     });
 
     it('should allow specifying an explicit tabindex for a single radio-button', () => {
-      const radioButtonInstance = fixture.debugElement.query(
-        By.directive(OuiRadioButton)
-      ).componentInstance as OuiRadioButton;
       const radioButtonInput = fixture.debugElement.query(
         By.css('.oui-radio-button input')
       ).nativeElement as HTMLInputElement;
@@ -858,8 +869,10 @@ describe('OuiRadio', () => {
         'Expected the tabindex to be set to "0" by default.'
       );
 
-      radioButtonInstance.tabIndex = 4;
-      radioButtonInstance._markForCheck();
+      const radioInstance = fixture.debugElement
+        .query(By.directive(OuiRadioButton))
+        .injector.get<OuiRadioButton>(OuiRadioButton);
+      radioInstance.tabIndex.set(4);
       fixture.detectChanges();
 
       expect(radioButtonInput.tabIndex).toBe(
@@ -907,7 +920,7 @@ describe('OuiRadio', () => {
     }));
 
     it('should initialize selection of radios based on model value', () => {
-      expect(groupInstance.selected).toBe(radioInstances[2]);
+      expect(groupInstance.selected()).toBe(radioInstances[2]);
     });
   });
 });
