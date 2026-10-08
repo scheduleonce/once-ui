@@ -4,11 +4,11 @@
   @switch (currentView) { @case ('month') {
   <oui-month-view
     [(activeDate)]="activeDate"
-    [selected]="selected"
-    [dateFilter]="dateFilter"
-    [maxDate]="maxDate"
-    [minDate]="minDate"
-    [dateClass]="dateClass"
+    [selected]="selected()"
+    [dateFilter]="dateFilter()"
+    [maxDate]="maxDate()"
+    [minDate]="minDate()"
+    [dateClass]="dateClass()"
     (selectedChange)="_dateSelected($event)"
     (_userSelection)="_userSelected()"
   >
@@ -16,10 +16,10 @@
   } @case ('year') {
   <oui-year-view
     [(activeDate)]="activeDate"
-    [selected]="selected"
-    [dateFilter]="dateFilter"
-    [maxDate]="maxDate"
-    [minDate]="minDate"
+    [selected]="selected()"
+    [dateFilter]="dateFilter()"
+    [maxDate]="maxDate()"
+    [minDate]="minDate()"
     (monthSelected)="_monthSelectedInYearView($event)"
     (selectedChange)="_goToDateInView($event, 'month')"
   >
@@ -27,10 +27,10 @@
   } @case ('multi-year') {
   <oui-multi-year-view
     [(activeDate)]="activeDate"
-    [selected]="selected"
-    [dateFilter]="dateFilter"
-    [maxDate]="maxDate"
-    [minDate]="minDate"
+    [selected]="selected()"
+    [dateFilter]="dateFilter()"
+    [maxDate]="maxDate()"
+    [minDate]="minDate()"
     (yearSelected)="_yearSelectedInMultiYearView($event)"
     (selectedChange)="_goToDateInView($event, 'year')"
   >

@@ -1,5 +1,10 @@
 import { OuiIconRegistry } from '../../components';
-import { Component, inject, input } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'oui-icon-storybook',
@@ -12,6 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
       [style.height.px]="size()"
     ></oui-icon>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiiconStorybook {

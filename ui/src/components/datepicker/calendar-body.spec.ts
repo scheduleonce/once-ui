@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   OuiCalendarBody,
   OuiCalendarCell,
@@ -21,6 +21,7 @@ import { By } from '@angular/platform-browser';
       (selectedValueChange)="onSelect($event)"
     ></table>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class StandardCalendarBody {
