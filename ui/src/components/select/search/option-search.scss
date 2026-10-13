@@ -33,10 +33,14 @@ $defaul-color: #c8c8c8;
   .clear-btn {
     background-color: #fff;
     position: absolute;
-    right: 1px;
-    top: 1px;
-    height: calc(100% - 10px);
-    padding: 8px 4px 0px 4px;
+  right: 0;
+  border-right: 1px solid transparent;
+  background-clip: padding-box;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    padding: 0 4px;
   }
 }
 .oui-select-search-panel {
