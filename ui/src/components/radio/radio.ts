@@ -70,8 +70,11 @@ export class OuiRadioGroupBase {}
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
-export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
+export class OuiRadioGroup
+  implements AfterContentInit, OnDestroy, ControlValueAccessor
+{
   private _changeDetector = inject(ChangeDetectorRef);
+  private _radioQuerySubscription = Subscription.EMPTY;
 
   /**
    * Event emitted when the group value changes.
@@ -183,6 +186,14 @@ export class OuiRadioGroup implements AfterContentInit, ControlValueAccessor {
     // possibly be set by NgModel on OuiRadioGroup, and it is possible that the OnInit of the
     // NgModel occurs *after* the OnInit of the OuiRadioGroup.
     this._isInitialized = true;
+    this._propagateGroupProperties();
+    this._radioQuerySubscription = this._radios.changes.subscribe(() => {
+      this._propagateGroupProperties();
+    });
+  }
+
+  ngOnDestroy(): void {
+    this._radioQuerySubscription.unsubscribe();
   }
 
   /**
