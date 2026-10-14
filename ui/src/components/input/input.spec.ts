@@ -464,6 +464,14 @@ describe('OuiInput with forms', () => {
       `Expected form field to look disabled after disable() is called.`
     );
     expect(inputEl.disabled).toBe(true);
+
+    // TODO: Add coverage for re-enabling the FormControl and verifying that the
+    // native input and form-field disabled styling are restored.
+    // fixture.componentInstance.formControl.enable();
+    // fixture.detectChanges();
+
+    // expect(formFieldEl.classList).not.toContain('oui-disabled');
+    // expect(inputEl.disabled).toBe(false);
   }));
 });
 
