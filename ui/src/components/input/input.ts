@@ -6,16 +6,18 @@ import {
   ErrorHandler,
   booleanAttribute,
   effect,
+  computed,
   input,
   OnChanges,
   OnDestroy,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
 import { OuiFormFieldControl } from '../form-field/form-field-control';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { getOuiInputUnsupportedTypeError } from './input-errors';
 import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
 import { OUI_INPUT_VALUE_ACCESSOR } from './input-value-accessor';
@@ -90,7 +92,7 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     '[attr.id]': 'id()',
     '[class.oui-input-inline-edit]': 'inlineEdit()',
     '[attr.placeholder]': 'placeholder() || null',
-    '[disabled]': 'disabled()',
+    '[disabled]': '_isDisabled()',
     '[required]': 'required()',
     '[attr.readonly]': 'readonly() && !_isNativeSelect || null',
     '[attr.aria-describedby]': '_ariaDescribedby || null',
@@ -123,6 +125,9 @@ export class OuiInput
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
   private _inputValueAccessor: { value: any };
+  private _ngControlStatusChangesSubscription = Subscription.EMPTY;
+  private _formControlDisabled = signal(false);
+  _isDisabled = computed(() => this.disabled() || this._formControlDisabled());
 
   /**
    * Implemented as part of CanColor.
@@ -295,7 +300,7 @@ export class OuiInput
       const id = this.id();
       const type = this.type();
       const value = this.valueInput();
-      const disabled = this.disabled();
+      const disabled = this._isDisabled();
       const required = this.required();
       const readonly = this.readonly();
       const spellcheck = this.spellcheck();
@@ -326,6 +331,13 @@ export class OuiInput
   }
 
   ngOnInit() {
+    this._formControlDisabled.set(!!this.ngControl?.disabled);
+    this._ngControlStatusChangesSubscription =
+      this.ngControl?.statusChanges?.subscribe(() => {
+        this._formControlDisabled.set(!!this.ngControl.disabled);
+        this.stateChanges.next();
+      }) ?? Subscription.EMPTY;
+
     if (this._platform.isBrowser) {
       this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe({
         next: (event) => {
@@ -343,6 +355,7 @@ export class OuiInput
 
   ngOnDestroy() {
     this.stateChanges.complete();
+    this._ngControlStatusChangesSubscription.unsubscribe();
 
     if (this._platform.isBrowser) {
       this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
