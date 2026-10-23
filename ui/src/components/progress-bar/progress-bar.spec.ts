@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { OuiProgressBar } from './progress-bar';
 import { By } from '@angular/platform-browser';
 
@@ -9,6 +9,7 @@ import { By } from '@angular/platform-browser';
 
 @Component({
   template: '<oui-progress-bar></oui-progress-bar>',
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BasicProgressBar {}
@@ -17,6 +18,7 @@ class BasicProgressBar {}
   template: `
     <oui-progress-bar [strokeWidth]="4" [color]="color"></oui-progress-bar>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class ProgressBarWithColor {

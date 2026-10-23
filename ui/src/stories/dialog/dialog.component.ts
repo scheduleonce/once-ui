@@ -5,6 +5,7 @@ import {
   inject,
   input,
   output,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { OuiDialog } from '../../components';
 
@@ -53,6 +54,7 @@ import { OuiDialog } from '../../components';
       </div>
     </ng-template>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDialogStorybook {

@@ -8,6 +8,7 @@ import {
   ViewChild,
   ViewContainerRef,
   inject,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -213,6 +214,7 @@ describe('MDC-based OuiTabBody', () => {
       [origin]="origin"
     ></oui-tab-body>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleTabBodyApp implements OnInit {

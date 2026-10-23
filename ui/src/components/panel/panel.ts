@@ -3,20 +3,21 @@ import {
   ViewEncapsulation,
   Component,
   InjectionToken,
-  Input,
   input,
+  model,
   ViewChild,
   TemplateRef,
   OnInit,
   ContentChild,
-  Output,
-  EventEmitter,
+  output,
   NgZone,
   ElementRef,
   OnDestroy,
   inject,
   HostAttributeToken,
   ChangeDetectorRef,
+  ErrorHandler,
+  effect,
 } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import {
@@ -69,8 +70,6 @@ export class OuiPanel implements OnInit, OnDestroy, OuiPanelOverlay {
     OUI_PANEL_DEFAULT_OPTIONS
   );
 
-  private _xPosition: PanelPositionX = this._defaultOptions.xPosition;
-  private _yPosition: PanelPositionY = this._defaultOptions.yPosition;
   private readonly _mouseLeave: Subject<MouseEvent> = new Subject<MouseEvent>();
   public mouseLeave: Observable<MouseEvent>;
   private readonly _mouseEnter: Subject<MouseEvent> = new Subject<MouseEvent>();
@@ -98,38 +97,28 @@ export class OuiPanel implements OnInit, OnDestroy, OuiPanelOverlay {
   lazyContent: OuiPanelContent;
 
   /** Event emitted when the menu is closed. */
-  @Output()
-  readonly closed: EventEmitter<void> = new EventEmitter<void>();
+  readonly closed = output<void>();
 
   /** Position of the menu in the X axis. */
-  @Input()
-  get xPosition(): PanelPositionX {
-    return this._xPosition;
-  }
-  set xPosition(value: PanelPositionX) {
-    if (value !== 'before' && value !== 'after') {
-      throwOuiPanelInvalidPositionX();
-    }
-    this._xPosition = value;
-    this.setPositionClasses();
-  }
+  readonly xPosition = model(this._defaultOptions.xPosition);
 
   /** Position of the menu in the Y axis. */
-  @Input()
-  get yPosition(): PanelPositionY {
-    return this._yPosition;
-  }
-  set yPosition(value: PanelPositionY) {
-    if (value !== 'above' && value !== 'below') {
-      throwOuiPanelInvalidPositionY();
-    }
-    this._yPosition = value;
-    this.setPositionClasses();
-  }
+  readonly yPosition = model(this._defaultOptions.yPosition);
 
   constructor() {
     this.mouseLeave = this._mouseLeave.asObservable();
     this.mouseEnter = this._mouseEnter.asObservable();
+    effect(() => {
+      const xPosition = this.xPosition();
+      const yPosition = this.yPosition();
+      if (xPosition !== 'before' && xPosition !== 'after') {
+        throwOuiPanelInvalidPositionX();
+      }
+      if (yPosition !== 'above' && yPosition !== 'below') {
+        throwOuiPanelInvalidPositionY();
+      }
+      this.setPositionClasses(xPosition, yPosition);
+    });
   }
 
   ngOnInit() {
@@ -208,8 +197,8 @@ export class OuiPanel implements OnInit, OnDestroy, OuiPanelOverlay {
    * @docs-private
    */
   setPositionClasses(
-    posX: PanelPositionX = this.xPosition,
-    posY: PanelPositionY = this.yPosition
+    posX: PanelPositionX = this.xPosition(),
+    posY: PanelPositionY = this.yPosition()
   ) {
     const classes = this._classList;
     classes['oui-panel-before'] = posX === 'before';
@@ -253,6 +242,7 @@ export class OuiPanelIcon implements OnDestroy {
   private domSanitizer = inject(DomSanitizer);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
 
   private _monitorSubscription: Subscription = Subscription.EMPTY;
   tabIndex: any;
@@ -266,7 +256,10 @@ export class OuiPanelIcon implements OnDestroy {
     this.tabIndex = parseInt(tabIndex, 10) || 0;
     this._monitorSubscription = this._focusMonitor
       .monitor(this._elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
 
     this.ouiIconRegistry.addSvgIconLiteral(
       `panel-icon`,

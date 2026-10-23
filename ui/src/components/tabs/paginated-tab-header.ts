@@ -11,22 +11,17 @@ import {
   ElementRef,
   NgZone,
   QueryList,
-  EventEmitter,
+  ErrorHandler,
   AfterContentChecked,
   AfterContentInit,
   AfterViewInit,
   OnDestroy,
   Directive,
-  Input,
+  model,
+  output,
   inject,
 } from '@angular/core';
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import {
-  BooleanInput,
-  coerceBooleanProperty,
-  coerceNumberProperty,
-  NumberInput,
-} from '@angular/cdk/coercion';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { FocusKeyManager, FocusableOption } from '@angular/cdk/a11y';
 import { ENTER, SPACE, hasModifierKey } from '@angular/cdk/keycodes';
@@ -96,6 +91,7 @@ export abstract class OuiPaginatedTabHeader
   private _viewportRuler = inject(ViewportRuler);
   private _dir = inject(Directionality, { optional: true })!;
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
   private _platform = inject(Platform);
   _animationMode? = inject(ANIMATION_MODULE_TYPE, { optional: true });
 
@@ -150,39 +146,16 @@ export abstract class OuiPaginatedTabHeader
    * Whether pagination should be disabled. This can be used to avoid unnecessary
    * layout recalculations if it's known that pagination won't be required.
    */
-  @Input()
-  get disablePagination(): boolean {
-    return this._disablePagination;
-  }
-  set disablePagination(value: BooleanInput) {
-    this._disablePagination = coerceBooleanProperty(value);
-  }
-  private _disablePagination = false;
+  readonly disablePagination = model(false);
 
   /** The index of the active tab. */
-  get selectedIndex(): number {
-    return this._selectedIndex;
-  }
-  set selectedIndex(value: NumberInput) {
-    value = coerceNumberProperty(value);
-
-    if (this._selectedIndex != value) {
-      this._selectedIndexChanged = true;
-      this._selectedIndex = value;
-
-      if (this._keyManager) {
-        this._keyManager.updateActiveItem(value);
-      }
-    }
-  }
-  private _selectedIndex = 0;
+  readonly selectedIndex = model(0);
 
   /** Event emitted when the option is selected. */
-  readonly selectFocusedIndex: EventEmitter<number> =
-    new EventEmitter<number>();
+  readonly selectFocusedIndex = output<number>();
 
   /** Event emitted when a label is focused. */
-  readonly indexFocused: EventEmitter<number> = new EventEmitter<number>();
+  readonly indexFocused = output<number>();
 
   constructor() {
     const _elementRef = this._elementRef;
@@ -192,8 +165,11 @@ export abstract class OuiPaginatedTabHeader
     _ngZone.runOutsideAngular(() => {
       fromEvent(_elementRef.nativeElement, 'mouseleave')
         .pipe(takeUntil(this._destroyed))
-        .subscribe(() => {
-          this._stopInterval();
+        .subscribe({
+          next: () => {
+            this._stopInterval();
+          },
+          error: (err: Error) => this._errorHandler.handleError(err),
         });
     });
   }
@@ -209,8 +185,11 @@ export abstract class OuiPaginatedTabHeader
       passiveEventListenerOptions
     )
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => {
-        this._handlePaginatorPress('before');
+      .subscribe({
+        next: () => {
+          this._handlePaginatorPress('before');
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
 
     fromEvent(
@@ -219,8 +198,11 @@ export abstract class OuiPaginatedTabHeader
       passiveEventListenerOptions
     )
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => {
-        this._handlePaginatorPress('after');
+      .subscribe({
+        next: () => {
+          this._handlePaginatorPress('after');
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
@@ -241,41 +223,52 @@ export abstract class OuiPaginatedTabHeader
       // Allow focus to land on disabled tabs, as per https://w3c.github.io/aria-practices/#kbd_disabled_controls
       .skipPredicate(() => false);
 
-    this._keyManager.updateActiveItem(this._selectedIndex);
+    this._keyManager.updateActiveItem(this.selectedIndex());
 
     // Defer the first call in order to allow for slower browsers to lay out the elements.
     // This helps in cases where the user lands directly on a page with paginated tabs.
     // Note that we use `onStable` instead of `requestAnimationFrame`, because the latter
     // can hold up tests that are in a background tab.
-    this._ngZone.onStable.pipe(take(1)).subscribe(realign);
+    this._ngZone.onStable.pipe(take(1)).subscribe({
+      next: realign,
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
 
     // On dir change or window resize, realign the ink bar and update the orientation of
     // the key manager if the direction has changed.
     merge(dirChange, resize, this._items.changes, this._itemsResized())
       .pipe(takeUntil(this._destroyed))
-      .subscribe(() => {
-        // We need to defer this to give the browser some time to recalculate
-        // the element dimensions. The call has to be wrapped in `NgZone.run`,
-        // because the viewport change handler runs outside of Angular.
-        this._ngZone.run(() => {
-          Promise.resolve().then(() => {
-            // Clamp the scroll distance, because it can change with the number of tabs.
-            this._scrollDistance = Math.max(
-              0,
-              Math.min(this._getMaxScrollDistance(), this._scrollDistance)
-            );
-            realign();
+      .subscribe({
+        next: () => {
+          // We need to defer this to give the browser some time to recalculate
+          // the element dimensions. The call has to be wrapped in `NgZone.run`,
+          // because the viewport change handler runs outside of Angular.
+          this._ngZone.run(() => {
+            Promise.resolve().then(() => {
+              // Clamp the scroll distance, because it can change with the number of tabs.
+              this._scrollDistance = Math.max(
+                0,
+                Math.min(this._getMaxScrollDistance(), this._scrollDistance)
+              );
+              realign();
+            });
           });
-        });
-        this._keyManager.withHorizontalOrientation(this._getLayoutDirection());
+          this._keyManager.withHorizontalOrientation(
+            this._getLayoutDirection()
+          );
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
 
     // If there is a change in the focus key manager we need to emit the `indexFocused`
     // event in order to provide a public event that notifies about focus changes. Also we realign
     // the tabs container by scrolling the new focused tab into the visible section.
-    this._keyManager.change.subscribe((newFocusIndex) => {
-      this.indexFocused.emit(newFocusIndex);
-      this._setTabFocus(newFocusIndex);
+    this._keyManager.change.subscribe({
+      next: (newFocusIndex) => {
+        this.indexFocused.emit(newFocusIndex);
+        this._setTabFocus(newFocusIndex);
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
   }
 
@@ -327,7 +320,7 @@ export abstract class OuiPaginatedTabHeader
     // If the selected index has changed, scroll to the label and check if the scrolling controls
     // should be disabled.
     if (this._selectedIndexChanged) {
-      this._scrollToLabel(this._selectedIndex);
+      this._scrollToLabel(this.selectedIndex());
       this._checkScrollingControls();
       this._alignInkBarToSelectedTab();
       this._selectedIndexChanged = false;
@@ -360,7 +353,7 @@ export abstract class OuiPaginatedTabHeader
     switch (event.keyCode) {
       case ENTER:
       case SPACE:
-        if (this.focusIndex !== this.selectedIndex) {
+        if (this.focusIndex !== this.selectedIndex()) {
           const item = this._items.get(this.focusIndex);
 
           if (item && !item.disabled) {
@@ -469,7 +462,7 @@ export abstract class OuiPaginatedTabHeader
 
   /** Performs the CSS transformation on the tab list that will cause the list to scroll. */
   _updateTabScrollPosition() {
-    if (this.disablePagination) {
+    if (this.disablePagination()) {
       return;
     }
 
@@ -534,7 +527,7 @@ export abstract class OuiPaginatedTabHeader
    * should be called sparingly.
    */
   _scrollToLabel(labelIndex: number) {
-    if (this.disablePagination) {
+    if (this.disablePagination()) {
       return;
     }
 
@@ -584,7 +577,7 @@ export abstract class OuiPaginatedTabHeader
    * should be called sparingly.
    */
   _checkPaginationEnabled() {
-    if (this.disablePagination) {
+    if (this.disablePagination()) {
       this._showPaginationControls = false;
     } else {
       const isEnabled =
@@ -613,7 +606,7 @@ export abstract class OuiPaginatedTabHeader
    * should be called sparingly.
    */
   _checkScrollingControls() {
-    if (this.disablePagination) {
+    if (this.disablePagination()) {
       this._disableScrollAfter = this._disableScrollBefore = true;
     } else {
       // Check if the pagination arrows should be activated.
@@ -641,7 +634,7 @@ export abstract class OuiPaginatedTabHeader
   _alignInkBarToSelectedTab(): void {
     const selectedItem =
       this._items && this._items.length
-        ? this._items.toArray()[this.selectedIndex]
+        ? this._items.toArray()[this.selectedIndex()]
         : null;
     const selectedLabelWrapper = selectedItem
       ? selectedItem.elementRef.nativeElement
@@ -679,13 +672,16 @@ export abstract class OuiPaginatedTabHeader
     timer(HEADER_SCROLL_DELAY, HEADER_SCROLL_INTERVAL)
       // Keep the timer going until something tells it to stop or the component is destroyed.
       .pipe(takeUntil(merge(this._stopScrolling, this._destroyed)))
-      .subscribe(() => {
-        const { maxScrollDistance, distance } = this._scrollHeader(direction);
+      .subscribe({
+        next: () => {
+          const { maxScrollDistance, distance } = this._scrollHeader(direction);
 
-        // Stop the timer if we've reached the start or the end.
-        if (distance === 0 || distance >= maxScrollDistance) {
-          this._stopInterval();
-        }
+          // Stop the timer if we've reached the start or the end.
+          if (distance === 0 || distance >= maxScrollDistance) {
+            this._stopInterval();
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
@@ -695,7 +691,7 @@ export abstract class OuiPaginatedTabHeader
    * @returns Information on the current scroll distance and the maximum.
    */
   private _scrollTo(position: number) {
-    if (this.disablePagination) {
+    if (this.disablePagination()) {
       return { maxScrollDistance: 0, distance: 0 };
     }
 

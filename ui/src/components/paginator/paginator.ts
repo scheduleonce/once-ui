@@ -6,13 +6,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
+  ErrorHandler,
   OnDestroy,
   OnInit,
-  Output,
   ViewEncapsulation,
+  effect,
   inject,
+  input,
+  output,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { OuiPaginatorIntl } from './paginator-intl';
@@ -82,12 +83,15 @@ export class OuiPaginator
 {
   _intl = inject(OuiPaginatorIntl);
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _errorHandler = inject(ErrorHandler);
 
   private _initialized: boolean;
   private _intlChanges: Subscription;
 
   /** The zero-based page index of the displayed list of items. Defaulted to 0. */
-  @Input()
+  readonly pageIndexInput = input<number | string | undefined>(undefined, {
+    alias: 'pageIndex',
+  });
   get pageIndex(): number {
     return this._pageIndex;
   }
@@ -98,7 +102,9 @@ export class OuiPaginator
   _pageIndex = 0;
 
   /** The length of the total number of items that are being paginated. Defaulted to 0. */
-  @Input()
+  readonly lengthInput = input<number | string | undefined>(undefined, {
+    alias: 'length',
+  });
   get length(): number {
     return this._length;
   }
@@ -109,7 +115,9 @@ export class OuiPaginator
   _length = 0;
 
   /** Number of items to display on a page. By default set to 50. */
-  @Input()
+  readonly pageSizeInput = input<number | string | undefined>(undefined, {
+    alias: 'pageSize',
+  });
   get pageSize(): number {
     return this._pageSize;
   }
@@ -119,7 +127,10 @@ export class OuiPaginator
   private _pageSize: number = DEFAULT_PAGE_SIZE;
 
   /** Whether to hide the page size selection UI from the user. */
-  @Input()
+  readonly hidePageSizeInput = input(false, {
+    alias: 'hidePageSize',
+    transform: coerceBooleanProperty,
+  });
   get hidePageSize(): boolean {
     return this._hidePageSize;
   }
@@ -129,8 +140,7 @@ export class OuiPaginator
   private _hidePageSize = false;
 
   /** Event emitted when the paginator changes the page size or page index. */
-  @Output()
-  readonly page: EventEmitter<PageEvent> = new EventEmitter<PageEvent>();
+  readonly page = output<PageEvent>();
 
   /** Displayed set of page size options. Will be sorted and include current page size. */
   _displayedPageSizeOptions: number;
@@ -139,9 +149,26 @@ export class OuiPaginator
     super();
     const _intl = this._intl;
 
-    this._intlChanges = _intl.changes.subscribe(() =>
-      this._changeDetectorRef.markForCheck()
-    );
+    effect(() => {
+      const pageIndex = this.pageIndexInput();
+      if (pageIndex !== undefined) {
+        this.pageIndex = pageIndex as number;
+      }
+      const length = this.lengthInput();
+      if (length !== undefined) {
+        this.length = length as number;
+      }
+      const pageSize = this.pageSizeInput();
+      if (pageSize !== undefined) {
+        this.pageSize = pageSize as number;
+      }
+      this.hidePageSize = this.hidePageSizeInput();
+    });
+
+    this._intlChanges = _intl.changes.subscribe({
+      next: () => this._changeDetectorRef.markForCheck(),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 
   ngOnInit() {

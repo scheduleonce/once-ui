@@ -15,9 +15,9 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
+  effect,
+  input,
+  output,
   ViewChild,
   ViewEncapsulation,
   inject,
@@ -48,7 +48,9 @@ export class OuiMultiYearView<D> implements AfterContentInit {
   private _dir = inject(Directionality, { optional: true });
 
   /** The date to display in this multi-year view (everything other than the year is ignored). */
-  @Input()
+  readonly activeDateInput = input<D | undefined>(undefined, {
+    alias: 'activeDate',
+  });
   get activeDate(): D {
     return this._activeDate;
   }
@@ -72,7 +74,9 @@ export class OuiMultiYearView<D> implements AfterContentInit {
   private _activeDate: D;
 
   /** The currently selected date. */
-  @Input()
+  readonly selectedInput = input<D | null | undefined>(undefined, {
+    alias: 'selected',
+  });
   get selected(): D | null {
     return this._selected;
   }
@@ -86,7 +90,9 @@ export class OuiMultiYearView<D> implements AfterContentInit {
   private _selected: D | null;
 
   /** The minimum selectable date. */
-  @Input()
+  readonly minDateInput = input<D | null | undefined>(undefined, {
+    alias: 'minDate',
+  });
   get minDate(): D | null {
     return this._minDate;
   }
@@ -98,7 +104,9 @@ export class OuiMultiYearView<D> implements AfterContentInit {
   private _minDate: D | null;
 
   /** The maximum selectable date. */
-  @Input()
+  readonly maxDateInput = input<D | null | undefined>(undefined, {
+    alias: 'maxDate',
+  });
   get maxDate(): D | null {
     return this._maxDate;
   }
@@ -110,16 +118,19 @@ export class OuiMultiYearView<D> implements AfterContentInit {
   private _maxDate: D | null;
 
   /** A function used to filter which dates are selectable. */
-  @Input() dateFilter: (date: D) => boolean;
+  readonly dateFilterInput = input<(date: D) => boolean>(undefined, {
+    alias: 'dateFilter',
+  });
+  dateFilter: (date: D) => boolean;
 
   /** Emits when a new year is selected. */
-  @Output() readonly selectedChange: EventEmitter<D> = new EventEmitter<D>();
+  readonly selectedChange = output<D>();
 
   /** Emits the selected year. This doesn't imply a change on the selected date */
-  @Output() readonly yearSelected: EventEmitter<D> = new EventEmitter<D>();
+  readonly yearSelected = output<D>();
 
   /** Emits when any date is activated. */
-  @Output() readonly activeDateChange: EventEmitter<D> = new EventEmitter<D>();
+  readonly activeDateChange = output<D>();
 
   /** The body of calendar table */
   @ViewChild(OuiCalendarBody)
@@ -140,6 +151,18 @@ export class OuiMultiYearView<D> implements AfterContentInit {
     }
 
     this._activeDate = this._dateAdapter.today();
+    effect(() => {
+      const activeDate = this.activeDateInput();
+      if (activeDate !== undefined) this.activeDate = activeDate;
+      const selected = this.selectedInput();
+      if (selected !== undefined) this.selected = selected;
+      const minDate = this.minDateInput();
+      if (minDate !== undefined) this.minDate = minDate;
+      const maxDate = this.maxDateInput();
+      if (maxDate !== undefined) this.maxDate = maxDate;
+      const dateFilter = this.dateFilterInput();
+      if (dateFilter !== undefined) this.dateFilter = dateFilter;
+    });
   }
 
   ngAfterContentInit() {

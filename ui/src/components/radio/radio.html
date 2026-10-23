@@ -8,20 +8,20 @@
       (change)="_onInputChange($event)"
       (click)="_onInputClick($event)"
       type="radio"
-      [checked]="checked"
-      [disabled]="disabled"
-      [required]="required"
-      [attr.aria-label]="ariaLabel"
-      [attr.aria-labelledby]="ariaLabelledby"
-      [attr.aria-describedby]="ariaDescribedby"
+      [checked]="checked()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [attr.aria-label]="ariaLabel()"
+      [attr.aria-labelledby]="ariaLabelledby()"
+      [attr.aria-describedby]="ariaDescribedby()"
       [id]="inputId"
-      [tabIndex]="tabIndex"
-      [attr.name]="name"
+      [tabIndex]="tabIndex()"
+      [attr.name]="name()"
     />
   </div>
   <div
     class="oui-radio-label-content"
-    [class.oui-radio-label-before]="labelPosition === 'before'"
+    [class.oui-radio-label-before]="labelPosition() === 'before'"
   >
     <span style="display: none">&nbsp;</span><ng-content></ng-content>
   </div>

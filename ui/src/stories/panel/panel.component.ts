@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'oui-panel-storybook',
@@ -25,6 +25,7 @@ import { Component, input } from '@angular/core';
       </p>
     </oui-panel>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiPanelStorybook {
@@ -59,6 +60,7 @@ export class OuiPanelStorybook {
       </p>
     </oui-panel>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiPanelWithImageStorybook {

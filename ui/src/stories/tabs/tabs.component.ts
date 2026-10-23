@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { OuiIconRegistry } from '../../components';
 
@@ -36,6 +36,7 @@ import { OuiIconRegistry } from '../../components';
     <oui-icon svgIcon="preview"></oui-icon>
     First tab selected } @case ('second') { Second tab selected } }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiTabStorybook {

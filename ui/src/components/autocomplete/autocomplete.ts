@@ -5,9 +5,9 @@ import {
   ChangeDetectorRef,
   Component,
   ContentChildren,
+  effect,
   ElementRef,
   InjectionToken,
-  Input,
   QueryList,
   booleanAttribute,
   input,
@@ -138,7 +138,9 @@ export class OuiAutocomplete implements AfterContentInit {
    * Takes classes set on the host oui-autocomplete element and applies them to the panel
    * inside the overlay container to allow for easy styling.
    */
-  @Input('class')
+  readonly classInput = input<string | undefined>(undefined, {
+    alias: 'class',
+  });
   set classList(value: string) {
     if (value && value.length) {
       value
@@ -148,6 +150,15 @@ export class OuiAutocomplete implements AfterContentInit {
     }
   }
   _classList: { [key: string]: boolean } = {};
+
+  constructor() {
+    effect(() => {
+      const classList = this.classInput();
+      if (classList !== undefined) {
+        this.classList = classList;
+      }
+    });
+  }
 
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types

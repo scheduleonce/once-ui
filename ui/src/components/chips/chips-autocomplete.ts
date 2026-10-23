@@ -6,8 +6,8 @@ import {
   Component,
   ContentChildren,
   ElementRef,
+  effect,
   InjectionToken,
-  Input,
   QueryList,
   booleanAttribute,
   input,
@@ -135,7 +135,9 @@ export class ChipsAutocomplete implements AfterContentInit {
    * Takes classes set on the host oui-chips-autocomplete element and applies them to the panel
    * inside the overlay container to allow for easy styling.
    */
-  @Input('class')
+  readonly classInput = input<string | undefined>(undefined, {
+    alias: 'class',
+  });
   set classList(value: string) {
     if (value && value.length) {
       value
@@ -149,6 +151,15 @@ export class ChipsAutocomplete implements AfterContentInit {
   /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   id: string = `oui-chips-autocomplete-${_uniqueAutocompleteIdCounter++}`;
+
+  constructor() {
+    effect(() => {
+      const classList = this.classInput();
+      if (classList !== undefined) {
+        this.classList = classList;
+      }
+    });
+  }
 
   ngAfterContentInit() {
     this._keyManager = new ActiveDescendantKeyManager<ChipsOption>(

@@ -6,6 +6,7 @@ import {
   QueryList,
   ViewChild,
   ViewChildren,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import {
   ComponentFixture,
@@ -136,7 +137,7 @@ describe('MDC-based ouiTabGroup', () => {
 
       checkSelectedIndex(1, fixture);
 
-      tabComponent.selectedIndex = 2;
+      tabComponent.selectedIndex.set(2);
       fixture.detectChanges();
       tick();
 
@@ -155,7 +156,7 @@ describe('MDC-based ouiTabGroup', () => {
       ).componentInstance;
 
       // Drive initial state through the tab-group instance directly.
-      component.selectedIndex = 1;
+      component.selectedIndex.set(1);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -172,14 +173,14 @@ describe('MDC-based ouiTabGroup', () => {
       assertPositionsAreValid();
 
       // Move to third tab
-      component.selectedIndex = 2;
+      component.selectedIndex.set(2);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
       assertPositionsAreValid();
 
       // Move to the first tab
-      component.selectedIndex = 0;
+      component.selectedIndex.set(0);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -195,20 +196,20 @@ describe('MDC-based ouiTabGroup', () => {
       ).componentInstance;
 
       // Set the index to be negative, expect first tab selected
-      component.selectedIndex = -1;
+      component.selectedIndex.set(-1);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(component.selectedIndex).toBeGreaterThanOrEqual(0);
-      expect(component.selectedIndex).toBeLessThan(3);
+      expect(component.selectedIndex()).toBeGreaterThanOrEqual(0);
+      expect(component.selectedIndex()).toBeLessThan(3);
 
       // Set the index beyond the size of the tabs, expect last tab selected
-      component.selectedIndex = 3;
+      component.selectedIndex.set(3);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
-      expect(component.selectedIndex).toBeGreaterThanOrEqual(0);
-      expect(component.selectedIndex).toBeLessThan(3);
+      expect(component.selectedIndex()).toBeGreaterThanOrEqual(0);
+      expect(component.selectedIndex()).toBeLessThan(3);
     }));
 
     it('should not crash when setting the selected index to NaN', () => {
@@ -263,7 +264,7 @@ describe('MDC-based ouiTabGroup', () => {
         By.css('oui-tab-group')
       ).componentInstance;
 
-      tabGroup.selectedIndex = 1;
+      tabGroup.selectedIndex.set(1);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -654,7 +655,7 @@ describe('MDC-based ouiTabGroup', () => {
       fixture.detectChanges();
       tick();
 
-      expect(component.selectedIndex).toBe(numberOfTabs - 2);
+      expect(component.selectedIndex()).toBe(numberOfTabs - 2);
     }));
 
     it('should maintain the selected tab if a new tab is added', fakeAsync(() => {
@@ -663,7 +664,7 @@ describe('MDC-based ouiTabGroup', () => {
         By.css('oui-tab-group')
       ).componentInstance;
 
-      component.selectedIndex = 1;
+      component.selectedIndex.set(1);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -680,7 +681,7 @@ describe('MDC-based ouiTabGroup', () => {
       tick();
       fixture.detectChanges();
 
-      expect(component.selectedIndex).toBe(1);
+      expect(component.selectedIndex()).toBe(1);
       expect(component._tabs.toArray()[1].isActive).toBe(true);
     }));
 
@@ -690,7 +691,7 @@ describe('MDC-based ouiTabGroup', () => {
         By.css('oui-tab-group')
       ).componentInstance;
 
-      component.selectedIndex = 1;
+      component.selectedIndex.set(1);
       fixture.detectChanges();
       tick();
       fixture.detectChanges();
@@ -703,7 +704,7 @@ describe('MDC-based ouiTabGroup', () => {
 
       // Since the first tab has been removed and the second one was selected before, the selected
       // tab moved one position to the right. Meaning that the tab is now the first tab.
-      expect(component.selectedIndex).toBe(1);
+      expect(component.selectedIndex()).toBe(1);
       expect(component._tabs.toArray()[1].isActive).toBe(true);
     }));
 
@@ -725,7 +726,7 @@ describe('MDC-based ouiTabGroup', () => {
       fixture.componentInstance.selectedIndex = 3;
       stabilize(fixture);
 
-      expect(component.selectedIndex).toBe(3);
+      expect(component.selectedIndex()).toBe(3);
       expect(component._tabs.toArray()[3].isActive).toBe(true);
     }));
 
@@ -830,7 +831,7 @@ describe('MDC-based ouiTabGroup', () => {
       expect(getSelectedLabel(fixture).textContent).toMatch('Junk food');
       expect(getSelectedContent(fixture).textContent).toMatch('Pizza, fries');
 
-      tabGroup.selectedIndex = 2;
+      tabGroup.selectedIndex.set(2);
       fixture.detectChanges();
       tick();
 
@@ -853,7 +854,7 @@ describe('MDC-based ouiTabGroup', () => {
       expect(fixture.nativeElement.textContent).toContain('Pizza, fries');
       expect(fixture.nativeElement.textContent).not.toContain('Peanuts');
 
-      tabGroup.selectedIndex = 3;
+      tabGroup.selectedIndex.set(3);
       fixture.detectChanges();
       tick();
 
@@ -887,7 +888,7 @@ describe('MDC-based ouiTabGroup', () => {
       expect(fixture.nativeElement.textContent).toContain('Pizza, fries');
       expect(fixture.nativeElement.textContent).not.toContain('Peanuts');
 
-      tabGroup.selectedIndex = 3;
+      tabGroup.selectedIndex.set(3);
       fixture.detectChanges();
       tick();
 
@@ -1009,11 +1010,11 @@ describe('MDC-based ouiTabGroup', () => {
       const groups = fixture.componentInstance.groups.toArray();
 
       expect(groups.length).toBe(2);
-      expect(groups[0]._tabs.map((tab: OuiTab) => tab.textLabel)).toEqual([
+      expect(groups[0]._tabs.map((tab: OuiTab) => tab.textLabel())).toEqual([
         'One',
         'Two',
       ]);
-      expect(groups[1]._tabs.map((tab: OuiTab) => tab.textLabel)).toEqual([
+      expect(groups[1]._tabs.map((tab: OuiTab) => tab.textLabel())).toEqual([
         'Inner tab one',
         'Inner tab two',
       ]);
@@ -1028,7 +1029,10 @@ describe('MDC-based ouiTabGroup', () => {
       fixture.detectChanges();
 
       const tabs = fixture.componentInstance.tabGroup._tabs;
-      expect(tabs.map((tab: OuiTab) => tab.textLabel)).toEqual(['One', 'Two']);
+      expect(tabs.map((tab: OuiTab) => tab.textLabel())).toEqual([
+        'One',
+        'Two',
+      ]);
     }));
   });
 
@@ -1064,7 +1068,7 @@ describe('MDC-based ouiTabGroup', () => {
       window.scrollBy(0, 250);
       expect(window.scrollY).toBe(250);
 
-      fixture.componentInstance.tabGroup.selectedIndex = 1;
+      fixture.componentInstance.tabGroup.selectedIndex.set(1);
       fixture.detectChanges();
 
       expect(window.scrollY).toBe(250);
@@ -1106,8 +1110,8 @@ describe('MDC-based ouiTabGroup', () => {
       ).componentInstance;
       const firstTab = tabGroup._tabs.toArray()[0];
 
-      firstTab.labelClass = 'custom-label-class';
-      firstTab.bodyClass = 'custom-body-class';
+      firstTab.labelClass.set('custom-label-class');
+      firstTab.bodyClass.set('custom-body-class');
       firstTab._stateChanges.next();
       fixture.detectChanges();
       labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
@@ -1120,8 +1124,8 @@ describe('MDC-based ouiTabGroup', () => {
         'custom-body-class'
       );
 
-      firstTab.labelClass = undefined;
-      firstTab.bodyClass = undefined;
+      firstTab.labelClass.set(undefined);
+      firstTab.bodyClass.set(undefined);
       firstTab._stateChanges.next();
       fixture.detectChanges();
       labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
@@ -1148,8 +1152,8 @@ describe('MDC-based ouiTabGroup', () => {
       ).componentInstance;
       const firstTab = tabGroup._tabs.toArray()[0];
 
-      firstTab.labelClass = ['custom-label-class'];
-      firstTab.bodyClass = ['custom-body-class'];
+      firstTab.labelClass.set(['custom-label-class']);
+      firstTab.bodyClass.set(['custom-body-class']);
       firstTab._stateChanges.next();
       fixture.detectChanges();
       labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
@@ -1162,8 +1166,8 @@ describe('MDC-based ouiTabGroup', () => {
         'custom-body-class'
       );
 
-      firstTab.labelClass = undefined;
-      firstTab.bodyClass = undefined;
+      firstTab.labelClass.set(undefined);
+      firstTab.bodyClass.set(undefined);
       firstTab._stateChanges.next();
       fixture.detectChanges();
       labelElements = fixture.debugElement.queryAll(By.css('.mdc-tab'));
@@ -1191,7 +1195,7 @@ describe('MDC-based ouiTabGroup', () => {
     const tabComponent: ouiTabGroup = fixture.debugElement.query(
       By.css('oui-tab-group')
     ).componentInstance;
-    expect(tabComponent.selectedIndex).toBe(expectedIndex);
+    expect(tabComponent.selectedIndex()).toBe(expectedIndex);
 
     const tabLabelElement = fixture.debugElement.query(
       By.css(`.oui-mdc-tab:nth-of-type(${expectedIndex + 1})`)
@@ -1283,7 +1287,7 @@ describe('ouiTabGroup with ink bar fit to content', () => {
       By.css('oui-tab-group')
     ).componentInstance;
 
-    tabGroup.fitInkBarToContent = false;
+    tabGroup.fitInkBarToContent.set(false);
     fixture.detectChanges();
 
     const tabElement = fixture.nativeElement.querySelector('.mdc-tab');
@@ -1291,7 +1295,7 @@ describe('ouiTabGroup with ink bar fit to content', () => {
     expect(indicatorElement.parentElement).toBeTruthy();
     expect(indicatorElement.parentElement).toBe(tabElement);
 
-    tabGroup.fitInkBarToContent = true;
+    tabGroup.fitInkBarToContent.set(true);
     fixture.detectChanges();
 
     const contentElement = tabElement.querySelector('.mdc-tab__content');
@@ -1339,7 +1343,7 @@ describe('OuiTabNavBar with a default config', () => {
   });
 
   it('should set whether the height of the tab group is dynamic', () => {
-    expect(fixture.componentInstance.tabGroup.dynamicHeight).toBe(true);
+    expect(fixture.componentInstance.tabGroup.dynamicHeight()).toBe(true);
   });
 });
 
@@ -1369,6 +1373,7 @@ describe('OuiTabNavBar with a default config', () => {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleTabsTestApp {
@@ -1406,6 +1411,7 @@ class SimpleTabsTestApp {
       }
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class SimpleDynamicTabsTestApp {
@@ -1436,6 +1442,7 @@ class SimpleDynamicTabsTestApp {
       }
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class BindedTabsTestApp {
@@ -1471,6 +1478,7 @@ class BindedTabsTestApp {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class DisabledTabsTestApp {
@@ -1489,6 +1497,7 @@ class DisabledTabsTestApp {
       }
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class AsyncTabsTestApp implements OnInit {
@@ -1520,6 +1529,7 @@ class AsyncTabsTestApp implements OnInit {
       <oui-tab label="Legumes"> <p #legumes>Peanuts</p> </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithSimpleApi {
@@ -1544,6 +1554,7 @@ class TabGroupWithSimpleApi {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NestedTabs {
@@ -1561,6 +1572,7 @@ class NestedTabs {
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TemplateTabs {}
@@ -1574,6 +1586,7 @@ class TemplateTabs {}
       ></oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithAriaInputs {
@@ -1592,6 +1605,7 @@ class TabGroupWithAriaInputs {
     <div>pizza is active</div>
     }
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithIsActiveBinding {}
@@ -1603,6 +1617,7 @@ class TabGroupWithIsActiveBinding {}
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabsWithCustomAnimationDuration {}
@@ -1614,6 +1629,7 @@ class TabsWithCustomAnimationDuration {}
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithIndirectDescendantTabs {
@@ -1627,6 +1643,7 @@ class TabGroupWithIndirectDescendantTabs {
       <oui-tab label="Two">Tab two content</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithInkBarFitToContent {
@@ -1647,6 +1664,7 @@ class TabGroupWithInkBarFitToContent {
       </ng-container>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabGroupWithSpaceAbove {
@@ -1670,6 +1688,7 @@ class TabGroupWithSpaceAbove {
       <oui-tab label="Parent 3">Parent 3</oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class NestedTabGroupWithLabel {}
@@ -1693,6 +1712,7 @@ class NestedTabGroupWithLabel {}
       </oui-tab>
     </oui-tab-group>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 class TabsWithClassesTestApp {

@@ -1,4 +1,4 @@
-import { EventEmitter, TemplateRef, InjectionToken } from '@angular/core';
+import { TemplateRef, InjectionToken } from '@angular/core';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { OuiMenuContent } from './menu-content';
@@ -18,18 +18,18 @@ export const OUI_MENU_PANEL = new InjectionToken<OuiMenuPanel>(
  * @docs-private
  */
 export interface OuiMenuPanel<T = any> {
-  xPosition: MenuPositionX;
-  yPosition: MenuPositionY;
-  overlapTrigger: boolean;
+  xPosition: any;
+  yPosition: any;
+  overlapTrigger: any;
   templateRef: TemplateRef<any>;
-  close: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
+  close: any;
   parentMenu?: OuiMenuPanel | undefined;
   focusFirstItem: (origin?: FocusOrigin) => void;
   resetActiveItem: () => void;
   setPositionClasses?: (x: MenuPositionX, y: MenuPositionY) => void;
   lazyContent?: OuiMenuContent;
   addItem?: (item: T) => void;
-  hasBackdrop?: boolean;
-  backdropClass?: string;
+  hasBackdrop?: any;
+  backdropClass?: any;
   removeItem?: (item: T) => void;
 }

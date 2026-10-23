@@ -1,4 +1,4 @@
-import { EventEmitter, TemplateRef, InjectionToken } from '@angular/core';
+import { TemplateRef, InjectionToken } from '@angular/core';
 import { PanelPositionX, PanelPositionY } from './panel-positions';
 import { OuiPanelContent } from './panel-content';
 import { Observable, Subject } from 'rxjs';
@@ -18,10 +18,10 @@ export const OUI_PANEL_OVERLAY = new InjectionToken<OuiPanelOverlay>(
  * @docs-private
  */
 export interface OuiPanelOverlay {
-  xPosition: PanelPositionX;
-  yPosition: PanelPositionY;
+  xPosition: any;
+  yPosition: any;
   templateRef: TemplateRef<any>;
-  closed: EventEmitter<void>;
+  closed: any;
   setPositionClasses?: (x: PanelPositionX, y: PanelPositionY) => void;
   lazyContent?: OuiPanelContent;
   mouseLeave: Observable<MouseEvent>;

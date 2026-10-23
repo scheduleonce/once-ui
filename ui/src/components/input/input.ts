@@ -1,21 +1,23 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 import {
   Directive,
   ElementRef,
-  Input,
+  ErrorHandler,
   booleanAttribute,
+  effect,
+  computed,
   input,
   OnChanges,
   OnDestroy,
   OnInit,
   inject,
+  signal,
 } from '@angular/core';
 import { NgControl, NgForm, FormGroupDirective } from '@angular/forms';
 import { CanColor, mixinColor } from '../core';
 import { OuiFormFieldControl } from '../form-field/form-field-control';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { getOuiInputUnsupportedTypeError } from './input-errors';
 import { ErrorStateMatcher } from '../core/common-behaviors/error-options';
 import { OUI_INPUT_VALUE_ACCESSOR } from './input-value-accessor';
@@ -87,17 +89,17 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
     class: 'oui-input-element',
     // Native input properties that are overwritten by Angular inputs need to be synced with
     // the native input element. Otherwise property bindings for those don't work.
-    '[attr.id]': 'id',
+    '[attr.id]': 'id()',
     '[class.oui-input-inline-edit]': 'inlineEdit()',
-    '[attr.placeholder]': 'placeholder',
-    '[disabled]': 'disabled',
-    '[required]': 'required',
-    '[attr.readonly]': 'readonly && !_isNativeSelect || null',
+    '[attr.placeholder]': 'placeholder() || null',
+    '[disabled]': '_isDisabled()',
+    '[required]': 'required()',
+    '[attr.readonly]': 'readonly() && !_isNativeSelect || null',
     '[attr.aria-describedby]': '_ariaDescribedby || null',
     '[attr.aria-invalid]': 'errorState',
-    '[attr.aria-required]': 'required.toString()',
+    '[attr.aria-required]': 'required().toString()',
     // Enable browser's default spellcheck behavior for all text inputs and textareas.
-    '[attr.spellcheck]': 'spellcheck.toString()',
+    '[attr.spellcheck]': 'spellcheck().toString()',
     '(input)': '_onInput()',
   },
   providers: [
@@ -109,7 +111,7 @@ export const _OuiInputMixinBase: typeof OuiInputBase = mixinColor(OuiInputBase);
 })
 export class OuiInput
   extends _OuiInputMixinBase
-  implements OuiFormFieldControl<any>, OnChanges, OnDestroy, OnInit, CanColor
+  implements OnChanges, OnDestroy, OnInit, CanColor
 {
   _elementRef: ElementRef<
     HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
@@ -123,6 +125,9 @@ export class OuiInput
   protected _uid = `oui-input-${nextUniqueId++}`;
   protected _previousNativeValue: any;
   private _inputValueAccessor: { value: any };
+  private _ngControlStatusChangesSubscription = Subscription.EMPTY;
+  private _formControlDisabled = signal(false);
+  _isDisabled = computed(() => this.disabled() || this._formControlDisabled());
 
   /**
    * Implemented as part of CanColor.
@@ -138,7 +143,8 @@ export class OuiInput
   errorState: boolean = false;
 
   /** The aria-describedby attribute on the input for improved a11y. */
-  _ariaDescribedby: string;
+  _ariaDescribedby = '';
+  private _errorHandler = inject(ErrorHandler);
 
   /** Whether the component is being rendered on the server. */
   _isServer = false;
@@ -181,117 +187,55 @@ export class OuiInput
    *
    * @docs-private
    */
-  @Input()
-  get disabled(): boolean {
-    if (this.ngControl && this.ngControl.disabled !== null) {
-      return this.ngControl.disabled;
-    }
-    return this._disabled;
-  }
-  set disabled(value: boolean) {
-    this._disabled = coerceBooleanProperty(value);
-
-    // Browsers may not fire the blur event if the input is disabled too quickly.
-    // Reset from here to ensure that the element doesn't become stuck.
-    if (this.focused) {
-      this.focused = false;
-      this.stateChanges.next();
-    }
-  }
-  protected _disabled = false;
+  readonly disabled = input(false, { transform: booleanAttribute });
 
   /**
    * Implemented as part of OuiFormFieldControl.
    *
    * @docs-private
    */
-  @Input()
-  get id(): string {
-    return this._id;
-  }
-  set id(value: string) {
-    this._id = value || this._uid;
-  }
-  protected _id: string;
+  readonly id = input(this._uid);
 
   /**
    * Implemented as part of OuiFormFieldControl.
    *
    * @docs-private
    */
-  @Input()
-  placeholder: string;
+  readonly placeholder = input<string>();
 
   /**
    * Implemented as part of OuiFormFieldControl.
    *
    * @docs-private
    */
-  @Input()
-  get required(): boolean {
-    return this._required;
-  }
-  set required(value: boolean) {
-    this._required = coerceBooleanProperty(value);
-  }
-  protected _required = false;
+  readonly required = input(false, { transform: booleanAttribute });
 
   /** Input type of the element. */
-  @Input()
-  get type(): string {
-    return this._type;
-  }
-  set type(value: string) {
-    this._type = value || 'text';
-    this._validateType();
-
-    // When using Angular inputs, developers are no longer able to set the properties on the native
-    // input element. To ensure that bindings for `type` work, we need to sync the setter
-    // with the native property. Textarea elements don't support the type property or attribute.
-    if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-      (this._elementRef.nativeElement as HTMLInputElement).type = this._type;
-    }
-  }
-  protected _type = 'text';
+  readonly type = input('text');
 
   /** An object used to control when error messages are shown. */
-  @Input() errorStateMatcher: ErrorStateMatcher;
+  readonly errorStateMatcherInput = input<ErrorStateMatcher>(undefined, {
+    alias: 'errorStateMatcher',
+  });
+  errorStateMatcher = inject(ErrorStateMatcher);
 
   /**
    * Implemented as part of OuiFormFieldControl.
    *
    * @docs-private
    */
-  @Input()
+  readonly valueInput = input<string | undefined>(undefined, {
+    alias: 'value',
+  });
   get value(): string {
     return this._inputValueAccessor.value;
   }
-  set value(value: string) {
-    if (value !== this.value) {
-      this._inputValueAccessor.value = value;
-      this.stateChanges.next();
-    }
-  }
 
   /** Whether the element is readonly. */
-  @Input()
-  get readonly(): boolean {
-    return this._readonly;
-  }
-  set readonly(value: boolean) {
-    this._readonly = coerceBooleanProperty(value);
-  }
-  private _readonly = false;
+  readonly readonly = input(false, { transform: booleanAttribute });
 
   /** Whether the browser's spellcheck is enabled for the element. */
-  @Input()
-  get spellcheck(): boolean {
-    return this._spellcheck;
-  }
-  set spellcheck(value: boolean) {
-    this._spellcheck = coerceBooleanProperty(value);
-  }
-  private _spellcheck = true;
+  readonly spellcheck = input(true, { transform: booleanAttribute });
 
   /** Whether the input should render in inline edit mode. */
   readonly inlineEdit = input(false, {
@@ -342,9 +286,6 @@ export class OuiInput
 
     this._previousNativeValue = this.value;
 
-    // Force setter to be called in case id was not specified.
-    this.id = this.id;
-
     this._isNativeSelect = element.nodeName.toLowerCase() === 'select';
 
     if (this._isNativeSelect) {
@@ -354,16 +295,57 @@ export class OuiInput
     }
 
     this.addClass();
+
+    effect(() => {
+      const id = this.id();
+      const type = this.type();
+      const value = this.valueInput();
+      const disabled = this._isDisabled();
+      const required = this.required();
+      const readonly = this.readonly();
+      const spellcheck = this.spellcheck();
+
+      this._validateType(type);
+      // An omitted `value` input must not overwrite a value written by Angular Forms through
+      // `formControl` or `formControlName`. An explicit `[value]` binding still takes precedence.
+      if (value !== undefined) {
+        this._inputValueAccessor.value = value;
+      }
+      this.errorStateMatcher =
+        this.errorStateMatcherInput() || this.errorStateMatcher;
+      if (!this._isTextarea() && getSupportedInputTypes().has(type)) {
+        (this._elementRef.nativeElement as HTMLInputElement).type = type;
+      }
+      if (disabled && this.focused) {
+        this.focused = false;
+        this.stateChanges.next();
+      }
+      this._elementRef.nativeElement.id = id;
+      (this._elementRef.nativeElement as HTMLInputElement).placeholder =
+        this.placeholder() || '';
+      this._elementRef.nativeElement.disabled = disabled;
+      this._elementRef.nativeElement.required = required;
+      (this._elementRef.nativeElement as HTMLInputElement).readOnly = readonly;
+      this._elementRef.nativeElement.spellcheck = spellcheck;
+    });
   }
 
   ngOnInit() {
+    this._formControlDisabled.set(!!this.ngControl?.disabled);
+    this._ngControlStatusChangesSubscription =
+      this.ngControl?.statusChanges?.subscribe(() => {
+        this._formControlDisabled.set(!!this.ngControl.disabled);
+        this.stateChanges.next();
+      }) ?? Subscription.EMPTY;
+
     if (this._platform.isBrowser) {
-      this._autofillMonitor
-        .monitor(this._elementRef.nativeElement)
-        .subscribe((event) => {
+      this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe({
+        next: (event) => {
           this.autofilled = event.isAutofilled;
           this.stateChanges.next();
-        });
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
     }
   }
 
@@ -373,6 +355,7 @@ export class OuiInput
 
   ngOnDestroy() {
     this.stateChanges.complete();
+    this._ngControlStatusChangesSubscription.unsubscribe();
 
     if (this._platform.isBrowser) {
       this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
@@ -431,15 +414,15 @@ export class OuiInput
   }
 
   /** Make sure the input is a supported type. */
-  protected _validateType() {
-    if (OUI_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-      throw getOuiInputUnsupportedTypeError(this._type);
+  protected _validateType(type = this.type()) {
+    if (OUI_INPUT_INVALID_TYPES.indexOf(type) > -1) {
+      throw getOuiInputUnsupportedTypeError(type);
     }
   }
 
   /** Checks whether the input type is one of the types that are never empty. */
   protected _isNeverEmpty() {
-    return this._neverEmptyInputTypes.indexOf(this._type) > -1;
+    return this._neverEmptyInputTypes.indexOf(this.type()) > -1;
   }
 
   /** Checks whether the input is invalid based on the native validation. */

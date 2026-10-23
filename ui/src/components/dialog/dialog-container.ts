@@ -43,7 +43,7 @@ export function throwOuiDialogContentAlreadyAttachedError() {
   encapsulation: ViewEncapsulation.None,
   // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
   // eslint-disable-next-line
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.Eager,
   host: {
     class: 'oui-dialog-container',
     tabindex: '-1',

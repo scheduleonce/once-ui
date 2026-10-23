@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'oui-scrollbar-text-storybook',
@@ -12,6 +12,7 @@ import { Component, input } from '@angular/core';
       {{ text() }}
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiScrollbarTextStorybook {
@@ -38,6 +39,7 @@ export class OuiScrollbarTextStorybook {
       </ul>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiScrollbarListStorybook {

@@ -6,14 +6,18 @@ import {
   Component,
   ContentChildren,
   ElementRef,
-  Input,
+  ErrorHandler,
   OnDestroy,
   QueryList,
   ViewEncapsulation,
   booleanAttribute,
   numberAttribute,
+  effect,
   inject,
+  input,
+  ChangeDetectionStrategy,
 } from '@angular/core';
+import { outputToObservable } from '@angular/core/rxjs-interop';
 import { Observable, Subject, merge } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { OuiChip, OuiChipEvent } from './chip';
@@ -37,12 +41,14 @@ import { OuiChipAction, OuiChipContent } from './chip-action';
     '(keydown)': '_handleKeydown($event)',
     '[attr.role]': 'role',
   },
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None,
 })
 export class OuiChipSet implements AfterViewInit, OnDestroy {
   protected _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   protected _changeDetectorRef = inject(ChangeDetectorRef);
   private _dir = inject(Directionality, { optional: true });
+  protected _errorHandler = inject(ErrorHandler);
 
   /** Index of the last destroyed chip that had focus. */
   protected _lastDestroyedFocusedChipIndex: number | null = null;
@@ -63,16 +69,16 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
 
   /** Combined stream of all of the child chips' destroy events. */
   get chipDestroyedChanges(): Observable<OuiChipEvent> {
-    return this._getChipStream((chip) => chip.destroyed);
+    return this._getChipStream((chip) => outputToObservable(chip.destroyed));
   }
 
   /** Combined stream of all of the child chips' remove events. */
   get chipRemovedChanges(): Observable<OuiChipEvent> {
-    return this._getChipStream((chip) => chip.removed);
+    return this._getChipStream((chip) => outputToObservable(chip.removed));
   }
 
   /** Whether the chip set is disabled. */
-  @Input({ transform: booleanAttribute })
+  readonly disabledInput = input(false, { transform: booleanAttribute });
   get disabled(): boolean {
     return this._disabled;
   }
@@ -88,7 +94,7 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
   }
 
   /** The ARIA role applied to the chip set. */
-  @Input()
+  readonly roleInput = input<string | null>(undefined, { alias: 'role' });
   get role(): string | null {
     if (this._explicitRole) {
       return this._explicitRole;
@@ -98,15 +104,24 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
   }
 
   /** Tabindex of the chip set. */
-  @Input({
+  readonly tabIndex = input(0, {
     transform: (value: unknown) => (value == null ? 0 : numberAttribute(value)),
-  })
-  tabIndex: number = 0;
+  });
 
   set role(value: string | null) {
     this._explicitRole = value;
   }
   private _explicitRole: string | null = null;
+
+  constructor() {
+    effect(() => {
+      this.disabled = this.disabledInput();
+      const role = this.roleInput();
+      if (role !== undefined) {
+        this.role = role;
+      }
+    });
+  }
 
   /** Whether any of the chips inside of this chip-set has focus. */
   get focused(): boolean {
@@ -216,16 +231,17 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
 
   /** Sets up the chip set's focus management logic. */
   private _setUpFocusManagement() {
-    this._chips.changes
-      .pipe(startWith(this._chips))
-      .subscribe((chips: QueryList<OuiChip>) => {
+    this._chips.changes.pipe(startWith(this._chips)).subscribe({
+      next: (chips: QueryList<OuiChip>) => {
         const actions: OuiChipAction[] = [];
         chips.forEach((chip) =>
           chip._getActions().forEach((action) => actions.push(action))
         );
         this._chipActions.reset(actions);
         this._chipActions.notifyOnChanges();
-      });
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
 
     this._keyManager = new FocusKeyManager(this._chipActions)
       .withVerticalOrientation()
@@ -233,21 +249,22 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
       .withHomeAndEnd()
       .skipPredicate((action) => this._skipPredicate(action));
 
-    this.chipFocusChanges
-      .pipe(takeUntil(this._destroyed))
-      .subscribe(({ chip }) => {
+    this.chipFocusChanges.pipe(takeUntil(this._destroyed)).subscribe({
+      next: ({ chip }) => {
         const action = chip._getSourceAction(document.activeElement as Element);
 
         if (action) {
           this._keyManager.updateActiveItem(action);
         }
-      });
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
 
-    this._dir?.change
-      .pipe(takeUntil(this._destroyed))
-      .subscribe((direction) =>
-        this._keyManager.withHorizontalOrientation(direction)
-      );
+    this._dir?.change.pipe(takeUntil(this._destroyed)).subscribe({
+      next: (direction) =>
+        this._keyManager.withHorizontalOrientation(direction),
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 
   /**
@@ -262,20 +279,22 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
   private _trackChipSetChanges() {
     this._chips.changes
       .pipe(startWith(null), takeUntil(this._destroyed))
-      .subscribe(() => {
-        if (this.disabled) {
-          Promise.resolve().then(() => this._syncChipsState());
-        }
+      .subscribe({
+        next: () => {
+          if (this.disabled) {
+            Promise.resolve().then(() => this._syncChipsState());
+          }
 
-        this._redirectDestroyedChipFocus();
+          this._redirectDestroyedChipFocus();
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
   }
 
   /** Starts tracking the destroyed chips in order to capture the focused one. */
   private _trackDestroyedFocusedChip() {
-    this.chipDestroyedChanges
-      .pipe(takeUntil(this._destroyed))
-      .subscribe((event: OuiChipEvent) => {
+    this.chipDestroyedChanges.pipe(takeUntil(this._destroyed)).subscribe({
+      next: (event: OuiChipEvent) => {
         const chipArray = this._chips.toArray();
         const chipIndex = chipArray.indexOf(event.chip);
         const hasFocus = event.chip._hasFocus();
@@ -289,7 +308,9 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
         if (this._isValidIndex(chipIndex) && shouldMoveFocus) {
           this._lastDestroyedFocusedChipIndex = chipIndex;
         }
-      });
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
+    });
   }
 
   /**
@@ -308,7 +329,7 @@ export class OuiChipSet implements AfterViewInit, OnDestroy {
       );
       const chipToFocus = this._chips.toArray()[newIndex];
 
-      if (chipToFocus.disabled) {
+      if (chipToFocus._isDisabled()) {
         if (this._chips.length === 1) {
           this.focus();
         } else {

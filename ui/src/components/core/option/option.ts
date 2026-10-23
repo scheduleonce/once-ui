@@ -6,15 +6,16 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
+  ErrorHandler,
   InjectionToken,
-  Input,
   OnDestroy,
-  Output,
   QueryList,
   ViewEncapsulation,
   NgZone,
+  effect,
   inject,
+  input,
+  output,
 } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { OuiOptgroup } from './optgroup';
@@ -84,6 +85,7 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _focusMonitor = inject(FocusMonitor);
   private _ngZone = inject(NgZone);
+  private _errorHandler = inject(ErrorHandler);
   private _parent = inject<OuiOptionParentComponent>(
     OUI_OPTION_PARENT_COMPONENT,
     { optional: true }
@@ -107,36 +109,52 @@ export class OuiOption implements AfterViewChecked, OnDestroy {
   }
 
   /** The form value of the option. */
-  @Input()
   value: any;
+  readonly valueInput = input<any>(undefined, { alias: 'value' });
 
   /** The unique ID of the option. */
-  @Input()
   // eslint-disable-next-line @typescript-eslint/no-inferrable-types
   id = `oui-option-${_uniqueIdCounter++}`;
+  readonly idInput = input<string | undefined>(undefined, { alias: 'id' });
 
   /** Whether the option is disabled. */
-  @Input()
   get disabled() {
     return (this.group && this.group.disabled) || this._disabled;
   }
   set disabled(value: any) {
     this._disabled = coerceBooleanProperty(value);
   }
+  readonly disabledInput = input(false, {
+    alias: 'disabled',
+    transform: coerceBooleanProperty,
+  });
 
   /** Event emitted when the option is selected or deselected. */
   // eslint-disable-next-line @angular-eslint/no-output-on-prefix
-  @Output()
-  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
-  readonly onSelectionChange = new EventEmitter<OuiOptionSelectionChange>();
+  readonly onSelectionChange = output<OuiOptionSelectionChange>();
 
   /** Emits when the state of the option changes and any parents have to be notified. */
   readonly _stateChanges = new Subject<void>();
 
   constructor() {
+    effect(() => {
+      const value = this.valueInput();
+      if (value !== undefined) {
+        this.value = value;
+      }
+      const id = this.idInput();
+      if (id !== undefined) {
+        this.id = id;
+      }
+      this.disabled = this.disabledInput();
+    });
+
     this._monitorSubscription = this._focusMonitor
       .monitor(this.elementRef, true)
-      .subscribe(() => this._ngZone.run(() => {}));
+      .subscribe({
+        next: () => this._ngZone.run(() => {}),
+        error: (err: Error) => this._errorHandler.handleError(err),
+      });
   }
 
   /**

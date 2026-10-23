@@ -1,13 +1,14 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW } from '@angular/cdk/keycodes';
 import {
   Directive,
   ElementRef,
-  EventEmitter,
+  ErrorHandler,
+  effect,
   forwardRef,
-  Input,
   OnDestroy,
-  Output,
+  output,
+  input,
+  model,
   AfterViewInit,
   inject,
 } from '@angular/core';
@@ -57,7 +58,10 @@ export class OuiDatepickerInputEvent<D> {
     /** Reference to the native input element associated with the datepicker input. */
     public targetElement: HTMLElement
   ) {
-    this.value = this.target.value;
+    this.value =
+      typeof this.target.value === 'function'
+        ? (this.target.value as () => D | null)() ?? null
+        : (this.target.value as unknown as D | null) ?? null;
   }
 }
 const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
@@ -74,9 +78,9 @@ const DATEPICKER_FOCUS_CLASS = 'oui-datepicker-focused';
     class: 'oui-datepicker-input',
     '[attr.aria-haspopup]': 'true',
     '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
-    '[attr.min]': 'min ? _dateAdapter.toIso8601(min) : null',
-    '[attr.max]': 'max ? _dateAdapter.toIso8601(max) : null',
-    '[disabled]': 'disabled',
+    '[attr.min]': 'min() ? _dateAdapter.toIso8601(min()!) : null',
+    '[attr.max]': 'max() ? _dateAdapter.toIso8601(max()!) : null',
+    '[disabled]': 'disabled()',
     '(input)': '_onInput($event.target.value)',
     '(change)': '_onChange()',
     '(blur)': '_onBlur()',
@@ -95,21 +99,19 @@ export class OuiDatepickerInput<D>
     optional: true,
   })!;
   private _formField = inject(OuiFormField, { optional: true })!;
+  private _errorHandler = inject(ErrorHandler);
 
-  private _disabled: boolean;
   /** Emits when a `change` event is fired on this `<input>`. */
-  @Output() readonly dateChange: EventEmitter<OuiDatepickerInputEvent<D>> =
-    new EventEmitter<OuiDatepickerInputEvent<D>>();
+  readonly dateChange = output<OuiDatepickerInputEvent<D>>();
 
   /** Emits when an `input` event is fired on this `<input>`. */
-  @Output() readonly dateInput: EventEmitter<OuiDatepickerInputEvent<D>> =
-    new EventEmitter<OuiDatepickerInputEvent<D>>();
+  readonly dateInput = output<OuiDatepickerInputEvent<D>>();
 
   /** Emits when the value changes (either due to user input or programmatic change). */
-  _valueChange = new EventEmitter<D | null>();
+  _valueChange = output<D | null>();
 
   /** Emits when the disabled state has changed */
-  _disabledChange = new EventEmitter<boolean>();
+  _disabledChange = output<boolean>();
 
   private _datepickerSubscription = Subscription.EMPTY;
 
@@ -122,80 +124,26 @@ export class OuiDatepickerInput<D>
 
   _datepickerDisabled = false;
   /** The datepicker that this input is associated with. */
-  @Input()
-  set ouiDatepicker(value: OuiDatepicker<D>) {
-    if (!value) {
-      return;
-    }
-
-    this._datepicker = value;
-    this._datepicker._registerInput(this);
-    this._datepickerSubscription.unsubscribe();
-
-    this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(
-      (selected: D) => {
-        this.value = selected;
-        this._cvaOnChange(selected);
-        this._onTouched();
-        this.dateInput.emit(
-          new OuiDatepickerInputEvent(this, this._elementRef.nativeElement)
-        );
-        this.dateChange.emit(
-          new OuiDatepickerInputEvent(this, this._elementRef.nativeElement)
-        );
-      }
-    );
-  }
-  _datepicker: OuiDatepicker<D>;
+  readonly ouiDatepicker = input<OuiDatepicker<D>>();
+  _datepicker!: OuiDatepicker<D>;
 
   /** Function that can be used to filter out dates within the datepicker. */
-  @Input()
-  set ouiDatepickerFilter(value: (date: D | null) => boolean) {
-    this._dateFilter = value;
-    this._validatorOnChange();
-  }
-  _dateFilter: (date: D | null) => boolean;
+  readonly ouiDatepickerFilter = input<(date: D | null) => boolean>();
 
   /** The value of the input. */
-  @Input()
-  get value(): D | null {
-    return this._value;
-  }
-  set value(value: D | null) {
-    value = this._dateAdapter.deserialize(value);
-    this._lastValueValid = !value || this._dateAdapter.isValid(value);
-    value = this._getValidDateOrNull(value);
-    const oldDate = this.value;
-    this._value = value;
-    this._formatValue(value);
-
-    if (!this._dateAdapter.sameDate(oldDate, value)) {
-      this._valueChange.emit(value);
-    }
-  }
-  private _value: D | null;
+  readonly value = model<D | null>(null);
 
   /** The minimum valid date. */
-  @Input()
-  get min(): D | null {
-    return this._min;
-  }
-  set min(value: D | null) {
-    this._min = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
-    this._validatorOnChange();
-  }
-  private _min: D | null;
+  readonly min = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   /** The maximum valid date. */
-  @Input()
-  get max(): D | null {
-    return this._max;
-  }
-  set max(value: D | null) {
-    this._max = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
-    this._validatorOnChange();
-  }
-  private _max: D | null;
+  readonly max = input<D | null, D | null>(null, {
+    transform: (value: D | null) =>
+      this._getValidDateOrNull(this._dateAdapter.deserialize(value)),
+  });
 
   focus() {
     this._elementRef.nativeElement.classList.add(DATEPICKER_FOCUS_CLASS);
@@ -205,28 +153,7 @@ export class OuiDatepickerInput<D>
   }
 
   /** Whether the datepicker-input is disabled. */
-  @Input()
-  get disabled(): boolean {
-    return !!this._disabled;
-  }
-  set disabled(value: boolean) {
-    const newValue = coerceBooleanProperty(value);
-    const element = this._elementRef.nativeElement;
-
-    if (this._disabled !== newValue) {
-      this._disabled = newValue;
-      this._disabledChange.emit(newValue);
-    }
-
-    // We need to null check the `blur` method, because it's undefined during SSR.
-    if (newValue && element.blur) {
-      // Normally, native input elements automatically blur if they turn disabled. This behavior
-      // is problematic, because it would mean that it triggers another change detection cycle,
-      // which then causes a changed after checked error if the input element was focused before.
-      element.blur();
-    }
-  }
-
+  readonly disabled = model(false);
   _onTouched = () => {};
 
   private _cvaOnChange: (value: any) => void = () => {};
@@ -246,11 +173,11 @@ export class OuiDatepickerInput<D>
     const controlValue = this._getValidDateOrNull(
       this._dateAdapter.deserialize(control.value)
     );
-    return !this.min ||
+    return !this.min() ||
       !controlValue ||
-      this._dateAdapter.compareDate(this.min, controlValue) <= 0
+      this._dateAdapter.compareDate(this.min()!, controlValue) <= 0
       ? null
-      : { ouiDatepickerMin: { min: this.min, actual: controlValue } };
+      : { ouiDatepickerMin: { min: this.min(), actual: controlValue } };
   };
 
   /** The form control validator for the max date. */
@@ -260,11 +187,11 @@ export class OuiDatepickerInput<D>
     const controlValue = this._getValidDateOrNull(
       this._dateAdapter.deserialize(control.value)
     );
-    return !this.max ||
+    return !this.max() ||
       !controlValue ||
-      this._dateAdapter.compareDate(this.max, controlValue) >= 0
+      this._dateAdapter.compareDate(this.max()!, controlValue) >= 0
       ? null
-      : { ouiDatepickerMax: { max: this.max, actual: controlValue } };
+      : { ouiDatepickerMax: { max: this.max(), actual: controlValue } };
   };
 
   /** The form control validator for the date filter. */
@@ -274,7 +201,9 @@ export class OuiDatepickerInput<D>
     const controlValue = this._getValidDateOrNull(
       this._dateAdapter.deserialize(control.value)
     );
-    return !this._dateFilter || !controlValue || this._dateFilter(controlValue)
+    return !this.ouiDatepickerFilter() ||
+      !controlValue ||
+      this.ouiDatepickerFilter()!(controlValue)
       ? null
       : { ouiDatepickerFilter: true };
   };
@@ -299,8 +228,49 @@ export class OuiDatepickerInput<D>
     }
 
     // Update the displayed date when the locale changes.
-    this._localeSubscription = _dateAdapter.localeChanges.subscribe(() => {
-      this.value = this.value;
+    this._localeSubscription = _dateAdapter.localeChanges.subscribe({
+      next: () => this._formatValue(this._readValue() ?? null),
+      error: (err: Error) =>
+        console.error('Datepicker locale update failed', err),
+    });
+    effect(() => {
+      const datepicker = this.ouiDatepicker();
+      if (!datepicker) return;
+      this._datepicker = datepicker;
+      datepicker._registerInput(this);
+      this._datepickerSubscription.unsubscribe();
+      this._datepickerSubscription = datepicker._selectedChanged.subscribe({
+        next: (selected: D) => {
+          this._setValue(selected);
+          this._cvaOnChange(selected);
+          this._onTouched();
+          this.dateInput.emit(
+            new OuiDatepickerInputEvent(this, this._elementRef.nativeElement)
+          );
+          this.dateChange.emit(
+            new OuiDatepickerInputEvent(this, this._elementRef.nativeElement)
+          );
+        },
+        error: (err: Error) =>
+          console.error('Datepicker selection update failed', err),
+      });
+    });
+    effect(() => {
+      this.ouiDatepickerFilter();
+      this.min();
+      this.max();
+      this._validatorOnChange();
+    });
+    effect(() => {
+      const value = this._readValue();
+      const normalizedValue = this._getValidDateOrNull(
+        this._dateAdapter.deserialize(value)
+      );
+      if (value !== normalizedValue) {
+        this._setValue(normalizedValue);
+      } else {
+        this._formatValue(normalizedValue);
+      }
     });
   }
 
@@ -308,17 +278,18 @@ export class OuiDatepickerInput<D>
     this._datepickerSubscription.unsubscribe();
     this._localeSubscription.unsubscribe();
     this._parentNodeClickSubscription.unsubscribe();
-    this._valueChange.complete();
-    this._disabledChange.complete();
   }
 
   ngAfterViewInit() {
     this._elementRef.nativeElement.setAttribute('disabled', 'true');
     this._parentNodeClickSubscription = fromEvent(
-      this._elementRef.nativeElement.parentNode,
+      this._elementRef.nativeElement.parentNode!,
       'click'
-    ).subscribe(() => {
-      this._datepicker.open();
+    ).subscribe({
+      next: () => {
+        this._datepicker?.open();
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
   }
 
@@ -351,7 +322,7 @@ export class OuiDatepickerInput<D>
 
   // Implemented as part of ControlValueAccessor.
   writeValue(value: D): void {
-    this.value = value;
+    this._setValue(value);
   }
 
   // Implemented as part of ControlValueAccessor.
@@ -366,7 +337,7 @@ export class OuiDatepickerInput<D>
 
   // Implemented as part of ControlValueAccessor.
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
+    this.disabled.set(isDisabled);
   }
 
   _onKeydown(event: KeyboardEvent) {
@@ -390,10 +361,9 @@ export class OuiDatepickerInput<D>
     this._lastValueValid = !date || this._dateAdapter.isValid(date);
     date = this._getValidDateOrNull(date);
 
-    if (!this._dateAdapter.sameDate(date, this._value)) {
-      this._value = date;
+    if (!this._dateAdapter.sameDate(date, this._readValue() ?? null)) {
+      this._setValue(date);
       this._cvaOnChange(date);
-      this._valueChange.emit(date);
       this.dateInput.emit(
         new OuiDatepickerInputEvent(this, this._elementRef.nativeElement)
       );
@@ -406,6 +376,19 @@ export class OuiDatepickerInput<D>
     );
   }
 
+  private _setValue(value: D | null): void {
+    value = this._dateAdapter.deserialize(value);
+    this._lastValueValid = !value || this._dateAdapter.isValid(value);
+    value = this._getValidDateOrNull(value);
+    const oldDate = this._readValue() ?? null;
+    this._writeValue(value);
+    this._formatValue(value);
+
+    if (!this._dateAdapter.sameDate(oldDate, value)) {
+      this._valueChange.emit(value);
+    }
+  }
+
   /** Returns the palette used by the input's form field, if any. */
   _getThemePalette(): ThemePalette {
     return this._formField ? this._formField.color : undefined;
@@ -414,11 +397,27 @@ export class OuiDatepickerInput<D>
   /** Handles blur events on the input. */
   _onBlur() {
     // Reformat the input only if we have a valid value.
-    if (this.value) {
-      this._formatValue(this.value);
+    if (this._readValue()) {
+      this._formatValue(this._readValue() ?? null);
     }
 
     this._onTouched();
+  }
+
+  private _readValue(): D | null {
+    const value = this.value as unknown;
+    return typeof value === 'function'
+      ? (value as () => D | null)()
+      : (value as D | null);
+  }
+
+  private _writeValue(value: D | null): void {
+    const valueSignal = this.value as unknown;
+    if (typeof valueSignal === 'function') {
+      (valueSignal as unknown as { set(value: D | null): void }).set(value);
+    } else {
+      (this as unknown as { value: D | null }).value = value;
+    }
   }
 
   /** Formats a value and sets it on the input element. */

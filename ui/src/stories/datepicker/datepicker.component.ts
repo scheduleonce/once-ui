@@ -1,4 +1,10 @@
-import { Component, effect, input, output } from '@angular/core';
+import {
+  Component,
+  effect,
+  input,
+  output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { OuiDatepickerInputEvent } from '../../components/datepicker';
 import { OuiDateFormats, OUI_DATE_FORMATS } from '../../components';
 
@@ -47,6 +53,7 @@ export const OUI_CUSTOM_DATE_FORMATS: OuiDateFormats = {
       </oui-form-field>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDatepickerStorybook {
@@ -126,6 +133,7 @@ export class OuiDatepickerStorybook {
     </div>
   `,
   providers: [{ provide: OUI_DATE_FORMATS, useValue: OUI_CUSTOM_DATE_FORMATS }],
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDatepickerCustomStorybook {
@@ -224,6 +232,7 @@ export class OuiDatepickerCustomStorybook {
       </div>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false,
 })
 export class OuiDaterangepickerStorybook {

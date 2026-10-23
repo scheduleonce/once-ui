@@ -11,6 +11,7 @@ import {
   TemplatePortal,
 } from '@angular/cdk/portal';
 import {
+  ErrorHandler,
   Injectable,
   InjectionToken,
   Injector,
@@ -64,6 +65,7 @@ export const OUI_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  */
 @Injectable()
 export class OuiDialog implements OnDestroy {
+  private _errorHandler = inject(ErrorHandler);
   private _overlay = inject<Overlay>(Overlay);
   private _injector = inject(Injector);
   private _defaultOptions = inject<OuiDialogConfig>(
@@ -155,9 +157,12 @@ export class OuiDialog implements OnDestroy {
     }
 
     this.openDialogs.push(dialogRef);
-    this._dialogCloseSubscription = dialogRef.afterClosed().subscribe(() => {
-      this._removeOpenDialog(dialogRef);
-      dialogRef._containerInstance._restoreFocus();
+    this._dialogCloseSubscription = dialogRef.afterClosed().subscribe({
+      next: () => {
+        this._removeOpenDialog(dialogRef);
+        dialogRef._containerInstance._restoreFocus();
+      },
+      error: (err: Error) => this._errorHandler.handleError(err),
     });
     this.afterOpened.next(dialogRef);
     dialogRef._containerInstance._trapFocus();
@@ -275,17 +280,21 @@ export class OuiDialog implements OnDestroy {
     const dialogRef = new OuiDialogRef<T, R>(
       overlayRef,
       dialogContainer,
-      config.id
+      config.id,
+      this._errorHandler
     );
 
     dialogRef.dialogConfig = config;
 
     // When the dialog backdrop is clicked, we want to close it.
     if (config.hasBackdrop) {
-      overlayRef.backdropClick().subscribe(() => {
-        if (!dialogRef.disableClose) {
-          dialogRef.close();
-        }
+      overlayRef.backdropClick().subscribe({
+        next: () => {
+          if (!dialogRef.disableClose) {
+            dialogRef.close();
+          }
+        },
+        error: (err: Error) => this._errorHandler.handleError(err),
       });
     }
 

@@ -3,12 +3,11 @@ import {
   Directive,
   DoCheck,
   ElementRef,
-  EventEmitter,
+  input,
   inject,
-  Input,
   NgZone,
   OnDestroy,
-  Output,
+  output,
   Renderer2,
   RendererStyleFlags2,
 } from '@angular/core';
@@ -59,20 +58,21 @@ export class OuiResizableColumnDirective
    * CDK column id for this header cell. Optional — when omitted it is
    * auto-detected from the host's `cdk-column-<id>` class.
    */
-  @Input() columnId = '';
+  readonly columnId = input('');
+  private _resolvedColumnId = '';
 
   /** Minimum width (px) this column can be resized to. */
-  @Input() minWidth = 100;
+  readonly minWidth = input(100);
 
   /**
    * Initial width (px) to apply once, when the handle is first created —
    * e.g. a previously persisted width restored after a page refresh. Ignored
    * (falls back to the column's natural/CSS width) when omitted or <= 0.
    */
-  @Input() width?: number;
+  readonly width = input<number>();
 
   /** Emitted once the user releases the pointer after actually resizing this column. */
-  @Output() columnResized = new EventEmitter<ColumnResizeEvent>();
+  readonly columnResized = output<ColumnResizeEvent>();
 
   private readonly _elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private readonly _renderer = inject(Renderer2);
@@ -148,15 +148,13 @@ export class OuiResizableColumnDirective
 
   private _createHandle(): void {
     const host = this._elementRef.nativeElement;
-    if (!this.columnId) {
-      this.columnId = this._detectColumnId(host);
-    }
+    this._resolvedColumnId = this.columnId() || this._detectColumnId(host);
 
     this._renderer.setStyle(host, 'position', 'relative');
     this._renderer.setStyle(host, 'overflow', 'visible');
 
     // Restore a previously persisted width, if one was provided.
-    if (this.width && this.width > 0) {
+    if (this.width() && this.width()! > 0) {
       const table = host.closest('table');
       if (table) {
         this._renderer.setStyle(
@@ -166,7 +164,7 @@ export class OuiResizableColumnDirective
           RendererStyleFlags2.Important
         );
       }
-      this._setCellsWidth(this.width, this._getColumnCells(host));
+      this._setCellsWidth(this.width()!, this._getColumnCells(host));
     }
 
     const handle = this._renderer.createElement('div') as HTMLElement;
@@ -196,13 +194,15 @@ export class OuiResizableColumnDirective
   }
 
   private _getColumnCells(host: HTMLElement): HTMLElement[] {
-    if (!this.columnId) {
+    if (!this._resolvedColumnId) {
       return [host];
     }
     const table = host.closest('table');
     const scope: ParentNode = table ?? host.ownerDocument;
     return Array.from(
-      scope.querySelectorAll<HTMLElement>(`.cdk-column-${this.columnId}`)
+      scope.querySelectorAll<HTMLElement>(
+        `.cdk-column-${this._resolvedColumnId}`
+      )
     );
   }
 
@@ -229,7 +229,7 @@ export class OuiResizableColumnDirective
       );
     }
 
-    this._minCellWidth = this.minWidth;
+    this._minCellWidth = this.minWidth();
 
     try {
       handle.setPointerCapture(e.pointerId);
@@ -303,7 +303,10 @@ export class OuiResizableColumnDirective
     this._lastAppliedWidth = finalWidth;
 
     this._ngZone.run(() => {
-      this.columnResized.emit({ columnId: this.columnId, width: finalWidth });
+      this.columnResized.emit({
+        columnId: this._resolvedColumnId,
+        width: finalWidth,
+      });
     });
   }
 

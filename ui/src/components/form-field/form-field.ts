@@ -6,11 +6,13 @@ import {
   Component,
   ContentChild,
   ElementRef,
+  ErrorHandler,
   InjectionToken,
   ViewChild,
   ViewEncapsulation,
   OnDestroy,
-  Input,
+  effect,
+  input,
   inject,
 } from '@angular/core';
 import { mixinColor, ThemePalette } from '../core';
@@ -82,15 +84,20 @@ export class OuiFormField
 {
   _elementRef: ElementRef;
   private _changeDetectorRef = inject(ChangeDetectorRef);
+  private _errorHandler = inject(ErrorHandler);
   private _defaults = inject<OuiFormFieldDefaultOptions>(
     OUI_FORM_FIELD_DEFAULT_OPTIONS,
     { optional: true }
   )!;
 
   private _destroyed = new Subject<void>();
-  @Input() color: ThemePalette;
+  readonly colorInput = input<ThemePalette>(undefined, { alias: 'color' });
+  color: ThemePalette;
   /** The form-field appearance style. */
-  @Input()
+  readonly appearanceInput = input<OuiFormFieldAppearance | undefined>(
+    undefined,
+    { alias: 'appearance' }
+  );
   get appearance(): OuiFormFieldAppearance {
     return this._appearance;
   }
@@ -114,6 +121,14 @@ export class OuiFormField
     this._elementRef = _elementRef;
     const _defaults = this._defaults;
 
+    effect(() => {
+      this.color = this.colorInput();
+      const appearance = this.appearanceInput();
+      if (appearance !== undefined) {
+        this.appearance = appearance;
+      }
+    });
+
     // Set the default through here so we invoke the setter on the first run.
     this.appearance =
       _defaults && _defaults.appearance ? _defaults.appearance : 'standard';
@@ -133,7 +148,10 @@ export class OuiFormField
     if (control.ngControl && control.ngControl.valueChanges) {
       control.ngControl.valueChanges
         .pipe(takeUntil(this._destroyed))
-        .subscribe(() => this._changeDetectorRef.markForCheck());
+        .subscribe({
+          next: () => this._changeDetectorRef.markForCheck(),
+          error: (err: Error) => this._errorHandler.handleError(err),
+        });
     }
   }
 
