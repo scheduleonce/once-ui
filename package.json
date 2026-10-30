@@ -113,7 +113,7 @@
     "react-dom": "^18.2.0",
     "sass": "1.98.0",
     "scss-bundle": "3.1.2",
-    "storybook": "^10.6.0",
+    "storybook": "^10.6.5",
     "tsx": "^4.23.13",
     "typescript": "6.0.3",
     "typescript-eslint": "^8.70.0",
