@@ -26,7 +26,7 @@
       type="button"
       class="oui-calendar-previous-button"
       [disabled]="!previousEnabled()"
-      (click)="previousClicked()"
+      (click)="$event.stopPropagation(); previousClicked()"
       [attr.aria-label]="prevButtonLabel"
     >
       <svg
@@ -52,7 +52,7 @@
       type="button"
       class="oui-calendar-next-button"
       [disabled]="!nextEnabled()"
-      (click)="nextClicked()"
+      (click)="$event.stopPropagation(); nextClicked()"
       [attr.aria-label]="nextButtonLabel"
     >
       <svg

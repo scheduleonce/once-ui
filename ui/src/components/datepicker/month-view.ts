@@ -15,9 +15,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  effect,
   input,
   linkedSignal,
   output,
+  untracked,
   ViewEncapsulation,
   ViewChild,
   inject,
@@ -133,6 +135,11 @@ export class OuiMonthView<D> implements AfterContentInit {
     }));
     this._weekdays = weekdays.slice(firstDayOfWeek).concat();
     this.activeDate.set(this._dateAdapter.today());
+
+    effect(() => {
+      this.activeDateInput();
+      untracked(() => this._init());
+    });
   }
 
   ngAfterContentInit() {
