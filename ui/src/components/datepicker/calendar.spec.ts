@@ -208,6 +208,31 @@ describe('OuiCalendar', () => {
       expect(calendarInstance.activeDate).toEqual(new Date(2017, JAN, 31));
     });
 
+    it('should update the displayed month when navigating', () => {
+      const nextButton = calendarElement.querySelector(
+        '.oui-calendar-next-button'
+      ) as HTMLButtonElement;
+      const previousButton = calendarElement.querySelector(
+        '.oui-calendar-previous-button'
+      ) as HTMLButtonElement;
+
+      nextButton.click();
+      fixture.detectChanges();
+
+      expect(periodButton.textContent).toContain('Feb 2017');
+      expect(
+        calendarElement.querySelectorAll('.oui-calendar-body-cell').length
+      ).toBe(28);
+
+      previousButton.click();
+      fixture.detectChanges();
+
+      expect(periodButton.textContent).toContain('Jan 2017');
+      expect(
+        calendarElement.querySelectorAll('.oui-calendar-body-cell').length
+      ).toBe(31);
+    });
+
     it('should select date in month view', () => {
       const monthCells = calendarElement.querySelectorAll(
         '.oui-calendar-body-cell'
