@@ -1,6 +1,6 @@
 {
   "name": "oncehub-ui",
-  "version": "12.1.2-beta.0",
+  "version": "12.1.2-beta.1",
   "scripts": {
     "ng": "ng",
     "build": "ng build ui",
@@ -108,7 +108,7 @@
     "karma-spec-reporter": "^0.0.37",
     "ng-packagr": "22.2.6",
     "prettier": "2.8.0",
-    "puppeteer": "25.9.0",
+    "puppeteer": "25.16.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "1.98.0",
