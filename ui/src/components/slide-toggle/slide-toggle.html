@@ -9,7 +9,7 @@
     type="checkbox"
     [attr.aria-label]="ariaLabel()"
     [attr.aria-labelledby]="ariaLabelledby()"
-    [attr.aria-checked]="checked().toString()"
+    [attr.aria-checked]="checked() ? 'true' : 'false'"
     [disabled]="disabled()"
     [checked]="checked()"
     [tabIndex]="tabIndex"
