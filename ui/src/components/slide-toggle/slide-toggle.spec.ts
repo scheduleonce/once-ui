@@ -40,6 +40,16 @@ describe('OuiSlideToggle', () => {
     expect(component.checked()).toBeFalsy();
   });
 
+  it('should support null checked values as false', () => {
+    component.writeValue(null);
+
+    expect(() => fixture.detectChanges()).not.toThrow();
+    expect(component.checked()).toBeFalsy();
+    expect(
+      fixture.nativeElement.querySelector('input').getAttribute('aria-checked')
+    ).toBe('false');
+  });
+
   it('should not change on click when disabled', () => {
     component.checked.set(false);
     component.disabled.set(true);
