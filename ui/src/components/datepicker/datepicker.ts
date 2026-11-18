@@ -13,6 +13,7 @@ import { DOCUMENT } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ComponentRef,
   ElementRef,
@@ -139,6 +140,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
   private _ngZone = inject(NgZone);
   protected elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
   private _focusMonitor = inject(FocusMonitor);
+  private _changeDetectorRef = inject(ChangeDetectorRef);
   private _errorHandler = inject(ErrorHandler);
   private _viewContainerRef = inject(ViewContainerRef);
   private _dateAdapter = inject<DateAdapter<D>>(DateAdapter, {
@@ -419,6 +421,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       this._openAsPopup();
     }
     this._opened = true;
+    this._changeDetectorRef.markForCheck();
     // add input focus here
     this._datepickerInput.focus();
     this.openedStream.emit();
@@ -445,6 +448,7 @@ export class OuiDatepicker<D> implements OnDestroy, CanColor {
       // we got two events in quick succession.
       if (this._opened) {
         this._opened = false;
+        this._changeDetectorRef.markForCheck();
         this.closedStream.emit();
         this._focusedElementBeforeOpen = null;
         this._datepickerInput.blur();

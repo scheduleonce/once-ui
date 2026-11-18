@@ -574,18 +574,24 @@ describe('OuiDatepicker', () => {
         expect(document.querySelector('oui-calendar')).not.toBeNull();
       }));
 
-      it('input should aria-owns calendar after opened in touch mode', () => {
-        testComponent.touch = true;
-        fixture.detectChanges();
-
+      it('input should aria-owns calendar after opened in touch mode', async () => {
         const inputEl = fixture.debugElement.query(By.css('input'))
           .nativeElement as HTMLElement;
         expect(inputEl.getAttribute('aria-owns')).toBeNull();
 
+        testComponent.datepicker.touchUi = true;
         testComponent.datepicker.open();
         fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+
+        const calendar = document.querySelector<HTMLElement>('oui-calendar');
         expect(testComponent.datepicker.opened).toBe(true);
-        expect(document.querySelector('oui-calendar')).not.toBeNull();
+        expect(calendar).not.toBeNull();
+        expect(inputEl.getAttribute('aria-owns')).toBe(
+          testComponent.datepicker.id
+        );
+        expect(calendar?.id).toBe(testComponent.datepicker.id);
       });
 
       it('should not throw when given wrong data type', () => {

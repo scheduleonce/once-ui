@@ -193,7 +193,7 @@ jobs:
           tags: dockeronce.azurecr.io/kubernetes/${{ github.event.repository.name }}:${{ steps.version-tag.outputs.tag }}-PR-${{ github.event.pull_request.number }}
 
       - name: Trivy Scan
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@v0.36.0
         continue-on-error: true
         with:
           image-ref: dockeronce.azurecr.io/kubernetes/${{ github.event.repository.name }}:${{ steps.version-tag.outputs.tag }}-PR-${{ github.event.pull_request.number }}
