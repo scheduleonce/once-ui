@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OuiSlideToggle } from './slide-toggle';
 
@@ -6,11 +7,11 @@ describe('OuiSlideToggle', () => {
   let component: OuiSlideToggle;
   let fixture: ComponentFixture<OuiSlideToggle>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       declarations: [OuiSlideToggle],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OuiSlideToggle);
@@ -23,7 +24,7 @@ describe('OuiSlideToggle', () => {
   });
 
   it('should trigger toggle function event mouse click', () => {
-    spyOn(component, 'toggle');
+    vi.spyOn(component, 'toggle').mockReturnValue(undefined);
     fixture.nativeElement.children[0].children[0].dispatchEvent(
       new Event('click')
     );

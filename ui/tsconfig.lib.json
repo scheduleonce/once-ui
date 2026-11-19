@@ -21,7 +21,7 @@
     "strictTemplates": false
   },
   "exclude": [
-    "src/test.ts",
+    "src/test-setup.ts",
     "**/*.spec.ts",
     "**/*.stories.ts",
     "**/*.stories.*"

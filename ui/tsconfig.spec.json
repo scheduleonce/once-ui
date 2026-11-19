@@ -2,10 +2,16 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "types": ["jasmine", "node"]
+    "types": ["node"]
   },
-  "files": ["src/test.ts"],
-  "include": ["**/*.spec.ts", "**/*.d.ts"],
+  "files": ["src/test-setup.ts"],
+  "include": [
+    "src/components/core/common-behaviors/disable-ripple.spec.ts",
+    "src/components/icon/icon.module.spec.ts",
+    "src/components/datepicker/native-date-adapter.spec.ts",
+    "src/components/slide-toggle/slide-toggle.spec.ts",
+    "**/*.d.ts"
+  ],
   "angularCompilerOptions": {
     "strictTemplates": false
   }

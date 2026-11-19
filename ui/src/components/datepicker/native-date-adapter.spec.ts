@@ -1,5 +1,6 @@
+import { beforeEach, describe, expect, it } from 'vitest';
 import { Platform } from '@angular/cdk/platform';
-import { inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import {
   DateAdapter,
   NativeDateAdapter,
@@ -25,30 +26,19 @@ describe('NativeDateAdapter', () => {
   let adapter: NativeDateAdapter;
   let assertValidDate: (d: Date | null, valid: boolean) => void;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [NativeDateModule],
     }).compileComponents();
-  }));
 
-  beforeEach(inject(
-    [DateAdapter, Platform],
-    (dateAdapter: NativeDateAdapter, _platform: Platform) => {
-      adapter = dateAdapter;
-      platform = _platform;
+    adapter = TestBed.inject(DateAdapter) as NativeDateAdapter;
+    platform = TestBed.inject(Platform);
 
-      assertValidDate = (d: Date | null, valid: boolean) => {
-        expect(adapter.isDateInstance(d)).not.toBeNull(
-          `Expected ${d} to be a date instance`
-        );
-        expect(adapter.isValid(d!)).toBe(
-          valid,
-          `Expected ${d} to be ${valid ? 'valid' : 'invalid'},` +
-            ` but was ${valid ? 'invalid' : 'valid'}`
-        );
-      };
-    }
-  ));
+    assertValidDate = (d: Date | null, valid: boolean) => {
+      expect(adapter.isDateInstance(d)).toBe(true);
+      expect(adapter.isValid(d!)).toBe(valid);
+    };
+  });
 
   it('should get year', () => {
     expect(adapter.getYear(new Date(2017, JAN, 1))).toBe(2017);
@@ -226,10 +216,7 @@ describe('NativeDateAdapter', () => {
   });
 
   it("should get today's date", () => {
-    expect(adapter.sameDate(adapter.today(), new Date())).toBe(
-      true,
-      "should be equal to today's date"
-    );
+    expect(adapter.sameDate(adapter.today(), new Date())).toBe(true);
   });
 
   it('should parse string', () => {
@@ -250,14 +237,8 @@ describe('NativeDateAdapter', () => {
   it('should parse invalid value as invalid', () => {
     const d = adapter.parse('hello');
     expect(d).not.toBeNull();
-    expect(adapter.isDateInstance(d)).toBe(
-      true,
-      'Expected string to have been fed through Date.parse'
-    );
-    expect(adapter.isValid(d as Date)).toBe(
-      false,
-      'Expected to parse as "invalid date" object'
-    );
+    expect(adapter.isDateInstance(d)).toBe(true);
+    expect(adapter.isValid(d as Date)).toBe(false);
   });
 
   it('should format', () => {

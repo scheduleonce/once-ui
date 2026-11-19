@@ -17,12 +17,17 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "main": "ui/src/test.ts",
-            "polyfills": ["zone.js", "zone.js/testing"],
+            "buildTarget": "ui:build",
             "tsConfig": "ui/tsconfig.spec.json",
-            "karmaConfig": "ui/karma.conf.js",
+            "include": [
+              "components/core/common-behaviors/disable-ripple.spec.ts",
+              "components/icon/icon.module.spec.ts",
+              "components/datepicker/native-date-adapter.spec.ts",
+              "components/slide-toggle/slide-toggle.spec.ts"
+            ],
+            "setupFiles": ["ui/src/test-setup.ts"],
             "watch": false
           }
         },
