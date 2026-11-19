@@ -1,6 +1,7 @@
-import { Directionality } from '@angular/cdk/bidi';
+﻿import { Directionality } from '@angular/cdk/bidi';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
 import { OuiCalendar } from './calendar';
@@ -23,7 +24,7 @@ const DEC = 11;
     </oui-calendar>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class StandardCalendar {
   selected: Date;
@@ -33,21 +34,31 @@ class StandardCalendar {
 }
 
 describe('OuiCalendarHeader', () => {
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
+    // The test runner's MutationObserver lacks observe/disconnect, which CDK overlay calls.
+    vi.stubGlobal(
+      'MutationObserver',
+      class {
+        observe() {}
+        disconnect() {}
+        takeRecords() {
+          return [];
+        }
+      }
+    );
+  });
+
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule, OuiDatepickerModule],
-      declarations: [
-        // Test components.
-        StandardCalendar,
-      ],
+      imports: [OuiNativeDateModule, OuiDatepickerModule, StandardCalendar],
       providers: [
         OuiDatepickerIntl,
         { provide: Directionality, useFactory: () => ({ value: 'ltr' }) },
       ],
     });
 
-    TestBed.compileComponents();
-  }));
+    await TestBed.compileComponents();
+  });
 
   describe('standard calendar', () => {
     let fixture: ComponentFixture<StandardCalendar>;
@@ -184,9 +195,7 @@ describe('OuiCalendarHeader', () => {
 
       expect(calendarInstance.currentView).toBe('month');
       expect(calendarInstance.activeDate).toEqual(new Date(2016, DEC, 31));
-      expect(testComponent.selected).toBeFalsy(
-        'no date should be selected yet'
-      );
+      expect(testComponent.selected).toBeFalsy();
     });
   });
 });

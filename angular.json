@@ -22,10 +22,7 @@
             "buildTarget": "ui:build",
             "tsConfig": "ui/tsconfig.spec.json",
             "include": [
-              "components/core/common-behaviors/disable-ripple.spec.ts",
-              "components/icon/icon.module.spec.ts",
-              "components/datepicker/native-date-adapter.spec.ts",
-              "components/slide-toggle/slide-toggle.spec.ts"
+              "**/*.spec.ts"
             ],
             "setupFiles": ["ui/src/test-setup.ts"],
             "watch": false

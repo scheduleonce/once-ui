@@ -6,10 +6,7 @@
   },
   "files": ["src/test-setup.ts"],
   "include": [
-    "src/components/core/common-behaviors/disable-ripple.spec.ts",
-    "src/components/icon/icon.module.spec.ts",
-    "src/components/datepicker/native-date-adapter.spec.ts",
-    "src/components/slide-toggle/slide-toggle.spec.ts",
+    "**/*.spec.ts",
     "**/*.d.ts"
   ],
   "angularCompilerOptions": {
