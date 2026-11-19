@@ -1,4 +1,5 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+﻿import { beforeEach, describe, expect, it } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import {
   OuiCalendarBody,
@@ -6,6 +7,7 @@ import {
   OuiCalendarCellCssClasses,
 } from './calendar-body';
 import { By } from '@angular/platform-browser';
+import { OuiDatepickerModule } from './datepicker-module';
 
 @Component({
   template: `
@@ -22,7 +24,7 @@ import { By } from '@angular/platform-browser';
     ></table>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class StandardCalendarBody {
   label = 'Jan 2017';
@@ -53,18 +55,13 @@ function createCell(value: number, cellClasses?: OuiCalendarCellCssClasses) {
 }
 
 describe('OuiCalendarBody', () => {
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      declarations: [
-        OuiCalendarBody,
-
-        // Test components.
-        StandardCalendarBody,
-      ],
+      imports: [OuiDatepickerModule, StandardCalendarBody],
     });
 
-    TestBed.compileComponents();
-  }));
+    await TestBed.compileComponents();
+  });
 
   describe('standard calendar body', () => {
     let fixture: ComponentFixture<StandardCalendarBody>;
@@ -94,7 +91,7 @@ describe('OuiCalendarBody', () => {
       refreshElementLists();
     });
 
-    xit('creates body', () => {
+    it.skip('creates body', () => {
       expect(rowEls.length).toBe(3);
       expect(labelEls.length).toBe(1);
       expect(cellEls.length).toBe(14);
@@ -124,14 +121,8 @@ describe('OuiCalendarBody', () => {
         (c) => c.getAttribute('aria-selected') === 'false'
       );
 
-      expect(selectedCells.length).toBe(
-        1,
-        'Expected one cell to be marked as selected.'
-      );
-      expect(deselectedCells.length).toBe(
-        cellEls.length - 1,
-        'Expected remaining cells to be marked as deselected.'
-      );
+      expect(selectedCells.length).toBe(1);
+      expect(deselectedCells.length).toBe(cellEls.length - 1);
     });
 
     it('places label in first row if space is available', () => {
@@ -157,8 +148,7 @@ describe('OuiCalendarBody', () => {
       expect(localLabelEls.length).toBe(1);
       expect(localCellEls.length).toBe(11);
       expect(localRowEls[0].firstElementChild!.classList).toContain(
-        'oui-calendar-body-label',
-        'first cell should be the label'
+        'oui-calendar-body-label'
       );
       expect(localLabelEls[0].getAttribute('colspan')).toBe('3');
     });
@@ -170,10 +160,7 @@ describe('OuiCalendarBody', () => {
       todayElement.click();
       fixture.detectChanges();
 
-      expect(todayElement.classList).toContain(
-        'oui-calendar-body-selected',
-        'today should be selected'
-      );
+      expect(todayElement.classList).toContain('oui-calendar-body-selected');
     });
 
     it('should mark active date', () => {

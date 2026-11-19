@@ -5,7 +5,7 @@
     "ng": "ng",
     "build": "ng build ui",
     "postbuild": "gulp copy",
-    "test": "ng test ui --include=components/core/common-behaviors/disable-ripple.spec.ts --include=components/icon/icon.module.spec.ts --include=components/datepicker/native-date-adapter.spec.ts --include=components/slide-toggle/slide-toggle.spec.ts --include=components/autocomplete/autocomplete.spec.ts --include=components/checkbox/checkbox.spec.ts --include=components/chips/chip-grid.spec.ts",
+    "test": "ng test ui --include=components/core/common-behaviors/disable-ripple.spec.ts --include=components/icon/icon.module.spec.ts --include=components/datepicker/native-date-adapter.spec.ts --include=components/slide-toggle/slide-toggle.spec.ts --include=components/autocomplete/autocomplete.spec.ts --include=components/checkbox/checkbox.spec.ts --include=components/chips/chip-grid.spec.ts --include=components/datepicker/calendar-body.spec.ts",
     "test:all": "ng test ui --include=**/*.spec.ts",
     "lint": "ng lint ui --format ./eslint-formatter-files.js",
     "prettier": "prettier --list-different \"**/*.{ts,js,css,scss,md,html}\"",
