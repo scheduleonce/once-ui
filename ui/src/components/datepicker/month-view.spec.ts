@@ -1,9 +1,10 @@
-import { Direction, Directionality } from '@angular/cdk/bidi';
+﻿import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
-import { OuiCalendarBody } from './calendar-body';
+import { OuiDatepickerModule } from './datepicker-module';
 import { OuiMonthView } from './month-view';
 
 export const JAN = 0;
@@ -27,7 +28,7 @@ export const DEC = 11;
     ></oui-month-view>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class StandardMonthView {
   date = new Date(2017, JAN, 5);
@@ -42,7 +43,7 @@ class StandardMonthView {
     ></oui-month-view>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class MonthViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -59,7 +60,7 @@ class MonthViewWithDateFilter {
     ></oui-month-view>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class MonthViewWithDateClass {
   activeDate = new Date(2017, JAN, 1);
@@ -72,14 +73,11 @@ describe('OuiMonthView', () => {
   // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule],
-      declarations: [
-        OuiCalendarBody,
-        OuiMonthView,
-
-        // Test components.
+      imports: [
+        OuiNativeDateModule,
+        OuiDatepickerModule,
         StandardMonthView,
         MonthViewWithDateFilter,
         MonthViewWithDateClass,
@@ -92,8 +90,8 @@ describe('OuiMonthView', () => {
       ],
     });
 
-    TestBed.compileComponents();
-  }));
+    await TestBed.compileComponents();
+  });
 
   describe('standard month view', () => {
     let fixture: ComponentFixture<StandardMonthView>;

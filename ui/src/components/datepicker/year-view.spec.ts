@@ -1,9 +1,10 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { Component, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { OuiNativeDateModule } from './native-date.module';
 import { By } from '@angular/platform-browser';
-import { OuiCalendarBody } from './calendar-body';
+import { OuiDatepickerModule } from './datepicker-module';
 import { OuiYearView } from './year-view';
 export const JAN = 0;
 export const FEB = 1;
@@ -27,7 +28,7 @@ export const DEC = 11;
     ></oui-year-view>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class StandardYearView {
   date = new Date(2017, JAN, 5);
@@ -45,7 +46,7 @@ class StandardYearView {
     ></oui-year-view>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [OuiDatepickerModule],
 })
 class YearViewWithDateFilter {
   activeDate = new Date(2017, JAN, 1);
@@ -64,14 +65,11 @@ describe('OuiYearView', () => {
   // @ts-ignore: Used in provider factory below
   let dir: { value: Direction };
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [OuiNativeDateModule],
-      declarations: [
-        OuiCalendarBody,
-        OuiYearView,
-
-        // Test components.
+      imports: [
+        OuiNativeDateModule,
+        OuiDatepickerModule,
         StandardYearView,
         YearViewWithDateFilter,
       ],
@@ -83,8 +81,8 @@ describe('OuiYearView', () => {
       ],
     });
 
-    TestBed.compileComponents();
-  }));
+    await TestBed.compileComponents();
+  });
 
   describe('standard year view', () => {
     let fixture: ComponentFixture<StandardYearView>;

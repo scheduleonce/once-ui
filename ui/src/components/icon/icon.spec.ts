@@ -1,19 +1,26 @@
-import {
-  inject,
-  fakeAsync,
-  tick,
-  TestBed,
-  waitForAsync,
-} from '@angular/core/testing';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { TestBed } from '@angular/core/testing';
 import { DomSanitizer } from '@angular/platform-browser';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { OuiIconModule } from './icon.module';
 import { OuiIconRegistry } from './icon-registery';
 import { OUI_ICON_LOCATION } from './public-api';
+
+// Fake timers replace Zone-based fakeAsync; tick advances them.
+const drainMicrotasks = async () => {
+  for (let i = 0; i < 10; i++) {
+    await Promise.resolve();
+  }
+};
+const tick = async (ms = 0) => {
+  vi.advanceTimersByTime(ms);
+  await drainMicrotasks();
+};
 
 /** Returns the CSS classes assigned to an element as a sorted array. */
 function sortedClassNames(element: Element): string[] {
@@ -118,24 +125,48 @@ function verifyPathChildElement(
   expect(pathElement.getAttribute('name')).toBe(attributeValue);
 }
 
+// Declared in a module so host components share the TestBed injector with OuiIconRegistry.
+@NgModule({
+  imports: [CommonModule, OuiIconModule],
+  declarations: [
+    IconWithColor,
+    IconWithLigature,
+    IconFromSvgName,
+    IconWithBindingAndNgIf,
+    InlineIcon,
+    SvgIconWithUserContent,
+  ],
+})
+class IconTestModule {}
+
 describe('OuiIcon', () => {
+  beforeEach(() => {
+    vi.useFakeTimers({
+      toFake: [
+        'setTimeout',
+        'clearTimeout',
+        'setInterval',
+        'clearInterval',
+        'requestAnimationFrame',
+        'cancelAnimationFrame',
+      ],
+    });
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   let fakePath: string;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     // The $ prefix tells Karma not to try to process the
     // request so that we don't get warnings in our logs.
     fakePath = '/$fake-path';
 
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, OuiIconModule],
-      declarations: [
-        IconWithColor,
-        IconWithLigature,
-        IconFromSvgName,
-        IconWithBindingAndNgIf,
-        InlineIcon,
-        SvgIconWithUserContent,
-      ],
+      imports: [HttpClientTestingModule, IconTestModule],
+
       providers: [
         {
           provide: OUI_ICON_LOCATION,
@@ -144,23 +175,20 @@ describe('OuiIcon', () => {
       ],
     });
 
-    TestBed.compileComponents();
-  }));
+    await TestBed.compileComponents();
+  });
 
   let iconRegistry: OuiIconRegistry;
   let http: HttpTestingController;
   let sanitizer: DomSanitizer;
 
-  beforeEach(inject(
-    [OuiIconRegistry, HttpTestingController, DomSanitizer],
-    (mir: OuiIconRegistry, h: HttpTestingController, ds: DomSanitizer) => {
-      iconRegistry = mir;
-      http = h;
-      sanitizer = ds;
-    }
-  ));
+  beforeEach(() => {
+    iconRegistry = TestBed.inject(OuiIconRegistry);
+    http = TestBed.inject(HttpTestingController);
+    sanitizer = TestBed.inject(DomSanitizer);
+  });
 
-  it('should apply class based on color attribute', () => {
+  it('should apply class based on color attribute', async () => {
     const fixture = TestBed.createComponent(IconWithColor);
     const testComponent = fixture.componentInstance;
     const ouiIconElement = fixture.debugElement.nativeElement.querySelector(
@@ -169,6 +197,7 @@ describe('OuiIcon', () => {
     testComponent.iconName = 'home';
     testComponent.iconColor = 'primary';
     fixture.detectChanges();
+    await tick();
     expect(sortedClassNames(ouiIconElement)).toEqual([
       'oui-icon',
       'oui-primary',
@@ -179,29 +208,23 @@ describe('OuiIcon', () => {
     const fixture = TestBed.createComponent(IconWithLigature);
     const iconElement =
       fixture.debugElement.nativeElement.querySelector('oui-icon');
-    expect(iconElement.getAttribute('aria-hidden')).toBe(
-      'true',
-      'Expected the oui-icon element has aria-hidden="true" by default'
-    );
+    expect(iconElement.getAttribute('aria-hidden')).toBe('true');
   });
 
-  it('should apply inline styling', () => {
+  it('should apply inline styling', async () => {
     const fixture = TestBed.createComponent(InlineIcon);
     const iconElement =
       fixture.debugElement.nativeElement.querySelector('oui-icon');
-    expect(iconElement.classList.contains('oui-icon-inline')).toBeFalsy(
-      'Expected the oui-icon element to not include the inline styling class'
-    );
+    expect(iconElement.classList.contains('oui-icon-inline')).toBeFalsy();
 
     fixture.debugElement.componentInstance.inline = true;
     fixture.detectChanges();
-    expect(iconElement.classList.contains('oui-icon-inline')).toBeTruthy(
-      'Expected the oui-icon element to include the inline styling class'
-    );
+    await tick();
+    expect(iconElement.classList.contains('oui-icon-inline')).toBeTruthy();
   });
 
   describe('Icons from URLs', () => {
-    it('should not wrap <svg> elements in icon sets in another svg tag', () => {
+    it('should not wrap <svg> elements in icon sets in another svg tag', async () => {
       iconRegistry.addSvgIconSet(
         sanitizer.bypassSecurityTrustResourceUrl('arrow-set.svg')
       );
@@ -214,6 +237,7 @@ describe('OuiIcon', () => {
 
       testComponent.iconName = 'left-arrow';
       fixture.detectChanges();
+      await tick();
       http.expectOne('arrow-set.svg').flush(FAKE_SVGS.arrows);
 
       // arrow-set.svg stores its icons as nested <svg> elements, so they should be used
@@ -222,7 +246,7 @@ describe('OuiIcon', () => {
       verifyPathChildElement(svgElement, 'left');
     });
 
-    it('should not throw when toggling an icon that has a binding in IE11', () => {
+    it('should not throw when toggling an icon that has a binding in IE11', async () => {
       iconRegistry.addSvgIcon(
         'fluffy',
         sanitizer.bypassSecurityTrustResourceUrl('cat.svg')
@@ -231,6 +255,7 @@ describe('OuiIcon', () => {
       const fixture = TestBed.createComponent(IconWithBindingAndNgIf);
 
       fixture.detectChanges();
+      await tick();
       http.expectOne('cat.svg').flush(FAKE_SVGS.cat);
 
       expect(() => {
@@ -242,7 +267,7 @@ describe('OuiIcon', () => {
       }).not.toThrow();
     });
 
-    it('should keep non-SVG user content inside the icon element', fakeAsync(() => {
+    it('should keep non-SVG user content inside the icon element', async () => {
       iconRegistry.addSvgIcon(
         'fido',
         sanitizer.bypassSecurityTrustResourceUrl('dog.svg')
@@ -255,6 +280,7 @@ describe('OuiIcon', () => {
 
       testComponent.iconName = 'fido';
       fixture.detectChanges();
+      await tick();
       http.expectOne('dog.svg').flush(FAKE_SVGS.dog);
 
       const userDiv = iconElement.querySelector('div');
@@ -262,12 +288,12 @@ describe('OuiIcon', () => {
       expect(userDiv).toBeTruthy();
       expect(iconElement.textContent.trim()).toContain('Hello');
 
-      tick();
-    }));
+      await tick();
+    });
   });
 
   describe('Icons from HTML string', () => {
-    it('should register icon HTML strings by name', fakeAsync(() => {
+    it('should register icon HTML strings by name', async () => {
       iconRegistry.addSvgIconLiteral(
         `fluffy`,
         sanitizer.bypassSecurityTrustHtml(FAKE_SVGS.cat)
@@ -285,6 +311,7 @@ describe('OuiIcon', () => {
 
       testComponent.iconName = 'fluffy';
       fixture.detectChanges();
+      await tick();
       const svgElement = verifyAndGetSingleSvgChild(iconElement);
       verifyPathChildElement(svgElement, 'meow');
 
@@ -293,10 +320,10 @@ describe('OuiIcon', () => {
         verifyPathChildElement(element, 'meow');
       });
 
-      tick();
-    }));
+      await tick();
+    });
 
-    it('should prepend the current path to attributes with `url()` references', fakeAsync(() => {
+    it('should prepend the current path to attributes with `url()` references', async () => {
       iconRegistry.addSvgIconLiteral(
         'fido',
         sanitizer.bypassSecurityTrustHtml(`
@@ -313,6 +340,7 @@ describe('OuiIcon', () => {
       const fixture = TestBed.createComponent(IconFromSvgName);
       fixture.componentInstance.iconName = 'fido';
       fixture.detectChanges();
+      await tick();
       const circle = fixture.nativeElement.querySelector('oui-icon svg circle');
 
       // We use a regex to match here, rather than the exact value, because different browsers
@@ -321,10 +349,10 @@ describe('OuiIcon', () => {
         /^url\(['"]?\#blur['"]?\)$/
       );
 
-      tick();
-    }));
+      await tick();
+    });
 
-    it('should use latest path when prefixing the `url()` references', fakeAsync(() => {
+    it('should use latest path when prefixing the `url()` references', async () => {
       iconRegistry.addSvgIconLiteral(
         'fido',
         sanitizer.bypassSecurityTrustHtml(`
@@ -341,27 +369,29 @@ describe('OuiIcon', () => {
       let fixture = TestBed.createComponent(IconFromSvgName);
       fixture.componentInstance.iconName = 'fido';
       fixture.detectChanges();
+      await tick();
       let circle = fixture.nativeElement.querySelector('oui-icon svg circle');
 
       expect(circle.getAttribute('filter')).toMatch(
         /^url\(['"]?\#blur['"]?\)$/
       );
-      tick();
+      await tick();
       fixture.destroy();
 
       fakePath = '/$another-fake-path';
       fixture = TestBed.createComponent(IconFromSvgName);
       fixture.componentInstance.iconName = 'fido';
       fixture.detectChanges();
+      await tick();
       circle = fixture.nativeElement.querySelector('oui-icon svg circle');
 
       expect(circle.getAttribute('filter')).toMatch(
         /^url\(['"]?\#blur['"]?\)$/
       );
-      tick();
-    }));
+      await tick();
+    });
 
-    it('should update the `url()` references when the path changes', fakeAsync(() => {
+    it('should update the `url()` references when the path changes', async () => {
       iconRegistry.addSvgIconLiteral(
         'fido',
         sanitizer.bypassSecurityTrustHtml(`
@@ -378,6 +408,7 @@ describe('OuiIcon', () => {
       const fixture = TestBed.createComponent(IconFromSvgName);
       fixture.componentInstance.iconName = 'fido';
       fixture.detectChanges();
+      await tick();
       const circle = fixture.nativeElement.querySelector('oui-icon svg circle');
 
       // We use a regex to match here, rather than the exact value, because different browsers
@@ -385,14 +416,15 @@ describe('OuiIcon', () => {
       expect(circle.getAttribute('filter')).toMatch(
         /^url\(['"]?\#blur['"]?\)$/
       );
-      tick();
+      await tick();
 
       fakePath = '/$different-path';
       fixture.detectChanges();
+      await tick();
 
       expect(circle.getAttribute('filter')).toMatch(
         /^url\(['"]?\#blur['"]?\)$/
       );
-    }));
+    });
   });
 });
