@@ -1,3 +1,4 @@
+﻿import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import {
   Component,
@@ -6,12 +7,7 @@ import {
   ViewChild,
   ChangeDetectionStrategy,
 } from '@angular/core';
-import {
-  ComponentFixture,
-  fakeAsync,
-  TestBed,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -35,15 +31,21 @@ import {
 import { ChipsAutocompleteSelectedEvent } from './chips-autocomplete';
 import { ChipsAutocompleteTrigger } from './chips-autocomplete-trigger';
 
+// Fake timers replace Zone-based fakeAsync; tick advances them.
+const drainMicrotasks = async () => {
+  for (let i = 0; i < 10; i++) {
+    await Promise.resolve();
+  }
+};
+const tick = async (ms = 0) => {
+  vi.advanceTimersByTime(ms);
+  await drainMicrotasks();
+};
+
 @Component({
   template: `
     <oui-form-field>
-      <oui-chip-grid
-        #chipGrid
-        [value]="fruits"
-        (change)="lastChange = $event"
-        [disabled]="disabled"
-      >
+      <oui-chip-grid #chipGrid [value]="fruits" (change)="lastChange = $event">
         @for (fruit of fruits; track fruit) {
         <oui-chip-row [value]="fruit" (removed)="remove(fruit)">
           {{ fruit }}
@@ -73,7 +75,13 @@ import { ChipsAutocompleteTrigger } from './chips-autocomplete-trigger';
     </oui-form-field>
   `,
   changeDetection: ChangeDetectionStrategy.Eager,
-  standalone: false,
+  imports: [
+    OuiChipsModule,
+    OuiFormFieldModule,
+    OuiInputModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
 class ChipsAutocompleteHostComponent {
   separatorKeysCodes = [ENTER, COMMA];
@@ -123,6 +131,34 @@ class ChipsAutocompleteHostComponent {
 }
 
 describe('OuiChipGrid (Chips Autocomplete)', () => {
+  beforeEach(() => {
+    // The test runner's MutationObserver lacks observe/disconnect, which CDK overlay calls.
+    vi.stubGlobal(
+      'MutationObserver',
+      class {
+        observe() {}
+        disconnect() {}
+        takeRecords() {
+          return [];
+        }
+      }
+    );
+    vi.useFakeTimers({
+      toFake: [
+        'setTimeout',
+        'clearTimeout',
+        'setInterval',
+        'clearInterval',
+        'requestAnimationFrame',
+        'cancelAnimationFrame',
+      ],
+    });
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
   let fixture: ComponentFixture<ChipsAutocompleteHostComponent>;
   let component: ChipsAutocompleteHostComponent;
   let overlayContainer: OverlayContainer;
@@ -132,6 +168,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
+        ChipsAutocompleteHostComponent,
         NoopAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -139,7 +176,6 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
         OuiInputModule,
         OuiChipsModule,
       ],
-      declarations: [ChipsAutocompleteHostComponent],
       providers: [
         { provide: NgZone, useFactory: () => (zone = new MockNgZone()) },
       ],
@@ -198,50 +234,50 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
   }
 
   it('renders the initial set of chips', () => {
-    expect(getChips()).toHaveSize(1);
+    expect(getChips()).toHaveLength(1);
     expect(getChips()[0].nativeElement.textContent.trim()).toContain('Lemon');
   });
 
-  it('adds a new chip when typing a separator key (ENTER)', fakeAsync(() => {
+  it('adds a new chip when typing a separator key (ENTER)', async () => {
     dispatchInputEvent('Apple');
     pressKey(ENTER);
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
 
     expect(component.fruits).toEqual(['Lemon', 'Apple']);
-    expect(getChips()).toHaveSize(2);
-  }));
+    expect(getChips()).toHaveLength(2);
+  });
 
-  it('adds a new chip when typing a separator key (COMMA)', fakeAsync(() => {
+  it('adds a new chip when typing a separator key (COMMA)', async () => {
     dispatchInputEvent('Orange');
     pressKey(COMMA);
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
 
     expect(component.fruits).toContain('Orange');
-  }));
+  });
 
-  it('adds the typed value on blur when addOnBlur is true', fakeAsync(() => {
+  it('adds the typed value on blur when addOnBlur is true', async () => {
     dispatchInputEvent('Lime');
     getInput().dispatchEvent(new Event('blur'));
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
 
     expect(component.fruits).toContain('Lime');
-  }));
+  });
 
-  it('does not add an empty chip', fakeAsync(() => {
+  it('does not add an empty chip', async () => {
     dispatchInputEvent('   ');
     pressKey(ENTER);
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
 
     expect(component.fruits).toEqual(['Lemon']);
-  }));
+  });
 
   it('removes a chip when the remove button is clicked', () => {
     const removeButton = fixture.debugElement.query(By.directive(OuiChipRemove))
@@ -250,33 +286,33 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
     fixture.detectChanges();
 
     expect(component.fruits).toEqual([]);
-    expect(getChips()).toHaveSize(0);
+    expect(getChips()).toHaveLength(0);
   });
 
-  it('emits the change event when the chip list is mutated', fakeAsync(() => {
+  it('emits the change event when the chip list is mutated', async () => {
     dispatchInputEvent('Apple');
     pressKey(ENTER);
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
     // Trigger the chip grid blur path so change is emitted.
     getInput().dispatchEvent(new Event('blur'));
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
 
     expect(component.lastChange).not.toBeNull();
     expect(component.lastChange!.value).toEqual(['Lemon', 'Apple']);
-  }));
+  });
 
   it('reflects the bound `value` into the chip grid', () => {
     component.fruits = ['Apple', 'Lemon', 'Lime'];
     fixture.detectChanges();
 
-    expect(component.fruits).toHaveSize(3);
+    expect(component.fruits).toHaveLength(3);
   });
 
-  it('writes back the model value when removed via keyboard (DELETE on focused chip)', fakeAsync(() => {
+  it('writes back the model value when removed via keyboard (DELETE on focused chip)', async () => {
     const chip = getChips()[0];
     chip.nativeElement.focus();
     fixture.detectChanges();
@@ -289,11 +325,11 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
     });
     chip.nativeElement.dispatchEvent(event);
     fixture.detectChanges();
-    tick();
+    await tick();
     fixture.detectChanges();
 
     expect(component.fruits).toEqual([]);
-  }));
+  });
 
   it('fires a removed event on chip row when removed', () => {
     let removedSpy: OuiChipEvent | null = null;
@@ -311,21 +347,21 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
   });
 
   describe('with autocomplete', () => {
-    it('opens the panel when the input is focused', fakeAsync(() => {
+    it('opens the panel when the input is focused', async () => {
       getInput().focus();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      expect(trigger.panelOpen).toBe(true, 'Expected panel to open on focus.');
+      expect(trigger.panelOpen).toBe(true);
       expect(getOptions().length).toBeGreaterThan(0);
-    }));
+    });
 
-    it('adds the option value as a chip when an option is clicked', fakeAsync(() => {
+    it('adds the option value as a chip when an option is clicked', async () => {
       getInput().focus();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
@@ -339,46 +375,43 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
 
       targetOption.click();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
       expect(component.fruits).toContain('Apple');
-      expect(trigger.panelOpen).toBe(
-        false,
-        'Expected panel to close after selecting an option.'
-      );
-    }));
+      expect(trigger.panelOpen).toBe(false);
+    });
 
-    it('selects the active option via Enter key and adds only that option', fakeAsync(() => {
+    it('selects the active option via Enter key and adds only that option', async () => {
       dispatchInputEvent('App');
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
       // Press ArrowDown to activate first option then Enter to select it.
       pressKey(40); // DOWN_ARROW
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
       pressKey(ENTER);
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
       // Should contain 'Apple' (the activated option) and NOT 'App' as a
       // separate chip - autocomplete must run before chip-input on Enter.
       expect(component.fruits).toContain('Apple');
-      expect(component.fruits.filter((f) => f === 'App')).toHaveSize(0);
-    }));
+      expect(component.fruits.filter((f) => f === 'App')).toHaveLength(0);
+    });
 
-    it('closes the panel when clicking outside the form field', fakeAsync(() => {
+    it('closes the panel when clicking outside the form field', async () => {
       getInput().focus();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
@@ -387,17 +420,14 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
       // Click outside the form-field/overlay (document body).
       document.body.click();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
-      expect(trigger.panelOpen).toBe(
-        false,
-        'Expected clicking outside to close the panel.'
-      );
-    }));
+      expect(trigger.panelOpen).toBe(false);
+    });
 
-    it('emits optionSelected when an option is selected', fakeAsync(() => {
+    it('emits optionSelected when an option is selected', async () => {
       let captured: ChipsAutocompleteSelectedEvent | null = null;
       component.selected = (event: ChipsAutocompleteSelectedEvent) => {
         captured = event;
@@ -405,7 +435,7 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
 
       getInput().focus();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
@@ -414,12 +444,12 @@ describe('OuiChipGrid (Chips Autocomplete)', () => {
       ) as HTMLElement;
       targetOption.click();
       fixture.detectChanges();
-      tick();
+      await tick();
       fixture.detectChanges();
       zone.simulateZoneExit();
 
       expect(captured).not.toBeNull();
       expect(captured!.option.viewValue).toBe('Lime');
-    }));
+    });
   });
 });
