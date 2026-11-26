@@ -18,6 +18,10 @@ jobs:
     runs-on: once-ui-runner-scale-set
     
     steps:
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.17.0
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
@@ -134,8 +138,8 @@ jobs:
           
           # Install dependencies and build package
           # Install dependencies and build package
-          npm i --legacy-peer-deps
-          npm run package
+          pnpm install --frozen-lockfile
+          pnpm run package
           
           # Navigate to dist/ui and pack the package
           cd dist/ui

@@ -1,0 +1,21 @@
+saveExact: true
+autoInstallPeers: true
+strictPeerDependencies: false
+enablePrePostScripts: true
+minimumReleaseAge: 1440
+trustPolicy: no-downgrade
+blockExoticSubdeps: true
+strictDepBuilds: true
+verifyStoreIntegrity: true
+trustPolicyExclude:
+  - 'chokidar@4.0.3'
+  - 'chromium-bidi@157.0.8090-0'
+  - 'undici-types@6.21.0'
+  - 'webpack-dev-middleware@7.4.6'
+allowBuilds:
+  '@parcel/watcher': true
+  'core-js': true
+  'esbuild': true
+  'lmdb': true
+  'msgpackr-extract': true
+  'puppeteer': true

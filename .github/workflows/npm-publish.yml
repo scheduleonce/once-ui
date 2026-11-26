@@ -9,14 +9,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.17.0
       - uses: actions/checkout@v7
       # setup .npmrc file to publish to npm
       - uses: actions/setup-node@v4
         with:
           node-version: '26.13.1'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm ci --legacy-peer-deps
-      - run: npm run build:lib
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
       # scoped packages are private by default so need to add public flag
       - run: npm publish --access public
         env:

@@ -3,8 +3,8 @@ set -e
 
 node package-deploy/npm-login.js "$2"
 npm whoami
-npm i
-chown root:root . && npm run package
+pnpm install --frozen-lockfile
+chown root:root . && pnpm run package
 filename="$(npm pack --dry-run | tail -n 1)"
 echo "$1"
 
