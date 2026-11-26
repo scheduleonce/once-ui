@@ -28,6 +28,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install libatomic
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libatomic1
+
       - name: Install Azure CLI
         shell: bash
         run: |
@@ -116,7 +122,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            libatomic1 \
             libnss3 \
             libnspr4 \
             libatk1.0-0 \

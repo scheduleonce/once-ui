@@ -5140,7 +5140,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-c8acae8d12d9126ddbf88b8b9326147f2a2ca1529da75f341d2ee606e96463223355d9bfa9f2f0b97ed068a7f58e03f3603021e31e34e15898c2c4a40942b57e",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "coverageIgnore": false,
             "properties": [],
             "methods": [
@@ -5212,6 +5212,10 @@
                     {
                         "name": "OuiChipsModule",
                         "type": "module"
+                    },
+                    {
+                        "name": "OuiInputModule",
+                        "type": "module"
                     }
                 ],
                 "outgoing": []
@@ -5220,7 +5224,7 @@
         {
             "name": "ErrorStateMatcher",
             "id": "injectable-ErrorStateMatcher-c8acae8d12d9126ddbf88b8b9326147f2a2ca1529da75f341d2ee606e96463223355d9bfa9f2f0b97ed068a7f58e03f3603021e31e34e15898c2c4a40942b57e-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "coverageIgnore": false,
             "properties": [],
             "methods": [
@@ -5291,12 +5295,7 @@
             "duplicateId": 1,
             "duplicateName": "ErrorStateMatcher-1",
             "relationships": {
-                "incoming": [
-                    {
-                        "name": "OuiInputModule",
-                        "type": "module"
-                    }
-                ],
+                "incoming": [],
                 "outgoing": []
             }
         },
@@ -9514,7 +9513,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-c8acae8d12d9126ddbf88b8b9326147f2a2ca1529da75f341d2ee606e96463223355d9bfa9f2f0b97ed068a7f58e03f3603021e31e34e15898c2c4a40942b57e",
-            "file": "ui/src/components/core/error/error-options.ts",
+            "file": "ui/src/components/core/common-behaviors/error-options.ts",
             "coverageIgnore": false,
             "properties": [],
             "methods": [
@@ -9588,7 +9587,7 @@
         {
             "name": "ShowOnDirtyErrorStateMatcher",
             "id": "injectable-ShowOnDirtyErrorStateMatcher-c8acae8d12d9126ddbf88b8b9326147f2a2ca1529da75f341d2ee606e96463223355d9bfa9f2f0b97ed068a7f58e03f3603021e31e34e15898c2c4a40942b57e-1",
-            "file": "ui/src/components/core/common-behaviors/error-options.ts",
+            "file": "ui/src/components/core/error/error-options.ts",
             "coverageIgnore": false,
             "properties": [],
             "methods": [
@@ -13956,13 +13955,13 @@
         },
         {
             "name": "OuiTableDataSource",
-            "id": "class-OuiTableDataSource-61537bc92125e849a362291d551452fb5bd73c5de46717aa5d16e463cb8e8c8b6cb072a3e6bd1d66f26739ab38f4725ccef39d843d33d3662c545ece458540d3",
+            "id": "class-OuiTableDataSource-e2c2b741b7b36b6460649515ebf7f2f61e276659caa0b64fc7511a072274dfef232aa41fed741971c009ac0a7096a8dc9f30bd48f812b57177dbec5895240002",
             "file": "ui/src/components/table/table-data-source.ts",
             "coverageIgnore": false,
             "deprecated": false,
             "deprecationMessage": "",
             "type": "class",
-            "sourceCode": "import { _isNumberValue } from '@angular/cdk/coercion';\r\nimport { DataSource } from '@angular/cdk/table';\r\nimport {\r\n  BehaviorSubject,\r\n  combineLatest,\r\n  merge,\r\n  Observable,\r\n  of as observableOf,\r\n  Subscription,\r\n} from 'rxjs';\r\nimport { OuiPaginator, PageEvent } from '../paginator/public-api';\r\nimport { outputToObservable } from '@angular/core/rxjs-interop';\r\nimport { OuiSort, Sort } from '../sort/public-api';\r\nimport { map } from 'rxjs/operators';\r\n\r\n/**\r\n * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to\r\n * flaky browser support and the value not being defined in Closure's typings.\r\n */\r\nconst MAX_SAFE_INTEGER = 9007199254740991;\r\n\r\n/**\r\n * Data source that accepts a client-side data array and includes native support of filtering,\r\n * sorting (using OuiSort), and pagination (using OuiPaginator).\r\n *\r\n * Allows for sort customization by overriding sortingDataAccessor, which defines how data\r\n * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,\r\n * which defines how row data is converted to a string for filter matching.\r\n */\r\nexport class OuiTableDataSource<T> extends DataSource<T> {\r\n  /** Stream that emits when a new data array is set on the data source. */\r\n  private readonly _data: BehaviorSubject<T[]>;\r\n\r\n  /** Stream emitting render data to the table (depends on ordered data changes). */\r\n  private readonly _renderData = new BehaviorSubject<T[]>([]);\r\n\r\n  /** Stream that emits when a new filter string is set on the data source. */\r\n  private readonly _filter = new BehaviorSubject<string>('');\r\n\r\n  /**\r\n   * Subscription to the changes that should trigger an update to the table's rendered rows, such\r\n   * as filtering, sorting, pagination, or base data changes.\r\n   */\r\n  _renderChangesSubscription = Subscription.EMPTY;\r\n\r\n  /**\r\n   * The filtered set of data that has been matched by the filter string, or all the data if there\r\n   * is no filter. Useful for knowing the set of data the table represents.\r\n   * For example, a 'selectAll()' function would likely want to select the set of filtered data\r\n   * shown to the user rather than all the data.\r\n   */\r\n  filteredData: T[];\r\n\r\n  /** Array of data that should be rendered by the table, where each object represents one row. */\r\n  get data() {\r\n    return this._data.value;\r\n  }\r\n  set data(data: T[]) {\r\n    this._data.next(data);\r\n  }\r\n\r\n  /**\r\n   * Filter term that should be used to filter out objects from the data array. To override how\r\n   * data objects match to this filter string, provide a custom function for filterPredicate.\r\n   */\r\n  get filter(): string {\r\n    return this._filter.value;\r\n  }\r\n  set filter(filter: string) {\r\n    this._filter.next(filter);\r\n  }\r\n\r\n  /**\r\n   * Instance of the OuiSort directive used by the table to control its sorting. Sort changes\r\n   * emitted by the OuiSort will trigger an update to the table's rendered data.\r\n   */\r\n  get sort(): OuiSort | null {\r\n    return this._sort;\r\n  }\r\n  set sort(sort: OuiSort | null) {\r\n    this._sort = sort;\r\n    this._updateChangeSubscription();\r\n  }\r\n  private _sort: OuiSort | null;\r\n\r\n  /**\r\n   * Instance of the OuiPaginator component used by the table to control what page of the data is\r\n   * displayed. Page changes emitted by the OuiPaginator will trigger an update to the\r\n   * table's rendered data.\r\n   *\r\n   * Note that the data source uses the paginator's properties to calculate which page of data\r\n   * should be displayed. If the paginator receives its properties as template inputs,\r\n   * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been\r\n   * initialized before assigning it to this data source.\r\n   */\r\n  get paginator(): OuiPaginator | null {\r\n    return this._paginator;\r\n  }\r\n  set paginator(paginator: OuiPaginator | null) {\r\n    this._paginator = paginator;\r\n    this._updateChangeSubscription();\r\n  }\r\n  private _paginator: OuiPaginator | null;\r\n\r\n  /**\r\n   * Data accessor function that is used for accessing data properties for sorting through\r\n   * the default sortData function.\r\n   * This default function assumes that the sort header IDs (which defaults to the column name)\r\n   * matches the data's properties (e.g. column Xyz represents data['Xyz']).\r\n   * May be set to a custom function for different behavior.\r\n   *\r\n   * @param data Data object that is being accessed.\r\n   * @param sortHeaderId The name of the column that represents the data.\r\n   */\r\n  sortingDataAccessor: (data: T, sortHeaderId: string) => string | number = (\r\n    data: T,\r\n    sortHeaderId: string\r\n  ): string | number => {\r\n    const value = (data as { [key: string]: any })[sortHeaderId];\r\n\r\n    if (_isNumberValue(value)) {\r\n      const numberValue = Number(value);\r\n\r\n      // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably so we\r\n      // leave them as strings. For more info: https://goo.gl/y5vbSg\r\n      return numberValue < MAX_SAFE_INTEGER ? numberValue : value;\r\n    }\r\n\r\n    return value;\r\n  };\r\n\r\n  /**\r\n   * Gets a sorted copy of the data array based on the state of the OuiSort. Called\r\n   * after changes are made to the filtered data or when sort changes are emitted from OuiSort.\r\n   * By default, the function retrieves the active sort and its direction and compares data\r\n   * by retrieving data using the sortingDataAccessor. May be overridden for a custom implementation\r\n   * of data ordering.\r\n   *\r\n   * @param data The array of data that should be sorted.\r\n   * @param sort The connected OuiSort that holds the current sort state.\r\n   */\r\n  sortData: (data: T[], sort: OuiSort) => T[] = (\r\n    data: T[],\r\n    sort: OuiSort\r\n  ): T[] => {\r\n    const active = sort.active();\r\n    const direction = sort.direction();\r\n    if (!active || direction === '') {\r\n      return data;\r\n    }\r\n\r\n    return data.sort((a, b) => {\r\n      const valueA = this.sortingDataAccessor(a, active);\r\n      const valueB = this.sortingDataAccessor(b, active);\r\n\r\n      // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if\r\n      // one value exists while the other doesn't. In this case, existing value should come first.\r\n      // This avoids inconsistent results when comparing values to undefined/null.\r\n      // If neither value exists, return 0 (equal).\r\n      let comparatorResult = 0;\r\n      // eslint-disable-next-line eqeqeq\r\n      if (valueA != null && valueB != null) {\r\n        // Check if one value is greater than the other; if equal, comparatorResult should remain 0.\r\n        if (valueA > valueB) {\r\n          comparatorResult = 1;\r\n        } else if (valueA < valueB) {\r\n          comparatorResult = -1;\r\n        }\r\n      }\r\n      // eslint-disable-next-line eqeqeq\r\n      else if (valueA != null) {\r\n        comparatorResult = 1;\r\n      }\r\n      // eslint-disable-next-line eqeqeq\r\n      else if (valueB != null) {\r\n        comparatorResult = -1;\r\n      }\r\n      // eslint-disable-next-line eqeqeq\r\n      return comparatorResult * (direction == 'asc' ? 1 : -1);\r\n    });\r\n  };\r\n\r\n  /**\r\n   * Checks if a data object matches the data source's filter string. By default, each data object\r\n   * is converted to a string of its properties and returns true if the filter has\r\n   * at least one occurrence in that string. By default, the filter string has its whitespace\r\n   * trimmed and the match is case-insensitive. May be overridden for a custom implementation of\r\n   * filter matching.\r\n   *\r\n   * @param data Data object used to check against the filter.\r\n   * @param filter Filter string that has been set on the data source.\r\n   * @returns Whether the filter matches against the data\r\n   */\r\n  filterPredicate: (data: T, filter: string) => boolean = (\r\n    data: T,\r\n    filter: string\r\n  ): boolean => {\r\n    // Transform the data into a lowercase string of all property values.\r\n    const dataStr = Object.keys(data)\r\n      .reduce((currentTerm: string, key: string) => {\r\n        // Use an obscure Unicode character to delimit the words in the concatenated string.\r\n        // This avoids matches where the values of two columns combined will match the user's query\r\n        // (e.g. Flute and Stop will match Test). The character is intended to be something\r\n        // that has a very low chance of being typed in by somebody in a text field. This one in\r\n        // particular is \"White up-pointing triangle with dot\" from\r\n        // https://en.wikipedia.org/wiki/List_of_Unicode_characters\r\n        const dataKey = (data as { [key: string]: any })[key];\r\n        return `${currentTerm}${dataKey}◬`;\r\n      }, '')\r\n      .toLowerCase();\r\n    // Transform the filter by converting it to lowercase and removing whitespace.\r\n    const transformedFilter = filter.trim().toLowerCase();\r\n\r\n    return dataStr.indexOf(transformedFilter) !== -1;\r\n  };\r\n\r\n  constructor(initialData: T[] = []) {\r\n    super();\r\n    this._data = new BehaviorSubject<T[]>(initialData);\r\n    this._updateChangeSubscription();\r\n  }\r\n\r\n  /**\r\n   * Subscribe to changes that should trigger an update to the table's rendered rows. When the\r\n   * changes occur, process the current state of the filter, sort, and pagination along with\r\n   * the provided base data and send it to the table for rendering.\r\n   */\r\n  _updateChangeSubscription() {\r\n    // Sorting and/or pagination should be watched if OuiSort and/or OuiPaginator are provided.\r\n    // The events should emit whenever the component emits a change or initializes, or if no\r\n    // component is provided, a stream with just a null event should be provided.\r\n    // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the\r\n    // pipeline can progress to the next step. Note that the value from these streams are not used,\r\n    // they purely act as a signal to progress in the pipeline.\r\n    const sortChange: Observable<Sort | null | void> = this._sort\r\n      ? (merge(\r\n          outputToObservable(this._sort.sortChange),\r\n          this._sort.initialized\r\n        ) as Observable<Sort | void>)\r\n      : observableOf(null);\r\n    const pageChange: Observable<PageEvent | null | void> = this._paginator\r\n      ? (merge(\r\n          outputToObservable(this._paginator.page),\r\n          this._paginator.initialized\r\n        ) as Observable<PageEvent | void>)\r\n      : observableOf(null);\r\n\r\n    const dataStream = this._data;\r\n    // Watch for base data or filter changes to provide a filtered set of data.\r\n    const filteredData = combineLatest([dataStream, this._filter]).pipe(\r\n      map(([data]) => this._filterData(data))\r\n    );\r\n    // Watch for filtered data or sort changes to provide an ordered set of data.\r\n    const orderedData = combineLatest([filteredData, sortChange]).pipe(\r\n      map(([data]) => this._orderData(data))\r\n    );\r\n    // Watch for ordered data or page changes to provide a paged set of data.\r\n    const paginatedData = combineLatest([orderedData, pageChange]).pipe(\r\n      map(([data]) => this._pageData(data))\r\n    );\r\n    // Watched for paged data changes and send the result to the table to render.\r\n    this._renderChangesSubscription.unsubscribe();\r\n    this._renderChangesSubscription = paginatedData.subscribe({\r\n      next: (data) => this._renderData.next(data),\r\n      error: (err: Error) =>\r\n        console.error('Table render data update failed', err),\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Returns a filtered data array where each filter object contains the filter string within\r\n   * the result of the filterTermAccessor function. If no filter is set, returns the data array\r\n   * as provided.\r\n   */\r\n  _filterData(data: T[]) {\r\n    // If there is a filter string, filter out data that does not contain it.\r\n    // Each data object is converted to a string using the function defined by filterTermAccessor.\r\n    // May be overridden for customization.\r\n    this.filteredData = !this.filter\r\n      ? data\r\n      : data.filter((obj) => this.filterPredicate(obj, this.filter));\r\n\r\n    if (this.paginator) {\r\n      this._updatePaginator(this.filteredData.length);\r\n    }\r\n\r\n    return this.filteredData;\r\n  }\r\n\r\n  /**\r\n   * Returns a sorted copy of the data if OuiSort has a sort applied, otherwise just returns the\r\n   * data array as provided. Uses the default data accessor for data lookup, unless a\r\n   * sortDataAccessor function is defined.\r\n   */\r\n  _orderData(data: T[]): T[] {\r\n    // If there is no active sort or direction, return the data without trying to sort.\r\n    if (!this.sort) {\r\n      return data;\r\n    }\r\n\r\n    return this.sortData(data.slice(), this.sort);\r\n  }\r\n\r\n  /**\r\n   * Returns a paged splice of the provided data array according to the provided OuiPaginator's page\r\n   * index and length. If there is no paginator provided, returns the data array as provided.\r\n   */\r\n  _pageData(data: T[]): T[] {\r\n    if (!this.paginator) {\r\n      return data;\r\n    }\r\n\r\n    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;\r\n    return data.slice().splice(startIndex, this.paginator.pageSize);\r\n  }\r\n\r\n  /**\r\n   * Updates the paginator to reflect the length of the filtered data, and makes sure that the page\r\n   * index does not exceed the paginator's last page. Values are changed in a resolved promise to\r\n   * guard against making property changes within a round of change detection.\r\n   */\r\n  _updatePaginator(filteredDataLength: number) {\r\n    Promise.resolve().then(() => {\r\n      if (!this.paginator) {\r\n        return;\r\n      }\r\n\r\n      this.paginator.length = filteredDataLength;\r\n\r\n      // If the page index is set beyond the page, reduce it to the last page.\r\n      if (this.paginator.pageIndex > 0) {\r\n        const lastPageIndex =\r\n          Math.ceil(this.paginator.length / this.paginator.pageSize) - 1 || 0;\r\n        this.paginator.pageIndex = Math.min(\r\n          this.paginator.pageIndex,\r\n          lastPageIndex\r\n        );\r\n      }\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Used by the OuiTable. Called when it connects to the data source.\r\n   *\r\n   * @docs-private\r\n   */\r\n  connect() {\r\n    return this._renderData;\r\n  }\r\n\r\n  /**\r\n   * Used by the OuiTable. Called when it is destroyed. No-op.\r\n   *\r\n   * @docs-private\r\n   */\r\n  disconnect() {}\r\n}\r\n",
+            "sourceCode": "import { _isNumberValue } from '@angular/cdk/coercion';\r\nimport { DataSource } from '@angular/cdk/table';\r\nimport {\r\n  BehaviorSubject,\r\n  combineLatest,\r\n  merge,\r\n  Observable,\r\n  of as observableOf,\r\n  Subscription,\r\n} from 'rxjs';\r\nimport { OuiPaginator, PageEvent } from '../paginator/public-api';\r\nimport { outputToObservable } from '@angular/core/rxjs-interop';\r\nimport { OuiSort, Sort } from '../sort/public-api';\r\nimport { map } from 'rxjs/operators';\r\n\r\n/**\r\n * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to\r\n * flaky browser support and the value not being defined in Closure's typings.\r\n */\r\nconst MAX_SAFE_INTEGER = 9007199254740991;\r\n\r\n/**\r\n * Data source that accepts a client-side data array and includes native support of filtering,\r\n * sorting (using OuiSort), and pagination (using OuiPaginator).\r\n *\r\n * Allows for sort customization by overriding sortingDataAccessor, which defines how data\r\n * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,\r\n * which defines how row data is converted to a string for filter matching.\r\n */\r\nexport class OuiTableDataSource<T> extends DataSource<T> {\r\n  /** Stream that emits when a new data array is set on the data source. */\r\n  private readonly _data: BehaviorSubject<T[]>;\r\n\r\n  /** Original data arrays mapped to the monitored arrays exposed by this data source. */\r\n  private readonly _monitoredData = new WeakMap<T[], T[]>();\r\n\r\n  /** Row objects mapped to their monitored counterparts. */\r\n  private readonly _monitoredRows = new WeakMap<object, T>();\r\n\r\n  /** Stream emitting render data to the table (depends on ordered data changes). */\r\n  private readonly _renderData = new BehaviorSubject<T[]>([]);\r\n\r\n  /** Stream that emits when a new filter string is set on the data source. */\r\n  private readonly _filter = new BehaviorSubject<string>('');\r\n\r\n  /**\r\n   * Subscription to the changes that should trigger an update to the table's rendered rows, such\r\n   * as filtering, sorting, pagination, or base data changes.\r\n   */\r\n  _renderChangesSubscription = Subscription.EMPTY;\r\n\r\n  /**\r\n   * The filtered set of data that has been matched by the filter string, or all the data if there\r\n   * is no filter. Useful for knowing the set of data the table represents.\r\n   * For example, a 'selectAll()' function would likely want to select the set of filtered data\r\n   * shown to the user rather than all the data.\r\n   */\r\n  filteredData: T[];\r\n\r\n  /** Array of data that should be rendered by the table, where each object represents one row. */\r\n  get data() {\r\n    return this._data.value;\r\n  }\r\n  set data(data: T[]) {\r\n    this._data.next(this._monitorData(data));\r\n  }\r\n\r\n  /**\r\n   * Notifies the table that its data has changed in place.\r\n   *\r\n   * The data array and its rows are monitored automatically when they are obtained through\r\n   * `dataSource.data`. This method is also available for consumers that retain and mutate the\r\n   * original array or row objects after assigning them to the data source.\r\n   */\r\n  refresh(): void {\r\n    // CdkTable tracks rows by object identity. Clear the rendered collection first so a\r\n    // mutation of an existing row is not treated as the same unchanged row by the differ.\r\n    this._renderData.next([]);\r\n    this._data.next(this._data.value);\r\n  }\r\n\r\n  /**\r\n   * Filter term that should be used to filter out objects from the data array. To override how\r\n   * data objects match to this filter string, provide a custom function for filterPredicate.\r\n   */\r\n  get filter(): string {\r\n    return this._filter.value;\r\n  }\r\n  set filter(filter: string) {\r\n    this._filter.next(filter);\r\n  }\r\n\r\n  /**\r\n   * Instance of the OuiSort directive used by the table to control its sorting. Sort changes\r\n   * emitted by the OuiSort will trigger an update to the table's rendered data.\r\n   */\r\n  get sort(): OuiSort | null {\r\n    return this._sort;\r\n  }\r\n  set sort(sort: OuiSort | null) {\r\n    this._sort = sort;\r\n    this._updateChangeSubscription();\r\n  }\r\n  private _sort: OuiSort | null;\r\n\r\n  /**\r\n   * Instance of the OuiPaginator component used by the table to control what page of the data is\r\n   * displayed. Page changes emitted by the OuiPaginator will trigger an update to the\r\n   * table's rendered data.\r\n   *\r\n   * Note that the data source uses the paginator's properties to calculate which page of data\r\n   * should be displayed. If the paginator receives its properties as template inputs,\r\n   * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been\r\n   * initialized before assigning it to this data source.\r\n   */\r\n  get paginator(): OuiPaginator | null {\r\n    return this._paginator;\r\n  }\r\n  set paginator(paginator: OuiPaginator | null) {\r\n    this._paginator = paginator;\r\n    this._updateChangeSubscription();\r\n  }\r\n  private _paginator: OuiPaginator | null;\r\n\r\n  /**\r\n   * Data accessor function that is used for accessing data properties for sorting through\r\n   * the default sortData function.\r\n   * This default function assumes that the sort header IDs (which defaults to the column name)\r\n   * matches the data's properties (e.g. column Xyz represents data['Xyz']).\r\n   * May be set to a custom function for different behavior.\r\n   *\r\n   * @param data Data object that is being accessed.\r\n   * @param sortHeaderId The name of the column that represents the data.\r\n   */\r\n  sortingDataAccessor: (data: T, sortHeaderId: string) => string | number = (\r\n    data: T,\r\n    sortHeaderId: string\r\n  ): string | number => {\r\n    const value = (data as { [key: string]: any })[sortHeaderId];\r\n\r\n    if (_isNumberValue(value)) {\r\n      const numberValue = Number(value);\r\n\r\n      // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably so we\r\n      // leave them as strings. For more info: https://goo.gl/y5vbSg\r\n      return numberValue < MAX_SAFE_INTEGER ? numberValue : value;\r\n    }\r\n\r\n    return value;\r\n  };\r\n\r\n  /**\r\n   * Gets a sorted copy of the data array based on the state of the OuiSort. Called\r\n   * after changes are made to the filtered data or when sort changes are emitted from OuiSort.\r\n   * By default, the function retrieves the active sort and its direction and compares data\r\n   * by retrieving data using the sortingDataAccessor. May be overridden for a custom implementation\r\n   * of data ordering.\r\n   *\r\n   * @param data The array of data that should be sorted.\r\n   * @param sort The connected OuiSort that holds the current sort state.\r\n   */\r\n  sortData: (data: T[], sort: OuiSort) => T[] = (\r\n    data: T[],\r\n    sort: OuiSort\r\n  ): T[] => {\r\n    const active = sort.active();\r\n    const direction = sort.direction();\r\n    if (!active || direction === '') {\r\n      return data;\r\n    }\r\n\r\n    return data.sort((a, b) => {\r\n      const valueA = this.sortingDataAccessor(a, active);\r\n      const valueB = this.sortingDataAccessor(b, active);\r\n\r\n      // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if\r\n      // one value exists while the other doesn't. In this case, existing value should come first.\r\n      // This avoids inconsistent results when comparing values to undefined/null.\r\n      // If neither value exists, return 0 (equal).\r\n      let comparatorResult = 0;\r\n      // eslint-disable-next-line eqeqeq\r\n      if (valueA != null && valueB != null) {\r\n        // Check if one value is greater than the other; if equal, comparatorResult should remain 0.\r\n        if (valueA > valueB) {\r\n          comparatorResult = 1;\r\n        } else if (valueA < valueB) {\r\n          comparatorResult = -1;\r\n        }\r\n      }\r\n      // eslint-disable-next-line eqeqeq\r\n      else if (valueA != null) {\r\n        comparatorResult = 1;\r\n      }\r\n      // eslint-disable-next-line eqeqeq\r\n      else if (valueB != null) {\r\n        comparatorResult = -1;\r\n      }\r\n      // eslint-disable-next-line eqeqeq\r\n      return comparatorResult * (direction == 'asc' ? 1 : -1);\r\n    });\r\n  };\r\n\r\n  /**\r\n   * Checks if a data object matches the data source's filter string. By default, each data object\r\n   * is converted to a string of its properties and returns true if the filter has\r\n   * at least one occurrence in that string. By default, the filter string has its whitespace\r\n   * trimmed and the match is case-insensitive. May be overridden for a custom implementation of\r\n   * filter matching.\r\n   *\r\n   * @param data Data object used to check against the filter.\r\n   * @param filter Filter string that has been set on the data source.\r\n   * @returns Whether the filter matches against the data\r\n   */\r\n  filterPredicate: (data: T, filter: string) => boolean = (\r\n    data: T,\r\n    filter: string\r\n  ): boolean => {\r\n    // Transform the data into a lowercase string of all property values.\r\n    const dataStr = Object.keys(data)\r\n      .reduce((currentTerm: string, key: string) => {\r\n        // Use an obscure Unicode character to delimit the words in the concatenated string.\r\n        // This avoids matches where the values of two columns combined will match the user's query\r\n        // (e.g. Flute and Stop will match Test). The character is intended to be something\r\n        // that has a very low chance of being typed in by somebody in a text field. This one in\r\n        // particular is \"White up-pointing triangle with dot\" from\r\n        // https://en.wikipedia.org/wiki/List_of_Unicode_characters\r\n        const dataKey = (data as { [key: string]: any })[key];\r\n        return `${currentTerm}${dataKey}◬`;\r\n      }, '')\r\n      .toLowerCase();\r\n    // Transform the filter by converting it to lowercase and removing whitespace.\r\n    const transformedFilter = filter.trim().toLowerCase();\r\n\r\n    return dataStr.indexOf(transformedFilter) !== -1;\r\n  };\r\n\r\n  constructor(initialData: T[] = []) {\r\n    super();\r\n    this._data = new BehaviorSubject<T[]>([]);\r\n    this._data.next(this._monitorData(initialData));\r\n    this._updateChangeSubscription();\r\n  }\r\n\r\n  /**\r\n   * Monitors the mutations that can otherwise bypass the data source's observable. Angular CDK\r\n   * tables only render when the data source emits, so an in-place `splice`, `push`, or row update\r\n   * must produce the same notification as assigning a new array.\r\n   */\r\n  private _monitorData(data: T[]): T[] {\r\n    const existingData = this._monitoredData.get(data);\r\n    if (existingData) {\r\n      return existingData;\r\n    }\r\n\r\n    const monitoredData = new Proxy(data, {\r\n      set: (target, property, value, receiver) => {\r\n        const result = Reflect.set(\r\n          target,\r\n          property,\r\n          this._monitorArrayValue(property, value),\r\n          receiver\r\n        );\r\n        this.refresh();\r\n        return result;\r\n      },\r\n      deleteProperty: (target, property) => {\r\n        const result = Reflect.deleteProperty(target, property);\r\n        this.refresh();\r\n        return result;\r\n      },\r\n    });\r\n\r\n    this._monitoredData.set(data, monitoredData);\r\n    for (let index = 0; index < monitoredData.length; index++) {\r\n      monitoredData[index] = this._monitorRow(monitoredData[index]);\r\n    }\r\n\r\n    return monitoredData;\r\n  }\r\n\r\n  private _monitorArrayValue(\r\n    property: string | symbol,\r\n    value: unknown\r\n  ): unknown {\r\n    if (typeof property !== 'string' || !/^(0|[1-9]\\d*)$/.test(property)) {\r\n      return value;\r\n    }\r\n\r\n    return this._monitorRow(value as T);\r\n  }\r\n\r\n  private _monitorRow(row: T): T {\r\n    if (row === null || typeof row !== 'object') {\r\n      return row;\r\n    }\r\n\r\n    const existingRow = this._monitoredRows.get(row);\r\n    if (existingRow) {\r\n      return existingRow;\r\n    }\r\n\r\n    const monitoredRow = new Proxy(row, {\r\n      set: (target, property, value, receiver) => {\r\n        const result = Reflect.set(target, property, value, receiver);\r\n        this.refresh();\r\n        return result;\r\n      },\r\n      deleteProperty: (target, property) => {\r\n        const result = Reflect.deleteProperty(target, property);\r\n        this.refresh();\r\n        return result;\r\n      },\r\n    });\r\n\r\n    this._monitoredRows.set(row, monitoredRow);\r\n    return monitoredRow;\r\n  }\r\n\r\n  /**\r\n   * Subscribe to changes that should trigger an update to the table's rendered rows. When the\r\n   * changes occur, process the current state of the filter, sort, and pagination along with\r\n   * the provided base data and send it to the table for rendering.\r\n   */\r\n  _updateChangeSubscription() {\r\n    // Sorting and/or pagination should be watched if OuiSort and/or OuiPaginator are provided.\r\n    // The events should emit whenever the component emits a change or initializes, or if no\r\n    // component is provided, a stream with just a null event should be provided.\r\n    // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the\r\n    // pipeline can progress to the next step. Note that the value from these streams are not used,\r\n    // they purely act as a signal to progress in the pipeline.\r\n    const sortChange: Observable<Sort | null | void> = this._sort\r\n      ? (merge(\r\n          outputToObservable(this._sort.sortChange),\r\n          this._sort.initialized\r\n        ) as Observable<Sort | void>)\r\n      : observableOf(null);\r\n    const pageChange: Observable<PageEvent | null | void> = this._paginator\r\n      ? (merge(\r\n          outputToObservable(this._paginator.page),\r\n          this._paginator.initialized\r\n        ) as Observable<PageEvent | void>)\r\n      : observableOf(null);\r\n\r\n    const dataStream = this._data;\r\n    // Watch for base data or filter changes to provide a filtered set of data.\r\n    const filteredData = combineLatest([dataStream, this._filter]).pipe(\r\n      map(([data]) => this._filterData(data))\r\n    );\r\n    // Watch for filtered data or sort changes to provide an ordered set of data.\r\n    const orderedData = combineLatest([filteredData, sortChange]).pipe(\r\n      map(([data]) => this._orderData(data))\r\n    );\r\n    // Watch for ordered data or page changes to provide a paged set of data.\r\n    const paginatedData = combineLatest([orderedData, pageChange]).pipe(\r\n      map(([data]) => this._pageData(data))\r\n    );\r\n    // Watched for paged data changes and send the result to the table to render.\r\n    this._renderChangesSubscription.unsubscribe();\r\n    this._renderChangesSubscription = paginatedData.subscribe({\r\n      next: (data) => this._renderData.next(data),\r\n      error: (err: Error) =>\r\n        console.error('Table render data update failed', err),\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Returns a filtered data array where each filter object contains the filter string within\r\n   * the result of the filterTermAccessor function. If no filter is set, returns the data array\r\n   * as provided.\r\n   */\r\n  _filterData(data: T[]) {\r\n    // If there is a filter string, filter out data that does not contain it.\r\n    // Each data object is converted to a string using the function defined by filterTermAccessor.\r\n    // May be overridden for customization.\r\n    this.filteredData = !this.filter\r\n      ? data\r\n      : data.filter((obj) => this.filterPredicate(obj, this.filter));\r\n\r\n    if (this.paginator) {\r\n      this._updatePaginator(this.filteredData.length);\r\n    }\r\n\r\n    return this.filteredData;\r\n  }\r\n\r\n  /**\r\n   * Returns a sorted copy of the data if OuiSort has a sort applied, otherwise just returns the\r\n   * data array as provided. Uses the default data accessor for data lookup, unless a\r\n   * sortDataAccessor function is defined.\r\n   */\r\n  _orderData(data: T[]): T[] {\r\n    // If there is no active sort or direction, return the data without trying to sort.\r\n    if (!this.sort) {\r\n      return data;\r\n    }\r\n\r\n    return this.sortData(data.slice(), this.sort);\r\n  }\r\n\r\n  /**\r\n   * Returns a paged splice of the provided data array according to the provided OuiPaginator's page\r\n   * index and length. If there is no paginator provided, returns the data array as provided.\r\n   */\r\n  _pageData(data: T[]): T[] {\r\n    if (!this.paginator) {\r\n      return data;\r\n    }\r\n\r\n    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;\r\n    return data.slice().splice(startIndex, this.paginator.pageSize);\r\n  }\r\n\r\n  /**\r\n   * Updates the paginator to reflect the length of the filtered data, and makes sure that the page\r\n   * index does not exceed the paginator's last page. Values are changed in a resolved promise to\r\n   * guard against making property changes within a round of change detection.\r\n   */\r\n  _updatePaginator(filteredDataLength: number) {\r\n    Promise.resolve().then(() => {\r\n      if (!this.paginator) {\r\n        return;\r\n      }\r\n\r\n      this.paginator.length = filteredDataLength;\r\n\r\n      // If the page index is set beyond the page, reduce it to the last page.\r\n      if (this.paginator.pageIndex > 0) {\r\n        const lastPageIndex =\r\n          Math.ceil(this.paginator.length / this.paginator.pageSize) - 1 || 0;\r\n        this.paginator.pageIndex = Math.min(\r\n          this.paginator.pageIndex,\r\n          lastPageIndex\r\n        );\r\n      }\r\n    });\r\n  }\r\n\r\n  /**\r\n   * Used by the OuiTable. Called when it connects to the data source.\r\n   *\r\n   * @docs-private\r\n   */\r\n  connect() {\r\n    return this._renderData;\r\n  }\r\n\r\n  /**\r\n   * Used by the OuiTable. Called when it is destroyed. No-op.\r\n   *\r\n   * @docs-private\r\n   */\r\n  disconnect() {}\r\n}\r\n",
             "displayName": "OuiTableDataSource<T>",
             "typeParameters": [
                 "T"
@@ -13983,7 +13982,7 @@
                         "defaultValue": "[]"
                     }
                 ],
-                "line": 215,
+                "line": 235,
                 "rawdescription": "\n",
                 "jsdoctags": [
                     {
@@ -14029,8 +14028,42 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>Stream that emits when a new filter string is set on the data source.</p>\n",
-                    "line": 38,
+                    "line": 44,
                     "rawdescription": "\nStream that emits when a new filter string is set on the data source.",
+                    "modifierKind": [
+                        123,
+                        148
+                    ]
+                },
+                {
+                    "name": "_monitoredData",
+                    "coverageIgnore": false,
+                    "defaultValue": "new WeakMap<T[], T[]>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "<p>Original data arrays mapped to the monitored arrays exposed by this data source.</p>\n",
+                    "line": 35,
+                    "rawdescription": "\nOriginal data arrays mapped to the monitored arrays exposed by this data source.",
+                    "modifierKind": [
+                        123,
+                        148
+                    ]
+                },
+                {
+                    "name": "_monitoredRows",
+                    "coverageIgnore": false,
+                    "defaultValue": "new WeakMap<object, T>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "unknown",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "<p>Row objects mapped to their monitored counterparts.</p>\n",
+                    "line": 38,
+                    "rawdescription": "\nRow objects mapped to their monitored counterparts.",
                     "modifierKind": [
                         123,
                         148
@@ -14045,7 +14078,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 103,
+                    "line": 123,
                     "rawdescription": "\n",
                     "modifierKind": [
                         123
@@ -14061,7 +14094,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>Subscription to the changes that should trigger an update to the table&#39;s rendered rows, such\nas filtering, sorting, pagination, or base data changes.</p>\n",
-                    "line": 44,
+                    "line": 50,
                     "rawdescription": "\n\nSubscription to the changes that should trigger an update to the table's rendered rows, such\nas filtering, sorting, pagination, or base data changes.\n"
                 },
                 {
@@ -14074,7 +14107,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>Stream emitting render data to the table (depends on ordered data changes).</p>\n",
-                    "line": 35,
+                    "line": 41,
                     "rawdescription": "\nStream emitting render data to the table (depends on ordered data changes).",
                     "modifierKind": [
                         123,
@@ -14090,7 +14123,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 84,
+                    "line": 104,
                     "rawdescription": "\n",
                     "modifierKind": [
                         123
@@ -14105,7 +14138,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>The filtered set of data that has been matched by the filter string, or all the data if there\nis no filter. Useful for knowing the set of data the table represents.\nFor example, a &#39;selectAll()&#39; function would likely want to select the set of filtered data\nshown to the user rather than all the data.</p>\n",
-                    "line": 52,
+                    "line": 58,
                     "rawdescription": "\n\nThe filtered set of data that has been matched by the filter string, or all the data if there\nis no filter. Useful for knowing the set of data the table represents.\nFor example, a 'selectAll()' function would likely want to select the set of filtered data\nshown to the user rather than all the data.\n"
                 },
                 {
@@ -14118,20 +14151,20 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>Checks if a data object matches the data source&#39;s filter string. By default, each data object\nis converted to a string of its properties and returns true if the filter has\nat least one occurrence in that string. By default, the filter string has its whitespace\ntrimmed and the match is case-insensitive. May be overridden for a custom implementation of\nfilter matching.</p>\n",
-                    "line": 194,
+                    "line": 214,
                     "rawdescription": "\n\nChecks if a data object matches the data source's filter string. By default, each data object\nis converted to a string of its properties and returns true if the filter has\nat least one occurrence in that string. By default, the filter string has its whitespace\ntrimmed and the match is case-insensitive. May be overridden for a custom implementation of\nfilter matching.\n\n",
                     "jsdoctags": [
                         {
-                            "pos": 7478,
-                            "end": 7542,
+                            "pos": 8408,
+                            "end": 8472,
                             "kind": 342,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 7479,
-                                "end": 7484,
+                                "pos": 8409,
+                                "end": 8414,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14140,8 +14173,8 @@
                             },
                             "comment": "<p>Data object used to check against the filter.</p>\n",
                             "name": {
-                                "pos": 7485,
-                                "end": 7489,
+                                "pos": 8415,
+                                "end": 8419,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14152,16 +14185,16 @@
                             "isBracketed": false
                         },
                         {
-                            "pos": 7542,
-                            "end": 7614,
+                            "pos": 8472,
+                            "end": 8544,
                             "kind": 342,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 7543,
-                                "end": 7548,
+                                "pos": 8473,
+                                "end": 8478,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14170,8 +14203,8 @@
                             },
                             "comment": "<p>Filter string that has been set on the data source.</p>\n",
                             "name": {
-                                "pos": 7549,
-                                "end": 7555,
+                                "pos": 8479,
+                                "end": 8485,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14182,16 +14215,16 @@
                             "isBracketed": false
                         },
                         {
-                            "pos": 7614,
-                            "end": 7671,
+                            "pos": 8544,
+                            "end": 8601,
                             "kind": 343,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 7615,
-                                "end": 7622,
+                                "pos": 8545,
+                                "end": 8552,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14212,20 +14245,20 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>Gets a sorted copy of the data array based on the state of the OuiSort. Called\nafter changes are made to the filtered data or when sort changes are emitted from OuiSort.\nBy default, the function retrieves the active sort and its direction and compares data\nby retrieving data using the sortingDataAccessor. May be overridden for a custom implementation\nof data ordering.</p>\n",
-                    "line": 142,
+                    "line": 162,
                     "rawdescription": "\n\nGets a sorted copy of the data array based on the state of the OuiSort. Called\nafter changes are made to the filtered data or when sort changes are emitted from OuiSort.\nBy default, the function retrieves the active sort and its direction and compares data\nby retrieving data using the sortingDataAccessor. May be overridden for a custom implementation\nof data ordering.\n\n",
                     "jsdoctags": [
                         {
-                            "pos": 5455,
-                            "end": 5514,
+                            "pos": 6385,
+                            "end": 6444,
                             "kind": 342,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 5456,
-                                "end": 5461,
+                                "pos": 6386,
+                                "end": 6391,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14234,8 +14267,8 @@
                             },
                             "comment": "<p>The array of data that should be sorted.</p>\n",
                             "name": {
-                                "pos": 5462,
-                                "end": 5466,
+                                "pos": 6392,
+                                "end": 6396,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14246,16 +14279,16 @@
                             "isBracketed": false
                         },
                         {
-                            "pos": 5514,
-                            "end": 5587,
+                            "pos": 6444,
+                            "end": 6517,
                             "kind": 342,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 5515,
-                                "end": 5520,
+                                "pos": 6445,
+                                "end": 6450,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14264,8 +14297,8 @@
                             },
                             "comment": "<p>The connected OuiSort that holds the current sort state.</p>\n",
                             "name": {
-                                "pos": 5521,
-                                "end": 5525,
+                                "pos": 6451,
+                                "end": 6455,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14287,20 +14320,20 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "<p>Data accessor function that is used for accessing data properties for sorting through\nthe default sortData function.\nThis default function assumes that the sort header IDs (which defaults to the column name)\nmatches the data&#39;s properties (e.g. column Xyz represents data[&#39;Xyz&#39;]).\nMay be set to a custom function for different behavior.</p>\n",
-                    "line": 115,
+                    "line": 135,
                     "rawdescription": "\n\nData accessor function that is used for accessing data properties for sorting through\nthe default sortData function.\nThis default function assumes that the sort header IDs (which defaults to the column name)\nmatches the data's properties (e.g. column Xyz represents data['Xyz']).\nMay be set to a custom function for different behavior.\n\n",
                     "jsdoctags": [
                         {
-                            "pos": 4361,
-                            "end": 4415,
+                            "pos": 5291,
+                            "end": 5345,
                             "kind": 342,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 4362,
-                                "end": 4367,
+                                "pos": 5292,
+                                "end": 5297,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14309,8 +14342,8 @@
                             },
                             "comment": "<p>Data object that is being accessed.</p>\n",
                             "name": {
-                                "pos": 4368,
-                                "end": 4372,
+                                "pos": 5298,
+                                "end": 5302,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14321,16 +14354,16 @@
                             "isBracketed": false
                         },
                         {
-                            "pos": 4415,
-                            "end": 4488,
+                            "pos": 5345,
+                            "end": 5418,
                             "kind": 342,
                             "id": 0,
                             "flags": 16842752,
                             "modifierFlagsCache": 0,
                             "transformFlags": 0,
                             "tagName": {
-                                "pos": 4416,
-                                "end": 4421,
+                                "pos": 5346,
+                                "end": 5351,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14339,8 +14372,8 @@
                             },
                             "comment": "<p>The name of the column that represents the data.</p>\n",
                             "name": {
-                                "pos": 4422,
-                                "end": 4434,
+                                "pos": 5352,
+                                "end": 5364,
                                 "kind": 80,
                                 "id": 0,
                                 "flags": 16842752,
@@ -14372,7 +14405,7 @@
                     "optional": false,
                     "returnType": "{}",
                     "typeParameters": [],
-                    "line": 275,
+                    "line": 371,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nReturns a filtered data array where each filter object contains the filter string within\nthe result of the filterTermAccessor function. If no filter is set, returns the data array\nas provided.\n",
@@ -14381,6 +14414,139 @@
                         {
                             "name": "data",
                             "type": "T[]",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "_monitorArrayValue",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "property",
+                            "type": "string | symbol",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "value",
+                            "type": "unknown",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "unknown",
+                    "typeParameters": [],
+                    "line": 281,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "property",
+                            "type": "string | symbol",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "value",
+                            "type": "unknown",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "_monitorData",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "T[]",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "T[]",
+                    "typeParameters": [],
+                    "line": 249,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nMonitors the mutations that can otherwise bypass the data source's observable. Angular CDK\ntables only render when the data source emits, so an in-place `splice`, `push`, or row update\nmust produce the same notification as assigning a new array.\n",
+                    "description": "<p>Monitors the mutations that can otherwise bypass the data source&#39;s observable. Angular CDK\ntables only render when the data source emits, so an in-place <code>splice</code>, <code>push</code>, or row update\nmust produce the same notification as assigning a new array.</p>\n",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "T[]",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "_monitorRow",
+                    "coverageIgnore": false,
+                    "args": [
+                        {
+                            "name": "row",
+                            "type": "T",
+                            "optional": false,
+                            "dotDotDotToken": false,
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "T",
+                    "typeParameters": [],
+                    "line": 292,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n",
+                    "description": "",
+                    "modifierKind": [
+                        123
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "row",
+                            "type": "T",
                             "optional": false,
                             "dotDotDotToken": false,
                             "deprecated": false,
@@ -14407,7 +14573,7 @@
                     "optional": false,
                     "returnType": "T[]",
                     "typeParameters": [],
-                    "line": 295,
+                    "line": 391,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nReturns a sorted copy of the data if OuiSort has a sort applied, otherwise just returns the\ndata array as provided. Uses the default data accessor for data lookup, unless a\nsortDataAccessor function is defined.\n",
@@ -14442,7 +14608,7 @@
                     "optional": false,
                     "returnType": "T[]",
                     "typeParameters": [],
-                    "line": 308,
+                    "line": 404,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nReturns a paged splice of the provided data array according to the provided OuiPaginator's page\nindex and length. If there is no paginator provided, returns the data array as provided.\n",
@@ -14468,7 +14634,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 228,
+                    "line": 324,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nSubscribe to changes that should trigger an update to the table's rendered rows. When the\nchanges occur, process the current state of the filter, sort, and pagination along with\nthe provided base data and send it to the table for rendering.\n",
@@ -14490,7 +14656,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 322,
+                    "line": 418,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nUpdates the paginator to reflect the length of the filtered data, and makes sure that the page\nindex does not exceed the paginator's last page. Values are changed in a resolved promise to\nguard against making property changes within a round of change detection.\n",
@@ -14516,7 +14682,7 @@
                     "optional": false,
                     "returnType": "any",
                     "typeParameters": [],
-                    "line": 347,
+                    "line": 443,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nUsed by the OuiTable. Called when it connects to the data source.\n\n",
@@ -14530,12 +14696,25 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 356,
+                    "line": 452,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "rawdescription": "\n\nUsed by the OuiTable. Called when it is destroyed. No-op.\n\n",
                     "description": "<p>Used by the OuiTable. Called when it is destroyed. No-op.</p>\n",
                     "jsdoctags": []
+                },
+                {
+                    "name": "refresh",
+                    "coverageIgnore": false,
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 75,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "rawdescription": "\n\nNotifies the table that its data has changed in place.\n\nThe data array and its rows are monitored automatically when they are obtained through\n`dataSource.data`. This method is also available for consumers that retain and mutate the\noriginal array or row objects after assigning them to the data source.\n",
+                    "description": "<p>Notifies the table that its data has changed in place.</p>\n<p>The data array and its rows are monitored automatically when they are obtained through\n<code>dataSource.data</code>. This method is also available for consumers that retain and mutate the\noriginal array or row objects after assigning them to the data source.</p>\n"
                 }
             ],
             "indexSignatures": [],
@@ -14561,7 +14740,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 58,
+                        "line": 64,
                         "rawdescription": "\n",
                         "description": "",
                         "jsdoctags": [
@@ -14582,7 +14761,7 @@
                         "name": "data",
                         "type": "",
                         "returnType": "",
-                        "line": 55,
+                        "line": 61,
                         "rawdescription": "\nArray of data that should be rendered by the table, where each object represents one row.",
                         "description": "<p>Array of data that should be rendered by the table, where each object represents one row.</p>\n"
                     }
@@ -14605,7 +14784,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 69,
+                        "line": 89,
                         "rawdescription": "\n",
                         "description": "",
                         "jsdoctags": [
@@ -14626,7 +14805,7 @@
                         "name": "filter",
                         "type": "string",
                         "returnType": "string",
-                        "line": 66,
+                        "line": 86,
                         "rawdescription": "\n\nFilter term that should be used to filter out objects from the data array. To override how\ndata objects match to this filter string, provide a custom function for filterPredicate.\n",
                         "description": "<p>Filter term that should be used to filter out objects from the data array. To override how\ndata objects match to this filter string, provide a custom function for filterPredicate.</p>\n"
                     }
@@ -14649,7 +14828,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 80,
+                        "line": 100,
                         "rawdescription": "\n",
                         "description": "",
                         "jsdoctags": [
@@ -14670,7 +14849,7 @@
                         "name": "sort",
                         "type": "unknown",
                         "returnType": "OuiSort | null",
-                        "line": 77,
+                        "line": 97,
                         "rawdescription": "\n\nInstance of the OuiSort directive used by the table to control its sorting. Sort changes\nemitted by the OuiSort will trigger an update to the table's rendered data.\n",
                         "description": "<p>Instance of the OuiSort directive used by the table to control its sorting. Sort changes\nemitted by the OuiSort will trigger an update to the table&#39;s rendered data.</p>\n"
                     }
@@ -14693,7 +14872,7 @@
                             }
                         ],
                         "returnType": "void",
-                        "line": 99,
+                        "line": 119,
                         "rawdescription": "\n",
                         "description": "",
                         "jsdoctags": [
@@ -14714,7 +14893,7 @@
                         "name": "paginator",
                         "type": "unknown",
                         "returnType": "OuiPaginator | null",
-                        "line": 96,
+                        "line": 116,
                         "rawdescription": "\n\nInstance of the OuiPaginator component used by the table to control what page of the data is\ndisplayed. Page changes emitted by the OuiPaginator will trigger an update to the\ntable's rendered data.\n\nNote that the data source uses the paginator's properties to calculate which page of data\nshould be displayed. If the paginator receives its properties as template inputs,\ne.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been\ninitialized before assigning it to this data source.\n",
                         "description": "<p>Instance of the OuiPaginator component used by the table to control what page of the data is\ndisplayed. Page changes emitted by the OuiPaginator will trigger an update to the\ntable&#39;s rendered data.</p>\n<p>Note that the data source uses the paginator&#39;s properties to calculate which page of data\nshould be displayed. If the paginator receives its properties as template inputs,\ne.g. <code>[pageLength]=100</code> or <code>[pageIndex]=1</code>, then be sure that the paginator&#39;s view has been\ninitialized before assigning it to this data source.</p>\n"
                     }
@@ -64353,7 +64532,7 @@
                     }
                 ]
             },
-            "templateData": "<div\r\n  cdk-overlay-origin\r\n  class=\"oui-select-trigger\"\r\n  aria-hidden=\"true\"\r\n  (click)=\"toggle()\"\r\n  #origin=\"cdkOverlayOrigin\"\r\n  #trigger\r\n>\r\n  <div class=\"oui-select-value\">\r\n    @switch (empty) { @case (true) {\r\n    <span class=\"oui-select-placeholder\">\r\n      <span [innerHTML]=\"placeholder\"></span>\r\n    </span>\r\n    } @case (false) {\r\n    <span class=\"oui-select-value-text\">\r\n      @switch (!!customTrigger) { @default {\r\n      <span\r\n        id=\"selected-values\"\r\n        [innerHTML]=\"triggerValue || placeholder\"\r\n      ></span>\r\n      } @case (true) {\r\n      <ng-content select=\"oui-select-trigger\"></ng-content>\r\n      } }\r\n    </span>\r\n    } }\r\n  </div>\r\n\r\n  <div class=\"oui-select-arrow-wrapper\">\r\n    <oui-icon svgIcon=\"select-arrow-icon\" class=\"oui-select-arrow\"></oui-icon>\r\n  </div>\r\n</div>\r\n<ng-template\r\n  cdk-connected-overlay\r\n  cdkConnectedOverlayLockPosition\r\n  cdkConnectedOverlayHasBackdrop\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"origin\"\r\n  [cdkConnectedOverlayOpen]=\"panelOpen\"\r\n  [cdkConnectedOverlayMinWidth]=\"_triggerRect?.width\"\r\n  (backdropClick)=\"close()\"\r\n  (detach)=\"close()\"\r\n  (attach)=\"openCdk()\"\r\n>\r\n  <div\r\n    #panel\r\n    class=\"oui-select-panel {{ cdkConnectionOverlayPanel }}\"\r\n    [ngClass]=\"panelClass()\"\r\n    (keydown)=\"_handleKeydown($event)\"\r\n    [class.oui-select-input-outer]=\"ouiSelectInputOuterClassName\"\r\n    [class.oui-select-has-a-panel]=\"panelClass()\"\r\n    [class.oui-select-large]=\"large()\"\r\n    [class.action-item]=\"actionItems\"\r\n    [class.single-action-item]=\"singleActionItem\"\r\n  >\r\n    <div class=\"oui-select-options\">\r\n      <div class=\"oui-select-options-wrapper\">\r\n        <ng-content></ng-content>\r\n      </div>\r\n    </div>\r\n    @if (singleActionItem) {\r\n    <div class=\"oui-select-action-wrapper\">\r\n      <div class=\"oui-select-action-items single-action-items\">\r\n        <button\r\n          #singleButton\r\n          oui-link-button\r\n          (click)=\"handleSingleActionItemClick()\"\r\n        >\r\n          {{singleActionLabel()}}\r\n        </button>\r\n      </div>\r\n    </div>\r\n    } @if (actionItems) {\r\n    <div class=\"oui-select-action-wrapper\">\r\n      <div class=\"oui-select-action-items\">\r\n        <button\r\n          #ddCancelButton\r\n          oui-link-button\r\n          color=\"primary\"\r\n          (click)=\"discardRecentChanges()\"\r\n        >\r\n          {{cancelLabel()}}</button\r\n        ><button\r\n          #ddDoneButton\r\n          oui-button\r\n          color=\"primary\"\r\n          [disabled]=\"disableDoneButton\"\r\n          (click)=\"doneRecentChanges()\"\r\n        >\r\n          {{doneLabel()}}\r\n        </button>\r\n      </div>\r\n    </div>\r\n    }\r\n  </div>\r\n</ng-template>\r\n"
+            "templateData": "<div\r\n  cdk-overlay-origin\r\n  class=\"oui-select-trigger\"\r\n  aria-hidden=\"true\"\r\n  (click)=\"toggle()\"\r\n  #origin=\"cdkOverlayOrigin\"\r\n  #trigger\r\n>\r\n  <div class=\"oui-select-value\">\r\n    @switch (empty) { @case (true) {\r\n    <span class=\"oui-select-placeholder\">\r\n      <span [innerHTML]=\"placeholder\"></span>\r\n    </span>\r\n    } @case (false) {\r\n    <span class=\"oui-select-value-text\">\r\n      @switch (!!customTrigger) { @default {\r\n      <span\r\n        id=\"selected-values\"\r\n        [innerHTML]=\"triggerValue || placeholder\"\r\n      ></span>\r\n      } @case (true) {\r\n      <ng-content select=\"oui-select-trigger\"></ng-content>\r\n      } }\r\n    </span>\r\n    } }\r\n  </div>\r\n\r\n  <div class=\"oui-select-arrow-wrapper\">\r\n    <oui-icon svgIcon=\"select-arrow-icon\" class=\"oui-select-arrow\"></oui-icon>\r\n  </div>\r\n</div>\r\n<ng-template\r\n  cdk-connected-overlay\r\n  cdkConnectedOverlayLockPosition=\"false\"\r\n  cdkConnectedOverlayHasBackdrop\r\n  cdkConnectedOverlayBackdropClass=\"cdk-overlay-transparent-backdrop\"\r\n  [cdkConnectedOverlayOrigin]=\"origin\"\r\n  [cdkConnectedOverlayOpen]=\"panelOpen\"\r\n  [cdkConnectedOverlayMinWidth]=\"_triggerRect?.width\"\r\n  (backdropClick)=\"close()\"\r\n  (detach)=\"close()\"\r\n  (attach)=\"openCdk()\"\r\n>\r\n  <div\r\n    #panel\r\n    class=\"oui-select-panel {{ cdkConnectionOverlayPanel }}\"\r\n    [ngClass]=\"panelClass()\"\r\n    (keydown)=\"_handleKeydown($event)\"\r\n    [class.oui-select-input-outer]=\"ouiSelectInputOuterClassName\"\r\n    [class.oui-select-has-a-panel]=\"panelClass()\"\r\n    [class.oui-select-large]=\"large()\"\r\n    [class.action-item]=\"actionItems\"\r\n    [class.single-action-item]=\"singleActionItem\"\r\n  >\r\n    <div class=\"oui-select-options\">\r\n      <div class=\"oui-select-options-wrapper\">\r\n        <ng-content></ng-content>\r\n      </div>\r\n    </div>\r\n    @if (singleActionItem) {\r\n    <div class=\"oui-select-action-wrapper\">\r\n      <div class=\"oui-select-action-items single-action-items\">\r\n        <button\r\n          #singleButton\r\n          oui-link-button\r\n          (click)=\"handleSingleActionItemClick()\"\r\n        >\r\n          {{singleActionLabel()}}\r\n        </button>\r\n      </div>\r\n    </div>\r\n    } @if (actionItems) {\r\n    <div class=\"oui-select-action-wrapper\">\r\n      <div class=\"oui-select-action-items\">\r\n        <button\r\n          #ddCancelButton\r\n          oui-link-button\r\n          color=\"primary\"\r\n          (click)=\"discardRecentChanges()\"\r\n        >\r\n          {{cancelLabel()}}</button\r\n        ><button\r\n          #ddDoneButton\r\n          oui-button\r\n          color=\"primary\"\r\n          [disabled]=\"disableDoneButton\"\r\n          (click)=\"doneRecentChanges()\"\r\n        >\r\n          {{doneLabel()}}\r\n        </button>\r\n      </div>\r\n    </div>\r\n    }\r\n  </div>\r\n</ng-template>\r\n"
         },
         {
             "name": "OuiSelectSearchComponent",
@@ -65683,7 +65862,7 @@
                     }
                 ]
             },
-            "templateData": "<label\r\n  #wrapper\r\n  [class.oui-checked]=\"checked()\"\r\n  class=\"oui-slide-toogle-wrapper\"\r\n>\r\n  <input\r\n    [id]=\"id()\"\r\n    (click)=\"emitChange()\"\r\n    type=\"checkbox\"\r\n    [attr.aria-label]=\"ariaLabel()\"\r\n    [attr.aria-labelledby]=\"ariaLabelledby()\"\r\n    [attr.aria-checked]=\"checked().toString()\"\r\n    [disabled]=\"disabled()\"\r\n    [checked]=\"checked()\"\r\n    [tabIndex]=\"tabIndex\"\r\n  />\r\n  <span class=\"oui-slider round\"></span>\r\n</label>\r\n"
+            "templateData": "<label\r\n  #wrapper\r\n  [class.oui-checked]=\"checked()\"\r\n  class=\"oui-slide-toogle-wrapper\"\r\n>\r\n  <input\r\n    [id]=\"id()\"\r\n    (click)=\"emitChange()\"\r\n    type=\"checkbox\"\r\n    [attr.aria-label]=\"ariaLabel()\"\r\n    [attr.aria-labelledby]=\"ariaLabelledby()\"\r\n    [attr.aria-checked]=\"checked() ? 'true' : 'false'\"\r\n    [disabled]=\"disabled()\"\r\n    [checked]=\"checked()\"\r\n    [tabIndex]=\"tabIndex\"\r\n  />\r\n  <span class=\"oui-slider round\"></span>\r\n</label>\r\n"
         },
         {
             "name": "OuiSortHeader",
@@ -92514,8 +92693,8 @@
                 "type": "class",
                 "linktype": "classe",
                 "name": "OuiTableDataSource",
-                "coveragePercent": 84,
-                "coverageCount": "16/19",
+                "coveragePercent": 80,
+                "coverageCount": "20/25",
                 "status": "very-good"
             },
             {
