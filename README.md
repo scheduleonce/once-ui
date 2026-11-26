@@ -44,10 +44,11 @@ Add Form Field in app.component.html
 
 ## Storybook
 
-To run storybook locally:
+To run Storybook locally:
 
 ```sh
-npm run storybook
+pnpm install --frozen-lockfile
+pnpm run storybook
 ```
 
 Storybook is automatically deployed using [Github Actions](.github/workflows/deploy-storybook.yml) to Github Pages when pushing to main.
@@ -85,7 +86,7 @@ The prerelease builds (1.0.1-beta.0, 1.0.1-beta.1, etc.) are prepared based on c
 ## Publishing a new package
 
 1. Update the package version in ui folder.
-2. Run `npm run package`
+2. Run `pnpm run package`
 3. The above command will generate the versioned tarball file in the dist directory. For example if
    the file name is oncehub-ui-0.2.19.tgz then you can publish this file using command `npm publish ./dist/ui/oncehub-ui-0.2.19.tgz`
 

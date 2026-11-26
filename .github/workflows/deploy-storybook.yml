@@ -29,10 +29,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.17.0
       - name: Checkout
         uses: actions/checkout@v7
-      - run: npm ci
-      - run: npm run build-storybook
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24.22.1'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build-storybook
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Upload artifact

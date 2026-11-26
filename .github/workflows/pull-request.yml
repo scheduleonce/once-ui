@@ -28,6 +28,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install libatomic
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libatomic1
+
       - name: Install Azure CLI
         shell: bash
         run: |
@@ -101,7 +107,12 @@ jobs:
       # ---------------------------------------------------
       - uses: actions/setup-node@v4
         with:
-          node-version: '24.22.1'
+          node-version: '26.13.1'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.17.0
 
       # ---------------------------------------------------
       # 2. Install Chrome Dependencies
@@ -141,28 +152,28 @@ jobs:
         shell: bash
         run: |
           node -v
-          npm ci --legacy-peer-deps
+          pnpm install --frozen-lockfile
 
       # ---------------------------------------------------
       # 4. Test Prettier
       # ---------------------------------------------------
       - name: Test Prettier
         shell: bash
-        run: npm run prettier
+        run: pnpm run prettier
 
       # ---------------------------------------------------
       # 5. Test TSLint
       # ---------------------------------------------------
       - name: Test Lint
         shell: bash
-        run: npm run lint
+        run: pnpm run lint
 
       # ---------------------------------------------------
       # 6. Unit Tests
       # ---------------------------------------------------
       - name: Unit Tests
         shell: bash
-        run: export NODE_ENV="test" && npm run test
+        run: export NODE_ENV="test" && pnpm run test
 
       # - name: test-inte
       #   shell: bash
@@ -207,6 +218,7 @@ jobs:
       #   with:
       #     repo-name: ${{ github.event.repository.name }}
       #     base-branch: ${{ github.base_ref }}
+
 
 
 

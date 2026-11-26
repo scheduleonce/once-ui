@@ -18,6 +18,10 @@ jobs:
     runs-on: once-ui-runner-scale-set
     
     steps:
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.17.0
       - name: Checkout Code
         uses: actions/checkout@v7
         with:
@@ -118,7 +122,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '24.22.1'
+          node-version: '26.13.1'
           registry-url: 'https://registry.npmjs.org/'
 
       - name: Package Build & Publish
@@ -134,8 +138,8 @@ jobs:
           
           # Install dependencies and build package
           # Install dependencies and build package
-          npm i --legacy-peer-deps
-          npm run package
+          pnpm install --frozen-lockfile
+          pnpm run package
           
           # Navigate to dist/ui and pack the package
           cd dist/ui
@@ -155,6 +159,7 @@ jobs:
           fi
           
           echo "$filename package pushed to NPM successfully"
+
 
 
 
